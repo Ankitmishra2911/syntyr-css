@@ -1,5 +1,9 @@
 ## Unreleased
 
+- Verified WebKit in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
+- Documented zoom-test limitations and manual screen-reader follow-up.
+- Prepared a ten-interview design-partner pilot without claiming buyer commitments.
+
 - Add a free original Noir resource-index screen and theme-customization guide.
 - Publish an honest $59 Console Kit concept and feedback entry point without taking payment.
 - Fix duplicate gallery meta description and invalid ARIA on palette swatches; add browser-matrix and optional axe-core verification scripts.

@@ -18,6 +18,8 @@
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
+- [Public design-partner review issue (seeking 10 participants)](https://github.com/dporkka/cyberline-css/issues/3)
+- [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 
 Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.

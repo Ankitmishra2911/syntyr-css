@@ -6,7 +6,7 @@
 
 - Source contracts: native HTML, semantic labels, opt-in scoping, predictable
   focus-visible outline, reduced-motion support, and forced-color hooks.
-- Real browser matrix: Chromium and Firefox on desktop/mobile viewport widths,
+- Real browser matrix: Chromium, Firefox, and WebKit on desktop/mobile viewport widths,
   testing navigation, table semantics, native popover, disclosure, and overflow.
 - Automated accessibility: axe-core WCAG 2.0/2.1/2.2 A/AA tagged checks on the
   showcase, component gallery, and four examples. The tool may return
@@ -36,6 +36,21 @@ curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o 
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js
 ```
 
+For reproducible WebKit on an isolated testing host with Podman or Docker, clone
+the repository to a directory that the container can read and run:
+
+```sh
+podman run --rm --shm-size=1g -v "$PWD":/work:ro,Z -w /work \
+  mcr.microsoft.com/playwright/python:v1.64.1-noble \
+  bash -lc 'python3 -m pip install -q playwright==1.64.1 && \
+    python3 tests/browser_matrix.py --browsers webkit'
+```
+
+The image supplies browser binaries and native dependencies, not the Python
+Playwright package. This test-only container may download packages and should
+be run against trusted code. The `:Z` mount flag is Podman/SELinux-specific;
+adjust for Docker hosts. Keep the Python and browser versions aligned.
+
 The remote URL is part of a **developer-only test**, not a browser runtime
 dependency. Pin the checker release, review its MIT license, and verify its
 provenance if incorporating it into build infrastructure.
@@ -44,9 +59,17 @@ provenance if incorporating it into build infrastructure.
 
 - Chromium and Firefox: 6 pages × 3 viewport sizes, focus/popover/details
   smoke tests passed on Fedora 44.
-- WebKit: fallback browser downloaded, but native libraries required by
-  Playwright were missing on Fedora 44. **Blocked, not passed.** Run
-  on an officially supported Playwright image/host before claiming coverage.
+- WebKit: 6 pages × 3 viewport sizes, with native keyboard/popover/details
+  checks passed on a separate Linux CI host in the official Playwright Python
+  `mcr.microsoft.com/playwright/python:v1.64.1-noble` image using
+  `playwright==1.64.1`. Source commit:
+  `c8d7a62079301d6d55d64e84141e06d9c153472e`.
+- Total: 54 automated page/viewport checks across Chromium, Firefox and
+  WebKit (6 pages × 3 widths × 3 engines). The 320px viewport corresponds
+  to the *CSS layout width* of a 1280px viewport at 400% zoom, but this
+  **is not equivalent** to a real 400% browser zoom test.
+- The previous native-library issue on Fedora 44 did not indicate an application
+  failure; the WebKit smoke matrix passes in the supported image.
 - An early axe-core audit identified incorrect `aria-label` use on palette
   swatch `div` elements, fixed by adding `role="group"`.
 - Automated axe-core results include inconclusive/manual checks. Do not
