@@ -9,7 +9,7 @@
   }
   .cy-root.cy-page { min-height: 100svh; }
   .cy-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
-  .cy-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; }
+  .cy-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; overflow-wrap: anywhere; }
   .cy-root :where(button,input,select,textarea) { font: inherit; }
   .cy-root :where(a) { color: var(--cy-accent); text-underline-offset: .2em; }
   .cy-root :where(:focus-visible) { outline: 3px solid var(--cy-accent); outline-offset: 3px; }

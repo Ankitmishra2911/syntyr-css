@@ -5,7 +5,7 @@ icons, Sass compiler or CSS framework is required to use the distributed CSS.
 
 ## Recommended: self-host a versioned stylesheet
 
-1. Download the asset from the [GitHub release](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1), or copy the matching file from the tag.
+1. Download the asset from the [GitHub release](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2), or copy the matching file from the tag.
 2. Put `cyberline.core.css` in your application's static CSS directory.
 3. Load it normally:
 
@@ -22,13 +22,14 @@ renderers. Add `cy-page` to the root only if you want full-page min-height.
 
 ## Optional themes and semantic HTML
 
-Grid and Noir ship in the **same** core stylesheet; set
-`data-cy-theme="grid"` or `data-cy-theme="noir"` on the scoped root.
+Grid, Noir and Studio ship in the **same** core stylesheet; set
+`data-cy-theme="grid"` or `data-cy-theme="noir"` or `data-cy-theme="studio"` on the scoped root.
 You can nest differently themed elements.
 
 Load `cyberline.semantic.css` after core **only** if you want automatic semantic
 element styles within `.cy-semantic`. For static glows and decorative grid
-effects, load `cyberline.effects.css` after core.
+effects, load `cyberline.effects.css` after core. SaaS, business and terminal layouts
+are opt-in via `cyberline.recipes.css`.
 
 `cyberline.css` bundles core and effects. `cyberline.all.css` bundles all modules
 while still requiring `.cy-semantic` to opt into semantic element styles.
@@ -38,7 +39,7 @@ Avoid loading these bundles alongside their component files: that duplicates CSS
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/dporkka/cyberline-css@v0.3.0-alpha.1/dist/cyberline.core.css">
+      href="https://cdn.jsdelivr.net/gh/dporkka/cyberline-css@v0.3.0-alpha.2/dist/cyberline.core.css">
 ```
 
 This is an *external* CDN (jsDelivr), not a Cyberline runtime dependency.
@@ -47,7 +48,8 @@ For production reliability, self-host your copy and control cache headers.
 
 ## Release artifacts and guarantees
 
-The downloadable ZIP contains the five CSS distributions, this guide, the MIT
+The downloadable ZIP contains all six CSS distributions and the terminal
+ANSI palette JSON, this guide, the MIT
 license, and the README. The ZIP is created deterministically using only
 Python's standard library:
 

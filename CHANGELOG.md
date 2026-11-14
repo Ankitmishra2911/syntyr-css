@@ -1,4 +1,8 @@
-## Unreleased
+## v0.3.0-alpha.2 (2026-11-14)
+
+- Fix narrow and enlarged-text horizontal overflow in layouts, buttons, panels, badges and long headings.
+- Add browser reflow regression suite and keep the MIT core free of runtime JavaScript.
+- Add voluntary developer feedback calls and document preliminary Cyberline name-risk review.
 
 - Verified WebKit in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
 - Documented zoom-test limitations and manual screen-reader follow-up.

@@ -26,6 +26,7 @@ python3 -m unittest discover -s tests -v
 # Dev-only installation; choose your package/environment manager.
 python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
+python3 tests/reflow_test.py --browsers chromium firefox webkit
 ```
 
 For a pinned axe-core 4.10.3 audit, provide the checker at test time. No
@@ -64,10 +65,15 @@ provenance if incorporating it into build infrastructure.
   `mcr.microsoft.com/playwright/python:v1.64.1-noble` image using
   `playwright==1.64.1`. Source commit:
   `c8d7a62079301d6d55d64e84141e06d9c153472e`.
+- New in `v0.3.0-alpha.2`: an additional 72 enlarged-text stress checks
+  across the same three engines passed (six pages, four width/text-size
+  combinations). These checks exposed and helped fix narrow-layout overflow
+  affecting long headings, controls and grid tracks.
 - Total: 54 automated page/viewport checks across Chromium, Firefox and
   WebKit (6 pages × 3 widths × 3 engines). The 320px viewport corresponds
   to the *CSS layout width* of a 1280px viewport at 400% zoom, but this
-  **is not equivalent** to a real 400% browser zoom test.
+  **is not equivalent** to a real 400% browser zoom test. Enlarging root
+  text to 200% is also not a substitute for manual resize-text testing.
 - The previous native-library issue on Fedora 44 did not indicate an application
   failure; the WebKit smoke matrix passes in the supported image.
 - An early axe-core audit identified incorrect `aria-label` use on palette
