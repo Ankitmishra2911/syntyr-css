@@ -15,7 +15,7 @@
   .docs-panel-title { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding-bottom: .8rem; border-bottom: 1px solid var(--cy-frame); margin-bottom: 1.25rem; }
   .docs-swatch { display: flex; gap: .35rem; margin-top: 1rem; }
   .docs-swatch span { display: block; width: 2.5rem; height: 2.5rem; border: 1px solid var(--cy-frame); }
-  .docs-vertical { display: grid; gap: 1rem; }
+  .docs-vertical { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
   .docs-small { font-size: .875rem; }
   .docs-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 2rem; align-items: center; }
   .docs-code { padding: 1rem; border: 1px solid var(--cy-frame); background: #050a10; color: #dbf1e8; font: .8rem/1.8 var(--cy-mono); overflow-x: auto; }
