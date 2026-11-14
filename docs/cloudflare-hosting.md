@@ -19,7 +19,8 @@ that may be published. Never deploy the repository root: it contains tests,
 scripts, experiments, and business planning material.
 
 The site retains relative HTML links, component examples, Markdown guides,
-terminal palette JSON, and public CSS assets. No browser JavaScript is shipped.
+terminal palette JSON, and public CSS assets. The optional documentation-only theme editor has its
+own small JavaScript file; consuming apps and other demos require none.
 
 ## Cloudflare hosting
 
@@ -34,6 +35,11 @@ For a Git-connected static deployment, use:
 - Output directory: `.cloudflare-public`
 - Project root: repository root
 - No server-side functions and no install command
+
+Cloudflare Pages project: `syntyr-css`, configured for `main` and the
+`.cloudflare-public` output, with hostname `syntyr-css.pages.dev`. This
+project uses Git-connected builds; a successful deployment must be verified
+before calling the hostname live.
 
 Configure a custom domain only after DNS and trademark/name clearance.
 Keep the existing GitHub Pages site as a rollback until production checks pass.

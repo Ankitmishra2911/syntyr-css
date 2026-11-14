@@ -58,7 +58,8 @@ def source_files() -> dict[str, bytes]:
         "console-kit.html", "distribution.md", "docs.css", "geometry-terminal.md",
         "index.html", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
-        "theme-customization.md", "vertigo-integration.md",
+        "theme-customization.md", "theme-editor.html", "theme-editor.js",
+        "vertigo-integration.md",
     )
     public_examples = (
         "business.html", "console.html", "geometry-terminal.html", "landing.html",

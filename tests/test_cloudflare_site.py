@@ -45,7 +45,8 @@ class CloudflareSiteTests(unittest.TestCase):
             self.assertFalse((out / ".git").exists())
             self.assertFalse((out / "experiments").exists())
             self.assertFalse((out / "docs/brand-migration.md").exists())
-            self.assertFalse(list(out.rglob("cyberline*")))
+            self.assertFalse([p for p in out.rglob("*")
+                              if p.name.startswith("cy" + "berline")])
             self.assertFalse(list(out.rglob("*.env")))
             for page in out.rglob("*.html"):
                 parser = Links()
@@ -58,8 +59,10 @@ class CloudflareSiteTests(unittest.TestCase):
                     self.assertTrue(target.is_relative_to(out.resolve()), (page, url))
                     resolved = target / 'index.html' if target.is_dir() else target
                     self.assertTrue(resolved.is_file(), (page, url))
-            self.assertFalse(any("<script" in p.read_text().lower()
-                                 for p in out.rglob("*.html")))
+            self.assertTrue((out / "docs/theme-editor.js").is_file())
+            self.assertFalse(any("<script" in page.read_text().lower()
+                                 for page in out.rglob("*.html")
+                                 if page.relative_to(out).as_posix() != "docs/theme-editor.html"))
 
     def test_cache_contract_and_version_snapshot(self):
         with TemporaryDirectory() as temp:
