@@ -71,6 +71,37 @@ class BrowserTests(unittest.TestCase):
         external = self.page.locator('#unstyled-external')
         self.assertNotEqual(external.evaluate('e => getComputedStyle(e).minHeight'), '44px')
 
+    def test_semantic_optin_survives_ephemeral_host_classes(self):
+        """An HTMX/Alpine class toggle must not drop semantic styles."""
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        semantic = (ROOT / 'dist/syntyr.semantic.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{core}</style><style>{semantic}</style>
+          <section class="syn-root syn-semantic" data-syn-theme="grid">
+            <button id="stable" data-syn-semantic type="button">Search</button>
+            <button id="unstyled-host" class="framework-control">Other library</button>
+            <input id="field" data-syn-semantic aria-invalid="true" value="broken">
+            <button id="class-free">Class free</button>
+          </section>
+          <button id="outside" data-syn-semantic class="htmx-request">Outside</button>""")
+        stable = self.page.locator('#stable')
+        measure = lambda el: el.evaluate("""e => ({
+          height: getComputedStyle(e).minHeight,
+          background: getComputedStyle(e).backgroundColor,
+          color: getComputedStyle(e).color,
+        })""")
+        before = measure(stable)
+        self.assertEqual(before['height'], '44px')
+        stable.evaluate("e => e.classList.add('htmx-request', 'htmx-swapping')")
+        self.assertEqual(measure(stable), before)
+        self.assertEqual(self.page.locator('#field').evaluate(
+            'e => getComputedStyle(e).borderTopColor'), 'rgb(255, 170, 164)')
+        self.page.locator('#field').evaluate("e => e.classList.add('htmx-request')")
+        self.assertEqual(self.page.locator('#field').evaluate(
+            'e => getComputedStyle(e).borderTopColor'), 'rgb(255, 170, 164)')
+        self.assertNotEqual(measure(self.page.locator('#unstyled-host'))['height'], '44px')
+        self.assertNotEqual(measure(self.page.locator('#outside'))['height'], '44px')
+        self.assertEqual(measure(self.page.locator('#class-free'))['height'], '44px')
+
     def test_semantic_mode_leaves_range_input_native(self):
         self.page.evaluate("""() => {
           const range = document.createElement('input');

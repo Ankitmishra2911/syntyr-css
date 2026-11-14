@@ -13,7 +13,7 @@ For the explicitly classed API (no automatic unclassed element styles):
 </body>
 ```
 
-For Pico-like semantic markup, add the optional file **after** core and mark the subtree:
+For Pico-like semantic markup, add the optional file **after** core and mark the subtree. Unclassed elements style automatically; opt in class-changing elements with `data-syn-semantic`:
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
@@ -21,7 +21,7 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
 <section class="syn-semantic">
   <article>
     <label for="id">Operator <input id="id" name="id" required></label>
-    <button>Continue</button>
+    <button data-syn-semantic>Continue</button>
   </article>
 </section>
 ```

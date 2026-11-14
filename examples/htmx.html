@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS + HTMX: a progressive-enhancement search demo.">
+  <meta name="htmx-config" content='{"includeIndicatorStyles":false}'>
+  <title>Syntyr + HTMX — Customer search</title>
+  <link rel="stylesheet" href="/dist/syntyr.core.css">
+  <link rel="stylesheet" href="/dist/syntyr.semantic.css">
+  <link rel="stylesheet" href="/examples/htmx.css">
+  <!-- Demo-only HTMX dependency. Production apps should self-host a pinned copy. -->
+  <script defer src="https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js"></script>
+</head>
+<body class="syn-root syn-page syn-semantic" data-syn-theme="studio">
+  <main class="syn-shell">
+    <header class="syn-header"><span class="syn-logo">SYNTYR / HTMX</span></header>
+    <section class="syn-region" aria-labelledby="customers-heading">
+      <p class="syn-eyebrow">HTML FIRST / OPTIONAL ENHANCEMENT</p>
+      <h1 id="customers-heading" class="syn-title">Customer search</h1>
+      <p class="syn-lede">Same server endpoint works with or without HTMX. The theme and form stay mounted while results change.</p>
+      <article class="syn-panel">
+        <form action="/customers/search" method="get"
+              hx-get="/customers/search" hx-target="#results"
+              hx-swap="innerHTML" hx-indicator="#search-button">
+          <label for="query">Customer name</label>
+          <input id="query" type="search" name="q" maxlength="120"
+                 data-syn-semantic placeholder="Try Acme or Northstar">
+          <button type="submit" id="search-button" data-syn-semantic>
+            Search <span class="htmx-indicator" role="status">Searching…</span>
+          </button>
+        </form>
+      </article>
+      <section id="results" aria-label="Customer results" aria-live="polite">
+        <!-- RESULTS -->
+      </section>
+      <p class="syn-caption">No Syntyr runtime JavaScript, component initialization, or hydration. HTMX is optional progressive enhancement.</p>
+    </section>
+  </main>
+</body>
+</html>

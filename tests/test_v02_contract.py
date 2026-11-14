@@ -21,7 +21,8 @@ class V02Contract(unittest.TestCase):
     def test_semantic_layer_retains_opt_in_and_scoping(self):
         css = (ROOT / 'src/semantic.css').read_text()
         self.assertIn('.syn-semantic', css)
-        self.assertIn(':where(input', css)
+        self.assertIn('input:not([class])', css)
+        self.assertIn('input[data-syn-semantic]', css)
         self.assertIn('[aria-invalid="true"]', css)
         self.assertIn('input[type="range"]', css)
 

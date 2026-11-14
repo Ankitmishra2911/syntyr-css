@@ -28,7 +28,8 @@ class ReleaseContract(unittest.TestCase):
         self.assertNotIn('syn-semantic', core)
         for tag in ('button', 'input', 'select', 'textarea', 'table', 'article', 'details'):
             with self.subTest(tag=tag):
-                self.assertIn(f'{tag}:not([class])' if tag in ('select', 'textarea') else f':where({tag}', semantic)
+                self.assertIn(f'{tag}:not([class])', semantic)
+                self.assertIn(f'{tag}[data-syn-semantic]', semantic)
         self.assertIn('.syn-semantic', semantic)
         self.assertIn('@layer syn.semantic', semantic)
 

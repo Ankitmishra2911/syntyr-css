@@ -62,7 +62,7 @@ def source_files() -> dict[str, bytes]:
     # Explicit per-file allowlist: new repo files are private until reviewed.
     public_docs = (
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
-        "console-kit.html", "distribution.md", "docs.css", "geometry-terminal.md",
+        "console-kit.html", "distribution.md", "docs.css", "framework-integrations.md", "geometry-terminal.md",
         "index.html", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
         "theme-customization.md", "theme-editor.html", "theme-editor.js",

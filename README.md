@@ -21,6 +21,8 @@
 - [Architecture, API stability and low-entropy maintenance policy](ARCHITECTURE.md)
 - [Public API and prerelease stability policy](docs/api-stability.md)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
+- [Framework integrations: HTMX, Alpine, Datastar, React, Vue, Svelte and server templates](docs/framework-integrations.md)
+- [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
@@ -71,7 +73,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 </div>
 ```
 
-`syn-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-syn-theme` among all seven palettes in the unreleased alpha.5 candidate, including nested themed areas.
+`syn-semantic` styles unclassed semantic elements inside that subtree. Add `data-syn-semantic` to an element that will receive transient framework classes (for example, HTMX's `htmx-request`) so its appearance survives updates. Elements outside the subtree are unaffected. Core component classes do not rely on semantic mode. Switch `data-syn-theme` among all seven palettes in the unreleased alpha.5 candidate, including nested themed areas.
 
 ## Build outputs
 
