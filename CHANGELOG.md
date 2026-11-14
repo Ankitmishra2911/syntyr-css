@@ -4,6 +4,9 @@
 - Provide an opt-in finite CSS utility module for layout, spacing and visually hidden accessibility text.
 - Publish a static six-theme comparison gallery and documentation while retaining the existing MIT, no-runtime-JS contract.
 - Verify theme text/button contrast, nested selectors, reproducible bundles and release packaging in tests.
+- Verified earlier WebKit baseline in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
+- Documented zoom-test limitations and manual screen-reader follow-up.
+- Prepared a ten-interview design-partner pilot without claiming buyer commitments.
 
 - Add a free original Noir resource-index screen and theme-customization guide.
 - Publish an honest $59 Console Kit concept and feedback entry point without taking payment.
