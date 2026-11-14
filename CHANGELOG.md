@@ -4,7 +4,7 @@
 - Provide an opt-in finite CSS utility module for layout, spacing and visually hidden accessibility text.
 - Publish a static seven-theme comparison gallery and documentation while retaining the existing MIT, no-runtime-JS contract.
 - Verify theme text/button contrast, nested selectors, reproducible bundles and release packaging in tests.
-- Address nested-theme inherited foreground/geometry defects and utility precedence identified by PR review; add real-browser regression cases.
+- Address nested-theme foreground, background, and geometry inheritance plus utility precedence identified by PR review; add real-browser regression cases.
 - Prepare unreleased `v0.3.0-alpha.3` candidate with a ten-page, three-engine browser matrix and release evidence; retain the Studio SaaS/CLI/business work merged separately to main.
 - Documented zoom-test limitations and manual screen-reader follow-up.
 - Prepared a ten-interview design-partner pilot without claiming buyer commitments.

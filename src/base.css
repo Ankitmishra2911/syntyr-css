@@ -7,7 +7,7 @@
     background: var(--cy-bg);
     -webkit-font-smoothing: antialiased;
   }
-  .cy-root :where([data-cy-theme]) { color: var(--cy-text); }
+  .cy-root :where([data-cy-theme]) { color: var(--cy-text); background-color: var(--cy-bg); }
   .cy-root.cy-page { min-height: 100svh; }
   .cy-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
   .cy-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; overflow-wrap: anywhere; }

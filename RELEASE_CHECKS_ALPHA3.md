@@ -18,9 +18,9 @@ This document does not claim full production readiness.
 | axe-core 4.10.3 tagged WCAG 2/2.1/2.2 A/AA | 0 automated violations across 10 pages; **9 inconclusive checks requiring manual review** |
 | CSS parsing with developer-only tinycss2 | PASS — 7 distribution files, zero top-level syntax errors |
 | Deterministic build and release packaging | PASS — `scripts/build.py --check` and reproducible 11-file ZIP (CSS, terminal palette data, MIT license, docs) |
-| Core stylesheet | 4,675 bytes gzip (limit 5,120) |
-| Backwards-compatible core + effects | 5,093 bytes gzip (legacy limit 5,120) |
-| Full CSS bundle | 6,945 bytes gzip (limit 8,192) |
+| Core stylesheet | 4,596 bytes gzip (limit 5,120) |
+| Backwards-compatible core + effects | 5,020 bytes gzip (legacy limit 5,120) |
+| Full CSS bundle | 6,870 bytes gzip (limit 8,192) |
 | Library runtime JavaScript / npm dependencies | 0 / 0 |
 
 The isolated WebKit run uses Python Playwright 1.64.1 and the WebKit browser
@@ -42,6 +42,9 @@ concept. No paid assets or proprietary CSS are included.
 - `cy-u-center` overrode `cy-u-between` despite their documented composition.
 - The theme gallery exposed an invalid `aria-label` on a plain div and inert
   decorative buttons; its controls now navigate to the component documentation.
+- A plain nested theme section could change foreground color without providing a
+  corresponding background. The base theme boundary now supplies both, while
+  component surface rules retain their higher-priority backgrounds.
 
 The corresponding focused tests failed on the original implementation and
 passed after the fixes. The browser matrix checks computed theme foregrounds,

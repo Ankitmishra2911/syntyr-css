@@ -1,4 +1,3 @@
-/* Cyberline token contract. Host application CSS can override layered defaults. */
 @layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
 
 @layer cy.tokens {
@@ -56,7 +55,6 @@
     --cy-radius: .25rem;
     --cy-cut: .9rem;
   }
-  /* Dark and light palettes share one component API. */
   :where(.cy-root[data-cy-theme="industrial"], .cy-root [data-cy-theme="industrial"]) {
     color-scheme: dark;
     --cy-bg: #121417;

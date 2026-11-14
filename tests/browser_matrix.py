@@ -96,13 +96,23 @@ def assert_page(browser, name: str, viewport: int) -> None:
                 const grid = document.querySelector('.theme-tile[data-cy-theme="grid"]');
                 const corporate = document.querySelector('.theme-tile[data-cy-theme="corporate"]');
                 const terminal = document.querySelector('.theme-tile[data-cy-theme="terminal"]');
+                const minimal = document.querySelector('.theme-tile[data-cy-theme="minimal"]');
+                const plain = document.createElement('section');
+                plain.dataset.cyTheme = 'grid';
+                plain.innerHTML = '<h3>Plain nested theme</h3>';
+                minimal.append(plain);
+                const plainStyles = getComputedStyle(plain);
+                const plainBoundary = {
+                    background: plainStyles.backgroundColor,
+                    text: getComputedStyle(plain.querySelector('h3')).color
+                };
                 const lightInDark = create(grid, 'corporate', 'cy-price-card');
                 const darkInLight = create(corporate, 'grid', 'cy-price-card');
                 const gridInTerminal = create(terminal, 'grid', 'cy-panel cy-panel--cut');
                 const flex = document.createElement('div');
                 flex.className = 'cy-u-flex cy-u-between cy-u-center';
                 corporate.append(flex);
-                return {lightInDark, darkInLight, gridInTerminal,
+                return {lightInDark, darkInLight, gridInTerminal, plainBoundary,
                         justify: getComputedStyle(flex).justifyContent,
                         align: getComputedStyle(flex).alignItems};
             }""")
@@ -110,6 +120,8 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert nested["lightInDark"]["colorScheme"] == "light", nested
             assert nested["darkInLight"]["text"] == "rgb(237, 249, 255)", nested
             assert nested["darkInLight"]["colorScheme"] == "dark", nested
+            assert nested["plainBoundary"]["background"] == "rgb(8, 15, 25)", nested
+            assert nested["plainBoundary"]["text"] == "rgb(237, 249, 255)", nested
             assert nested["gridInTerminal"]["radius"] == ".25rem", nested
             assert nested["gridInTerminal"]["cut"] == ".9rem", nested
             assert nested["justify"] == "space-between", nested
