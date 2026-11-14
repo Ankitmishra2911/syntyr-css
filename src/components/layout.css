@@ -31,6 +31,6 @@
     width: var(--cy-cut); height: var(--cy-cut); background: var(--cy-bg);
     clip-path: polygon(100% 0, 0 100%, 100% 100%);
   }
-  @media (max-width: 45rem) { .cy-layout { grid-template-columns: 1fr; } }
+  @media (max-width: 45rem) { .cy-layout { grid-template-columns: minmax(0, 1fr); } }
   @media (forced-colors: active) { .cy-stage, .cy-panel { border-color: CanvasText; } }
 }
