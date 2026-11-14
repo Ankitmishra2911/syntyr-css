@@ -1,13 +1,16 @@
-# Cyberline v0.3-alpha release evidence
+# Cyberline v0.3.0-alpha.1 release evidence
 
-Tested 2026-11-14 in the provided local execution environment.
+Tested 2026-11-14 on Gertrude (standard-library checks) and Fedora (real Chromium/Playwright checks).
 
 | Check | Result |
 | --- | --- |
 | Reproducible CSS bundles (`python3 scripts/build.py --check`) | PASS |
-| Unit and package contract tests (`python3 -m unittest discover -s tests -v`) | 20/20 PASS |
+| Unit and package contract tests (`python3 -m unittest discover -s tests -v`) | 23/23 PASS |
 | Chromium smoke, interaction and responsive tests (`python3 tests/browser_test.py`) | 14/14 PASS |
 | CSS stylesheet parse with developer-only `tinycss2` | 0 top-level parse errors |
+| Reproducible release ZIP packaging | PASS; 8 allowlisted files |
+| Static site links under project subpath | PASS |
+| GitHub Pages homepage, gallery, stylesheet, console | Built; 4/4 URLs HTTP 200 |
 | Runtime JS files/scripts | 0 |
 | Runtime package dependencies | 0 |
 | Remote font/image requests declared by the gallery and pricing example | 0 |
@@ -23,4 +26,4 @@ Tested 2026-11-14 in the provided local execution environment.
 - Brand availability/trademark review of the provisional `Cyberline` name.
 - Real product-market validation and a proper premium license review before selling assets.
 
-All new templates/code in this archive are original. Tailwind Plus commercial sources were not copied.
+All new templates/code in this release are original. Tailwind Plus commercial sources were not copied.
