@@ -16,7 +16,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
-         "docs/console-kit.html")
+         "docs/console-kit.html", "examples/themes.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -33,7 +33,7 @@ def assert_page(browser, name: str, viewport: int) -> None:
     assert page.get_by_role("main").count() == 1, name
     assert page.locator('link[rel="stylesheet"]').count() >= 1
     css = page.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()")
-    assert css in ("#76e7f7", "#f1b574"), (name, css)
+    assert css in ("#76e7f7", "#f1b574", "#313a45"), (name, css)
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
@@ -54,6 +54,27 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1
         assert page.get_by_role("searchbox", name="SEARCH BY NAME").count() == 1
+    if name == "examples/themes.html":
+        expected = {
+            "grid": ("#76e7f7", "dark"),
+            "noir": ("#f1b574", "dark"),
+            "industrial": ("#ffb36b", "dark"),
+            "terminal": ("#65e8a0", "dark"),
+            "corporate": ("#155ac8", "light"),
+            "minimal": ("#313a45", "light"),
+        }
+        assert page.locator(".theme-tile").count() == len(expected)
+        for theme, (accent, scheme) in expected.items():
+            tile = page.locator(f'.theme-tile[data-cy-theme="{theme}"]')
+            assert tile.count() == 1, theme
+            values = tile.evaluate("""e => ({
+                accent: getComputedStyle(e).getPropertyValue('--cy-accent').trim(),
+                colorScheme: getComputedStyle(e).colorScheme
+            })""")
+            assert values["accent"] == accent, (theme, values)
+            assert values["colorScheme"] == scheme, (theme, values)
+            button = tile.locator(".cy-button--primary")
+            assert button.is_visible(), (theme, "primary button hidden")
     context.close()
 
 

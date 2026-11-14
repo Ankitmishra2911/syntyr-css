@@ -1,6 +1,6 @@
 # Cyberline CSS
 
-**Experimental v0.3.0-alpha.1 (with unreleased source extensions)** — framework-neutral, low-dependency, CSS-first styling for cinematic dashboards and restrained modern SaaS and business websites.
+**Experimental v0.3.0-alpha.2 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for cinematic dashboards and restrained modern SaaS and business websites.
 
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
