@@ -59,7 +59,8 @@ Good first channels:
 > Would you review two free, framework-independent HTML/CSS SaaS screens?
 > I want feedback on accessibility, integration friction, and which complete
 > layouts would save development time. This isn't a sales pitch; the existing
-> library is MIT and the proposed $59 Console Kit doesn't exist yet.
+> library is MIT and the proposed $59 Console Kit has a private prototype,
+> but it is not yet for sale or publicly distributed.
 > A quick code-level critique would be more useful than a general opinion.
 
 ## Five questions, 15 minutes
@@ -92,4 +93,4 @@ Good first channels:
   documented before accepting money.
 
 **Current outcomes:** 0 invited, 0 interviewed, 0 paid commitments. The
-Console Kit concept is **not available** and no checkout exists.
+Console Kit private prototype exists, but it is **not available for purchase** and no checkout exists.
