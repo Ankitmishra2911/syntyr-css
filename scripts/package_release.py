@@ -19,6 +19,7 @@ FILES = (
     "dist/syntyr.css",
     "dist/syntyr.effects.css",
     "dist/syntyr.geometry.css",
+    "dist/syntyr.utilities.css",
     "dist/syntyr.semantic.css",
     "dist/syntyr.recipes.css",
     "terminal/palettes.json",

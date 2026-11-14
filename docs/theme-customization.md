@@ -104,3 +104,17 @@ high-contrast/forced-colors, and relevant screen readers in the target app.
 **No runtime JavaScript is required for styling.** Search, authentication,
 live data, and server-side form handling are intentionally application
 responsibilities; optional advanced widgets are outside the CSS core.
+
+## Seven theme palettes (unreleased alpha.5 candidate)
+
+The published alpha.4 tag offers Grid, Noir and Studio. This candidate adds Industrial, Terminal, Corporate and Minimal. Use the same HTML and change only the theme attribute:
+
+- `data-syn-theme="grid"`
+- `data-syn-theme="noir"`
+- `data-syn-theme="studio"`
+- `data-syn-theme="industrial"`
+- `data-syn-theme="terminal"`
+- `data-syn-theme="corporate"`
+- `data-syn-theme="minimal"`
+
+To use finite opt-in layout utilities, load `syntyr.utilities.css` after `syntyr.core.css` (or use the all bundle). Utilities include `.syn-u-flex`, `.syn-u-grid`, `.syn-u-between`, spacing helpers and a visually hidden helper. No compiler or runtime JavaScript is required.

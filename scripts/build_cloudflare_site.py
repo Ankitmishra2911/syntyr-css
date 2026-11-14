@@ -55,7 +55,7 @@ def source_files() -> dict[str, bytes]:
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
     public_docs = (
-        "accessibility.md", "cloudflare-hosting.md", "components.md",
+        "accessibility.md", "accessibility-alpha5-review.md", "cloudflare-hosting.md", "components.md",
         "console-kit.html", "distribution.md", "docs.css", "geometry-terminal.md",
         "index.html", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
@@ -65,11 +65,11 @@ def source_files() -> dict[str, bytes]:
     public_examples = (
         "business.html", "console.html", "geometry-terminal.html", "landing.html",
         "operations-console.css", "operations-console.html", "pricing.html",
-        "resources.html", "saas.html", "terminal.html", "vertigo-admin.html",
+        "resources.html", "saas.html", "terminal.html", "themes.html", "vertigo-admin.html",
     )
     public_css = (
         "syntyr.css", "syntyr.core.css", "syntyr.semantic.css",
-        "syntyr.effects.css", "syntyr.recipes.css", "syntyr.geometry.css",
+        "syntyr.effects.css", "syntyr.recipes.css", "syntyr.geometry.css", "syntyr.utilities.css",
         "syntyr.all.css",
     )
     paths.extend(ROOT / "docs" / name for name in public_docs)

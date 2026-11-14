@@ -39,6 +39,8 @@ class CloudflareSiteTests(unittest.TestCase):
             self.assertTrue((out / "docs/index.html").is_file())
             self.assertTrue((out / "dist/syntyr.core.css").is_file())
             self.assertTrue((out / "examples/operations-console.html").is_file())
+            self.assertTrue((out / "examples/themes.html").is_file())
+            self.assertTrue((out / "dist/syntyr.utilities.css").is_file())
             self.assertTrue((out / "terminal/palettes.json").is_file())
             self.assertFalse((out / "business").exists())
             self.assertFalse((out / "tests").exists())
@@ -74,11 +76,14 @@ class CloudflareSiteTests(unittest.TestCase):
             self.assertIn("must-revalidate", headers)
             version = (ROOT / "VERSION").read_text().strip()
             manifest = json.loads((ROOT / "site-releases/manifest.json").read_text())
-            self.assertIn(version, manifest)
-            for filename in manifest[version]:
+            published = "0.3.0-alpha.4"
+            self.assertIn(published, manifest, "published alpha.4 immutable snapshot must remain")
+            if version != published:
+                self.assertNotIn(version, manifest, "unreleased candidates must not appear as immutable releases")
+            for filename in manifest[published]:
                 self.assertEqual(
-                    (out / "v" / version / filename).read_bytes(),
-                    (ROOT / "site-releases" / version / filename).read_bytes(),
+                    (out / "v" / published / filename).read_bytes(),
+                    (ROOT / "site-releases" / published / filename).read_bytes(),
                 )
 
     def test_reproducible_no_stale_extras_and_check_mode(self):

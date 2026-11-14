@@ -1,3 +1,10 @@
+## Unreleased — v0.3.0-alpha.5 candidate
+
+- Add four original opt-in palettes (Industrial, Terminal, Corporate and Minimal) for seven interchangeable SYNTYR themes.
+- Add a standalone finite CSS-only utilities module and an MIT-licensed seven-theme comparison gallery.
+- Validate nested theme foreground, native color-scheme and geometry inheritance, utility precedence, and keyboard/forced-colors presentation.
+- Preserve the SYNTYR-only syn- API and published alpha.4 release. No compatibility selectors or files are reintroduced.
+
 ## v0.3.0-alpha.4 (2026-11-14)
 
 - Standardize all project naming, CSS selectors and tokens on SYNTYR.

@@ -164,7 +164,7 @@ class DesignSystemContract(unittest.TestCase):
 
     def test_gallery_advertises_studio_only_in_the_matching_release(self):
         page = (ROOT / "docs/index.html").read_text()
-        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.3.0-alpha.4")
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.3.0-alpha.5")
         self.assertIn('href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4"', page)
         self.assertIn("release includes Grid, Noir and Studio themes", page)
         self.assertIn('[data-syn-theme="studio"]', (ROOT / "dist/syntyr.core.css").read_text())

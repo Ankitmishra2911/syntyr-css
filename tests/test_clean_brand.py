@@ -29,7 +29,7 @@ class CleanBrandTests(unittest.TestCase):
     def test_only_syntyr_css_is_distributed(self):
         self.assertEqual(
             {p.name for p in (ROOT / 'dist').glob('*.css')},
-            {f'syntyr{suffix}.css' for suffix in ('', '.core', '.semantic', '.recipes', '.effects', '.geometry', '.all')},
+            {f'syntyr{suffix}.css' for suffix in ('', '.core', '.semantic', '.recipes', '.effects', '.geometry', '.utilities', '.all')},
         )
         css = (ROOT / 'dist/syntyr.core.css').read_text()
         self.assertIn('.syn-root', css)

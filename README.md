@@ -1,11 +1,12 @@
 # SYNTYR CSS
 
-**Experimental v0.3.0-alpha.4** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
+**Experimental v0.3.0-alpha.5 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
 
 - **The `syn-` class, CSS token, and HTML data-attribute namespace is the public API.**
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
+- **Seven themes in the alpha.5 candidate:** Grid, Noir, Studio, Industrial, Terminal, Corporate and Minimal. The published alpha.4 release contains the original three.
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.syn-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
@@ -27,10 +28,15 @@
 - [Preliminary SYNTYR brand-risk review (NOT clearance)](business/syntyr-trademark-screen.md)
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
+- [Seven-theme comparison gallery (unreleased)](examples/themes.html)
+- [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
+- [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
+
+The linked alpha.4 release is already published; it does not include the four additional palettes or the optional utilities module. These are in the unreleased alpha.5 source candidate.
 
 Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
@@ -62,7 +68,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 </div>
 ```
 
-`syn-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-syn-theme` between `grid`, `noir` and `studio`, including nested themed areas.
+`syn-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-syn-theme` among all seven palettes in the unreleased alpha.5 candidate, including nested themed areas.
 
 ## Build outputs
 
@@ -73,13 +79,14 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
+| `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
 | `dist/syntyr.css` | Backwards-compatible core + effects bundle |
 | `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
 
-The geometry module is opt-in; neither the core bundle nor ordinary component selectors require it.
+Geometry and utilities are opt-in; neither the core bundle nor ordinary component selectors require them.
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css` and `src/utilities.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites
 

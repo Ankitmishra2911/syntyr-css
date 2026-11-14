@@ -26,10 +26,13 @@ Grid, Noir and Studio ship in the **same** core stylesheet; set
 `data-syn-theme="grid"` or `data-syn-theme="noir"` or `data-syn-theme="studio"` on the scoped root.
 You can nest differently themed elements.
 
+The unreleased alpha.5 candidate adds Industrial, Terminal, Corporate and Minimal using the same scoped `data-syn-theme` contract. The published alpha.4 release includes Grid, Noir and Studio only.
+
 Load `syntyr.semantic.css` after core **only** if you want automatic semantic
 element styles within `.syn-semantic`. For static glows and decorative grid
 effects, load `syntyr.effects.css` after core. SaaS, business and terminal layouts
 are opt-in via `syntyr.recipes.css`. Optional frame geometry is in `syntyr.geometry.css`.
+The alpha.5 candidate additionally provides `syntyr.utilities.css` for opt-in layout, spacing and visually-hidden helpers.
 
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.syn-semantic` to opt into semantic element styles.
@@ -51,9 +54,10 @@ usually avoids an additional hostname connection.
 
 ## Release artifacts and guarantees
 
-The downloadable ZIP contains seven SYNTYR CSS distributions and the terminal
-ANSI palette JSON, this guide, the MIT
-license, and the README. The ZIP is created deterministically using only
+The published alpha.4 release contains seven SYNTYR CSS distributions. The
+unreleased alpha.5 candidate contains eight SYNTYR distributions, including
+the optional utilities stylesheet, plus the terminal ANSI palette JSON, this
+guide, the MIT license, and README. No retired compatibility aliases are shipped. The ZIP is created deterministically using only
 Python's standard library:
 
 ```sh
@@ -67,4 +71,4 @@ premium templates, if introduced, will be independently authored and sold
 separately. This v0.3 alpha is **not** a v1 production compatibility guarantee;
 cross-browser and full accessibility audits are still release gates.
 
-All supported public CSS selectors use the `syn-` namespace. No legacy CSS aliases are shipped.
+The `syn-` selectors, `--syn-` custom properties and `data-syn-` attributes are the only supported source API.

@@ -27,8 +27,9 @@ def distributions():
         'syntyr.recipes.css': ('recipes.css',),
         'syntyr.effects.css': ('effects.css',),
         'syntyr.geometry.css': ('geometry.css',),
+        'syntyr.utilities.css': ('utilities.css',),
         'syntyr.css': core + ('effects.css',),
-        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'geometry.css', 'effects.css'),
+        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'geometry.css', 'effects.css', 'utilities.css'),
     }
     return primary
 
