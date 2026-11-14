@@ -29,7 +29,8 @@
   .cy-button:where(:disabled, [aria-disabled="true"]) { pointer-events: none; }
   @media (forced-colors: active) {
     .cy-button { border-color: ButtonText; }
-    .cy-button--primary { background: Highlight; color: HighlightText; border-color: Highlight; }
+    /* ButtonFace/ButtonText avoid Chromium's opaque text-backplate artifact. */
+    .cy-button--primary { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
     .cy-button--danger, .cy-button--outline { border-color: ButtonText; color: ButtonText; }
   }
 }
