@@ -1,5 +1,5 @@
 /* Cyberline token contract. Host application CSS can override layered defaults. */
-@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
+@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.geometry, cy.effects;
 
 @layer cy.tokens {
   :where(.cy-root) {
@@ -181,7 +181,8 @@
     color: var(--cy-accent);
   }
   .cy-button[aria-busy="true"] { cursor: progress; }
-  .cy-button:where(:disabled, [aria-disabled="true"]) { pointer-events: none; }
+  /* Native disabled blocks activation. ARIA-disabled is informational only;
+     the host application must block its event handlers. Keep focus available. */
   @media (forced-colors: active) {
     .cy-button { border-color: ButtonText; }
     .cy-button--primary { background: Highlight; color: HighlightText; border-color: Highlight; }
@@ -239,6 +240,7 @@
   .cy-table th { color: var(--cy-muted); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
   .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
+  .cy-table .cy-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
   .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
   .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
   .cy-status--success { color: var(--cy-success); }

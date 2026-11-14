@@ -18,6 +18,7 @@ FILES = (
     "dist/cyberline.core.css",
     "dist/cyberline.css",
     "dist/cyberline.effects.css",
+    "dist/cyberline.geometry.css",
     "dist/cyberline.semantic.css",
     "dist/cyberline.recipes.css",
     "terminal/palettes.json",

@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/saas.html",
-         "examples/business.html", "examples/terminal.html",
+         "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html", "examples/geometry-terminal.html",
          "examples/vertigo-admin.html")
 
 
@@ -56,6 +56,22 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1
         assert page.get_by_role("searchbox", name="SEARCH BY NAME").count() == 1
+    if name == "examples/geometry-terminal.html":
+        frames = page.locator(".cy-frame")
+        assert frames.count() == 5, "all five frame profiles must render"
+        bevel = frames.first
+        clip = bevel.evaluate("e => getComputedStyle(e, '::before').clipPath")
+        assert clip.startswith("polygon("), (name, viewport, clip)
+        fill = bevel.evaluate("e => getComputedStyle(e, '::after').backgroundColor")
+        assert fill not in ("rgba(0, 0, 0, 0)", "transparent"), fill
+        assert page.locator(".cy-terminal-error").count() == 1
+        assert page.locator(".cy-terminal-warning").count() == 1
+        numeric = page.locator(".cy-cell--numeric").first
+        assert numeric.evaluate("e => getComputedStyle(e).textAlign") == "right"
+        if viewport == 1280:
+            page.emulate_media(forced_colors="active")
+            assert bevel.evaluate("e => getComputedStyle(e).borderTopStyle") == "solid"
+            assert bevel.evaluate("e => getComputedStyle(e, '::before').display") == "none"
     if name == "examples/vertigo-admin.html" and viewport == 1280:
         def styles():
             return page.evaluate("""() => {

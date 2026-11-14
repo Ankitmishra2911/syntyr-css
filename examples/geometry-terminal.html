@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Original CSS-only Cyberline advanced geometry, terminal and data presentation showcase.">
+  <title>Cyberline — Frames &amp; Terminal</title>
+  <link rel="stylesheet" href="../dist/cyberline.core.css">
+  <link rel="stylesheet" href="../dist/cyberline.recipes.css">
+  <link rel="stylesheet" href="../dist/cyberline.geometry.css">
+</head>
+<body class="cy-root cy-page" data-cy-theme="grid">
+  <div class="cy-shell">
+    <header class="cy-header">
+      <a class="cy-logo" href="../docs/index.html">CYBERLINE / LAB</a>
+      <nav class="cy-nav" aria-label="Example navigation">
+        <a href="#geometry">GEOMETRY</a>
+        <a href="#terminal">TERMINAL</a>
+        <a href="#data">OPERATIONS</a>
+        <a href="../docs/index.html">GALLERY</a>
+      </nav>
+    </header>
+    <main>
+      <section class="cy-stage" aria-labelledby="lab-title">
+        <p class="cy-eyebrow">INTERFACE RESEARCH / ORIGINAL CSS</p>
+        <h1 id="lab-title" class="cy-title">Surfaces for the next interface.</h1>
+        <p class="cy-lede">Five combinable, theme-aware frame shapes. Browser terminal and operational data presentation. One HTML document, three opt-in stylesheets, zero runtime JavaScript.</p>
+        <p class="cy-caption">All values below are illustrative — no live services or interactive terminal are connected.</p>
+      </section>
+
+      <section id="geometry" class="cy-stack" aria-labelledby="geometry-title">
+        <h2 id="geometry-title" class="cy-heading">01 / Geometric profiles</h2>
+        <div class="cy-grid">
+          <article class="cy-panel cy-frame cy-frame--bevel">
+            <p class="cy-eyebrow">01 / BEVEL</p><h3 class="cy-heading">Full-corner geometry</h3>
+            <p class="cy-muted">Diagonal border framing without masking a parent background.</p>
+            <span class="cy-status cy-status--success">READY</span>
+          </article>
+          <article class="cy-panel cy-frame cy-frame--notch" style="--cy-frame-cut:1.5rem">
+            <p class="cy-eyebrow">02 / NOTCH</p><h3 class="cy-heading">Asymmetric cut</h3>
+            <p class="cy-muted">Adjust size using --cy-frame-cut on any component.</p>
+            <span class="cy-status cy-status--warning">DEGRADED</span>
+          </article>
+          <article class="cy-panel cy-frame cy-frame--bracket">
+            <p class="cy-eyebrow">03 / BRACKET</p><h3 class="cy-heading">HUD corner marks</h3>
+            <p class="cy-muted">Four unobtrusive technical brackets; no pseudo-content is read aloud.</p>
+            <span class="cy-status">PASSIVE</span>
+          </article>
+          <article class="cy-panel cy-frame cy-frame--inset" data-cy-theme="noir">
+            <p class="cy-eyebrow">04 / INSET / NOIR</p><h3 class="cy-heading">Dual border</h3>
+            <p class="cy-muted">Geometry composes with a nested, warmer theme.</p>
+            <span class="cy-status cy-status--success">INTEGRATED</span>
+          </article>
+          <article class="cy-panel cy-frame cy-frame--circuit" data-cy-theme="studio">
+            <p class="cy-eyebrow">05 / CIRCUIT / STUDIO</p><h3 class="cy-heading">Quiet signal traces</h3>
+            <p class="cy-muted">Works on professional light backgrounds without glowing animations.</p>
+            <span class="cy-status cy-status--success">AVAILABLE</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="terminal" class="cy-stack" aria-labelledby="terminal-title" style="margin-block:3rem">
+        <h2 id="terminal-title" class="cy-heading">02 / Developer terminal presentation</h2>
+        <section class="cy-terminal" aria-label="Illustrative build log">
+          <div class="cy-terminal-bar">
+            <span class="cy-terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span class="cy-terminal-title">operator@cyberline : ~/workspace</span>
+            <span class="cy-terminal-meta">STATIC DEMO · UTF-8</span>
+          </div>
+          <div class="cy-terminal-body">
+            <span class="cy-terminal-line"><span class="cy-terminal-prompt">➜</span> <span class="cy-terminal-path">~/workspace</span> <span class="cy-terminal-command">python3 scripts/build.py --check</span></span>
+            <span class="cy-terminal-line cy-terminal-output">Validating distributions:
+   core ...... OK
+   geometry .. OK
+   recipes ... OK</span>
+            <span class="cy-terminal-line cy-terminal-success">✓ All CSS bundles match their sources</span>
+            <span class="cy-terminal-line cy-terminal-warning">! Browser screenshots require developer-only tooling</span>
+            <span class="cy-terminal-line cy-terminal-error">✕ Example failure: deployment unavailable</span>
+            <span class="cy-terminal-line"><span class="cy-terminal-prompt">➜</span> <span class="cy-terminal-path">~/workspace</span> <span class="cy-terminal-cursor" aria-hidden="true"></span></span>
+          </div>
+        </section>
+        <p class="cy-caption">No emulated shell, input capture, blink animations or network assets. ANSI application palettes remain separately defined in terminal/palettes.json.</p>
+      </section>
+
+      <section id="data" class="cy-stack" aria-labelledby="data-title" style="margin-block:3rem">
+        <h2 id="data-title" class="cy-heading">03 / Semantic operational data</h2>
+        <div class="cy-table-wrap">
+          <table class="cy-table">
+            <caption class="cy-caption">Illustrative service health; not live monitoring data</caption>
+            <thead><tr><th scope="col">SERVICE</th><th scope="col">REGION</th><th scope="col">LATENCY</th><th scope="col">STATUS</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Gateway</th><td>us-east</td><td class="cy-cell--numeric">21 ms</td><td><span class="cy-status cy-status--success cy-table-emphasis">Online</span></td></tr>
+              <tr><th scope="row">Queue</th><td>eu-west</td><td class="cy-cell--numeric">43 ms</td><td><span class="cy-status cy-status--warning">Delayed</span></td></tr>
+              <tr><th scope="row">Reports</th><td>sa-east</td><td class="cy-cell--numeric">112 ms</td><td><span class="cy-status cy-status--danger">Unavailable</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="cy-caption" style="padding-block:2rem">Original MIT-licensed Cyberline demo · No third-party assets.</footer>
+  </div>
+</body>
+</html>

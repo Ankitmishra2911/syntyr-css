@@ -1,5 +1,11 @@
 ## Unreleased
 
+- Add independent zero-runtime geometry CSS with five customizable frame treatments (bevel, notch, bracket, inset and circuit), including forced-colors fallbacks.
+- Extend browser terminal recipes with static window chrome, command anatomy, output/readout colors and a non-blinking cursor.
+- Remove CSS pointer-event suppression from ARIA-disabled buttons; applications enforce ARIA-disabled activation themselves.
+- Add right-aligned tabular numeric cells and a free HTML geometry/terminal demo plus multi-browser regression checks.
+- Preserve the existing explicit table emphasis API, core gzip budget and deterministic ZIP distribution.
+
 - Add an original MIT CSS-only opt-in Vertigo admin skin and standalone HTML preview; keep the existing Vertigo application unmodified.
 - Build a separate Hugo v0.170.0 docs proof from canonical Markdown using filesystem mounts, with reproducible output/link checks.
 - Document the Hugo versus Zola tradeoff; do not migrate the live GitHub Pages site yet.

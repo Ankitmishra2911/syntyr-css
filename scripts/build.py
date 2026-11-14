@@ -26,9 +26,10 @@ def distributions():
         'cyberline.semantic.css': ('semantic.css',),
         'cyberline.recipes.css': ('recipes.css',),
         'cyberline.effects.css': ('effects.css',),
+        'cyberline.geometry.css': ('geometry.css',),
         # Original starter's import path remains valid; semantic mode stays opt-in.
         'cyberline.css': core + ('effects.css',),
-        'cyberline.all.css': core + ('semantic.css', 'recipes.css', 'effects.css'),
+        'cyberline.all.css': core + ('semantic.css', 'recipes.css', 'geometry.css', 'effects.css'),
     }
 
 def main():

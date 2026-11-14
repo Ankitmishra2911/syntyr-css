@@ -22,6 +22,7 @@
 - [Preliminary brand-name risk research (NOT clearance)](business/trademark-screen.md)
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
+- [Advanced frame + terminal lab](examples/geometry-terminal.html) and [geometry integration guide](docs/geometry-terminal.md)
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
 
@@ -64,6 +65,7 @@ For semantic mode, add `cyberline.semantic.css` **after** core:
 | `dist/cyberline.core.css` | Tokens, scoped base, components (default choice) |
 | `dist/cyberline.semantic.css` | Optional semantic HTML styling (load after core) |
 | `dist/cyberline.effects.css` | Optional, static decorative effects |
+| `dist/cyberline.geometry.css` | Optional advanced geometric panels (bevel, notch, bracket, inset, circuit) |
 | `dist/cyberline.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
 | `dist/cyberline.css` | Backwards-compatible core + effects bundle |

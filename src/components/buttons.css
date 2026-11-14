@@ -26,7 +26,8 @@
     color: var(--cy-accent);
   }
   .cy-button[aria-busy="true"] { cursor: progress; }
-  .cy-button:where(:disabled, [aria-disabled="true"]) { pointer-events: none; }
+  /* Native disabled blocks activation. ARIA-disabled is informational only;
+     the host application must block its event handlers. Keep focus available. */
   @media (forced-colors: active) {
     .cy-button { border-color: ButtonText; }
     .cy-button--primary { background: Highlight; color: HighlightText; border-color: Highlight; }

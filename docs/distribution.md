@@ -29,7 +29,7 @@ You can nest differently themed elements.
 Load `cyberline.semantic.css` after core **only** if you want automatic semantic
 element styles within `.cy-semantic`. For static glows and decorative grid
 effects, load `cyberline.effects.css` after core. SaaS, business and terminal layouts
-are opt-in via `cyberline.recipes.css`.
+are opt-in via `cyberline.recipes.css`. Advanced geometry is opt-in via `cyberline.geometry.css` (load after core; use either it or the all-in-one bundle).
 
 `cyberline.css` bundles core and effects. `cyberline.all.css` bundles all modules
 while still requiring `.cy-semantic` to opt into semantic element styles.
@@ -48,7 +48,7 @@ For production reliability, self-host your copy and control cache headers.
 
 ## Release artifacts and guarantees
 
-The downloadable ZIP contains all six CSS distributions and the terminal
+The development-branch ZIP now includes the optional geometry stylesheet along with the other CSS distributions and terminal
 ANSI palette JSON, this guide, the MIT
 license, and the README. The ZIP is created deterministically using only
 Python's standard library:
