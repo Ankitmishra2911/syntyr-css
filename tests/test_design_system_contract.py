@@ -129,6 +129,24 @@ class DesignSystemContract(unittest.TestCase):
         self.assertFalse(cli.should_color(FakeTTY(), {"NO_COLOR": "", "TERM": "xterm"}))
         self.assertFalse(cli.should_color(FakeTTY(), {"CLICOLOR": "0", "TERM": "xterm"}))
 
+    def test_labeled_visual_groups_have_explicit_group_roles(self):
+        from html.parser import HTMLParser
+        class NamedGroups(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.seen = []
+            def handle_starttag(self, tag, attrs):
+                a = dict(attrs)
+                classes = set(a.get("class", "").split())
+                if a.get("aria-label") and classes.intersection({"cy-stats", "business-visual"}):
+                    self.seen.append((a.get("class"), a.get("role")))
+        for filename in ("docs/index.html", "examples/resources.html", "examples/business.html"):
+            with self.subTest(filename=filename):
+                doc = NamedGroups()
+                doc.feed((ROOT / filename).read_text())
+                self.assertTrue(doc.seen)
+                self.assertTrue(all(role == "group" for _, role in doc.seen), doc.seen)
+
     def test_gallery_integration_guide_has_accessible_hit_area(self):
         from html.parser import HTMLParser
         class GuideLink(HTMLParser):

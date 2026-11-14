@@ -10,6 +10,7 @@
 - Add optional static horizon/atmosphere effects and enhance the Grid/Noir demos without continuous animation.
 - Fix nested Studio foreground inheritance, CLI ANSI contrast and Windows VT detection; expand browser and axe page coverage.
 - Enlarge the documentation guide link target following an axe-core WCAG 2.2 automated finding.
+- Give labeled telemetry and dashboard-preview groups explicit ARIA group semantics.
 - Retain zero runtime JavaScript, CSS bundle budgets and semantic HTML contracts.
 
 ## v0.3.0-alpha.1 (2026-11-14)
