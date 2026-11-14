@@ -1,8 +1,11 @@
-# Cyberline v0.3.0-alpha.2 — release-candidate evidence
+# Cyberline six-theme branch — release-candidate evidence
 
-Status: **unreleased**, PR [#2](https://github.com/dporkka/cyberline-css/pull/2).
-Reviewed 2026-11-14. This is not a claim of full production readiness or a
-newly published GitHub release. The published `v0.3.0-alpha.1` remains unchanged.
+Status: PR [#2](https://github.com/dporkka/cyberline-css/pull/2), **unreleased
+`v0.3.0-alpha.3` candidate**, not yet integrated with the latest `main`.
+Reviewed 2026-11-14. The distinct `v0.3.0-alpha.2` prerelease was already
+published from `main` with Studio/CLI/reflow changes. This report verifies
+the six-theme PR branch only; it does not certify the published tag or a future
+integrated release.
 
 ## Automated validation
 

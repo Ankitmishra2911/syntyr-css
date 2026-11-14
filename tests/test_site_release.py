@@ -52,7 +52,7 @@ class SiteReleaseTests(unittest.TestCase):
                     self.assertTrue(destination.exists(), f"{source.name}: missing {href}")
 
     def test_versioned_distribution_is_reproducible(self):
-        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.3.0-alpha.2")
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.3.0-alpha.3")
         with tempfile.TemporaryDirectory() as tmp:
             paths = [Path(tmp) / n for n in ("one.zip", "two.zip")]
             for target in paths:
@@ -63,7 +63,7 @@ class SiteReleaseTests(unittest.TestCase):
             self.assertEqual(paths[0].read_bytes(), paths[1].read_bytes())
             with zipfile.ZipFile(paths[0]) as archive:
                 names = set(archive.namelist())
-                prefix = "cyberline-css-0.3.0-alpha.2/"
+                prefix = "cyberline-css-0.3.0-alpha.3/"
                 for filename in ("LICENSE", "README.md", "dist/cyberline.core.css",
                                  "dist/cyberline.css", "dist/cyberline.semantic.css",
                                  "dist/cyberline.effects.css", "dist/cyberline.all.css",

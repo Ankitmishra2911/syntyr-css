@@ -92,7 +92,7 @@ provenance if incorporating it into build infrastructure.
 6. Validate both the default Grid/Noir palettes and any project-specific
    token overrides for text contrast and non-text essential indicators.
 
-## v0.3.0-alpha.2 candidate regression evidence (2026-11-14)
+## Six-theme PR candidate regression evidence (2026-11-14)
 
 The expanded matrix now includes `examples/themes.html` in addition to the
 original six pages. Chromium, Firefox and WebKit each passed 7 pages × 3 CSS
@@ -109,4 +109,4 @@ The contrast findings need manual evaluation; automated results are **not**
 equivalent to complete WCAG conformance.
 
 For reproducible build sizes, distribution checks and remaining release gates,
-see [the alpha.2 candidate evidence](../RELEASE_CHECKS_ALPHA2.md).
+see [the six-theme branch evidence](../RELEASE_CHECKS_ALPHA2.md).

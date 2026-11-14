@@ -1,6 +1,6 @@
 # Cyberline CSS
 
-**Experimental v0.3.0-alpha.2 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for cinematic dashboards and restrained modern SaaS and business websites.
+**Experimental v0.3.0-alpha.3 (unreleased six-theme candidate)** — framework-neutral, low-dependency, CSS-first styling for cinematic dashboards and restrained modern SaaS and business websites.
 
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
@@ -14,7 +14,7 @@
 
 - [Live website](https://dporkka.github.io/cyberline-css/)
 - [Component gallery](https://dporkka.github.io/cyberline-css/docs/)
-- [Versioned release downloads](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1)
+- [Last published release: v0.3.0-alpha.2 (integrated Studio release)](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
@@ -23,9 +23,9 @@
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 - [Six-theme comparison gallery](examples/themes.html)
-- [v0.3.0-alpha.2 release-candidate verification and remaining gates](RELEASE_CHECKS_ALPHA2.md)
+- [Unreleased six-theme branch verification and remaining gates](RELEASE_CHECKS_ALPHA2.md)
 
-Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
+For the published Studio version, use the alpha.2 release ZIP. To evaluate the **unmerged six-theme alpha.3 candidate**, copy `dist/cyberline.core.css` from this branch instead. Do not assume the published alpha.2 tag contains the six-theme feature set. Neither requires NPM, runtime JS or an application build step.
 
 ## Start in 10 seconds
 

@@ -22,11 +22,12 @@ renderers. Add `cy-page` to the root only if you want full-page min-height.
 
 ## Optional themes and semantic HTML
 
-The current source tree's core CSS ships six themes: `grid`, `noir`,
-`industrial`, `terminal`, `corporate` and `minimal`. Set
-`data-cy-theme` on the scoped root or any nested region. The historical
-`v0.3.0-alpha.1` release tag contains only Grid and Noir; the new themes
-are not in that already-published release.
+This **unmerged six-theme branch** ships `grid`, `noir`, `industrial`,
+`terminal`, `corporate` and `minimal`. Set `data-cy-theme` on the scoped
+root or any nested region. The separately published `v0.3.0-alpha.2` release
+was built from integrated `main` with Studio/CLI/reflow changes, **not** this
+six-theme branch. Do not use that release tag to verify this branch's palettes.
+Its proposed next version is `0.3.0-alpha.3`, which is not yet published.
 
 Load `cyberline.semantic.css` after core **only** if you want automatic semantic
 element styles within `.cy-semantic`. For static glows and decorative grid
