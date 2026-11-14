@@ -22,6 +22,7 @@ PAGES = (
     "docs/console-kit.html", "examples/saas.html",
     "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
+         "examples/operations-console.html",
     "examples/vertigo-admin.html",
 )
 
