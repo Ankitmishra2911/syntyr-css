@@ -1,10 +1,10 @@
-# Cyberline Premium Asset License — DRAFT, not an operative contract
+# Syntyr Premium Asset License — DRAFT, not an operative contract
 
-**Draft for counsel review.** Nothing here changes the MIT license on the open-source Cyberline CSS library, its themes, core components, fixes, or examples. This license would apply only to individually identified premium template/layout/asset files that are authored separately and sold as a commercial product.
+**Draft for counsel review.** Nothing here changes the MIT license on the open-source Syntyr CSS library, its themes, core components, fixes, or examples. This license would apply only to individually identified premium template/layout/asset files that are authored separately and sold as a commercial product.
 
 ## 1. Eligible assets and proof of purchase
 
-The product page and delivered manifest must identify which files are premium and list any third-party notices. The MIT-covered `cyberline.*.css` files retain their MIT license even when included in a paid bundle. A valid purchase grants the buyer the rights below to premium files as delivered.
+The product page and delivered manifest must identify which files are premium and list any third-party notices. The MIT-covered `syntyr.*.css` files retain their MIT license even when included in a paid bundle. A valid purchase grants the buyer the rights below to premium files as delivered.
 
 ## 2. End-product rights (suggested)
 

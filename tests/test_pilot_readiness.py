@@ -29,7 +29,7 @@ class PilotReadinessTests(unittest.TestCase):
     def test_design_partner_pilot_includes_qualification_and_outreach_boundaries(self):
         guide = (ROOT / "business/design-partner-pilot.md").read_text()
         for item in ("Go/templ", "HTMX", "Astro", "10", "$59", "consent", "paid",
-                     "https://github.com/dporkka/cyberline-css/issues"):
+                     "https://github.com/dporkka/syntyr-css/issues"):
             self.assertIn(item, guide)
         self.assertIn("not_contacted", guide)
 
@@ -37,7 +37,7 @@ class PilotReadinessTests(unittest.TestCase):
         home = (ROOT / "index.html").read_text()
         gallery = (ROOT / "docs/index.html").read_text()
         for html in (home, gallery):
-            self.assertIn("https://github.com/dporkka/cyberline-css/issues/3", html)
+            self.assertIn("https://github.com/dporkka/syntyr-css/issues/3", html)
         self.assertIn('id="feedback"', gallery)
 
     def test_public_kit_copy_truthfully_distinguishes_private_preview_from_sale(self):
@@ -56,7 +56,7 @@ class PilotReadinessTests(unittest.TestCase):
         page = (ROOT / "docs/console-kit.html").read_text()
         self.assertIn("NOT AVAILABLE FOR PURCHASE", page)
         self.assertIn("console-kit-feedback.yml", page)
-        self.assertIn("https://github.com/dporkka/cyberline-css/issues/3", page)
+        self.assertIn("https://github.com/dporkka/syntyr-css/issues/3", page)
         self.assertNotIn('href="/checkout"', page)
 
 

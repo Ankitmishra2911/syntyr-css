@@ -8,6 +8,6 @@
 {{- else if strings.HasPrefix $destination "../terminal/" -}}
   {{- $destination = strings.TrimPrefix "../" $destination | relURL -}}
 {{- else if strings.HasPrefix $destination "../LICENSE" -}}
-  {{- $destination = "https://github.com/dporkka/cyberline-css/blob/main/LICENSE" -}}
+  {{- $destination = "https://github.com/dporkka/syntyr-css/blob/main/LICENSE" -}}
 {{- end -}}
 <a href="{{ $destination }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>

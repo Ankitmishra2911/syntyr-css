@@ -1,4 +1,4 @@
-# Cyberline alpha.3 — accessibility review evidence and open gates
+# SYNTYR alpha.4 — accessibility review evidence and open gates
 
 Review date: 2026-11-14. This is a verification record for the PR #2
 development branch, not WCAG certification. The published alpha.2 tag is
@@ -76,10 +76,10 @@ navigation on every representative page.
       content visibility and keyboard access.
 - [ ] Inspect simulated *and OS-native* forced-colors modes across browsers,
       plus dark and light operating-system palettes.
-- [ ] Resolve provisional Cyberline name/trademark clearance before paid
-      brand or premium-product launch. See `business/trademark-screen.md`.
+- [ ] Resolve provisional SYNTYR name/trademark clearance before paid
+      brand or premium-product launch. See `business/syntyr-trademark-screen.md`.
 - [ ] Choose supported-browser and accessibility release criteria before
-      labeling alpha.3 production-ready or publishing a commercial offering.
+      labeling alpha.4 production-ready or publishing a commercial offering.
 
 The current MIT CSS core remains zero-runtime-JavaScript and requires no npm
 package to use. Playwright and axe-core above are developer-only checks.

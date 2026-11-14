@@ -1,0 +1,24 @@
+/* Optional, finite utilities: no generator, JS runtime, resets or network assets.
+   Load AFTER cyberline.core.css, or use cyberline.all.css. */
+@layer cy.components {
+  .cy-root :where(.cy-u-flex) { display: flex; min-width: 0; }
+  .cy-root :where(.cy-u-grid) { display: grid; min-width: 0; }
+  .cy-root :where(.cy-u-stack) { display: grid; gap: var(--cy-space-2); min-width: 0; }
+  .cy-root :where(.cy-u-inline) { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cy-space-2); }
+  .cy-root :where(.cy-u-center) { align-items: center; justify-content: center; }
+  .cy-root :where(.cy-u-between) { justify-content: space-between; }
+  .cy-root :where(.cy-u-gap-1) { gap: var(--cy-space-1); }
+  .cy-root :where(.cy-u-gap-2) { gap: var(--cy-space-2); }
+  .cy-root :where(.cy-u-gap-3) { gap: var(--cy-space-3); }
+  .cy-root :where(.cy-u-p-1) { padding: var(--cy-space-1); }
+  .cy-root :where(.cy-u-p-2) { padding: var(--cy-space-2); }
+  .cy-root :where(.cy-u-p-3) { padding: var(--cy-space-3); }
+  .cy-root :where(.cy-u-mt-1) { margin-block-start: var(--cy-space-1); }
+  .cy-root :where(.cy-u-mt-2) { margin-block-start: var(--cy-space-2); }
+  .cy-root :where(.cy-u-mt-3) { margin-block-start: var(--cy-space-3); }
+  .cy-root :where(.cy-u-sr-only) {
+    position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0);
+    white-space: nowrap; border: 0;
+  }
+}

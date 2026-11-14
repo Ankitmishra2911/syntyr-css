@@ -1,4 +1,4 @@
-"""Release contract for the modular, zero-runtime-dependency Cyberline package."""
+"""Release contract for the modular, zero-runtime-dependency Syntyr package."""
 from pathlib import Path
 import gzip
 import subprocess
@@ -15,16 +15,16 @@ class ReleaseContract(unittest.TestCase):
             'src/components/buttons.css', 'src/components/forms.css',
             'src/components/overlays.css', 'src/components/data.css',
             'src/semantic.css', 'src/effects.css',
-            'dist/cyberline.core.css', 'dist/cyberline.semantic.css',
-            'dist/cyberline.effects.css', 'dist/cyberline.all.css',
-            'dist/cyberline.css',
+            'dist/syntyr.core.css', 'dist/syntyr.semantic.css',
+            'dist/syntyr.effects.css', 'dist/syntyr.all.css',
+            'dist/syntyr.css',
         ):
             with self.subTest(rel=rel):
                 self.assertTrue((ROOT / rel).is_file(), f'Missing {rel}')
 
     def test_semantic_is_opt_in(self):
-        core = (DIST / 'cyberline.core.css').read_text()
-        semantic = (DIST / 'cyberline.semantic.css').read_text()
+        core = (DIST / 'syntyr.core.css').read_text()
+        semantic = (DIST / 'syntyr.semantic.css').read_text()
         self.assertNotIn('cy-semantic', core)
         for tag in ('button', 'input', 'select', 'textarea', 'table', 'article', 'details'):
             with self.subTest(tag=tag):
@@ -33,7 +33,7 @@ class ReleaseContract(unittest.TestCase):
         self.assertIn('@layer cy.semantic', semantic)
 
     def test_themes_and_accessibility_hooks(self):
-        all_css = (DIST / 'cyberline.all.css').read_text()
+        all_css = (DIST / 'syntyr.all.css').read_text()
         for term in ('[data-cy-theme="grid"]', '[data-cy-theme="noir"]',
                      'prefers-reduced-motion', 'forced-colors', ':focus-visible',
                      '.cy-button--ghost', '.cy-alert', 'min(', 'color-mix('):
@@ -41,8 +41,8 @@ class ReleaseContract(unittest.TestCase):
                 self.assertIn(term, all_css)
 
     def test_size_budgets(self):
-        core = gzip.compress((DIST / 'cyberline.core.css').read_bytes(), mtime=0)
-        all_css = gzip.compress((DIST / 'cyberline.all.css').read_bytes(), mtime=0)
+        core = gzip.compress((DIST / 'syntyr.core.css').read_bytes(), mtime=0)
+        all_css = gzip.compress((DIST / 'syntyr.all.css').read_bytes(), mtime=0)
         self.assertLessEqual(len(core), 5 * 1024, f'core gzip {len(core)} bytes')
         self.assertLessEqual(len(all_css), 8 * 1024, f'all gzip {len(all_css)} bytes')
 

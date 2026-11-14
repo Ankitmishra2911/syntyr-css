@@ -1,16 +1,16 @@
-# Cyberline CSS distribution
+# Syntyr CSS distribution
 
-Cyberline CSS is MIT-licensed. No NPM install, JavaScript runtime, fonts,
+Syntyr CSS is MIT-licensed. No NPM install, JavaScript runtime, fonts,
 icons, Sass compiler or CSS framework is required to use the distributed CSS.
 
 ## Recommended: self-host a versioned stylesheet
 
-1. Download the asset from the [GitHub release](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2), or copy the matching file from the tag.
-2. Put `cyberline.core.css` in your application's static CSS directory.
+1. Download the asset from the [GitHub release](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.3), or copy the matching file from the tag.
+2. Put `syntyr.core.css` in your application's static CSS directory.
 3. Load it normally:
 
 ```html
-<link rel="stylesheet" href="/css/cyberline.core.css">
+<link rel="stylesheet" href="/css/syntyr.core.css">
 <section class="cy-root" data-cy-theme="grid">
   <button class="cy-button cy-button--primary">Initialize</button>
 </section>
@@ -22,19 +22,18 @@ renderers. Add `cy-page` to the root only if you want full-page min-height.
 
 ## Optional themes and semantic HTML
 
-The current source tree's core CSS ships seven themes: `grid`, `noir`,
-`studio`, `industrial`, `terminal`, `corporate` and `minimal`. Set
-`data-cy-theme` on the scoped root or any nested region. The published `v0.3.0-alpha.2` release has Grid, Noir and Studio; the
-additional Industrial, Terminal, Corporate and Minimal themes are only in this
-unreleased alpha.3 source candidate.
+The published alpha.3 core includes Grid, Noir and Studio. The unreleased
+alpha.4 source also offers Industrial, Terminal, Corporate and Minimal. Set
+`data-cy-theme` on the scoped root or a nested region; all seven preserve
+the same component API. The published alpha.3 tag does **not** contain the four new themes.
 
-Load `cyberline.semantic.css` after core **only** if you want automatic semantic
+Load `syntyr.semantic.css` after core **only** if you want automatic semantic
 element styles within `.cy-semantic`. For static glows and decorative grid
-effects, load `cyberline.effects.css` after core. For finite layout and
-spacing utilities, optionally load `cyberline.utilities.css` after core. For
-SaaS and marketing compositions load `cyberline.recipes.css` after core.
+effects, load `syntyr.effects.css` after core. SaaS, business and terminal layouts
+are opt-in via `syntyr.recipes.css`. Layout and spacing helpers are
+opt-in via `syntyr.utilities.css` (legacy alias `cyberline.utilities.css`).
 
-`cyberline.css` bundles core and effects. `cyberline.all.css` bundles all modules
+`syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.cy-semantic` to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS.
 
@@ -42,16 +41,18 @@ Avoid loading these bundles alongside their component files: that duplicates CSS
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/dporkka/cyberline-css@v0.3.0-alpha.2/dist/cyberline.core.css">
+      href="https://cdn.jsdelivr.net/gh/dporkka/syntyr-css@v0.3.0-alpha.3/dist/syntyr.core.css">
 ```
 
-This is an *external* CDN (jsDelivr), not a Cyberline runtime dependency.
+This is an *external* CDN (jsDelivr), not a SYNTYR runtime dependency.
 Pin a specific tag rather than using `@latest` or a moving branch.
 For production reliability, self-host your copy and control cache headers.
 
 ## Release artifacts and guarantees
 
-A new release ZIP built from this source includes all seven CSS distributions, this guide, the MIT
+The prospective alpha.4 ZIP contains seven SYNTYR CSS distributions plus seven
+byte-identical legacy Cyberline compatibility files, the terminal ANSI palette
+JSON, this guide and the MIT
 license, and the README. The ZIP is created deterministically using only
 Python's standard library:
 
@@ -61,7 +62,9 @@ python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
 ```
 
-All seven CSS themes and essential components are MIT-licensed. Commercial
+All seven development-branch palettes and essential components are MIT-licensed. Commercial
 premium templates, if introduced, will be independently authored and sold
 separately. This v0.3 alpha is **not** a v1 production compatibility guarantee;
 cross-browser and full accessibility audits are still release gates.
+
+For existing Cyberline integration paths and the unchanged `cy-` selectors, see [brand migration](brand-migration.md).

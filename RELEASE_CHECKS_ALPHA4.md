@@ -1,14 +1,14 @@
-# Cyberline v0.3.0-alpha.3 — release-candidate evidence
+# SYNTYR v0.3.0-alpha.4 — release-candidate evidence
 
-Status: **unreleased**, [PR #2](https://github.com/dporkka/cyberline-css/pull/2).
-Validated 2026-11-14. The published `v0.3.0-alpha.2` tag is a distinct Studio/CLI release and does not contain this seven-theme candidate.
+Status: **unreleased**, [PR #2](https://github.com/dporkka/syntyr-css/pull/2).
+Validated 2026-11-14. The published `v0.3.0-alpha.3` tag is the SYNTYR brand migration release; this seven-theme alpha.4 candidate is not published.
 This document does not claim full production readiness.
 
 ## Automated verification
 
 | Gate | Result |
 | --- | --- |
-| Standard-library unit/distribution contracts | PASS — 59/59 |
+| Standard-library unit/distribution contracts | PASS — 64/64 |
 | Chromium interaction tests | PASS — 17/17 (native popover/dialog, keyboard, forms, responsive layouts, forced-color border) |
 | Enlarged-text layout reflow | PASS — 44/44 cases in Chromium and 44/44 in Firefox (11 pages × 4 width/scale conditions) |
 | Chromium browser matrix | PASS — 11 pages × 320, 390, 1280 CSS px (33 cases) |
@@ -17,11 +17,11 @@ This document does not claim full production readiness.
 | Chromium forced-colors primary controls | PASS — seven theme labels visibly rendered in light palette; dark system palette checked visually; keyboard focus remains visible |
 | Seven-theme nesting and utility contracts | PASS — light inside dark, dark inside light, geometry isolation, utility precedence |
 | axe-core 4.10.3 tagged WCAG 2/2.1/2.2 A/AA | 0 automated violations across 11 pages; **9 color-contrast inconclusive rule results covering 270 elements**, all requiring review |
-| CSS parsing with developer-only tinycss2 | PASS — 7 distribution files, zero top-level syntax errors |
-| Deterministic build and release packaging | PASS — `scripts/build.py --check` and reproducible 11-file ZIP (CSS, terminal palette data, MIT license, docs) |
-| Core stylesheet | 4,640 bytes gzip (limit 5,120) |
-| Backwards-compatible core + effects | 5,062 bytes gzip (legacy limit 5,120) |
-| Full CSS bundle | 6,914 bytes gzip (limit 8,192) |
+| CSS parsing with developer-only tinycss2 | PASS — 14 distribution files, zero top-level syntax errors |
+| Deterministic build and release packaging | PASS — `scripts/build.py --check` and reproducible 18-file ZIP (CSS, terminal palette data, MIT license, docs) |
+| Core stylesheet | 4,691 bytes gzip (limit 5,120) |
+| Backwards-compatible core + effects | 5,110 bytes gzip (legacy limit 5,120) |
+| Full CSS bundle | 6,962 bytes gzip (limit 8,192) |
 | Library runtime JavaScript / npm dependencies | 0 / 0 |
 
 The earlier ten-page WebKit run used Python Playwright 1.64.1 and the WebKit
@@ -61,7 +61,7 @@ native `color-scheme`, geometry and utility precedence.
 
 - Review the nine inconclusive axe groups covering **270 elements**, especially
   text over gradients. No WCAG conclusion may be drawn from an inconclusive result.
-  See [the element-level manual review plan](docs/accessibility-alpha3-review.md).
+  See [the element-level manual review plan](docs/accessibility-alpha4-review.md).
 - Verify representative pages with actual screen readers and keyboard-only
   navigation, including nested semantic forms and data tables.
 - Test real 200% and 400% browser zoom. Headless and isolated headed Chromium
@@ -70,7 +70,7 @@ native `color-scheme`, geometry and utility precedence.
 - Inspect native Windows High Contrast themes and actual screen-reader navigation.
   Chromium forced-colors simulation was checked in light and dark system palettes;
   that is not a substitute for operating-system assistive technology.
-- Review the supported browser baseline, provisional Cyberline trademark,
+- Review the supported browser baseline, provisional SYNTYR trademark,
   and eventual separate commercial license before making marketing or v1 claims.
 
-No v0.3.0-alpha.3 GitHub tag or release has been created by this work.
+No v0.3.0-alpha.4 GitHub tag or release has been created by this work.

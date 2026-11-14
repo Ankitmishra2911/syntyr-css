@@ -36,7 +36,7 @@ class OptInWebsiteContractTests(unittest.TestCase):
         parser = DemoParser()
         parser.feed(demo)
         self.assertEqual(parser.stylesheets, [
-            "../dist/cyberline.core.css", "../integrations/vertigo/admin.css"
+            "../dist/syntyr.core.css", "../integrations/vertigo/admin.css"
         ])
         self.assertIn('class="cy-root cy-page cy-vertigo-admin"', demo)
         self.assertIn('data-cy-theme="studio"', demo)

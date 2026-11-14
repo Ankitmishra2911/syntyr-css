@@ -15,7 +15,7 @@ class V03Contract(unittest.TestCase):
             with self.subTest(item=item):
                 self.assertIn(item, source)
         self.assertIn('components/patterns.css', (ROOT / 'scripts/build.py').read_text())
-        self.assertIn('.cy-pricing', (ROOT / 'dist/cyberline.core.css').read_text())
+        self.assertIn('.cy-pricing', (ROOT / 'dist/syntyr.core.css').read_text())
 
     def test_accessible_state_styles_and_explicit_tokens(self):
         buttons = (ROOT / 'src/components/buttons.css').read_text()
@@ -42,9 +42,9 @@ class V03Contract(unittest.TestCase):
 
     def test_license_and_bundle_constraints(self):
         self.assertIn('MIT License', (ROOT / 'LICENSE').read_text())
-        self.assertNotIn('tailwindcss', (ROOT / 'dist/cyberline.core.css').read_text().lower())
+        self.assertNotIn('tailwindcss', (ROOT / 'dist/syntyr.core.css').read_text().lower())
         self.assertFalse((ROOT / 'node_modules').exists())
-        self.assertLessEqual(len(gzip.compress((ROOT / 'dist/cyberline.core.css').read_bytes(), mtime=0)), 5 * 1024)
-        self.assertLessEqual(len(gzip.compress((ROOT / 'dist/cyberline.all.css').read_bytes(), mtime=0)), 8 * 1024)
+        self.assertLessEqual(len(gzip.compress((ROOT / 'dist/syntyr.core.css').read_bytes(), mtime=0)), 5 * 1024)
+        self.assertLessEqual(len(gzip.compress((ROOT / 'dist/syntyr.all.css').read_bytes(), mtime=0)), 8 * 1024)
 
 if __name__ == '__main__': unittest.main()

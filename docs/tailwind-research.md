@@ -1,10 +1,10 @@
-# What Cyberline borrows conceptually from Tailwind CSS and Tailwind Plus
+# What Syntyr borrows conceptually from Tailwind CSS and Tailwind Plus
 
-Research updated 2026-11-14. **This project contains no Tailwind Plus component code, markup, graphics, screenshots, or licensed assets.** Tailwind CSS and Tailwind Plus are third-party products; Cyberline is independent.
+Research updated 2026-11-14. **This project contains no Tailwind Plus component code, markup, graphics, screenshots, or licensed assets.** Tailwind CSS and Tailwind Plus are third-party products; Syntyr is independent.
 
 ## Engineering comparison
 
-| Tailwind idea | Cyberline adaptation | Reason |
+| Tailwind idea | Syntyr adaptation | Reason |
 | --- | --- | --- |
 | CSS-first theme configuration and native variables (Tailwind v4) | Public `--cy-*` CSS tokens in a layered stylesheet | Works without Tailwind, JS, config files, or compilation |
 | Cascade layers and predictable override priority | `cy.tokens`, `cy.base`, `cy.components`, `cy.semantic`, `cy.effects` | Preserve host-app override control and prevent unscoped resets |
@@ -17,11 +17,11 @@ Research updated 2026-11-14. **This project contains no Tailwind Plus component 
 
 ## Ideas deliberately rejected
 
-- No full Tailwind-style general-purpose utility compiler or class scanner. Those create build-system and markup complexity contrary to Cyberline's explicit constraints.
-- No Tailwind `@theme`, `@utility`, or `@apply` directives in Cyberline CSS: these are Tailwind-specific compile-time syntax, not browser-standard CSS features.
+- No full Tailwind-style general-purpose utility compiler or class scanner. Those create build-system and markup complexity contrary to Syntyr's explicit constraints.
+- No Tailwind `@theme`, `@utility`, or `@apply` directives in Syntyr CSS: these are Tailwind-specific compile-time syntax, not browser-standard CSS features.
 - No default dependency on Tailwind Plus Elements or its JavaScript. Use native HTML, with optional host-owned JS for complex interactions.
-- No Tailwind Plus components, snippets, or templates copied into Cyberline. Their commercial license restricts redistributing derivative component libraries and template products.
-- No Tailwind CSS branding or entertainment franchise assets in Cyberline deliverables.
+- No Tailwind Plus components, snippets, or templates copied into Syntyr. Their commercial license restricts redistributing derivative component libraries and template products.
+- No Tailwind CSS branding or entertainment franchise assets in Syntyr deliverables.
 
 ## Primary sources
 
@@ -36,4 +36,4 @@ Research updated 2026-11-14. **This project contains no Tailwind Plus component 
 
 ## Recommendation
 
-Build **the simplest coherent branded CSS vocabulary**, plus browser-tested original compositions. Cyberline should not chase parity with the enormous Tailwind utility surface or advertise artificial savings from avoiding a build step when a team's existing build tooling is already reliable. The premium product should be *complete application screens* where buyer time saved is observable.
+Build **the simplest coherent branded CSS vocabulary**, plus browser-tested original compositions. Syntyr should not chase parity with the enormous Tailwind utility surface or advertise artificial savings from avoiding a build step when a team's existing build tooling is already reliable. The premium product should be *complete application screens* where buyer time saved is observable.

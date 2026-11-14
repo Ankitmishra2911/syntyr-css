@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Original Cyberline terminal palettes. ANSI indices 0-15 are standard/bright colors; applications control when and whether to emit ANSI sequences.",
+  "description": "Original Syntyr terminal palettes. ANSI indices 0-15 are standard/bright colors; applications control when and whether to emit ANSI sequences.",
   "themes": {
     "grid": {
       "background": "#080f19",

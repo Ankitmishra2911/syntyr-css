@@ -1,0 +1,552 @@
+/* Syntyr token contract: legacy cy-* custom properties stay stable. */
+@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
+
+@layer cy.tokens {
+  :where(.cy-root) {
+    color-scheme: dark;
+    --cy-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --cy-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    --cy-space-1: .375rem;
+    --cy-space-2: .75rem;
+    --cy-space-3: 1.125rem;
+    --cy-space-4: 1.75rem;
+    --cy-space-5: 2.5rem;
+    --cy-cut: .9rem;
+    --cy-radius: .25rem;
+    --cy-line: 1.55;
+    --cy-control-height: 2.75rem;
+    --cy-ease: cubic-bezier(.2, .8, .2, 1);
+    --cy-duration-fast: 150ms;
+  }
+  :where(.cy-root), :where(.cy-root[data-cy-theme="grid"], .cy-root [data-cy-theme="grid"]) {
+    color-scheme: dark;
+    --cy-bg: #080f19;
+    --cy-surface: #111f2c;
+    --cy-surface-hi: #172a3b;
+    --cy-text: #edf9ff;
+    --cy-muted: #adbfca;
+    --cy-accent: #76e7f7;
+    --cy-accent-2: #f7b06c;
+    --cy-on-accent: #07121a;
+    --cy-frame: #345569;
+    --cy-frame-strong: #5086a0;
+    --cy-danger: #ffaaa4;
+    --cy-success: #8ce6bb;
+    --cy-warning: #ffd08b;
+    --cy-accent-soft: rgb(118 231 247 / 11%);
+    --cy-radius: .25rem;
+    --cy-cut: .9rem;
+  }
+  :where(.cy-root[data-cy-theme="noir"], .cy-root [data-cy-theme="noir"]) {
+    color-scheme: dark;
+    --cy-bg: #0e0e12;
+    --cy-surface: #1c1b20;
+    --cy-surface-hi: #2a2628;
+    --cy-text: #f8eee5;
+    --cy-muted: #c3b5aa;
+    --cy-accent: #f1b574;
+    --cy-accent-2: #9acfd5;
+    --cy-on-accent: #1c100b;
+    --cy-frame: #625048;
+    --cy-frame-strong: #9a7557;
+    --cy-danger: #ffc1ac;
+    --cy-success: #a5e4bc;
+    --cy-warning: #fbd18c;
+    --cy-accent-soft: rgb(241 181 116 / 10%);
+    --cy-radius: .25rem;
+    --cy-cut: .9rem;
+  }
+  :where(.cy-root[data-cy-theme="industrial"], .cy-root [data-cy-theme="industrial"]) {
+    color-scheme: dark;
+    --cy-bg: #121417;
+    --cy-surface: #1c2023;
+    --cy-surface-hi: #2a3033;
+    --cy-text: #f3f2ee;
+    --cy-muted: #c0c5c8;
+    --cy-accent: #ffb36b;
+    --cy-accent-2: #d6c9a9;
+    --cy-on-accent: #241409;
+    --cy-frame: #69747b;
+    --cy-frame-strong: #a0b0b7;
+    --cy-danger: #ffb2a7;
+    --cy-success: #8dedb0;
+    --cy-warning: #ffd08f;
+    --cy-accent-soft: rgb(255 179 107 / 11%);
+    --cy-radius: .15rem;
+    --cy-cut: .45rem;
+  }
+  :where(.cy-root[data-cy-theme="terminal"], .cy-root [data-cy-theme="terminal"]) {
+    color-scheme: dark;
+    --cy-bg: #07130d;
+    --cy-surface: #0d1f17;
+    --cy-surface-hi: #153325;
+    --cy-text: #d9fce7;
+    --cy-muted: #a2d2b5;
+    --cy-accent: #65e8a0;
+    --cy-accent-2: #a6f0ce;
+    --cy-on-accent: #062011;
+    --cy-frame: #3e8761;
+    --cy-frame-strong: #69bd8a;
+    --cy-danger: #f6a8a8;
+    --cy-success: #74e7a7;
+    --cy-warning: #eccd86;
+    --cy-accent-soft: rgb(101 232 160 / 11%);
+    --cy-radius: 0;
+    --cy-cut: 0;
+  }
+  :where(.cy-root[data-cy-theme="corporate"], .cy-root [data-cy-theme="corporate"]) {
+    color-scheme: light;
+    --cy-bg: #f5f8fc;
+    --cy-surface: #ffffff;
+    --cy-surface-hi: #e8eef6;
+    --cy-text: #18273c;
+    --cy-muted: #4b5d72;
+    --cy-accent: #155ac8;
+    --cy-accent-2: #087a8a;
+    --cy-on-accent: #ffffff;
+    --cy-frame: #73859b;
+    --cy-frame-strong: #526c8c;
+    --cy-danger: #b42331;
+    --cy-success: #147446;
+    --cy-warning: #9a5600;
+    --cy-accent-soft: rgb(21 90 200 / 9%);
+    --cy-radius: .5rem;
+    --cy-cut: 0;
+  }
+  :where(.cy-root[data-cy-theme="minimal"], .cy-root [data-cy-theme="minimal"]) {
+    color-scheme: light;
+    --cy-bg: #f7f7f5;
+    --cy-surface: #ffffff;
+    --cy-surface-hi: #ebedee;
+    --cy-text: #202328;
+    --cy-muted: #5c6168;
+    --cy-accent: #313a45;
+    --cy-accent-2: #56606b;
+    --cy-on-accent: #ffffff;
+    --cy-frame: #7b8189;
+    --cy-frame-strong: #555b62;
+    --cy-danger: #aa2f3c;
+    --cy-success: #1f6c45;
+    --cy-warning: #8d5200;
+    --cy-accent-soft: rgb(49 58 69 / 7%);
+    --cy-radius: .375rem;
+    --cy-cut: 0;
+  }
+  /* Professional, contrast-oriented light palette for SaaS and business sites. */
+  :where(.cy-root[data-cy-theme="studio"], .cy-root [data-cy-theme="studio"]) {
+    color-scheme: light;
+    --cy-bg: #f5f7fb;
+    --cy-surface: #ffffff;
+    --cy-surface-hi: #eaf0f8;
+    --cy-text: #15233a;
+    --cy-muted: #4b5d76;
+    --cy-accent: #2458c6;
+    --cy-accent-2: #176b80;
+    --cy-on-accent: #ffffff;
+    --cy-frame: #b8c6d8;
+    --cy-frame-strong: #6685b2;
+    --cy-danger: #ad2637;
+    --cy-success: #17694b;
+    --cy-warning: #92500a;
+    --cy-accent-soft: rgb(36 88 198 / 9%);
+    --cy-radius: .25rem;
+    --cy-cut: .9rem;
+  }
+}
+@layer cy.base {
+  :where(.cy-root), :where(.cy-root) *, :where(.cy-root) *::before, :where(.cy-root) *::after { box-sizing: border-box; }
+  .cy-root {
+    margin: 0;
+    font: 400 1rem/var(--cy-line) var(--cy-font);
+    color: var(--cy-text);
+    background: var(--cy-bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  .cy-root :where([data-cy-theme]) { color: var(--cy-text); background-color: var(--cy-bg); }
+  .cy-root.cy-page { min-height: 100svh; }
+  .cy-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
+  .cy-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; overflow-wrap: anywhere; }
+  .cy-root :where(button,input,select,textarea) { font: inherit; }
+  .cy-root :where(a) { color: var(--cy-accent); text-underline-offset: .2em; }
+  .cy-root :where(:focus-visible) { outline: 3px solid var(--cy-accent); outline-offset: 3px; }
+  .cy-root :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; opacity: .55; }
+  .cy-root :where(::selection) { color: var(--cy-on-accent); background: var(--cy-accent); }
+  @media (prefers-reduced-motion: reduce) {
+    .cy-root *, .cy-root *::before, .cy-root *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0s !important;
+      animation-duration: 0s !important;
+    }
+  }
+  @media (forced-colors: active) {
+    .cy-root :where(:focus-visible) { outline-color: Highlight; }
+  }
+}
+@layer cy.components {
+  .cy-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+  .cy-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
+  .cy-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .cy-nav a { color: var(--cy-muted); text-decoration: none; font: 600 .76rem var(--cy-mono); }
+  .cy-nav a:hover, .cy-nav a[aria-current] { color: var(--cy-accent); }
+  .cy-stage {
+    --cy-stage-pad: clamp(1.25rem, 4vw, 3rem);
+    background: radial-gradient(ellipse at 85% 5%, var(--cy-accent-soft), transparent 50%), var(--cy-bg);
+    color: var(--cy-text);
+    border: 1px solid var(--cy-frame);
+    padding: var(--cy-stage-pad);
+    margin-block: 1.5rem;
+    position: relative;
+    isolation: isolate;
+  }
+  .cy-stage::before { content: ""; position: absolute; top: 0; left: 0; width: 4rem; height: 2px; background: var(--cy-accent); }
+  .cy-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
+  .cy-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  .cy-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
+  .cy-stack { display: grid; gap: var(--cy-space-3); }
+  .cy-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--cy-space-2); }
+  .cy-panel {
+    position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
+    color: var(--cy-text); border: 1px solid var(--cy-frame);
+    background: linear-gradient(160deg, var(--cy-accent-soft), transparent 40%), var(--cy-surface);
+    min-width: 0;
+  }
+  .cy-panel--cut::after {
+    content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
+    width: var(--cy-cut); height: var(--cy-cut); background: var(--cy-bg);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  }
+  @media (max-width: 45rem) { .cy-layout { grid-template-columns: minmax(0, 1fr); } }
+  @media (forced-colors: active) { .cy-stage, .cy-panel { border-color: CanvasText; } }
+}
+@layer cy.components {
+  .cy-logo { font: 700 .95rem/1 var(--cy-mono); letter-spacing: .22em; text-decoration: none; color: var(--cy-text); }
+  .cy-eyebrow { font: 700 .69rem/1.4 var(--cy-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--cy-accent); }
+  .cy-title { font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
+  .cy-heading { font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
+  .cy-lede { max-width: 56ch; color: var(--cy-muted); }
+  .cy-muted { color: var(--cy-muted); }
+  .cy-mono { font-family: var(--cy-mono); font-variant-numeric: tabular-nums; }
+  .cy-caption { color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
+  .cy-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--cy-mono); letter-spacing: -.06em; }
+  .cy-rule { border: 0; border-top: 1px solid var(--cy-frame); margin-block: 1.25rem; }
+  .cy-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--cy-frame); background: var(--cy-accent-soft); color: var(--cy-accent); font: 650 .68rem/1.25 var(--cy-mono); letter-spacing: .04em; }
+  .cy-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
+  .cy-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--cy-accent); background: var(--cy-surface); color: var(--cy-text); }
+  .cy-alert--danger { border-inline-start-color: var(--cy-danger); }
+  .cy-code { font: .85em/1.5 var(--cy-mono); overflow-wrap: anywhere; background: var(--cy-surface-hi); padding: .12em .35em; }
+  @media (forced-colors: active) { .cy-badge, .cy-alert { border-color: CanvasText; } }
+}
+@layer cy.components {
+  .cy-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
+  .cy-button {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    min-height: var(--cy-control-height); padding: .65rem 1rem;
+    min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: var(--cy-surface-hi); color: var(--cy-text);
+    text-decoration: none; font: 650 .81rem/1.2 var(--cy-mono);
+    cursor: pointer; transition: background-color var(--cy-duration-fast) var(--cy-ease), border-color var(--cy-duration-fast) var(--cy-ease), color var(--cy-duration-fast) var(--cy-ease);
+  }
+  .cy-button:hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
+  .cy-button--primary { background: var(--cy-accent); border-color: var(--cy-accent); color: var(--cy-on-accent); }
+  .cy-button--primary:hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
+  .cy-button--outline { background: transparent; border-color: var(--cy-accent); color: var(--cy-accent); }
+  .cy-button--outline:hover { background: var(--cy-accent-soft); }
+  .cy-button--danger { color: var(--cy-danger); border-color: var(--cy-danger); background: transparent; }
+  .cy-button--danger:hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
+  .cy-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
+  .cy-button--ghost { background: transparent; border-color: transparent; }
+  .cy-button--ghost:hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
+  /* State variants use native ARIA for meaning and optional data attributes for app styling. */
+  .cy-button:where([aria-pressed="true"], [data-cy-state="active"]) {
+    border-color: var(--cy-accent);
+    background: var(--cy-accent-soft);
+    color: var(--cy-accent);
+  }
+  .cy-button[aria-busy="true"] { cursor: progress; }
+  .cy-button:where(:disabled, [aria-disabled="true"]) { pointer-events: none; }
+  @media (forced-colors: active) {
+    .cy-button { border-color: ButtonText; }
+    /* ButtonFace/ButtonText avoid Chromium's opaque text-backplate artifact. */
+    .cy-button--primary { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
+    .cy-button--danger, .cy-button--outline { border-color: ButtonText; color: ButtonText; }
+  }
+}
+@layer cy.components {
+  .cy-form { display: grid; gap: 1rem; }
+  .cy-label { display: grid; gap: .35rem; font: 600 .75rem/1.35 var(--cy-mono); }
+  .cy-input, .cy-select, .cy-textarea {
+    width: 100%; min-height: var(--cy-control-height); padding: .7rem .8rem;
+    border: 1px solid var(--cy-frame); background: var(--cy-bg);
+    border-radius: var(--cy-radius); color: var(--cy-text);
+  }
+  .cy-input::placeholder, .cy-textarea::placeholder { color: var(--cy-muted); opacity: 1; }
+  .cy-input:focus, .cy-select:focus, .cy-textarea:focus { border-color: var(--cy-accent); }
+  .cy-input:where(:user-invalid, [aria-invalid="true"]),
+  .cy-select:where(:user-invalid, [aria-invalid="true"]),
+  .cy-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--cy-danger); }
+  .cy-help { color: var(--cy-muted); font-size: .8rem; }
+  .cy-error { color: var(--cy-danger); font-size: .8rem; }
+  .cy-textarea { min-height: 6rem; resize: vertical; }
+  .cy-input[type="checkbox"], .cy-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--cy-accent); vertical-align: middle; }
+  .cy-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--cy-text); cursor: pointer; }
+  .cy-fieldset { border: 1px solid var(--cy-frame); padding: 1rem; min-width: 0; }
+  .cy-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--cy-mono); }
+  @media (forced-colors: active) {
+    .cy-input, .cy-select, .cy-textarea, .cy-fieldset { border-color: CanvasText; }
+  }
+}
+@layer cy.components {
+  .cy-popover, .cy-dialog {
+    width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
+    border: 1px solid var(--cy-accent); border-radius: var(--cy-radius);
+    background: var(--cy-surface); color: var(--cy-text);
+    box-shadow: 0 20px 70px rgb(0 0 0 / 45%);
+  }
+  .cy-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+  .cy-dialog { margin: auto; }
+  .cy-dialog::backdrop { background: rgb(0 0 0 / 70%); }
+  .cy-details { padding: 1rem 0; border-block-start: 1px solid var(--cy-frame); }
+  .cy-details summary { cursor: pointer; color: var(--cy-text); font-weight: 650; }
+  .cy-details[open] summary { color: var(--cy-accent); }
+  .cy-details p { color: var(--cy-muted); margin: .6rem 0 0; }
+  @media (forced-colors: active) { .cy-popover, .cy-dialog, .cy-details { border-color: CanvasText; } }
+}
+@layer cy.components {
+  .cy-meter { width: 100%; height: .45rem; overflow: hidden; border: none; border-radius: 0; accent-color: var(--cy-accent); }
+  .cy-meter::-webkit-progress-bar { background: var(--cy-bg); }
+  .cy-meter::-webkit-progress-value { background: var(--cy-accent); }
+  .cy-meter::-moz-progress-bar { background: var(--cy-accent); }
+  .cy-table-wrap { overflow-x: auto; }
+  .cy-table { width: 100%; border-collapse: collapse; text-align: left; font: .75rem/1.65 var(--cy-mono); }
+  .cy-table th, .cy-table td { padding: .7rem .6rem; border-block-end: 1px solid var(--cy-frame); white-space: nowrap; }
+  .cy-table th { color: var(--cy-muted); font-weight: 550; }
+  /* No implicit last-column accent: table columns may contain any kind of data. */
+  .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
+  .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
+  .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
+  .cy-status--success { color: var(--cy-success); }
+  .cy-status--warning { color: var(--cy-warning); }
+  .cy-status--danger { color: var(--cy-danger); }
+  @media (forced-colors: active) {
+    .cy-status::before { border: 1px solid currentColor; }
+  }
+}
+/* Portable app/marketing compositions, inspired by patterns rather than code from UI kits.
+   A named container prevents viewport-dependent components. All styles stay opt-in. */
+@layer cy.components {
+  .cy-region { container-name: cy-region; container-type: inline-size; min-width: 0; }
+  .cy-split { display: grid; gap: var(--cy-space-3); min-width: 0; }
+  .cy-stats { display: grid; gap: var(--cy-space-2); grid-template-columns: minmax(0, 1fr); }
+  .cy-stat { padding: var(--cy-space-3); border: 1px solid var(--cy-frame); background: var(--cy-surface); min-width: 0; }
+  .cy-stat-label { color: var(--cy-muted); font: 650 .73rem/1.4 var(--cy-mono); letter-spacing: .05em; }
+  .cy-stat-value { margin: .5rem 0 0; color: var(--cy-text); font: 650 clamp(1.7rem, 4vw, 2.4rem)/1.1 var(--cy-mono); font-variant-numeric: tabular-nums; }
+  .cy-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--cy-space-2); }
+  .cy-empty { display: grid; justify-items: center; align-content: center; text-align: center; gap: var(--cy-space-2); min-height: 12rem; padding: var(--cy-space-4); border: 1px dashed var(--cy-frame); background: var(--cy-surface); }
+  .cy-empty > :where(h2, h3, p) { margin-block: 0; }
+  .cy-pricing { display: grid; gap: var(--cy-space-2); grid-template-columns: minmax(0, 1fr); }
+  .cy-price-card { display: flex; flex-direction: column; gap: var(--cy-space-3); min-width: 0; border: 1px solid var(--cy-frame); padding: var(--cy-space-4); background: var(--cy-surface); }
+  .cy-price-card[data-cy-featured] { border-color: var(--cy-accent); background: linear-gradient(155deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); }
+  .cy-price-card > .cy-button { margin-block-start: auto; }
+  .cy-price-value { margin: 0; color: var(--cy-text); font: 650 clamp(2rem, 5vw, 3rem)/1.1 var(--cy-mono); font-variant-numeric: tabular-nums; }
+  .cy-price-value small { color: var(--cy-muted); font: 400 .9rem var(--cy-font); }
+  .cy-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--cy-space-3); color: var(--cy-muted); }
+  .cy-feature-list li::marker { color: var(--cy-accent); }
+  @container cy-region (min-width: 31rem) {
+    .cy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @container cy-region (min-width: 43rem) {
+    .cy-split { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+    .cy-pricing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @container cy-region (min-width: 55rem) {
+    .cy-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (forced-colors: active) {
+    .cy-stat, .cy-empty, .cy-price-card, .cy-price-card[data-cy-featured] { border-color: CanvasText; }
+  }
+}
+/* Optional semantic mode. Requires core.css and .cy-root ancestor. */
+@layer cy.semantic {
+  .cy-semantic :where(button:not([class]), input[type="submit"]:not([class]), input[type="button"]:not([class]), input[type="reset"]:not([class])) {
+    display: inline-flex; justify-content: center; align-items: center; gap: .5rem;
+    min-height: var(--cy-control-height); padding: .65rem 1rem;
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: var(--cy-surface-hi); color: var(--cy-text);
+    cursor: pointer; font: 650 .81rem/1.2 var(--cy-mono);
+  }
+  .cy-semantic :where(button:not([class]), input[type="submit"]:not([class])):hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
+  .cy-semantic :where(input:not([class]):is(:not([type]), [type="text"], [type="email"], [type="search"], [type="password"], [type="url"], [type="tel"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]), select:not([class]), textarea:not([class])) {
+    width: 100%; min-height: var(--cy-control-height); padding: .7rem .8rem;
+    border: 1px solid var(--cy-frame); background: var(--cy-bg); border-radius: var(--cy-radius); color: var(--cy-text);
+  }
+  .cy-semantic :where(input:not([class]), select:not([class]), textarea:not([class])):where(:user-invalid, [aria-invalid="true"]) { border-color: var(--cy-danger); }
+  .cy-semantic :where(input[type="range"]:not([class])) { width: 100%; }
+  .cy-semantic :where(input:not([class]), textarea:not([class]))::placeholder { color: var(--cy-muted); opacity: 1; }
+  .cy-semantic :where(input[type="checkbox"]:not([class]), input[type="radio"]:not([class]), input[type="range"]:not([class])) { accent-color: var(--cy-accent); }
+  .cy-semantic :where(label:not([class])) { display: grid; gap: .35rem; font-weight: 600; font-size: .9rem; }
+  .cy-semantic :where(fieldset:not([class])) { border: 1px solid var(--cy-frame); min-width: 0; padding: 1rem; }
+  .cy-semantic :where(legend:not([class])) { padding-inline: .4rem; }
+  .cy-semantic :where(article:not([class])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--cy-frame); background: var(--cy-surface); min-width: 0; }
+  .cy-semantic :where(table:not([class])) { width: 100%; border-collapse: collapse; text-align: left; }
+  .cy-semantic :where(th:not([class]), td:not([class])) { padding: .65rem; border-bottom: 1px solid var(--cy-frame); }
+  .cy-semantic :where(th:not([class])) { color: var(--cy-muted); }
+  .cy-semantic :where(details:not([class])) { padding-block: .75rem; border-block-start: 1px solid var(--cy-frame); }
+  .cy-semantic :where(summary:not([class])) { cursor: pointer; font-weight: 600; }
+  .cy-semantic :where(blockquote:not([class])) { margin-inline: 0; padding: .5rem 1rem; border-inline-start: 2px solid var(--cy-accent); color: var(--cy-muted); }
+  .cy-semantic :where(hr:not([class])) { border: 0; border-top: 1px solid var(--cy-frame); }
+  .cy-semantic :where(code:not([class])) { font-family: var(--cy-mono); color: var(--cy-accent); }
+  @media (forced-colors: active) {
+    .cy-semantic :where(button:not([class]), input:not([class]), select:not([class]), textarea:not([class]), article:not([class]), fieldset:not([class])) { border-color: CanvasText; }
+  }
+}
+/* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
+   These classes are separate from the small, stable core API. */
+@layer cy.recipes {
+  /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
+  .cy-app-shell {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    min-height: 100svh; min-width: 0;
+  }
+  .cy-app-rail {
+    display: flex; flex-direction: column; gap: var(--cy-space-2);
+    padding: var(--cy-space-3); border-block-end: 1px solid var(--cy-frame);
+    background: var(--cy-surface); color: var(--cy-text);
+  }
+  .cy-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+  .cy-app-nav a {
+    display: block; padding: .55rem .75rem; border-radius: var(--cy-radius);
+    color: var(--cy-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
+  }
+  .cy-app-nav a:where(:hover, [aria-current="page"]) {
+    color: var(--cy-accent); background: var(--cy-accent-soft);
+  }
+  .cy-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--cy-accent); }
+  .cy-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+  .cy-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
+  .cy-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cy-space-2); }
+  .cy-app-card {
+    min-width: 0; padding: var(--cy-space-3);
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: var(--cy-surface); color: var(--cy-text);
+  }
+  .cy-app-card > :first-child { margin-block-start: 0; }
+  .cy-app-card > :last-child { margin-block-end: 0; }
+  .cy-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
+  .cy-app-card-header > :first-child { margin: 0; }
+  .cy-activity-list { list-style: none; margin: 0; padding: 0; }
+  .cy-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--cy-frame); }
+  .cy-activity-list li:last-child { border-block-end: 0; }
+  /* Business/marketing: typography and hierarchy without forcing a dark look. */
+  .cy-site-hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: radial-gradient(ellipse at 80% 20%, var(--cy-accent-soft), transparent 56%), var(--cy-surface);
+    color: var(--cy-text);
+    padding: clamp(2rem, 6vw, 5rem);
+  }
+  .cy-site-hero::before {
+    content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
+    width: min(9rem, 40%); height: 3px; background: var(--cy-accent); pointer-events: none;
+  }
+  .cy-site-heading { font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
+  .cy-site-heading strong { color: var(--cy-accent); }
+  .cy-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--cy-space-2); }
+  .cy-feature-card { min-width: 0; padding: var(--cy-space-4); background: var(--cy-surface); color: var(--cy-text); border: 1px solid var(--cy-frame); border-radius: var(--cy-radius); }
+  .cy-feature-card > :first-child { margin-block-start: 0; }
+  .cy-feature-card > :last-child { margin-block-end: 0; }
+  .cy-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--cy-space-3); padding: var(--cy-space-4); background: var(--cy-accent-soft); color: var(--cy-text); border-inline-start: 3px solid var(--cy-accent); }
+  /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
+  .cy-terminal {
+    --cy-terminal-bg: #0b1625;
+    --cy-terminal-fg: #e6f4fa;
+    --cy-terminal-muted: #b6c8d8;
+    --cy-terminal-prompt: #85e7cf;
+    border: 1px solid var(--cy-frame-strong); border-radius: var(--cy-radius);
+    background: var(--cy-terminal-bg); color: var(--cy-terminal-fg);
+    font: 400 .85rem/1.65 var(--cy-mono); min-width: 0; overflow: hidden;
+  }
+  .cy-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--cy-terminal-muted); font-size: .73rem; }
+  .cy-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
+  .cy-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .cy-terminal-prompt { color: var(--cy-terminal-prompt); }
+  .cy-terminal-muted { color: var(--cy-terminal-muted); }
+  .cy-terminal-command { color: #f9dfad; }
+  .cy-terminal-success { color: #a1f1bf; }
+  /* Composable surface geometry; themes control colors, modifiers control shape. */
+  .cy-frame--precision { position: relative; border: 1px solid var(--cy-frame-strong); }
+  .cy-frame--precision::before {
+    content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
+    width: 3.5rem; height: 2px; background: var(--cy-accent); pointer-events: none;
+  }
+  .cy-frame--industrial { border-inline-start: 3px solid var(--cy-accent); background: linear-gradient(110deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); color: var(--cy-text); }
+  .cy-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+  @media (min-width: 53rem) {
+    .cy-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
+    .cy-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--cy-frame); }
+    .cy-app-nav { display: grid; }
+  }
+  @media (forced-colors: active) {
+    .cy-app-card, .cy-site-hero, .cy-feature-card, .cy-terminal, .cy-frame--precision, .cy-frame--industrial { border-color: CanvasText; }
+    .cy-frame--precision::before, .cy-site-hero::before { display: none; }
+    .cy-terminal { forced-color-adjust: auto; }
+  }
+}
+/* Optional, static cinematic effects. Never animated or loaded by core. */
+@layer cy.effects {
+  .cy-grid-effect {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--cy-accent), transparent 95%) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--cy-accent), transparent 95%) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+  }
+  .cy-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--cy-accent), transparent 88%); }
+  /* Tron-like technical horizon: low-opacity CSS gradients, not a canvas. */
+  .cy-horizon {
+    background-image:
+      linear-gradient(to bottom, transparent 45%, var(--cy-bg) 100%),
+      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      radial-gradient(ellipse at 70% 20%, var(--cy-accent-soft), transparent 55%);
+  }
+  /* Blade Runner-like mood without images, remote assets, blur or movement. */
+  .cy-atmosphere {
+    background-image:
+      radial-gradient(ellipse at 85% 10%, var(--cy-accent-soft), transparent 55%),
+      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--cy-accent-2), transparent 94%), transparent 60%);
+    background-color: var(--cy-bg);
+  }
+  .cy-scanlines { position: relative; isolation: isolate; }
+  .cy-scanlines::after {
+    content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
+    background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
+  }
+  @media (forced-colors: active) {
+    .cy-scanlines::after { display: none; }
+    .cy-horizon, .cy-atmosphere { background-image: none; }
+  }
+}
+/* Optional, finite utilities: no generator, JS runtime, resets or network assets.
+   Load AFTER cyberline.core.css, or use cyberline.all.css. */
+@layer cy.components {
+  .cy-root :where(.cy-u-flex) { display: flex; min-width: 0; }
+  .cy-root :where(.cy-u-grid) { display: grid; min-width: 0; }
+  .cy-root :where(.cy-u-stack) { display: grid; gap: var(--cy-space-2); min-width: 0; }
+  .cy-root :where(.cy-u-inline) { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cy-space-2); }
+  .cy-root :where(.cy-u-center) { align-items: center; justify-content: center; }
+  .cy-root :where(.cy-u-between) { justify-content: space-between; }
+  .cy-root :where(.cy-u-gap-1) { gap: var(--cy-space-1); }
+  .cy-root :where(.cy-u-gap-2) { gap: var(--cy-space-2); }
+  .cy-root :where(.cy-u-gap-3) { gap: var(--cy-space-3); }
+  .cy-root :where(.cy-u-p-1) { padding: var(--cy-space-1); }
+  .cy-root :where(.cy-u-p-2) { padding: var(--cy-space-2); }
+  .cy-root :where(.cy-u-p-3) { padding: var(--cy-space-3); }
+  .cy-root :where(.cy-u-mt-1) { margin-block-start: var(--cy-space-1); }
+  .cy-root :where(.cy-u-mt-2) { margin-block-start: var(--cy-space-2); }
+  .cy-root :where(.cy-u-mt-3) { margin-block-start: var(--cy-space-3); }
+  .cy-root :where(.cy-u-sr-only) {
+    position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0);
+    white-space: nowrap; border: 0;
+  }
+}

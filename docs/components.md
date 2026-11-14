@@ -1,4 +1,4 @@
-# Cyberline CSS component and token contract
+# Syntyr CSS component and token contract
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
@@ -7,7 +7,7 @@ Status: **experimental v0.3-alpha**, not yet released to a package registry. All
 For the explicitly classed API (no automatic unclassed element styles):
 
 ```html
-<link rel="stylesheet" href="cyberline.core.css">
+<link rel="stylesheet" href="syntyr.core.css">
 <body class="cy-root cy-page" data-cy-theme="grid">
   <button class="cy-button cy-button--primary">Run</button>
 </body>
@@ -16,8 +16,8 @@ For the explicitly classed API (no automatic unclassed element styles):
 For Pico-like semantic markup, add the optional file **after** core and mark the subtree:
 
 ```html
-<link rel="stylesheet" href="cyberline.core.css">
-<link rel="stylesheet" href="cyberline.semantic.css">
+<link rel="stylesheet" href="syntyr.core.css">
+<link rel="stylesheet" href="syntyr.semantic.css">
 <section class="cy-semantic">
   <article>
     <label for="id">Operator <input id="id" name="id" required></label>
@@ -26,7 +26,7 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
 </section>
 ```
 
-For optional effects, load `cyberline.effects.css`. `cyberline.css` is the legacy-compatible core + effects entry point. `cyberline.all.css` combines everything (semantic styling still requires `.cy-semantic`). `cy-root` should wrap any themed subtree; nested `data-cy-theme` overrides color tokens.
+For optional effects, load `syntyr.effects.css`. `syntyr.css` is the legacy-compatible core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.cy-semantic`). `cy-root` should wrap any themed subtree; nested `data-cy-theme` overrides color tokens.
 
 ## Components
 
@@ -109,7 +109,7 @@ For invalid form controls, associate error text through native labeling and `ari
 
 ## v0.3 compositional patterns (no build step)
 
-The following are ordinary CSS classes in `cyberline.core.css`:
+The following are ordinary CSS classes in `syntyr.core.css`:
 
 | Class | Purpose |
 | --- | --- |
@@ -133,7 +133,7 @@ See [theme customization and token overrides](theme-customization.md), [MIT comp
 
 ## Optional SaaS, business and CLI compositions (development branch)
 
-Load `cyberline.core.css` first and `cyberline.recipes.css` second. The core size budget is unchanged.
+Load `syntyr.core.css` first and `syntyr.recipes.css` second. The core size budget is unchanged.
 
 | Context | Optional classes |
 | --- | --- |

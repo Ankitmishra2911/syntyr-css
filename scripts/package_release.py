@@ -1,4 +1,4 @@
-"""Create a deterministic, minimal Cyberline CSS release without third-party tools.
+"""Create a deterministic, minimal SYNTYR CSS release without third-party tools.
 
 Only allowlisted public MIT artifacts are packaged; business drafts and development
 files are deliberately omitted. This script refuses to bundle stale compiled CSS.
@@ -14,6 +14,14 @@ FILES = (
     "LICENSE",
     "README.md",
     "docs/distribution.md",
+    "dist/syntyr.all.css",
+    "dist/syntyr.core.css",
+    "dist/syntyr.css",
+    "dist/syntyr.effects.css",
+    "dist/syntyr.semantic.css",
+    "dist/syntyr.recipes.css",
+    "dist/syntyr.utilities.css",
+    # Preserve legacy stylesheet paths in the archive.
     "dist/cyberline.all.css",
     "dist/cyberline.core.css",
     "dist/cyberline.css",
@@ -36,7 +44,7 @@ def package(output: Path) -> None:
         for relative in FILES:
             source = ROOT / relative
             contents = source.read_bytes()
-            info = ZipInfo(f"cyberline-css-{version}/{relative}", date_time=(1980, 1, 1, 0, 0, 0))
+            info = ZipInfo(f"syntyr-css-{version}/{relative}", date_time=(1980, 1, 1, 0, 0, 0))
             info.compress_type = ZIP_DEFLATED
             info.external_attr = (0o100644 << 16)
             archive.writestr(info, contents, compress_type=ZIP_DEFLATED, compresslevel=9)
@@ -47,6 +55,6 @@ if __name__ == "__main__":
     parser.add_argument("output", type=Path, nargs="?", help="output ZIP path")
     args = parser.parse_args()
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-    target = args.output or ROOT / "release" / f"cyberline-css-{version}.zip"
+    target = args.output or ROOT / "release" / f"syntyr-css-{version}.zip"
     package(target)
     print(f"Packaged {len(FILES)} files in {target}")

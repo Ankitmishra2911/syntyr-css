@@ -1,3 +1,4 @@
+/* Syntyr token contract: legacy cy-* custom properties stay stable. */
 @layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
 
 @layer cy.tokens {

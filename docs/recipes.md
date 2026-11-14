@@ -1,6 +1,6 @@
 # MIT-licensed composition recipes
 
-These original Cyberline recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see [the gallery](index.html), the [Grid console](../examples/console.html), and the [Noir pricing layout](../examples/pricing.html).
+These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see [the gallery](index.html), the [Grid console](../examples/console.html), and the [Noir pricing layout](../examples/pricing.html).
 
 ## 1. Responsive telemetry cards
 
@@ -68,7 +68,7 @@ This is a *visual composition*, not a live queue implementation. Preserve real l
 ## Token-only custom theme
 
 ```css
-/* Unlayered application CSS intentionally overrides Cyberline's layered tokens. */
+/* Unlayered application CSS intentionally overrides Syntyr's layered tokens. */
 .cy-root[data-cy-theme="custom"] {
   --cy-bg: #0b1019;
   --cy-surface: #192333;

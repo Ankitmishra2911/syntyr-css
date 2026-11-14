@@ -1,16 +1,32 @@
-## Unreleased — v0.3.0-alpha.3 candidate
+## Unreleased — v0.3.0-alpha.4 candidate
 
-- Add optional MIT CSS-only Vertigo admin skin and static preview, without changing Vertigo itself.
-- Add isolated Hugo docs proof and record static/Hugo/Zola tradeoffs; the live site remains unchanged.
-- Fix primary-action text disappearing under Chromium forced-colors using system colors and screenshot regressions.
-- Correct an ARIA group in the optional Vertigo preview and expand the browser and reflow matrices to eleven pages.
+- Integrate seven SYNTYR palettes with the published alpha.3 brand migration; preserve byte-identical legacy Cyberline CSS aliases.
+- Add finite optional utilities, seven-theme static comparison gallery and browser coverage.
+- Correct theme-boundary foreground/background/geometry inheritance and utility composition.
+- Fix unreadable primary-action labels in Chromium forced-colors and label the optional Vertigo groups semantically.
+- Record 11-page browser/reflow verification and 270 remaining inconclusive gradient-contrast element checks; actual zoom and screen-reader gates remain open.
 
-- Add four original palettes (Industrial, Terminal, Corporate, Minimal) with explicit dark/light native control schemes alongside Grid and Noir.
-- Provide an opt-in finite CSS utility module for layout, spacing and visually hidden accessibility text.
-- Publish a static seven-theme comparison gallery and documentation while retaining the existing MIT, no-runtime-JS contract.
-- Verify theme text/button contrast, nested selectors, reproducible bundles and release packaging in tests.
-- Address nested-theme foreground, background, and geometry inheritance plus utility precedence identified by PR review; add real-browser regression cases.
-- Prepare unreleased `v0.3.0-alpha.3` candidate with a ten-page, three-engine browser matrix and release evidence; retain the Studio SaaS/CLI/business work merged separately to main.
+## v0.3.0-alpha.3 (2026-11-14)
+
+- Rebrand the public project as **SYNTYR**, previously Cyberline CSS.
+- Add new `syntyr.*.css` distribution paths without removing byte-identical
+  `cyberline.*.css` legacy files or altering `cy-` selectors and tokens.
+- Update website, documentation, downloadable archives, CLI copy and code examples.
+- Record naming and trademark-clearance caveats; premium launch remains gated.
+
+## Unreleased
+
+- Add an original MIT CSS-only opt-in Vertigo admin skin and standalone HTML preview; keep the existing Vertigo application unmodified.
+- Build a separate Hugo v0.170.0 docs proof from canonical Markdown using filesystem mounts, with reproducible output/link checks.
+- Document the Hugo versus Zola tradeoff; do not migrate the live GitHub Pages site yet.
+
+## v0.3.0-alpha.2 (2026-11-14)
+
+- Fix narrow and enlarged-text horizontal overflow in layouts, buttons, panels, badges and long headings.
+- Add browser reflow regression suite and keep the MIT core free of runtime JavaScript.
+- Add voluntary developer feedback calls and document preliminary Cyberline name-risk review.
+
+- Verified WebKit in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
 - Documented zoom-test limitations and manual screen-reader follow-up.
 - Prepared a ten-interview design-partner pilot without claiming buyer commitments.
 
@@ -26,12 +42,6 @@
 - Enlarge the documentation guide link target following an axe-core WCAG 2.2 automated finding.
 - Give labeled telemetry and dashboard-preview groups explicit ARIA group semantics.
 - Retain zero runtime JavaScript, CSS bundle budgets and semantic HTML contracts.
-
-## v0.3.0-alpha.2 (2026-11-14)
-
-- Fix narrow and enlarged-text horizontal overflow in layouts, buttons, panels, badges and long headings.
-- Add browser reflow regression suite and keep the MIT core free of runtime JavaScript.
-- Add voluntary developer feedback calls and document preliminary Cyberline name-risk review.
 
 ## v0.3.0-alpha.1 (2026-11-14)
 

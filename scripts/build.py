@@ -21,16 +21,21 @@ def assemble(paths):
 
 def distributions():
     core = ('tokens.css', 'base.css') + COMPONENTS
-    return {
-        'cyberline.core.css': core,
-        'cyberline.semantic.css': ('semantic.css',),
-        'cyberline.recipes.css': ('recipes.css',),
-        'cyberline.effects.css': ('effects.css',),
-        'cyberline.utilities.css': ('utilities.css',),
-        # Original starter's import path remains valid; semantic mode stays opt-in.
-        'cyberline.css': core + ('effects.css',),
-        'cyberline.all.css': core + ('semantic.css', 'recipes.css', 'effects.css', 'utilities.css'),
+    primary = {
+        'syntyr.core.css': core,
+        'syntyr.semantic.css': ('semantic.css',),
+        'syntyr.recipes.css': ('recipes.css',),
+        'syntyr.effects.css': ('effects.css',),
+        'syntyr.utilities.css': ('utilities.css',),
+        'syntyr.css': core + ('effects.css',),
+        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'effects.css', 'utilities.css'),
     }
+    # Legacy paths are byte-for-byte equivalent to the SYNTYR distributions.
+    # Do not remove these aliases before an explicitly versioned breaking release.
+    legacy = {name.replace('syntyr', 'cyberline'): parts
+              for name, parts in primary.items()}
+    return {**primary, **legacy}
+
 
 def main():
     parser = argparse.ArgumentParser()

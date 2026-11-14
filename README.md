@@ -1,41 +1,43 @@
-# Cyberline CSS
+# SYNTYR CSS
 
-**Experimental v0.3.0-alpha.3 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
+**Experimental v0.3.0-alpha.4 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
 
+- **Renamed from Cyberline CSS.** New imports use `syntyr.*.css`; old `cyberline.*.css` files and all `cy-` selectors remain compatible. See [migration guide](docs/brand-migration.md).
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
-- **Seven CSS themes:** Grid, Noir, Studio, Industrial, Terminal, Corporate and Minimal share the same component contract.
+- **Seven interchangeable palettes:** Grid, Noir, Studio, Industrial, Terminal, Corporate and Minimal (the four newest are unreleased).
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.cy-semantic` mode.
-- **Modular:** core, semantic, recipes, effects and optional finite utilities; includes convenience bundles.
+- **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
 
 ## Live gallery and installation
 
-- [Live website](https://dporkka.github.io/cyberline-css/)
-- [Component gallery](https://dporkka.github.io/cyberline-css/docs/)
-- [Latest published v0.3.0-alpha.2 (Studio/CLI release)](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2)
+- [Live website](https://dporkka.github.io/syntyr-css/)
+- [Component gallery](https://dporkka.github.io/syntyr-css/docs/)
+- [Versioned release downloads](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.3)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
-- [Public design-partner review issue (seeking 10 participants)](https://github.com/dporkka/cyberline-css/issues/3)
+- [Public design-partner review issue (seeking 10 participants)](https://github.com/dporkka/syntyr-css/issues/3)
+- [Preliminary SYNTYR brand-risk review (NOT clearance)](business/syntyr-trademark-screen.md)
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
-- [Seven-theme CSS comparison gallery](examples/themes.html)
-- [Optional Vertigo admin demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
-- [Hugo/Zola/static docs decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
-- [Unreleased alpha.3 verification and remaining gates](RELEASE_CHECKS_ALPHA3.md)
-- [Alpha.3 accessibility element-level review and outstanding manual gates](docs/accessibility-alpha3-review.md)
+- [Seven-theme comparison gallery (unreleased)](examples/themes.html)
+- [Alpha.4 browser/accessibility release-candidate evidence](RELEASE_CHECKS_ALPHA4.md)
+- [Element-level contrast and manual accessibility review](docs/accessibility-alpha4-review.md)
+- [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
+- [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
 
-Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
+Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
 ## Start in 10 seconds
 
-Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). Compare [all seven palettes](examples/themes.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
+Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
 
 ```html
-<link rel="stylesheet" href="cyberline.core.css">
+<link rel="stylesheet" href="syntyr.core.css">
 <section class="cy-root" data-cy-theme="grid">
   <article class="cy-panel cy-panel--cut">
     <span class="cy-badge">SYSTEM ONLINE</span>
@@ -45,11 +47,11 @@ Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](e
 </section>
 ```
 
-For semantic mode, add `cyberline.semantic.css` **after** core:
+For semantic mode, add `syntyr.semantic.css` **after** core:
 
 ```html
-<link rel="stylesheet" href="cyberline.core.css">
-<link rel="stylesheet" href="cyberline.semantic.css">
+<link rel="stylesheet" href="syntyr.core.css">
+<link rel="stylesheet" href="syntyr.semantic.css">
 <div class="cy-root cy-semantic" data-cy-theme="noir">
   <article>
     <label for="operator">Operator<input id="operator" required></label>
@@ -58,32 +60,32 @@ For semantic mode, add `cyberline.semantic.css` **after** core:
 </div>
 ```
 
-`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` among `grid`, `noir`, `studio`, `industrial`, `terminal`, `corporate` and `minimal`, including nested themed areas.
+`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` between `grid`, `noir` and `studio`, including nested themed areas.
 
 ## Build outputs
 
 | File | Description |
 | --- | --- |
-| `dist/cyberline.core.css` | Tokens, scoped base, components (default choice) |
-| `dist/cyberline.semantic.css` | Optional semantic HTML styling (load after core) |
-| `dist/cyberline.effects.css` | Optional, static decorative effects |
-| `dist/cyberline.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
-| `dist/cyberline.utilities.css` | Optional finite layout, spacing and accessibility utilities |
+| `dist/syntyr.core.css` | Tokens, scoped base, components (default choice) |
+| `dist/syntyr.semantic.css` | Optional semantic HTML styling (load after core) |
+| `dist/syntyr.effects.css` | Optional, static decorative effects |
+| `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
+| `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually-hidden helpers (also `cyberline.utilities.css`) |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
-| `dist/cyberline.css` | Backwards-compatible core + effects bundle |
-| `dist/cyberline.all.css` | All modules (semantic still opt-in by class) |
+| `dist/syntyr.css` | Backwards-compatible core + effects bundle |
+| `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/utilities.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites
 
-Use `data-cy-theme="studio"` for a neutral, professional light theme. Grid, Noir, Industrial and Terminal offer dark palettes; Corporate and Minimal are additional light options. The theme changes colors, while optional `cy-frame--precision`, `cy-frame--industrial` and `cy-frame--soft` classes control visual geometry independently.
+Use `data-cy-theme="studio"` for a neutral, professional light theme. The original dark Grid and Noir palettes remain available. The theme changes colors, while optional `cy-frame--precision`, `cy-frame--industrial` and `cy-frame--soft` classes control visual geometry independently.
 
-For production-oriented examples, load `cyberline.core.css` **then** `cyberline.recipes.css` for responsive application shells (`cy-app-shell`), business landing layouts (`cy-site-hero`) and browser terminal panels (`cy-terminal`). Continue to use real headings, tables, labels, links and forms. The recipes provide layout and presentation, not authentication, data fetching, filtering or backend actions.
+For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipes.css` for responsive application shells (`cy-app-shell`), business landing layouts (`cy-site-hero`) and browser terminal panels (`cy-terminal`). Continue to use real headings, tables, labels, links and forms. The recipes provide layout and presentation, not authentication, data fetching, filtering or backend actions.
 
 **Native CLI apps cannot consume CSS.** Instead, use `terminal/palettes.json` with Go, Rust, Python or another CLI implementation to define ANSI 16-color palettes and foreground/background preferences. See the [stdlib Python demonstration](examples/ansi_cli.py) and [integration guide](docs/saas-cli-business.md). Respect `NO_COLOR`, TTY detection and user terminal preferences.
 
-All additions are MIT licensed and do not change the core runtime dependency contract. These development-branch enhancements are **not part of the published v0.3.0-alpha.2 release** until a new release is cut.
+All additions are MIT licensed and do not change the core runtime dependency contract. The Studio theme, recipes and CLI palettes are included in the v0.3.0-alpha.3 release.
 
 ## Development and verification
 
@@ -99,6 +101,7 @@ Chromium browser tests use Playwright (a **dev-only optional tool**) and run wit
 ```sh
 python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
+python3 tests/reflow_test.py --browsers chromium firefox webkit # enlarged-text reflow stress check
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js # dev-only checker; see docs/accessibility.md
 ```
 
@@ -125,11 +128,11 @@ See [LICENSE](LICENSE).
 
 ## Business model: open source stays open source
 
-**The entire current repository (including core, themes, examples, docs and tests) is MIT-licensed.** The design system is not a crippled free tier. A future business can sell **separately authored premium page templates and design kits**, plus optional custom integrations. The premium template source, if created, would ship separately with a commercial license; any embedded MIT Cyberline core retains MIT rights.
+**The entire current repository (including core, themes, examples, docs and tests) is MIT-licensed.** The design system is not a crippled free tier. A future business can sell **separately authored premium page templates and design kits**, plus optional custom integrations. The premium template source, if created, would ship separately with a commercial license; any embedded MIT Syntyr core retains MIT rights.
 
 - [Business strategy, product scope and price tests](business/strategy.md)
 - [Proposed premium Console Kit scope (not on sale)](business/console-kit-spec.md)
 - [Draft license boundary for *future* premium assets](business/premium-license-draft.md) — **not an operative contract**
 - [Validation and go/no-go plan](business/validation-plan.md)
 
-No paid kit has been shipped or put up for sale in this repository. No billing or license-key code is included. The Grid and Noir visual themes are original, not officially affiliated with any entertainment franchise. **Cyberline is a provisional name**, pending brand clearance.
+No paid kit has been shipped or put up for sale in this repository. No billing or license-key code is included. The Grid and Noir visual themes are original, not officially affiliated with any entertainment franchise. **SYNTYR is the selected but not trademark-cleared name**, pending documented brand clearance. The preliminary risk screen is not authorization for paid branding.

@@ -1,4 +1,4 @@
-# Cyberline CSS accessibility validation
+# Syntyr CSS accessibility validation
 
 **Status:** experimental alpha; not a WCAG certification or professional audit.
 
@@ -94,7 +94,7 @@ provenance if incorporating it into build infrastructure.
 6. Validate both the default Grid/Noir palettes and any project-specific
    token overrides for text contrast and non-text essential indicators.
 
-## v0.3.0-alpha.3 candidate regression evidence (2026-11-14)
+## v0.3.0-alpha.4 candidate regression evidence (2026-11-14)
 
 The latest matrix covers eleven pages, including the seven-theme gallery,
 Studio SaaS, business, browser-terminal and optional Vertigo admin examples.
@@ -110,4 +110,4 @@ pages, with **nine inconclusive rule results affecting 270 elements**, primarily
 make automated color contrast indeterminate. Human inspection is still required.
 
 For reproducible build sizes, distribution checks and remaining release gates,
-see [the alpha.3 candidate evidence](../RELEASE_CHECKS_ALPHA3.md).
+see [the alpha.4 candidate evidence](../RELEASE_CHECKS_ALPHA4.md).

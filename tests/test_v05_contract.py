@@ -95,7 +95,8 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
                 self.assertNotIn("." + cls, (ROOT / "dist/cyberline.core.css").read_text())
         self.assertNotIn("@import", utilities)
         self.assertNotIn("javascript", utilities.lower())
-        self.assertIn("'cyberline.utilities.css'", (ROOT / "scripts/build.py").read_text())
+        self.assertIn("'syntyr.utilities.css'", (ROOT / "scripts/build.py").read_text())
+        self.assertIn("replace('syntyr', 'cyberline')", (ROOT / "scripts/build.py").read_text())
         self.assertLess(utilities.index(".cy-u-center"), utilities.index(".cy-u-between"),
                         "between must win over centered justification when both are present")
 
@@ -109,7 +110,7 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         parser.feed(demo)
         self.assertTrue(set(THEMES) <= parser.themes)
         self.assertEqual(parser.scripts, 0)
-        self.assertIn("cyberline.utilities.css", demo)
+        self.assertIn("syntyr.utilities.css", demo)
         self.assertNotIn('class="cy-grid" aria-label=', demo, "unroled div should not have an aria-label")
         self.assertNotIn('<button type="button"', demo, "gallery controls must perform navigation")
         self.assertEqual(demo.count('href="../docs/#components"'), 7)
@@ -117,7 +118,7 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         guide = (ROOT / "docs/theme-customization.md").read_text()
         for theme in THEMES:
             self.assertIn("data-cy-theme=\"" + theme + "\"", guide)
-        self.assertIn("cyberline.utilities.css", guide)
+        self.assertIn("syntyr.utilities.css", guide)
 
 
 if __name__ == "__main__":
