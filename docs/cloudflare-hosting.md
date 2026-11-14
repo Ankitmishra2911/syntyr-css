@@ -31,15 +31,16 @@ Worker runtime; use Pages when its Git integration is already in place.
 For a Git-connected static deployment, use:
 
 - Repository: `dporkka/syntyr-css`, production branch `main`
-- Build command: `python3 scripts/build_cloudflare_site.py`
+- Build command: `python3 scripts/build.py --check && python3 -m unittest discover -s tests -q && python3 scripts/build_cloudflare_site.py`
 - Output directory: `.cloudflare-public`
 - Project root: repository root
 - No server-side functions and no install command
 
 Cloudflare Pages project: `syntyr-css`, configured for `main` and the
 `.cloudflare-public` output, with hostname `syntyr-css.pages.dev`. This
-project uses Git-connected builds; a successful deployment must be verified
-before calling the hostname live.
+project uses Git-connected builds, and its live production deployment was
+verified with HTTP 200 responses for public pages/assets and HTTP 404 for
+non-public paths. Cloudflare builds run the Python test suite as a release gate.
 
 Configure a custom domain only after DNS and trademark/name clearance.
 Keep the existing GitHub Pages site as a rollback until production checks pass.
