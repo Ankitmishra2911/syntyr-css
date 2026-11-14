@@ -7,6 +7,15 @@
 - Add a free original Noir resource-index screen and theme-customization guide.
 - Publish an honest $59 Console Kit concept and feedback entry point without taking payment.
 - Fix duplicate gallery meta description and invalid ARIA on palette swatches; add browser-matrix and optional axe-core verification scripts.
+- Add professional light Studio theme alongside existing Grid and Noir.
+- Add separate, opt-in CSS recipes for SaaS application shells, business pages and browser terminals.
+- Export ANSI 16-color palettes and a stdlib Python CLI example for native terminal apps (CSS itself cannot style terminals).
+- Add original MIT demo pages for SaaS, business and terminal contexts, and explicit table status styling.
+- Add optional static horizon/atmosphere effects and enhance the Grid/Noir demos without continuous animation.
+- Fix nested Studio foreground inheritance, CLI ANSI contrast and Windows VT detection; expand browser and axe page coverage.
+- Enlarge the documentation guide link target following an axe-core WCAG 2.2 automated finding.
+- Give labeled telemetry and dashboard-preview groups explicit ARIA group semantics.
+- Retain zero runtime JavaScript, CSS bundle budgets and semantic HTML contracts.
 
 ## v0.3.0-alpha.1 (2026-11-14)
 

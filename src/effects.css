@@ -1,4 +1,4 @@
-/* Optional static cyberpunk effects. No paints or animations run by default. */
+/* Optional, static cinematic effects. Never animated or loaded by core. */
 @layer cy.effects {
   .cy-grid-effect {
     background-image:
@@ -7,10 +7,28 @@
     background-size: 2rem 2rem;
   }
   .cy-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--cy-accent), transparent 88%); }
+  /* Tron-like technical horizon: low-opacity CSS gradients, not a canvas. */
+  .cy-horizon {
+    background-image:
+      linear-gradient(to bottom, transparent 45%, var(--cy-bg) 100%),
+      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      radial-gradient(ellipse at 70% 20%, var(--cy-accent-soft), transparent 55%);
+  }
+  /* Blade Runner-like mood without images, remote assets, blur or movement. */
+  .cy-atmosphere {
+    background-image:
+      radial-gradient(ellipse at 85% 10%, var(--cy-accent-soft), transparent 55%),
+      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--cy-accent-2), transparent 94%), transparent 60%);
+    background-color: var(--cy-bg);
+  }
   .cy-scanlines { position: relative; isolation: isolate; }
   .cy-scanlines::after {
     content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
     background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
   }
-  @media (forced-colors: active) { .cy-scanlines::after { display: none; } }
+  @media (forced-colors: active) {
+    .cy-scanlines::after { display: none; }
+    .cy-horizon, .cy-atmosphere { background-image: none; }
+  }
 }

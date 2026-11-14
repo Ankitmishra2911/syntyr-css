@@ -39,7 +39,9 @@ class SiteReleaseTests(unittest.TestCase):
         for source in (ROOT / "index.html", ROOT / "docs/index.html",
                        ROOT / "examples/console.html", ROOT / "examples/landing.html",
                        ROOT / "examples/pricing.html", ROOT / "examples/resources.html",
-                       ROOT / "docs/console-kit.html"):
+                       ROOT / "docs/console-kit.html",
+                       ROOT / "examples/saas.html", ROOT / "examples/business.html",
+                       ROOT / "examples/terminal.html"):
             with self.subTest(page=source.relative_to(ROOT)):
                 parser = LinkedAssets()
                 parser.feed(source.read_text(encoding="utf-8"))
@@ -67,6 +69,7 @@ class SiteReleaseTests(unittest.TestCase):
                 for filename in ("LICENSE", "README.md", "dist/cyberline.core.css",
                                  "dist/cyberline.css", "dist/cyberline.semantic.css",
                                  "dist/cyberline.effects.css", "dist/cyberline.all.css",
+                                 "dist/cyberline.recipes.css", "terminal/palettes.json",
                                  "docs/distribution.md"):
                     self.assertIn(prefix + filename, names)
                 self.assertFalse(any("business/" in entry for entry in names))
