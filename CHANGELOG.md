@@ -2,7 +2,7 @@
 
 - Add a free original Noir resource-index screen and theme-customization guide.
 - Publish an honest $59 Console Kit concept and feedback entry point without taking payment.
-- Fix duplicate gallery meta description and add a browser-matrix verification script.
+- Fix duplicate gallery meta description and invalid ARIA on palette swatches; add browser-matrix and optional axe-core verification scripts.
 
 ## v0.3.0-alpha.1 (2026-11-14)
 

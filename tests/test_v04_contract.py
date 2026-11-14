@@ -43,6 +43,8 @@ class V04Contract(unittest.TestCase):
         metadata = MetadataParser()
         metadata.feed(page)
         self.assertEqual(len(metadata.descriptions), 1, "one non-conflicting SEO meta description")
+        self.assertIn('role="group" aria-label="Grid palette"', page)
+        self.assertIn('role="group" aria-label="Noir palette"', page)
 
     def test_commercial_preview_is_truthful_and_not_a_checkout(self):
         page = (ROOT / "docs/console-kit.html").read_text(encoding="utf-8")
