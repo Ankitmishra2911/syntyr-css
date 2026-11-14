@@ -12,3 +12,7 @@ release/
 experiments/hugo/public/
 experiments/hugo/resources/
 experiments/hugo/.hugo_build.lock
+
+# Ship compiled CSS with the source; override developer-global dist/ ignores.
+!dist/
+!dist/*.css

@@ -1,4 +1,4 @@
-# Cyberline CSS accessibility validation
+# Syntyr CSS accessibility validation
 
 **Status:** experimental alpha; not a WCAG certification or professional audit.
 

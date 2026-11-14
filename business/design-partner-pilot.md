@@ -1,7 +1,7 @@
-# Cyberline Console Kit — 10-interview design-partner pilot
+# Syntyr Console Kit — 10-interview design-partner pilot
 
 **Status: recruiting infrastructure prepared; no prospects contacted yet.**
-A [public invitation is posted](https://github.com/dporkka/cyberline-css/issues/3), but no actual participants have been recruited. This is a zero-budget qualitative validation experiment, not a marketing
+A [public invitation is posted](https://github.com/dporkka/syntyr-css/issues/3), but no actual participants have been recruited. This is a zero-budget qualitative validation experiment, not a marketing
 automation or a promise to ship premium assets. Core CSS, Grid and Noir themes,
 the full component library, and the free examples remain MIT-licensed.
 
@@ -21,7 +21,7 @@ not purchase evidence.
 
 ## Recruitment scope
 
-Public review issue: https://github.com/dporkka/cyberline-css/issues/3
+Public review issue: https://github.com/dporkka/syntyr-css/issues/3
 
 
 Use the ten **uncontacted** slots in
@@ -45,14 +45,14 @@ Good first channels:
 
 > I'm testing a tiny, MIT-licensed, zero-runtime-JS CSS design system for
 > dashboards with Grid/Noir themes. Two original HTML screens are free:
-> https://dporkka.github.io/cyberline-css/examples/console.html and
-> https://dporkka.github.io/cyberline-css/examples/resources.html.
+> https://dporkka.github.io/syntyr-css/examples/console.html and
+> https://dporkka.github.io/syntyr-css/examples/resources.html.
 > I'm looking for 10 developers building real SaaS or internal tools to review
 > the markup and tell me which *complete screens* are genuinely time-consuming.
 > I'm also testing whether a separately authored eight-screen kit might be
 > worth $59 once built. It is not on sale. Interested in giving a 15-minute
 > critique? You can reply via
-> https://github.com/dporkka/cyberline-css/issues .
+> https://github.com/dporkka/syntyr-css/issues .
 
 ## One-to-one message, only for an appropriate existing relationship
 

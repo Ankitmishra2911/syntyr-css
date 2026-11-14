@@ -1,16 +1,16 @@
 # Advanced frames and terminal presentation
 
-These are original, MIT-licensed Cyberline CSS components. They do not replicate entertainment franchise assets or require JavaScript.
+These are original, MIT-licensed SYNTYR CSS components. They do not replicate entertainment franchise assets or require JavaScript.
 
 ## Installation
 
 Load only the modules you need. Advanced geometry is a separate file so the small core stays within its 5 KiB gzip budget:
 
 ```html
-<link rel="stylesheet" href="/css/cyberline.core.css">
-<link rel="stylesheet" href="/css/cyberline.geometry.css">
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.geometry.css">
 <!-- Only for the optional application/terminal layouts: -->
-<link rel="stylesheet" href="/css/cyberline.recipes.css">
+<link rel="stylesheet" href="/css/syntyr.recipes.css">
 ```
 
 The all-in-one stylesheet includes geometry and recipes already. Do not load it alongside the individual modules.
@@ -50,7 +50,7 @@ In forced-colors mode, decorative pseudo-elements disappear and a visible native
 
 ## Browser terminal
 
-Load `cyberline.recipes.css` for the existing `.cy-terminal` base and the additional presentation classes:
+Load `syntyr.recipes.css` for the existing `.cy-terminal` base and the additional presentation classes:
 
 | Class | Role |
 | --- | --- |

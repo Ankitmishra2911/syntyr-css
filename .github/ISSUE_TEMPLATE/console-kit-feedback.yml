@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        **No sale or preorder is being taken.** Cyberline Core and both themes remain MIT-licensed and free. The proposed commercial kit would contain additional, separately authored page templates.
+        **No sale or preorder is being taken.** Syntyr Core and both themes remain MIT-licensed and free. The proposed commercial kit would contain additional, separately authored page templates.
   - type: dropdown
     id: intended-stack
     attributes:

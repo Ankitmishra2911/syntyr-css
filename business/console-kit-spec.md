@@ -1,4 +1,4 @@
-# Cyberline Console Kit — proposed premium product specification
+# Syntyr Console Kit — proposed premium product specification
 
 **Status: private prototype built, not for sale or accepting orders.** The private preview contains eight original screen types × Grid, Noir and Studio (24 generated variants), but no operative commercial license, checkout, customer distribution or validated buyer commitments. The MIT CSS core, all existing free themes, component classes, examples, recipe gallery and accessibility fixes remain free. Any future paid product must separately identify new original screen-level compositions and its operative license.
 
@@ -21,7 +21,7 @@ For every screen deliver Grid and Noir, phone/tablet/desktop states, real keyboa
 
 ## Assets and deliverables
 
-- Self-contained original HTML/CSS pages and shared partials; include MIT Cyberline core with its license notice unchanged.
+- Self-contained original HTML/CSS pages and shared partials; include MIT Syntyr core with its license notice unchanged.
 - Optional Go/templ variant **only after** buyer demand, not as a release blocker.
 - Design-token customization guide, typed content schema examples where useful, implementation notes for HTMX/server actions.
 - Tested browser screenshots; accessibility findings including unresolved issues, not unsubstantiated certifications.

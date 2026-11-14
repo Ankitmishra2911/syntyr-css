@@ -1,11 +1,11 @@
-# Cyberline: 30-day validation and 90-day release gates
+# Syntyr: 30-day validation and 90-day release gates
 
 ## Days 1–7: polished free proof
 
 - Finish the MIT public API and original Grid/Noir demos. Keep all free examples usable without login.
 - Run Chromium, Firefox and WebKit checks; manual accessibility, keyboard, 200%/400% zoom, contrast and focus checks.
 - Publish reproducible size report for core/semantic/effects, zero JS runtime and externally fetched assets.
-- Check provisional `Cyberline` name for naming/trademark conflicts before marketing at scale.
+- Check provisional `Syntyr` name for naming/trademark conflicts before marketing at scale.
 - Invite 10 developers building Go/HTMX/Astro/static marketing sites to critique real markup and portability.
 
 ## Days 8–14: sell value, not components

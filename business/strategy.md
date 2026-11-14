@@ -1,4 +1,4 @@
-# Cyberline commercialization strategy — working hypothesis, November 2026
+# Syntyr commercialization strategy — working hypothesis, November 2026
 
 **Core license: MIT, permanently for versions already released under MIT.** The entire public CSS component system, its accessibility fixes, its Grid and Noir themes, the gallery, and the example pages remain free to use, fork, embed, redistribute, and commercialize, subject only to the MIT notice condition. Do not add licensing checks, telemetry, API keys, phone-home behavior, or paid-only runtime requirements to the open-source package.
 
@@ -23,9 +23,9 @@ Do **not** charge users for a missing keyboard fix, HTML semantics, security pat
 
 ## First product (validate before building a catalog)
 
-**Cyberline Console Kit**: one cohesive, original, polished, paid dashboard pack: overview, list/detail, filters, settings, analytics, empty/loading/error states, login, billing, and mobile layouts. Two theme variations. Ship HTML/CSS first with an optional Go/templ edition if buyers request it. No JavaScript should be *required for its presentation*; actual data filtering, authentication and mutation need application logic. Add example design tokens and dark/light contrast evidence.
+**Syntyr Console Kit**: one cohesive, original, polished, paid dashboard pack: overview, list/detail, filters, settings, analytics, empty/loading/error states, login, billing, and mobile layouts. Two theme variations. Ship HTML/CSS first with an optional Go/templ edition if buyers request it. No JavaScript should be *required for its presentation*; actual data filtering, authentication and mutation need application logic. Add example design tokens and dark/light contrast evidence.
 
-A second product only if there is demand: **Cyberline Launch Kit** for developer tools, security companies, AI/robotics sites, games (landing, docs, pricing, changelog, contact).
+A second product only if there is demand: **Syntyr Launch Kit** for developer tools, security companies, AI/robotics sites, games (landing, docs, pricing, changelog, contact).
 
 ## Proposed price tests (USD, NOT verified demand or current sale listings)
 
@@ -53,7 +53,7 @@ At $59 per kit and 2% **qualified visitor-to-purchase** conversion, 35 monthly s
 
 ## Competitive benchmark context
 
-As of Nov 2026, Tailwind Plus is advertised at $299 one-time; Shadcnblocks at $149–399 one-time; Preline offers free components and Pro at $249 and Team at $459. These are **product/packaging anchors, not proof Cyberline can charge those rates**. See official pages:
+As of Nov 2026, Tailwind Plus is advertised at $299 one-time; Shadcnblocks at $149–399 one-time; Preline offers free components and Pro at $249 and Team at $459. These are **product/packaging anchors, not proof Syntyr can charge those rates**. See official pages:
 - https://tailwindcss.com/plus/templates/spotlight
 - https://www.shadcnblocks.com/pricing
 - https://preline.co/pricing/

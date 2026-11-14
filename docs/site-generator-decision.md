@@ -1,9 +1,9 @@
-# Cyberline website strategy: static HTML vs Hugo vs Zola
+# Syntyr website strategy: static HTML vs Hugo vs Zola
 
 **Decision (November 14, 2026): keep the existing static GitHub Pages
 website, with an isolated Hugo proof-of-concept. No migration of the production site.**
 
-Cyberline is an MIT-licensed CSS library; its user-facing demo gallery already
+Syntyr is an MIT-licensed CSS library; its user-facing demo gallery already
 works without runtime JavaScript. The current site consists of original
 standalone HTML demos, a component gallery, and Markdown engineering guides.
 Its value is the styling and copyable source, not a content-management system.
@@ -20,7 +20,7 @@ Its value is the styling and copyable source, not a content-management system.
 | Deployment on existing Pages main / | Native | Build output must be deployed instead | Build output must be deployed instead |
 | URL/stylesheet migration risk | None | Real, needs parity tests | Real, needs parity tests |
 | Maintenance overhead now | Lowest | Additional pinned tool + templates + CI | Additional pinned tool + templates + CI |
-| Relevance to Cyberline | Best now | Best later for extensive documentation | Good lightweight alternative |
+| Relevance to Syntyr | Best now | Best later for extensive documentation | Good lightweight alternative |
 
 Official primary references:
 - https://gohugo.io/about/features/
@@ -40,7 +40,7 @@ content pages ahead of time.
 
 ## Why Hugo wins if content becomes complex
 
-Cyberline has growing engineering documentation (API conventions, tokens,
+Syntyr has growing engineering documentation (API conventions, tokens,
 accessibility, recipes, CLI, integration guides) and may eventually need
 versioned documentation, multilingual landing pages, release notes and
 taxonomy navigation. Hugo is the better long-term fit for these requirements,
@@ -50,7 +50,7 @@ modern native template layouts and content-mount workflows.
 Zola would be preferable if the site stayed small and a developer valued
 Tera's simpler templating experience more than Hugo's content features.
 Neither generator's final asset size is intrinsically smaller; delivered CSS
-is still defined by Cyberline itself, not by the SSG.
+is still defined by Syntyr itself, not by the SSG.
 
 ## Direct cost and hidden costs
 
@@ -81,9 +81,9 @@ whatever generates the website.
 
 ## Vertigo boundary
 
-Use Cyberline to style Vertigo's Go admin pages via an **opt-in CSS adapter**.
+Use Syntyr to style Vertigo's Go admin pages via an **opt-in CSS adapter**.
 Keep static marketing, docs and free downloads publicly accessible. Add
-Vertigo to Cyberline's customer portal only if buyers need retained
+Vertigo to Syntyr's customer portal only if buyers need retained
 entitlements, team licenses, or authenticated download management.
 One-time hosted checkout and private delivery should be validated before
 adding a persistent application stack.
@@ -91,7 +91,7 @@ adding a persistent application stack.
 ## Verified Hugo preview result
 
 Using official Hugo **v0.170.0**, the isolated build rendered **11 HTML
-pages** directly from the existing Cyberline Markdown guides and its two
+pages** directly from the existing Syntyr Markdown guides and its two
 preview landing/section pages. The verification script checked **67 local
 links** and rejected browser JavaScript and unintended copied Python files.
 The input uses the live repository CSS and example HTML through native Hugo

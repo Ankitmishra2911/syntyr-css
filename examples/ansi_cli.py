@@ -52,14 +52,14 @@ def should_color(stream, environ):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Preview Cyberline ANSI palettes")
+    parser = argparse.ArgumentParser(description="Preview Syntyr ANSI palettes")
     parser.add_argument("--theme", choices=("grid", "noir", "studio"), default="grid")
     parser.add_argument("--no-color", action="store_true", help="Always output plain text")
     args = parser.parse_args()
     theme = json.loads(PALETTES.read_text(encoding="utf-8"))["themes"][args.theme]
     enabled = not args.no_color and should_color(sys.stdout, os.environ)
     background = theme["background"]
-    print(styled("CYBERLINE / CLI STATUS", theme["accent"], enabled, background))
+    print(styled("SYNTYR / CLI STATUS", theme["accent"], enabled, background))
     print(f"Theme: {args.theme}")
     print(f"[{styled('OK', theme['ansi'][2], enabled, background)}] 6 tasks completed")
     print(f"[{styled('WARN', theme['ansi'][3], enabled, background)}] 1 task pending")

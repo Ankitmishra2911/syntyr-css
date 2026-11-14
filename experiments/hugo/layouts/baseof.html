@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ .Description | default "Cyberline CSS: framework-independent, MIT-licensed styling" }}">
-  <title>{{ .Title }} · Cyberline CSS (Hugo evaluation)</title>
-  <link rel="stylesheet" href="{{ "dist/cyberline.core.css" | relURL }}">
+  <meta name="description" content="{{ .Description | default "Syntyr CSS: framework-independent, MIT-licensed styling" }}">
+  <title>{{ .Title }} · Syntyr CSS (Hugo evaluation)</title>
+  <link rel="stylesheet" href="{{ "dist/syntyr.core.css" | relURL }}">
   <style>
-    /* Prototype-only layout. Component and theme styles are Cyberline CSS. */
+    /* Prototype-only layout. Component and theme styles are Syntyr CSS. */
     .preview-wrap { width:min(100% - 2rem, 76rem); margin:auto; padding-block:2rem 4rem; }
     .preview-nav { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding-bottom:1.5rem; border-bottom:1px solid var(--cy-frame); }
     .preview-nav a { color:var(--cy-accent); }
@@ -29,11 +29,11 @@
 <body class="cy-root cy-page" data-cy-theme="studio">
 <div class="preview-wrap">
   <header class="preview-nav">
-    <a class="cy-logo" href="{{ "" | relURL }}">// CYBERLINE / DOCS PROTOTYPE</a>
+    <a class="cy-logo" href="{{ "" | relURL }}">// SYNTYR / DOCS PROTOTYPE</a>
     <nav aria-label="Site navigation">
       <a href="{{ "guide/" | relURL }}">Guides</a> ·
-      <a href="https://dporkka.github.io/cyberline-css/docs/">Live gallery</a> ·
-      <a href="https://github.com/dporkka/cyberline-css">MIT source</a>
+      <a href="https://dporkka.github.io/syntyr-css/docs/">Live gallery</a> ·
+      <a href="https://github.com/dporkka/syntyr-css">MIT source</a>
     </nav>
   </header>
   <main id="main">{{ block "main" . }}{{ end }}</main>

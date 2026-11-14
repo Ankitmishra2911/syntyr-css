@@ -12,7 +12,7 @@ class GeometryTerminalContract(unittest.TestCase):
         geometry = (ROOT / "src/geometry.css").read_text()
         build = (ROOT / "scripts/build.py").read_text()
         self.assertIn("cy.geometry", geometry)
-        self.assertIn("'cyberline.geometry.css': ('geometry.css',)", build)
+        self.assertIn("'syntyr.geometry.css': ('geometry.css',)", build)
         self.assertIn("'geometry.css'", build)
         self.assertIn(".cy-frame--bevel", geometry)
         self.assertIn(".cy-frame--notch", geometry)
@@ -89,17 +89,18 @@ class GeometryTerminalContract(unittest.TestCase):
         self.assertIn('<main id="main">', page)
         self.assertNotIn("<script", page.lower())
         self.assertIn("geometry-terminal.html", (ROOT / "docs/index.html").read_text())
-        self.assertIn("dist/cyberline.geometry.css", page)
+        self.assertIn("dist/syntyr.geometry.css", page)
 
     def test_standalone_distribution_is_tracked_for_clean_checkouts(self):
         result = subprocess.run(
-            ["git", "ls-files", "--error-unmatch", "dist/cyberline.geometry.css"],
+            ["git", "ls-files", "--error-unmatch", "dist/syntyr.geometry.css", "dist/cyberline.geometry.css"],
             cwd=ROOT, capture_output=True, text=True
         )
         self.assertEqual(result.returncode, 0, "generated geometry CSS must be committed, not only built locally")
 
     def test_download_package_includes_geometry(self):
         package = (ROOT / "scripts/package_release.py").read_text()
+        self.assertIn('"dist/syntyr.geometry.css"', package)
         self.assertIn('"dist/cyberline.geometry.css"', package)
 
 

@@ -1,3 +1,11 @@
+## v0.3.0-alpha.3 (2026-11-14)
+
+- Rebrand the public project as **SYNTYR**, previously Cyberline CSS.
+- Add new `syntyr.*.css` distribution paths without removing byte-identical
+  `cyberline.*.css` legacy files or altering `cy-` selectors and tokens.
+- Update website, documentation, downloadable archives, CLI copy and code examples.
+- Record naming and trademark-clearance caveats; premium launch remains gated.
+
 ## Unreleased
 
 - Add independent zero-runtime geometry CSS with five customizable frame treatments (bevel, notch, bracket, inset and circuit), including forced-colors fallbacks.
