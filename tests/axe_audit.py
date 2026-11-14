@@ -22,7 +22,7 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "examples/saas.html", "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html")
 
 
 def main() -> int:

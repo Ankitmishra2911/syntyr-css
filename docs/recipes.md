@@ -124,3 +124,14 @@ Skeletons are deliberately static. Hide the visual placeholder from assistive te
 ```
 
 When loading finishes, the application replaces the placeholders with content and clears `aria-busy`. The CSS library does not implement fetching or state changes.
+
+## Server-rendered SaaS filter and settings patterns
+
+The [SaaS workflow demonstration](../examples/saas-workflows.html) shows how to combine standard HTML search forms, a table, navigation landmarks, native settings disclosures and no-JavaScript placeholders. The page's data is illustrative and **is not filtered**; the following behavior belongs to the host application:
+
+- Parse and validate `query`, `status`, `owner` and `page` on the server, apply authorization before filtering, paginate the results, and escape all rendered user input.
+- Preserve submitted form values and `aria-current` based on the actual result page, and emit a truthful result count plus empty-state or error message.
+- Persist preferences in the server's settings endpoint, with CSRF protection for changes; the static demo intentionally has no save button.
+- When using HTMX, Datastar or another enhancement layer, keep GET filters, ordinary links and form labels working without client-side JavaScript.
+
+The scoped `examples/saas-workflows.css` stylesheet contains layout glue only and is **not** added to the distributed core or all-in-one bundle.

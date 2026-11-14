@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A framework-neutral SYNTYR SaaS workflow example with semantic search, filters, account settings, pagination and native HTML controls.">
+  <title>Syntyr — SaaS workflow patterns</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="saas-workflows.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button workflow-skip" href="#main">Skip to content</a>
+  <div class="syn-app-shell">
+    <aside class="syn-app-rail" aria-label="Workspace sidebar">
+      <a class="syn-logo" href="../index.html">SYNTYR <span class="syn-muted">/ WORKFLOWS</span></a>
+      <span class="syn-caption">SAMPLE WORKSPACE</span>
+      <nav class="syn-app-nav" aria-label="Workspace navigation">
+        <a href="saas.html">Overview</a>
+        <a href="saas-workflows.html" aria-current="page">Records</a>
+        <a href="#preferences">Preferences</a>
+        <a href="#patterns">Patterns</a>
+      </nav>
+      <p class="syn-caption">Open source / MIT / no runtime JavaScript.</p>
+    </aside>
+    <main id="main" class="syn-workspace">
+      <nav class="syn-breadcrumbs workflow-breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="saas.html">Workspace</a></li>
+          <li><span aria-current="page">Records</span></li>
+        </ol>
+      </nav>
+      <header class="syn-app-topbar" id="records">
+        <div>
+          <p class="syn-eyebrow">STUDIO / DATA OPERATIONS</p>
+          <h1>Record workflows</h1>
+          <p class="syn-muted">Search, filters, navigation, settings and content states built on semantic HTML.</p>
+        </div>
+        <a class="syn-button syn-button--outline" href="../docs/recipes.md">COPY HTML RECIPES</a>
+      </header>
+      <section class="syn-app-card workflow-section" aria-labelledby="search-title">
+        <div class="syn-app-card-header"><h2 id="search-title" class="syn-heading">Search and filters</h2><span class="syn-caption">SERVER-READY GET FORM</span></div>
+        <p id="filters-note" class="syn-muted">Illustrative static records. On a real product, a server must apply these query parameters, return matching results, and preserve the selected values.</p>
+        <search aria-label="Filter records">
+          <form method="get" action="saas-workflows.html#results" class="workflow-filter-grid" aria-describedby="filters-note">
+            <label class="syn-label" for="query">SEARCH RECORDS
+              <input class="syn-input" id="query" name="query" type="search" placeholder="Search by name" autocomplete="off">
+            </label>
+            <label class="syn-label" for="status">STATUS
+              <select class="syn-select" id="status" name="status"><option value="">Any status</option><option value="active">Active</option><option value="review">Needs review</option></select>
+            </label>
+            <label class="syn-label" for="owner">OWNER
+              <select class="syn-select" id="owner" name="owner"><option value="">Any team</option><option value="product">Product</option><option value="platform">Platform</option></select>
+            </label>
+            <div class="workflow-filter-actions"><button class="syn-button syn-button--primary" type="submit">APPLY QUERY</button><a class="syn-button syn-button--outline" href="saas-workflows.html#results">CLEAR</a></div>
+          </form>
+        </search>
+      </section>
+      <section id="results" class="syn-app-card workflow-section" aria-labelledby="results-title">
+        <div class="syn-app-card-header"><h2 class="syn-heading" id="results-title">Recent records</h2><span class="syn-caption">3 ILLUSTRATIVE RECORDS — NOT FILTERED</span></div>
+        <div class="syn-table-wrap">
+          <table class="syn-table">
+            <caption class="workflow-table-caption">Sample records; the current page does not have a search backend.</caption>
+            <thead><tr><th scope="col">Record</th><th scope="col">Owner</th><th scope="col">Status</th><th scope="col">Value</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Orion Portal</th><td>Product</td><td><span class="syn-status syn-status--success">Active</span></td><td class="syn-cell--numeric">$5,400</td></tr>
+              <tr><th scope="row">Atlas API</th><td>Platform</td><td><span class="syn-status syn-status--warning">Review</span></td><td class="syn-cell--numeric">$2,800</td></tr>
+              <tr><th scope="row">Nova Dashboard</th><td>Product</td><td><span class="syn-status syn-status--success">Active</span></td><td class="syn-cell--numeric">$4,200</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="syn-pagination workflow-pagination" aria-label="Pagination example">
+          <a class="syn-page-link" href="?page=1#results" aria-current="page" aria-label="Page 1 (example)">1</a>
+          <a class="syn-page-link" href="?page=2#results" aria-label="Page 2 (example)">2</a>
+          <a class="syn-page-link" href="?page=3#results" aria-label="Page 3 (example)">3</a>
+        </nav>
+        <p class="syn-caption">Pagination URLs are examples only. A server must return the corresponding page, count and current-page state.</p>
+      </section>
+      <section id="preferences" class="syn-app-card workflow-section" aria-labelledby="settings-title">
+        <div class="syn-app-card-header"><h2 id="settings-title" class="syn-heading">Settings and disclosures</h2><span class="syn-caption">NATIVE HTML / NO SCRIPT</span></div>
+        <details class="syn-details" open>
+          <summary>Display preferences</summary>
+          <div class="workflow-settings">
+            <label class="syn-check"><input type="checkbox" id="dense" name="dense" checked>Compact record density (local preview)</label>
+            <label class="syn-check"><input type="checkbox" name="notifications" disabled>Email notifications (requires server)</label>
+            <p class="syn-caption">Compact density changes this example using CSS <code>:has()</code>. Email notification settings require an application backend. Neither is persisted.</p>
+          </div>
+        </details>
+        <details class="syn-details"><summary>Keyboard and screen-reader guidance</summary><p>Use native form labels, status text, real links, keyboard-visible focus, descriptive table captions and meaningful error messages. Never use CSS alone to enforce permissions.</p></details>
+      </section>
+      <section id="patterns" class="workflow-pattern-grid workflow-section" aria-label="Other interface states">
+        <article class="syn-app-card">
+          <h2 class="syn-heading">Empty state</h2>
+          <p class="syn-muted">Your server can render this section when a query has no matches.</p>
+          <div class="syn-empty"><p>No results match these filters.</p><a class="syn-button" href="#records">CHANGE FILTERS</a></div>
+        </article>
+        <article class="syn-app-card">
+          <h2 class="syn-heading">Loading state</h2>
+          <p class="syn-muted">The application must manage loading announcements and remove placeholders when complete.</p>
+          <div class="workflow-skeletons" role="group" aria-label="Loading preview">
+            <span class="syn-skeleton" aria-hidden="true"></span>
+            <span class="syn-skeleton syn-skeleton--short" aria-hidden="true"></span>
+          </div>
+          <p class="syn-caption">These static decorative placeholders do not imply a network request.</p>
+        </article>
+      </section>
+      <footer class="syn-caption workflow-section">SYNTYR / FREE MIT EXAMPLE / NO BACKEND OR REQUIRED JAVASCRIPT</footer>
+    </main>
+  </div>
+</body>
+</html>
