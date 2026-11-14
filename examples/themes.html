@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Six original Cyberline CSS themes, from cinematic interfaces to accessible business UI, in semantic HTML with no runtime JavaScript.">
+  <title>Cyberline CSS — Six Theme Gallery</title>
+  <link rel="stylesheet" href="../dist/cyberline.core.css">
+  <link rel="stylesheet" href="../dist/cyberline.utilities.css">
+  <style>
+    .theme-gallery { padding-block: clamp(1.5rem, 5vw, 4rem); }
+    .theme-gallery h1 { max-width: 20ch; }
+    .theme-gallery .cy-grid { margin-block: 1.5rem 2.5rem; }
+    .theme-tile { display: grid; align-content: start; gap: var(--cy-space-2); }
+    .theme-tile .cy-button { justify-self: start; }
+    .theme-tile .cy-stat { padding: var(--cy-space-2); }
+    .theme-tile .cy-stat-value { font-size: clamp(1.3rem, 3vw, 2rem); }
+    .theme-tile .theme-code { color: var(--cy-muted); font: .7rem/1.5 var(--cy-mono); overflow-wrap: anywhere; }
+  </style>
+</head>
+<body class="cy-root cy-page" data-cy-theme="minimal">
+  <main class="cy-shell theme-gallery">
+    <a href="../docs/" class="cy-button cy-button--outline">Back to documentation</a>
+    <header class="cy-u-stack cy-u-mt-3">
+      <span class="cy-eyebrow">CYBERLINE / ORIGINAL MIT THEMES</span>
+      <h1>One component API. Six visual identities.</h1>
+      <p class="cy-lede">The same HTML works in cinematic dark themes and restrained light business themes. Every palette is CSS custom properties. No JavaScript, hosted fonts, or build tools required.</p>
+    </header>
+    <div class="cy-grid" aria-label="Theme previews">
+      <section class="cy-panel theme-tile" data-cy-theme="grid" aria-labelledby="grid-title">
+        <span class="cy-eyebrow">01 / SIGNAL BLUE</span><h2 id="grid-title">Grid</h2>
+        <p class="theme-code">data-cy-theme="grid"</p>
+        <article class="cy-stat"><span class="cy-stat-label">NETWORK HEALTH</span><p class="cy-stat-value">99.8%</p></article>
+        <button type="button" class="cy-button cy-button--primary">Run diagnostic</button>
+      </section>
+      <section class="cy-panel theme-tile" data-cy-theme="noir" aria-labelledby="noir-title">
+        <span class="cy-eyebrow">02 / TUNGSTEN</span><h2 id="noir-title">Noir</h2>
+        <p class="theme-code">data-cy-theme="noir"</p>
+        <article class="cy-stat"><span class="cy-stat-label">ARCHIVE STATUS</span><p class="cy-stat-value">ONLINE</p></article>
+        <button type="button" class="cy-button cy-button--primary">View archive</button>
+      </section>
+      <section class="cy-panel theme-tile" data-cy-theme="industrial" aria-labelledby="industrial-title">
+        <span class="cy-eyebrow">03 / MACHINE AMBER</span><h2 id="industrial-title">Industrial</h2>
+        <p class="theme-code">data-cy-theme="industrial"</p>
+        <article class="cy-stat"><span class="cy-stat-label">SYSTEM LOAD</span><p class="cy-stat-value">42.1%</p></article>
+        <button type="button" class="cy-button cy-button--primary">Inspect system</button>
+      </section>
+      <section class="cy-panel theme-tile" data-cy-theme="terminal" aria-labelledby="terminal-title">
+        <span class="cy-eyebrow">04 / PHOSPHOR GREEN</span><h2 id="terminal-title">Terminal</h2>
+        <p class="theme-code">data-cy-theme="terminal"</p>
+        <article class="cy-stat"><span class="cy-stat-label">ACTIVE SESSIONS</span><p class="cy-stat-value">016</p></article>
+        <button type="button" class="cy-button cy-button--primary">Open console</button>
+      </section>
+      <section class="cy-panel theme-tile" data-cy-theme="corporate" aria-labelledby="corporate-title">
+        <span class="cy-eyebrow">05 / TRUSTED BLUE</span><h2 id="corporate-title">Corporate</h2>
+        <p class="theme-code">data-cy-theme="corporate"</p>
+        <article class="cy-stat"><span class="cy-stat-label">QUARTERLY REVENUE</span><p class="cy-stat-value">$128.4k</p></article>
+        <button type="button" class="cy-button cy-button--primary">View report</button>
+      </section>
+      <section class="cy-panel theme-tile" data-cy-theme="minimal" aria-labelledby="minimal-title">
+        <span class="cy-eyebrow">06 / NEUTRAL</span><h2 id="minimal-title">Minimal</h2>
+        <p class="theme-code">data-cy-theme="minimal"</p>
+        <article class="cy-stat"><span class="cy-stat-label">ACTIVE WORKSPACES</span><p class="cy-stat-value">24</p></article>
+        <button type="button" class="cy-button cy-button--primary">Open workspace</button>
+      </section>
+    </div>
+    <section class="cy-u-stack" aria-labelledby="usage-title">
+      <h2 id="usage-title">Use any theme without changing markup</h2>
+      <p>Apply <code>data-cy-theme</code> to a <code>.cy-root</code> or any nested region. The component classes and semantic HTML remain identical across all six palettes.</p>
+      <p class="cy-muted">Examples are illustrative and static; no simulated metric is live application data.</p>
+      <a href="../docs/theme-customization.md">Read the token and utility guide</a>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,7 +1,7 @@
 # Cyberline theme customization — copy, override, ship
 
 Cyberline themes are **CSS custom properties**, not JavaScript configuration.
-The MIT core already includes Grid and Noir palettes, responsive primitives,
+The MIT core already includes six palettes, from Grid and Noir to Corporate and Minimal, responsive primitives,
 accessible focus styling and semantic element options.
 
 ## 1. Choose a theme
@@ -104,3 +104,52 @@ high-contrast/forced-colors, and relevant screen readers in the target app.
 **No runtime JavaScript is required for styling.** Search, authentication,
 live data, and server-side form handling are intentionally application
 responsibilities; optional advanced widgets are outside the CSS core.
+
+## 5. Six interchangeable palettes (including light-mode business UI)
+
+Every palette supplies the **same** component tokens and classes. Switch themes
+without rewriting markup or installing Tailwind, React or a CSS compiler:
+
+| Theme | Recommended use | Native color scheme |
+| --- | --- | --- |
+| `data-cy-theme="grid"` | High-contrast signal/cyberpunk dashboards | Dark |
+| `data-cy-theme="noir"` | Warm atmospheric interfaces and landing pages | Dark |
+| `data-cy-theme="industrial"` | Operations consoles and control-room applications | Dark |
+| `data-cy-theme="terminal"` | CLI-adjacent tools and developer dashboards | Dark |
+| `data-cy-theme="corporate"` | Professional SaaS and B2B application shells | Light |
+| `data-cy-theme="minimal"` | Neutral marketing and business websites | Light |
+
+All six work on `.cy-root` or a nested `[data-cy-theme]` region. Native
+controls and scrollbars follow the theme's `color-scheme`. The same markup and
+component classes remain usable across all themes. Theme palettes are not
+automatic `prefers-color-scheme` overrides; the application chooses a theme.
+
+[Browse all six themes](../examples/themes.html).
+
+## 6. Optional tiny utilities, not a utility compiler
+
+Load the separate stylesheet **after** the core file. The utility classes are
+intentionally finite, scoped to `.cy-root`, and use the same spacing variables:
+
+```html
+<link rel="stylesheet" href="/css/cyberline.core.css">
+<link rel="stylesheet" href="/css/cyberline.utilities.css">
+<div class="cy-root" data-cy-theme="corporate">
+  <div class="cy-u-flex cy-u-between cy-u-center cy-u-gap-2">
+    <h2>Account overview</h2>
+    <a class="cy-button" href="/settings">Settings</a>
+  </div>
+  <div class="cy-u-grid cy-u-gap-2 cy-u-mt-2">
+    <article class="cy-panel cy-u-p-2">Accessible HTML, no runtime JavaScript.</article>
+  </div>
+</div>
+```
+
+Classes: `cy-u-flex`, `cy-u-grid`, `cy-u-stack`, `cy-u-inline`,
+`cy-u-between`, `cy-u-center`, `cy-u-gap-1..3`, `cy-u-p-1..3`,
+`cy-u-mt-1..3`, and `cy-u-sr-only` for visually hidden text.
+No design depends on utilities: existing `cy-shell`, `cy-panel` and
+`cy-region` classes continue to work without this file.
+
+**Import choice:** `cyberline.all.css` includes the utility classes;
+`cyberline.core.css` and the backwards-compatible `cyberline.css` do not.

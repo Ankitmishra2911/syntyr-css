@@ -31,6 +31,7 @@
     --cy-success: #8ce6bb;
     --cy-warning: #ffd08b;
     --cy-accent-soft: rgb(118 231 247 / 11%);
+    color-scheme: dark;
   }
   :where(.cy-root[data-cy-theme="noir"], .cy-root [data-cy-theme="noir"]) {
     --cy-bg: #0e0e12;
@@ -45,5 +46,75 @@
     --cy-success: #a5e4bc;
     --cy-warning: #fbd18c;
     --cy-accent-soft: rgb(241 181 116 / 10%);
+    color-scheme: dark;
+  }
+  /* The same semantic component contract supports dark and light application UIs. */
+  :where(.cy-root[data-cy-theme="industrial"], .cy-root [data-cy-theme="industrial"]) {
+    color-scheme: dark;
+    --cy-bg: #121417;
+    --cy-surface: #1c2023;
+    --cy-surface-hi: #2a3033;
+    --cy-text: #f3f2ee;
+    --cy-muted: #c0c5c8;
+    --cy-accent: #ffb36b;
+    --cy-on-accent: #241409;
+    --cy-frame: #69747b;
+    --cy-danger: #ffb2a7;
+    --cy-success: #8dedb0;
+    --cy-warning: #ffd08f;
+    --cy-accent-soft: rgb(255 179 107 / 11%);
+    --cy-radius: .15rem;
+    --cy-cut: .45rem;
+  }
+  :where(.cy-root[data-cy-theme="terminal"], .cy-root [data-cy-theme="terminal"]) {
+    color-scheme: dark;
+    --cy-bg: #07130d;
+    --cy-surface: #0d1f17;
+    --cy-surface-hi: #153325;
+    --cy-text: #d9fce7;
+    --cy-muted: #a2d2b5;
+    --cy-accent: #65e8a0;
+    --cy-on-accent: #062011;
+    --cy-frame: #3e8761;
+    --cy-danger: #f6a8a8;
+    --cy-success: #74e7a7;
+    --cy-warning: #eccd86;
+    --cy-accent-soft: rgb(101 232 160 / 11%);
+    --cy-radius: 0;
+    --cy-cut: 0;
+  }
+  :where(.cy-root[data-cy-theme="corporate"], .cy-root [data-cy-theme="corporate"]) {
+    color-scheme: light;
+    --cy-bg: #f5f8fc;
+    --cy-surface: #ffffff;
+    --cy-surface-hi: #e8eef6;
+    --cy-text: #18273c;
+    --cy-muted: #4b5d72;
+    --cy-accent: #155ac8;
+    --cy-on-accent: #ffffff;
+    --cy-frame: #73859b;
+    --cy-danger: #b42331;
+    --cy-success: #147446;
+    --cy-warning: #9a5600;
+    --cy-accent-soft: rgb(21 90 200 / 9%);
+    --cy-radius: .5rem;
+    --cy-cut: 0;
+  }
+  :where(.cy-root[data-cy-theme="minimal"], .cy-root [data-cy-theme="minimal"]) {
+    color-scheme: light;
+    --cy-bg: #f7f7f5;
+    --cy-surface: #ffffff;
+    --cy-surface-hi: #ebedee;
+    --cy-text: #202328;
+    --cy-muted: #5c6168;
+    --cy-accent: #313a45;
+    --cy-on-accent: #ffffff;
+    --cy-frame: #7b8189;
+    --cy-danger: #aa2f3c;
+    --cy-success: #1f6c45;
+    --cy-warning: #8d5200;
+    --cy-accent-soft: rgb(49 58 69 / 7%);
+    --cy-radius: .375rem;
+    --cy-cut: 0;
   }
 }

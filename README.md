@@ -1,12 +1,13 @@
 # Cyberline CSS
 
-**Experimental v0.3.0-alpha.1** — framework-neutral, low-dependency, CSS-first styling for futuristic, TRON-inspired Grid and Blade Runner-inspired Noir websites.
+**Experimental v0.3.0-alpha.1 (with unreleased source extensions)** — framework-neutral, low-dependency, CSS-first styling for cinematic dashboards and restrained modern SaaS and business websites.
 
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
+- **Six palettes:** Grid, Noir, Industrial, Terminal, Corporate and Minimal share the same component contract; light and dark native controls are supported.
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.cy-semantic` mode.
-- **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
+- **Modular:** core, opt-in semantic styling, effects and small optional layout utilities; includes convenience bundles.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
 
 ## Live gallery and installation
@@ -19,6 +20,7 @@
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
 - [Free original Noir resource archive demo](examples/resources.html)
+- [Six-theme comparison gallery](examples/themes.html)
 
 Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
@@ -50,7 +52,7 @@ For semantic mode, add `cyberline.semantic.css` **after** core:
 </div>
 ```
 
-`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` between `grid` and `noir`, including nested themed areas.
+`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` among `grid`, `noir`, `industrial`, `terminal`, `corporate` and `minimal`, including nested themed areas.
 
 ## Build outputs
 
@@ -59,10 +61,11 @@ For semantic mode, add `cyberline.semantic.css` **after** core:
 | `dist/cyberline.core.css` | Tokens, scoped base, components (default choice) |
 | `dist/cyberline.semantic.css` | Optional semantic HTML styling (load after core) |
 | `dist/cyberline.effects.css` | Optional, static decorative effects |
+| `dist/cyberline.utilities.css` | Optional, finite spacing/layout/a11y utilities (load after core) |
 | `dist/cyberline.css` | Backwards-compatible core + effects bundle |
 | `dist/cyberline.all.css` | All modules (semantic still opt-in by class) |
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/utilities.css` and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Development and verification
 

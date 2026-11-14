@@ -1,5 +1,10 @@
 ## Unreleased
 
+- Add four original palettes (Industrial, Terminal, Corporate, Minimal) with explicit dark/light native control schemes alongside Grid and Noir.
+- Provide an opt-in finite CSS utility module for layout, spacing and visually hidden accessibility text.
+- Publish a static six-theme comparison gallery and documentation while retaining the existing MIT, no-runtime-JS contract.
+- Verify theme text/button contrast, nested selectors, reproducible bundles and release packaging in tests.
+
 - Add a free original Noir resource-index screen and theme-customization guide.
 - Publish an honest $59 Console Kit concept and feedback entry point without taking payment.
 - Fix duplicate gallery meta description and invalid ARIA on palette swatches; add browser-matrix and optional axe-core verification scripts.
