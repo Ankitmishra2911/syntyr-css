@@ -39,12 +39,15 @@ Avoid loading these bundles alongside their component files: that duplicates CSS
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/dporkka/syntyr-css@v0.3.0-alpha.4/dist/syntyr.core.css">
+      href="https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css">
 ```
 
-This is an *external* CDN (jsDelivr), not a SYNTYR runtime dependency.
-Pin a specific tag rather than using `@latest` or a moving branch.
-For production reliability, self-host your copy and control cache headers.
+The first-party Cloudflare CDN serves frozen, checksum-verified CSS releases
+from a global edge network. Unversioned `/dist/` URLs can change with builds;
+pin `/v/<version>/` instead. The documentation's optional theme editor
+has JavaScript, but the library CSS and consumer sites do not require it.
+For production applications, copying the versioned CSS to your own origin
+usually avoids an additional hostname connection.
 
 ## Release artifacts and guarantees
 

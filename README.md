@@ -13,9 +13,10 @@
 
 ## Live gallery and installation
 
-- [Live website](https://dporkka.github.io/syntyr-css/)
-- [Component gallery](https://dporkka.github.io/syntyr-css/docs/)
-- [Versioned release downloads](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4)
+- [Live website on Cloudflare](https://syntyr-css.pages.dev/)
+- [Component gallery](https://syntyr-css.pages.dev/docs/)
+- [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)
+- [Tagged GitHub releases](https://github.com/dporkka/syntyr-css/releases)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
