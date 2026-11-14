@@ -271,6 +271,19 @@
   .syn-price-value small { color: var(--syn-muted); font: 400 .9rem var(--syn-font); }
   .syn-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--syn-space-3); color: var(--syn-muted); }
   .syn-feature-list li::marker { color: var(--syn-accent); }
+  /* Navigation: semantic nav/ol markup with decorative, non-verbal separators. */
+  .syn-breadcrumbs ol { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
+  .syn-breadcrumbs li { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
+  .syn-breadcrumbs li + li::before { content: ""; height: .85em; border-inline-start: 1px solid var(--syn-frame-strong); transform: skew(-22deg); }
+  .syn-breadcrumbs a { color: var(--syn-muted); }
+  .syn-breadcrumbs [aria-current="page"] { color: var(--syn-text); font-weight: 650; }
+  .syn-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; }
+  .syn-page-link { display: inline-grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; padding: .4rem; border: 1px solid var(--syn-frame); color: var(--syn-text); text-decoration: none; border-radius: var(--syn-radius); }
+  .syn-page-link:hover, .syn-page-link[aria-current="page"] { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
+  .syn-page-link[aria-current="page"] { font-weight: 700; }
+  /* Intentionally static: loading behavior and announcements belong to the host. */
+  .syn-skeleton { display: block; width: 100%; min-height: 1em; background: var(--syn-surface-hi); border: 1px solid var(--syn-frame); border-radius: var(--syn-radius); }
+  .syn-skeleton--short { max-width: 55%; }
   @container syn-region (min-width: 31rem) {
     .syn-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }

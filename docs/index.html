@@ -42,6 +42,7 @@
 
       <section class="docs-section" id="themes" aria-labelledby="themes-title">
         <div class="docs-section-head"><h2 id="themes-title">01 / Three visual systems</h2><span class="syn-caption">ONE MARKUP CONTRACT / TWO MODES</span></div>
+        <p class="syn-caption">Create a custom palette with the <a href="theme-editor.html">interactive theme editor</a> (optional docs-only JavaScript, no build step).</p>
         <div class="docs-grid">
           <article class="syn-panel syn-panel--cut docs-vertical" data-syn-theme="grid">
             <div class="docs-panel-title"><span class="syn-eyebrow">GRID / SIGNAL BLUE</span><span class="syn-badge">ONLINE</span></div>
@@ -113,6 +114,27 @@
             <details class="syn-details"><summary>Why real HTML?</summary><p>Buttons, forms, disclosures and popovers retain native keyboard and accessibility behavior.</p></details>
             <details class="syn-details"><summary>Does it require Node or React?</summary><p>No. Copy a CSS file and use any HTML renderer.</p></details>
             <details class="syn-details"><summary>Can themes nest?</summary><p>Yes. Set <code class="syn-code">data-syn-theme="noir"</code> on a section to override the Grid palette inside it.</p></details>
+          </article>
+          <article class="syn-panel syn-panel--cut docs-vertical">
+            <div class="docs-panel-title"><span class="syn-eyebrow">05 / NAVIGATION</span><span class="syn-caption">BREADCRUMBS + LINKS</span></div>
+            <nav class="syn-breadcrumbs" aria-label="Breadcrumb">
+              <ol><li><a href="../index.html">Home</a></li><li><span aria-current="page">Component gallery</span></li></ol>
+            </nav>
+            <p class="syn-caption">Semantically marked current page; purely decorative separators.</p>
+            <nav class="syn-pagination" aria-label="Gallery sections">
+              <a class="syn-page-link" href="#themes" aria-label="Go to themes section">1</a>
+              <a class="syn-page-link" href="#components" aria-label="Go to components section">2</a>
+              <a class="syn-page-link" href="#recipes" aria-label="Go to recipes section">3</a>
+            </nav>
+            <p class="syn-caption">These links navigate to real gallery sections. For actual pagination, link to real result pages and mark the active page with aria-current="page".</p>
+          </article>
+          <article class="syn-panel syn-panel--cut docs-vertical">
+            <div class="docs-panel-title"><span class="syn-eyebrow">06 / LOADING</span><span class="syn-caption">STATIC PLACEHOLDERS</span></div>
+            <div class="syn-stack">
+              <span class="syn-skeleton" aria-hidden="true"></span>
+              <span class="syn-skeleton syn-skeleton--short" aria-hidden="true"></span>
+            </div>
+            <p class="syn-caption">Loading preview — these placeholders are decorative, never animated. Applications must expose real loading status to assistive technology.</p>
           </article>
         </div>
       </section>

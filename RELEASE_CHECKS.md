@@ -34,6 +34,20 @@ constitute a WCAG certification.
 - axe-core: automated inspection in Chromium on Fedora. Eight unresolved
   `incomplete` outcomes are **not** passing assertions.
 
+## Unreleased branch follow-up (November 14, 2026)
+
+The historical table above describes the alpha.4 release candidate, **not** the
+subsequent navigation and theme-editor changes. On the isolated improvement
+branch, the latest local verification is:
+
+- Source and generated CSS match (`python3 scripts/build.py --check`).
+- Python suite: 78 passing tests (including new navigation, loading, theme-editor and internal-link contracts).
+- Chromium and Firefox: 13 pages × 3 widths each, including native focus and navigation checks, passed.
+- Standalone docs-only theme editor: 3 Chromium widths, theme switching, contrast warning, reset and scope tests passed.
+- Core CSS: 4,634 gzip bytes (budget 5,120); all modules: 7,475 gzip bytes (budget 8,192).
+- WebKit targeted smoke **passed** on a separate isolated Playwright container: new gallery + docs theme editor at 320/390/1280px, navigation styling, color warnings, no overflow. The **full 13-page WebKit matrix remains unverified** for this branch; run it before a stable release.
+- No JavaScript is added to the distributed stylesheets or the main gallery. The theme editor has one optional, local, standalone script.
+
 ## Remaining release gates
 
 - **Actual browser zoom** at 200%/400%, and manual screen-reader checks
@@ -43,7 +57,7 @@ constitute a WCAG certification.
   high-contrast/forced-colors appearance, older browsers, and production
   workflows with form validation.
 - Trademark/name clearance in the United States and Brazil:
-  [preliminary name screen](business/trademark-screen.md). The word
+  [preliminary name screen](business/syntyr-trademark-screen.md). The word
   Syntyr remains **provisional**. No legal availability conclusion is drawn.
 - Demonstrated willingness to pay: ten design-partner interviews planned,
   zero interviews and zero paid commitments reported so far.
@@ -52,6 +66,6 @@ constitute a WCAG certification.
   licenses. All existing code, themes, demo screens and recipes are MIT.
 
 The deterministic `scripts/package_release.py` ZIP allowlists the MIT
-LICENSE, README, distribution instructions, six CSS files and terminal
+LICENSE, README, distribution instructions, seven CSS files and terminal
 palette JSON. No unrelated development, business planning, or credentials
 are included.

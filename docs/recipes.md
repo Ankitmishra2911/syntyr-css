@@ -89,3 +89,38 @@ For custom themes, test *every* textual token pairing and important state for WC
 - **React / Vue / Astro:** Wrap the exact markup in framework components only when the host application calls for it.
 
 Favor stable component classes and CSS variables over copying long lists of generated utilities. See [contract](components.md) and [Tailwind research](tailwind-research.md).
+
+## Accessible navigation and loading placeholders
+
+Breadcrumbs use a real ordered list inside a labeled navigation landmark. The separator is a CSS border rather than spoken punctuation:
+
+```html
+<nav class="syn-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><span aria-current="page">Reports</span></li>
+  </ol>
+</nav>
+```
+
+Page controls are **real links**, not inert buttons. Match the selected page to the actual URL, and label any symbol-only links:
+
+```html
+<nav class="syn-pagination" aria-label="Results pages">
+  <a class="syn-page-link" href="?page=1">1</a>
+  <a class="syn-page-link" href="?page=2" aria-current="page">2</a>
+  <a class="syn-page-link" href="?page=3">3</a>
+</nav>
+```
+
+Skeletons are deliberately static. Hide the visual placeholder from assistive technology and announce loading outside it with application-owned state. Do not leave an infinite loading message or use fake progress values:
+
+```html
+<section aria-busy="true" aria-label="Reports">
+  <p role="status">Loading reports…</p>
+  <span class="syn-skeleton" aria-hidden="true"></span>
+  <span class="syn-skeleton syn-skeleton--short" aria-hidden="true"></span>
+</section>
+```
+
+When loading finishes, the application replaces the placeholders with content and clears `aria-busy`. The CSS library does not implement fetching or state changes.
