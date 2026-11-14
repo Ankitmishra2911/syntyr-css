@@ -70,7 +70,9 @@ curl -fsSI "$BASE/v/0.3.0-alpha.4/syntyr.core.css"
 curl -fsS -o /dev/null -w '%{http_code}\n' "$BASE/business/strategy.md"
 ```
 
-Expected: HTML and CSS 200; internal business document 404.
+Expected: HTML and CSS 200; internal business document 404. The published
+root `404.html` is required: without it, Cloudflare Pages serves unknown
+paths as an SPA fallback with HTTP 200.
 Check MIME types (`text/html`, `text/css`), Cache-Control,
 `cf-cache-status` where present, and gzip/Brotli transfer behavior.
 

@@ -46,6 +46,7 @@ def source_files() -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     paths = [
         ROOT / "index.html",
+        ROOT / "404.html",
         ROOT / "LICENSE",
         ROOT / "README.md",
         ROOT / "terminal/palettes.json",
