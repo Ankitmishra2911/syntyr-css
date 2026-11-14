@@ -45,7 +45,7 @@ branch, the latest local verification is:
 - Chromium and Firefox: 13 pages × 3 widths each, including native focus and navigation checks, passed.
 - Standalone docs-only theme editor: 3 Chromium widths, theme switching, contrast warning, reset and scope tests passed.
 - Core CSS: 4,634 gzip bytes (budget 5,120); all modules: 7,475 gzip bytes (budget 8,192).
-- WebKit **not rechecked** for these changes: the Gertrude host lacks required WebKit system libraries. Run the existing containerized WebKit matrix before a stable release.
+- WebKit targeted smoke **passed** on a separate isolated Playwright container: new gallery + docs theme editor at 320/390/1280px, navigation styling, color warnings, no overflow. The **full 13-page WebKit matrix remains unverified** for this branch; run it before a stable release.
 - No JavaScript is added to the distributed stylesheets or the main gallery. The theme editor has one optional, local, standalone script.
 
 ## Remaining release gates

@@ -18,7 +18,7 @@
 - Add original MIT-licensed semantic breadcrumbs, touch-sized pagination links and static skeleton loading placeholders to the core; preserve the CSS size budgets.
 - Expand the component gallery and copy-paste recipes with real navigation, keyboard focus and accessible loading-state guidance.
 - Add an optional, standalone JavaScript theme editor **for documentation only**: nested preview themes, color token overrides, contrast diagnostics and pasteable CSS; distributed CSS remains JavaScript-free.
-- Add tests for new component contracts, internal documentation links and an isolated editor browser smoke suite; verify new gallery styling in Chromium and Firefox.
+- Add tests for new component contracts, internal documentation links and an isolated editor browser smoke suite; verify Chromium/Firefox gallery matrices and targeted WebKit gallery/editor smoke.
 - Repair broken public documentation paths and remove obsolete legacy compatibility wording.
 
 - Add an original MIT-licensed operations console example with responsive SaaS navigation, telemetry, capacity bars, deployment table, activity feed and terminal transcript; no runtime JavaScript.
