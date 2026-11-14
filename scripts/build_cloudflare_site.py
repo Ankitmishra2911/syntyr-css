@@ -12,6 +12,11 @@ import shutil
 import sys
 import tempfile
 
+if __package__:
+    from .build import distributions
+else:
+    from build import distributions
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
 MARKER = ".syntyr-site-manifest.json"
@@ -49,6 +54,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "404.html",
         ROOT / "LICENSE",
         ROOT / "README.md",
+        ROOT / "ARCHITECTURE.md",
         ROOT / "terminal/palettes.json",
         ROOT / "integrations/vertigo/admin.css",
         ROOT / "examples/ansi_cli.py",
@@ -68,11 +74,9 @@ def source_files() -> dict[str, bytes]:
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html",
     )
-    public_css = (
-        "syntyr.css", "syntyr.core.css", "syntyr.semantic.css",
-        "syntyr.effects.css", "syntyr.recipes.css", "syntyr.geometry.css", "syntyr.utilities.css",
-        "syntyr.all.css",
-    )
+    # Import the canonical distribution registry rather than maintaining
+    # a second list that can silently omit new CSS entrypoints.
+    public_css = tuple(distributions())
     paths.extend(ROOT / "docs" / name for name in public_docs)
     paths.extend(ROOT / "examples" / name for name in public_examples)
     paths.extend(ROOT / "dist" / name for name in public_css)

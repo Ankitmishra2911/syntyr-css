@@ -36,7 +36,7 @@ The alpha.5 candidate additionally provides `syntyr.utilities.css` for opt-in la
 
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.syn-semantic` to opt into semantic element styles.
-Avoid loading these bundles alongside their component files: that duplicates CSS.
+Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final `syn.utilities` cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see [the architecture policy](../ARCHITECTURE.md).
 
 ## Pinned CDN for prototyping
 
