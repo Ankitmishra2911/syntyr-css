@@ -10,10 +10,10 @@ This document does not claim full production readiness.
 | --- | --- |
 | Standard-library unit/distribution contracts | PASS — 64/64 |
 | Chromium interaction tests | PASS — 17/17 (native popover/dialog, keyboard, forms, responsive layouts, forced-color border) |
-| Enlarged-text layout reflow | PASS — 44/44 cases in Chromium and 44/44 in Firefox (11 pages × 4 width/scale conditions) |
+| Enlarged-text layout reflow | PASS — 44/44 cases in each of Chromium, Firefox, WebKit (11 pages × 4 width/scale conditions × 3 engines = 132 cases) |
 | Chromium browser matrix | PASS — 11 pages × 320, 390, 1280 CSS px (33 cases) |
 | Firefox browser matrix | PASS — 11 pages × 3 widths (33 cases) |
-| WebKit browser matrix | PENDING exact-head validation — 11 pages × 3 widths |
+| WebKit browser matrix | PASS — 11 pages × 3 widths = 33/33 cases, exact source commit `39e9def`, isolated Playwright container |
 | Chromium forced-colors primary controls | PASS — seven theme labels visibly rendered in light palette; dark system palette checked visually; keyboard focus remains visible |
 | Seven-theme nesting and utility contracts | PASS — light inside dark, dark inside light, geometry isolation, utility precedence |
 | axe-core 4.10.3 tagged WCAG 2/2.1/2.2 A/AA | 0 automated violations across 11 pages; **9 color-contrast inconclusive rule results covering 270 elements**, all requiring review |
@@ -24,9 +24,10 @@ This document does not claim full production readiness.
 | Full CSS bundle | 6,962 bytes gzip (limit 8,192) |
 | Library runtime JavaScript / npm dependencies | 0 / 0 |
 
-The earlier ten-page WebKit run used Python Playwright 1.64.1 and the WebKit
-browser provided in an official test-only container. The current eleven-page
-branch is awaiting the exact-head WebKit run. Browser tooling is not shipped
+The eleven-page WebKit matrix and reflow tests passed on exact source commit
+`39e9def` in the official test-only Playwright container, with Python
+Playwright 1.64.1. Across Chromium, Firefox and WebKit, 99 page/viewport
+cases and 132 enlarged-text reflow cases passed. Browser tooling is not shipped
 to consumers. Core, semantic, effects, recipes and utilities can be self-hosted
 without an application build step.
 
