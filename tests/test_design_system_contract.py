@@ -129,6 +129,21 @@ class DesignSystemContract(unittest.TestCase):
         self.assertFalse(cli.should_color(FakeTTY(), {"NO_COLOR": "", "TERM": "xterm"}))
         self.assertFalse(cli.should_color(FakeTTY(), {"CLICOLOR": "0", "TERM": "xterm"}))
 
+    def test_gallery_integration_guide_has_accessible_hit_area(self):
+        from html.parser import HTMLParser
+        class GuideLink(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.classes = []
+            def handle_starttag(self, tag, attrs):
+                attributes = dict(attrs)
+                if tag == "a" and attributes.get("href") == "saas-cli-business.md":
+                    self.classes.append(attributes.get("class", ""))
+        parser = GuideLink()
+        parser.feed((ROOT / "docs/index.html").read_text())
+        self.assertEqual(len(parser.classes), 1)
+        self.assertIn("cy-button", parser.classes[0])
+
     def test_gallery_does_not_advertise_unreleased_theme_as_tagged_release(self):
         page = (ROOT / "docs/index.html").read_text()
         self.assertIn("Studio is not included in the linked v0.3.0-alpha.1 release", page)
