@@ -3,6 +3,7 @@
   .cy-button {
     display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
     min-height: var(--cy-control-height); padding: .65rem 1rem;
+    min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
     border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
     background: var(--cy-surface-hi); color: var(--cy-text);
     text-decoration: none; font: 650 .81rem/1.2 var(--cy-mono);

@@ -8,8 +8,9 @@ This document does not claim full production readiness.
 
 | Gate | Result |
 | --- | --- |
-| Standard-library unit/distribution contracts | PASS — 51/51 |
+| Standard-library unit/distribution contracts | PASS — 53/53 |
 | Chromium interaction tests | PASS — 17/17 (native popover/dialog, keyboard, forms, responsive layouts, forced-color border) |
+| Enlarged-text layout reflow | PASS — 40/40 cases in Chromium and 40/40 in Firefox (10 pages × 4 width/scale conditions) |
 | Chromium browser matrix | PASS — 10 pages × 320, 390, 1280 CSS px (30 cases) |
 | Firefox browser matrix | PASS — 10 pages × 3 widths (30 cases) |
 | WebKit browser matrix | PASS — 10 pages × 3 widths (30 cases), isolated Playwright container |
@@ -17,9 +18,9 @@ This document does not claim full production readiness.
 | axe-core 4.10.3 tagged WCAG 2/2.1/2.2 A/AA | 0 automated violations across 10 pages; **9 inconclusive checks requiring manual review** |
 | CSS parsing with developer-only tinycss2 | PASS — 7 distribution files, zero top-level syntax errors |
 | Deterministic build and release packaging | PASS — `scripts/build.py --check` and reproducible 11-file ZIP (CSS, terminal palette data, MIT license, docs) |
-| Core stylesheet | 4,684 bytes gzip (limit 5,120) |
-| Backwards-compatible core + effects | 5,102 bytes gzip (legacy limit 5,120) |
-| Full CSS bundle | 6,957 bytes gzip (limit 8,192) |
+| Core stylesheet | 4,675 bytes gzip (limit 5,120) |
+| Backwards-compatible core + effects | 5,093 bytes gzip (legacy limit 5,120) |
+| Full CSS bundle | 6,945 bytes gzip (limit 8,192) |
 | Library runtime JavaScript / npm dependencies | 0 / 0 |
 
 The isolated WebKit run uses Python Playwright 1.64.1 and the WebKit browser
@@ -59,4 +60,4 @@ native `color-scheme`, geometry and utility precedence.
 - Review the supported browser baseline, provisional Cyberline trademark,
   and eventual separate commercial license before making marketing or v1 claims.
 
-No new GitHub tag or production release is authorized by this document.
+No v0.3.0-alpha.3 GitHub tag or release has been created by this work.

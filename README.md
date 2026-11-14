@@ -23,7 +23,7 @@
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 - [Seven-theme CSS comparison gallery](examples/themes.html)
-- [Unreleased alpha.3 verification and remaining gates](RELEASE_CHECKS_ALPHA2.md)
+- [Unreleased alpha.3 verification and remaining gates](RELEASE_CHECKS_ALPHA3.md)
 
 Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 

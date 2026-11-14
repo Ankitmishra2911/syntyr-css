@@ -1,4 +1,4 @@
-## Unreleased
+## Unreleased — v0.3.0-alpha.3 candidate
 
 - Add four original palettes (Industrial, Terminal, Corporate, Minimal) with explicit dark/light native control schemes alongside Grid and Noir.
 - Provide an opt-in finite CSS utility module for layout, spacing and visually hidden accessibility text.
@@ -6,7 +6,6 @@
 - Verify theme text/button contrast, nested selectors, reproducible bundles and release packaging in tests.
 - Address nested-theme inherited foreground/geometry defects and utility precedence identified by PR review; add real-browser regression cases.
 - Prepare unreleased `v0.3.0-alpha.3` candidate with a ten-page, three-engine browser matrix and release evidence; retain the Studio SaaS/CLI/business work merged separately to main.
-- Verified earlier WebKit baseline in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
 - Documented zoom-test limitations and manual screen-reader follow-up.
 - Prepared a ten-interview design-partner pilot without claiming buyer commitments.
 
@@ -22,6 +21,12 @@
 - Enlarge the documentation guide link target following an axe-core WCAG 2.2 automated finding.
 - Give labeled telemetry and dashboard-preview groups explicit ARIA group semantics.
 - Retain zero runtime JavaScript, CSS bundle budgets and semantic HTML contracts.
+
+## v0.3.0-alpha.2 (2026-11-14)
+
+- Fix narrow and enlarged-text horizontal overflow in layouts, buttons, panels, badges and long headings.
+- Add browser reflow regression suite and keep the MIT core free of runtime JavaScript.
+- Add voluntary developer feedback calls and document preliminary Cyberline name-risk review.
 
 ## v0.3.0-alpha.1 (2026-11-14)
 

@@ -11,7 +11,8 @@ class PilotReadinessTests(unittest.TestCase):
         doc = (ROOT / "docs/accessibility.md").read_text()
         self.assertIn("WebKit", doc)
         self.assertIn("v1.64.1-noble", doc)
-        self.assertIn("54", doc)
+        self.assertIn("81", doc)
+        self.assertIn("108", doc)
         self.assertIn("manual", doc.lower())
         self.assertIn("400%", doc)
         self.assertIn("not equivalent", doc.lower())
@@ -31,6 +32,13 @@ class PilotReadinessTests(unittest.TestCase):
                      "https://github.com/dporkka/cyberline-css/issues"):
             self.assertIn(item, guide)
         self.assertIn("not_contacted", guide)
+
+    def test_public_entry_points_show_opt_in_feedback_action(self):
+        home = (ROOT / "index.html").read_text()
+        gallery = (ROOT / "docs/index.html").read_text()
+        for html in (home, gallery):
+            self.assertIn("https://github.com/dporkka/cyberline-css/issues/3", html)
+        self.assertIn('id="feedback"', gallery)
 
     def test_kit_page_has_clear_non_sale_feedback_link(self):
         page = (ROOT / "docs/console-kit.html").read_text()

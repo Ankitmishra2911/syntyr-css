@@ -162,9 +162,14 @@ class DesignSystemContract(unittest.TestCase):
         self.assertEqual(len(parser.classes), 1)
         self.assertIn("cy-button", parser.classes[0])
 
-    def test_gallery_does_not_advertise_unreleased_theme_as_tagged_release(self):
+    def test_gallery_advertises_studio_only_in_the_matching_release(self):
         page = (ROOT / "docs/index.html").read_text()
-        self.assertIn("Studio is not included in the linked v0.3.0-alpha.1 release", page)
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.3.0-alpha.3")
+        # The linked published Studio release remains alpha.2; this branch is alpha.3.
+        self.assertIn('href="https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2"', page)
+        self.assertIn("release includes Grid, Noir and Studio themes", page)
+        self.assertIn('[data-cy-theme="studio"]', (ROOT / "dist/cyberline.core.css").read_text())
+        self.assertTrue((ROOT / "dist/cyberline.recipes.css").is_file())
 
     def test_browser_matrix_and_axe_cover_saas_business_terminal(self):
         for path in ("tests/browser_matrix.py", "tests/axe_audit.py"):
