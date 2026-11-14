@@ -119,7 +119,7 @@
   .cy-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
   .cy-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
   .cy-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
-  .cy-stack { display: grid; gap: var(--cy-space-3); }
+  .cy-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cy-space-3); }
   .cy-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--cy-space-2); }
   .cy-panel {
     position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
@@ -143,7 +143,7 @@
   .cy-lede { max-width: 56ch; color: var(--cy-muted); }
   .cy-muted { color: var(--cy-muted); }
   .cy-mono { font-family: var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-caption { color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
+  .cy-caption { overflow-wrap: anywhere; color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
   .cy-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--cy-mono); letter-spacing: -.06em; }
   .cy-rule { border: 0; border-top: 1px solid var(--cy-frame); margin-block: 1.25rem; }
   .cy-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--cy-frame); background: var(--cy-accent-soft); color: var(--cy-accent); font: 650 .68rem/1.25 var(--cy-mono); letter-spacing: .04em; }
@@ -164,16 +164,16 @@
     text-decoration: none; font: 650 .81rem/1.2 var(--cy-mono);
     cursor: pointer; transition: background-color var(--cy-duration-fast) var(--cy-ease), border-color var(--cy-duration-fast) var(--cy-ease), color var(--cy-duration-fast) var(--cy-ease);
   }
-  .cy-button:hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
+  .cy-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
   .cy-button--primary { background: var(--cy-accent); border-color: var(--cy-accent); color: var(--cy-on-accent); }
-  .cy-button--primary:hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
+  .cy-button--primary:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
   .cy-button--outline { background: transparent; border-color: var(--cy-accent); color: var(--cy-accent); }
-  .cy-button--outline:hover { background: var(--cy-accent-soft); }
+  .cy-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); }
   .cy-button--danger { color: var(--cy-danger); border-color: var(--cy-danger); background: transparent; }
-  .cy-button--danger:hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
+  .cy-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
   .cy-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
   .cy-button--ghost { background: transparent; border-color: transparent; }
-  .cy-button--ghost:hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
+  .cy-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
   /* State variants use native ARIA for meaning and optional data attributes for app styling. */
   .cy-button:where([aria-pressed="true"], [data-cy-state="active"]) {
     border-color: var(--cy-accent);
@@ -183,6 +183,7 @@
   .cy-button[aria-busy="true"] { cursor: progress; }
   /* Native disabled blocks activation. ARIA-disabled is informational only;
      the host application must block its event handlers. Keep focus available. */
+  .cy-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
   @media (forced-colors: active) {
     .cy-button { border-color: ButtonText; }
     .cy-button--primary { background: Highlight; color: HighlightText; border-color: Highlight; }

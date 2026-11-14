@@ -9,16 +9,16 @@
     text-decoration: none; font: 650 .81rem/1.2 var(--cy-mono);
     cursor: pointer; transition: background-color var(--cy-duration-fast) var(--cy-ease), border-color var(--cy-duration-fast) var(--cy-ease), color var(--cy-duration-fast) var(--cy-ease);
   }
-  .cy-button:hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
+  .cy-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
   .cy-button--primary { background: var(--cy-accent); border-color: var(--cy-accent); color: var(--cy-on-accent); }
-  .cy-button--primary:hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
+  .cy-button--primary:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
   .cy-button--outline { background: transparent; border-color: var(--cy-accent); color: var(--cy-accent); }
-  .cy-button--outline:hover { background: var(--cy-accent-soft); }
+  .cy-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); }
   .cy-button--danger { color: var(--cy-danger); border-color: var(--cy-danger); background: transparent; }
-  .cy-button--danger:hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
+  .cy-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
   .cy-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
   .cy-button--ghost { background: transparent; border-color: transparent; }
-  .cy-button--ghost:hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
+  .cy-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
   /* State variants use native ARIA for meaning and optional data attributes for app styling. */
   .cy-button:where([aria-pressed="true"], [data-cy-state="active"]) {
     border-color: var(--cy-accent);
@@ -28,6 +28,7 @@
   .cy-button[aria-busy="true"] { cursor: progress; }
   /* Native disabled blocks activation. ARIA-disabled is informational only;
      the host application must block its event handlers. Keep focus available. */
+  .cy-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
   @media (forced-colors: active) {
     .cy-button { border-color: ButtonText; }
     .cy-button--primary { background: Highlight; color: HighlightText; border-color: Highlight; }

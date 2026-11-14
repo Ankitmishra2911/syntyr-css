@@ -3,10 +3,6 @@
    The cut shapes paint their own outlines; they do not mask the host's parent. */
 @layer cy.geometry {
   .cy-frame {
-    --cy-frame-cut: 1rem;
-    --cy-frame-stroke: 1px;
-    --cy-frame-fill: var(--cy-surface);
-    --cy-frame-outline: var(--cy-frame-strong);
     position: relative;
     z-index: 0;
     isolation: isolate;
@@ -28,57 +24,57 @@
      no parent-background-colored triangle is needed. */
   .cy-frame--bevel {
     --cy-frame-shape: polygon(
-      var(--cy-frame-cut) 0, calc(100% - var(--cy-frame-cut)) 0,
-      100% var(--cy-frame-cut), 100% calc(100% - var(--cy-frame-cut)),
-      calc(100% - var(--cy-frame-cut)) 100%, var(--cy-frame-cut) 100%,
-      0 calc(100% - var(--cy-frame-cut)), 0 var(--cy-frame-cut));
+      var(--cy-frame-cut, 1rem) 0, calc(100% - var(--cy-frame-cut, 1rem)) 0,
+      100% var(--cy-frame-cut, 1rem), 100% calc(100% - var(--cy-frame-cut, 1rem)),
+      calc(100% - var(--cy-frame-cut, 1rem)) 100%, var(--cy-frame-cut, 1rem) 100%,
+      0 calc(100% - var(--cy-frame-cut, 1rem)), 0 var(--cy-frame-cut, 1rem));
   }
   .cy-frame--notch {
     --cy-frame-shape: polygon(
-      0 0, calc(100% - var(--cy-frame-cut)) 0,
-      100% var(--cy-frame-cut), 100% 100%,
-      var(--cy-frame-cut) 100%, 0 calc(100% - var(--cy-frame-cut)));
+      0 0, calc(100% - var(--cy-frame-cut, 1rem)) 0,
+      100% var(--cy-frame-cut, 1rem), 100% 100%,
+      var(--cy-frame-cut, 1rem) 100%, 0 calc(100% - var(--cy-frame-cut, 1rem)));
   }
   .cy-frame--bevel::before,
   .cy-frame--notch::before {
     clip-path: var(--cy-frame-shape);
-    background: var(--cy-frame-outline);
+    background: var(--cy-frame-outline, var(--cy-frame-strong));
   }
   .cy-frame--bevel::after,
   .cy-frame--notch::after {
-    inset: var(--cy-frame-stroke);
+    inset: var(--cy-frame-stroke, 1px);
     clip-path: var(--cy-frame-shape);
-    background: var(--cy-frame-fill);
+    background: var(--cy-frame-fill, var(--cy-surface));
   }
   /* Brackets don't obscure the content or assume an enclosing background. */
   .cy-frame--bracket::before {
-    background: var(--cy-frame-fill);
+    background: var(--cy-frame-fill, var(--cy-surface));
   }
   .cy-frame--bracket::after {
-    --cy-bracket-size: clamp(.75rem, var(--cy-frame-cut), 1.5rem);
+    --cy-bracket-size: clamp(.75rem, var(--cy-frame-cut, 1rem), 1.5rem);
     background:
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-bracket-size) var(--cy-frame-stroke) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-frame-stroke) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-bracket-size) var(--cy-frame-stroke) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-frame-stroke) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-bracket-size) var(--cy-frame-stroke) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-frame-stroke) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-bracket-size) var(--cy-frame-stroke) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-frame-stroke) var(--cy-bracket-size) no-repeat;
+      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat;
   }
   /* Inner technical framing with no additional DOM elements. */
   .cy-frame--inset::before {
-    border: var(--cy-frame-stroke) solid var(--cy-frame-outline);
-    background: var(--cy-frame-fill);
+    border: var(--cy-frame-stroke, 1px) solid var(--cy-frame-outline, var(--cy-frame-strong));
+    background: var(--cy-frame-fill, var(--cy-surface));
   }
   .cy-frame--inset::after {
     inset: .45rem;
-    border: var(--cy-frame-stroke) solid var(--cy-accent);
+    border: var(--cy-frame-stroke, 1px) solid var(--cy-accent);
     opacity: .55;
   }
   .cy-frame--circuit::before {
-    border: var(--cy-frame-stroke) solid var(--cy-frame-outline);
-    background: var(--cy-frame-fill);
+    border: var(--cy-frame-stroke, 1px) solid var(--cy-frame-outline, var(--cy-frame-strong));
+    background: var(--cy-frame-fill, var(--cy-surface));
   }
   .cy-frame--circuit::after {
     background:

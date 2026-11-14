@@ -69,6 +69,26 @@ def assert_page(browser, name: str, viewport: int) -> None:
         numeric = page.locator(".cy-cell--numeric").first
         assert numeric.evaluate("e => getComputedStyle(e).textAlign") == "right"
         if viewport == 1280:
+            panel_group = page.locator("#geometry .cy-grid")
+            panel_group.evaluate("e => e.style.setProperty('--cy-frame-fill', '#225533')")
+            inherited_fill = bevel.evaluate("e => getComputedStyle(e, '::after').backgroundColor")
+            assert inherited_fill == "rgb(34, 85, 51)", inherited_fill
+
+            page.evaluate("""() => {
+                const controls = document.createElement('div');
+                controls.innerHTML = '<button class="cy-button cy-button--primary" aria-disabled="true" id="cy-aria-disabled">ARIA disabled</button>'
+                    + '<button class="cy-button cy-button--primary" disabled id="cy-native-disabled">Native disabled</button>';
+                document.querySelector('main').append(controls);
+            }""")
+            aria_button = page.locator("#cy-aria-disabled")
+            original_background = aria_button.evaluate("e => getComputedStyle(e).backgroundColor")
+            aria_button.hover()
+            assert aria_button.evaluate("e => getComputedStyle(e).backgroundColor") == original_background
+            assert aria_button.evaluate("e => getComputedStyle(e).cursor") == "not-allowed"
+            assert aria_button.evaluate("e => getComputedStyle(e).pointerEvents") != "none"
+            native_button = page.locator("#cy-native-disabled")
+            assert native_button.evaluate("e => getComputedStyle(e).cursor") == "not-allowed"
+
             page.emulate_media(forced_colors="active")
             assert bevel.evaluate("e => getComputedStyle(e).borderTopStyle") == "solid"
             assert bevel.evaluate("e => getComputedStyle(e, '::before').display") == "none"

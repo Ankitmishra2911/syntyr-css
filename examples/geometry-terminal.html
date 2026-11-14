@@ -8,8 +8,13 @@
   <link rel="stylesheet" href="../dist/cyberline.core.css">
   <link rel="stylesheet" href="../dist/cyberline.recipes.css">
   <link rel="stylesheet" href="../dist/cyberline.geometry.css">
+  <style>
+    .cy-skip-link { position: absolute; top: -10rem; inset-inline-start: 1rem; z-index: 10; }
+    .cy-skip-link:focus { top: 1rem; }
+  </style>
 </head>
 <body class="cy-root cy-page" data-cy-theme="grid">
+  <a class="cy-button cy-skip-link" href="#main">Skip to content</a>
   <div class="cy-shell">
     <header class="cy-header">
       <a class="cy-logo" href="../docs/index.html">CYBERLINE / LAB</a>
@@ -20,7 +25,7 @@
         <a href="../docs/index.html">GALLERY</a>
       </nav>
     </header>
-    <main>
+    <main id="main">
       <section class="cy-stage" aria-labelledby="lab-title">
         <p class="cy-eyebrow">INTERFACE RESEARCH / ORIGINAL CSS</p>
         <h1 id="lab-title" class="cy-title">Surfaces for the next interface.</h1>

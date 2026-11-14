@@ -5,6 +5,9 @@
 - Remove CSS pointer-event suppression from ARIA-disabled buttons; applications enforce ARIA-disabled activation themselves.
 - Add right-aligned tabular numeric cells and a free HTML geometry/terminal demo plus multi-browser regression checks.
 - Preserve the existing explicit table emphasis API, core gzip budget and deterministic ZIP distribution.
+- Address review findings: disabled hover/cursor semantics, inherited geometry tokens and the tracked standalone CSS release artifact.
+- Fix 320px/2x text reflow by making stack tracks shrinkable and allowing long technical captions to wrap.
+- Verify the frame-and-terminal gallery across Chromium, Firefox and WebKit; maintain a CSS-first implementation without requiring runtime JavaScript.
 
 - Add an original MIT CSS-only opt-in Vertigo admin skin and standalone HTML preview; keep the existing Vertigo application unmodified.
 - Build a separate Hugo v0.170.0 docs proof from canonical Markdown using filesystem mounts, with reproducible output/link checks.

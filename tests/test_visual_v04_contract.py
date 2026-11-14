@@ -1,6 +1,7 @@
 """v0.4 geometry + terminal enhancement contracts (zero runtime JS)."""
 from pathlib import Path
 import gzip
+import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,6 +35,32 @@ class GeometryTerminalContract(unittest.TestCase):
         self.assertIn(".cy-cell--numeric", css)
         self.assertIn("font-variant-numeric: tabular-nums", css)
 
+    def test_long_technical_captions_wrap_at_text_zoom(self):
+        typography = (ROOT / "src/components/typography.css").read_text()
+        self.assertIn("overflow-wrap: anywhere", typography.split(".cy-caption {", 1)[1].split("}", 1)[0])
+
+    def test_stack_grid_allows_terminal_to_shrink_to_mobile_viewport(self):
+        layout = (ROOT / "src/components/layout.css").read_text()
+        self.assertIn(".cy-stack { display: grid; grid-template-columns: minmax(0, 1fr);", layout)
+
+    def test_nested_geometry_tokens_are_respected(self):
+        css = (ROOT / "src/geometry.css").read_text()
+        root = css.split(".cy-frame {", 1)[1].split("}", 1)[0]
+        for token in ("--cy-frame-cut:", "--cy-frame-stroke:",
+                      "--cy-frame-fill:", "--cy-frame-outline:"):
+            self.assertNotIn(token, root, "frames must not overwrite inherited tokens")
+        for default in ("var(--cy-frame-cut, 1rem)", "var(--cy-frame-stroke, 1px)",
+                        "var(--cy-frame-fill, var(--cy-surface))",
+                        "var(--cy-frame-outline, var(--cy-frame-strong))"):
+            self.assertIn(default, css)
+
+    def test_disabled_button_hover_states_are_excluded(self):
+        css = (ROOT / "src/components/buttons.css").read_text()
+        for variant in (".cy-button", ".cy-button--primary", ".cy-button--outline",
+                        ".cy-button--danger", ".cy-button--ghost"):
+            self.assertIn(variant + ":not(:disabled):not([aria-disabled=\"true\"]):hover", css)
+        self.assertIn("cursor: not-allowed", css)
+
     def test_aria_disabled_is_not_functionally_disabled_by_css(self):
         css = (ROOT / "src/components/buttons.css").read_text()
         self.assertNotIn("pointer-events: none", css)
@@ -58,9 +85,18 @@ class GeometryTerminalContract(unittest.TestCase):
                       "cy-table-emphasis", "cy-terminal-error", "cy-terminal-warning"):
             with self.subTest(value=value):
                 self.assertIn(value, page)
+        self.assertIn('href="#main"', page)
+        self.assertIn('<main id="main">', page)
         self.assertNotIn("<script", page.lower())
         self.assertIn("geometry-terminal.html", (ROOT / "docs/index.html").read_text())
         self.assertIn("dist/cyberline.geometry.css", page)
+
+    def test_standalone_distribution_is_tracked_for_clean_checkouts(self):
+        result = subprocess.run(
+            ["git", "ls-files", "--error-unmatch", "dist/cyberline.geometry.css"],
+            cwd=ROOT, capture_output=True, text=True
+        )
+        self.assertEqual(result.returncode, 0, "generated geometry CSS must be committed, not only built locally")
 
     def test_download_package_includes_geometry(self):
         package = (ROOT / "scripts/package_release.py").read_text()
