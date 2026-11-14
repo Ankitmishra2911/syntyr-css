@@ -192,6 +192,25 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(self.page.locator('body').evaluate(
             "e => getComputedStyle(e).colorScheme"), 'dark')
 
+    def test_nested_studio_recipe_surfaces_have_matching_foreground_and_background(self):
+        core = (ROOT / "dist/cyberline.core.css").read_text()
+        recipes = (ROOT / "dist/cyberline.recipes.css").read_text()
+        self.page.set_content(f"""<style>{core}{recipes}</style>
+        <main class="cy-root" data-cy-theme="grid">
+            <section data-cy-theme="studio">
+                <aside class="cy-app-rail" id="nested-rail">Studio rail</aside>
+                <article class="cy-app-card" id="nested-card">Studio card</article>
+                <section class="cy-site-hero" id="nested-hero">Studio hero</section>
+                <section class="cy-feature-card" id="nested-feature">Studio feature</section>
+            </section>
+        </main>""")
+        for selector in ("#nested-rail", "#nested-card", "#nested-hero", "#nested-feature"):
+            with self.subTest(selector=selector):
+                computed = self.page.locator(selector).evaluate(
+                    "e => ({fg: getComputedStyle(e).color, bg: getComputedStyle(e).backgroundColor})")
+                self.assertEqual(computed["fg"], "rgb(21, 35, 58)")
+                self.assertEqual(computed["bg"], "rgb(255, 255, 255)")
+
     def test_new_recipes_have_no_mobile_overflow_and_work_at_desktop_width(self):
         core = (ROOT / 'dist/cyberline.core.css').read_text()
         recipes = (ROOT / 'dist/cyberline.recipes.css').read_text()

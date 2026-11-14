@@ -99,6 +99,46 @@ class DesignSystemContract(unittest.TestCase):
             with self.subTest(foreground=fg, background=bg):
                 self.assertGreaterEqual(ratio(palette[fg], palette[bg]), 4.5)
 
+    def test_colored_cli_spans_supply_matching_background(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("cyberline_cli", ROOT / "examples/ansi_cli.py")
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
+        rendered = cli.styled("OK", "#8ce6bb", True, "#080f19")
+        self.assertIn("\x1b[38;2;140;230;187m", rendered)
+        self.assertIn("\x1b[48;2;8;15;25m", rendered)
+        self.assertTrue(rendered.endswith("\x1b[0m"))
+        self.assertEqual(cli.styled("OK", "#8ce6bb", False, "#080f19"), "OK")
+
+    def test_cli_rejects_color_if_windows_vt_activation_fails(self):
+        import importlib.util
+        from unittest.mock import patch
+        spec = importlib.util.spec_from_file_location("cyberline_cli", ROOT / "examples/ansi_cli.py")
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
+        class FakeTTY:
+            def isatty(self):
+                return True
+            def fileno(self):
+                return 1
+        with patch.object(cli.os, "name", "nt"):
+            with patch.object(cli, "_enable_windows_vt", return_value=False):
+                self.assertFalse(cli.should_color(FakeTTY(), {"TERM": "xterm-256color"}))
+            with patch.object(cli, "_enable_windows_vt", return_value=True):
+                self.assertTrue(cli.should_color(FakeTTY(), {"TERM": "xterm-256color"}))
+        self.assertFalse(cli.should_color(FakeTTY(), {"NO_COLOR": "", "TERM": "xterm"}))
+        self.assertFalse(cli.should_color(FakeTTY(), {"CLICOLOR": "0", "TERM": "xterm"}))
+
+    def test_gallery_does_not_advertise_unreleased_theme_as_tagged_release(self):
+        page = (ROOT / "docs/index.html").read_text()
+        self.assertIn("Studio is not included in the linked v0.3.0-alpha.1 release", page)
+
+    def test_browser_matrix_and_axe_cover_saas_business_terminal(self):
+        for path in ("tests/browser_matrix.py", "tests/axe_audit.py"):
+            s = (ROOT / path).read_text()
+            for name in ("examples/saas.html", "examples/business.html", "examples/terminal.html"):
+                self.assertIn(name, s)
+
     def test_cli_example_respects_no_color_and_pipelines(self):
         cli = ROOT / 'examples/ansi_cli.py'
         run = subprocess.run([sys.executable, str(cli), '--theme', 'studio'],

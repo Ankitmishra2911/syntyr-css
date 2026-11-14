@@ -8,6 +8,7 @@
 - Export ANSI 16-color palettes and a stdlib Python CLI example for native terminal apps (CSS itself cannot style terminals).
 - Add original MIT demo pages for SaaS, business and terminal contexts, and explicit table status styling.
 - Add optional static horizon/atmosphere effects and enhance the Grid/Noir demos without continuous animation.
+- Fix nested Studio foreground inheritance, CLI ANSI contrast and Windows VT detection; expand browser and axe page coverage.
 - Retain zero runtime JavaScript, CSS bundle budgets and semantic HTML contracts.
 
 ## v0.3.0-alpha.1 (2026-11-14)

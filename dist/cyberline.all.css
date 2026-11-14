@@ -326,7 +326,7 @@
   .cy-app-rail {
     display: flex; flex-direction: column; gap: var(--cy-space-2);
     padding: var(--cy-space-3); border-block-end: 1px solid var(--cy-frame);
-    background: var(--cy-surface);
+    background: var(--cy-surface); color: var(--cy-text);
   }
   .cy-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
   .cy-app-nav a {
@@ -343,7 +343,7 @@
   .cy-app-card {
     min-width: 0; padding: var(--cy-space-3);
     border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
-    background: var(--cy-surface);
+    background: var(--cy-surface); color: var(--cy-text);
   }
   .cy-app-card > :first-child { margin-block-start: 0; }
   .cy-app-card > :last-child { margin-block-end: 0; }
@@ -357,6 +357,7 @@
     position: relative; isolation: isolate; overflow: hidden;
     border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
     background: radial-gradient(ellipse at 80% 20%, var(--cy-accent-soft), transparent 56%), var(--cy-surface);
+    color: var(--cy-text);
     padding: clamp(2rem, 6vw, 5rem);
   }
   .cy-site-hero::before {
@@ -366,10 +367,10 @@
   .cy-site-heading { font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
   .cy-site-heading strong { color: var(--cy-accent); }
   .cy-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--cy-space-2); }
-  .cy-feature-card { min-width: 0; padding: var(--cy-space-4); background: var(--cy-surface); border: 1px solid var(--cy-frame); border-radius: var(--cy-radius); }
+  .cy-feature-card { min-width: 0; padding: var(--cy-space-4); background: var(--cy-surface); color: var(--cy-text); border: 1px solid var(--cy-frame); border-radius: var(--cy-radius); }
   .cy-feature-card > :first-child { margin-block-start: 0; }
   .cy-feature-card > :last-child { margin-block-end: 0; }
-  .cy-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--cy-space-3); padding: var(--cy-space-4); background: var(--cy-accent-soft); border-inline-start: 3px solid var(--cy-accent); }
+  .cy-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--cy-space-3); padding: var(--cy-space-4); background: var(--cy-accent-soft); color: var(--cy-text); border-inline-start: 3px solid var(--cy-accent); }
   /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
   .cy-terminal {
     --cy-terminal-bg: #0b1625;
@@ -393,7 +394,7 @@
     content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
     width: 3.5rem; height: 2px; background: var(--cy-accent); pointer-events: none;
   }
-  .cy-frame--industrial { border-inline-start: 3px solid var(--cy-accent); background: linear-gradient(110deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); }
+  .cy-frame--industrial { border-inline-start: 3px solid var(--cy-accent); background: linear-gradient(110deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); color: var(--cy-text); }
   .cy-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
   @media (min-width: 53rem) {
     .cy-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
