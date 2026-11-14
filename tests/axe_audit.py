@@ -19,7 +19,8 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "examples/console.html",
           "examples/resources.html", "examples/pricing.html", "docs/console-kit.html",
-         "examples/saas.html", "examples/business.html", "examples/terminal.html")
+         "examples/saas.html", "examples/business.html", "examples/terminal.html",
+         "examples/vertigo-admin.html")
 
 
 def main() -> int:

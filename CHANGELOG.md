@@ -1,3 +1,9 @@
+## Unreleased
+
+- Add an original MIT CSS-only opt-in Vertigo admin skin and standalone HTML preview; keep the existing Vertigo application unmodified.
+- Build a separate Hugo v0.170.0 docs proof from canonical Markdown using filesystem mounts, with reproducible output/link checks.
+- Document the Hugo versus Zola tradeoff; do not migrate the live GitHub Pages site yet.
+
 ## v0.3.0-alpha.2 (2026-11-14)
 
 - Fix narrow and enlarged-text horizontal overflow in layouts, buttons, panels, badges and long headings.

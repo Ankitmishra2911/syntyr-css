@@ -41,7 +41,8 @@ class SiteReleaseTests(unittest.TestCase):
                        ROOT / "examples/pricing.html", ROOT / "examples/resources.html",
                        ROOT / "docs/console-kit.html",
                        ROOT / "examples/saas.html", ROOT / "examples/business.html",
-                       ROOT / "examples/terminal.html"):
+                       ROOT / "examples/terminal.html",
+                       ROOT / "examples/vertigo-admin.html"):
             with self.subTest(page=source.relative_to(ROOT)):
                 parser = LinkedAssets()
                 parser.feed(source.read_text(encoding="utf-8"))

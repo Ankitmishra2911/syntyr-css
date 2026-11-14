@@ -22,6 +22,8 @@
 - [Preliminary brand-name risk research (NOT clearance)](business/trademark-screen.md)
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
+- [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
+- [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
 
 Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 

@@ -7,3 +7,4 @@ previews/
 .DS_Store
 
 release/
+\n# Isolated Hugo experiment output (never deploy from these directories).\nexperiments/hugo/public/\nexperiments/hugo/resources/\nexperiments/hugo/.hugo_build.lock\n

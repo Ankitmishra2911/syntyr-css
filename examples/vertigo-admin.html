@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An MIT-licensed, CSS-only optional admin theme demonstration for Vertigo's server-rendered Go pages.">
+  <title>Cyberline × Vertigo — Optional Admin Skin Demo</title>
+  <link rel="stylesheet" href="../dist/cyberline.core.css">
+  <link rel="stylesheet" href="../integrations/vertigo/admin.css">
+</head>
+<body class="cy-root cy-page cy-vertigo-admin" data-cy-theme="studio">
+  <main id="main">
+    <nav aria-label="Admin navigation">
+      <a href="../docs/">Cyberline gallery</a> / <a href="#tasks" aria-current="page">Tasks</a>
+    </nav>
+    <div class="row">
+      <div>
+        <span class="cy-eyebrow">VERTIGO / OPTIONAL VISUAL ADAPTER</span>
+        <h1>Tasks</h1>
+        <p>Fictional example data. No backend, authentication, or CRUD operations are connected.</p>
+      </div>
+      <div class="actions">
+        <a class="button secondary" href="https://github.com/dporkka/cyberline-css/blob/main/docs/vertigo-integration.md">Integration source</a>
+        <a class="button" href="#sample-form">New task</a>
+      </div>
+    </div>
+    <div class="cards" aria-label="Illustrative summaries">
+      <a class="card" href="#tasks"><strong>12 active</strong><span>Open work items</span></a>
+      <a class="card" href="#tasks"><strong>03 queued</strong><span>Waiting for review</span></a>
+      <a class="card" href="#sample-form"><strong>00 blocked</strong><span>Items requiring attention</span></a>
+    </div>
+    <section id="tasks" aria-labelledby="list-title">
+      <h2 id="list-title">Resource list</h2>
+      <p class="notice" role="status">This is a static, MIT-licensed styling example, not a live Vertigo instance.</p>
+      <form class="search" method="get" action="#tasks" role="search" aria-label="Illustrative task search">
+        <label for="task-q">Search tasks
+          <input id="task-q" name="q" type="search" placeholder="Title or status">
+        </label>
+        <button type="submit">Search</button>
+      </form>
+      <p class="cy-caption">Search is illustrative. Vertigo or your server must process query parameters.</p>
+      <div class="tablewrap">
+        <table>
+          <caption>Fictional tasks (4 rows)</caption>
+          <thead><tr><th scope="col">ID</th><th scope="col">Task</th><th scope="col">Status</th><th scope="col">Updated</th></tr></thead>
+          <tbody>
+            <tr><td>VX-01</td><td>Review layout</td><td>Active</td><td>2026-11-13</td></tr>
+            <tr><td>VX-02</td><td>Audit forms</td><td>Queued</td><td>2026-11-12</td></tr>
+            <tr><td>VX-03</td><td>Verify assets</td><td>Active</td><td>2026-11-11</td></tr>
+            <tr><td>VX-04</td><td>Ship docs</td><td>Active</td><td>2026-11-10</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pager"><span>Page 1 / 1</span><a href="../docs/">View all components</a></div>
+    </section>
+    <section id="sample-form" aria-labelledby="sample-form-title">
+      <h2 id="sample-form-title">Form elements</h2>
+      <p>See how native form controls inherit the selected Cyberline palette.</p>
+      <label for="demo-title">Task title <span aria-hidden="true">*</span>
+        <input id="demo-title" name="title" placeholder="e.g. Verify forms" required>
+      </label>
+      <label for="demo-status">Status
+        <select id="demo-status" name="status">
+          <option>Queued</option>
+          <option>Active</option>
+          <option>Complete</option>
+        </select>
+      </label>
+      <p class="cy-caption">These controls are not connected to a submitting form. No changes are saved.</p>
+    </section>
+    <footer><p><a href="../LICENSE">MIT license</a> · <a href="https://github.com/dporkka/cyberline-css/blob/main/docs/vertigo-integration.md">How to use this in Vertigo</a></p></footer>
+  </main>
+</body>
+</html>

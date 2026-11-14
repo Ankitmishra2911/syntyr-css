@@ -1,0 +1,15 @@
+{{ define "main" }}
+<section aria-labelledby="guides-title">
+  <p class="cy-eyebrow">MARKDOWN CONTENT / NO JS</p>
+  <h1 id="guides-title">{{ .Title }}</h1>
+  <div class="preview-content">{{ .Content }}</div>
+  <div class="preview-guides" aria-label="Guides">
+    {{ range .RegularPages.ByTitle }}
+    <article class="cy-panel">
+      <h2 class="cy-heading"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <p class="cy-muted">Open the rendered Markdown documentation.</p>
+    </article>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
