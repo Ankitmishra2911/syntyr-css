@@ -1,3 +1,10 @@
+## v0.3.0-alpha.1 (2026-11-14)
+
+- Publish static showcase and component gallery via GitHub Pages, without adding a runtime build toolchain.
+- Add a prominent gallery link, copy-paste installation panel, and documentation links.
+- Add a reproducible versioned CSS release ZIP and local static-link tests.
+- Preserve MIT licensing, zero runtime JS, and separate future premium templates.
+
 # Changelog
 
 ## v0.3-alpha — 2026-11-14

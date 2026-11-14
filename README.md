@@ -1,6 +1,6 @@
 # Cyberline CSS
 
-**Experimental v0.3-alpha** — framework-neutral, low-dependency, CSS-first styling for futuristic, TRON-inspired Grid and Blade Runner-inspired Noir websites.
+**Experimental v0.3.0-alpha.1** — framework-neutral, low-dependency, CSS-first styling for futuristic, TRON-inspired Grid and Blade Runner-inspired Noir websites.
 
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
@@ -8,6 +8,15 @@
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.cy-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
+
+## Live gallery and installation
+
+- [Live website](https://dporkka.github.io/cyberline-css/)
+- [Component gallery](https://dporkka.github.io/cyberline-css/docs/)
+- [Versioned release downloads](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1)
+- [Dependency-free CSS distribution guide](docs/distribution.md)
+
+Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
 ## Start in 10 seconds
 
@@ -57,6 +66,7 @@ The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css
 python3 scripts/build.py
 python3 scripts/build.py --check
 python3 -m unittest discover -s tests -v
+python3 scripts/package_release.py
 ```
 
 Chromium browser tests use Playwright (a **dev-only optional tool**) and run with:
@@ -65,7 +75,7 @@ Chromium browser tests use Playwright (a **dev-only optional tool**) and run wit
 python3 tests/browser_test.py
 ```
 
-The browser test script requires `playwright` and a Chromium browser to be present; consumers of the CSS do **not** require either. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
+The browser test script requires `playwright` and a Chromium browser to be present; it autodetects `chromium` or `chromium-browser`, or accepts `PLAYWRIGHT_CHROMIUM_EXECUTABLE`; consumers of the CSS do **not** require either. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
 
 ## Important boundaries
 

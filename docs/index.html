@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cyberline CSS: MIT-licensed, zero-JavaScript cyberpunk UI components in two themes. Explore a native HTML component gallery.">
   <meta name="theme-color" content="#080f19">
   <meta name="description" content="Cyberline CSS — accessible, CSS-first futuristic UI primitives with no runtime dependencies.">
   <title>Cyberline CSS — Component Gallery</title>
@@ -14,6 +15,7 @@
     <header class="cy-header">
       <a class="cy-logo" href="#top">// CYBERLINE<span class="docs-visually-hidden"> home</span></a>
       <nav class="cy-nav" aria-label="Main navigation">
+        <a href="#install">GET STARTED</a>
         <a href="#themes">THEMES</a>
         <a href="#components">COMPONENTS</a>
         <a href="#recipes">RECIPES</a>
@@ -174,8 +176,35 @@
         <p class="cy-caption">These examples are MIT-licensed. Future premium kits would be separate, complete page packs—not paywalls on essential UI components.</p>
       </section>
 
+      <section class="docs-section" id="install" aria-labelledby="install-title">
+        <div class="docs-section-head"><h2 id="install-title">06 / Get started</h2><span class="cy-caption">COPY CSS / ZERO NPM / MIT</span></div>
+        <div class="docs-two">
+          <div>
+            <p class="cy-eyebrow">V0.3.0-ALPHA.1 / DISTRIBUTION</p>
+            <h3 class="cy-heading">Use native HTML. Ship nothing extra.</h3>
+            <p class="cy-muted">Download the compiled stylesheet and host it with your application. Grid and Noir are included in core. Semantic styling and effects stay optional.</p>
+            <div class="cy-actions">
+              <a class="cy-button cy-button--primary" href="../dist/cyberline.core.css" download>DOWNLOAD CORE CSS</a>
+              <a class="cy-button" href="https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1">RELEASE &amp; SOURCE</a>
+              <a class="cy-button cy-button--outline" href="../LICENSE">MIT LICENSE</a>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;link rel="stylesheet"
+      href="/css/cyberline.core.css"&gt;
+
+&lt;section class="cy-root"
+         data-cy-theme="grid"&gt;
+  &lt;button class="cy-button
+           cy-button--primary"&gt;
+    Initialize
+  &lt;/button&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+        <p class="cy-caption">Host the CSS at your own path. For optional modules, version pinning and CDN guidance, see <a href="https://github.com/dporkka/cyberline-css/blob/main/docs/distribution.md">the distribution guide</a>.</p>
+      </section>
+
       <section class="docs-section" id="accessibility" aria-labelledby="accessibility-title">
-        <div class="docs-section-head"><h2 id="accessibility-title">06 / Engineering principles</h2><span class="cy-caption">BUILT FOR PRODUCTION AUDITS</span></div>
+        <div class="docs-section-head"><h2 id="accessibility-title">07 / Engineering principles</h2><span class="cy-caption">BUILT FOR PRODUCTION AUDITS</span></div>
         <div class="cy-grid">
           <article class="cy-panel"><span class="cy-eyebrow">LOW ENTROPY</span><h3 class="cy-heading">Just CSS</h3><p class="cy-muted">No browser JS, no external assets, no runtime package dependencies. Python only builds distributable files.</p></article>
           <article class="cy-panel"><span class="cy-eyebrow">PLATFORM FIRST</span><h3 class="cy-heading">Native controls</h3><p class="cy-muted">Real button, dialog, popover, select, details, input and progress. No faux ARIA tab or combobox implementations.</p></article>

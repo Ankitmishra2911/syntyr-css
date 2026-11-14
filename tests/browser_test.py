@@ -5,6 +5,7 @@ Browser infrastructure is developer-only, never a Cyberline runtime dependency.
 """
 from pathlib import Path
 import os
+import shutil
 import unittest
 
 from playwright.sync_api import sync_playwright
@@ -17,8 +18,11 @@ class BrowserTests(unittest.TestCase):
     def setUpClass(cls):
         cls.p = sync_playwright().start()
         kwargs = dict(headless=True)
-        if os.path.exists('/usr/bin/chromium'):
-            kwargs['executable_path'] = '/usr/bin/chromium'
+        executable = (os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE')
+                      or shutil.which('chromium')
+                      or shutil.which('chromium-browser'))
+        if executable:
+            kwargs['executable_path'] = executable
             kwargs['args'] = ['--no-sandbox']
         cls.browser = cls.p.chromium.launch(**kwargs)
 
