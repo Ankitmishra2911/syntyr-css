@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -194,6 +194,33 @@ def assert_page(browser, name: str, viewport: int) -> None:
             page.emulate_media(forced_colors="active")
             assert bevel.evaluate("e => getComputedStyle(e).borderTopStyle") == "solid"
             assert bevel.evaluate("e => getComputedStyle(e, '::before').display") == "none"
+    if name == "examples/saas-workflows.html":
+        assert page.get_by_role("search").count() == 1, name
+        assert page.get_by_role("table").count() == 1, name
+        assert page.get_by_role("navigation", name="Breadcrumb").count() == 1, name
+        assert page.get_by_role("navigation", name="Pagination example").get_by_role("link").count() == 3
+        assert page.locator("#results tbody tr").count() == 3, name
+        assert page.get_by_role("searchbox", name="SEARCH RECORDS").count() == 1
+        assert page.locator(".syn-skeleton[aria-hidden='true']").count() == 2
+        assert page.get_by_role("navigation", name="Pagination example").get_by_role("link").first.evaluate(
+            "e => e.getBoundingClientRect().height") >= 44
+        if viewport == 1280:
+            page.get_by_text("Display preferences").click()
+            assert page.locator("#preferences details").first.evaluate("e => !e.open")
+            page.get_by_text("Display preferences").click()
+            assert page.locator("#preferences details").first.evaluate("e => e.open")
+            compact = page.get_by_role("checkbox", name="Compact record density (local preview)")
+            cell = page.locator("#results tbody td").first
+            compact_height = cell.evaluate("e => getComputedStyle(e).paddingTop")
+            assert compact.is_checked()
+            compact.uncheck()
+            expanded_height = cell.evaluate("e => getComputedStyle(e).paddingTop")
+            assert float(expanded_height.removesuffix("px")) > float(compact_height.removesuffix("px"))
+            notifications = page.get_by_role("checkbox", name="Email notifications (requires server)")
+            assert notifications.is_disabled()
+            searchbox = page.get_by_role("searchbox", name="SEARCH RECORDS")
+            searchbox.fill("Atlas")
+            assert searchbox.input_value() == "Atlas"
     if name == "examples/vertigo-admin.html" and viewport == 1280:
         def styles():
             return page.evaluate("""() => {

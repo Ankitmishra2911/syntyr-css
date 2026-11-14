@@ -22,6 +22,9 @@
 
 ## Unreleased
 
+- Add a complete, static MIT SaaS workflow demonstration with search and filter form, responsive record table, linked pagination, preferences disclosures, skeletons and empty states. All backend actions are explicitly illustrative; core CSS and runtime JS remain unchanged.
+- Publish the workflow demo and scoped example stylesheet in the Cloudflare site allowlist and gallery, with source and browser test contracts.
+
 - Add original MIT-licensed semantic breadcrumbs, touch-sized pagination links and static skeleton loading placeholders to the core; preserve the CSS size budgets.
 - Expand the component gallery and copy-paste recipes with real navigation, keyboard focus and accessible loading-state guidance.
 - Add an optional, standalone JavaScript theme editor **for documentation only**: nested preview themes, color token overrides, contrast diagnostics and pasteable CSS; distributed CSS remains JavaScript-free.

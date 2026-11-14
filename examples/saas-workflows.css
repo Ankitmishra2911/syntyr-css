@@ -1,0 +1,16 @@
+/* Example-only layouts; these do not add bytes to the SYNTYR distribution. */
+.workflow-skip { position: absolute; inset-block-start: -12rem; inset-inline-start: 1rem; z-index: 10; }
+.workflow-skip:focus { inset-block-start: 1rem; }
+.workflow-section { margin-block: 1.5rem; }
+.workflow-breadcrumbs { margin-block-end: 1.5rem; }
+.workflow-filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: var(--syn-space-2); align-items: end; }
+.workflow-filter-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.workflow-filter-actions > * { flex: 1 1 auto; }
+.workflow-table-caption { text-align: start; color: var(--syn-muted); padding-block-end: .75rem; }
+.workflow-pagination { margin-block-start: 1.25rem; }
+.workflow-settings { display: grid; gap: 1rem; padding-block: 1rem; }
+.workflow-pattern-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--syn-space-2); }
+.workflow-skeletons { display: grid; gap: 1rem; padding-block: 1rem; }
+
+/* CSS-only preview of a real display preference; persistence is not implied. */
+body:has(#dense:checked) .syn-table :is(th, td) { padding-block: .3rem; }
