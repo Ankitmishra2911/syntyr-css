@@ -1,34 +1,34 @@
 /* Portable app/marketing compositions, inspired by patterns rather than code from UI kits.
    A named container prevents viewport-dependent components. All styles stay opt-in. */
-@layer cy.components {
-  .cy-region { container-name: cy-region; container-type: inline-size; min-width: 0; }
-  .cy-split { display: grid; gap: var(--cy-space-3); min-width: 0; }
-  .cy-stats { display: grid; gap: var(--cy-space-2); grid-template-columns: minmax(0, 1fr); }
-  .cy-stat { padding: var(--cy-space-3); border: 1px solid var(--cy-frame); background: var(--cy-surface); min-width: 0; }
-  .cy-stat-label { color: var(--cy-muted); font: 650 .73rem/1.4 var(--cy-mono); letter-spacing: .05em; }
-  .cy-stat-value { margin: .5rem 0 0; color: var(--cy-text); font: 650 clamp(1.7rem, 4vw, 2.4rem)/1.1 var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--cy-space-2); }
-  .cy-empty { display: grid; justify-items: center; align-content: center; text-align: center; gap: var(--cy-space-2); min-height: 12rem; padding: var(--cy-space-4); border: 1px dashed var(--cy-frame); background: var(--cy-surface); }
-  .cy-empty > :where(h2, h3, p) { margin-block: 0; }
-  .cy-pricing { display: grid; gap: var(--cy-space-2); grid-template-columns: minmax(0, 1fr); }
-  .cy-price-card { display: flex; flex-direction: column; gap: var(--cy-space-3); min-width: 0; border: 1px solid var(--cy-frame); padding: var(--cy-space-4); background: var(--cy-surface); }
-  .cy-price-card[data-cy-featured] { border-color: var(--cy-accent); background: linear-gradient(155deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); }
-  .cy-price-card > .cy-button { margin-block-start: auto; }
-  .cy-price-value { margin: 0; color: var(--cy-text); font: 650 clamp(2rem, 5vw, 3rem)/1.1 var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-price-value small { color: var(--cy-muted); font: 400 .9rem var(--cy-font); }
-  .cy-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--cy-space-3); color: var(--cy-muted); }
-  .cy-feature-list li::marker { color: var(--cy-accent); }
-  @container cy-region (min-width: 31rem) {
-    .cy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@layer syn.components {
+  .syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
+  .syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
+  .syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
+  .syn-stat { padding: var(--syn-space-3); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
+  .syn-stat-label { color: var(--syn-muted); font: 650 .73rem/1.4 var(--syn-mono); letter-spacing: .05em; }
+  .syn-stat-value { margin: .5rem 0 0; color: var(--syn-text); font: 650 clamp(1.7rem, 4vw, 2.4rem)/1.1 var(--syn-mono); font-variant-numeric: tabular-nums; }
+  .syn-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--syn-space-2); }
+  .syn-empty { display: grid; justify-items: center; align-content: center; text-align: center; gap: var(--syn-space-2); min-height: 12rem; padding: var(--syn-space-4); border: 1px dashed var(--syn-frame); background: var(--syn-surface); }
+  .syn-empty > :where(h2, h3, p) { margin-block: 0; }
+  .syn-pricing { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
+  .syn-price-card { display: flex; flex-direction: column; gap: var(--syn-space-3); min-width: 0; border: 1px solid var(--syn-frame); padding: var(--syn-space-4); background: var(--syn-surface); }
+  .syn-price-card[data-syn-featured] { border-color: var(--syn-accent); background: linear-gradient(155deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); }
+  .syn-price-card > .syn-button { margin-block-start: auto; }
+  .syn-price-value { margin: 0; color: var(--syn-text); font: 650 clamp(2rem, 5vw, 3rem)/1.1 var(--syn-mono); font-variant-numeric: tabular-nums; }
+  .syn-price-value small { color: var(--syn-muted); font: 400 .9rem var(--syn-font); }
+  .syn-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--syn-space-3); color: var(--syn-muted); }
+  .syn-feature-list li::marker { color: var(--syn-accent); }
+  @container syn-region (min-width: 31rem) {
+    .syn-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  @container cy-region (min-width: 43rem) {
-    .cy-split { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
-    .cy-pricing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @container syn-region (min-width: 43rem) {
+    .syn-split { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+    .syn-pricing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
-  @container cy-region (min-width: 55rem) {
-    .cy-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @container syn-region (min-width: 55rem) {
+    .syn-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   @media (forced-colors: active) {
-    .cy-stat, .cy-empty, .cy-price-card, .cy-price-card[data-cy-featured] { border-color: CanvasText; }
+    .syn-stat, .syn-empty, .syn-price-card, .syn-price-card[data-syn-featured] { border-color: CanvasText; }
   }
 }

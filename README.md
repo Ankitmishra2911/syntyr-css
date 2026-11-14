@@ -1,12 +1,12 @@
 # SYNTYR CSS
 
-**Experimental v0.3.0-alpha.3** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
+**Experimental v0.3.0-alpha.4** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
 
-- **Renamed from Cyberline CSS.** New imports use `syntyr.*.css`; old `cyberline.*.css` files and all `cy-` selectors remain compatible. See [migration guide](docs/brand-migration.md).
+- **The `syn-` class, CSS token, and HTML data-attribute namespace is the public API.**
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
-- **Two modes:** explicit component classes, and a Pico-like *optional* `.cy-semantic` mode.
+- **Two modes:** explicit component classes, and a Pico-like *optional* `.syn-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
 
@@ -14,7 +14,7 @@
 
 - [Live website](https://dporkka.github.io/syntyr-css/)
 - [Component gallery](https://dporkka.github.io/syntyr-css/docs/)
-- [Versioned release downloads](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.3)
+- [Versioned release downloads](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
@@ -36,11 +36,11 @@ Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](e
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
-<section class="cy-root" data-cy-theme="grid">
-  <article class="cy-panel cy-panel--cut">
-    <span class="cy-badge">SYSTEM ONLINE</span>
-    <h2 class="cy-heading">Command Center</h2>
-    <button class="cy-button cy-button--primary">Execute</button>
+<section class="syn-root" data-syn-theme="grid">
+  <article class="syn-panel syn-panel--cut">
+    <span class="syn-badge">SYSTEM ONLINE</span>
+    <h2 class="syn-heading">Command Center</h2>
+    <button class="syn-button syn-button--primary">Execute</button>
   </article>
 </section>
 ```
@@ -50,7 +50,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
 <link rel="stylesheet" href="syntyr.semantic.css">
-<div class="cy-root cy-semantic" data-cy-theme="noir">
+<div class="syn-root syn-semantic" data-syn-theme="noir">
   <article>
     <label for="operator">Operator<input id="operator" required></label>
     <button>Continue</button>
@@ -58,7 +58,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 </div>
 ```
 
-`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` between `grid`, `noir` and `studio`, including nested themed areas.
+`syn-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-syn-theme` between `grid`, `noir` and `studio`, including nested themed areas.
 
 ## Build outputs
 
@@ -73,19 +73,19 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.css` | Backwards-compatible core + effects bundle |
 | `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
 
-Legacy `dist/cyberline.geometry.css` is byte-identical to `dist/syntyr.geometry.css`. The new geometry module is opt-in; neither the core bundle nor existing selectors require it.
+Legacy `dist/syntyr.geometry.css` is byte-identical to `dist/syntyr.geometry.css`. The new geometry module is opt-in; neither the core bundle nor existing selectors require it.
 
 The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites
 
-Use `data-cy-theme="studio"` for a neutral, professional light theme. The original dark Grid and Noir palettes remain available. The theme changes colors, while optional `cy-frame--precision`, `cy-frame--industrial` and `cy-frame--soft` classes control visual geometry independently.
+Use `data-syn-theme="studio"` for a neutral, professional light theme. The original dark Grid and Noir palettes remain available. The theme changes colors, while optional `syn-frame--precision`, `syn-frame--industrial` and `syn-frame--soft` classes control visual geometry independently.
 
-For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipes.css` for responsive application shells (`cy-app-shell`), business landing layouts (`cy-site-hero`) and browser terminal panels (`cy-terminal`). Continue to use real headings, tables, labels, links and forms. The recipes provide layout and presentation, not authentication, data fetching, filtering or backend actions.
+For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipes.css` for responsive application shells (`syn-app-shell`), business landing layouts (`syn-site-hero`) and browser terminal panels (`syn-terminal`). Continue to use real headings, tables, labels, links and forms. The recipes provide layout and presentation, not authentication, data fetching, filtering or backend actions.
 
 **Native CLI apps cannot consume CSS.** Instead, use `terminal/palettes.json` with Go, Rust, Python or another CLI implementation to define ANSI 16-color palettes and foreground/background preferences. See the [stdlib Python demonstration](examples/ansi_cli.py) and [integration guide](docs/saas-cli-business.md). Respect `NO_COLOR`, TTY detection and user terminal preferences.
 
-All additions are MIT licensed and do not change the core runtime dependency contract. The Studio theme, recipes and CLI palettes are included in the v0.3.0-alpha.3 release.
+All additions are MIT licensed and do not change the core runtime dependency contract. The Studio theme, recipes and CLI palettes are included in the v0.3.0-alpha.4 release.
 
 ## Development and verification
 
@@ -113,7 +113,7 @@ The browser scripts require `playwright` and a Chromium browser to be present; i
 - No custom combobox, tabs, virtualized tables, or fake ARIA widgets. Advanced widgets can be built separately without coupling them to the visual system.
 - Accessibility and cross-browser compatibility require more verification before a production v1.0 release. Test real applications at 200% and 400% zoom and with screen readers.
 - Runtime zero dependencies does not mean zero maintainer/tooling dependencies. The standard library build script is deliberately small, and Playwright is only used for optional tests.
-- The `cy-root` scope works for compact embedded sections. `body.cy-root` gets full viewport height, or add `.cy-page` explicitly when needed.
+- The `syn-root` scope works for compact embedded sections. `body.syn-root` gets full viewport height, or add `.syn-page` explicitly when needed.
 
 ## Roadmap
 

@@ -30,11 +30,7 @@ def distributions():
         'syntyr.css': core + ('effects.css',),
         'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'geometry.css', 'effects.css'),
     }
-    # Legacy paths are byte-for-byte equivalent to the SYNTYR distributions.
-    # Do not remove these aliases before an explicitly versioned breaking release.
-    legacy = {name.replace('syntyr', 'cyberline'): parts
-              for name, parts in primary.items()}
-    return {**primary, **legacy}
+    return primary
 
 
 def main():

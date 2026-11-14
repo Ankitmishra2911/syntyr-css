@@ -13,7 +13,7 @@ JavaScript bundler, Go module or new application server is needed.
 Install the standard Hugo binary at **v0.170.0** and run from the repository root:
 
 ~~~sh
-hugo --source experiments/hugo --destination /tmp/cyberline-hugo-preview --minify
+hugo --source experiments/hugo --destination /tmp/syntyr-hugo-preview --minify
 ~~~
 
 Build output goes outside the repository. To inspect it locally:

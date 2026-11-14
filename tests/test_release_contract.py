@@ -25,18 +25,18 @@ class ReleaseContract(unittest.TestCase):
     def test_semantic_is_opt_in(self):
         core = (DIST / 'syntyr.core.css').read_text()
         semantic = (DIST / 'syntyr.semantic.css').read_text()
-        self.assertNotIn('cy-semantic', core)
+        self.assertNotIn('syn-semantic', core)
         for tag in ('button', 'input', 'select', 'textarea', 'table', 'article', 'details'):
             with self.subTest(tag=tag):
                 self.assertIn(f'{tag}:not([class])' if tag in ('select', 'textarea') else f':where({tag}', semantic)
-        self.assertIn('.cy-semantic', semantic)
-        self.assertIn('@layer cy.semantic', semantic)
+        self.assertIn('.syn-semantic', semantic)
+        self.assertIn('@layer syn.semantic', semantic)
 
     def test_themes_and_accessibility_hooks(self):
         all_css = (DIST / 'syntyr.all.css').read_text()
-        for term in ('[data-cy-theme="grid"]', '[data-cy-theme="noir"]',
+        for term in ('[data-syn-theme="grid"]', '[data-syn-theme="noir"]',
                      'prefers-reduced-motion', 'forced-colors', ':focus-visible',
-                     '.cy-button--ghost', '.cy-alert', 'min(', 'color-mix('):
+                     '.syn-button--ghost', '.syn-alert', 'min(', 'color-mix('):
             with self.subTest(term=term):
                 self.assertIn(term, all_css)
 
@@ -54,9 +54,9 @@ class ReleaseContract(unittest.TestCase):
         self.assertTrue((ROOT/'docs/index.html').is_file())
         self.assertTrue((ROOT/'docs/components.md').is_file())
         gallery = (ROOT/'docs/index.html').read_text()
-        self.assertIn('cy-semantic', gallery)
-        self.assertIn('data-cy-theme="grid"', gallery)
-        self.assertIn('data-cy-theme="noir"', gallery)
+        self.assertIn('syn-semantic', gallery)
+        self.assertIn('data-syn-theme="grid"', gallery)
+        self.assertIn('data-syn-theme="noir"', gallery)
         self.assertNotIn('<script', gallery)
 
 if __name__ == '__main__':

@@ -10,18 +10,18 @@ Load the published `syntyr.core.css` in your application and use regular HTML:
 
 ```html
 <link rel="stylesheet" href="/css/syntyr.core.css">
-<section class="cy-root" data-cy-theme="grid">
-  <article class="cy-panel cy-panel--cut">
-    <h2 class="cy-heading">Sector status</h2>
-    <button class="cy-button cy-button--primary">Open</button>
+<section class="syn-root" data-syn-theme="grid">
+  <article class="syn-panel syn-panel--cut">
+    <h2 class="syn-heading">Sector status</h2>
+    <button class="syn-button syn-button--primary">Open</button>
   </article>
-  <aside data-cy-theme="noir" class="cy-panel">
+  <aside data-syn-theme="noir" class="syn-panel">
     Nested Noir preview
   </aside>
 </section>
 ```
 
-Use `data-cy-theme="noir"` for warm amber. Native HTML features
+Use `data-syn-theme="noir"` for warm amber. Native HTML features
 such as `details`, `dialog` and `popover` don't need framework JavaScript.
 
 ## 2. Override tokens using application CSS
@@ -32,21 +32,21 @@ Load application overrides **after** the Syntyr stylesheet to reduce surprises:
 
 ```css
 /* app.css: original tokens, not copied from existing entertainment IP. */
-.cy-root[data-cy-theme="grid"] {
-  --cy-accent: #80dfef;
-  --cy-on-accent: #07121a;
-  --cy-accent-soft: rgb(128 223 239 / 10%);
-  --cy-frame: #34576c;
+.syn-root[data-syn-theme="grid"] {
+  --syn-accent: #80dfef;
+  --syn-on-accent: #07121a;
+  --syn-accent-soft: rgb(128 223 239 / 10%);
+  --syn-frame: #34576c;
 }
 
 /* Override one nested region without affecting the rest of the site. */
 .my-warning-panel {
-  --cy-surface: #1b232d;
-  --cy-warning: #ffe2aa;
+  --syn-surface: #1b232d;
+  --syn-warning: #ffe2aa;
 }
 ```
 
-Important: `--cy-accent` is the most visible token, but `--cy-on-accent`
+Important: `--syn-accent` is the most visible token, but `--syn-on-accent`
 is the contrasting **foreground on primary buttons**. Change both when
 necessary. Verify 4.5:1 contrast for body text and 3:1 for essential non-text
 graphics; don't assume arbitrary overrides remain accessible.
@@ -55,19 +55,19 @@ Useful tokens:
 
 | Token | Description |
 | --- | --- |
-| `--cy-bg` | Main background |
-| `--cy-surface`, `--cy-surface-hi` | Cards and controls |
-| `--cy-text`, `--cy-muted` | Main and secondary text |
-| `--cy-accent`, `--cy-on-accent`, `--cy-accent-soft` | Brand accent, its foreground, soft fill |
-| `--cy-frame`, `--cy-danger`, `--cy-success`, `--cy-warning` | Borders and status |
-| `--cy-font`, `--cy-mono` | System-first font stacks |
-| `--cy-space-1` … `--cy-space-5` | Spacing |
-| `--cy-cut`, `--cy-radius`, `--cy-control-height` | Geometry |
-| `--cy-duration-fast`, `--cy-ease` | Optional transitions |
+| `--syn-bg` | Main background |
+| `--syn-surface`, `--syn-surface-hi` | Cards and controls |
+| `--syn-text`, `--syn-muted` | Main and secondary text |
+| `--syn-accent`, `--syn-on-accent`, `--syn-accent-soft` | Brand accent, its foreground, soft fill |
+| `--syn-frame`, `--syn-danger`, `--syn-success`, `--syn-warning` | Borders and status |
+| `--syn-font`, `--syn-mono` | System-first font stacks |
+| `--syn-space-1` … `--syn-space-5` | Spacing |
+| `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
+| `--syn-duration-fast`, `--syn-ease` | Optional transitions |
 
 ## 3. CSS component mode versus native semantic mode
 
-Scoped component classes: `.cy-panel`, `.cy-button`, `.cy-table`.
+Scoped component classes: `.syn-panel`, `.syn-button`, `.syn-table`.
 They work with only `syntyr.core.css`.
 
 For classless HTML resembling Pico CSS, load **both** files and opt in:
@@ -75,7 +75,7 @@ For classless HTML resembling Pico CSS, load **both** files and opt in:
 ```html
 <link rel="stylesheet" href="/css/syntyr.core.css">
 <link rel="stylesheet" href="/css/syntyr.semantic.css">
-<div class="cy-root cy-semantic" data-cy-theme="noir">
+<div class="syn-root syn-semantic" data-syn-theme="noir">
   <article>
     <h2>Operator access</h2>
     <label for="operator">Operator ID</label>
@@ -85,16 +85,16 @@ For classless HTML resembling Pico CSS, load **both** files and opt in:
 </div>
 ```
 
-Unclassed controls outside `.cy-semantic` are not restyled.
+Unclassed controls outside `.syn-semantic` are not restyled.
 If you need glows or static grid effects, add `syntyr.effects.css`
 as a third optional file. Don't load `syntyr.all.css` **and** its
 individual component files at the same time.
 
 ## 4. Responsive applications and accessibility
 
-Use `.cy-region` as the parent for container-responsive patterns such as
-`.cy-stats`, `.cy-split`, `.cy-pricing`; width comes from the container,
-not the whole viewport. Use `.cy-page` only for a full-page experience.
+Use `.syn-region` as the parent for container-responsive patterns such as
+`.syn-stats`, `.syn-split`, `.syn-pricing`; width comes from the container,
+not the whole viewport. Use `.syn-page` only for a full-page experience.
 
 Syntyr honors `prefers-reduced-motion: reduce`. Theme overrides
 must not remove focus outlines, fake disabled states, or communicate state

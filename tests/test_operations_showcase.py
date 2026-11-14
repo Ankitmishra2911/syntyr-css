@@ -39,10 +39,10 @@ class LinksAndIds(HTMLParser):
 class OperationsExampleContract(unittest.TestCase):
     def test_dashboard_is_complete_and_no_js(self):
         source = EXAMPLE.read_text()
-        for name in ("cy-app-shell", "cy-app-rail", "cy-app-nav", "cy-workspace",
-                     "cy-kpi-grid", "cy-frame--bracket", "cy-frame--bevel",
-                     "cy-terminal", "cy-status--success", "cy-status--warning",
-                     "cy-cell--numeric", "<progress", "<details", "<summary",
+        for name in ("syn-app-shell", "syn-app-rail", "syn-app-nav", "syn-workspace",
+                     "syn-kpi-grid", "syn-frame--bracket", "syn-frame--bevel",
+                     "syn-terminal", "syn-status--success", "syn-status--warning",
+                     "syn-cell--numeric", "<progress", "<details", "<summary",
                      "ops-scroll-hint", 'tabindex="0"', "<table", "<caption", 'scope="col"', 'href="#main"',
                      '<main id="main"'):
             with self.subTest(name=name):

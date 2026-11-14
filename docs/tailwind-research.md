@@ -6,11 +6,11 @@ Research updated 2026-11-14. **This project contains no Tailwind Plus component 
 
 | Tailwind idea | Syntyr adaptation | Reason |
 | --- | --- | --- |
-| CSS-first theme configuration and native variables (Tailwind v4) | Public `--cy-*` CSS tokens in a layered stylesheet | Works without Tailwind, JS, config files, or compilation |
-| Cascade layers and predictable override priority | `cy.tokens`, `cy.base`, `cy.components`, `cy.semantic`, `cy.effects` | Preserve host-app override control and prevent unscoped resets |
-| Container query responsiveness | `.cy-region` with a named container; `.cy-stats`, `.cy-split`, `.cy-pricing` respond to their container | Embeds remain responsive in narrow panels and sidebars |
-| Variants driven by attributes | Native `aria-pressed`, `aria-busy`, `aria-current`, opt-in `data-cy-state` and `data-cy-featured` | Accessible state where semantic; decorative state without false semantics |
-| Theme composition in ordinary CSS | Grid/Noir token scopes via `data-cy-theme`; unlayered application CSS overrides | Predictable theme customizations with zero compiler |
+| CSS-first theme configuration and native variables (Tailwind v4) | Public `--syn-*` CSS tokens in a layered stylesheet | Works without Tailwind, JS, config files, or compilation |
+| Cascade layers and predictable override priority | `syn.tokens`, `syn.base`, `syn.components`, `syn.semantic`, `syn.effects` | Preserve host-app override control and prevent unscoped resets |
+| Container query responsiveness | `.syn-region` with a named container; `.syn-stats`, `.syn-split`, `.syn-pricing` respond to their container | Embeds remain responsive in narrow panels and sidebars |
+| Variants driven by attributes | Native `aria-pressed`, `aria-busy`, `aria-current`, opt-in `data-syn-state` and `data-syn-featured` | Accessible state where semantic; decorative state without false semantics |
+| Theme composition in ordinary CSS | Grid/Noir token scopes via `data-syn-theme`; unlayered application CSS overrides | Predictable theme customizations with zero compiler |
 | Responsive reusable UI recipes | Composable named CSS classes plus HTML partials | Better fit for server templates and avoids dozens of atomic classes |
 | Tailwind Plus application UI categories and whole-page kits | Free primitives and free examples; separately authored paid complete layouts | Business value comes from workflow-complete templates, not essential CSS access |
 | Tailwind Plus one-time licensing | Pilot one-time kit purchase with perpetual rights to purchased versions | More credible initial model than forcing subscriptions for static files |

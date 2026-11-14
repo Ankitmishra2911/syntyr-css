@@ -1,24 +1,24 @@
-@layer cy.components {
-  .cy-form { display: grid; gap: 1rem; }
-  .cy-label { display: grid; gap: .35rem; font: 600 .75rem/1.35 var(--cy-mono); }
-  .cy-input, .cy-select, .cy-textarea {
-    width: 100%; min-height: var(--cy-control-height); padding: .7rem .8rem;
-    border: 1px solid var(--cy-frame); background: var(--cy-bg);
-    border-radius: var(--cy-radius); color: var(--cy-text);
+@layer syn.components {
+  .syn-form { display: grid; gap: 1rem; }
+  .syn-label { display: grid; gap: .35rem; font: 600 .75rem/1.35 var(--syn-mono); }
+  .syn-input, .syn-select, .syn-textarea {
+    width: 100%; min-height: var(--syn-control-height); padding: .7rem .8rem;
+    border: 1px solid var(--syn-frame); background: var(--syn-bg);
+    border-radius: var(--syn-radius); color: var(--syn-text);
   }
-  .cy-input::placeholder, .cy-textarea::placeholder { color: var(--cy-muted); opacity: 1; }
-  .cy-input:focus, .cy-select:focus, .cy-textarea:focus { border-color: var(--cy-accent); }
-  .cy-input:where(:user-invalid, [aria-invalid="true"]),
-  .cy-select:where(:user-invalid, [aria-invalid="true"]),
-  .cy-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--cy-danger); }
-  .cy-help { color: var(--cy-muted); font-size: .8rem; }
-  .cy-error { color: var(--cy-danger); font-size: .8rem; }
-  .cy-textarea { min-height: 6rem; resize: vertical; }
-  .cy-input[type="checkbox"], .cy-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--cy-accent); vertical-align: middle; }
-  .cy-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--cy-text); cursor: pointer; }
-  .cy-fieldset { border: 1px solid var(--cy-frame); padding: 1rem; min-width: 0; }
-  .cy-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--cy-mono); }
+  .syn-input::placeholder, .syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
+  .syn-input:focus, .syn-select:focus, .syn-textarea:focus { border-color: var(--syn-accent); }
+  .syn-input:where(:user-invalid, [aria-invalid="true"]),
+  .syn-select:where(:user-invalid, [aria-invalid="true"]),
+  .syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
+  .syn-help { color: var(--syn-muted); font-size: .8rem; }
+  .syn-error { color: var(--syn-danger); font-size: .8rem; }
+  .syn-textarea { min-height: 6rem; resize: vertical; }
+  .syn-input[type="checkbox"], .syn-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
+  .syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
+  .syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
+  .syn-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--syn-mono); }
   @media (forced-colors: active) {
-    .cy-input, .cy-select, .cy-textarea, .cy-fieldset { border-color: CanvasText; }
+    .syn-input, .syn-select, .syn-textarea, .syn-fieldset { border-color: CanvasText; }
   }
 }

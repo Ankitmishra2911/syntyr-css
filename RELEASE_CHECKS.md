@@ -1,4 +1,4 @@
-# Syntyr CSS v0.3.0-alpha.3 — release verification
+# Syntyr CSS v0.3.0-alpha.4 — release verification
 
 **Checked November 14, 2026.** Integrated candidate: `integrate/reflow-alpha2`,
 including Studio/CLI/business layouts from `main` and the narrow-text reflow

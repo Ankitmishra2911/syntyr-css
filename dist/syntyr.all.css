@@ -1,434 +1,434 @@
 /* Syntyr token contract. Host application CSS can override layered defaults. */
-@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.geometry, cy.effects;
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects;
 
-@layer cy.tokens {
-  :where(.cy-root) {
+@layer syn.tokens {
+  :where(.syn-root) {
     color-scheme: dark;
-    --cy-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --cy-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-    --cy-space-1: .375rem;
-    --cy-space-2: .75rem;
-    --cy-space-3: 1.125rem;
-    --cy-space-4: 1.75rem;
-    --cy-space-5: 2.5rem;
-    --cy-cut: .9rem;
-    --cy-radius: .25rem;
-    --cy-line: 1.55;
-    --cy-control-height: 2.75rem;
-    --cy-ease: cubic-bezier(.2, .8, .2, 1);
-    --cy-duration-fast: 150ms;
+    --syn-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --syn-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    --syn-space-1: .375rem;
+    --syn-space-2: .75rem;
+    --syn-space-3: 1.125rem;
+    --syn-space-4: 1.75rem;
+    --syn-space-5: 2.5rem;
+    --syn-cut: .9rem;
+    --syn-radius: .25rem;
+    --syn-line: 1.55;
+    --syn-control-height: 2.75rem;
+    --syn-ease: cubic-bezier(.2, .8, .2, 1);
+    --syn-duration-fast: 150ms;
   }
-  :where(.cy-root), :where(.cy-root[data-cy-theme="grid"], .cy-root [data-cy-theme="grid"]) {
+  :where(.syn-root), :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
     color-scheme: dark;
-    --cy-bg: #080f19;
-    --cy-surface: #111f2c;
-    --cy-surface-hi: #172a3b;
-    --cy-text: #edf9ff;
-    --cy-muted: #adbfca;
-    --cy-accent: #76e7f7;
-    --cy-accent-2: #f7b06c;
-    --cy-on-accent: #07121a;
-    --cy-frame: #345569;
-    --cy-frame-strong: #5086a0;
-    --cy-danger: #ffaaa4;
-    --cy-success: #8ce6bb;
-    --cy-warning: #ffd08b;
-    --cy-accent-soft: rgb(118 231 247 / 11%);
+    --syn-bg: #080f19;
+    --syn-surface: #111f2c;
+    --syn-surface-hi: #172a3b;
+    --syn-text: #edf9ff;
+    --syn-muted: #adbfca;
+    --syn-accent: #76e7f7;
+    --syn-accent-2: #f7b06c;
+    --syn-on-accent: #07121a;
+    --syn-frame: #345569;
+    --syn-frame-strong: #5086a0;
+    --syn-danger: #ffaaa4;
+    --syn-success: #8ce6bb;
+    --syn-warning: #ffd08b;
+    --syn-accent-soft: rgb(118 231 247 / 11%);
   }
-  :where(.cy-root[data-cy-theme="noir"], .cy-root [data-cy-theme="noir"]) {
+  :where(.syn-root[data-syn-theme="noir"], .syn-root [data-syn-theme="noir"]) {
     color-scheme: dark;
-    --cy-bg: #0e0e12;
-    --cy-surface: #1c1b20;
-    --cy-surface-hi: #2a2628;
-    --cy-text: #f8eee5;
-    --cy-muted: #c3b5aa;
-    --cy-accent: #f1b574;
-    --cy-accent-2: #9acfd5;
-    --cy-on-accent: #1c100b;
-    --cy-frame: #625048;
-    --cy-frame-strong: #9a7557;
-    --cy-danger: #ffc1ac;
-    --cy-success: #a5e4bc;
-    --cy-warning: #fbd18c;
-    --cy-accent-soft: rgb(241 181 116 / 10%);
+    --syn-bg: #0e0e12;
+    --syn-surface: #1c1b20;
+    --syn-surface-hi: #2a2628;
+    --syn-text: #f8eee5;
+    --syn-muted: #c3b5aa;
+    --syn-accent: #f1b574;
+    --syn-accent-2: #9acfd5;
+    --syn-on-accent: #1c100b;
+    --syn-frame: #625048;
+    --syn-frame-strong: #9a7557;
+    --syn-danger: #ffc1ac;
+    --syn-success: #a5e4bc;
+    --syn-warning: #fbd18c;
+    --syn-accent-soft: rgb(241 181 116 / 10%);
   }
   /* Professional, contrast-oriented light palette for SaaS and business sites. */
-  :where(.cy-root[data-cy-theme="studio"], .cy-root [data-cy-theme="studio"]) {
+  :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
     color-scheme: light;
-    --cy-bg: #f5f7fb;
-    --cy-surface: #ffffff;
-    --cy-surface-hi: #eaf0f8;
-    --cy-text: #15233a;
-    --cy-muted: #4b5d76;
-    --cy-accent: #2458c6;
-    --cy-accent-2: #176b80;
-    --cy-on-accent: #ffffff;
-    --cy-frame: #b8c6d8;
-    --cy-frame-strong: #6685b2;
-    --cy-danger: #ad2637;
-    --cy-success: #17694b;
-    --cy-warning: #92500a;
-    --cy-accent-soft: rgb(36 88 198 / 9%);
+    --syn-bg: #f5f7fb;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #eaf0f8;
+    --syn-text: #15233a;
+    --syn-muted: #4b5d76;
+    --syn-accent: #2458c6;
+    --syn-accent-2: #176b80;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #b8c6d8;
+    --syn-frame-strong: #6685b2;
+    --syn-danger: #ad2637;
+    --syn-success: #17694b;
+    --syn-warning: #92500a;
+    --syn-accent-soft: rgb(36 88 198 / 9%);
   }
 }
-@layer cy.base {
-  :where(.cy-root), :where(.cy-root) *, :where(.cy-root) *::before, :where(.cy-root) *::after { box-sizing: border-box; }
-  .cy-root {
+@layer syn.base {
+  :where(.syn-root), :where(.syn-root) *, :where(.syn-root) *::before, :where(.syn-root) *::after { box-sizing: border-box; }
+  .syn-root {
     margin: 0;
-    font: 400 1rem/var(--cy-line) var(--cy-font);
-    color: var(--cy-text);
-    background: var(--cy-bg);
+    font: 400 1rem/var(--syn-line) var(--syn-font);
+    color: var(--syn-text);
+    background: var(--syn-bg);
     -webkit-font-smoothing: antialiased;
   }
-  .cy-root.cy-page { min-height: 100svh; }
-  .cy-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
-  .cy-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; overflow-wrap: anywhere; }
-  .cy-root :where(button,input,select,textarea) { font: inherit; }
-  .cy-root :where(a) { color: var(--cy-accent); text-underline-offset: .2em; }
-  .cy-root :where(:focus-visible) { outline: 3px solid var(--cy-accent); outline-offset: 3px; }
-  .cy-root :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; opacity: .55; }
-  .cy-root :where(::selection) { color: var(--cy-on-accent); background: var(--cy-accent); }
+  .syn-root.syn-page { min-height: 100svh; }
+  .syn-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
+  .syn-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; overflow-wrap: anywhere; }
+  .syn-root :where(button,input,select,textarea) { font: inherit; }
+  .syn-root :where(a) { color: var(--syn-accent); text-underline-offset: .2em; }
+  .syn-root :where(:focus-visible) { outline: 3px solid var(--syn-accent); outline-offset: 3px; }
+  .syn-root :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; opacity: .55; }
+  .syn-root :where(::selection) { color: var(--syn-on-accent); background: var(--syn-accent); }
   @media (prefers-reduced-motion: reduce) {
-    .cy-root *, .cy-root *::before, .cy-root *::after {
+    .syn-root *, .syn-root *::before, .syn-root *::after {
       scroll-behavior: auto !important;
       transition-duration: 0s !important;
       animation-duration: 0s !important;
     }
   }
   @media (forced-colors: active) {
-    .cy-root :where(:focus-visible) { outline-color: Highlight; }
+    .syn-root :where(:focus-visible) { outline-color: Highlight; }
   }
 }
-@layer cy.components {
-  .cy-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
-  .cy-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
-  .cy-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  .cy-nav a { color: var(--cy-muted); text-decoration: none; font: 600 .76rem var(--cy-mono); }
-  .cy-nav a:hover, .cy-nav a[aria-current] { color: var(--cy-accent); }
-  .cy-stage {
-    --cy-stage-pad: clamp(1.25rem, 4vw, 3rem);
-    background: radial-gradient(ellipse at 85% 5%, var(--cy-accent-soft), transparent 50%), var(--cy-bg);
-    color: var(--cy-text);
-    border: 1px solid var(--cy-frame);
-    padding: var(--cy-stage-pad);
+@layer syn.components {
+  .syn-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+  .syn-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
+  .syn-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 .76rem var(--syn-mono); }
+  .syn-nav a:hover, .syn-nav a[aria-current] { color: var(--syn-accent); }
+  .syn-stage {
+    --syn-stage-pad: clamp(1.25rem, 4vw, 3rem);
+    background: radial-gradient(ellipse at 85% 5%, var(--syn-accent-soft), transparent 50%), var(--syn-bg);
+    color: var(--syn-text);
+    border: 1px solid var(--syn-frame);
+    padding: var(--syn-stage-pad);
     margin-block: 1.5rem;
     position: relative;
     isolation: isolate;
   }
-  .cy-stage::before { content: ""; position: absolute; top: 0; left: 0; width: 4rem; height: 2px; background: var(--cy-accent); }
-  .cy-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
-  .cy-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
-  .cy-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
-  .cy-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cy-space-3); }
-  .cy-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--cy-space-2); }
-  .cy-panel {
+  .syn-stage::before { content: ""; position: absolute; top: 0; left: 0; width: 4rem; height: 2px; background: var(--syn-accent); }
+  .syn-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
+  .syn-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  .syn-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
+  .syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); }
+  .syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-2); }
+  .syn-panel {
     position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
-    color: var(--cy-text); border: 1px solid var(--cy-frame);
-    background: linear-gradient(160deg, var(--cy-accent-soft), transparent 40%), var(--cy-surface);
+    color: var(--syn-text); border: 1px solid var(--syn-frame);
+    background: linear-gradient(160deg, var(--syn-accent-soft), transparent 40%), var(--syn-surface);
     min-width: 0;
   }
-  .cy-panel--cut::after {
+  .syn-panel--cut::after {
     content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
-    width: var(--cy-cut); height: var(--cy-cut); background: var(--cy-bg);
+    width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-bg);
     clip-path: polygon(100% 0, 0 100%, 100% 100%);
   }
-  @media (max-width: 45rem) { .cy-layout { grid-template-columns: minmax(0, 1fr); } }
-  @media (forced-colors: active) { .cy-stage, .cy-panel { border-color: CanvasText; } }
+  @media (max-width: 45rem) { .syn-layout { grid-template-columns: minmax(0, 1fr); } }
+  @media (forced-colors: active) { .syn-stage, .syn-panel { border-color: CanvasText; } }
 }
-@layer cy.components {
-  .cy-logo { font: 700 .95rem/1 var(--cy-mono); letter-spacing: .22em; text-decoration: none; color: var(--cy-text); }
-  .cy-eyebrow { font: 700 .69rem/1.4 var(--cy-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--cy-accent); }
-  .cy-title { font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
-  .cy-heading { font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
-  .cy-lede { max-width: 56ch; color: var(--cy-muted); }
-  .cy-muted { color: var(--cy-muted); }
-  .cy-mono { font-family: var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-caption { overflow-wrap: anywhere; color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
-  .cy-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--cy-mono); letter-spacing: -.06em; }
-  .cy-rule { border: 0; border-top: 1px solid var(--cy-frame); margin-block: 1.25rem; }
-  .cy-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--cy-frame); background: var(--cy-accent-soft); color: var(--cy-accent); font: 650 .68rem/1.25 var(--cy-mono); letter-spacing: .04em; }
-  .cy-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
-  .cy-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--cy-accent); background: var(--cy-surface); color: var(--cy-text); }
-  .cy-alert--danger { border-inline-start-color: var(--cy-danger); }
-  .cy-code { font: .85em/1.5 var(--cy-mono); overflow-wrap: anywhere; background: var(--cy-surface-hi); padding: .12em .35em; }
-  @media (forced-colors: active) { .cy-badge, .cy-alert { border-color: CanvasText; } }
+@layer syn.components {
+  .syn-logo { font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
+  .syn-eyebrow { font: 700 .69rem/1.4 var(--syn-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
+  .syn-title { font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
+  .syn-heading { font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
+  .syn-lede { max-width: 56ch; color: var(--syn-muted); }
+  .syn-muted { color: var(--syn-muted); }
+  .syn-mono { font-family: var(--syn-mono); font-variant-numeric: tabular-nums; }
+  .syn-caption { overflow-wrap: anywhere; color: var(--syn-muted); font: 500 .72rem/1.5 var(--syn-mono); letter-spacing: .04em; }
+  .syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-mono); letter-spacing: -.06em; }
+  .syn-rule { border: 0; border-top: 1px solid var(--syn-frame); margin-block: 1.25rem; }
+  .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 .68rem/1.25 var(--syn-mono); letter-spacing: .04em; }
+  .syn-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
+  .syn-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--syn-accent); background: var(--syn-surface); color: var(--syn-text); }
+  .syn-alert--danger { border-inline-start-color: var(--syn-danger); }
+  .syn-code { font: .85em/1.5 var(--syn-mono); overflow-wrap: anywhere; background: var(--syn-surface-hi); padding: .12em .35em; }
+  @media (forced-colors: active) { .syn-badge, .syn-alert { border-color: CanvasText; } }
 }
-@layer cy.components {
-  .cy-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
-  .cy-button {
+@layer syn.components {
+  .syn-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
+  .syn-button {
     display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-    min-height: var(--cy-control-height); padding: .65rem 1rem;
+    min-height: var(--syn-control-height); padding: .65rem 1rem;
     min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
-    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
-    background: var(--cy-surface-hi); color: var(--cy-text);
-    text-decoration: none; font: 650 .81rem/1.2 var(--cy-mono);
-    cursor: pointer; transition: background-color var(--cy-duration-fast) var(--cy-ease), border-color var(--cy-duration-fast) var(--cy-ease), color var(--cy-duration-fast) var(--cy-ease);
+    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+    background: var(--syn-surface-hi); color: var(--syn-text);
+    text-decoration: none; font: 650 .81rem/1.2 var(--syn-mono);
+    cursor: pointer; transition: background-color var(--syn-duration-fast) var(--syn-ease), border-color var(--syn-duration-fast) var(--syn-ease), color var(--syn-duration-fast) var(--syn-ease);
   }
-  .cy-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
-  .cy-button--primary { background: var(--cy-accent); border-color: var(--cy-accent); color: var(--cy-on-accent); }
-  .cy-button--primary:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
-  .cy-button--outline { background: transparent; border-color: var(--cy-accent); color: var(--cy-accent); }
-  .cy-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); }
-  .cy-button--danger { color: var(--cy-danger); border-color: var(--cy-danger); background: transparent; }
-  .cy-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
-  .cy-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
-  .cy-button--ghost { background: transparent; border-color: transparent; }
-  .cy-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
+  .syn-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
+  .syn-button--primary { background: var(--syn-accent); border-color: var(--syn-accent); color: var(--syn-on-accent); }
+  .syn-button--primary:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
+  .syn-button--outline { background: transparent; border-color: var(--syn-accent); color: var(--syn-accent); }
+  .syn-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); }
+  .syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
+  .syn-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
+  .syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
+  .syn-button--ghost { background: transparent; border-color: transparent; }
+  .syn-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
   /* State variants use native ARIA for meaning and optional data attributes for app styling. */
-  .cy-button:where([aria-pressed="true"], [data-cy-state="active"]) {
-    border-color: var(--cy-accent);
-    background: var(--cy-accent-soft);
-    color: var(--cy-accent);
+  .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
+    border-color: var(--syn-accent);
+    background: var(--syn-accent-soft);
+    color: var(--syn-accent);
   }
-  .cy-button[aria-busy="true"] { cursor: progress; }
+  .syn-button[aria-busy="true"] { cursor: progress; }
   /* Native disabled blocks activation. ARIA-disabled is informational only;
      the host application must block its event handlers. Keep focus available. */
-  .cy-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
+  .syn-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
   @media (forced-colors: active) {
-    .cy-button { border-color: ButtonText; }
-    .cy-button--primary { background: Highlight; color: HighlightText; border-color: Highlight; }
-    .cy-button--danger, .cy-button--outline { border-color: ButtonText; color: ButtonText; }
+    .syn-button { border-color: ButtonText; }
+    .syn-button--primary { background: Highlight; color: HighlightText; border-color: Highlight; }
+    .syn-button--danger, .syn-button--outline { border-color: ButtonText; color: ButtonText; }
   }
 }
-@layer cy.components {
-  .cy-form { display: grid; gap: 1rem; }
-  .cy-label { display: grid; gap: .35rem; font: 600 .75rem/1.35 var(--cy-mono); }
-  .cy-input, .cy-select, .cy-textarea {
-    width: 100%; min-height: var(--cy-control-height); padding: .7rem .8rem;
-    border: 1px solid var(--cy-frame); background: var(--cy-bg);
-    border-radius: var(--cy-radius); color: var(--cy-text);
+@layer syn.components {
+  .syn-form { display: grid; gap: 1rem; }
+  .syn-label { display: grid; gap: .35rem; font: 600 .75rem/1.35 var(--syn-mono); }
+  .syn-input, .syn-select, .syn-textarea {
+    width: 100%; min-height: var(--syn-control-height); padding: .7rem .8rem;
+    border: 1px solid var(--syn-frame); background: var(--syn-bg);
+    border-radius: var(--syn-radius); color: var(--syn-text);
   }
-  .cy-input::placeholder, .cy-textarea::placeholder { color: var(--cy-muted); opacity: 1; }
-  .cy-input:focus, .cy-select:focus, .cy-textarea:focus { border-color: var(--cy-accent); }
-  .cy-input:where(:user-invalid, [aria-invalid="true"]),
-  .cy-select:where(:user-invalid, [aria-invalid="true"]),
-  .cy-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--cy-danger); }
-  .cy-help { color: var(--cy-muted); font-size: .8rem; }
-  .cy-error { color: var(--cy-danger); font-size: .8rem; }
-  .cy-textarea { min-height: 6rem; resize: vertical; }
-  .cy-input[type="checkbox"], .cy-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--cy-accent); vertical-align: middle; }
-  .cy-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--cy-text); cursor: pointer; }
-  .cy-fieldset { border: 1px solid var(--cy-frame); padding: 1rem; min-width: 0; }
-  .cy-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--cy-mono); }
+  .syn-input::placeholder, .syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
+  .syn-input:focus, .syn-select:focus, .syn-textarea:focus { border-color: var(--syn-accent); }
+  .syn-input:where(:user-invalid, [aria-invalid="true"]),
+  .syn-select:where(:user-invalid, [aria-invalid="true"]),
+  .syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
+  .syn-help { color: var(--syn-muted); font-size: .8rem; }
+  .syn-error { color: var(--syn-danger); font-size: .8rem; }
+  .syn-textarea { min-height: 6rem; resize: vertical; }
+  .syn-input[type="checkbox"], .syn-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
+  .syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
+  .syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
+  .syn-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--syn-mono); }
   @media (forced-colors: active) {
-    .cy-input, .cy-select, .cy-textarea, .cy-fieldset { border-color: CanvasText; }
+    .syn-input, .syn-select, .syn-textarea, .syn-fieldset { border-color: CanvasText; }
   }
 }
-@layer cy.components {
-  .cy-popover, .cy-dialog {
+@layer syn.components {
+  .syn-popover, .syn-dialog {
     width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
-    border: 1px solid var(--cy-accent); border-radius: var(--cy-radius);
-    background: var(--cy-surface); color: var(--cy-text);
+    border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
+    background: var(--syn-surface); color: var(--syn-text);
     box-shadow: 0 20px 70px rgb(0 0 0 / 45%);
   }
-  .cy-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
-  .cy-dialog { margin: auto; }
-  .cy-dialog::backdrop { background: rgb(0 0 0 / 70%); }
-  .cy-details { padding: 1rem 0; border-block-start: 1px solid var(--cy-frame); }
-  .cy-details summary { cursor: pointer; color: var(--cy-text); font-weight: 650; }
-  .cy-details[open] summary { color: var(--cy-accent); }
-  .cy-details p { color: var(--cy-muted); margin: .6rem 0 0; }
-  @media (forced-colors: active) { .cy-popover, .cy-dialog, .cy-details { border-color: CanvasText; } }
+  .syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+  .syn-dialog { margin: auto; }
+  .syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
+  .syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
+  .syn-details summary { cursor: pointer; color: var(--syn-text); font-weight: 650; }
+  .syn-details[open] summary { color: var(--syn-accent); }
+  .syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
+  @media (forced-colors: active) { .syn-popover, .syn-dialog, .syn-details { border-color: CanvasText; } }
 }
-@layer cy.components {
-  .cy-meter { width: 100%; height: .45rem; overflow: hidden; border: none; border-radius: 0; accent-color: var(--cy-accent); }
-  .cy-meter::-webkit-progress-bar { background: var(--cy-bg); }
-  .cy-meter::-webkit-progress-value { background: var(--cy-accent); }
-  .cy-meter::-moz-progress-bar { background: var(--cy-accent); }
-  .cy-table-wrap { overflow-x: auto; }
-  .cy-table { width: 100%; border-collapse: collapse; text-align: left; font: .75rem/1.65 var(--cy-mono); }
-  .cy-table th, .cy-table td { padding: .7rem .6rem; border-block-end: 1px solid var(--cy-frame); white-space: nowrap; }
-  .cy-table th { color: var(--cy-muted); font-weight: 550; }
+@layer syn.components {
+  .syn-meter { width: 100%; height: .45rem; overflow: hidden; border: none; border-radius: 0; accent-color: var(--syn-accent); }
+  .syn-meter::-webkit-progress-bar { background: var(--syn-bg); }
+  .syn-meter::-webkit-progress-value { background: var(--syn-accent); }
+  .syn-meter::-moz-progress-bar { background: var(--syn-accent); }
+  .syn-table-wrap { overflow-x: auto; }
+  .syn-table { width: 100%; border-collapse: collapse; text-align: left; font: .75rem/1.65 var(--syn-mono); }
+  .syn-table th, .syn-table td { padding: .7rem .6rem; border-block-end: 1px solid var(--syn-frame); white-space: nowrap; }
+  .syn-table th { color: var(--syn-muted); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
-  .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
-  .cy-table .cy-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
-  .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
-  .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
-  .cy-status--success { color: var(--cy-success); }
-  .cy-status--warning { color: var(--cy-warning); }
-  .cy-status--danger { color: var(--cy-danger); }
+  .syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
+  .syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
+  .syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 .75rem/1.5 var(--syn-mono); }
+  .syn-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
+  .syn-status--success { color: var(--syn-success); }
+  .syn-status--warning { color: var(--syn-warning); }
+  .syn-status--danger { color: var(--syn-danger); }
   @media (forced-colors: active) {
-    .cy-status::before { border: 1px solid currentColor; }
+    .syn-status::before { border: 1px solid currentColor; }
   }
 }
 /* Portable app/marketing compositions, inspired by patterns rather than code from UI kits.
    A named container prevents viewport-dependent components. All styles stay opt-in. */
-@layer cy.components {
-  .cy-region { container-name: cy-region; container-type: inline-size; min-width: 0; }
-  .cy-split { display: grid; gap: var(--cy-space-3); min-width: 0; }
-  .cy-stats { display: grid; gap: var(--cy-space-2); grid-template-columns: minmax(0, 1fr); }
-  .cy-stat { padding: var(--cy-space-3); border: 1px solid var(--cy-frame); background: var(--cy-surface); min-width: 0; }
-  .cy-stat-label { color: var(--cy-muted); font: 650 .73rem/1.4 var(--cy-mono); letter-spacing: .05em; }
-  .cy-stat-value { margin: .5rem 0 0; color: var(--cy-text); font: 650 clamp(1.7rem, 4vw, 2.4rem)/1.1 var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--cy-space-2); }
-  .cy-empty { display: grid; justify-items: center; align-content: center; text-align: center; gap: var(--cy-space-2); min-height: 12rem; padding: var(--cy-space-4); border: 1px dashed var(--cy-frame); background: var(--cy-surface); }
-  .cy-empty > :where(h2, h3, p) { margin-block: 0; }
-  .cy-pricing { display: grid; gap: var(--cy-space-2); grid-template-columns: minmax(0, 1fr); }
-  .cy-price-card { display: flex; flex-direction: column; gap: var(--cy-space-3); min-width: 0; border: 1px solid var(--cy-frame); padding: var(--cy-space-4); background: var(--cy-surface); }
-  .cy-price-card[data-cy-featured] { border-color: var(--cy-accent); background: linear-gradient(155deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); }
-  .cy-price-card > .cy-button { margin-block-start: auto; }
-  .cy-price-value { margin: 0; color: var(--cy-text); font: 650 clamp(2rem, 5vw, 3rem)/1.1 var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-price-value small { color: var(--cy-muted); font: 400 .9rem var(--cy-font); }
-  .cy-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--cy-space-3); color: var(--cy-muted); }
-  .cy-feature-list li::marker { color: var(--cy-accent); }
-  @container cy-region (min-width: 31rem) {
-    .cy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@layer syn.components {
+  .syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
+  .syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
+  .syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
+  .syn-stat { padding: var(--syn-space-3); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
+  .syn-stat-label { color: var(--syn-muted); font: 650 .73rem/1.4 var(--syn-mono); letter-spacing: .05em; }
+  .syn-stat-value { margin: .5rem 0 0; color: var(--syn-text); font: 650 clamp(1.7rem, 4vw, 2.4rem)/1.1 var(--syn-mono); font-variant-numeric: tabular-nums; }
+  .syn-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--syn-space-2); }
+  .syn-empty { display: grid; justify-items: center; align-content: center; text-align: center; gap: var(--syn-space-2); min-height: 12rem; padding: var(--syn-space-4); border: 1px dashed var(--syn-frame); background: var(--syn-surface); }
+  .syn-empty > :where(h2, h3, p) { margin-block: 0; }
+  .syn-pricing { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
+  .syn-price-card { display: flex; flex-direction: column; gap: var(--syn-space-3); min-width: 0; border: 1px solid var(--syn-frame); padding: var(--syn-space-4); background: var(--syn-surface); }
+  .syn-price-card[data-syn-featured] { border-color: var(--syn-accent); background: linear-gradient(155deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); }
+  .syn-price-card > .syn-button { margin-block-start: auto; }
+  .syn-price-value { margin: 0; color: var(--syn-text); font: 650 clamp(2rem, 5vw, 3rem)/1.1 var(--syn-mono); font-variant-numeric: tabular-nums; }
+  .syn-price-value small { color: var(--syn-muted); font: 400 .9rem var(--syn-font); }
+  .syn-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--syn-space-3); color: var(--syn-muted); }
+  .syn-feature-list li::marker { color: var(--syn-accent); }
+  @container syn-region (min-width: 31rem) {
+    .syn-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  @container cy-region (min-width: 43rem) {
-    .cy-split { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
-    .cy-pricing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @container syn-region (min-width: 43rem) {
+    .syn-split { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+    .syn-pricing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
-  @container cy-region (min-width: 55rem) {
-    .cy-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @container syn-region (min-width: 55rem) {
+    .syn-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   @media (forced-colors: active) {
-    .cy-stat, .cy-empty, .cy-price-card, .cy-price-card[data-cy-featured] { border-color: CanvasText; }
+    .syn-stat, .syn-empty, .syn-price-card, .syn-price-card[data-syn-featured] { border-color: CanvasText; }
   }
 }
-/* Optional semantic mode. Requires core.css and .cy-root ancestor. */
-@layer cy.semantic {
-  .cy-semantic :where(button:not([class]), input[type="submit"]:not([class]), input[type="button"]:not([class]), input[type="reset"]:not([class])) {
+/* Optional semantic mode. Requires core.css and .syn-root ancestor. */
+@layer syn.semantic {
+  .syn-semantic :where(button:not([class]), input[type="submit"]:not([class]), input[type="button"]:not([class]), input[type="reset"]:not([class])) {
     display: inline-flex; justify-content: center; align-items: center; gap: .5rem;
-    min-height: var(--cy-control-height); padding: .65rem 1rem;
-    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
-    background: var(--cy-surface-hi); color: var(--cy-text);
-    cursor: pointer; font: 650 .81rem/1.2 var(--cy-mono);
+    min-height: var(--syn-control-height); padding: .65rem 1rem;
+    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+    background: var(--syn-surface-hi); color: var(--syn-text);
+    cursor: pointer; font: 650 .81rem/1.2 var(--syn-mono);
   }
-  .cy-semantic :where(button:not([class]), input[type="submit"]:not([class])):hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
-  .cy-semantic :where(input:not([class]):is(:not([type]), [type="text"], [type="email"], [type="search"], [type="password"], [type="url"], [type="tel"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]), select:not([class]), textarea:not([class])) {
-    width: 100%; min-height: var(--cy-control-height); padding: .7rem .8rem;
-    border: 1px solid var(--cy-frame); background: var(--cy-bg); border-radius: var(--cy-radius); color: var(--cy-text);
+  .syn-semantic :where(button:not([class]), input[type="submit"]:not([class])):hover { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
+  .syn-semantic :where(input:not([class]):is(:not([type]), [type="text"], [type="email"], [type="search"], [type="password"], [type="url"], [type="tel"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]), select:not([class]), textarea:not([class])) {
+    width: 100%; min-height: var(--syn-control-height); padding: .7rem .8rem;
+    border: 1px solid var(--syn-frame); background: var(--syn-bg); border-radius: var(--syn-radius); color: var(--syn-text);
   }
-  .cy-semantic :where(input:not([class]), select:not([class]), textarea:not([class])):where(:user-invalid, [aria-invalid="true"]) { border-color: var(--cy-danger); }
-  .cy-semantic :where(input[type="range"]:not([class])) { width: 100%; }
-  .cy-semantic :where(input:not([class]), textarea:not([class]))::placeholder { color: var(--cy-muted); opacity: 1; }
-  .cy-semantic :where(input[type="checkbox"]:not([class]), input[type="radio"]:not([class]), input[type="range"]:not([class])) { accent-color: var(--cy-accent); }
-  .cy-semantic :where(label:not([class])) { display: grid; gap: .35rem; font-weight: 600; font-size: .9rem; }
-  .cy-semantic :where(fieldset:not([class])) { border: 1px solid var(--cy-frame); min-width: 0; padding: 1rem; }
-  .cy-semantic :where(legend:not([class])) { padding-inline: .4rem; }
-  .cy-semantic :where(article:not([class])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--cy-frame); background: var(--cy-surface); min-width: 0; }
-  .cy-semantic :where(table:not([class])) { width: 100%; border-collapse: collapse; text-align: left; }
-  .cy-semantic :where(th:not([class]), td:not([class])) { padding: .65rem; border-bottom: 1px solid var(--cy-frame); }
-  .cy-semantic :where(th:not([class])) { color: var(--cy-muted); }
-  .cy-semantic :where(details:not([class])) { padding-block: .75rem; border-block-start: 1px solid var(--cy-frame); }
-  .cy-semantic :where(summary:not([class])) { cursor: pointer; font-weight: 600; }
-  .cy-semantic :where(blockquote:not([class])) { margin-inline: 0; padding: .5rem 1rem; border-inline-start: 2px solid var(--cy-accent); color: var(--cy-muted); }
-  .cy-semantic :where(hr:not([class])) { border: 0; border-top: 1px solid var(--cy-frame); }
-  .cy-semantic :where(code:not([class])) { font-family: var(--cy-mono); color: var(--cy-accent); }
+  .syn-semantic :where(input:not([class]), select:not([class]), textarea:not([class])):where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
+  .syn-semantic :where(input[type="range"]:not([class])) { width: 100%; }
+  .syn-semantic :where(input:not([class]), textarea:not([class]))::placeholder { color: var(--syn-muted); opacity: 1; }
+  .syn-semantic :where(input[type="checkbox"]:not([class]), input[type="radio"]:not([class]), input[type="range"]:not([class])) { accent-color: var(--syn-accent); }
+  .syn-semantic :where(label:not([class])) { display: grid; gap: .35rem; font-weight: 600; font-size: .9rem; }
+  .syn-semantic :where(fieldset:not([class])) { border: 1px solid var(--syn-frame); min-width: 0; padding: 1rem; }
+  .syn-semantic :where(legend:not([class])) { padding-inline: .4rem; }
+  .syn-semantic :where(article:not([class])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
+  .syn-semantic :where(table:not([class])) { width: 100%; border-collapse: collapse; text-align: left; }
+  .syn-semantic :where(th:not([class]), td:not([class])) { padding: .65rem; border-bottom: 1px solid var(--syn-frame); }
+  .syn-semantic :where(th:not([class])) { color: var(--syn-muted); }
+  .syn-semantic :where(details:not([class])) { padding-block: .75rem; border-block-start: 1px solid var(--syn-frame); }
+  .syn-semantic :where(summary:not([class])) { cursor: pointer; font-weight: 600; }
+  .syn-semantic :where(blockquote:not([class])) { margin-inline: 0; padding: .5rem 1rem; border-inline-start: 2px solid var(--syn-accent); color: var(--syn-muted); }
+  .syn-semantic :where(hr:not([class])) { border: 0; border-top: 1px solid var(--syn-frame); }
+  .syn-semantic :where(code:not([class])) { font-family: var(--syn-mono); color: var(--syn-accent); }
   @media (forced-colors: active) {
-    .cy-semantic :where(button:not([class]), input:not([class]), select:not([class]), textarea:not([class]), article:not([class]), fieldset:not([class])) { border-color: CanvasText; }
+    .syn-semantic :where(button:not([class]), input:not([class]), select:not([class]), textarea:not([class]), article:not([class]), fieldset:not([class])) { border-color: CanvasText; }
   }
 }
 /* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
    These classes are separate from the small, stable core API. */
-@layer cy.recipes {
+@layer syn.recipes {
   /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
-  .cy-app-shell {
+  .syn-app-shell {
     display: grid; grid-template-columns: minmax(0, 1fr);
     min-height: 100svh; min-width: 0;
   }
-  .cy-app-rail {
-    display: flex; flex-direction: column; gap: var(--cy-space-2);
-    padding: var(--cy-space-3); border-block-end: 1px solid var(--cy-frame);
-    background: var(--cy-surface); color: var(--cy-text);
+  .syn-app-rail {
+    display: flex; flex-direction: column; gap: var(--syn-space-2);
+    padding: var(--syn-space-3); border-block-end: 1px solid var(--syn-frame);
+    background: var(--syn-surface); color: var(--syn-text);
   }
-  .cy-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
-  .cy-app-nav a {
-    display: block; padding: .55rem .75rem; border-radius: var(--cy-radius);
-    color: var(--cy-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
+  .syn-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+  .syn-app-nav a {
+    display: block; padding: .55rem .75rem; border-radius: var(--syn-radius);
+    color: var(--syn-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
   }
-  .cy-app-nav a:where(:hover, [aria-current="page"]) {
-    color: var(--cy-accent); background: var(--cy-accent-soft);
+  .syn-app-nav a:where(:hover, [aria-current="page"]) {
+    color: var(--syn-accent); background: var(--syn-accent-soft);
   }
-  .cy-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--cy-accent); }
-  .cy-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
-  .cy-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
-  .cy-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cy-space-2); }
-  .cy-app-card {
-    min-width: 0; padding: var(--cy-space-3);
-    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
-    background: var(--cy-surface); color: var(--cy-text);
+  .syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
+  .syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+  .syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
+  .syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
+  .syn-app-card {
+    min-width: 0; padding: var(--syn-space-3);
+    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+    background: var(--syn-surface); color: var(--syn-text);
   }
-  .cy-app-card > :first-child { margin-block-start: 0; }
-  .cy-app-card > :last-child { margin-block-end: 0; }
-  .cy-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
-  .cy-app-card-header > :first-child { margin: 0; }
-  .cy-activity-list { list-style: none; margin: 0; padding: 0; }
-  .cy-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--cy-frame); }
-  .cy-activity-list li:last-child { border-block-end: 0; }
+  .syn-app-card > :first-child { margin-block-start: 0; }
+  .syn-app-card > :last-child { margin-block-end: 0; }
+  .syn-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
+  .syn-app-card-header > :first-child { margin: 0; }
+  .syn-activity-list { list-style: none; margin: 0; padding: 0; }
+  .syn-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--syn-frame); }
+  .syn-activity-list li:last-child { border-block-end: 0; }
   /* Business/marketing: typography and hierarchy without forcing a dark look. */
-  .cy-site-hero {
+  .syn-site-hero {
     position: relative; isolation: isolate; overflow: hidden;
-    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
-    background: radial-gradient(ellipse at 80% 20%, var(--cy-accent-soft), transparent 56%), var(--cy-surface);
-    color: var(--cy-text);
+    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+    background: radial-gradient(ellipse at 80% 20%, var(--syn-accent-soft), transparent 56%), var(--syn-surface);
+    color: var(--syn-text);
     padding: clamp(2rem, 6vw, 5rem);
   }
-  .cy-site-hero::before {
+  .syn-site-hero::before {
     content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
-    width: min(9rem, 40%); height: 3px; background: var(--cy-accent); pointer-events: none;
+    width: min(9rem, 40%); height: 3px; background: var(--syn-accent); pointer-events: none;
   }
-  .cy-site-heading { font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
-  .cy-site-heading strong { color: var(--cy-accent); }
-  .cy-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--cy-space-2); }
-  .cy-feature-card { min-width: 0; padding: var(--cy-space-4); background: var(--cy-surface); color: var(--cy-text); border: 1px solid var(--cy-frame); border-radius: var(--cy-radius); }
-  .cy-feature-card > :first-child { margin-block-start: 0; }
-  .cy-feature-card > :last-child { margin-block-end: 0; }
-  .cy-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--cy-space-3); padding: var(--cy-space-4); background: var(--cy-accent-soft); color: var(--cy-text); border-inline-start: 3px solid var(--cy-accent); }
+  .syn-site-heading { font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
+  .syn-site-heading strong { color: var(--syn-accent); }
+  .syn-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--syn-space-2); }
+  .syn-feature-card { min-width: 0; padding: var(--syn-space-4); background: var(--syn-surface); color: var(--syn-text); border: 1px solid var(--syn-frame); border-radius: var(--syn-radius); }
+  .syn-feature-card > :first-child { margin-block-start: 0; }
+  .syn-feature-card > :last-child { margin-block-end: 0; }
+  .syn-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--syn-space-3); padding: var(--syn-space-4); background: var(--syn-accent-soft); color: var(--syn-text); border-inline-start: 3px solid var(--syn-accent); }
   /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
-  .cy-terminal {
-    --cy-terminal-bg: #0b1625;
-    --cy-terminal-fg: #e6f4fa;
-    --cy-terminal-muted: #b6c8d8;
-    --cy-terminal-prompt: #85e7cf;
-    border: 1px solid var(--cy-frame-strong); border-radius: var(--cy-radius);
-    background: var(--cy-terminal-bg); color: var(--cy-terminal-fg);
-    font: 400 .85rem/1.65 var(--cy-mono); min-width: 0; overflow: hidden;
+  .syn-terminal {
+    --syn-terminal-bg: #0b1625;
+    --syn-terminal-fg: #e6f4fa;
+    --syn-terminal-muted: #b6c8d8;
+    --syn-terminal-prompt: #85e7cf;
+    border: 1px solid var(--syn-frame-strong); border-radius: var(--syn-radius);
+    background: var(--syn-terminal-bg); color: var(--syn-terminal-fg);
+    font: 400 .85rem/1.65 var(--syn-mono); min-width: 0; overflow: hidden;
   }
-  .cy-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--cy-terminal-muted); font-size: .73rem; }
-  .cy-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
-  .cy-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
-  .cy-terminal-prompt { color: var(--cy-terminal-prompt); }
-  .cy-terminal-muted { color: var(--cy-terminal-muted); }
-  .cy-terminal-command { color: #f9dfad; }
-  .cy-terminal-success { color: #a1f1bf; }
-  .cy-terminal-error { color: #ffb6b2; }
-  .cy-terminal-warning { color: #ffe0a3; }
-  .cy-terminal-path { color: #b2dcff; }
-  .cy-terminal-meta { color: var(--cy-terminal-muted); font-size: .75em; letter-spacing: .06em; }
-  .cy-terminal-title { font-weight: 650; color: var(--cy-terminal-fg); overflow-wrap: anywhere; }
-  .cy-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
-  .cy-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
-  .cy-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
-  .cy-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
-  .cy-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .syn-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--syn-terminal-muted); font-size: .73rem; }
+  .syn-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
+  .syn-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .syn-terminal-prompt { color: var(--syn-terminal-prompt); }
+  .syn-terminal-muted { color: var(--syn-terminal-muted); }
+  .syn-terminal-command { color: #f9dfad; }
+  .syn-terminal-success { color: #a1f1bf; }
+  .syn-terminal-error { color: #ffb6b2; }
+  .syn-terminal-warning { color: #ffe0a3; }
+  .syn-terminal-path { color: #b2dcff; }
+  .syn-terminal-meta { color: var(--syn-terminal-muted); font-size: .75em; letter-spacing: .06em; }
+  .syn-terminal-title { font-weight: 650; color: var(--syn-terminal-fg); overflow-wrap: anywhere; }
+  .syn-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
+  .syn-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
+  .syn-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
+  .syn-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
+  .syn-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
   /* A static, non-blinking caret; it never suggests fake live input. */
-  .cy-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
+  .syn-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
 
   /* Composable surface geometry; themes control colors, modifiers control shape. */
-  .cy-frame--precision { position: relative; border: 1px solid var(--cy-frame-strong); }
-  .cy-frame--precision::before {
+  .syn-frame--precision { position: relative; border: 1px solid var(--syn-frame-strong); }
+  .syn-frame--precision::before {
     content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
-    width: 3.5rem; height: 2px; background: var(--cy-accent); pointer-events: none;
+    width: 3.5rem; height: 2px; background: var(--syn-accent); pointer-events: none;
   }
-  .cy-frame--industrial { border-inline-start: 3px solid var(--cy-accent); background: linear-gradient(110deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); color: var(--cy-text); }
-  .cy-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+  .syn-frame--industrial { border-inline-start: 3px solid var(--syn-accent); background: linear-gradient(110deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); color: var(--syn-text); }
+  .syn-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
   @media (min-width: 53rem) {
-    .cy-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
-    .cy-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--cy-frame); }
-    .cy-app-nav { display: grid; }
+    .syn-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
+    .syn-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--syn-frame); }
+    .syn-app-nav { display: grid; }
   }
   @media (forced-colors: active) {
-    .cy-app-card, .cy-site-hero, .cy-feature-card, .cy-terminal, .cy-frame--precision, .cy-frame--industrial { border-color: CanvasText; }
-    .cy-frame--precision::before, .cy-site-hero::before { display: none; }
-    .cy-terminal { forced-color-adjust: auto; }
+    .syn-app-card, .syn-site-hero, .syn-feature-card, .syn-terminal, .syn-frame--precision, .syn-frame--industrial { border-color: CanvasText; }
+    .syn-frame--precision::before, .syn-site-hero::before { display: none; }
+    .syn-terminal { forced-color-adjust: auto; }
   }
 }
 /* Optional original frame treatments: pure CSS, independently loadable.
-   Pair .cy-frame with exactly one shape modifier. No canvas, images or JS.
+   Pair .syn-frame with exactly one shape modifier. No canvas, images or JS.
    The cut shapes paint their own outlines; they do not mask the host's parent. */
-@layer cy.geometry {
-  .cy-frame {
+@layer syn.geometry {
+  .syn-frame {
     position: relative;
     z-index: 0;
     isolation: isolate;
@@ -436,10 +436,10 @@
     border: 0;
     border-radius: 0;
     background: transparent;
-    color: var(--cy-text);
+    color: var(--syn-text);
   }
-  .cy-frame::before,
-  .cy-frame::after {
+  .syn-frame::before,
+  .syn-frame::after {
     content: "";
     position: absolute;
     pointer-events: none;
@@ -448,107 +448,107 @@
   }
   /* Two clipped nested surfaces form a border along the diagonal edges;
      no parent-background-colored triangle is needed. */
-  .cy-frame--bevel {
-    --cy-frame-shape: polygon(
-      var(--cy-frame-cut, 1rem) 0, calc(100% - var(--cy-frame-cut, 1rem)) 0,
-      100% var(--cy-frame-cut, 1rem), 100% calc(100% - var(--cy-frame-cut, 1rem)),
-      calc(100% - var(--cy-frame-cut, 1rem)) 100%, var(--cy-frame-cut, 1rem) 100%,
-      0 calc(100% - var(--cy-frame-cut, 1rem)), 0 var(--cy-frame-cut, 1rem));
+  .syn-frame--bevel {
+    --syn-frame-shape: polygon(
+      var(--syn-frame-cut, 1rem) 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
+      100% var(--syn-frame-cut, 1rem), 100% calc(100% - var(--syn-frame-cut, 1rem)),
+      calc(100% - var(--syn-frame-cut, 1rem)) 100%, var(--syn-frame-cut, 1rem) 100%,
+      0 calc(100% - var(--syn-frame-cut, 1rem)), 0 var(--syn-frame-cut, 1rem));
   }
-  .cy-frame--notch {
-    --cy-frame-shape: polygon(
-      0 0, calc(100% - var(--cy-frame-cut, 1rem)) 0,
-      100% var(--cy-frame-cut, 1rem), 100% 100%,
-      var(--cy-frame-cut, 1rem) 100%, 0 calc(100% - var(--cy-frame-cut, 1rem)));
+  .syn-frame--notch {
+    --syn-frame-shape: polygon(
+      0 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
+      100% var(--syn-frame-cut, 1rem), 100% 100%,
+      var(--syn-frame-cut, 1rem) 100%, 0 calc(100% - var(--syn-frame-cut, 1rem)));
   }
-  .cy-frame--bevel::before,
-  .cy-frame--notch::before {
-    clip-path: var(--cy-frame-shape);
-    background: var(--cy-frame-outline, var(--cy-frame-strong));
+  .syn-frame--bevel::before,
+  .syn-frame--notch::before {
+    clip-path: var(--syn-frame-shape);
+    background: var(--syn-frame-outline, var(--syn-frame-strong));
   }
-  .cy-frame--bevel::after,
-  .cy-frame--notch::after {
-    inset: var(--cy-frame-stroke, 1px);
-    clip-path: var(--cy-frame-shape);
-    background: var(--cy-frame-fill, var(--cy-surface));
+  .syn-frame--bevel::after,
+  .syn-frame--notch::after {
+    inset: var(--syn-frame-stroke, 1px);
+    clip-path: var(--syn-frame-shape);
+    background: var(--syn-frame-fill, var(--syn-surface));
   }
   /* Brackets don't obscure the content or assume an enclosing background. */
-  .cy-frame--bracket::before {
-    background: var(--cy-frame-fill, var(--cy-surface));
+  .syn-frame--bracket::before {
+    background: var(--syn-frame-fill, var(--syn-surface));
   }
-  .cy-frame--bracket::after {
-    --cy-bracket-size: clamp(.75rem, var(--cy-frame-cut, 1rem), 1.5rem);
+  .syn-frame--bracket::after {
+    --syn-bracket-size: clamp(.75rem, var(--syn-frame-cut, 1rem), 1.5rem);
     background:
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat;
+      linear-gradient(var(--syn-accent), var(--syn-accent)) top left / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) top left / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) top right / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) top right / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom left / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom left / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom right / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom right / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat;
   }
   /* Inner technical framing with no additional DOM elements. */
-  .cy-frame--inset::before {
-    border: var(--cy-frame-stroke, 1px) solid var(--cy-frame-outline, var(--cy-frame-strong));
-    background: var(--cy-frame-fill, var(--cy-surface));
+  .syn-frame--inset::before {
+    border: var(--syn-frame-stroke, 1px) solid var(--syn-frame-outline, var(--syn-frame-strong));
+    background: var(--syn-frame-fill, var(--syn-surface));
   }
-  .cy-frame--inset::after {
+  .syn-frame--inset::after {
     inset: .45rem;
-    border: var(--cy-frame-stroke, 1px) solid var(--cy-accent);
+    border: var(--syn-frame-stroke, 1px) solid var(--syn-accent);
     opacity: .55;
   }
-  .cy-frame--circuit::before {
-    border: var(--cy-frame-stroke, 1px) solid var(--cy-frame-outline, var(--cy-frame-strong));
-    background: var(--cy-frame-fill, var(--cy-surface));
+  .syn-frame--circuit::before {
+    border: var(--syn-frame-stroke, 1px) solid var(--syn-frame-outline, var(--syn-frame-strong));
+    background: var(--syn-frame-fill, var(--syn-surface));
   }
-  .cy-frame--circuit::after {
+  .syn-frame--circuit::after {
     background:
-      linear-gradient(var(--cy-accent),var(--cy-accent)) top left / 38% 2px no-repeat,
-      linear-gradient(var(--cy-accent),var(--cy-accent)) top left / 2px 28% no-repeat,
-      linear-gradient(var(--cy-accent),var(--cy-accent)) bottom right / 28% 2px no-repeat,
-      linear-gradient(var(--cy-accent),var(--cy-accent)) bottom right / 2px 38% no-repeat;
+      linear-gradient(var(--syn-accent),var(--syn-accent)) top left / 38% 2px no-repeat,
+      linear-gradient(var(--syn-accent),var(--syn-accent)) top left / 2px 28% no-repeat,
+      linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 28% 2px no-repeat,
+      linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 2px 38% no-repeat;
   }
   @media (forced-colors: active) {
-    .cy-frame {
+    .syn-frame {
       border: 1px solid CanvasText;
       background: Canvas;
       color: CanvasText;
     }
-    .cy-frame::before, .cy-frame::after { display: none; }
+    .syn-frame::before, .syn-frame::after { display: none; }
   }
 }
 /* Optional, static cinematic effects. Never animated or loaded by core. */
-@layer cy.effects {
-  .cy-grid-effect {
+@layer syn.effects {
+  .syn-grid-effect {
     background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--cy-accent), transparent 95%) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--cy-accent), transparent 95%) 1px, transparent 1px);
+      linear-gradient(to right, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px);
     background-size: 2rem 2rem;
   }
-  .cy-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--cy-accent), transparent 88%); }
+  .syn-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--syn-accent), transparent 88%); }
   /* Tron-like technical horizon: low-opacity CSS gradients, not a canvas. */
-  .cy-horizon {
+  .syn-horizon {
     background-image:
-      linear-gradient(to bottom, transparent 45%, var(--cy-bg) 100%),
-      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
-      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
-      radial-gradient(ellipse at 70% 20%, var(--cy-accent-soft), transparent 55%);
+      linear-gradient(to bottom, transparent 45%, var(--syn-bg) 100%),
+      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      radial-gradient(ellipse at 70% 20%, var(--syn-accent-soft), transparent 55%);
   }
   /* Blade Runner-like mood without images, remote assets, blur or movement. */
-  .cy-atmosphere {
+  .syn-atmosphere {
     background-image:
-      radial-gradient(ellipse at 85% 10%, var(--cy-accent-soft), transparent 55%),
-      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--cy-accent-2), transparent 94%), transparent 60%);
-    background-color: var(--cy-bg);
+      radial-gradient(ellipse at 85% 10%, var(--syn-accent-soft), transparent 55%),
+      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--syn-accent-2), transparent 94%), transparent 60%);
+    background-color: var(--syn-bg);
   }
-  .cy-scanlines { position: relative; isolation: isolate; }
-  .cy-scanlines::after {
+  .syn-scanlines { position: relative; isolation: isolate; }
+  .syn-scanlines::after {
     content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
     background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
   }
   @media (forced-colors: active) {
-    .cy-scanlines::after { display: none; }
-    .cy-horizon, .cy-atmosphere { background-image: none; }
+    .syn-scanlines::after { display: none; }
+    .syn-horizon, .syn-atmosphere { background-image: none; }
   }
 }

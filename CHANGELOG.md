@@ -1,10 +1,17 @@
+## v0.3.0-alpha.4 (2026-11-14)
+
+- Standardize all project naming, CSS selectors and tokens on SYNTYR.
+- Publish only `syntyr.*.css` modules and use the `syn-` namespace for
+  classes, CSS variables, layers, theme and state data attributes.
+- Remove obsolete CSS aliases, migration notes and historical naming drafts.
+- No JavaScript or extra dependencies; commercial trademark clearance pending.
+
 ## v0.3.0-alpha.3 (2026-11-14)
 
-- Rebrand the public project as **SYNTYR**, previously Cyberline CSS.
-- Add new `syntyr.*.css` distribution paths without removing byte-identical
-  `cyberline.*.css` legacy files or altering `cy-` selectors and tokens.
+- Rebrand the public project as **SYNTYR**, previously Syntyr CSS.
+- Add new `syntyr.*.css` distribution paths and documented the updated interface styling API.
 - Update website, documentation, downloadable archives, CLI copy and code examples.
-- Record naming and trademark-clearance caveats; premium launch remains gated.
+- Record trademark-clearance caveats; premium launch remains gated.
 
 ## Unreleased
 
@@ -26,7 +33,7 @@
 
 - Fix narrow and enlarged-text horizontal overflow in layouts, buttons, panels, badges and long headings.
 - Add browser reflow regression suite and keep the MIT core free of runtime JavaScript.
-- Add voluntary developer feedback calls and document preliminary Cyberline name-risk review.
+- Add voluntary developer feedback calls and document preliminary Syntyr name-risk review.
 
 - Verified WebKit in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
 - Documented zoom-test limitations and manual screen-reader follow-up.
