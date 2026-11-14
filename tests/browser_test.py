@@ -102,6 +102,48 @@ class BrowserTests(unittest.TestCase):
         self.assertNotEqual(measure(self.page.locator('#outside'))['height'], '44px')
         self.assertEqual(measure(self.page.locator('#class-free'))['height'], '44px')
 
+    def test_opt_in_surface_polish_is_theme_aware_and_accessible(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        recipes = (ROOT / 'dist/syntyr.recipes.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{core}</style><style>{recipes}</style>
+          <section class="syn-root" data-syn-theme="noir">
+            <article id="polish" class="syn-app-card syn-surface--accent syn-surface--lift">
+              <label for="polish-input">Search</label>
+              <input id="polish-input" class="syn-input">
+            </article>
+            <article id="plain" class="syn-app-card">Plain</article>
+          </section>""")
+        accent = self.page.locator('#polish')
+        plain = self.page.locator('#plain')
+        before = accent.evaluate("e => getComputedStyle(e).boxShadow")
+        self.assertIn("241, 181, 116", before)
+        self.assertEqual(plain.evaluate('e => getComputedStyle(e).boxShadow'), 'none')
+        self.page.emulate_media(reduced_motion='reduce')
+        accent.locator('input').focus()
+        focused_border = accent.evaluate('e => getComputedStyle(e).borderTopColor')
+        self.assertEqual(focused_border, 'rgb(241, 181, 116)')
+        self.assertIn("241, 181, 116", accent.evaluate("e => getComputedStyle(e).boxShadow"))
+        self.page.emulate_media(reduced_motion='reduce')
+        self.assertIn(accent.evaluate("e => getComputedStyle(e).transitionDuration"), ("0s", "0s, 0s"))
+        self.page.emulate_media(forced_colors='active')
+        self.assertEqual(accent.evaluate("e => getComputedStyle(e).boxShadow"), "none")
+        self.assertEqual(accent.evaluate("e => getComputedStyle(e).borderTopWidth"), "3px")
+
+    def test_optional_content_visibility_respects_print_media(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        recipes = (ROOT / 'dist/syntyr.recipes.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{core}</style><style>{recipes}</style>
+          <main class="syn-root">
+            <div id="deferred" class="syn-defer-section" style="--syn-defer-size: 25rem">
+              <p>Long below-fold section</p>
+            </div>
+          </main>""")
+        section = self.page.locator('#deferred')
+        self.assertEqual(section.evaluate("e => getComputedStyle(e).contentVisibility"), "auto")
+        self.assertIn("400px", section.evaluate("e => getComputedStyle(e).containIntrinsicSize"))
+        self.page.emulate_media(media="print")
+        self.assertEqual(section.evaluate("e => getComputedStyle(e).contentVisibility"), "visible")
+
     def test_semantic_mode_leaves_range_input_native(self):
         self.page.evaluate("""() => {
           const range = document.createElement('input');

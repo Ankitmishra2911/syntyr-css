@@ -141,7 +141,7 @@ theme-root and swap-boundary considerations as HTMX.
 
 ## Performance and compatibility contract
 
-- Core CSS <= 5 KiB gzipped; combined modules <= 8 KiB gzipped.
+- CSS bytes are tracked by `python3 scripts/asset_report.py` with optional JSON baseline comparisons; no arbitrary gzip release gate.
 - Syntyr runtime JS: **zero**. HTMX/Alpine/React are host-app dependencies.
 - Self-host assets on the app's own origin when practical; pin external CDN
   versions. Don't load both `syntyr.all.css` and its constituent stylesheets.

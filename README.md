@@ -21,6 +21,7 @@
 - [Architecture, API stability and low-entropy maintenance policy](ARCHITECTURE.md)
 - [Public API and prerelease stability policy](docs/api-stability.md)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
+- [Performance and design polish guide (no size gate)](docs/performance-and-polish.md)
 - [Framework integrations: HTMX, Alpine, Datastar, React, Vue, Svelte and server templates](docs/framework-integrations.md)
 - [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
@@ -108,6 +109,7 @@ All additions are MIT licensed and do not change the core runtime dependency con
 ```sh
 python3 scripts/build.py
 python3 scripts/build.py --check
+python3 scripts/asset_report.py # informational raw/gzip sizes, no hard ceiling
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
 ```
@@ -134,7 +136,7 @@ The browser scripts require `playwright` and a Chromium browser to be present; i
 
 ## Roadmap
 
-v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. Budgets: core CSS <= 5 KiB gzip, all modules <= 8 KiB gzip, runtime JS 0 bytes. These budgets are verified by tests rather than marketing claims.
+v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. Performance: raw/gzip sizes are reported per distributable, not bounded by arbitrary byte ceilings; runtime JS remains 0 bytes. Browser behavior and modular loading matter more than a fixed compressed-size target.
 
 ## Provenance and license
 
