@@ -9,15 +9,19 @@
 - **Seven themes in the alpha.5 candidate:** Grid, Noir, Studio, Industrial, Terminal, Corporate and Minimal. The published alpha.4 release contains the original three.
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.syn-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
+- **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
 
 ## Live gallery and installation
 
-- [Live website](https://dporkka.github.io/syntyr-css/)
-- [Component gallery](https://dporkka.github.io/syntyr-css/docs/)
-- [Versioned release downloads](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4)
+- [Live website on Cloudflare](https://syntyr-css.pages.dev/)
+- [Component gallery](https://syntyr-css.pages.dev/docs/)
+- [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)
+- [Tagged GitHub releases](https://github.com/dporkka/syntyr-css/releases)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
+- [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
+- [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
 - [Public design-partner review issue (seeking 10 participants)](https://github.com/dporkka/syntyr-css/issues/3)
@@ -80,7 +84,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.css` | Backwards-compatible core + effects bundle |
 | `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
 
-Geometry and utilities are opt-in; neither the core bundle nor existing selectors require it.
+Geometry and utilities are opt-in; neither the core bundle nor ordinary component selectors require them.
 
 The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css` and `src/utilities.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
@@ -110,6 +114,7 @@ python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit # enlarged-text reflow stress check
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js # dev-only checker; see docs/accessibility.md
+python3 tests/theme_editor_browser.py # optional docs-only editor browser checks
 ```
 
 The browser scripts require `playwright` and a Chromium browser to be present; it autodetects `chromium` or `chromium-browser`, or accepts `PLAYWRIGHT_CHROMIUM_EXECUTABLE`; consumers of the CSS do **not** require either. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.

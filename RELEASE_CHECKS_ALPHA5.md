@@ -8,16 +8,16 @@ Validation date: November 14, 2026. Results below were verified on the candidate
 
 | Gate | Candidate result |
 | --- | --- |
-| Python standard-library contracts | **85 passed** |
+| Python standard-library contracts | **94 passed** |
 | Browser matrix | **117 passed** — 13 pages × 3 viewport widths × Chromium, Firefox and WebKit |
 | Enlarged-text reflow | **156 passed** — 13 pages × 4 width/font-size combinations × 3 engines |
 | Chromium simulated forced colors | **2 passed** — seven primary actions retain readable labels and visible keyboard focus |
 | axe-core 4.10.3 A/AA-tagged audit | **Zero confirmed automated violations** across 13 pages; 11 inconclusive contrast rule results covering 310 elements |
 | CSS generation | Deterministic, Python standard library only |
 | CSS distributions | 8 current SYNTYR files, no retired files or namespace |
-| SYNTYR core | **4,698 bytes gzip** (budget 5,120) |
-| Core + optional effects | **5,014 bytes gzip** (budget 5,120) |
-| Full bundle | **7,774 bytes gzip** (budget 8,192) |
+| SYNTYR core | **4,656 bytes gzip** (budget 5,120) |
+| Core + optional effects | **4,978 bytes gzip** (budget 5,120) |
+| Full bundle | **7,746 bytes gzip** (budget 8,192) |
 | Geometry module | 992 bytes gzip, opt-in |
 | Utilities module | 465 bytes gzip, opt-in |
 | Runtime JavaScript / npm dependencies | **0 / 0** |
@@ -31,6 +31,17 @@ Browser matrix and reflow checks were run in the official test-only Playwright v
 3. An existing Vertigo summaries container lacked a grouping role despite having an accessible label; it now has `role="group"`.
 4. The package and browser lists were reconciled for the eighth utilities distribution and unique coverage of all thirteen pages.
 5. Source-comment compaction preserved the legacy 5 KiB core-plus-effects size target without a runtime toolchain or CSS declaration changes.
+
+## Cloudflare publishing integrity
+
+The candidate incorporates the independently merged Cloudflare Pages build,
+accessible navigation primitives, and optional JavaScript documentation theme editor.
+The static-site builder now explicitly publishes the new theme gallery and
+utilities file, without exposing development files. Its tests verify the
+**existing immutable alpha.4 snapshot** instead of requiring the alpha.5
+candidate to have already been released. The existing published alpha.4
+assets and checksums were left unchanged. The docs-only theme editor is not
+a runtime dependency of the CSS library.
 
 ## Release gates still open
 

@@ -1,0 +1,53 @@
+"""Optional browser contract for the docs-only palette editor.
+
+Run with the developer-only Playwright dependency:
+  uv run --no-project --with playwright==1.64.1 python tests/theme_editor_browser.py
+"""
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+
+ROOT = Path(__file__).resolve().parents[1]
+URL = (ROOT / 'docs/theme-editor.html').as_uri()
+
+
+def check(browser, viewport):
+    context = browser.new_context(viewport={'width': viewport, 'height': 800})
+    page = context.new_page()
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    page.goto(URL)
+    preview = page.locator('#preview')
+    assert page.locator('script').count() == 1
+    assert preview.get_attribute('data-syn-theme') == 'grid'
+    assert page.locator('#accent').input_value() == '#76e7f7'
+    assert page.locator('#contrast-result').get_attribute('data-result') == 'pass'
+    assert '--syn-accent: #76e7f7' in page.locator('#generated-css').inner_text()
+
+    page.locator('#theme').select_option('noir')
+    assert preview.get_attribute('data-syn-theme') == 'noir'
+    assert page.locator('#accent').input_value() == '#f1b574'
+    assert page.locator('#on-accent').input_value() == '#1c100b'
+
+    page.locator('#accent').fill('#ffffff')
+    page.locator('#on-accent').fill('#ffffff')
+    assert page.locator('#contrast-result').get_attribute('data-result') == 'fail'
+    assert '1.00:1' in page.locator('#contrast-result').inner_text()
+    assert '--syn-accent: #ffffff' in page.locator('#generated-css').inner_text()
+    assert page.locator('body').evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()") == '#2458c6'
+
+    page.locator('#reset-theme').click()
+    assert page.locator('#contrast-result').get_attribute('data-result') == 'pass'
+    assert page.locator('#accent').input_value() == '#f1b574'
+    overflow = page.evaluate('document.documentElement.scrollWidth - document.documentElement.clientWidth')
+    assert overflow <= 1, (viewport, overflow)
+    assert not errors, errors
+    context.close()
+
+
+if __name__ == '__main__':
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch()
+        for width in (320, 390, 1280):
+            check(browser, width)
+        browser.close()
+    print('PASS theme editor: 3 viewports, theme switching, contrast failures, reset, scoped overrides')

@@ -1,4 +1,3 @@
-/* Syntyr token contract. Host application CSS can override layered defaults. */
 @layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects;
 
 @layer syn.tokens {
@@ -132,8 +131,7 @@
     --syn-radius: .375rem;
     --syn-cut: 0;
   }
-  /* Professional, contrast-oriented light palette for SaaS and business sites. */
-  :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
+    :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
     color-scheme: light;
     --syn-bg: #f5f7fb;
     --syn-surface: #ffffff;
@@ -257,16 +255,13 @@
   .syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
   .syn-button--ghost { background: transparent; border-color: transparent; }
   .syn-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
-  /* State variants use native ARIA for meaning and optional data attributes for app styling. */
-  .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
+    .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
     border-color: var(--syn-accent);
     background: var(--syn-accent-soft);
     color: var(--syn-accent);
   }
   .syn-button[aria-busy="true"] { cursor: progress; }
-  /* Native disabled blocks activation. ARIA-disabled is informational only;
-     the host application must block its event handlers. Keep focus available. */
-  .syn-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
+    .syn-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
   @media (forced-colors: active) {
     .syn-button { border-color: ButtonText; }
     .syn-button--primary { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
@@ -334,7 +329,6 @@
     .syn-status::before { border: 1px solid currentColor; }
   }
 }
-/* Opt-in container-query layouts. */
 @layer syn.components {
   .syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
   .syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
@@ -353,6 +347,17 @@
   .syn-price-value small { color: var(--syn-muted); font: 400 .9rem var(--syn-font); }
   .syn-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--syn-space-3); color: var(--syn-muted); }
   .syn-feature-list li::marker { color: var(--syn-accent); }
+    .syn-breadcrumbs ol { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
+  .syn-breadcrumbs li { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
+  .syn-breadcrumbs li + li::before { content: ""; height: .85em; border-inline-start: 1px solid var(--syn-frame-strong); transform: skew(-22deg); }
+  .syn-breadcrumbs a { color: var(--syn-muted); }
+  .syn-breadcrumbs [aria-current="page"] { color: var(--syn-text); font-weight: 650; }
+  .syn-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; }
+  .syn-page-link { display: inline-grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; padding: .4rem; border: 1px solid var(--syn-frame); color: var(--syn-text); text-decoration: none; border-radius: var(--syn-radius); }
+  .syn-page-link:hover, .syn-page-link[aria-current="page"] { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
+  .syn-page-link[aria-current="page"] { font-weight: 700; }
+    .syn-skeleton { display: block; width: 100%; min-height: 1em; background: var(--syn-surface-hi); border: 1px solid var(--syn-frame); border-radius: var(--syn-radius); }
+  .syn-skeleton--short { max-width: 55%; }
   @container syn-region (min-width: 31rem) {
     .syn-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }

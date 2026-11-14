@@ -1,4 +1,3 @@
-/* Syntyr token contract. Host application CSS can override layered defaults. */
 @layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects;
 
 @layer syn.tokens {
@@ -132,8 +131,7 @@
     --syn-radius: .375rem;
     --syn-cut: 0;
   }
-  /* Professional, contrast-oriented light palette for SaaS and business sites. */
-  :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
+    :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
     color-scheme: light;
     --syn-bg: #f5f7fb;
     --syn-surface: #ffffff;

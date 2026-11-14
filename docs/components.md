@@ -26,7 +26,7 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
 </section>
 ```
 
-For optional effects, load `syntyr.effects.css`. `syntyr.css` is the legacy-compatible core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.syn-semantic`). `syn-root` should wrap any themed subtree; nested `data-syn-theme` overrides color tokens.
+For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.syn-semantic`). `syn-root` should wrap any themed subtree; nested `data-syn-theme` overrides color tokens.
 
 ## Components
 
@@ -40,6 +40,8 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the legacy-comp
 | Forms | `.syn-form`, `.syn-label`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-check`, `.syn-fieldset`, `.syn-help`, `.syn-error` | unclassed form controls |
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
 | Data | `.syn-table-wrap`, `.syn-table` | unclassed `table` |
+| Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
+| Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
 
 Use native button `popovertarget="id"` to control a popover and `commandfor="id" command="show-modal"` to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.

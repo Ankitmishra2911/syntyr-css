@@ -1,0 +1,11 @@
+{
+  "0.3.0-alpha.4": {
+    "syntyr.all.css": "505bf7915f233fba46b3080e460b588ae6b20f3c365b0922b4fe06746c1d80ef",
+    "syntyr.core.css": "8d6458bf1f2ae25098a733e7fb88a84260e54b8b285bf05ff07432cccfbdaa6e",
+    "syntyr.css": "c801f7d49297a0245a970f1e1924b9d7606c14f1179e403e2f0cb9de86a7da49",
+    "syntyr.effects.css": "ce70cde3fd321c98114cceafe969ff4b133959f1373bcbc206ccb8b00c805d87",
+    "syntyr.geometry.css": "8c8a1a78ec560749e4eee9dc0889260b9f1a637a530a184ef5d2b04e4cfa74e3",
+    "syntyr.recipes.css": "b51e5221405bce1ac66a9f6d6dddb1490ec1f7f7f4097a5c1afb58fd4f3ef6e2",
+    "syntyr.semantic.css": "0d710710c605f141f47a695cbc5a7e7e89b7556ddd7ea7df48453b6b0d3055f0"
+  }
+}

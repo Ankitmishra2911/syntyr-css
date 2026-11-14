@@ -19,16 +19,13 @@
   .syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
   .syn-button--ghost { background: transparent; border-color: transparent; }
   .syn-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
-  /* State variants use native ARIA for meaning and optional data attributes for app styling. */
-  .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
+    .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
     border-color: var(--syn-accent);
     background: var(--syn-accent-soft);
     color: var(--syn-accent);
   }
   .syn-button[aria-busy="true"] { cursor: progress; }
-  /* Native disabled blocks activation. ARIA-disabled is informational only;
-     the host application must block its event handlers. Keep focus available. */
-  .syn-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
+    .syn-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
   @media (forced-colors: active) {
     .syn-button { border-color: ButtonText; }
     .syn-button--primary { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
