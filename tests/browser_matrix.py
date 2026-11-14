@@ -53,7 +53,7 @@ def assert_page(browser, name: str, viewport: int) -> None:
     if name == "examples/resources.html":
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1
-        assert page.get_by_role("textbox", name="SEARCH BY NAME").count() == 1
+        assert page.get_by_role("searchbox", name="SEARCH BY NAME").count() == 1
     context.close()
 
 
