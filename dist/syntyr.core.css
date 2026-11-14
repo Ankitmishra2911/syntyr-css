@@ -1,5 +1,5 @@
 /* Syntyr token contract: legacy cy-* custom properties stay stable. */
-@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
+@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.geometry, cy.effects;
 
 @layer cy.tokens {
   :where(.cy-root) {
@@ -202,7 +202,7 @@
   .cy-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
   .cy-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
   .cy-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
-  .cy-stack { display: grid; gap: var(--cy-space-3); }
+  .cy-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cy-space-3); }
   .cy-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--cy-space-2); }
   .cy-panel {
     position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
@@ -226,7 +226,7 @@
   .cy-lede { max-width: 56ch; color: var(--cy-muted); }
   .cy-muted { color: var(--cy-muted); }
   .cy-mono { font-family: var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-caption { color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
+  .cy-caption { overflow-wrap: anywhere; color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
   .cy-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--cy-mono); letter-spacing: -.06em; }
   .cy-rule { border: 0; border-top: 1px solid var(--cy-frame); margin-block: 1.25rem; }
   .cy-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--cy-frame); background: var(--cy-accent-soft); color: var(--cy-accent); font: 650 .68rem/1.25 var(--cy-mono); letter-spacing: .04em; }
@@ -247,16 +247,16 @@
     text-decoration: none; font: 650 .81rem/1.2 var(--cy-mono);
     cursor: pointer; transition: background-color var(--cy-duration-fast) var(--cy-ease), border-color var(--cy-duration-fast) var(--cy-ease), color var(--cy-duration-fast) var(--cy-ease);
   }
-  .cy-button:hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
+  .cy-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
   .cy-button--primary { background: var(--cy-accent); border-color: var(--cy-accent); color: var(--cy-on-accent); }
-  .cy-button--primary:hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
+  .cy-button--primary:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
   .cy-button--outline { background: transparent; border-color: var(--cy-accent); color: var(--cy-accent); }
-  .cy-button--outline:hover { background: var(--cy-accent-soft); }
+  .cy-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); }
   .cy-button--danger { color: var(--cy-danger); border-color: var(--cy-danger); background: transparent; }
-  .cy-button--danger:hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
+  .cy-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
   .cy-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
   .cy-button--ghost { background: transparent; border-color: transparent; }
-  .cy-button--ghost:hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
+  .cy-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
   /* State variants use native ARIA for meaning and optional data attributes for app styling. */
   .cy-button:where([aria-pressed="true"], [data-cy-state="active"]) {
     border-color: var(--cy-accent);
@@ -264,7 +264,9 @@
     color: var(--cy-accent);
   }
   .cy-button[aria-busy="true"] { cursor: progress; }
-  .cy-button:where(:disabled, [aria-disabled="true"]) { pointer-events: none; }
+  /* Native disabled blocks activation. ARIA-disabled is informational only;
+     the host application must block its event handlers. Keep focus available. */
+  .cy-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
   @media (forced-colors: active) {
     .cy-button { border-color: ButtonText; }
     /* ButtonFace/ButtonText avoid Chromium's opaque text-backplate artifact. */
@@ -323,6 +325,7 @@
   .cy-table th { color: var(--cy-muted); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
   .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
+  .cy-table .cy-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
   .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
   .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
   .cy-status--success { color: var(--cy-success); }
@@ -332,8 +335,7 @@
     .cy-status::before { border: 1px solid currentColor; }
   }
 }
-/* Portable app/marketing compositions, inspired by patterns rather than code from UI kits.
-   A named container prevents viewport-dependent components. All styles stay opt-in. */
+/* Opt-in container-query layouts. */
 @layer cy.components {
   .cy-region { container-name: cy-region; container-type: inline-size; min-width: 0; }
   .cy-split { display: grid; gap: var(--cy-space-3); min-width: 0; }

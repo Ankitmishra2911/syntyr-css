@@ -1,5 +1,4 @@
-/* Portable app/marketing compositions, inspired by patterns rather than code from UI kits.
-   A named container prevents viewport-dependent components. All styles stay opt-in. */
+/* Opt-in container-query layouts. */
 @layer cy.components {
   .cy-region { container-name: cy-region; container-type: inline-size; min-width: 0; }
   .cy-split { display: grid; gap: var(--cy-space-3); min-width: 0; }

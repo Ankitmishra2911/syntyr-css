@@ -4,7 +4,24 @@
 - Add finite optional utilities, seven-theme static comparison gallery and browser coverage.
 - Correct theme-boundary foreground/background/geometry inheritance and utility composition.
 - Fix unreadable primary-action labels in Chromium forced-colors and label the optional Vertigo groups semantically.
-- Record 11-page browser/reflow verification and 270 remaining inconclusive gradient-contrast element checks; actual zoom and screen-reader gates remain open.
+- Record 13-page browser/reflow verification and 310 inconclusive gradient-contrast element checks; actual zoom and screen-reader gates remain open.
+
+- Integrate geometry frames and the free operations console without dropping their tests or compatibility paths.
+- Keep the 5 KiB legacy stylesheet and 8 KiB full-bundle budgets through comment-only CSS cleanup.
+
+- Add an original MIT-licensed operations console example with responsive SaaS navigation, telemetry, capacity bars, deployment table, activity feed and terminal transcript; no runtime JavaScript.
+- Add independent zero-runtime geometry CSS with five customizable frame treatments (bevel, notch, bracket, inset and circuit), including forced-colors fallbacks.
+- Extend browser terminal recipes with static window chrome, command anatomy, output/readout colors and a non-blinking cursor.
+- Remove CSS pointer-event suppression from ARIA-disabled buttons; applications enforce ARIA-disabled activation themselves.
+- Add right-aligned tabular numeric cells and a free HTML geometry/terminal demo plus multi-browser regression checks.
+- Preserve the existing explicit table emphasis API, core gzip budget and deterministic ZIP distribution.
+- Address review findings: disabled hover/cursor semantics, inherited geometry tokens and the tracked standalone CSS release artifact.
+- Fix 320px/2x text reflow by making stack tracks shrinkable and allowing long technical captions to wrap.
+- Verify the frame-and-terminal gallery across Chromium, Firefox and WebKit; maintain a CSS-first implementation without requiring runtime JavaScript.
+
+- Add an original MIT CSS-only opt-in Vertigo admin skin and standalone HTML preview; keep the existing Vertigo application unmodified.
+- Build a separate Hugo v0.170.0 docs proof from canonical Markdown using filesystem mounts, with reproducible output/link checks.
+- Document the Hugo versus Zola tradeoff; do not migrate the live GitHub Pages site yet.
 
 ## v0.3.0-alpha.3 (2026-11-14)
 
@@ -13,12 +30,6 @@
   `cyberline.*.css` legacy files or altering `cy-` selectors and tokens.
 - Update website, documentation, downloadable archives, CLI copy and code examples.
 - Record naming and trademark-clearance caveats; premium launch remains gated.
-
-## Unreleased
-
-- Add an original MIT CSS-only opt-in Vertigo admin skin and standalone HTML preview; keep the existing Vertigo application unmodified.
-- Build a separate Hugo v0.170.0 docs proof from canonical Markdown using filesystem mounts, with reproducible output/link checks.
-- Document the Hugo versus Zola tradeoff; do not migrate the live GitHub Pages site yet.
 
 ## v0.3.0-alpha.2 (2026-11-14)
 

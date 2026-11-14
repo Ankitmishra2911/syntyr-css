@@ -43,7 +43,7 @@ class ThemeParser(HTMLParser):
 
 
 class ThemeAndUtilitiesContract(unittest.TestCase):
-    def test_six_palettes_define_complete_accessible_tokens(self):
+    def test_seven_palettes_define_complete_accessible_tokens(self):
         source = (ROOT / "src/tokens.css").read_text()
         for name in THEMES:
             with self.subTest(theme=name):

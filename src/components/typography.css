@@ -6,7 +6,7 @@
   .cy-lede { max-width: 56ch; color: var(--cy-muted); }
   .cy-muted { color: var(--cy-muted); }
   .cy-mono { font-family: var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-caption { color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
+  .cy-caption { overflow-wrap: anywhere; color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
   .cy-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--cy-mono); letter-spacing: -.06em; }
   .cy-rule { border: 0; border-top: 1px solid var(--cy-frame); margin-block: 1.25rem; }
   .cy-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--cy-frame); background: var(--cy-accent-soft); color: var(--cy-accent); font: 650 .68rem/1.25 var(--cy-mono); letter-spacing: .04em; }

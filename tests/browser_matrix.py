@@ -16,8 +16,9 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
-         "docs/console-kit.html", "examples/themes.html",
-         "examples/saas.html", "examples/business.html", "examples/terminal.html",
+         "docs/console-kit.html", "examples/saas.html",
+         "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
+         "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html")
 
 
@@ -35,7 +36,7 @@ def assert_page(browser, name: str, viewport: int) -> None:
     assert page.get_by_role("main").count() == 1, name
     assert page.locator('link[rel="stylesheet"]').count() >= 1
     css = page.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()")
-    assert css in ("#76e7f7", "#f1b574", "#313a45", "#2458c6"), (name, css)
+    assert css in ("#76e7f7", "#f1b574", "#2458c6", "#ffb36b", "#65e8a0", "#155ac8", "#313a45"), (name, css)
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
@@ -127,6 +128,56 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert nested["gridInTerminal"]["cut"] == ".9rem", nested
             assert nested["justify"] == "space-between", nested
             assert nested["align"] == "center", nested
+    if name == "examples/operations-console.html":
+        assert page.get_by_role("heading", name="An operations console built on HTML.").count() == 1
+        assert page.locator(".cy-kpi-grid article").count() == 4
+        assert page.get_by_role("table").count() == 1
+        assert page.locator("progress").count() == 4
+        assert page.locator(".cy-terminal").count() == 1
+        noir = page.locator(".ops-metric[data-cy-theme='noir']")
+        assert noir.evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()") == "#f1b574"
+        if viewport == 1280:
+            page.get_by_role("link", name="Skip to content").focus()
+            assert page.locator(":focus").evaluate("e => getComputedStyle(e).outlineStyle") != "none"
+            details = page.locator("#integration details").first
+            details.locator("summary").click()
+            assert details.evaluate("e => e.open"), "native disclosure should work without JS"
+    if name == "examples/geometry-terminal.html":
+        frames = page.locator(".cy-frame")
+        assert frames.count() == 5, "all five frame profiles must render"
+        bevel = frames.first
+        clip = bevel.evaluate("e => getComputedStyle(e, '::before').clipPath")
+        assert clip.startswith("polygon("), (name, viewport, clip)
+        fill = bevel.evaluate("e => getComputedStyle(e, '::after').backgroundColor")
+        assert fill not in ("rgba(0, 0, 0, 0)", "transparent"), fill
+        assert page.locator(".cy-terminal-error").count() == 1
+        assert page.locator(".cy-terminal-warning").count() == 1
+        numeric = page.locator(".cy-cell--numeric").first
+        assert numeric.evaluate("e => getComputedStyle(e).textAlign") == "right"
+        if viewport == 1280:
+            panel_group = page.locator("#geometry .cy-grid")
+            panel_group.evaluate("e => e.style.setProperty('--cy-frame-fill', '#225533')")
+            inherited_fill = bevel.evaluate("e => getComputedStyle(e, '::after').backgroundColor")
+            assert inherited_fill == "rgb(34, 85, 51)", inherited_fill
+
+            page.evaluate("""() => {
+                const controls = document.createElement('div');
+                controls.innerHTML = '<button class="cy-button cy-button--primary" aria-disabled="true" id="cy-aria-disabled">ARIA disabled</button>'
+                    + '<button class="cy-button cy-button--primary" disabled id="cy-native-disabled">Native disabled</button>';
+                document.querySelector('main').append(controls);
+            }""")
+            aria_button = page.locator("#cy-aria-disabled")
+            original_background = aria_button.evaluate("e => getComputedStyle(e).backgroundColor")
+            aria_button.hover()
+            assert aria_button.evaluate("e => getComputedStyle(e).backgroundColor") == original_background
+            assert aria_button.evaluate("e => getComputedStyle(e).cursor") == "not-allowed"
+            assert aria_button.evaluate("e => getComputedStyle(e).pointerEvents") != "none"
+            native_button = page.locator("#cy-native-disabled")
+            assert native_button.evaluate("e => getComputedStyle(e).cursor") == "not-allowed"
+
+            page.emulate_media(forced_colors="active")
+            assert bevel.evaluate("e => getComputedStyle(e).borderTopStyle") == "solid"
+            assert bevel.evaluate("e => getComputedStyle(e, '::before').display") == "none"
     if name == "examples/vertigo-admin.html" and viewport == 1280:
         def styles():
             return page.evaluate("""() => {

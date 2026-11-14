@@ -1,5 +1,5 @@
 /* Syntyr token contract: legacy cy-* custom properties stay stable. */
-@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
+@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.geometry, cy.effects;
 
 @layer cy.tokens {
   :where(.cy-root) {
@@ -202,7 +202,7 @@
   .cy-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
   .cy-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
   .cy-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
-  .cy-stack { display: grid; gap: var(--cy-space-3); }
+  .cy-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cy-space-3); }
   .cy-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--cy-space-2); }
   .cy-panel {
     position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
@@ -226,7 +226,7 @@
   .cy-lede { max-width: 56ch; color: var(--cy-muted); }
   .cy-muted { color: var(--cy-muted); }
   .cy-mono { font-family: var(--cy-mono); font-variant-numeric: tabular-nums; }
-  .cy-caption { color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
+  .cy-caption { overflow-wrap: anywhere; color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
   .cy-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--cy-mono); letter-spacing: -.06em; }
   .cy-rule { border: 0; border-top: 1px solid var(--cy-frame); margin-block: 1.25rem; }
   .cy-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--cy-frame); background: var(--cy-accent-soft); color: var(--cy-accent); font: 650 .68rem/1.25 var(--cy-mono); letter-spacing: .04em; }
@@ -247,16 +247,16 @@
     text-decoration: none; font: 650 .81rem/1.2 var(--cy-mono);
     cursor: pointer; transition: background-color var(--cy-duration-fast) var(--cy-ease), border-color var(--cy-duration-fast) var(--cy-ease), color var(--cy-duration-fast) var(--cy-ease);
   }
-  .cy-button:hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
+  .cy-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
   .cy-button--primary { background: var(--cy-accent); border-color: var(--cy-accent); color: var(--cy-on-accent); }
-  .cy-button--primary:hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
+  .cy-button--primary:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
   .cy-button--outline { background: transparent; border-color: var(--cy-accent); color: var(--cy-accent); }
-  .cy-button--outline:hover { background: var(--cy-accent-soft); }
+  .cy-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); }
   .cy-button--danger { color: var(--cy-danger); border-color: var(--cy-danger); background: transparent; }
-  .cy-button--danger:hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
+  .cy-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
   .cy-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
   .cy-button--ghost { background: transparent; border-color: transparent; }
-  .cy-button--ghost:hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
+  .cy-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
   /* State variants use native ARIA for meaning and optional data attributes for app styling. */
   .cy-button:where([aria-pressed="true"], [data-cy-state="active"]) {
     border-color: var(--cy-accent);
@@ -264,7 +264,9 @@
     color: var(--cy-accent);
   }
   .cy-button[aria-busy="true"] { cursor: progress; }
-  .cy-button:where(:disabled, [aria-disabled="true"]) { pointer-events: none; }
+  /* Native disabled blocks activation. ARIA-disabled is informational only;
+     the host application must block its event handlers. Keep focus available. */
+  .cy-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
   @media (forced-colors: active) {
     .cy-button { border-color: ButtonText; }
     /* ButtonFace/ButtonText avoid Chromium's opaque text-backplate artifact. */
@@ -323,6 +325,7 @@
   .cy-table th { color: var(--cy-muted); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
   .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
+  .cy-table .cy-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
   .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
   .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
   .cy-status--success { color: var(--cy-success); }
@@ -332,8 +335,7 @@
     .cy-status::before { border: 1px solid currentColor; }
   }
 }
-/* Portable app/marketing compositions, inspired by patterns rather than code from UI kits.
-   A named container prevents viewport-dependent components. All styles stay opt-in. */
+/* Opt-in container-query layouts. */
 @layer cy.components {
   .cy-region { container-name: cy-region; container-type: inline-size; min-width: 0; }
   .cy-split { display: grid; gap: var(--cy-space-3); min-width: 0; }
@@ -473,6 +475,19 @@
   .cy-terminal-muted { color: var(--cy-terminal-muted); }
   .cy-terminal-command { color: #f9dfad; }
   .cy-terminal-success { color: #a1f1bf; }
+  .cy-terminal-error { color: #ffb6b2; }
+  .cy-terminal-warning { color: #ffe0a3; }
+  .cy-terminal-path { color: #b2dcff; }
+  .cy-terminal-meta { color: var(--cy-terminal-muted); font-size: .75em; letter-spacing: .06em; }
+  .cy-terminal-title { font-weight: 650; color: var(--cy-terminal-fg); overflow-wrap: anywhere; }
+  .cy-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
+  .cy-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
+  .cy-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
+  .cy-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
+  .cy-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  /* A static, non-blinking caret; it never suggests fake live input. */
+  .cy-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
+
   /* Composable surface geometry; themes control colors, modifiers control shape. */
   .cy-frame--precision { position: relative; border: 1px solid var(--cy-frame-strong); }
   .cy-frame--precision::before {
@@ -492,7 +507,101 @@
     .cy-terminal { forced-color-adjust: auto; }
   }
 }
-/* Optional, static cinematic effects. Never animated or loaded by core. */
+/* Optional original frame treatments: pure CSS, independently loadable.
+   Pair .cy-frame with exactly one shape modifier. No canvas, images or JS.
+   The cut shapes paint their own outlines; they do not mask the host's parent. */
+@layer cy.geometry {
+  .cy-frame {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+    min-width: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--cy-text);
+  }
+  .cy-frame::before,
+  .cy-frame::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+    inset: 0;
+  }
+  /* Two clipped nested surfaces form a border along the diagonal edges;
+     no parent-background-colored triangle is needed. */
+  .cy-frame--bevel {
+    --cy-frame-shape: polygon(
+      var(--cy-frame-cut, 1rem) 0, calc(100% - var(--cy-frame-cut, 1rem)) 0,
+      100% var(--cy-frame-cut, 1rem), 100% calc(100% - var(--cy-frame-cut, 1rem)),
+      calc(100% - var(--cy-frame-cut, 1rem)) 100%, var(--cy-frame-cut, 1rem) 100%,
+      0 calc(100% - var(--cy-frame-cut, 1rem)), 0 var(--cy-frame-cut, 1rem));
+  }
+  .cy-frame--notch {
+    --cy-frame-shape: polygon(
+      0 0, calc(100% - var(--cy-frame-cut, 1rem)) 0,
+      100% var(--cy-frame-cut, 1rem), 100% 100%,
+      var(--cy-frame-cut, 1rem) 100%, 0 calc(100% - var(--cy-frame-cut, 1rem)));
+  }
+  .cy-frame--bevel::before,
+  .cy-frame--notch::before {
+    clip-path: var(--cy-frame-shape);
+    background: var(--cy-frame-outline, var(--cy-frame-strong));
+  }
+  .cy-frame--bevel::after,
+  .cy-frame--notch::after {
+    inset: var(--cy-frame-stroke, 1px);
+    clip-path: var(--cy-frame-shape);
+    background: var(--cy-frame-fill, var(--cy-surface));
+  }
+  /* Brackets don't obscure the content or assume an enclosing background. */
+  .cy-frame--bracket::before {
+    background: var(--cy-frame-fill, var(--cy-surface));
+  }
+  .cy-frame--bracket::after {
+    --cy-bracket-size: clamp(.75rem, var(--cy-frame-cut, 1rem), 1.5rem);
+    background:
+      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat;
+  }
+  /* Inner technical framing with no additional DOM elements. */
+  .cy-frame--inset::before {
+    border: var(--cy-frame-stroke, 1px) solid var(--cy-frame-outline, var(--cy-frame-strong));
+    background: var(--cy-frame-fill, var(--cy-surface));
+  }
+  .cy-frame--inset::after {
+    inset: .45rem;
+    border: var(--cy-frame-stroke, 1px) solid var(--cy-accent);
+    opacity: .55;
+  }
+  .cy-frame--circuit::before {
+    border: var(--cy-frame-stroke, 1px) solid var(--cy-frame-outline, var(--cy-frame-strong));
+    background: var(--cy-frame-fill, var(--cy-surface));
+  }
+  .cy-frame--circuit::after {
+    background:
+      linear-gradient(var(--cy-accent),var(--cy-accent)) top left / 38% 2px no-repeat,
+      linear-gradient(var(--cy-accent),var(--cy-accent)) top left / 2px 28% no-repeat,
+      linear-gradient(var(--cy-accent),var(--cy-accent)) bottom right / 28% 2px no-repeat,
+      linear-gradient(var(--cy-accent),var(--cy-accent)) bottom right / 2px 38% no-repeat;
+  }
+  @media (forced-colors: active) {
+    .cy-frame {
+      border: 1px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+    }
+    .cy-frame::before, .cy-frame::after { display: none; }
+  }
+}
+/* Optional static effects. */
 @layer cy.effects {
   .cy-grid-effect {
     background-image:
@@ -501,7 +610,7 @@
     background-size: 2rem 2rem;
   }
   .cy-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--cy-accent), transparent 88%); }
-  /* Tron-like technical horizon: low-opacity CSS gradients, not a canvas. */
+  /* Gradient horizon. */
   .cy-horizon {
     background-image:
       linear-gradient(to bottom, transparent 45%, var(--cy-bg) 100%),
@@ -509,7 +618,7 @@
       repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
       radial-gradient(ellipse at 70% 20%, var(--cy-accent-soft), transparent 55%);
   }
-  /* Blade Runner-like mood without images, remote assets, blur or movement. */
+  /* Gradient atmosphere. */
   .cy-atmosphere {
     background-image:
       radial-gradient(ellipse at 85% 10%, var(--cy-accent-soft), transparent 55%),
@@ -527,7 +636,7 @@
   }
 }
 /* Optional, finite utilities: no generator, JS runtime, resets or network assets.
-   Load AFTER cyberline.core.css, or use cyberline.all.css. */
+   Load after syntyr.core.css, or use syntyr.all.css. */
 @layer cy.components {
   .cy-root :where(.cy-u-flex) { display: flex; min-width: 0; }
   .cy-root :where(.cy-u-grid) { display: grid; min-width: 0; }

@@ -20,7 +20,9 @@ PAGES = (
     "index.html", "docs/index.html", "examples/console.html",
     "examples/resources.html", "examples/pricing.html",
     "docs/console-kit.html", "examples/saas.html",
-    "examples/business.html", "examples/terminal.html", "examples/themes.html",
+    "examples/business.html", "examples/terminal.html",
+         "examples/geometry-terminal.html",
+         "examples/operations-console.html", "examples/themes.html",
     "examples/vertigo-admin.html",
 )
 

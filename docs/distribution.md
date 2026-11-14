@@ -32,6 +32,8 @@ element styles within `.cy-semantic`. For static glows and decorative grid
 effects, load `syntyr.effects.css` after core. SaaS, business and terminal layouts
 are opt-in via `syntyr.recipes.css`. Layout and spacing helpers are
 opt-in via `syntyr.utilities.css` (legacy alias `cyberline.utilities.css`).
+Optional bevel, notch, bracket, inset and circuit frames use `syntyr.geometry.css`
+(legacy alias `cyberline.geometry.css`); include after core, or use the all bundle.
 
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.cy-semantic` to opt into semantic element styles.
@@ -50,7 +52,7 @@ For production reliability, self-host your copy and control cache headers.
 
 ## Release artifacts and guarantees
 
-The prospective alpha.4 ZIP contains seven SYNTYR CSS distributions plus seven
+The prospective alpha.4 ZIP contains eight SYNTYR CSS distributions plus eight
 byte-identical legacy Cyberline compatibility files, the terminal ANSI palette
 JSON, this guide and the MIT
 license, and the README. The ZIP is created deterministically using only

@@ -24,11 +24,15 @@
 - [Preliminary SYNTYR brand-risk review (NOT clearance)](business/syntyr-trademark-screen.md)
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
+- [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
+- [Free operations console](examples/operations-console.html): static SaaS dashboard; no runtime JavaScript
 - [Seven-theme comparison gallery (unreleased)](examples/themes.html)
 - [Alpha.4 browser/accessibility release-candidate evidence](RELEASE_CHECKS_ALPHA4.md)
 - [Element-level contrast and manual accessibility review](docs/accessibility-alpha4-review.md)
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
+
+The linked published alpha.3 ZIP does not contain the four new alpha.4 themes, geometry module or utilities. To evaluate these unreleased features, use a pinned source commit, not the alpha.3 release download.
 
 Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
@@ -60,7 +64,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 </div>
 ```
 
-`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` between `grid`, `noir` and `studio`, including nested themed areas.
+`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` among all seven supported palettes in the alpha.4 candidate, including nested themed areas.
 
 ## Build outputs
 
@@ -71,11 +75,12 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually-hidden helpers (also `cyberline.utilities.css`) |
+| `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit frames (legacy alias also available) |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
 | `dist/syntyr.css` | Backwards-compatible core + effects bundle |
 | `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css`, and `src/utilities.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites
 

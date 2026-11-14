@@ -1,20 +1,15 @@
-# SYNTYR alpha.4 — accessibility review evidence and open gates
+# SYNTYR alpha.4 accessibility review — open manual gates
 
-Review date: 2026-11-14. This is a verification record for the PR #2
-development branch, not WCAG certification. The published alpha.2 tag is
-separate. Automated audits can identify failures; inconclusive results are
-**not passes**.
+Review date: November 14, 2026. This is the integrated [PR #2](https://github.com/dporkka/syntyr-css/pull/2) candidate and includes the previously merged geometry/terminal and operations-console examples. This document records test evidence **and remaining limitations**, not a WCAG certification.
 
 ## axe-core 4.10.3 findings
 
-The eleven-page WCAG 2.0/2.1/2.2 A/AA tagged audit returned **zero confirmed
-automated violations**. It returned **nine inconclusive color-contrast rule
-groups covering 270 element instances**:
+The 13-page WCAG 2.0/2.1/2.2 A/AA-tagged Chromium audit reported **zero confirmed automated violations** and **11 inconclusive color-contrast rule results covering 310 individual text elements**. Inconclusive does not mean passing.
 
 | Page | Inconclusive elements |
 | --- | ---: |
 | `index.html` | 42 |
-| `docs/index.html` | 97 |
+| `docs/index.html` | 100 |
 | `examples/console.html` | 33 |
 | `examples/resources.html` | 45 |
 | `examples/pricing.html` | 8 |
@@ -22,64 +17,33 @@ groups covering 270 element instances**:
 | `examples/saas.html` | 0 |
 | `examples/business.html` | 6 |
 | `examples/terminal.html` | 4 |
+| `examples/geometry-terminal.html` | 26 |
+| `examples/operations-console.html` | 11 |
 | `examples/themes.html` | 21 |
 | `examples/vertigo-admin.html` | 0 |
-| **Total** | **270** |
+| **Total** | **310** |
 
-Axe could not determine effective background paint for these text nodes,
-frequently because their ancestors have layered gradients. Theme palette
-token-to-solid-surface contrast has separate unit coverage, but does **not**
-clear composited gradient text, dynamic backgrounds or stateful UI.
+The inconclusive rule is `color-contrast`; axe cannot reliably infer the effective background paint behind text for layered gradients and pseudo-elements. Separate assertions verify solid-color theme tokens, but **those token tests do not resolve composited-background contrast**.
 
-**Manual procedure:** inspect each page in its light and dark contexts. For
-the nine groups, inspect every implicated foreground against the *darkest or
-lightest actual background region behind the glyphs*. Record the measured
-WCAG contrast, test regular text at 4.5:1, large text at 3:1, and essential
-non-text controls/boundaries at 3:1. Test hover, focus, disabled and selected
-states where applicable. Save device, browser version, element selector and
-contrast measurements as evidence.
+## Manual contrast procedure
 
-## Confirmed defects reproduced and fixed
+Review each page under its intended theme and nested-theme boundaries. For each flagged text element, inspect foreground and actual pixels behind glyphs under the darkest and lightest part of gradients. Measure and record regular-text contrast (4.5:1), large-text contrast (3:1), and essential graphical control boundaries or non-text indicators (3:1), where applicable. Check focus, hover, selection and disabled states. Record the browser version, theme, selector, screenshot and measured ratio. Re-check after any relevant CSS changes.
 
-- In Chromium simulated forced-colors mode, all seven gallery primary-link
-  labels rendered as solid white bars. A screenshot-pixel test failed for all
-  seven themes before the fix. Switching the component's forced-color
-  primary state from `Highlight/HighlightText` to system
-  `ButtonFace/ButtonText` restored readable label glyphs. The focused
-  screenshot and keyboard-outline tests both pass.
-- Light and dark *simulated* Chromium forced-color palettes were visually
-  inspected for a representative Grid button. Both show readable text and a
-  distinct control border. These simulations do not certify Windows High
-  Contrast or other OS implementations.
-- The new optional Vertigo page had a generic `div` with `aria-label` but no
-  valid grouping role. An existing semantic contract test caught it; adding
-  `role="group"` made the test pass.
+## Browser and assistive technology coverage
 
-## Responsive tests versus real browser zoom
+The integrated branch passed **117 browser matrix cases** across Chromium, Firefox and WebKit at 320, 390 and 1280 CSS-pixel widths, and **156 enlarged-text reflow cases** across four width/font combinations per page. These are useful regression checks, but **neither is a real browser 200%/400% zoom test**.
 
-An 11-page browser matrix checks CSS widths 320, 390 and 1280. The enlarged
-font-size reflow test checks four viewport/font conditions per page; neither
-substitutes for browser zoom. Experiments with Ctrl-plus in headless Chromium,
-isolated headed Chromium under Xvfb, and default zoom preferences did not
-change the reported zoom/viewport. **True 200%/400% zoom remains unverified.**
-To close the gate, use browser UI in a genuine desktop session, record browser
-zoom percentage, measure effective layout width and check clipping and
-navigation on every representative page.
+Chromium's forced-colors simulation passed two screenshot/focus tests for seven-theme primary actions. This does not certify native Windows High Contrast or other operating-system high-contrast implementations.
 
-## Outstanding release gates
+Native popovers, disclosures, meaningful group roles, visible focus and table landmarks received automated checks. Manual NVDA/JAWS/VoiceOver/Orca navigation and actual physical-keyboard exploration remain outstanding.
 
-- [ ] Inspect and measure all 270 inconclusive contrast element instances,
-      including gradient extremes and component states.
-- [ ] Use actual NVDA/JAWS/VoiceOver/Orca sessions with the relevant browser,
-      testing landmarks, skip links, links/forms/tables and dialog focus.
-- [ ] Conduct genuine 200%/400% browser zoom tests and record reflow,
-      content visibility and keyboard access.
-- [ ] Inspect simulated *and OS-native* forced-colors modes across browsers,
-      plus dark and light operating-system palettes.
-- [ ] Resolve provisional SYNTYR name/trademark clearance before paid
-      brand or premium-product launch. See `business/syntyr-trademark-screen.md`.
-- [ ] Choose supported-browser and accessibility release criteria before
-      labeling alpha.4 production-ready or publishing a commercial offering.
+## Release checklist
 
-The current MIT CSS core remains zero-runtime-JavaScript and requires no npm
-package to use. Playwright and axe-core above are developer-only checks.
+- [ ] Resolve all 310 inconclusive contrast elements with documented measurements or justified exceptions.
+- [ ] Test representative navigation, forms, popover/dialog focus, tables, disclosures and the operations-console region using actual screen readers.
+- [ ] Perform real 200% and 400% browser zoom checks with desktop browser controls; measure clipping and reflow.
+- [ ] Validate OS-level high contrast and reduced-motion presentation.
+- [ ] Record the browser/version support policy and retest in that exact support matrix.
+- [ ] Update the evidence after each visual change; automated zero-violation counts do not close the manual gates.
+
+No alpha.4 tag has been published by this review.

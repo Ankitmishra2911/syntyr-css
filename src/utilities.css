@@ -1,5 +1,5 @@
 /* Optional, finite utilities: no generator, JS runtime, resets or network assets.
-   Load AFTER cyberline.core.css, or use cyberline.all.css. */
+   Load after syntyr.core.css, or use syntyr.all.css. */
 @layer cy.components {
   .cy-root :where(.cy-u-flex) { display: flex; min-width: 0; }
   .cy-root :where(.cy-u-grid) { display: grid; min-width: 0; }
