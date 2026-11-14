@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080f19">
+  <meta name="description" content="Cyberline CSS — accessible, CSS-first futuristic UI primitives with no runtime dependencies.">
+  <title>Cyberline CSS — Component Gallery</title>
+  <link rel="stylesheet" href="../dist/cyberline.all.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="cy-root cy-page" data-cy-theme="grid">
+  <div class="cy-shell" id="top">
+    <header class="cy-header">
+      <a class="cy-logo" href="#top">// CYBERLINE<span class="docs-visually-hidden"> home</span></a>
+      <nav class="cy-nav" aria-label="Main navigation">
+        <a href="#themes">THEMES</a>
+        <a href="#components">COMPONENTS</a>
+        <a href="#recipes">RECIPES</a>
+        <a href="#semantic">SEMANTIC MODE</a>
+        <a href="#accessibility">PRINCIPLES</a><a href="#examples">EXAMPLES</a>
+      </nav>
+    </header>
+    <main>
+      <section class="docs-hero docs-ambient" aria-labelledby="hero-title">
+        <div class="docs-hero-bar"><span class="cy-eyebrow">INTERFACE SYSTEM / CSS-FIRST</span><span class="cy-badge">PROTOCOL ACTIVE</span></div>
+        <h1 id="hero-title" class="docs-title">The future is <em>semantic.</em></h1>
+        <p class="cy-lede">A futuristic visual system built on real HTML. Two cinematic themes, composable primitives, no framework lock-in, and zero runtime JavaScript.</p>
+        <div class="cy-actions">
+          <a class="cy-button cy-button--primary" href="#components">EXPLORE COMPONENTS</a>
+          <a class="cy-button" href="#semantic">VIEW SEMANTIC MODE</a>
+        </div>
+        <div class="docs-kpis">
+          <div><span class="cy-caption">RUNTIME DEPENDENCIES</span><strong>0</strong></div>
+          <div><span class="cy-caption">CORE JAVASCRIPT</span><strong>0 KB</strong></div>
+          <div><span class="cy-caption">VISUAL SYSTEMS</span><strong>02</strong></div>
+        </div>
+      </section>
+
+      <section class="docs-section" id="themes" aria-labelledby="themes-title">
+        <div class="docs-section-head"><h2 id="themes-title">01 / Dual visual systems</h2><span class="cy-caption">ONE MARKUP CONTRACT / TWO MODES</span></div>
+        <div class="docs-grid">
+          <article class="cy-panel cy-panel--cut docs-vertical" data-cy-theme="grid">
+            <div class="docs-panel-title"><span class="cy-eyebrow">GRID / SIGNAL BLUE</span><span class="cy-badge">ONLINE</span></div>
+            <div><span class="cy-caption">NETWORK INTEGRITY</span><p class="cy-metric">98.7%</p></div>
+            <progress class="cy-meter" value="98.7" max="100" aria-label="Grid network integrity">98.7%</progress>
+            <p class="cy-muted docs-small">Minimal luminous geometry with technical precision. TRON-inspired, without using any licensed imagery.</p>
+            <div class="docs-swatch" aria-label="Grid palette"><span style="background:#080f19"></span><span style="background:#111f2c"></span><span style="background:#76e7f7"></span><span style="background:#edf9ff"></span></div>
+          </article>
+          <article class="cy-panel cy-panel--cut docs-vertical" data-cy-theme="noir">
+            <div class="docs-panel-title"><span class="cy-eyebrow">NOIR / AMBER DISTRICT</span><span class="cy-badge">ONLINE</span></div>
+            <div><span class="cy-caption">ARCHIVE CONSISTENCY</span><p class="cy-metric">91.4%</p></div>
+            <progress class="cy-meter" value="91.4" max="100" aria-label="Noir archive consistency">91.4%</progress>
+            <p class="cy-muted docs-small">Warm tungsten contrast and industrial framing. Atmospheric Blade Runner-inspired controls.</p>
+            <div class="docs-swatch" aria-label="Noir palette"><span style="background:#0e0e12"></span><span style="background:#1c1b20"></span><span style="background:#f1b574"></span><span style="background:#f8eee5"></span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="docs-section" id="components" aria-labelledby="components-title">
+        <div class="docs-section-head"><h2 id="components-title">02 / Component laboratory</h2><span class="cy-caption">NO COMPONENT JAVASCRIPT</span></div>
+        <div class="docs-grid">
+          <article class="cy-panel cy-panel--cut docs-vertical">
+            <div class="docs-panel-title"><span class="cy-eyebrow">01 / CONTROLS</span><span class="cy-caption">BUTTONS</span></div>
+            <div class="cy-inline">
+              <button class="cy-button cy-button--primary" type="button" popovertarget="command-popover">OPEN COMMAND</button>
+              <button class="cy-button" type="button" commandfor="diagnostic-dialog" command="show-modal">OPEN DIALOG</button>
+              <button class="cy-button cy-button--ghost" type="button">GHOST</button>
+              <button class="cy-button" type="button" disabled>DISABLED</button>
+            </div>
+            <div class="cy-alert" role="status">System ready. Native controls remain keyboard operable.</div>
+            <div class="cy-alert cy-alert--danger" role="status">Warning state uses color plus a visible border.</div>
+            <div id="command-popover" class="cy-popover" popover>
+              <p class="cy-eyebrow">QUICK ACTION / NATIVE POPOVER</p>
+              <h3 class="cy-heading">Command accepted</h3>
+              <p class="cy-lede">Press Escape or click outside to dismiss.</p>
+              <button class="cy-button" type="button" popovertarget="command-popover" popovertargetaction="hide">CLOSE</button>
+            </div>
+            <dialog id="diagnostic-dialog" class="cy-dialog" aria-labelledby="diagnostic-title">
+              <h3 id="diagnostic-title" class="cy-heading">Diagnostic console</h3>
+              <p>Native modal dialog. Escape closes it; focus stays inside while open.</p>
+              <form method="dialog"><button class="cy-button cy-button--primary">ACKNOWLEDGE</button></form>
+            </dialog>
+          </article>
+          <article class="cy-panel cy-panel--cut docs-vertical">
+            <div class="docs-panel-title"><span class="cy-eyebrow">02 / DATA ENTRY</span><span class="cy-caption">FORMS</span></div>
+            <form class="cy-form" action="#components" method="get">
+              <label class="cy-label" for="operator-id">OPERATOR ID<input id="operator-id" class="cy-input" name="operator" placeholder="e.g. 209A" autocomplete="username" required></label>
+              <label class="cy-label" for="division">DIVISION<select id="division" class="cy-select" name="division"><option value="grid">Grid control</option><option value="noir">Noir archive</option></select></label>
+              <label class="cy-label" for="dispatch">MESSAGE<textarea id="dispatch" class="cy-textarea" name="dispatch" rows="2" placeholder="Transmission details"></textarea></label>
+              <label class="cy-check"><input class="cy-input" type="checkbox" name="consent" required>Confirm diagnostic access</label>
+              <button class="cy-button cy-button--primary" type="submit">VALIDATE FORM</button>
+              <span class="cy-caption">Local demo; submission has no backend.</span>
+            </form>
+          </article>
+          <article class="cy-panel cy-panel--cut docs-vertical">
+            <div class="docs-panel-title"><span class="cy-eyebrow">03 / TELEMETRY</span><span class="cy-caption">DATA TABLE</span></div>
+            <div class="cy-table-wrap"><table class="cy-table"><caption class="docs-visually-hidden">Active network nodes</caption><thead><tr><th scope="col">NODE</th><th scope="col">SECTOR</th><th scope="col">STATUS</th></tr></thead><tbody><tr><td>AX-92</td><td>GRID 04</td><td>ONLINE</td></tr><tr><td>KX-14</td><td>NOIR 08</td><td>READY</td></tr><tr><td>TR-08</td><td>GRID 12</td><td>ONLINE</td></tr></tbody></table></div>
+            <p class="cy-caption">Native table elements, responsive overflow container.</p>
+          </article>
+          <article class="cy-panel cy-panel--cut docs-vertical">
+            <div class="docs-panel-title"><span class="cy-eyebrow">04 / DISCLOSURE</span><span class="cy-caption">DETAILS</span></div>
+            <details class="cy-details"><summary>Why real HTML?</summary><p>Buttons, forms, disclosures and popovers retain native keyboard and accessibility behavior.</p></details>
+            <details class="cy-details"><summary>Does it require Node or React?</summary><p>No. Copy a CSS file and use any HTML renderer.</p></details>
+            <details class="cy-details"><summary>Can themes nest?</summary><p>Yes. Set <code class="cy-code">data-cy-theme="noir"</code> on a section to override the Grid palette inside it.</p></details>
+          </article>
+        </div>
+      </section>
+
+      <section class="docs-section" id="semantic" aria-labelledby="semantic-title">
+        <div class="docs-section-head"><h2 id="semantic-title">03 / Optional semantic styling</h2><span class="cy-caption">PICO-LIKE MARKUP / OPT-IN</span></div>
+        <div class="docs-two">
+          <div class="docs-vertical">
+            <span class="cy-eyebrow">NO COMPONENT CLASSES REQUIRED</span>
+            <p class="cy-lede">Place <code class="cy-code">cy-semantic</code> on a container, and unclassed native elements gain the Cyberline theme. No globally invasive selectors.</p>
+            <pre class="docs-code"><code>&lt;section class="cy-semantic"&gt;
+  &lt;article&gt;
+    &lt;label&gt;Operator
+      &lt;input placeholder="ID"&gt;
+    &lt;/label&gt;
+    &lt;button&gt;Continue&lt;/button&gt;
+  &lt;/article&gt;
+&lt;/section&gt;</code></pre>
+          </div>
+          <div class="cy-semantic docs-vertical">
+            <article>
+              <h3>Archive terminal</h3>
+              <p class="cy-muted">This panel, form and button are plain HTML, styled by the optional semantic layer.</p>
+              <form action="#semantic" method="get" class="cy-form">
+                <label for="semantic-operator">Operator<input id="semantic-operator" name="id" placeholder="Enter ID" required></label>
+                <label for="semantic-type">Classification<select id="semantic-type" name="type"><option>Unrestricted</option><option>Restricted</option></select></label>
+                <button type="submit">CONTINUE</button>
+              </form>
+              <details><summary>Transmission details</summary><p>Scoped to this article and its parent semantic container.</p></details>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="docs-section" id="recipes" aria-labelledby="recipes-title">
+        <div class="docs-section-head"><h2 id="recipes-title">04 / Composable UI recipes</h2><span class="cy-caption">CONTAINER QUERIES / MIT / NO RUNTIME JS</span></div>
+        <p class="cy-lede">Like Tailwind's composable building blocks, these original patterns assemble into working HTML without requiring a CSS compiler or a JavaScript runtime. Resize the window or embed them in a narrower region to see how they adapt.</p>
+        <div class="cy-region">
+          <div class="cy-stats" aria-label="Illustrative status metrics">
+            <article class="cy-stat"><span class="cy-stat-label">SERVICE UPTIME</span><p class="cy-stat-value">99.9%</p></article>
+            <article class="cy-stat"><span class="cy-stat-label">ACTIVE AGENTS</span><p class="cy-stat-value">026</p></article>
+            <article class="cy-stat"><span class="cy-stat-label">INBOX ITEMS</span><p class="cy-stat-value">004</p></article>
+          </div>
+        </div>
+        <div class="cy-region" style="margin-top:1.5rem">
+          <div class="cy-split">
+            <section class="cy-empty" aria-labelledby="empty-recipe-title">
+              <span class="cy-eyebrow">QUEUE STATUS</span><h3 id="empty-recipe-title">No pending deployments</h3>
+              <p class="cy-muted">A complete empty state with real navigation, not a decorative screenshot.</p>
+              <a class="cy-button cy-button--primary" href="../examples/console.html">EXPLORE CONSOLE</a>
+            </section>
+            <section class="cy-price-card" data-cy-featured aria-labelledby="featured-recipe-title">
+              <span class="cy-eyebrow">MARKETING BLOCK</span>
+              <h3 id="featured-recipe-title">Pricing cards</h3><p class="cy-lede">One-column mobile layout and three-column layout when the parent has enough space.</p>
+              <a class="cy-button cy-button--outline" href="../examples/pricing.html">OPEN PRICING DEMO</a>
+            </section>
+          </div>
+        </div>
+        <p class="cy-caption" style="margin-top:1rem">Copy-paste snippets are documented in docs/recipes.md. These are complete MIT-licensed examples—not extracts from Tailwind Plus.</p>
+      </section>
+
+      <section class="docs-section" id="examples" aria-labelledby="examples-title">
+        <div class="docs-section-head"><h2 id="examples-title">05 / Free production-shaped examples</h2><span class="cy-caption">MIT / REUSABLE / NO JAVASCRIPT</span></div>
+        <div class="docs-grid">
+          <article class="cy-panel cy-panel--cut"><span class="cy-eyebrow">GRID / CONTROL CONSOLE</span><h3>Free dashboard page</h3><p class="cy-muted">Native popovers, dialogs, responsive navigation, metrics and a data table in plain HTML.</p><a class="cy-button cy-button--primary" href="../examples/console.html">OPEN CONSOLE DEMO</a></article>
+          <article class="cy-panel cy-panel--cut" data-cy-theme="noir"><span class="cy-eyebrow">NOIR / LAUNCH PAGE</span><h3>Free landing page</h3><p class="cy-muted">Atmospheric marketing layout with native HTML, semantic sections and a distinctive amber palette.</p><a class="cy-button cy-button--outline" href="../examples/landing.html">OPEN NOIR DEMO</a></article>
+        </div>
+        <p style="margin-top:1rem"><a class="cy-button cy-button--outline" href="../examples/pricing.html">OPEN ORIGINAL PRICING PAGE</a></p>
+        <p class="cy-caption">These examples are MIT-licensed. Future premium kits would be separate, complete page packs—not paywalls on essential UI components.</p>
+      </section>
+
+      <section class="docs-section" id="accessibility" aria-labelledby="accessibility-title">
+        <div class="docs-section-head"><h2 id="accessibility-title">06 / Engineering principles</h2><span class="cy-caption">BUILT FOR PRODUCTION AUDITS</span></div>
+        <div class="cy-grid">
+          <article class="cy-panel"><span class="cy-eyebrow">LOW ENTROPY</span><h3 class="cy-heading">Just CSS</h3><p class="cy-muted">No browser JS, no external assets, no runtime package dependencies. Python only builds distributable files.</p></article>
+          <article class="cy-panel"><span class="cy-eyebrow">PLATFORM FIRST</span><h3 class="cy-heading">Native controls</h3><p class="cy-muted">Real button, dialog, popover, select, details, input and progress. No faux ARIA tab or combobox implementations.</p></article>
+          <article class="cy-panel"><span class="cy-eyebrow">PROGRESSIVE ENHANCEMENT</span><h3 class="cy-heading">Optional effects</h3><p class="cy-muted">Decorative glows and grids are isolated from core styling; reduced-motion and forced-colors are respected.</p></article>
+        </div>
+      </section>
+    </main>
+    <footer class="cy-header"><span class="cy-caption">CYBERLINE CSS / EXPERIMENTAL / MIT</span><a class="cy-caption" href="#top">RETURN TO TOP ↑</a></footer>
+  </div>
+</body>
+</html>

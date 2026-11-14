@@ -1,0 +1,34 @@
+@layer cy.components {
+  .cy-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
+  .cy-button {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    min-height: var(--cy-control-height); padding: .65rem 1rem;
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: var(--cy-surface-hi); color: var(--cy-text);
+    text-decoration: none; font: 650 .81rem/1.2 var(--cy-mono);
+    cursor: pointer; transition: background-color var(--cy-duration-fast) var(--cy-ease), border-color var(--cy-duration-fast) var(--cy-ease), color var(--cy-duration-fast) var(--cy-ease);
+  }
+  .cy-button:hover { border-color: var(--cy-accent); background: var(--cy-accent-soft); }
+  .cy-button--primary { background: var(--cy-accent); border-color: var(--cy-accent); color: var(--cy-on-accent); }
+  .cy-button--primary:hover { background: color-mix(in srgb, var(--cy-accent), white 10%); color: var(--cy-on-accent); }
+  .cy-button--outline { background: transparent; border-color: var(--cy-accent); color: var(--cy-accent); }
+  .cy-button--outline:hover { background: var(--cy-accent-soft); }
+  .cy-button--danger { color: var(--cy-danger); border-color: var(--cy-danger); background: transparent; }
+  .cy-button--danger:hover { background: color-mix(in srgb, var(--cy-danger), transparent 88%); }
+  .cy-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
+  .cy-button--ghost { background: transparent; border-color: transparent; }
+  .cy-button--ghost:hover { background: var(--cy-accent-soft); border-color: var(--cy-frame); }
+  /* State variants use native ARIA for meaning and optional data attributes for app styling. */
+  .cy-button:where([aria-pressed="true"], [data-cy-state="active"]) {
+    border-color: var(--cy-accent);
+    background: var(--cy-accent-soft);
+    color: var(--cy-accent);
+  }
+  .cy-button[aria-busy="true"] { cursor: progress; }
+  .cy-button:where(:disabled, [aria-disabled="true"]) { pointer-events: none; }
+  @media (forced-colors: active) {
+    .cy-button { border-color: ButtonText; }
+    .cy-button--primary { background: Highlight; color: HighlightText; border-color: Highlight; }
+    .cy-button--danger, .cy-button--outline { border-color: ButtonText; color: ButtonText; }
+  }
+}

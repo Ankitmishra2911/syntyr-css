@@ -1,0 +1,28 @@
+@layer cy.base {
+  :where(.cy-root), :where(.cy-root) *, :where(.cy-root) *::before, :where(.cy-root) *::after { box-sizing: border-box; }
+  .cy-root {
+    margin: 0;
+    font: 400 1rem/var(--cy-line) var(--cy-font);
+    color: var(--cy-text);
+    background: var(--cy-bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  .cy-root.cy-page { min-height: 100svh; }
+  .cy-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
+  .cy-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; }
+  .cy-root :where(button,input,select,textarea) { font: inherit; }
+  .cy-root :where(a) { color: var(--cy-accent); text-underline-offset: .2em; }
+  .cy-root :where(:focus-visible) { outline: 3px solid var(--cy-accent); outline-offset: 3px; }
+  .cy-root :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; opacity: .55; }
+  .cy-root :where(::selection) { color: var(--cy-on-accent); background: var(--cy-accent); }
+  @media (prefers-reduced-motion: reduce) {
+    .cy-root *, .cy-root *::before, .cy-root *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0s !important;
+      animation-duration: 0s !important;
+    }
+  }
+  @media (forced-colors: active) {
+    .cy-root :where(:focus-visible) { outline-color: Highlight; }
+  }
+}

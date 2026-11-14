@@ -1,0 +1,16 @@
+/* Optional static cyberpunk effects. No paints or animations run by default. */
+@layer cy.effects {
+  .cy-grid-effect {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--cy-accent), transparent 95%) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--cy-accent), transparent 95%) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+  }
+  .cy-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--cy-accent), transparent 88%); }
+  .cy-scanlines { position: relative; isolation: isolate; }
+  .cy-scanlines::after {
+    content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
+    background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
+  }
+  @media (forced-colors: active) { .cy-scanlines::after { display: none; } }
+}

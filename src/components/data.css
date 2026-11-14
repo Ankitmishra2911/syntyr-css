@@ -1,0 +1,11 @@
+@layer cy.components {
+  .cy-meter { width: 100%; height: .45rem; overflow: hidden; border: none; border-radius: 0; accent-color: var(--cy-accent); }
+  .cy-meter::-webkit-progress-bar { background: var(--cy-bg); }
+  .cy-meter::-webkit-progress-value { background: var(--cy-accent); }
+  .cy-meter::-moz-progress-bar { background: var(--cy-accent); }
+  .cy-table-wrap { overflow-x: auto; }
+  .cy-table { width: 100%; border-collapse: collapse; text-align: left; font: .75rem/1.65 var(--cy-mono); }
+  .cy-table th, .cy-table td { padding: .7rem .6rem; border-block-end: 1px solid var(--cy-frame); white-space: nowrap; }
+  .cy-table th { color: var(--cy-muted); font-weight: 550; }
+  .cy-table td:last-child { color: var(--cy-accent); }
+}

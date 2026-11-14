@@ -1,0 +1,36 @@
+@layer cy.components {
+  .cy-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+  .cy-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
+  .cy-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .cy-nav a { color: var(--cy-muted); text-decoration: none; font: 600 .76rem var(--cy-mono); }
+  .cy-nav a:hover, .cy-nav a[aria-current] { color: var(--cy-accent); }
+  .cy-stage {
+    --cy-stage-pad: clamp(1.25rem, 4vw, 3rem);
+    background: radial-gradient(ellipse at 85% 5%, var(--cy-accent-soft), transparent 50%), var(--cy-bg);
+    color: var(--cy-text);
+    border: 1px solid var(--cy-frame);
+    padding: var(--cy-stage-pad);
+    margin-block: 1.5rem;
+    position: relative;
+    isolation: isolate;
+  }
+  .cy-stage::before { content: ""; position: absolute; top: 0; left: 0; width: 4rem; height: 2px; background: var(--cy-accent); }
+  .cy-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
+  .cy-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  .cy-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
+  .cy-stack { display: grid; gap: var(--cy-space-3); }
+  .cy-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--cy-space-2); }
+  .cy-panel {
+    position: relative; padding: clamp(1rem, 2.8vw, 1.75rem);
+    color: var(--cy-text); border: 1px solid var(--cy-frame);
+    background: linear-gradient(160deg, var(--cy-accent-soft), transparent 40%), var(--cy-surface);
+    min-width: 0;
+  }
+  .cy-panel--cut::after {
+    content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
+    width: var(--cy-cut); height: var(--cy-cut); background: var(--cy-bg);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  }
+  @media (max-width: 45rem) { .cy-layout { grid-template-columns: 1fr; } }
+  @media (forced-colors: active) { .cy-stage, .cy-panel { border-color: CanvasText; } }
+}

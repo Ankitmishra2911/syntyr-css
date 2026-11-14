@@ -1,0 +1,49 @@
+/* Cyberline token contract. Unlayered app CSS can override all defaults. */
+@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.effects;
+
+@layer cy.tokens {
+  :where(.cy-root) {
+    color-scheme: dark;
+    --cy-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --cy-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    --cy-space-1: .375rem;
+    --cy-space-2: .75rem;
+    --cy-space-3: 1.125rem;
+    --cy-space-4: 1.75rem;
+    --cy-space-5: 2.5rem;
+    --cy-cut: .9rem;
+    --cy-radius: .25rem;
+    --cy-line: 1.55;
+    --cy-control-height: 2.75rem;
+    --cy-ease: cubic-bezier(.2, .8, .2, 1);
+    --cy-duration-fast: 150ms;
+  }
+  :where(.cy-root), :where(.cy-root[data-cy-theme="grid"], .cy-root [data-cy-theme="grid"]) {
+    --cy-bg: #080f19;
+    --cy-surface: #111f2c;
+    --cy-surface-hi: #172a3b;
+    --cy-text: #edf9ff;
+    --cy-muted: #adbfca;
+    --cy-accent: #76e7f7;
+    --cy-on-accent: #07121a;
+    --cy-frame: #345569;
+    --cy-danger: #ffaaa4;
+    --cy-success: #8ce6bb;
+    --cy-warning: #ffd08b;
+    --cy-accent-soft: rgb(118 231 247 / 11%);
+  }
+  :where(.cy-root[data-cy-theme="noir"], .cy-root [data-cy-theme="noir"]) {
+    --cy-bg: #0e0e12;
+    --cy-surface: #1c1b20;
+    --cy-surface-hi: #2a2628;
+    --cy-text: #f8eee5;
+    --cy-muted: #c3b5aa;
+    --cy-accent: #f1b574;
+    --cy-on-accent: #1c100b;
+    --cy-frame: #625048;
+    --cy-danger: #ffc1ac;
+    --cy-success: #a5e4bc;
+    --cy-warning: #fbd18c;
+    --cy-accent-soft: rgb(241 181 116 / 10%);
+  }
+}

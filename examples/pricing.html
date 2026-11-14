@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Original MIT-licensed Cyberline CSS pricing-layout example. No sales checkout or JavaScript.">
+  <meta name="theme-color" content="#0e0e12">
+  <title>Cyberline — Noir Pricing Layout (Free Example)</title>
+  <link rel="stylesheet" href="../dist/cyberline.core.css">
+  <link rel="stylesheet" href="../dist/cyberline.effects.css">
+  <style>
+    /* Example-only page layout; none of these selectors are a core dependency. */
+    .sample-hero { padding-block: clamp(2rem, 7vw, 6rem) 2rem; max-width: 57rem; }
+    .sample-note { margin-block: 2rem; }
+    .sample-foot { margin-block: 3rem 1rem; border-top: 1px solid var(--cy-frame); padding-block: 1.5rem; }
+  </style>
+</head>
+<body class="cy-root cy-page" data-cy-theme="noir">
+  <div class="cy-shell">
+    <header class="cy-header">
+      <a class="cy-logo" href="../docs/index.html">// CYBERLINE</a>
+      <nav aria-label="Site"><a class="cy-button cy-button--ghost" href="../docs/index.html">Component gallery</a></nav>
+    </header>
+    <main>
+      <header class="sample-hero">
+        <p class="cy-eyebrow">NOIR / ORIGINAL MARKETING LAYOUT</p>
+        <h1 class="cy-title">A quieter kind of future.</h1>
+        <p class="cy-lede">An MIT-licensed pricing block demonstrating pure HTML, reusable classes, container queries, and native focus semantics. All plans and prices below are fictional examples.</p>
+      </header>
+      <div class="cy-region">
+        <section class="cy-pricing" aria-label="Illustrative service plans">
+          <article class="cy-price-card">
+            <div><p class="cy-eyebrow">01 / STARTER</p><h2 class="cy-heading">Signal</h2><p class="cy-lede">For a small, focused team.</p></div>
+            <p class="cy-price-value">$19<small> / month</small></p>
+            <ul class="cy-feature-list"><li>Three workspaces</li><li>Basic telemetry</li><li>Community support</li></ul>
+            <a class="cy-button cy-button--outline" href="#demo-note">VIEW EXAMPLE</a>
+          </article>
+          <article class="cy-price-card" data-cy-featured>
+            <div><span class="cy-badge">ILLUSTRATIVE POPULAR</span><h2 class="cy-heading">Operator</h2><p class="cy-lede">For a growing operations team.</p></div>
+            <p class="cy-price-value">$49<small> / month</small></p>
+            <ul class="cy-feature-list"><li>Unlimited workspaces</li><li>Advanced activity reports</li><li>Priority email support</li></ul>
+            <a class="cy-button cy-button--primary" href="#demo-note">VIEW EXAMPLE</a>
+          </article>
+          <article class="cy-price-card">
+            <div><p class="cy-eyebrow">03 / SCALE</p><h2 class="cy-heading">Network</h2><p class="cy-lede">For a distributed technical team.</p></div>
+            <p class="cy-price-value">$99<small> / month</small></p>
+            <ul class="cy-feature-list"><li>Team permissions</li><li>Custom reporting</li><li>Dedicated onboarding</li></ul>
+            <a class="cy-button cy-button--outline" href="#demo-note">VIEW EXAMPLE</a>
+          </article>
+        </section>
+      </div>
+      <aside id="demo-note" class="cy-alert sample-note" aria-label="Demo disclaimer">
+        This is a free visual demonstration, not an offer to sell these fictional plans. No checkout or data collection is connected.
+      </aside>
+      <section class="cy-region" aria-labelledby="questions-title">
+        <div class="cy-split">
+          <div><span class="cy-eyebrow">FAQ / NATIVE DISCLOSURE</span><h2 id="questions-title">No runtime required.</h2><p class="cy-lede">A pricing layout adapts to the available space, including when embedded in a narrow app panel.</p></div>
+          <div>
+            <details class="cy-details"><summary>Does this library require Tailwind?</summary><p>No. Cyberline distributes ordinary CSS and can coexist with a Tailwind app, but does not require Tailwind tooling.</p></details>
+            <details class="cy-details"><summary>Can I use this example commercially?</summary><p>Yes. This example and the Cyberline core are MIT-licensed; keep the required license notices.</p></details>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="cy-toolbar sample-foot"><span class="cy-caption">CYBERLINE CSS / FREE MIT EXAMPLE</span><a href="../docs/recipes.md">SOURCE RECIPES</a></footer>
+  </div>
+</body>
+</html>

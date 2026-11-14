@@ -1,0 +1,18 @@
+@layer cy.components {
+  .cy-logo { font: 700 .95rem/1 var(--cy-mono); letter-spacing: .22em; text-decoration: none; color: var(--cy-text); }
+  .cy-eyebrow { font: 700 .69rem/1.4 var(--cy-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--cy-accent); }
+  .cy-title { font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
+  .cy-heading { font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
+  .cy-lede { max-width: 56ch; color: var(--cy-muted); }
+  .cy-muted { color: var(--cy-muted); }
+  .cy-mono { font-family: var(--cy-mono); font-variant-numeric: tabular-nums; }
+  .cy-caption { color: var(--cy-muted); font: 500 .72rem/1.5 var(--cy-mono); letter-spacing: .04em; }
+  .cy-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--cy-mono); letter-spacing: -.06em; }
+  .cy-rule { border: 0; border-top: 1px solid var(--cy-frame); margin-block: 1.25rem; }
+  .cy-badge { display: inline-flex; width: fit-content; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--cy-frame); background: var(--cy-accent-soft); color: var(--cy-accent); font: 650 .68rem/1.25 var(--cy-mono); letter-spacing: .04em; }
+  .cy-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
+  .cy-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--cy-accent); background: var(--cy-surface); color: var(--cy-text); }
+  .cy-alert--danger { border-inline-start-color: var(--cy-danger); }
+  .cy-code { font: .85em/1.5 var(--cy-mono); overflow-wrap: anywhere; background: var(--cy-surface-hi); padding: .12em .35em; }
+  @media (forced-colors: active) { .cy-badge, .cy-alert { border-color: CanvasText; } }
+}
