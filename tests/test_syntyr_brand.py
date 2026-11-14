@@ -36,6 +36,17 @@ class SyntyrBrandTests(unittest.TestCase):
                                 cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_all_published_css_outputs_are_checked_into_git(self):
+        # A developer's global gitignore must not silently drop new dist files.
+        output = subprocess.run(['git', 'ls-files', '--', 'dist/'], cwd=ROOT,
+                                capture_output=True, text=True, check=True)
+        tracked = set(output.stdout.splitlines())
+        expected = {f'dist/{prefix}{suffix}.css'
+                    for prefix in ('syntyr', 'cyberline')
+                    for suffix in ('', '.core', '.semantic', '.effects', '.recipes', '.all')}
+        self.assertTrue(expected <= tracked,
+                        'Missing from Git: ' + ', '.join(sorted(expected - tracked)))
+
     def test_release_uses_new_name_and_preserves_compatibility_files(self):
         with tempfile.TemporaryDirectory() as temporary:
             archive = Path(temporary) / 'release.zip'
