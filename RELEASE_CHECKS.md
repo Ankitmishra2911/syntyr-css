@@ -1,4 +1,4 @@
-# Cyberline CSS v0.3.0-alpha.2 — release verification
+# Syntyr CSS v0.3.0-alpha.3 — release verification
 
 **Checked November 14, 2026.** Integrated candidate: `integrate/reflow-alpha2`,
 including Studio/CLI/business layouts from `main` and the narrow-text reflow
@@ -44,7 +44,7 @@ constitute a WCAG certification.
   workflows with form validation.
 - Trademark/name clearance in the United States and Brazil:
   [preliminary name screen](business/trademark-screen.md). The word
-  Cyberline remains **provisional**. No legal availability conclusion is drawn.
+  Syntyr remains **provisional**. No legal availability conclusion is drawn.
 - Demonstrated willingness to pay: ten design-partner interviews planned,
   zero interviews and zero paid commitments reported so far.
 - The proposed $59 Console Kit is **not offered for sale**. Its future

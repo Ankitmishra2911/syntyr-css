@@ -8,9 +8,9 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 html = (ROOT/'docs/index.html').read_text(encoding='utf-8')
-css = (ROOT/'dist/cyberline.all.css').read_text(encoding='utf-8')
+css = (ROOT/'dist/syntyr.all.css').read_text(encoding='utf-8')
 doc_css = (ROOT/'docs/docs.css').read_text(encoding='utf-8')
-html = html.replace('<link rel="stylesheet" href="../dist/cyberline.all.css">', f'<style>{css}</style>')
+html = html.replace('<link rel="stylesheet" href="../dist/syntyr.all.css">', f'<style>{css}</style>')
 html = html.replace('<link rel="stylesheet" href="docs.css">', f'<style>{doc_css}</style>')
 with sync_playwright() as p:
     options = {'headless': True}

@@ -1,4 +1,4 @@
-"""Contracts for the next public, MIT-licensed Cyberline UX/market-validation iteration."""
+"""Contracts for the next public, MIT-licensed Syntyr UX/market-validation iteration."""
 from pathlib import Path
 from html.parser import HTMLParser
 import unittest
@@ -54,7 +54,7 @@ class V04Contract(unittest.TestCase):
         self.assertIn("MIT", page)
         self.assertNotIn("<script", page.lower())
         self.assertNotIn("checkout", page.lower())
-        self.assertIn("github.com/dporkka/cyberline-css/issues/new", page)
+        self.assertIn("github.com/dporkka/syntyr-css/issues/new", page)
 
 
 if __name__ == "__main__":

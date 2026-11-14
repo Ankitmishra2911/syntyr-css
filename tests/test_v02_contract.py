@@ -30,7 +30,7 @@ class V02Contract(unittest.TestCase):
             html = (ROOT / 'examples' / name).read_text()
             self.assertIn('cy-root cy-page', html)
             self.assertNotIn('<script', html)
-            self.assertIn('cyberline.', html)
+            self.assertIn('syntyr.', html)
 
     def test_oss_and_paid_commercial_artifacts_separated(self):
         self.assertIn('MIT License', (ROOT / 'LICENSE').read_text())

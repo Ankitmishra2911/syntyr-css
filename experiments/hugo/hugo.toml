@@ -1,6 +1,6 @@
 # Evaluation only. Live GitHub Pages still serves static HTML from main.
 baseURL = "https://example.invalid/cyberline-hugo-preview/"
-title = "Cyberline CSS — Hugo documentation proof"
+title = "Syntyr CSS — Hugo documentation proof"
 locale = "en-US"
 disableKinds = ["taxonomy", "term", "RSS"]
 enableGitInfo = false

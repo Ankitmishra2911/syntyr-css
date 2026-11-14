@@ -21,7 +21,7 @@ REQUIRED = (
     "guide/theme-customization/index.html",
     "guide/vertigo-integration/index.html",
     "examples/console.html",
-    "dist/cyberline.core.css",
+    "dist/syntyr.core.css",
     "terminal/palettes.json",
 )
 

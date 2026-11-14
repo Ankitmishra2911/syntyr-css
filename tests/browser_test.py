@@ -1,7 +1,7 @@
 """Opt-in Playwright browser smoke and interaction tests against real Chromium.
 
 Run: python3 tests/browser_test.py
-Browser infrastructure is developer-only, never a Cyberline runtime dependency.
+Browser infrastructure is developer-only, never a Syntyr runtime dependency.
 """
 from pathlib import Path
 import os
@@ -37,9 +37,9 @@ class BrowserTests(unittest.TestCase):
         self.errors = []
         self.page.on('pageerror', lambda error: self.errors.append(str(error)))
         html = (ROOT / 'docs/index.html').read_text(encoding='utf-8')
-        css = (ROOT / 'dist/cyberline.all.css').read_text(encoding='utf-8')
+        css = (ROOT / 'dist/syntyr.all.css').read_text(encoding='utf-8')
         docs_css = (ROOT / 'docs/docs.css').read_text(encoding='utf-8')
-        html = html.replace('<link rel="stylesheet" href="../dist/cyberline.all.css">', f'<style>{css}</style>')
+        html = html.replace('<link rel="stylesheet" href="../dist/syntyr.all.css">', f'<style>{css}</style>')
         html = html.replace('<link rel="stylesheet" href="docs.css">', f'<style>{docs_css}</style>')
         self.page.set_content(html, wait_until='load')
 
@@ -165,10 +165,10 @@ class BrowserTests(unittest.TestCase):
 
     def test_noir_pricing_example_is_responsive_and_local(self):
         html = (ROOT / 'examples/pricing.html').read_text(encoding='utf-8')
-        core = (ROOT / 'dist/cyberline.core.css').read_text(encoding='utf-8')
-        effects = (ROOT / 'dist/cyberline.effects.css').read_text(encoding='utf-8')
-        html = html.replace('<link rel="stylesheet" href="../dist/cyberline.core.css">', f'<style>{core}</style>')
-        html = html.replace('<link rel="stylesheet" href="../dist/cyberline.effects.css">', f'<style>{effects}</style>')
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        effects = (ROOT / 'dist/syntyr.effects.css').read_text(encoding='utf-8')
+        html = html.replace('<link rel="stylesheet" href="../dist/syntyr.core.css">', f'<style>{core}</style>')
+        html = html.replace('<link rel="stylesheet" href="../dist/syntyr.effects.css">', f'<style>{effects}</style>')
         self.page.set_viewport_size({'width': 390, 'height': 844})
         self.page.set_content(html)
         pricing = self.page.locator('.cy-pricing')
@@ -193,8 +193,8 @@ class BrowserTests(unittest.TestCase):
             "e => getComputedStyle(e).colorScheme"), 'dark')
 
     def test_nested_studio_recipe_surfaces_have_matching_foreground_and_background(self):
-        core = (ROOT / "dist/cyberline.core.css").read_text()
-        recipes = (ROOT / "dist/cyberline.recipes.css").read_text()
+        core = (ROOT / "dist/syntyr.core.css").read_text()
+        recipes = (ROOT / "dist/syntyr.recipes.css").read_text()
         self.page.set_content(f"""<style>{core}{recipes}</style>
         <main class="cy-root" data-cy-theme="grid">
             <section data-cy-theme="studio">
@@ -212,14 +212,14 @@ class BrowserTests(unittest.TestCase):
                 self.assertEqual(computed["bg"], "rgb(255, 255, 255)")
 
     def test_new_recipes_have_no_mobile_overflow_and_work_at_desktop_width(self):
-        core = (ROOT / 'dist/cyberline.core.css').read_text()
-        recipes = (ROOT / 'dist/cyberline.recipes.css').read_text()
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        recipes = (ROOT / 'dist/syntyr.recipes.css').read_text()
         for example in ('saas.html', 'business.html', 'terminal.html'):
             with self.subTest(example=example):
                 html = (ROOT / 'examples' / example).read_text()
-                html = html.replace('<link rel="stylesheet" href="../dist/cyberline.core.css">',
+                html = html.replace('<link rel="stylesheet" href="../dist/syntyr.core.css">',
                                     f'<style>{core}</style>')
-                html = html.replace('<link rel="stylesheet" href="../dist/cyberline.recipes.css">',
+                html = html.replace('<link rel="stylesheet" href="../dist/syntyr.recipes.css">',
                                     f'<style>{recipes}</style>')
                 for width in (360, 1280):
                     with self.subTest(width=width):

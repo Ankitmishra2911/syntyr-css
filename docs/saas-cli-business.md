@@ -1,6 +1,6 @@
 # SaaS, business websites, and native CLI applications
 
-Cyberline is a **framework-neutral styling library**. Its three themes are orthogonal to page structure:
+Syntyr is a **framework-neutral styling library**. Its three themes are orthogonal to page structure:
 
 | Theme | Default use | Palette |
 | --- | --- | --- |
@@ -13,8 +13,8 @@ Use Grid/Noir selectively—most enterprise interfaces benefit more from Studio'
 ## Start with a modern business or SaaS UI
 
 ```html
-<link rel="stylesheet" href="/css/cyberline.core.css">
-<link rel="stylesheet" href="/css/cyberline.recipes.css">
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.recipes.css">
 <section class="cy-root cy-region" data-cy-theme="studio">
   <div class="cy-kpi-grid">
     <article class="cy-app-card cy-frame--soft">
@@ -25,7 +25,7 @@ Use Grid/Noir selectively—most enterprise interfaces benefit more from Studio'
 </section>
 ```
 
-The optional recipes module provides app shells, responsive navigation, KPI cards, activity lists, editorial heroes, marketing feature grids, call-to-action bands and browser-rendered terminals. Use `cyberline.core.css` alone when you do not need full-page patterns. `cyberline.all.css` includes all optional modules, but the modular files are generally preferable for small websites.
+The optional recipes module provides app shells, responsive navigation, KPI cards, activity lists, editorial heroes, marketing feature grids, call-to-action bands and browser-rendered terminals. Use `syntyr.core.css` alone when you do not need full-page patterns. `syntyr.all.css` includes all optional modules, but the modular files are generally preferable for small websites.
 
 - [Responsive SaaS application](../examples/saas.html)
 - [Professional business website](../examples/business.html)
@@ -37,7 +37,7 @@ All examples contain fictional data and no backend. You must supply application 
 
 ## Real terminal applications (Go, Rust, Python, etc.)
 
-A native shell application cannot load CSS. Cyberline instead provides [`terminal/palettes.json`](../terminal/palettes.json) with three matching terminal palettes:
+A native shell application cannot load CSS. Syntyr instead provides [`terminal/palettes.json`](../terminal/palettes.json) with three matching terminal palettes:
 
 - `background`, `foreground`, `accent`, and `cursor`: design guidance for terminal emulator themes.
 - `ansi`: 16 hex RGB colors, ordered by ANSI indices 0–15 (standard black/red/green/yellow/blue/magenta/cyan/white followed by bright variants).

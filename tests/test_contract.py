@@ -1,4 +1,4 @@
-"""Dependency-free contract checks for the Cyberline starter."""
+"""Dependency-free contract checks for the Syntyr starter."""
 from pathlib import Path
 from html.parser import HTMLParser
 import gzip
@@ -37,12 +37,12 @@ def contrast(a,b):
 
 class ContractTests(unittest.TestCase):
     def test_built_css_exists_and_gzip_budget(self):
-        css = (ROOT/'dist/cyberline.css').read_bytes()
+        css = (ROOT/'dist/syntyr.css').read_bytes()
         self.assertLessEqual(len(gzip.compress(css, mtime=0)), 5*1024)
         self.assertIn(b'@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;', css[:400])
 
     def test_theme_tokens_and_components(self):
-        css = (ROOT/'dist/cyberline.css').read_text()
+        css = (ROOT/'dist/syntyr.css').read_text()
         for item in ('[data-cy-theme="grid"]', '[data-cy-theme="noir"]',
                      '.cy-button', '.cy-panel', '.cy-badge', '.cy-popover',
                      '.cy-dialog', '.cy-input', '.cy-grid', '.cy-meter'):

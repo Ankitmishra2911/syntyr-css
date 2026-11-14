@@ -1,9 +1,9 @@
 /*
- * Cyberline CSS — optional Vertigo admin skin (MIT).
- * Add after Vertigo's built-in CSS and after cyberline.core.css.
+ * Syntyr CSS — optional Vertigo admin skin (MIT).
+ * Add after Vertigo's built-in CSS and after syntyr.core.css.
  * Deliberately scoped to body.cy-vertigo-admin; never enabled by default.
  * This maps Vertigo's existing server-rendered admin class names to
- * Cyberline design tokens. It contains no scripts, fonts, or imports.
+ * Syntyr design tokens. It contains no scripts, fonts, or imports.
  */
 
 .cy-vertigo-admin {

@@ -28,9 +28,9 @@ class DesignSystemContract(unittest.TestCase):
 
     def test_opt_in_recipes_are_separate_from_lightweight_core(self):
         source = (ROOT / 'src/recipes.css').read_text()
-        bundled = (ROOT / 'dist/cyberline.recipes.css').read_text()
-        all_css = (ROOT / 'dist/cyberline.all.css').read_text()
-        core = (ROOT / 'dist/cyberline.core.css').read_text()
+        bundled = (ROOT / 'dist/syntyr.recipes.css').read_text()
+        all_css = (ROOT / 'dist/syntyr.all.css').read_text()
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
         for cls in ('.cy-app-shell', '.cy-app-rail', '.cy-workspace', '.cy-site-hero',
                     '.cy-feature-grid', '.cy-terminal', '.cy-terminal-line', '.cy-frame--precision'):
             self.assertIn(cls, source)
@@ -62,7 +62,7 @@ class DesignSystemContract(unittest.TestCase):
             with self.subTest(path=path):
                 html = (ROOT / path).read_text()
                 self.assertIn(landmark, html)
-                self.assertIn('cyberline.recipes.css', html)
+                self.assertIn('syntyr.recipes.css', html)
                 self.assertIn('<main', html)
                 self.assertIn('<h1', html)
                 self.assertNotIn('<script', html.lower())
@@ -71,7 +71,7 @@ class DesignSystemContract(unittest.TestCase):
 
     def test_optional_cinematic_effects_are_static_and_isolated(self):
         effects = (ROOT / 'src/effects.css').read_text()
-        core = (ROOT / 'dist/cyberline.core.css').read_text()
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
         for selector in ('.cy-horizon', '.cy-atmosphere'):
             self.assertIn(selector, effects)
             self.assertNotIn(selector, core)
@@ -164,11 +164,11 @@ class DesignSystemContract(unittest.TestCase):
 
     def test_gallery_advertises_studio_only_in_the_matching_release(self):
         page = (ROOT / "docs/index.html").read_text()
-        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.3.0-alpha.2")
-        self.assertIn('href="https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2"', page)
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.3.0-alpha.3")
+        self.assertIn('href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.3"', page)
         self.assertIn("release includes Grid, Noir and Studio themes", page)
-        self.assertIn('[data-cy-theme="studio"]', (ROOT / "dist/cyberline.core.css").read_text())
-        self.assertTrue((ROOT / "dist/cyberline.recipes.css").is_file())
+        self.assertIn('[data-cy-theme="studio"]', (ROOT / "dist/syntyr.core.css").read_text())
+        self.assertTrue((ROOT / "dist/syntyr.recipes.css").is_file())
 
     def test_browser_matrix_and_axe_cover_saas_business_terminal(self):
         for path in ("tests/browser_matrix.py", "tests/axe_audit.py"):
@@ -181,7 +181,7 @@ class DesignSystemContract(unittest.TestCase):
         run = subprocess.run([sys.executable, str(cli), '--theme', 'studio'],
                              capture_output=True, text=True, check=True)
         self.assertNotIn('\x1b[', run.stdout)
-        self.assertIn('CYBERLINE', run.stdout)
+        self.assertIn('SYNTYR', run.stdout)
         run = subprocess.run([sys.executable, str(cli), '--theme', 'grid', '--no-color'],
                              capture_output=True, text=True, check=True)
         self.assertNotIn('\x1b[', run.stdout)

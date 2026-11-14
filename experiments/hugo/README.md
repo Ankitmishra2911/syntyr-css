@@ -1,13 +1,13 @@
 # Hugo v0.170.0 — isolated documentation proof
 
-**Not the live Cyberline website.** This is a build-time-only experiment.
+**Not the live Syntyr website.** This is a build-time-only experiment.
 The canonical website at index.html, gallery at docs/index.html, GitHub Pages
 main-branch deployment, and free CSS releases stay unchanged.
 
 ## Why this exists
 
 Hugo can render the existing Markdown source through filesystem mounts, while
-reusing Cyberline's compiled CSS and example HTML. No Hugo theme, npm, Sass,
+reusing Syntyr's compiled CSS and example HTML. No Hugo theme, npm, Sass,
 JavaScript bundler, Go module or new application server is needed.
 
 Install the standard Hugo binary at **v0.170.0** and run from the repository root:
