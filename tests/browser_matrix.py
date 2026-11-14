@@ -27,7 +27,8 @@ def assert_page(browser, name: str, viewport: int) -> None:
     page.on("pageerror", lambda err: errors.append(str(err)))
     url = (ROOT / name).as_uri()
     response = page.goto(url, wait_until="load")
-    assert response is not None and response.ok, (url, response and response.status)
+    assert page.url == url, (url, page.url)
+    assert response is None or response.ok, (url, response.status)
     assert page.locator("script").count() == 0, name
     assert page.get_by_role("main").count() == 1, name
     assert page.locator('link[rel="stylesheet"]').count() >= 1
@@ -81,7 +82,10 @@ def main() -> int:
             try:
                 for path in PAGES:
                     for width in (320, 390, 1280):
-                        assert_page(browser, path, width)
+                        try:
+                            assert_page(browser, path, width)
+                        except Exception as exc:
+                            raise AssertionError(f"{path} viewport {width}: {exc}") from exc
                 print(f"PASS {name}: {len(PAGES)} pages × 3 viewports + keyboard/popover checks",
                       flush=True)
             except Exception as exc:
