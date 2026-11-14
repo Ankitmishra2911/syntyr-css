@@ -1,0 +1,47 @@
+name: Console Kit buyer feedback
+description: Evaluate the proposed $59 Console Kit (concept only; not available for purchase)
+title: "[Console Kit feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **No sale or preorder is being taken.** Cyberline Core and both themes remain MIT-licensed and free. The proposed commercial kit would contain additional, separately authored page templates.
+  - type: dropdown
+    id: intended-stack
+    attributes:
+      label: What stack would you use it with?
+      options:
+        - Plain HTML / CSS
+        - Go / templ / HTMX
+        - Django / Flask / Python
+        - Rails / Hotwire
+        - Astro / Svelte
+        - React / Next.js
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: required
+    attributes:
+      label: Which complete screens would save you the most time?
+      description: Mention exact screen types, accessibility expectations and integration needs.
+    validations:
+      required: true
+  - type: dropdown
+    id: interest
+    attributes:
+      label: At $59 one-time, what is your current intent?
+      options:
+        - Would likely buy if the promised screens ship
+        - Might buy after evaluating source and screenshots
+        - Interested, but price too high
+        - Would not buy
+    validations:
+      required: true
+  - type: textarea
+    id: missing
+    attributes:
+      label: What would make it worth paying for?
+    validations:
+      required: false

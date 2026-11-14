@@ -129,4 +129,4 @@ Button state: `.cy-button[aria-pressed="true"]` is a pressed **toggle button**; 
 
 Additional inherited tokens: `--cy-ease`, `--cy-duration-fast`, `--cy-success`, `--cy-warning`. Extend themes with unlayered `.cy-root[data-cy-theme="custom"] { --cy-accent: ... }` CSS. Test contrast for your own values.
 
-See [MIT composition recipes](recipes.md) and [Tailwind architectural research](tailwind-research.md).
+See [theme customization and token overrides](theme-customization.md), [MIT composition recipes](recipes.md) and [Tailwind architectural research](tailwind-research.md).

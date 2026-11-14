@@ -1,3 +1,9 @@
+## Unreleased
+
+- Add a free original Noir resource-index screen and theme-customization guide.
+- Publish an honest $59 Console Kit concept and feedback entry point without taking payment.
+- Fix duplicate gallery meta description and add a browser-matrix verification script.
+
 ## v0.3.0-alpha.1 (2026-11-14)
 
 - Publish static showcase and component gallery via GitHub Pages, without adding a runtime build toolchain.

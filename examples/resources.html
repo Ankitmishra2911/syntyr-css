@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Original MIT-licensed Noir resource index demonstration built with Cyberline CSS and semantic HTML.">
+  <meta name="color-scheme" content="dark">
+  <title>Resource Archive — Cyberline CSS free demo</title>
+  <link rel="stylesheet" href="../dist/cyberline.core.css">
+  <style>
+    .resource-skip { position:absolute; top:-10rem; left:1rem; z-index:100; }
+    .resource-skip:focus { top:1rem; }
+    /* Demo-specific layout; all reusable component styles come from MIT Cyberline. */
+    .resource-shell { width: min(100% - 2rem, 84rem); margin-inline: auto; padding-bottom: 4rem; }
+    .resource-top { display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; align-items:center; border-bottom:1px solid var(--cy-frame); padding:1.25rem 0; }
+    .resource-nav { display:flex; flex-wrap:wrap; gap:1rem; }
+    .resource-nav a { color:var(--cy-muted); text-decoration:none; font:600 .85rem var(--cy-mono); }
+    .resource-nav a:hover, .resource-nav a[aria-current="page"] { color:var(--cy-accent); text-decoration:underline; }
+    .resource-hero { display:flex; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; align-items:end; padding-block:clamp(2rem,6vw,4rem); }
+    .resource-title { margin:0 0 .75rem; font-size:clamp(2.5rem,7vw,4.5rem); line-height:1; }
+    .resource-filter { display:grid; gap:1rem; grid-template-columns:minmax(0,2fr) minmax(10rem,1fr) auto; align-items:end; }
+    .resource-filter .cy-button { white-space:nowrap; }
+    .resource-metrics { margin-block:1.5rem; }
+    .resource-status { display:inline-flex; gap:.35rem; align-items:center; font-size:.72rem; font-weight:650; color:var(--cy-success); }
+    .resource-status--review { color:var(--cy-warning); }
+    .resource-status::before { content:""; display:inline-block; width:.5em; height:.5em; background:currentColor; border-radius:50%; }
+    .resource-table { margin-top:1.5rem; }
+    .resource-table td, .resource-table th { white-space:nowrap; }
+    .resource-footer { padding-top:2rem; color:var(--cy-muted); display:flex; flex-wrap:wrap; gap:.75rem; justify-content:space-between; align-items:center; }
+    @media (max-width:48rem) { .resource-filter { grid-template-columns:1fr; } .resource-table { margin-top:1rem; } }
+  </style>
+</head>
+<body class="cy-root cy-page" data-cy-theme="noir">
+  <a class="cy-button resource-skip" href="#main">Skip to content</a>
+  <div class="resource-shell">
+    <header class="resource-top">
+      <a class="cy-logo" href="../docs/">// CYBERLINE <span class="cy-caption">/ NOIR</span></a>
+      <nav class="resource-nav" aria-label="Demo navigation">
+        <a href="console.html">Overview demo</a>
+        <a href="resources.html" aria-current="page">Resources</a>
+        <a href="../docs/">Component gallery</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="resource-hero">
+        <div>
+          <p class="cy-eyebrow">SECTOR 09 / ASSET REGISTRY</p>
+          <h1 class="resource-title">Resource <span style="color:var(--cy-accent)">archive.</span></h1>
+          <p class="cy-lede">A full resource-index layout built with native forms, tables and responsive CSS. All records are fictional.</p>
+        </div>
+        <a href="../docs/console-kit.html" class="cy-button cy-button--outline">ABOUT CONSOLE KIT</a>
+      </div>
+      <div class="cy-region">
+        <div class="cy-stats resource-metrics" aria-label="Illustrative asset metrics">
+          <article class="cy-stat"><span class="cy-stat-label">TOTAL ASSETS</span><p class="cy-stat-value">028</p><span class="cy-caption">ILLUSTRATIVE DATA</span></article>
+          <article class="cy-stat"><span class="cy-stat-label">OPERATIONAL</span><p class="cy-stat-value">024</p><span class="resource-status">ONLINE</span></article>
+          <article class="cy-stat"><span class="cy-stat-label">NEEDS REVIEW</span><p class="cy-stat-value">004</p><span class="resource-status resource-status--review">REVIEW</span></article>
+        </div>
+      </div>
+      <section class="cy-panel cy-panel--cut" aria-labelledby="resource-list-title">
+        <div class="cy-toolbar" style="justify-content:space-between">
+          <div><p class="cy-eyebrow">REGISTRY / FILTER PANEL</p><h2 id="resource-list-title" class="cy-heading">Assets by sector</h2></div>
+          <span class="cy-badge">SAMPLE / 06 RECORDS</span>
+        </div>
+        <form method="get" action="resources.html" class="resource-filter" role="search" aria-label="Resource filters">
+          <label class="cy-label" for="resource-search">SEARCH BY NAME
+            <input class="cy-input" type="search" id="resource-search" name="q" placeholder="e.g. Relay" autocomplete="off">
+          </label>
+          <label class="cy-label" for="resource-state">STATUS
+            <select class="cy-select" id="resource-state" name="status">
+              <option value="">All statuses</option>
+              <option value="online">Online</option>
+              <option value="review">Review</option>
+            </select>
+          </label>
+          <button class="cy-button cy-button--primary" type="submit">APPLY FILTERS</button>
+        </form>
+        <p class="cy-help">Static demo: filter values appear in the URL; an application server must implement result filtering. No data is submitted remotely.</p>
+        <div class="cy-table-wrap resource-table">
+          <table class="cy-table">
+            <caption style="text-align:left">Illustrative resource registry (6 fictional entries)</caption>
+            <thead><tr><th scope="col">RESOURCE ID</th><th scope="col">ASSET</th><th scope="col">SECTOR</th><th scope="col">UPDATED</th><th scope="col">STATUS</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">C-017</th><td>Arc Relay</td><td>09 / SOUTH</td><td>2026-11-12</td><td><span class="resource-status">ONLINE</span></td></tr>
+              <tr><th scope="row">C-018</th><td>Outer Perimeter</td><td>09 / SOUTH</td><td>2026-11-12</td><td><span class="resource-status">ONLINE</span></td></tr>
+              <tr><th scope="row">N-004</th><td>North Array</td><td>04 / NORTH</td><td>2026-11-11</td><td><span class="resource-status resource-status--review">REVIEW</span></td></tr>
+              <tr><th scope="row">N-007</th><td>Solar Receiver</td><td>04 / NORTH</td><td>2026-11-10</td><td><span class="resource-status">ONLINE</span></td></tr>
+              <tr><th scope="row">W-031</th><td>Signal Bridge</td><td>02 / WEST</td><td>2026-11-08</td><td><span class="resource-status">ONLINE</span></td></tr>
+              <tr><th scope="row">E-022</th><td>East Beacon</td><td>11 / EAST</td><td>2026-11-05</td><td><span class="resource-status resource-status--review">REVIEW</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="resource-footer">
+          <span class="cy-caption">SHOWING 6 OF 6 SAMPLE ROWS / SINGLE STATIC PAGE</span>
+          <a href="https://github.com/dporkka/cyberline-css/blob/main/docs/recipes.md" class="cy-button cy-button--small">READ FREE RECIPES</a>
+        </div>
+      </section>
+      <aside class="cy-panel" style="margin-top:1.5rem" aria-label="Integration note">
+        <p class="cy-eyebrow">INTEGRATION / REAL APPLICATIONS</p>
+        <details class="cy-details"><summary>How does this become a working resource search?</summary>
+          <p>Render the table rows on the server using ordinary HTML. Bind the GET parameters to a validated query and reflect submitted values in the form. No client-side filtering framework is necessary.</p>
+        </details>
+      </aside>
+    </main>
+    <footer class="resource-footer"><span>CYBERLINE CSS / MIT / FREE ORIGINAL DEMO</span><a href="../LICENSE">MIT LICENSE</a></footer>
+  </div>
+</body>
+</html>

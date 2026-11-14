@@ -15,6 +15,9 @@
 - [Component gallery](https://dporkka.github.io/cyberline-css/docs/)
 - [Versioned release downloads](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
+- [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
+- [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
+- [Free original Noir resource archive demo](examples/resources.html)
 
 Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
@@ -73,9 +76,10 @@ Chromium browser tests use Playwright (a **dev-only optional tool**) and run wit
 
 ```sh
 python3 tests/browser_test.py
+python3 tests/browser_matrix.py --browsers chromium firefox webkit
 ```
 
-The browser test script requires `playwright` and a Chromium browser to be present; it autodetects `chromium` or `chromium-browser`, or accepts `PLAYWRIGHT_CHROMIUM_EXECUTABLE`; consumers of the CSS do **not** require either. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
+The browser scripts require `playwright` and a Chromium browser to be present; it autodetects `chromium` or `chromium-browser`, or accepts `PLAYWRIGHT_CHROMIUM_EXECUTABLE`; consumers of the CSS do **not** require either. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
 
 ## Important boundaries
 

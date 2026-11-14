@@ -38,7 +38,8 @@ class SiteReleaseTests(unittest.TestCase):
     def test_site_links_resolve_on_pages_subpath(self):
         for source in (ROOT / "index.html", ROOT / "docs/index.html",
                        ROOT / "examples/console.html", ROOT / "examples/landing.html",
-                       ROOT / "examples/pricing.html"):
+                       ROOT / "examples/pricing.html", ROOT / "examples/resources.html",
+                       ROOT / "docs/console-kit.html"):
             with self.subTest(page=source.relative_to(ROOT)):
                 parser = LinkedAssets()
                 parser.feed(source.read_text(encoding="utf-8"))
