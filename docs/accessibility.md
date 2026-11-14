@@ -102,9 +102,11 @@ nested geometry token resetting and composable spacing utilities. A separate
 14-test Chromium suite covers native control interactions.
 
 An axe-core 4.10.3 audit returned **zero automated WCAG A/AA violations**
-across seven pages but **nine inconclusive checks**, largely because text sits
-above decorative gradient backgrounds. These need manual evaluation; the result
-is **not** equivalent to complete WCAG conformance.
+across seven pages but **seven inconclusive color-contrast checks**, largely
+for text over decorative gradient backgrounds. Two generic named metrics
+containers now expose an explicit `role="group"`, guarded by a regression test.
+The contrast findings need manual evaluation; automated results are **not**
+equivalent to complete WCAG conformance.
 
 For reproducible build sizes, distribution checks and remaining release gates,
 see [the alpha.2 candidate evidence](../RELEASE_CHECKS_ALPHA2.md).
