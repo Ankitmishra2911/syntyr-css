@@ -38,16 +38,10 @@ class SiteReleaseTests(unittest.TestCase):
     def test_site_links_resolve_on_pages_subpath(self):
         for source in (ROOT / "index.html", ROOT / "docs/index.html",
                        ROOT / "examples/console.html", ROOT / "examples/landing.html",
-<<<<<<< HEAD
                        ROOT / "examples/pricing.html", ROOT / "examples/resources.html",
-                       ROOT / "docs/console-kit.html"):
-||||||| parent of 3633c60 (feat: add studio SaaS, business and terminal design system)
-                       ROOT / "examples/pricing.html"):
-=======
-                       ROOT / "examples/pricing.html",
+                       ROOT / "docs/console-kit.html",
                        ROOT / "examples/saas.html", ROOT / "examples/business.html",
                        ROOT / "examples/terminal.html"):
->>>>>>> 3633c60 (feat: add studio SaaS, business and terminal design system)
             with self.subTest(page=source.relative_to(ROOT)):
                 parser = LinkedAssets()
                 parser.feed(source.read_text(encoding="utf-8"))
