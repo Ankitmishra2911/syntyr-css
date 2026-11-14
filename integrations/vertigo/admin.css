@@ -1,20 +1,20 @@
 /*
  * Syntyr CSS — optional Vertigo admin skin (MIT).
  * Add after Vertigo's built-in CSS and after syntyr.core.css.
- * Deliberately scoped to body.cy-vertigo-admin; never enabled by default.
+ * Deliberately scoped to body.syn-vertigo-admin; never enabled by default.
  * This maps Vertigo's existing server-rendered admin class names to
  * Syntyr design tokens. It contains no scripts, fonts, or imports.
  */
 
-.cy-vertigo-admin {
+.syn-vertigo-admin {
   min-height: 100svh;
-  color: var(--cy-text);
-  background: var(--cy-bg);
-  font-family: var(--cy-font);
-  line-height: var(--cy-line);
+  color: var(--syn-text);
+  background: var(--syn-bg);
+  font-family: var(--syn-font);
+  line-height: var(--syn-line);
 }
 
-.cy-vertigo-admin main {
+.syn-vertigo-admin main {
   box-sizing: border-box;
   width: min(100% - 2rem, 77rem);
   max-width: 77rem;
@@ -22,90 +22,90 @@
   padding: 0;
 }
 
-.cy-vertigo-admin :is(h1, h2, h3) {
-  color: var(--cy-text);
+.syn-vertigo-admin :is(h1, h2, h3) {
+  color: var(--syn-text);
   overflow-wrap: anywhere;
   line-height: 1.16;
 }
 
-.cy-vertigo-admin h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-block: 0 .5rem; }
-.cy-vertigo-admin a { color: var(--cy-accent); text-underline-offset: .16em; }
-.cy-vertigo-admin p { color: var(--cy-muted); }
-.cy-vertigo-admin nav { margin-block: 0 1.5rem; }
-.cy-vertigo-admin nav a { text-decoration: none; font-weight: 600; }
-.cy-vertigo-admin nav a:hover { text-decoration: underline; }
+.syn-vertigo-admin h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-block: 0 .5rem; }
+.syn-vertigo-admin a { color: var(--syn-accent); text-underline-offset: .16em; }
+.syn-vertigo-admin p { color: var(--syn-muted); }
+.syn-vertigo-admin nav { margin-block: 0 1.5rem; }
+.syn-vertigo-admin nav a { text-decoration: none; font-weight: 600; }
+.syn-vertigo-admin nav a:hover { text-decoration: underline; }
 
-.cy-vertigo-admin .row,
-.cy-vertigo-admin .actions,
-.cy-vertigo-admin .views,
-.cy-vertigo-admin .bulkbar,
-.cy-vertigo-admin .pager,
-.cy-vertigo-admin .inline {
+.syn-vertigo-admin .row,
+.syn-vertigo-admin .actions,
+.syn-vertigo-admin .views,
+.syn-vertigo-admin .bulkbar,
+.syn-vertigo-admin .pager,
+.syn-vertigo-admin .inline {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: .65rem 1rem;
 }
 
-.cy-vertigo-admin .row { justify-content: space-between; gap: 1rem; }
-.cy-vertigo-admin .cards {
+.syn-vertigo-admin .row { justify-content: space-between; gap: 1rem; }
+.syn-vertigo-admin .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   gap: 1rem;
   margin-block: 1.5rem;
 }
-.cy-vertigo-admin .card {
+.syn-vertigo-admin .card {
   display: grid;
   min-width: 0;
   gap: .5rem;
   padding: 1.25rem;
-  background: var(--cy-surface);
-  color: var(--cy-text);
-  border: 1px solid var(--cy-frame);
-  border-radius: var(--cy-radius);
+  background: var(--syn-surface);
+  color: var(--syn-text);
+  border: 1px solid var(--syn-frame);
+  border-radius: var(--syn-radius);
   text-decoration: none;
   overflow-wrap: anywhere;
 }
-.cy-vertigo-admin .card:hover { border-color: var(--cy-accent); }
-.cy-vertigo-admin .card span { color: var(--cy-muted); }
+.syn-vertigo-admin .card:hover { border-color: var(--syn-accent); }
+.syn-vertigo-admin .card span { color: var(--syn-muted); }
 
-.cy-vertigo-admin :is(.button, button) {
+.syn-vertigo-admin :is(.button, button) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   max-width: 100%;
-  min-height: var(--cy-control-height);
+  min-height: var(--syn-control-height);
   padding: .65rem 1rem;
-  border: 1px solid var(--cy-accent);
-  border-radius: var(--cy-radius);
-  background: var(--cy-accent);
-  color: var(--cy-on-accent);
-  font: 650 .9rem/1.35 var(--cy-font);
+  border: 1px solid var(--syn-accent);
+  border-radius: var(--syn-radius);
+  background: var(--syn-accent);
+  color: var(--syn-on-accent);
+  font: 650 .9rem/1.35 var(--syn-font);
   text-decoration: none;
   overflow-wrap: anywhere;
   cursor: pointer;
 }
-.cy-vertigo-admin :is(.button, button).secondary,
-.cy-vertigo-admin .button.secondary {
-  border-color: var(--cy-frame);
-  background: var(--cy-surface-hi);
-  color: var(--cy-text);
+.syn-vertigo-admin :is(.button, button).secondary,
+.syn-vertigo-admin .button.secondary {
+  border-color: var(--syn-frame);
+  background: var(--syn-surface-hi);
+  color: var(--syn-text);
 }
-.cy-vertigo-admin :is(.button, button).danger,
-.cy-vertigo-admin .danger {
-  border-color: var(--cy-danger);
-  background: var(--cy-danger);
-  color: var(--cy-bg);
+.syn-vertigo-admin :is(.button, button).danger,
+.syn-vertigo-admin .danger {
+  border-color: var(--syn-danger);
+  background: var(--syn-danger);
+  color: var(--syn-bg);
 }
-.cy-vertigo-admin :is(.button, button):disabled { opacity: .55; cursor: not-allowed; }
+.syn-vertigo-admin :is(.button, button):disabled { opacity: .55; cursor: not-allowed; }
 
-.cy-vertigo-admin :is(a, button, input, select, textarea, summary):focus-visible {
-  outline: 3px solid var(--cy-accent);
+.syn-vertigo-admin :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--syn-accent);
   outline-offset: 3px;
 }
 
-.cy-vertigo-admin .search {
+.syn-vertigo-admin .search {
   display: flex;
   flex-wrap: wrap;
   align-items: end;
@@ -113,7 +113,7 @@
   max-width: 38rem;
   margin-block: 1.25rem;
 }
-.cy-vertigo-admin :is(input:not([type="hidden"]), select, textarea) {
+.syn-vertigo-admin :is(input:not([type="hidden"]), select, textarea) {
   display: block;
   box-sizing: border-box;
   min-width: 0;
@@ -121,52 +121,52 @@
   width: 100%;
   padding: .6rem .8rem;
   margin: .35rem 0 .85rem;
-  border: 1px solid var(--cy-frame-strong);
-  border-radius: var(--cy-radius);
-  color: var(--cy-text);
-  background: var(--cy-surface);
+  border: 1px solid var(--syn-frame-strong);
+  border-radius: var(--syn-radius);
+  color: var(--syn-text);
+  background: var(--syn-surface);
   font: inherit;
 }
-.cy-vertigo-admin input[type="checkbox"] { width: auto; }
-.cy-vertigo-admin input[type="hidden"] { display: none; }
-.cy-vertigo-admin .search > :is(label, input) { flex: 1 1 13rem; }
-.cy-vertigo-admin .search input { margin-bottom: 0; }
-.cy-vertigo-admin label { color: var(--cy-text); font-weight: 600; }
-.cy-vertigo-admin [aria-invalid="true"] { border-color: var(--cy-danger) !important; }
-.cy-vertigo-admin .field-error, .cy-vertigo-admin .err { color: var(--cy-danger); }
-.cy-vertigo-admin .notice {
+.syn-vertigo-admin input[type="checkbox"] { width: auto; }
+.syn-vertigo-admin input[type="hidden"] { display: none; }
+.syn-vertigo-admin .search > :is(label, input) { flex: 1 1 13rem; }
+.syn-vertigo-admin .search input { margin-bottom: 0; }
+.syn-vertigo-admin label { color: var(--syn-text); font-weight: 600; }
+.syn-vertigo-admin [aria-invalid="true"] { border-color: var(--syn-danger) !important; }
+.syn-vertigo-admin .field-error, .syn-vertigo-admin .err { color: var(--syn-danger); }
+.syn-vertigo-admin .notice {
   padding: .75rem 1rem;
-  border: 1px solid var(--cy-success);
-  border-radius: var(--cy-radius);
-  background: var(--cy-surface);
-  color: var(--cy-success);
+  border: 1px solid var(--syn-success);
+  border-radius: var(--syn-radius);
+  background: var(--syn-surface);
+  color: var(--syn-success);
 }
-.cy-vertigo-admin .tablewrap {
+.syn-vertigo-admin .tablewrap {
   overflow-x: auto;
   max-width: 100%;
   margin-block: 1rem;
-  border: 1px solid var(--cy-frame);
-  border-radius: var(--cy-radius);
-  background: var(--cy-surface);
+  border: 1px solid var(--syn-frame);
+  border-radius: var(--syn-radius);
+  background: var(--syn-surface);
 }
-.cy-vertigo-admin table { width: 100%; border-collapse: collapse; color: var(--cy-text); background: transparent; }
-.cy-vertigo-admin :is(th, td) { padding: .8rem 1rem; border-bottom: 1px solid var(--cy-frame); white-space: nowrap; text-align: left; }
-.cy-vertigo-admin th { color: var(--cy-muted); font: 700 .75rem var(--cy-mono); }
-.cy-vertigo-admin tr:last-child td { border-bottom: 0; }
-.cy-vertigo-admin .pager { justify-content: space-between; margin-block: 1rem; }
-.cy-vertigo-admin .compact { width: min(100%, 14rem); margin: 0; }
-.cy-vertigo-admin .actions form, .cy-vertigo-admin .inline { margin: 0; }
+.syn-vertigo-admin table { width: 100%; border-collapse: collapse; color: var(--syn-text); background: transparent; }
+.syn-vertigo-admin :is(th, td) { padding: .8rem 1rem; border-bottom: 1px solid var(--syn-frame); white-space: nowrap; text-align: left; }
+.syn-vertigo-admin th { color: var(--syn-muted); font: 700 .75rem var(--syn-mono); }
+.syn-vertigo-admin tr:last-child td { border-bottom: 0; }
+.syn-vertigo-admin .pager { justify-content: space-between; margin-block: 1rem; }
+.syn-vertigo-admin .compact { width: min(100%, 14rem); margin: 0; }
+.syn-vertigo-admin .actions form, .syn-vertigo-admin .inline { margin: 0; }
 
 @media (max-width: 32rem) {
-  .cy-vertigo-admin .row { align-items: stretch; }
-  .cy-vertigo-admin .row > * { min-width: 0; }
-  .cy-vertigo-admin .search { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .cy-vertigo-admin .search input { width: 100%; }
+  .syn-vertigo-admin .row { align-items: stretch; }
+  .syn-vertigo-admin .row > * { min-width: 0; }
+  .syn-vertigo-admin .search { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .syn-vertigo-admin .search input { width: 100%; }
 }
 
 @media (forced-colors: active) {
-  .cy-vertigo-admin :is(.card, .tablewrap, .notice, .button, button, input, select, textarea) {
+  .syn-vertigo-admin :is(.card, .tablewrap, .notice, .button, button, input, select, textarea) {
     border-color: CanvasText;
   }
-  .cy-vertigo-admin :is(.button, button):focus-visible { outline-color: Highlight; }
+  .syn-vertigo-admin :is(.button, button):focus-visible { outline-color: Highlight; }
 }

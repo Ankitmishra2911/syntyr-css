@@ -39,13 +39,13 @@ class ContractTests(unittest.TestCase):
     def test_built_css_exists_and_gzip_budget(self):
         css = (ROOT/'dist/syntyr.css').read_bytes()
         self.assertLessEqual(len(gzip.compress(css, mtime=0)), 5*1024)
-        self.assertIn(b'@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.geometry, cy.effects;', css[:400])
+        self.assertIn(b'@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects;', css[:400])
 
     def test_theme_tokens_and_components(self):
         css = (ROOT/'dist/syntyr.css').read_text()
-        for item in ('[data-cy-theme="grid"]', '[data-cy-theme="noir"]',
-                     '.cy-button', '.cy-panel', '.cy-badge', '.cy-popover',
-                     '.cy-dialog', '.cy-input', '.cy-grid', '.cy-meter'):
+        for item in ('[data-syn-theme="grid"]', '[data-syn-theme="noir"]',
+                     '.syn-button', '.syn-panel', '.syn-badge', '.syn-popover',
+                     '.syn-dialog', '.syn-input', '.syn-grid', '.syn-meter'):
             with self.subTest(item=item): self.assertIn(item, css)
         self.assertIn('prefers-reduced-motion: reduce', css)
         self.assertIn('forced-colors: active', css)

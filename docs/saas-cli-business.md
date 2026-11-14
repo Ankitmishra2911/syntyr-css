@@ -15,11 +15,11 @@ Use Grid/Noir selectively—most enterprise interfaces benefit more from Studio'
 ```html
 <link rel="stylesheet" href="/css/syntyr.core.css">
 <link rel="stylesheet" href="/css/syntyr.recipes.css">
-<section class="cy-root cy-region" data-cy-theme="studio">
-  <div class="cy-kpi-grid">
-    <article class="cy-app-card cy-frame--soft">
-      <span class="cy-stat-label">ACTIVE PROJECTS</span>
-      <p class="cy-stat-value">24</p>
+<section class="syn-root syn-region" data-syn-theme="studio">
+  <div class="syn-kpi-grid">
+    <article class="syn-app-card syn-frame--soft">
+      <span class="syn-stat-label">ACTIVE PROJECTS</span>
+      <p class="syn-stat-value">24</p>
     </article>
   </div>
 </section>
@@ -51,7 +51,7 @@ python3 examples/ansi_cli.py --theme noir | cat  # plain text, not ANSI
 
 The demonstration uses Python's standard library only. It checks `sys.stdout.isatty()`, `NO_COLOR`, `CLICOLOR=0`, and `TERM=dumb` before printing true-color SGR escape sequences. A production CLI should additionally detect terminal color depth, handle Windows environments and let users override the theme. Prefer standard 8/16-color output or plain text when true-color support is unknown. Do not put ANSI control sequences in logs, data files, JSON or machine-readable output.
 
-**Do not mistake CSS browser-terminal panels for actual executable shells.** The `.cy-terminal` class is presentation only.
+**Do not mistake CSS browser-terminal panels for actual executable shells.** The `.syn-terminal` class is presentation only.
 
 ## Accessibility and performance
 
@@ -59,7 +59,7 @@ Themes should preserve readable body text and visible keyboard focus. Distinguis
 
 - `src/recipes.css` ships only when requested and does not add runtime JavaScript.
 - CSS decorative surfaces are static by default. Avoid continuous glowing, flashing, animated scanlines and heavy blur.
-- Avoid forcing a full viewport-height widget inside an app: use `.cy-page` on page-level roots only.
+- Avoid forcing a full viewport-height widget inside an app: use `.syn-page` on page-level roots only.
 - Use container queries for embedded cards, but provide a simple stacked layout without support.
 - For native CLIs, prefer readable default terminal styles over trying to repaint a user's terminal emulator.
 

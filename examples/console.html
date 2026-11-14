@@ -9,58 +9,58 @@
   <style>
     /* Example-specific layout only. The underlying component APIs live in Syntyr. */
     .example-split { display:grid; grid-template-columns:minmax(13rem,15rem) minmax(0,1fr); min-height:100svh; }
-    .example-rail { background:var(--cy-surface); border-inline-end:1px solid var(--cy-frame); padding:1.5rem; }
+    .example-rail { background:var(--syn-surface); border-inline-end:1px solid var(--syn-frame); padding:1.5rem; }
     .example-rail nav { display:grid; gap:.4rem; margin-block-start:2rem; }
-    .example-rail nav a { color:var(--cy-muted); text-decoration:none; padding:.8rem; border-inline-start:2px solid transparent; }
-    .example-rail nav a:hover, .example-rail nav a[aria-current="page"] { border-color:var(--cy-accent); background:var(--cy-accent-soft); color:var(--cy-accent); }
+    .example-rail nav a { color:var(--syn-muted); text-decoration:none; padding:.8rem; border-inline-start:2px solid transparent; }
+    .example-rail nav a:hover, .example-rail nav a[aria-current="page"] { border-color:var(--syn-accent); background:var(--syn-accent-soft); color:var(--syn-accent); }
     .example-main { padding:clamp(1rem,3vw,2.5rem); min-width:0; }
     .example-kpis { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.5rem 0; }
     .example-panel-head { display:flex;align-items:center;justify-content:space-between;gap:1rem; }
-    .example-small {font:500 .75rem var(--cy-mono);}
+    .example-small {font:500 .75rem var(--syn-mono);}
     .example-skip {position:absolute;top:-10rem;left:1rem;z-index:100;}
     .example-skip:focus {top:1rem;}
-    @media(max-width:48rem) { .example-split {grid-template-columns:minmax(0,1fr);} .example-rail {border-inline-end:0;border-block-end:1px solid var(--cy-frame);} .example-rail nav {display:flex;flex-wrap:wrap;margin-block-start:1rem;} .example-kpis {grid-template-columns:1fr;} }
+    @media(max-width:48rem) { .example-split {grid-template-columns:minmax(0,1fr);} .example-rail {border-inline-end:0;border-block-end:1px solid var(--syn-frame);} .example-rail nav {display:flex;flex-wrap:wrap;margin-block-start:1rem;} .example-kpis {grid-template-columns:1fr;} }
   </style>
 </head>
-<body class="cy-root cy-page" data-cy-theme="grid">
-  <a class="cy-button cy-button--small example-skip" href="#main">SKIP TO CONTENT</a>
+<body class="syn-root syn-page" data-syn-theme="grid">
+  <a class="syn-button syn-button--small example-skip" href="#main">SKIP TO CONTENT</a>
   <div class="example-split">
-    <aside class="example-rail cy-atmosphere" aria-label="Console navigation">
-      <a class="cy-logo" href="../docs/index.html">// SYNTYR</a>
-      <p class="cy-eyebrow" style="margin-top:1.5rem">GRID CONTROL / 04</p>
+    <aside class="example-rail syn-atmosphere" aria-label="Console navigation">
+      <a class="syn-logo" href="../docs/index.html">// SYNTYR</a>
+      <p class="syn-eyebrow" style="margin-top:1.5rem">GRID CONTROL / 04</p>
       <nav aria-label="Sections">
         <a href="#main" aria-current="page">Overview</a>
         <a href="#nodes">Nodes</a>
         <a href="#operations">Operations</a>
       </nav>
-      <p class="cy-caption">FREE EXAMPLE • MIT • ZERO JS</p>
+      <p class="syn-caption">FREE EXAMPLE • MIT • ZERO JS</p>
     </aside>
-    <main id="main" class="example-main cy-horizon">
-      <header class="cy-header" style="padding-top:0">
-        <div><p class="cy-eyebrow">REAL HTML / LIVE DEMO</p><h1 class="cy-title" style="margin:0">Control center</h1></div>
-        <span class="cy-badge">SYSTEM NOMINAL</span>
+    <main id="main" class="example-main syn-horizon">
+      <header class="syn-header" style="padding-top:0">
+        <div><p class="syn-eyebrow">REAL HTML / LIVE DEMO</p><h1 class="syn-title" style="margin:0">Control center</h1></div>
+        <span class="syn-badge">SYSTEM NOMINAL</span>
       </header>
-      <p class="cy-lede">A production-shaped dashboard layout without a component runtime. Figures are illustrative.</p>
+      <p class="syn-lede">A production-shaped dashboard layout without a component runtime. Figures are illustrative.</p>
       <section class="example-kpis" aria-label="Illustrative system metrics">
-        <article class="cy-panel cy-panel--cut cy-frame--precision"><span class="cy-caption">UPTIME</span><p class="cy-metric">99.8%</p><progress class="cy-meter" value="99.8" max="100" aria-label="Uptime">99.8%</progress></article>
-        <article class="cy-panel cy-panel--cut cy-frame--precision"><span class="cy-caption">CONNECTED NODES</span><p class="cy-metric">024</p><span class="cy-badge">STABLE</span></article>
-        <article class="cy-panel cy-panel--cut cy-frame--precision"><span class="cy-caption">PENDING ACTIONS</span><p class="cy-metric">003</p><span class="cy-caption">REQUIRES REVIEW</span></article>
+        <article class="syn-panel syn-panel--cut syn-frame--precision"><span class="syn-caption">UPTIME</span><p class="syn-metric">99.8%</p><progress class="syn-meter" value="99.8" max="100" aria-label="Uptime">99.8%</progress></article>
+        <article class="syn-panel syn-panel--cut syn-frame--precision"><span class="syn-caption">CONNECTED NODES</span><p class="syn-metric">024</p><span class="syn-badge">STABLE</span></article>
+        <article class="syn-panel syn-panel--cut syn-frame--precision"><span class="syn-caption">PENDING ACTIONS</span><p class="syn-metric">003</p><span class="syn-caption">REQUIRES REVIEW</span></article>
       </section>
-      <div class="cy-grid">
-        <section id="nodes" class="cy-panel cy-panel--cut cy-frame--precision">
-          <div class="example-panel-head"><h2 class="cy-heading">Active nodes</h2><span class="cy-eyebrow">SECTOR GRID</span></div>
-          <div class="cy-table-wrap"><table class="cy-table"><caption class="cy-caption" style="text-align:left">Sample telemetry data</caption><thead><tr><th scope="col">NODE</th><th scope="col">LATENCY</th><th scope="col">STATE</th></tr></thead><tbody><tr><td>SE-01</td><td>18 ms</td><td>ONLINE</td></tr><tr><td>SE-02</td><td>23 ms</td><td>ONLINE</td></tr><tr><td>NW-07</td><td>31 ms</td><td>REVIEW</td></tr></tbody></table></div>
+      <div class="syn-grid">
+        <section id="nodes" class="syn-panel syn-panel--cut syn-frame--precision">
+          <div class="example-panel-head"><h2 class="syn-heading">Active nodes</h2><span class="syn-eyebrow">SECTOR GRID</span></div>
+          <div class="syn-table-wrap"><table class="syn-table"><caption class="syn-caption" style="text-align:left">Sample telemetry data</caption><thead><tr><th scope="col">NODE</th><th scope="col">LATENCY</th><th scope="col">STATE</th></tr></thead><tbody><tr><td>SE-01</td><td>18 ms</td><td>ONLINE</td></tr><tr><td>SE-02</td><td>23 ms</td><td>ONLINE</td></tr><tr><td>NW-07</td><td>31 ms</td><td>REVIEW</td></tr></tbody></table></div>
         </section>
-        <section id="operations" class="cy-panel cy-panel--cut cy-frame--precision">
-          <div class="example-panel-head"><h2 class="cy-heading">Operations</h2><span class="cy-eyebrow">NATIVE CONTROLS</span></div>
-          <p class="cy-lede">Dialog and popover interactions work with supported HTML commands—no JavaScript.</p>
-          <div class="cy-inline"><button class="cy-button cy-button--primary" type="button" popovertarget="console-actions">OPEN ACTIONS</button><button class="cy-button cy-button--outline" type="button" commandfor="console-dialog" command="show-modal">VIEW REPORT</button></div>
-          <div popover class="cy-popover" id="console-actions"><h3 class="cy-heading">Quick actions</h3><p>Review this illustrative demonstration.</p><button class="cy-button" popovertarget="console-actions" popovertargetaction="hide">CLOSE</button></div>
-          <dialog id="console-dialog" class="cy-dialog" aria-labelledby="console-dialog-heading"><h3 id="console-dialog-heading">System report</h3><p>All telemetry is fictional; this example ships without APIs.</p><form method="dialog"><button class="cy-button cy-button--primary">DONE</button></form></dialog>
-          <details class="cy-details" style="margin-top:1.5rem"><summary>Why no JavaScript?</summary><p>Most visual dashboards need data and application logic, not a UI runtime to draw cards and tables.</p></details>
+        <section id="operations" class="syn-panel syn-panel--cut syn-frame--precision">
+          <div class="example-panel-head"><h2 class="syn-heading">Operations</h2><span class="syn-eyebrow">NATIVE CONTROLS</span></div>
+          <p class="syn-lede">Dialog and popover interactions work with supported HTML commands—no JavaScript.</p>
+          <div class="syn-inline"><button class="syn-button syn-button--primary" type="button" popovertarget="console-actions">OPEN ACTIONS</button><button class="syn-button syn-button--outline" type="button" commandfor="console-dialog" command="show-modal">VIEW REPORT</button></div>
+          <div popover class="syn-popover" id="console-actions"><h3 class="syn-heading">Quick actions</h3><p>Review this illustrative demonstration.</p><button class="syn-button" popovertarget="console-actions" popovertargetaction="hide">CLOSE</button></div>
+          <dialog id="console-dialog" class="syn-dialog" aria-labelledby="console-dialog-heading"><h3 id="console-dialog-heading">System report</h3><p>All telemetry is fictional; this example ships without APIs.</p><form method="dialog"><button class="syn-button syn-button--primary">DONE</button></form></dialog>
+          <details class="syn-details" style="margin-top:1.5rem"><summary>Why no JavaScript?</summary><p>Most visual dashboards need data and application logic, not a UI runtime to draw cards and tables.</p></details>
         </section>
       </div>
-      <p class="cy-caption" style="margin-top:3rem">SYNTYR / GRID CONSOLE / MIT LICENSE</p>
+      <p class="syn-caption" style="margin-top:3rem">SYNTYR / GRID CONSOLE / MIT LICENSE</p>
     </main>
   </div>
 </body>

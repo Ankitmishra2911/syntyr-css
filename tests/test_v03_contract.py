@@ -8,21 +8,21 @@ ROOT = Path(__file__).resolve().parents[1]
 class V03Contract(unittest.TestCase):
     def test_modular_container_patterns_are_shipped(self):
         source = (ROOT / 'src/components/patterns.css').read_text()
-        self.assertIn('.cy-region', source)
-        self.assertIn('container-name: cy-region', source)
-        self.assertIn('@container cy-region (min-width:', source)
-        for item in ('.cy-split', '.cy-stats', '.cy-stat', '.cy-empty', '.cy-pricing', '.cy-price-card'):
+        self.assertIn('.syn-region', source)
+        self.assertIn('container-name: syn-region', source)
+        self.assertIn('@container syn-region (min-width:', source)
+        for item in ('.syn-split', '.syn-stats', '.syn-stat', '.syn-empty', '.syn-pricing', '.syn-price-card'):
             with self.subTest(item=item):
                 self.assertIn(item, source)
         self.assertIn('components/patterns.css', (ROOT / 'scripts/build.py').read_text())
-        self.assertIn('.cy-pricing', (ROOT / 'dist/syntyr.core.css').read_text())
+        self.assertIn('.syn-pricing', (ROOT / 'dist/syntyr.core.css').read_text())
 
     def test_accessible_state_styles_and_explicit_tokens(self):
         buttons = (ROOT / 'src/components/buttons.css').read_text()
         tokens = (ROOT / 'src/tokens.css').read_text()
-        for item in ('[aria-pressed="true"]', '[data-cy-state="active"]', '[aria-busy="true"]'):
+        for item in ('[aria-pressed="true"]', '[data-syn-state="active"]', '[aria-busy="true"]'):
             self.assertIn(item, buttons)
-        for token in ('--cy-ease:', '--cy-duration-fast:', '--cy-success:', '--cy-warning:'):
+        for token in ('--syn-ease:', '--syn-duration-fast:', '--syn-success:', '--syn-warning:'):
             self.assertIn(token, tokens)
 
     def test_free_original_recipes_and_marketing_example(self):
@@ -31,12 +31,12 @@ class V03Contract(unittest.TestCase):
                 self.assertTrue((ROOT / rel).is_file())
         gallery = (ROOT / 'docs/index.html').read_text()
         self.assertIn('id="recipes"', gallery)
-        self.assertIn('class="cy-region"', gallery)
-        self.assertIn('cy-price-card', gallery)
+        self.assertIn('class="syn-region"', gallery)
+        self.assertIn('syn-price-card', gallery)
         self.assertIn('examples/pricing.html', gallery)
         self.assertNotIn('<script', gallery)
         pricing = (ROOT / 'examples/pricing.html').read_text()
-        self.assertIn('cy-pricing', pricing)
+        self.assertIn('syn-pricing', pricing)
         self.assertNotIn('<script', pricing)
         self.assertIn('MIT', pricing)
 

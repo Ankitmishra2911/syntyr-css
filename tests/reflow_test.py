@@ -40,7 +40,7 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
                 const r=e.getBoundingClientRect(), s=getComputedStyle(e);
                 if(s.display==='none'||s.visibility==='hidden'||r.width===0||r.height===0) return false;
                 // Controls inside intentionally scrollable tables are exempt.
-                if(e.closest('.cy-table-wrap')) return false;
+                if(e.closest('.syn-table-wrap')) return false;
                 return r.left < -1 || r.right > innerWidth + 1;
               }).slice(0,5).map(e=>[e.tagName, e.textContent.trim().slice(0,35),
                  Math.round(e.getBoundingClientRect().left),Math.round(e.getBoundingClientRect().right)]);

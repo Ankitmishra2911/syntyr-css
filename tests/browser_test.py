@@ -49,18 +49,18 @@ class BrowserTests(unittest.TestCase):
 
     def test_theme_tokens_are_applied_and_nested(self):
         root = self.page.locator('body')
-        grid = self.page.locator('#themes [data-cy-theme="grid"]')
-        noir = self.page.locator('#themes [data-cy-theme="noir"]')
-        self.assertEqual(root.evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()"), '#76e7f7')
-        self.assertEqual(grid.evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()"), '#76e7f7')
-        self.assertEqual(noir.evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()"), '#f1b574')
-        self.assertEqual(grid.locator('.cy-panel').count(), 0) # this panel *is* the theme root
+        grid = self.page.locator('#themes [data-syn-theme="grid"]')
+        noir = self.page.locator('#themes [data-syn-theme="noir"]')
+        self.assertEqual(root.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()"), '#76e7f7')
+        self.assertEqual(grid.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()"), '#76e7f7')
+        self.assertEqual(noir.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()"), '#f1b574')
+        self.assertEqual(grid.locator('.syn-panel').count(), 0) # this panel *is* the theme root
 
     def test_semantic_mode_is_scoped_and_styled(self):
-        semantic_button = self.page.locator('#semantic .cy-semantic button')
+        semantic_button = self.page.locator('#semantic .syn-semantic button')
         self.assertEqual(semantic_button.count(), 1)
         self.assertEqual(semantic_button.evaluate('e => getComputedStyle(e).minHeight'), '44px')
-        semantic_article = self.page.locator('#semantic .cy-semantic article')
+        semantic_article = self.page.locator('#semantic .syn-semantic article')
         self.assertEqual(semantic_article.evaluate('e => getComputedStyle(e).backgroundColor'), 'rgb(17, 31, 44)')
         self.page.evaluate("""() => {
           const b = document.createElement('button');
@@ -76,7 +76,7 @@ class BrowserTests(unittest.TestCase):
           const range = document.createElement('input');
           range.id = 'range-audit';
           range.type = 'range';
-          document.querySelector('.cy-semantic article').appendChild(range);
+          document.querySelector('.syn-semantic article').appendChild(range);
         }""")
         range_border = self.page.locator('#range-audit').evaluate('e => getComputedStyle(e).borderTopWidth')
         self.assertEqual(range_border, '0px')
@@ -85,7 +85,7 @@ class BrowserTests(unittest.TestCase):
         self.page.evaluate("""() => {
           const section = document.createElement('section');
           section.id = 'embedded-root';
-          section.className = 'cy-root';
+          section.className = 'syn-root';
           section.innerHTML = '<span>Small widget</span>';
           document.body.appendChild(section);
         }""")
@@ -125,12 +125,12 @@ class BrowserTests(unittest.TestCase):
 
     def test_reduced_motion_disables_transitions(self):
         self.page.emulate_media(reduced_motion='reduce')
-        duration = self.page.locator('.cy-button--primary').first.evaluate('e => getComputedStyle(e).transitionDuration')
+        duration = self.page.locator('.syn-button--primary').first.evaluate('e => getComputedStyle(e).transitionDuration')
         self.assertIn(duration, ('0s', '0s, 0s, 0s'), duration)
 
     def test_container_query_cards_adapt_to_parent_not_viewport(self):
-        region = self.page.locator('#recipes .cy-region').first
-        stats = region.locator('.cy-stats')
+        region = self.page.locator('#recipes .syn-region').first
+        stats = region.locator('.syn-stats')
         def columns():
             return len(stats.evaluate('e => getComputedStyle(e).gridTemplateColumns').split())
         region.evaluate('e => e.style.width = "380px"')
@@ -145,7 +145,7 @@ class BrowserTests(unittest.TestCase):
         self.page.evaluate("""() => {
           const button = document.createElement('button');
           button.id = 'v03-state';
-          button.className = 'cy-button';
+          button.className = 'syn-button';
           button.textContent = 'Toggle';
           document.querySelector('#recipes').appendChild(button);
         }""")
@@ -159,9 +159,9 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(b.evaluate('e => getComputedStyle(e).cursor'), 'progress')
 
     def test_unlayered_host_theme_overrides_token(self):
-        self.page.add_style_tag(content='.cy-root[data-cy-theme="grid"] { --cy-accent: #99ffcc; }')
+        self.page.add_style_tag(content='.syn-root[data-syn-theme="grid"] { --syn-accent: #99ffcc; }')
         self.assertEqual(self.page.locator('body').evaluate(
-            'e => getComputedStyle(e).getPropertyValue("--cy-accent").trim()'), '#99ffcc')
+            'e => getComputedStyle(e).getPropertyValue("--syn-accent").trim()'), '#99ffcc')
 
     def test_noir_pricing_example_is_responsive_and_local(self):
         html = (ROOT / 'examples/pricing.html').read_text(encoding='utf-8')
@@ -171,12 +171,12 @@ class BrowserTests(unittest.TestCase):
         html = html.replace('<link rel="stylesheet" href="../dist/syntyr.effects.css">', f'<style>{effects}</style>')
         self.page.set_viewport_size({'width': 390, 'height': 844})
         self.page.set_content(html)
-        pricing = self.page.locator('.cy-pricing')
+        pricing = self.page.locator('.syn-pricing')
         self.assertEqual(len(pricing.evaluate('e => getComputedStyle(e).gridTemplateColumns').split()), 1)
         self.assertLessEqual(self.page.evaluate('document.documentElement.scrollWidth'), 391)
         self.page.set_viewport_size({'width': 1280, 'height': 900})
         self.assertEqual(len(pricing.evaluate('e => getComputedStyle(e).gridTemplateColumns').split()), 3)
-        self.assertEqual(self.page.locator('.cy-price-card').count(), 3)
+        self.assertEqual(self.page.locator('.syn-price-card').count(), 3)
 
     def test_forced_colors_still_has_visible_control_border(self):
         self.page.emulate_media(forced_colors='active')
@@ -184,10 +184,10 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(color, 'solid')
 
     def test_studio_theme_is_scoped_and_uses_light_controls(self):
-        studio = self.page.locator('#themes [data-cy-theme="studio"]')
+        studio = self.page.locator('#themes [data-syn-theme="studio"]')
         self.assertEqual(studio.count(), 1)
         self.assertEqual(studio.evaluate(
-            "e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()"), '#2458c6')
+            "e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()"), '#2458c6')
         self.assertEqual(studio.evaluate("e => getComputedStyle(e).colorScheme"), 'light')
         self.assertEqual(self.page.locator('body').evaluate(
             "e => getComputedStyle(e).colorScheme"), 'dark')
@@ -196,12 +196,12 @@ class BrowserTests(unittest.TestCase):
         core = (ROOT / "dist/syntyr.core.css").read_text()
         recipes = (ROOT / "dist/syntyr.recipes.css").read_text()
         self.page.set_content(f"""<style>{core}{recipes}</style>
-        <main class="cy-root" data-cy-theme="grid">
-            <section data-cy-theme="studio">
-                <aside class="cy-app-rail" id="nested-rail">Studio rail</aside>
-                <article class="cy-app-card" id="nested-card">Studio card</article>
-                <section class="cy-site-hero" id="nested-hero">Studio hero</section>
-                <section class="cy-feature-card" id="nested-feature">Studio feature</section>
+        <main class="syn-root" data-syn-theme="grid">
+            <section data-syn-theme="studio">
+                <aside class="syn-app-rail" id="nested-rail">Studio rail</aside>
+                <article class="syn-app-card" id="nested-card">Studio card</article>
+                <section class="syn-site-hero" id="nested-hero">Studio hero</section>
+                <section class="syn-feature-card" id="nested-feature">Studio feature</section>
             </section>
         </main>""")
         for selector in ("#nested-rail", "#nested-card", "#nested-hero", "#nested-feature"):
@@ -232,18 +232,18 @@ class BrowserTests(unittest.TestCase):
                                              metrics['clientWidth'] + 1, metrics)
                         self.assertEqual(self.page.locator('main').count(), 1)
                 if example == 'saas.html':
-                    self.assertEqual(self.page.locator('.cy-app-shell').count(), 1)
-                    self.assertEqual(self.page.locator('.cy-table .cy-status').count(), 3)
+                    self.assertEqual(self.page.locator('.syn-app-shell').count(), 1)
+                    self.assertEqual(self.page.locator('.syn-table .syn-status').count(), 3)
                 if example == 'business.html':
                     self.assertGreater(
                         self.page.locator('.business-visual').bounding_box()['x'], 600)
                 if example == 'terminal.html':
-                    self.assertEqual(self.page.locator('.cy-terminal').evaluate(
+                    self.assertEqual(self.page.locator('.syn-terminal').evaluate(
                         'e => getComputedStyle(e).backgroundColor'), 'rgb(11, 22, 37)')
-                    positions = self.page.locator('.cy-terminal-line').evaluate_all(
+                    positions = self.page.locator('.syn-terminal-line').evaluate_all(
                         'els => els.map(e => e.getBoundingClientRect().top)')
                     self.assertLessEqual(positions[1] - positions[0], 30)
-                    studio_chip = self.page.locator('.cli-options [data-cy-theme="studio"]')
+                    studio_chip = self.page.locator('.cli-options [data-syn-theme="studio"]')
                     self.assertEqual(studio_chip.evaluate(
                         'e => getComputedStyle(e).backgroundColor'), 'rgb(255, 255, 255)')
 

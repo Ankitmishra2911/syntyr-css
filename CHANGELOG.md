@@ -1,13 +1,26 @@
-## Unreleased — v0.3.0-alpha.4 candidate
+## Unreleased — v0.3.0-alpha.5 candidate
 
-- Integrate seven SYNTYR palettes with the published alpha.3 brand migration; preserve byte-identical legacy Cyberline CSS aliases.
-- Add finite optional utilities, seven-theme static comparison gallery and browser coverage.
-- Correct theme-boundary foreground/background/geometry inheritance and utility composition.
-- Fix unreadable primary-action labels in Chromium forced-colors and label the optional Vertigo groups semantically.
-- Record 13-page browser/reflow verification and 310 inconclusive gradient-contrast element checks; actual zoom and screen-reader gates remain open.
+- Add four original opt-in palettes (Industrial, Terminal, Corporate and Minimal) for seven interchangeable SYNTYR themes.
+- Add a standalone finite CSS-only utilities module and an MIT-licensed seven-theme comparison gallery.
+- Validate nested theme foreground, native color-scheme and geometry inheritance, utility precedence, and keyboard/forced-colors presentation.
+- Preserve the SYNTYR-only syn- API and published alpha.4 release. No compatibility selectors or files are reintroduced.
 
-- Integrate geometry frames and the free operations console without dropping their tests or compatibility paths.
-- Keep the 5 KiB legacy stylesheet and 8 KiB full-bundle budgets through comment-only CSS cleanup.
+## v0.3.0-alpha.4 (2026-11-14)
+
+- Standardize all project naming, CSS selectors and tokens on SYNTYR.
+- Publish only `syntyr.*.css` modules and use the `syn-` namespace for
+  classes, CSS variables, layers, theme and state data attributes.
+- Remove obsolete CSS aliases, migration notes and historical naming drafts.
+- No JavaScript or extra dependencies; commercial trademark clearance pending.
+
+## v0.3.0-alpha.3 (2026-11-14)
+
+- Rebrand the public project as **SYNTYR**, previously Syntyr CSS.
+- Add new `syntyr.*.css` distribution paths and documented the updated interface styling API.
+- Update website, documentation, downloadable archives, CLI copy and code examples.
+- Record trademark-clearance caveats; premium launch remains gated.
+
+## Unreleased
 
 - Add an original MIT-licensed operations console example with responsive SaaS navigation, telemetry, capacity bars, deployment table, activity feed and terminal transcript; no runtime JavaScript.
 - Add independent zero-runtime geometry CSS with five customizable frame treatments (bevel, notch, bracket, inset and circuit), including forced-colors fallbacks.
@@ -23,19 +36,11 @@
 - Build a separate Hugo v0.170.0 docs proof from canonical Markdown using filesystem mounts, with reproducible output/link checks.
 - Document the Hugo versus Zola tradeoff; do not migrate the live GitHub Pages site yet.
 
-## v0.3.0-alpha.3 (2026-11-14)
-
-- Rebrand the public project as **SYNTYR**, previously Cyberline CSS.
-- Add new `syntyr.*.css` distribution paths without removing byte-identical
-  `cyberline.*.css` legacy files or altering `cy-` selectors and tokens.
-- Update website, documentation, downloadable archives, CLI copy and code examples.
-- Record naming and trademark-clearance caveats; premium launch remains gated.
-
 ## v0.3.0-alpha.2 (2026-11-14)
 
 - Fix narrow and enlarged-text horizontal overflow in layouts, buttons, panels, badges and long headings.
 - Add browser reflow regression suite and keep the MIT core free of runtime JavaScript.
-- Add voluntary developer feedback calls and document preliminary Cyberline name-risk review.
+- Add voluntary developer feedback calls and document preliminary Syntyr name-risk review.
 
 - Verified WebKit in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
 - Documented zoom-test limitations and manual screen-reader follow-up.

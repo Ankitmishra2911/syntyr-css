@@ -35,7 +35,7 @@ def assert_page(browser, name: str, viewport: int) -> None:
     assert page.locator("script").count() == 0, name
     assert page.get_by_role("main").count() == 1, name
     assert page.locator('link[rel="stylesheet"]').count() >= 1
-    css = page.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()")
+    css = page.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()")
     assert css in ("#76e7f7", "#f1b574", "#2458c6", "#ffb36b", "#65e8a0", "#155ac8", "#313a45"), (name, css)
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
@@ -69,38 +69,38 @@ def assert_page(browser, name: str, viewport: int) -> None:
         }
         assert page.locator(".theme-tile").count() == len(expected)
         for theme, (accent, scheme) in expected.items():
-            tile = page.locator(f'.theme-tile[data-cy-theme="{theme}"]')
+            tile = page.locator(f'.theme-tile[data-syn-theme="{theme}"]')
             assert tile.count() == 1, theme
             values = tile.evaluate("""e => ({
-                accent: getComputedStyle(e).getPropertyValue('--cy-accent').trim(),
+                accent: getComputedStyle(e).getPropertyValue('--syn-accent').trim(),
                 colorScheme: getComputedStyle(e).colorScheme
             })""")
             assert values["accent"] == accent, (theme, values)
             assert values["colorScheme"] == scheme, (theme, values)
-            button = tile.locator(".cy-button--primary")
+            button = tile.locator(".syn-button--primary")
             assert button.is_visible(), (theme, "primary button hidden")
         if viewport == 1280:
             nested = page.evaluate("""() => {
                 function create(parent, name, classes) {
                     const node = document.createElement('section');
                     node.className = classes;
-                    node.dataset.cyTheme = name;
+                    node.dataset.synTheme = name;
                     node.innerHTML = '<h3>Nested theme heading</h3>';
                     parent.append(node);
                     const style = getComputedStyle(node);
                     return {
                         text: getComputedStyle(node.querySelector('h3')).color,
                         colorScheme: style.colorScheme,
-                        radius: style.getPropertyValue('--cy-radius').trim(),
-                        cut: style.getPropertyValue('--cy-cut').trim()
+                        radius: style.getPropertyValue('--syn-radius').trim(),
+                        cut: style.getPropertyValue('--syn-cut').trim()
                     };
                 }
-                const grid = document.querySelector('.theme-tile[data-cy-theme="grid"]');
-                const corporate = document.querySelector('.theme-tile[data-cy-theme="corporate"]');
-                const terminal = document.querySelector('.theme-tile[data-cy-theme="terminal"]');
-                const minimal = document.querySelector('.theme-tile[data-cy-theme="minimal"]');
+                const grid = document.querySelector('.theme-tile[data-syn-theme="grid"]');
+                const corporate = document.querySelector('.theme-tile[data-syn-theme="corporate"]');
+                const terminal = document.querySelector('.theme-tile[data-syn-theme="terminal"]');
+                const minimal = document.querySelector('.theme-tile[data-syn-theme="minimal"]');
                 const plain = document.createElement('section');
-                plain.dataset.cyTheme = 'grid';
+                plain.dataset.synTheme = 'grid';
                 plain.innerHTML = '<h3>Plain nested theme</h3>';
                 minimal.append(plain);
                 const plainStyles = getComputedStyle(plain);
@@ -108,11 +108,11 @@ def assert_page(browser, name: str, viewport: int) -> None:
                     background: plainStyles.backgroundColor,
                     text: getComputedStyle(plain.querySelector('h3')).color
                 };
-                const lightInDark = create(grid, 'corporate', 'cy-price-card');
-                const darkInLight = create(corporate, 'grid', 'cy-price-card');
-                const gridInTerminal = create(terminal, 'grid', 'cy-panel cy-panel--cut');
+                const lightInDark = create(grid, 'corporate', 'syn-price-card');
+                const darkInLight = create(corporate, 'grid', 'syn-price-card');
+                const gridInTerminal = create(terminal, 'grid', 'syn-panel syn-panel--cut');
                 const flex = document.createElement('div');
-                flex.className = 'cy-u-flex cy-u-between cy-u-center';
+                flex.className = 'syn-u-flex syn-u-between syn-u-center';
                 corporate.append(flex);
                 return {lightInDark, darkInLight, gridInTerminal, plainBoundary,
                         justify: getComputedStyle(flex).justifyContent,
@@ -130,12 +130,12 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert nested["align"] == "center", nested
     if name == "examples/operations-console.html":
         assert page.get_by_role("heading", name="An operations console built on HTML.").count() == 1
-        assert page.locator(".cy-kpi-grid article").count() == 4
+        assert page.locator(".syn-kpi-grid article").count() == 4
         assert page.get_by_role("table").count() == 1
         assert page.locator("progress").count() == 4
-        assert page.locator(".cy-terminal").count() == 1
-        noir = page.locator(".ops-metric[data-cy-theme='noir']")
-        assert noir.evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()") == "#f1b574"
+        assert page.locator(".syn-terminal").count() == 1
+        noir = page.locator(".ops-metric[data-syn-theme='noir']")
+        assert noir.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()") == "#f1b574"
         if viewport == 1280:
             page.get_by_role("link", name="Skip to content").focus()
             assert page.locator(":focus").evaluate("e => getComputedStyle(e).outlineStyle") != "none"
@@ -143,36 +143,36 @@ def assert_page(browser, name: str, viewport: int) -> None:
             details.locator("summary").click()
             assert details.evaluate("e => e.open"), "native disclosure should work without JS"
     if name == "examples/geometry-terminal.html":
-        frames = page.locator(".cy-frame")
+        frames = page.locator(".syn-frame")
         assert frames.count() == 5, "all five frame profiles must render"
         bevel = frames.first
         clip = bevel.evaluate("e => getComputedStyle(e, '::before').clipPath")
         assert clip.startswith("polygon("), (name, viewport, clip)
         fill = bevel.evaluate("e => getComputedStyle(e, '::after').backgroundColor")
         assert fill not in ("rgba(0, 0, 0, 0)", "transparent"), fill
-        assert page.locator(".cy-terminal-error").count() == 1
-        assert page.locator(".cy-terminal-warning").count() == 1
-        numeric = page.locator(".cy-cell--numeric").first
+        assert page.locator(".syn-terminal-error").count() == 1
+        assert page.locator(".syn-terminal-warning").count() == 1
+        numeric = page.locator(".syn-cell--numeric").first
         assert numeric.evaluate("e => getComputedStyle(e).textAlign") == "right"
         if viewport == 1280:
-            panel_group = page.locator("#geometry .cy-grid")
-            panel_group.evaluate("e => e.style.setProperty('--cy-frame-fill', '#225533')")
+            panel_group = page.locator("#geometry .syn-grid")
+            panel_group.evaluate("e => e.style.setProperty('--syn-frame-fill', '#225533')")
             inherited_fill = bevel.evaluate("e => getComputedStyle(e, '::after').backgroundColor")
             assert inherited_fill == "rgb(34, 85, 51)", inherited_fill
 
             page.evaluate("""() => {
                 const controls = document.createElement('div');
-                controls.innerHTML = '<button class="cy-button cy-button--primary" aria-disabled="true" id="cy-aria-disabled">ARIA disabled</button>'
-                    + '<button class="cy-button cy-button--primary" disabled id="cy-native-disabled">Native disabled</button>';
+                controls.innerHTML = '<button class="syn-button syn-button--primary" aria-disabled="true" id="syn-aria-disabled">ARIA disabled</button>'
+                    + '<button class="syn-button syn-button--primary" disabled id="syn-native-disabled">Native disabled</button>';
                 document.querySelector('main').append(controls);
             }""")
-            aria_button = page.locator("#cy-aria-disabled")
+            aria_button = page.locator("#syn-aria-disabled")
             original_background = aria_button.evaluate("e => getComputedStyle(e).backgroundColor")
             aria_button.hover()
             assert aria_button.evaluate("e => getComputedStyle(e).backgroundColor") == original_background
             assert aria_button.evaluate("e => getComputedStyle(e).cursor") == "not-allowed"
             assert aria_button.evaluate("e => getComputedStyle(e).pointerEvents") != "none"
-            native_button = page.locator("#cy-native-disabled")
+            native_button = page.locator("#syn-native-disabled")
             assert native_button.evaluate("e => getComputedStyle(e).cursor") == "not-allowed"
 
             page.emulate_media(forced_colors="active")
@@ -181,8 +181,8 @@ def assert_page(browser, name: str, viewport: int) -> None:
     if name == "examples/vertigo-admin.html" and viewport == 1280:
         def styles():
             return page.evaluate("""() => {
-                const card = document.querySelector('.cy-vertigo-admin .card');
-                const button = document.querySelector('.cy-vertigo-admin button');
+                const card = document.querySelector('.syn-vertigo-admin .card');
+                const button = document.querySelector('.syn-vertigo-admin button');
                 function themeColor(token) {
                     const probe = document.createElement('span');
                     probe.style.backgroundColor = 'var(' + token + ')';
@@ -193,15 +193,15 @@ def assert_page(browser, name: str, viewport: int) -> None:
                 }
                 return {
                     cardBackground: getComputedStyle(card).backgroundColor,
-                    surface: themeColor('--cy-surface'),
+                    surface: themeColor('--syn-surface'),
                     buttonBackground: getComputedStyle(button).backgroundColor,
-                    accent: themeColor('--cy-accent')
+                    accent: themeColor('--syn-accent')
                 };
             }""")
         studio = styles()
         assert studio["cardBackground"] == studio["surface"], studio
         assert studio["buttonBackground"] == studio["accent"], studio
-        page.locator("body").evaluate("e => e.setAttribute('data-cy-theme', 'noir')")
+        page.locator("body").evaluate("e => e.setAttribute('data-syn-theme', 'noir')")
         noir = styles()
         assert noir["cardBackground"] == noir["surface"], noir
         assert noir["buttonBackground"] == noir["accent"], noir

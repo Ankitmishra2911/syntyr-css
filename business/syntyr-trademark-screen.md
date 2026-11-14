@@ -25,5 +25,5 @@ findings, not an opinion that SYNTYR is registrable or free to use commercially.
 4. Do not claim registration or clear the commercial launch gate without evidence.
 
 The CSS framework remains MIT-licensed independently of the product name.
-The historical Cyberline screening is preserved in
+The historical Syntyr screening is preserved in
 [trademark-screen.md](trademark-screen.md).

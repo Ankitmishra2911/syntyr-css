@@ -1,5 +1,5 @@
 # Evaluation only. Live GitHub Pages still serves static HTML from main.
-baseURL = "https://example.invalid/cyberline-hugo-preview/"
+baseURL = "https://example.invalid/syntyr-hugo-preview/"
 title = "Syntyr CSS — Hugo documentation proof"
 locale = "en-US"
 disableKinds = ["taxonomy", "term", "RSS"]

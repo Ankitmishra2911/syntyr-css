@@ -19,9 +19,9 @@ class MetadataParser(HTMLParser):
 class V04Contract(unittest.TestCase):
     def test_original_resource_index_is_a_free_reusable_example(self):
         page = (ROOT / "examples/resources.html").read_text(encoding="utf-8")
-        for fragment in ('cy-root cy-page', 'data-cy-theme="noir"', 'method="get"',
-                         "aria-labelledby", 'scope="col"', "<caption", "cy-table-wrap",
-                         "cy-input", "cy-select", "MIT", "ILLUSTRATIVE"):
+        for fragment in ('syn-root syn-page', 'data-syn-theme="noir"', 'method="get"',
+                         "aria-labelledby", 'scope="col"', "<caption", "syn-table-wrap",
+                         "syn-input", "syn-select", "MIT", "ILLUSTRATIVE"):
             with self.subTest(fragment=fragment):
                 self.assertIn(fragment, page)
         self.assertNotIn("<script", page.lower())
@@ -29,8 +29,8 @@ class V04Contract(unittest.TestCase):
 
     def test_theme_customization_guide_is_copy_pasteable(self):
         guide = (ROOT / "docs/theme-customization.md").read_text(encoding="utf-8")
-        for token in ("--cy-accent", "--cy-on-accent", "--cy-bg", "--cy-surface",
-                      "data-cy-theme", "cy-root", "cy-semantic", "prefers-reduced-motion"):
+        for token in ("--syn-accent", "--syn-on-accent", "--syn-bg", "--syn-surface",
+                      "data-syn-theme", "syn-root", "syn-semantic", "prefers-reduced-motion"):
             self.assertIn(token, guide)
         self.assertIn(chr(96)*3 + "css", guide)
         self.assertIn(chr(96)*3 + "html", guide)

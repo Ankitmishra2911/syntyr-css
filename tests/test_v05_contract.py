@@ -1,4 +1,4 @@
-"""Theme and utility contracts for Cyberline's framework-neutral v0.5 foundations."""
+"""Theme and utility contracts for SYNTYR's framework-neutral v0.5 foundations."""
 from pathlib import Path
 from html.parser import HTMLParser
 import re
@@ -9,15 +9,15 @@ from test_contract import contrast
 ROOT = Path(__file__).resolve().parents[1]
 THEMES = ("grid", "noir", "studio", "industrial", "terminal", "corporate", "minimal")
 REQUIRED_TOKENS = (
-    "--cy-bg", "--cy-surface", "--cy-surface-hi", "--cy-text",
-    "--cy-muted", "--cy-accent", "--cy-on-accent", "--cy-frame",
-    "--cy-danger", "--cy-success", "--cy-warning", "--cy-accent-soft",
-    "--cy-accent-2", "--cy-frame-strong",
+    "--syn-bg", "--syn-surface", "--syn-surface-hi", "--syn-text",
+    "--syn-muted", "--syn-accent", "--syn-on-accent", "--syn-frame",
+    "--syn-danger", "--syn-success", "--syn-warning", "--syn-accent-soft",
+    "--syn-accent-2", "--syn-frame-strong",
 )
 
 
 def theme_rules(source, theme):
-    selector = f'.cy-root[data-cy-theme="{theme}"]'
+    selector = f'.syn-root[data-syn-theme="{theme}"]'
     start = source.find(selector)
     if start < 0:
         return None
@@ -26,7 +26,7 @@ def theme_rules(source, theme):
     if start < 0 or end < 0:
         return None
     declarations = source[start + 1:end]
-    return dict(re.findall(r'(--cy-[\w-]+|color-scheme):\s*([^;]+);', declarations))
+    return dict(re.findall(r'(--syn-[\w-]+|color-scheme):\s*([^;]+);', declarations))
 
 
 class ThemeParser(HTMLParser):
@@ -36,8 +36,8 @@ class ThemeParser(HTMLParser):
         self.scripts = 0
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
-        if "data-cy-theme" in values:
-            self.themes.add(values["data-cy-theme"])
+        if "data-syn-theme" in values:
+            self.themes.add(values["data-syn-theme"])
         if tag == "script":
             self.scripts += 1
 
@@ -52,10 +52,10 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
                 for token in REQUIRED_TOKENS:
                     self.assertIn(token, tokens)
                 for foreground, background in (
-                    ("--cy-text", "--cy-bg"),
-                    ("--cy-text", "--cy-surface"),
-                    ("--cy-muted", "--cy-surface"),
-                    ("--cy-on-accent", "--cy-accent"),
+                    ("--syn-text", "--syn-bg"),
+                    ("--syn-text", "--syn-surface"),
+                    ("--syn-muted", "--syn-surface"),
+                    ("--syn-on-accent", "--syn-accent"),
                 ):
                     self.assertGreaterEqual(
                         contrast(tokens[foreground], tokens[background]), 4.5,
@@ -75,34 +75,33 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         }
         for name in THEMES:
             with self.subTest(theme=name):
-                self.assertIn(f'.cy-root [data-cy-theme="{name}"]', source)
+                self.assertIn(f'.syn-root [data-syn-theme="{name}"]', source)
                 tokens = theme_rules(source, name)
                 self.assertEqual(tokens.get("color-scheme"),
                                  "light" if name in ("studio", "corporate", "minimal") else "dark")
-                self.assertEqual(tokens.get("--cy-radius"), geometry[name][0])
-                self.assertEqual(tokens.get("--cy-cut"), geometry[name][1])
+                self.assertEqual(tokens.get("--syn-radius"), geometry[name][0])
+                self.assertEqual(tokens.get("--syn-cut"), geometry[name][1])
 
     def test_utilities_are_opt_in_and_built_deterministically(self):
         utilities = (ROOT / "src/utilities.css").read_text()
-        self.assertIn("@layer cy.components", utilities)
-        self.assertIn(".cy-root", utilities)
-        for cls in ("cy-u-flex", "cy-u-grid", "cy-u-gap-2",
-                    "cy-u-p-2", "cy-u-mt-2", "cy-u-sr-only"):
+        self.assertIn("@layer syn.components", utilities)
+        self.assertIn(".syn-root", utilities)
+        for cls in ("syn-u-flex", "syn-u-grid", "syn-u-gap-2",
+                    "syn-u-p-2", "syn-u-mt-2", "syn-u-sr-only"):
             with self.subTest(cls=cls):
                 self.assertIn("." + cls, utilities)
-                self.assertIn("." + cls, (ROOT / "dist/cyberline.utilities.css").read_text())
-                self.assertIn("." + cls, (ROOT / "dist/cyberline.all.css").read_text())
-                self.assertNotIn("." + cls, (ROOT / "dist/cyberline.core.css").read_text())
+                self.assertIn("." + cls, (ROOT / "dist/syntyr.utilities.css").read_text())
+                self.assertIn("." + cls, (ROOT / "dist/syntyr.all.css").read_text())
+                self.assertNotIn("." + cls, (ROOT / "dist/syntyr.core.css").read_text())
         self.assertNotIn("@import", utilities)
         self.assertNotIn("javascript", utilities.lower())
         self.assertIn("'syntyr.utilities.css'", (ROOT / "scripts/build.py").read_text())
-        self.assertIn("replace('syntyr', 'cyberline')", (ROOT / "scripts/build.py").read_text())
-        self.assertLess(utilities.index(".cy-u-center"), utilities.index(".cy-u-between"),
+        self.assertLess(utilities.index(".syn-u-center"), utilities.index(".syn-u-between"),
                         "between must win over centered justification when both are present")
 
     def test_release_includes_optional_utility_distribution(self):
         from scripts.package_release import FILES
-        self.assertIn("dist/cyberline.utilities.css", FILES)
+        self.assertIn("dist/syntyr.utilities.css", FILES)
 
     def test_seven_theme_gallery_is_static_accessible_and_discoverable(self):
         demo = (ROOT / "examples/themes.html").read_text()
@@ -111,13 +110,13 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         self.assertTrue(set(THEMES) <= parser.themes)
         self.assertEqual(parser.scripts, 0)
         self.assertIn("syntyr.utilities.css", demo)
-        self.assertNotIn('class="cy-grid" aria-label=', demo, "unroled div should not have an aria-label")
+        self.assertNotIn('class="syn-grid" aria-label=', demo, "unroled div should not have an aria-label")
         self.assertNotIn('<button type="button"', demo, "gallery controls must perform navigation")
         self.assertEqual(demo.count('href="../docs/#components"'), 7)
         self.assertIn('href="../examples/themes.html"', (ROOT / "docs/index.html").read_text())
         guide = (ROOT / "docs/theme-customization.md").read_text()
         for theme in THEMES:
-            self.assertIn("data-cy-theme=\"" + theme + "\"", guide)
+            self.assertIn("data-syn-theme=\"" + theme + "\"", guide)
         self.assertIn("syntyr.utilities.css", guide)
 
 

@@ -22,7 +22,7 @@ class DemoParser(HTMLParser):
 class OptInWebsiteContractTests(unittest.TestCase):
     def test_vertigo_admin_skin_is_opt_in_and_local(self):
         skin = (ROOT / "integrations/vertigo/admin.css").read_text()
-        for selector in (".cy-vertigo-admin", ".cards", ".card",
+        for selector in (".syn-vertigo-admin", ".cards", ".card",
                          ".row", ".tablewrap", ".notice", ".field-error",
                          ".button"):
             self.assertIn(selector, skin)
@@ -38,8 +38,8 @@ class OptInWebsiteContractTests(unittest.TestCase):
         self.assertEqual(parser.stylesheets, [
             "../dist/syntyr.core.css", "../integrations/vertigo/admin.css"
         ])
-        self.assertIn('class="cy-root cy-page cy-vertigo-admin"', demo)
-        self.assertIn('data-cy-theme="studio"', demo)
+        self.assertIn('class="syn-root syn-page syn-vertigo-admin"', demo)
+        self.assertIn('data-syn-theme="studio"', demo)
         for tag in ("main", "nav", "table", "form", "label", "input", "button"):
             self.assertIn(tag, [name for name, _ in parser.tags])
         self.assertIn('scope="col"', demo)
@@ -73,7 +73,7 @@ class OptInWebsiteContractTests(unittest.TestCase):
             self.assertIn(fragment.lower(), strategy.lower())
         integration = (ROOT / "docs/vertigo-integration.md").read_text()
         self.assertIn("pageShell", integration)
-        self.assertIn("cy-vertigo-admin", integration)
+        self.assertIn("syn-vertigo-admin", integration)
         self.assertIn("MIT", integration)
         self.assertIn("do not", integration.lower())
 

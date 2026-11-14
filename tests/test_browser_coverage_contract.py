@@ -27,6 +27,11 @@ class BrowserCoverageContract(unittest.TestCase):
                              '"examples/business.html"', '"examples/terminal.html"'):
                     self.assertIn(page, source)
 
+    def test_nested_theme_probes_use_the_current_dataset_contract(self):
+        source = (ROOT / "tests/browser_matrix.py").read_text()
+        self.assertIn("dataset.synTheme", source)
+        self.assertNotIn("dataset.cyTheme", source)
+
     def test_theme_matrix_checks_all_seven_palettes_and_color_schemes(self):
         source = (ROOT / "tests/browser_matrix.py").read_text(encoding="utf-8")
         for theme in ("grid", "noir", "studio", "industrial", "terminal", "corporate", "minimal"):

@@ -93,22 +93,3 @@ provenance if incorporating it into build infrastructure.
 5. Disable animations in system settings and ensure nothing depends on motion.
 6. Validate both the default Grid/Noir palettes and any project-specific
    token overrides for text contrast and non-text essential indicators.
-
-## v0.3.0-alpha.4 candidate regression evidence (2026-11-14)
-
-The final matrix covers eleven pages, including seven-theme gallery,
-Studio SaaS, business, browser-terminal and optional Vertigo admin examples.
-On source commit `39e9def`, Chromium, Firefox and WebKit each passed 11 pages
-× 3 CSS widths (320, 390 and 1280), yielding **99 page/viewport checks**.
-The separate enlarged-text reflow suite passed 44 cases per browser, or
-**132 combined**. The browser matrix covers nested theme colors and
-utilities, native popovers and keyboard interaction. A distinct Chromium
-suite contains 17 native interaction tests. Enlarged root-font and CSS-width
-checks **do not substitute** for real 200%/400% browser zoom.
-
-axe-core 4.10.3 returned **zero automated WCAG A/AA violations** across eleven
-pages, with **nine inconclusive rule results affecting 270 elements**, primarily where decorative gradients
-make automated color contrast indeterminate. Human inspection is still required.
-
-For reproducible build sizes, distribution checks and remaining release gates,
-see [the alpha.4 candidate evidence](../RELEASE_CHECKS_ALPHA4.md).

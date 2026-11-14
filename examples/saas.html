@@ -10,77 +10,77 @@
   <style>
     .skip-link { position:absolute; top:-10rem; left:1rem; z-index:10; } .skip-link:focus { top:1rem; }
     .demo-section { margin-block:1.5rem; } .demo-section > h2 { margin-block:0 .8rem; }
-    .demo-grid { display:grid; gap:var(--cy-space-2); grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); }
+    .demo-grid { display:grid; gap:var(--syn-space-2); grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); }
   </style>
 </head>
-<body class="cy-root cy-page" data-cy-theme="studio">
-  <a class="cy-button skip-link" href="#main">Skip to content</a>
-  <div class="cy-app-shell">
-    <aside class="cy-app-rail" aria-label="Workspace sidebar">
-      <a class="cy-logo" href="#main">SYNTYR <span class="cy-muted">/ STUDIO</span></a>
-      <span class="cy-caption">PROJECT / SAMPLE OPERATIONS</span>
-      <nav class="cy-app-nav" aria-label="Workspace">
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button skip-link" href="#main">Skip to content</a>
+  <div class="syn-app-shell">
+    <aside class="syn-app-rail" aria-label="Workspace sidebar">
+      <a class="syn-logo" href="#main">SYNTYR <span class="syn-muted">/ STUDIO</span></a>
+      <span class="syn-caption">PROJECT / SAMPLE OPERATIONS</span>
+      <nav class="syn-app-nav" aria-label="Workspace">
         <a href="#main" aria-current="page">Overview</a>
         <a href="#projects">Projects</a>
         <a href="#activity">Activity</a>
         <a href="#team">Team</a>
       </nav>
-      <p class="cy-caption">HTML + CSS. Sample data only.</p>
+      <p class="syn-caption">HTML + CSS. Sample data only.</p>
     </aside>
-    <main id="main" class="cy-workspace">
-      <header class="cy-app-topbar">
+    <main id="main" class="syn-workspace">
+      <header class="syn-app-topbar">
         <div>
-          <p class="cy-eyebrow">WORKSPACE / OVERVIEW</p>
-          <h1 class="cy-heading">Good afternoon, operator.</h1>
-          <p class="cy-muted">A usable, accessible SaaS layout without a client-side framework.</p>
+          <p class="syn-eyebrow">WORKSPACE / OVERVIEW</p>
+          <h1 class="syn-heading">Good afternoon, operator.</h1>
+          <p class="syn-muted">A usable, accessible SaaS layout without a client-side framework.</p>
         </div>
-        <a class="cy-button cy-button--primary" href="#projects">View projects</a>
+        <a class="syn-button syn-button--primary" href="#projects">View projects</a>
       </header>
-      <section aria-label="Illustrative key metrics" class="cy-kpi-grid">
-        <article class="cy-app-card cy-frame--precision">
-          <span class="cy-stat-label">REVENUE / THIS MONTH</span>
-          <p class="cy-stat-value">$24,680</p><p class="cy-caption">Fictional business metrics</p>
+      <section aria-label="Illustrative key metrics" class="syn-kpi-grid">
+        <article class="syn-app-card syn-frame--precision">
+          <span class="syn-stat-label">REVENUE / THIS MONTH</span>
+          <p class="syn-stat-value">$24,680</p><p class="syn-caption">Fictional business metrics</p>
         </article>
-        <article class="cy-app-card">
-          <span class="cy-stat-label">ACTIVE PROJECTS</span>
-          <p class="cy-stat-value">18</p><span class="cy-status cy-status--success">On track</span>
+        <article class="syn-app-card">
+          <span class="syn-stat-label">ACTIVE PROJECTS</span>
+          <p class="syn-stat-value">18</p><span class="syn-status syn-status--success">On track</span>
         </article>
-        <article class="cy-app-card">
-          <span class="cy-stat-label">UPCOMING REVIEWS</span>
-          <p class="cy-stat-value">04</p><span class="cy-status cy-status--warning">Needs attention</span>
+        <article class="syn-app-card">
+          <span class="syn-stat-label">UPCOMING REVIEWS</span>
+          <p class="syn-stat-value">04</p><span class="syn-status syn-status--warning">Needs attention</span>
         </article>
       </section>
       <div class="demo-grid demo-section">
-        <section id="projects" class="cy-app-card" aria-labelledby="projects-heading">
-          <div class="cy-app-card-header"><h2 id="projects-heading" class="cy-heading">Projects</h2><span class="cy-caption">DEMO DATA</span></div>
-          <div class="cy-table-wrap">
-            <table class="cy-table">
-              <caption class="cy-caption" style="text-align:left">Illustrative project status</caption>
+        <section id="projects" class="syn-app-card" aria-labelledby="projects-heading">
+          <div class="syn-app-card-header"><h2 id="projects-heading" class="syn-heading">Projects</h2><span class="syn-caption">DEMO DATA</span></div>
+          <div class="syn-table-wrap">
+            <table class="syn-table">
+              <caption class="syn-caption" style="text-align:left">Illustrative project status</caption>
               <thead><tr><th scope="col">Project</th><th scope="col">Owner</th><th scope="col">Status</th></tr></thead>
               <tbody>
-                <tr><th scope="row">Orion Portal</th><td>Product</td><td><span class="cy-status cy-status--success">Active</span></td></tr>
-                <tr><th scope="row">Atlas API</th><td>Platform</td><td><span class="cy-status cy-status--warning">Review</span></td></tr>
-                <tr><th scope="row">Nova Reports</th><td>Analytics</td><td><span class="cy-status cy-status--success">Active</span></td></tr>
+                <tr><th scope="row">Orion Portal</th><td>Product</td><td><span class="syn-status syn-status--success">Active</span></td></tr>
+                <tr><th scope="row">Atlas API</th><td>Platform</td><td><span class="syn-status syn-status--warning">Review</span></td></tr>
+                <tr><th scope="row">Nova Reports</th><td>Analytics</td><td><span class="syn-status syn-status--success">Active</span></td></tr>
               </tbody>
             </table>
           </div>
         </section>
-        <section id="activity" class="cy-app-card" aria-labelledby="activity-heading">
-          <div class="cy-app-card-header"><h2 id="activity-heading" class="cy-heading">Recent activity</h2><span class="cy-caption">SAMPLE FEED</span></div>
-          <ul class="cy-activity-list">
-            <li><span>Release review completed</span><span class="cy-caption">09:41</span></li>
-            <li><span>New project proposal</span><span class="cy-caption">Yesterday</span></li>
-            <li><span>Usage report generated</span><span class="cy-caption">Monday</span></li>
+        <section id="activity" class="syn-app-card" aria-labelledby="activity-heading">
+          <div class="syn-app-card-header"><h2 id="activity-heading" class="syn-heading">Recent activity</h2><span class="syn-caption">SAMPLE FEED</span></div>
+          <ul class="syn-activity-list">
+            <li><span>Release review completed</span><span class="syn-caption">09:41</span></li>
+            <li><span>New project proposal</span><span class="syn-caption">Yesterday</span></li>
+            <li><span>Usage report generated</span><span class="syn-caption">Monday</span></li>
           </ul>
         </section>
       </div>
-      <section id="team" class="cy-app-card cy-frame--soft" aria-labelledby="team-heading">
-        <div class="cy-app-card-header"><h2 id="team-heading" class="cy-heading">Team capacity</h2><span class="cy-caption">ILLUSTRATIVE</span></div>
-        <label class="cy-label" for="usage">Workspace capacity: 72%</label>
-        <progress id="usage" class="cy-meter" value="72" max="100">72%</progress>
-        <p class="cy-muted">Replace this static demonstration with real server-rendered data and actions.</p>
+      <section id="team" class="syn-app-card syn-frame--soft" aria-labelledby="team-heading">
+        <div class="syn-app-card-header"><h2 id="team-heading" class="syn-heading">Team capacity</h2><span class="syn-caption">ILLUSTRATIVE</span></div>
+        <label class="syn-label" for="usage">Workspace capacity: 72%</label>
+        <progress id="usage" class="syn-meter" value="72" max="100">72%</progress>
+        <p class="syn-muted">Replace this static demonstration with real server-rendered data and actions.</p>
       </section>
-      <footer class="cy-caption demo-section">SYNTYR STUDIO / FREE MIT-LICENSED EXAMPLE / ZERO RUNTIME JS</footer>
+      <footer class="syn-caption demo-section">SYNTYR STUDIO / FREE MIT-LICENSED EXAMPLE / ZERO RUNTIME JS</footer>
     </main>
   </div>
 </body>

@@ -1,29 +1,29 @@
-@layer cy.base {
-  :where(.cy-root), :where(.cy-root) *, :where(.cy-root) *::before, :where(.cy-root) *::after { box-sizing: border-box; }
-  .cy-root {
+@layer syn.base {
+  :where(.syn-root), :where(.syn-root) *, :where(.syn-root) *::before, :where(.syn-root) *::after { box-sizing: border-box; }
+  .syn-root {
     margin: 0;
-    font: 400 1rem/var(--cy-line) var(--cy-font);
-    color: var(--cy-text);
-    background: var(--cy-bg);
+    font: 400 1rem/var(--syn-line) var(--syn-font);
+    color: var(--syn-text);
+    background: var(--syn-bg);
     -webkit-font-smoothing: antialiased;
   }
-  .cy-root :where([data-cy-theme]) { color: var(--cy-text); background-color: var(--cy-bg); }
-  .cy-root.cy-page { min-height: 100svh; }
-  .cy-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
-  .cy-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; overflow-wrap: anywhere; }
-  .cy-root :where(button,input,select,textarea) { font: inherit; }
-  .cy-root :where(a) { color: var(--cy-accent); text-underline-offset: .2em; }
-  .cy-root :where(:focus-visible) { outline: 3px solid var(--cy-accent); outline-offset: 3px; }
-  .cy-root :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; opacity: .55; }
-  .cy-root :where(::selection) { color: var(--cy-on-accent); background: var(--cy-accent); }
+  .syn-root :where([data-syn-theme]) { color: var(--syn-text); background-color: var(--syn-bg); }
+  .syn-root.syn-page { min-height: 100svh; }
+  .syn-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
+  .syn-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; overflow-wrap: anywhere; }
+  .syn-root :where(button,input,select,textarea) { font: inherit; }
+  .syn-root :where(a) { color: var(--syn-accent); text-underline-offset: .2em; }
+  .syn-root :where(:focus-visible) { outline: 3px solid var(--syn-accent); outline-offset: 3px; }
+  .syn-root :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; opacity: .55; }
+  .syn-root :where(::selection) { color: var(--syn-on-accent); background: var(--syn-accent); }
   @media (prefers-reduced-motion: reduce) {
-    .cy-root *, .cy-root *::before, .cy-root *::after {
+    .syn-root *, .syn-root *::before, .syn-root *::after {
       scroll-behavior: auto !important;
       transition-duration: 0s !important;
       animation-duration: 0s !important;
     }
   }
   @media (forced-colors: active) {
-    .cy-root :where(:focus-visible) { outline-color: Highlight; }
+    .syn-root :where(:focus-visible) { outline-color: Highlight; }
   }
 }

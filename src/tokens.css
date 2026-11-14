@@ -1,155 +1,155 @@
-/* Syntyr token contract: legacy cy-* custom properties stay stable. */
-@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.geometry, cy.effects;
+/* Syntyr token contract. Host application CSS can override layered defaults. */
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects;
 
-@layer cy.tokens {
-  :where(.cy-root) {
+@layer syn.tokens {
+  :where(.syn-root) {
     color-scheme: dark;
-    --cy-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --cy-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-    --cy-space-1: .375rem;
-    --cy-space-2: .75rem;
-    --cy-space-3: 1.125rem;
-    --cy-space-4: 1.75rem;
-    --cy-space-5: 2.5rem;
-    --cy-cut: .9rem;
-    --cy-radius: .25rem;
-    --cy-line: 1.55;
-    --cy-control-height: 2.75rem;
-    --cy-ease: cubic-bezier(.2, .8, .2, 1);
-    --cy-duration-fast: 150ms;
+    --syn-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --syn-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    --syn-space-1: .375rem;
+    --syn-space-2: .75rem;
+    --syn-space-3: 1.125rem;
+    --syn-space-4: 1.75rem;
+    --syn-space-5: 2.5rem;
+    --syn-cut: .9rem;
+    --syn-radius: .25rem;
+    --syn-line: 1.55;
+    --syn-control-height: 2.75rem;
+    --syn-ease: cubic-bezier(.2, .8, .2, 1);
+    --syn-duration-fast: 150ms;
   }
-  :where(.cy-root), :where(.cy-root[data-cy-theme="grid"], .cy-root [data-cy-theme="grid"]) {
+  :where(.syn-root), :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
     color-scheme: dark;
-    --cy-bg: #080f19;
-    --cy-surface: #111f2c;
-    --cy-surface-hi: #172a3b;
-    --cy-text: #edf9ff;
-    --cy-muted: #adbfca;
-    --cy-accent: #76e7f7;
-    --cy-accent-2: #f7b06c;
-    --cy-on-accent: #07121a;
-    --cy-frame: #345569;
-    --cy-frame-strong: #5086a0;
-    --cy-danger: #ffaaa4;
-    --cy-success: #8ce6bb;
-    --cy-warning: #ffd08b;
-    --cy-accent-soft: rgb(118 231 247 / 11%);
-    --cy-radius: .25rem;
-    --cy-cut: .9rem;
+    --syn-bg: #080f19;
+    --syn-surface: #111f2c;
+    --syn-surface-hi: #172a3b;
+    --syn-text: #edf9ff;
+    --syn-muted: #adbfca;
+    --syn-accent: #76e7f7;
+    --syn-accent-2: #f7b06c;
+    --syn-on-accent: #07121a;
+    --syn-frame: #345569;
+    --syn-frame-strong: #5086a0;
+    --syn-danger: #ffaaa4;
+    --syn-success: #8ce6bb;
+    --syn-warning: #ffd08b;
+    --syn-accent-soft: rgb(118 231 247 / 11%);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
   }
-  :where(.cy-root[data-cy-theme="noir"], .cy-root [data-cy-theme="noir"]) {
+  :where(.syn-root[data-syn-theme="noir"], .syn-root [data-syn-theme="noir"]) {
     color-scheme: dark;
-    --cy-bg: #0e0e12;
-    --cy-surface: #1c1b20;
-    --cy-surface-hi: #2a2628;
-    --cy-text: #f8eee5;
-    --cy-muted: #c3b5aa;
-    --cy-accent: #f1b574;
-    --cy-accent-2: #9acfd5;
-    --cy-on-accent: #1c100b;
-    --cy-frame: #625048;
-    --cy-frame-strong: #9a7557;
-    --cy-danger: #ffc1ac;
-    --cy-success: #a5e4bc;
-    --cy-warning: #fbd18c;
-    --cy-accent-soft: rgb(241 181 116 / 10%);
-    --cy-radius: .25rem;
-    --cy-cut: .9rem;
+    --syn-bg: #0e0e12;
+    --syn-surface: #1c1b20;
+    --syn-surface-hi: #2a2628;
+    --syn-text: #f8eee5;
+    --syn-muted: #c3b5aa;
+    --syn-accent: #f1b574;
+    --syn-accent-2: #9acfd5;
+    --syn-on-accent: #1c100b;
+    --syn-frame: #625048;
+    --syn-frame-strong: #9a7557;
+    --syn-danger: #ffc1ac;
+    --syn-success: #a5e4bc;
+    --syn-warning: #fbd18c;
+    --syn-accent-soft: rgb(241 181 116 / 10%);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
   }
-  :where(.cy-root[data-cy-theme="industrial"], .cy-root [data-cy-theme="industrial"]) {
+  :where(.syn-root[data-syn-theme="industrial"], .syn-root [data-syn-theme="industrial"]) {
     color-scheme: dark;
-    --cy-bg: #121417;
-    --cy-surface: #1c2023;
-    --cy-surface-hi: #2a3033;
-    --cy-text: #f3f2ee;
-    --cy-muted: #c0c5c8;
-    --cy-accent: #ffb36b;
-    --cy-accent-2: #d6c9a9;
-    --cy-on-accent: #241409;
-    --cy-frame: #69747b;
-    --cy-frame-strong: #a0b0b7;
-    --cy-danger: #ffb2a7;
-    --cy-success: #8dedb0;
-    --cy-warning: #ffd08f;
-    --cy-accent-soft: rgb(255 179 107 / 11%);
-    --cy-radius: .15rem;
-    --cy-cut: .45rem;
+    --syn-bg: #121417;
+    --syn-surface: #1c2023;
+    --syn-surface-hi: #2a3033;
+    --syn-text: #f3f2ee;
+    --syn-muted: #c0c5c8;
+    --syn-accent: #ffb36b;
+    --syn-accent-2: #d6c9a9;
+    --syn-on-accent: #241409;
+    --syn-frame: #69747b;
+    --syn-frame-strong: #a0b0b7;
+    --syn-danger: #ffb2a7;
+    --syn-success: #8dedb0;
+    --syn-warning: #ffd08f;
+    --syn-accent-soft: rgb(255 179 107 / 11%);
+    --syn-radius: .15rem;
+    --syn-cut: .45rem;
   }
-  :where(.cy-root[data-cy-theme="terminal"], .cy-root [data-cy-theme="terminal"]) {
+  :where(.syn-root[data-syn-theme="terminal"], .syn-root [data-syn-theme="terminal"]) {
     color-scheme: dark;
-    --cy-bg: #07130d;
-    --cy-surface: #0d1f17;
-    --cy-surface-hi: #153325;
-    --cy-text: #d9fce7;
-    --cy-muted: #a2d2b5;
-    --cy-accent: #65e8a0;
-    --cy-accent-2: #a6f0ce;
-    --cy-on-accent: #062011;
-    --cy-frame: #3e8761;
-    --cy-frame-strong: #69bd8a;
-    --cy-danger: #f6a8a8;
-    --cy-success: #74e7a7;
-    --cy-warning: #eccd86;
-    --cy-accent-soft: rgb(101 232 160 / 11%);
-    --cy-radius: 0;
-    --cy-cut: 0;
+    --syn-bg: #07130d;
+    --syn-surface: #0d1f17;
+    --syn-surface-hi: #153325;
+    --syn-text: #d9fce7;
+    --syn-muted: #a2d2b5;
+    --syn-accent: #65e8a0;
+    --syn-accent-2: #a6f0ce;
+    --syn-on-accent: #062011;
+    --syn-frame: #3e8761;
+    --syn-frame-strong: #69bd8a;
+    --syn-danger: #f6a8a8;
+    --syn-success: #74e7a7;
+    --syn-warning: #eccd86;
+    --syn-accent-soft: rgb(101 232 160 / 11%);
+    --syn-radius: 0;
+    --syn-cut: 0;
   }
-  :where(.cy-root[data-cy-theme="corporate"], .cy-root [data-cy-theme="corporate"]) {
+  :where(.syn-root[data-syn-theme="corporate"], .syn-root [data-syn-theme="corporate"]) {
     color-scheme: light;
-    --cy-bg: #f5f8fc;
-    --cy-surface: #ffffff;
-    --cy-surface-hi: #e8eef6;
-    --cy-text: #18273c;
-    --cy-muted: #4b5d72;
-    --cy-accent: #155ac8;
-    --cy-accent-2: #087a8a;
-    --cy-on-accent: #ffffff;
-    --cy-frame: #73859b;
-    --cy-frame-strong: #526c8c;
-    --cy-danger: #b42331;
-    --cy-success: #147446;
-    --cy-warning: #9a5600;
-    --cy-accent-soft: rgb(21 90 200 / 9%);
-    --cy-radius: .5rem;
-    --cy-cut: 0;
+    --syn-bg: #f5f8fc;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #e8eef6;
+    --syn-text: #18273c;
+    --syn-muted: #4b5d72;
+    --syn-accent: #155ac8;
+    --syn-accent-2: #087a8a;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #73859b;
+    --syn-frame-strong: #526c8c;
+    --syn-danger: #b42331;
+    --syn-success: #147446;
+    --syn-warning: #9a5600;
+    --syn-accent-soft: rgb(21 90 200 / 9%);
+    --syn-radius: .5rem;
+    --syn-cut: 0;
   }
-  :where(.cy-root[data-cy-theme="minimal"], .cy-root [data-cy-theme="minimal"]) {
+  :where(.syn-root[data-syn-theme="minimal"], .syn-root [data-syn-theme="minimal"]) {
     color-scheme: light;
-    --cy-bg: #f7f7f5;
-    --cy-surface: #ffffff;
-    --cy-surface-hi: #ebedee;
-    --cy-text: #202328;
-    --cy-muted: #5c6168;
-    --cy-accent: #313a45;
-    --cy-accent-2: #56606b;
-    --cy-on-accent: #ffffff;
-    --cy-frame: #7b8189;
-    --cy-frame-strong: #555b62;
-    --cy-danger: #aa2f3c;
-    --cy-success: #1f6c45;
-    --cy-warning: #8d5200;
-    --cy-accent-soft: rgb(49 58 69 / 7%);
-    --cy-radius: .375rem;
-    --cy-cut: 0;
+    --syn-bg: #f7f7f5;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #ebedee;
+    --syn-text: #202328;
+    --syn-muted: #5c6168;
+    --syn-accent: #313a45;
+    --syn-accent-2: #56606b;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #7b8189;
+    --syn-frame-strong: #555b62;
+    --syn-danger: #aa2f3c;
+    --syn-success: #1f6c45;
+    --syn-warning: #8d5200;
+    --syn-accent-soft: rgb(49 58 69 / 7%);
+    --syn-radius: .375rem;
+    --syn-cut: 0;
   }
   /* Professional, contrast-oriented light palette for SaaS and business sites. */
-  :where(.cy-root[data-cy-theme="studio"], .cy-root [data-cy-theme="studio"]) {
+  :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
     color-scheme: light;
-    --cy-bg: #f5f7fb;
-    --cy-surface: #ffffff;
-    --cy-surface-hi: #eaf0f8;
-    --cy-text: #15233a;
-    --cy-muted: #4b5d76;
-    --cy-accent: #2458c6;
-    --cy-accent-2: #176b80;
-    --cy-on-accent: #ffffff;
-    --cy-frame: #b8c6d8;
-    --cy-frame-strong: #6685b2;
-    --cy-danger: #ad2637;
-    --cy-success: #17694b;
-    --cy-warning: #92500a;
-    --cy-accent-soft: rgb(36 88 198 / 9%);
-    --cy-radius: .25rem;
-    --cy-cut: .9rem;
+    --syn-bg: #f5f7fb;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #eaf0f8;
+    --syn-text: #15233a;
+    --syn-muted: #4b5d76;
+    --syn-accent: #2458c6;
+    --syn-accent-2: #176b80;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #b8c6d8;
+    --syn-frame-strong: #6685b2;
+    --syn-danger: #ad2637;
+    --syn-success: #17694b;
+    --syn-warning: #92500a;
+    --syn-accent-soft: rgb(36 88 198 / 9%);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
   }
 }

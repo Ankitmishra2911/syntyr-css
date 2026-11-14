@@ -1,8 +1,8 @@
 /* Optional original frame treatments: pure CSS, independently loadable.
-   Pair .cy-frame with exactly one shape modifier. No canvas, images or JS.
+   Pair .syn-frame with exactly one shape modifier. No canvas, images or JS.
    The cut shapes paint their own outlines; they do not mask the host's parent. */
-@layer cy.geometry {
-  .cy-frame {
+@layer syn.geometry {
+  .syn-frame {
     position: relative;
     z-index: 0;
     isolation: isolate;
@@ -10,10 +10,10 @@
     border: 0;
     border-radius: 0;
     background: transparent;
-    color: var(--cy-text);
+    color: var(--syn-text);
   }
-  .cy-frame::before,
-  .cy-frame::after {
+  .syn-frame::before,
+  .syn-frame::after {
     content: "";
     position: absolute;
     pointer-events: none;
@@ -22,73 +22,73 @@
   }
   /* Two clipped nested surfaces form a border along the diagonal edges;
      no parent-background-colored triangle is needed. */
-  .cy-frame--bevel {
-    --cy-frame-shape: polygon(
-      var(--cy-frame-cut, 1rem) 0, calc(100% - var(--cy-frame-cut, 1rem)) 0,
-      100% var(--cy-frame-cut, 1rem), 100% calc(100% - var(--cy-frame-cut, 1rem)),
-      calc(100% - var(--cy-frame-cut, 1rem)) 100%, var(--cy-frame-cut, 1rem) 100%,
-      0 calc(100% - var(--cy-frame-cut, 1rem)), 0 var(--cy-frame-cut, 1rem));
+  .syn-frame--bevel {
+    --syn-frame-shape: polygon(
+      var(--syn-frame-cut, 1rem) 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
+      100% var(--syn-frame-cut, 1rem), 100% calc(100% - var(--syn-frame-cut, 1rem)),
+      calc(100% - var(--syn-frame-cut, 1rem)) 100%, var(--syn-frame-cut, 1rem) 100%,
+      0 calc(100% - var(--syn-frame-cut, 1rem)), 0 var(--syn-frame-cut, 1rem));
   }
-  .cy-frame--notch {
-    --cy-frame-shape: polygon(
-      0 0, calc(100% - var(--cy-frame-cut, 1rem)) 0,
-      100% var(--cy-frame-cut, 1rem), 100% 100%,
-      var(--cy-frame-cut, 1rem) 100%, 0 calc(100% - var(--cy-frame-cut, 1rem)));
+  .syn-frame--notch {
+    --syn-frame-shape: polygon(
+      0 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
+      100% var(--syn-frame-cut, 1rem), 100% 100%,
+      var(--syn-frame-cut, 1rem) 100%, 0 calc(100% - var(--syn-frame-cut, 1rem)));
   }
-  .cy-frame--bevel::before,
-  .cy-frame--notch::before {
-    clip-path: var(--cy-frame-shape);
-    background: var(--cy-frame-outline, var(--cy-frame-strong));
+  .syn-frame--bevel::before,
+  .syn-frame--notch::before {
+    clip-path: var(--syn-frame-shape);
+    background: var(--syn-frame-outline, var(--syn-frame-strong));
   }
-  .cy-frame--bevel::after,
-  .cy-frame--notch::after {
-    inset: var(--cy-frame-stroke, 1px);
-    clip-path: var(--cy-frame-shape);
-    background: var(--cy-frame-fill, var(--cy-surface));
+  .syn-frame--bevel::after,
+  .syn-frame--notch::after {
+    inset: var(--syn-frame-stroke, 1px);
+    clip-path: var(--syn-frame-shape);
+    background: var(--syn-frame-fill, var(--syn-surface));
   }
   /* Brackets don't obscure the content or assume an enclosing background. */
-  .cy-frame--bracket::before {
-    background: var(--cy-frame-fill, var(--cy-surface));
+  .syn-frame--bracket::before {
+    background: var(--syn-frame-fill, var(--syn-surface));
   }
-  .cy-frame--bracket::after {
-    --cy-bracket-size: clamp(.75rem, var(--cy-frame-cut, 1rem), 1.5rem);
+  .syn-frame--bracket::after {
+    --syn-bracket-size: clamp(.75rem, var(--syn-frame-cut, 1rem), 1.5rem);
     background:
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top left / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) top right / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom left / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-bracket-size) var(--cy-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--cy-accent), var(--cy-accent)) bottom right / var(--cy-frame-stroke, 1px) var(--cy-bracket-size) no-repeat;
+      linear-gradient(var(--syn-accent), var(--syn-accent)) top left / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) top left / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) top right / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) top right / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom left / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom left / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom right / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom right / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat;
   }
   /* Inner technical framing with no additional DOM elements. */
-  .cy-frame--inset::before {
-    border: var(--cy-frame-stroke, 1px) solid var(--cy-frame-outline, var(--cy-frame-strong));
-    background: var(--cy-frame-fill, var(--cy-surface));
+  .syn-frame--inset::before {
+    border: var(--syn-frame-stroke, 1px) solid var(--syn-frame-outline, var(--syn-frame-strong));
+    background: var(--syn-frame-fill, var(--syn-surface));
   }
-  .cy-frame--inset::after {
+  .syn-frame--inset::after {
     inset: .45rem;
-    border: var(--cy-frame-stroke, 1px) solid var(--cy-accent);
+    border: var(--syn-frame-stroke, 1px) solid var(--syn-accent);
     opacity: .55;
   }
-  .cy-frame--circuit::before {
-    border: var(--cy-frame-stroke, 1px) solid var(--cy-frame-outline, var(--cy-frame-strong));
-    background: var(--cy-frame-fill, var(--cy-surface));
+  .syn-frame--circuit::before {
+    border: var(--syn-frame-stroke, 1px) solid var(--syn-frame-outline, var(--syn-frame-strong));
+    background: var(--syn-frame-fill, var(--syn-surface));
   }
-  .cy-frame--circuit::after {
+  .syn-frame--circuit::after {
     background:
-      linear-gradient(var(--cy-accent),var(--cy-accent)) top left / 38% 2px no-repeat,
-      linear-gradient(var(--cy-accent),var(--cy-accent)) top left / 2px 28% no-repeat,
-      linear-gradient(var(--cy-accent),var(--cy-accent)) bottom right / 28% 2px no-repeat,
-      linear-gradient(var(--cy-accent),var(--cy-accent)) bottom right / 2px 38% no-repeat;
+      linear-gradient(var(--syn-accent),var(--syn-accent)) top left / 38% 2px no-repeat,
+      linear-gradient(var(--syn-accent),var(--syn-accent)) top left / 2px 28% no-repeat,
+      linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 28% 2px no-repeat,
+      linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 2px 38% no-repeat;
   }
   @media (forced-colors: active) {
-    .cy-frame {
+    .syn-frame {
       border: 1px solid CanvasText;
       background: Canvas;
       color: CanvasText;
     }
-    .cy-frame::before, .cy-frame::after { display: none; }
+    .syn-frame::before, .syn-frame::after { display: none; }
   }
 }

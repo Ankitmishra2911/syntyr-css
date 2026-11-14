@@ -12,7 +12,7 @@ https://dporkka.github.io/syntyr-css/examples/vertigo-admin.html
 Vertigo's Go admin templates in kit/admin/admin.go use an inline stylesheet
 and classes such as .row, .cards, .card, .button, .search, .tablewrap and
 .notice. Syntyr includes a separate opt-in stylesheet that targets these
-existing class names, scoped to the body class cy-vertigo-admin.
+existing class names, scoped to the body class syn-vertigo-admin.
 
 No user of Vertigo must install Syntyr. No user of Syntyr must install
 Vertigo. This adapter is an optional presentation layer only.
@@ -36,14 +36,14 @@ Vertigo. This adapter is an optional presentation layer only.
 <link rel="stylesheet" href="/assets/syntyr.core.css">
 <link rel="stylesheet" href="/assets/syntyr.vertigo.css">
 <!-- In the shared body tag -->
-<body class="cy-root cy-vertigo-admin" data-cy-theme="studio">
+<body class="syn-root syn-vertigo-admin" data-syn-theme="studio">
 ~~~
 
 4. Leave the default Vertigo HTML templates and security middleware intact.
    Test admin index, list, edit/create, errors, confirmations, tenant
    boundaries, keyboard navigation and forms against your real application.
-5. For the dark themes, switch the body to data-cy-theme="grid" or
-   data-cy-theme="noir". Both palettes are in the same CSS core.
+5. For the dark themes, switch the body to data-syn-theme="grid" or
+   data-syn-theme="noir". Both palettes are in the same CSS core.
 
 **This repository does not modify Vertigo pageShell automatically.** The
 current Vertigo function compiles templates with a hard-coded shell; a

@@ -12,7 +12,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / "experiments/hugo"
-PREFIX = "/cyberline-hugo-preview/"
+PREFIX = "/syntyr-hugo-preview/"
 REQUIRED = (
     "index.html",
     "guide/index.html",
@@ -40,7 +40,7 @@ class References(HTMLParser):
 
 
 def verify(hugo: str) -> tuple[int, int]:
-    with tempfile.TemporaryDirectory(prefix="cyberline-hugo-") as target:
+    with tempfile.TemporaryDirectory(prefix="syntyr-hugo-") as target:
         destination = Path(target)
         result = subprocess.run(
             [

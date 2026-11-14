@@ -65,7 +65,7 @@ class ForcedColorsTest(unittest.TestCase):
             page = context.new_page()
             page.goto((ROOT / "examples/themes.html").as_uri())
             self.assertTrue(page.evaluate("matchMedia('(forced-colors: active)').matches"))
-            links = page.locator(".theme-tile .cy-button--primary")
+            links = page.locator(".theme-tile .syn-button--primary")
             self.assertEqual(links.count(), 7)
             for i in range(links.count()):
                 with self.subTest(theme=i):
@@ -88,7 +88,7 @@ class ForcedColorsTest(unittest.TestCase):
             page.goto((ROOT / "examples/themes.html").as_uri())
             for i in range(7):
                 with self.subTest(theme=i):
-                    link = page.locator(".theme-tile .cy-button--primary").nth(i)
+                    link = page.locator(".theme-tile .syn-button--primary").nth(i)
                     link.focus()
                     style = link.evaluate("""e => {
                         const s = getComputedStyle(e);

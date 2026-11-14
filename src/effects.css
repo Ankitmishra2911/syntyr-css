@@ -1,34 +1,34 @@
 /* Optional static effects. */
-@layer cy.effects {
-  .cy-grid-effect {
+@layer syn.effects {
+  .syn-grid-effect {
     background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--cy-accent), transparent 95%) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--cy-accent), transparent 95%) 1px, transparent 1px);
+      linear-gradient(to right, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px);
     background-size: 2rem 2rem;
   }
-  .cy-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--cy-accent), transparent 88%); }
+  .syn-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--syn-accent), transparent 88%); }
   /* Gradient horizon. */
-  .cy-horizon {
+  .syn-horizon {
     background-image:
-      linear-gradient(to bottom, transparent 45%, var(--cy-bg) 100%),
-      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
-      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
-      radial-gradient(ellipse at 70% 20%, var(--cy-accent-soft), transparent 55%);
+      linear-gradient(to bottom, transparent 45%, var(--syn-bg) 100%),
+      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      radial-gradient(ellipse at 70% 20%, var(--syn-accent-soft), transparent 55%);
   }
   /* Gradient atmosphere. */
-  .cy-atmosphere {
+  .syn-atmosphere {
     background-image:
-      radial-gradient(ellipse at 85% 10%, var(--cy-accent-soft), transparent 55%),
-      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--cy-accent-2), transparent 94%), transparent 60%);
-    background-color: var(--cy-bg);
+      radial-gradient(ellipse at 85% 10%, var(--syn-accent-soft), transparent 55%),
+      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--syn-accent-2), transparent 94%), transparent 60%);
+    background-color: var(--syn-bg);
   }
-  .cy-scanlines { position: relative; isolation: isolate; }
-  .cy-scanlines::after {
+  .syn-scanlines { position: relative; isolation: isolate; }
+  .syn-scanlines::after {
     content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
     background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
   }
   @media (forced-colors: active) {
-    .cy-scanlines::after { display: none; }
-    .cy-horizon, .cy-atmosphere { background-image: none; }
+    .syn-scanlines::after { display: none; }
+    .syn-horizon, .syn-atmosphere { background-image: none; }
   }
 }
