@@ -75,6 +75,43 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert values["colorScheme"] == scheme, (theme, values)
             button = tile.locator(".cy-button--primary")
             assert button.is_visible(), (theme, "primary button hidden")
+        if viewport == 1280:
+            nested = page.evaluate("""() => {
+                function create(parent, name, classes) {
+                    const node = document.createElement('section');
+                    node.className = classes;
+                    node.dataset.cyTheme = name;
+                    node.innerHTML = '<h3>Nested theme heading</h3>';
+                    parent.append(node);
+                    const style = getComputedStyle(node);
+                    return {
+                        text: getComputedStyle(node.querySelector('h3')).color,
+                        colorScheme: style.colorScheme,
+                        radius: style.getPropertyValue('--cy-radius').trim(),
+                        cut: style.getPropertyValue('--cy-cut').trim()
+                    };
+                }
+                const grid = document.querySelector('.theme-tile[data-cy-theme="grid"]');
+                const corporate = document.querySelector('.theme-tile[data-cy-theme="corporate"]');
+                const terminal = document.querySelector('.theme-tile[data-cy-theme="terminal"]');
+                const lightInDark = create(grid, 'corporate', 'cy-price-card');
+                const darkInLight = create(corporate, 'grid', 'cy-price-card');
+                const gridInTerminal = create(terminal, 'grid', 'cy-panel cy-panel--cut');
+                const flex = document.createElement('div');
+                flex.className = 'cy-u-flex cy-u-between cy-u-center';
+                corporate.append(flex);
+                return {lightInDark, darkInLight, gridInTerminal,
+                        justify: getComputedStyle(flex).justifyContent,
+                        align: getComputedStyle(flex).alignItems};
+            }""")
+            assert nested["lightInDark"]["text"] == "rgb(24, 39, 60)", nested
+            assert nested["lightInDark"]["colorScheme"] == "light", nested
+            assert nested["darkInLight"]["text"] == "rgb(237, 249, 255)", nested
+            assert nested["darkInLight"]["colorScheme"] == "dark", nested
+            assert nested["gridInTerminal"]["radius"] == ".25rem", nested
+            assert nested["gridInTerminal"]["cut"] == ".9rem", nested
+            assert nested["justify"] == "space-between", nested
+            assert nested["align"] == "center", nested
     context.close()
 
 

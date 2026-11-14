@@ -25,7 +25,7 @@ def theme_rules(source, theme):
     if start < 0 or end < 0:
         return None
     declarations = source[start + 1:end]
-    return dict(re.findall(r'(--cy-[\w-]+):\s*([^;]+);', declarations))
+    return dict(re.findall(r'(--cy-[\w-]+|color-scheme):\s*([^;]+);', declarations))
 
 
 class ThemeParser(HTMLParser):
@@ -63,12 +63,22 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
 
     def test_themes_are_nested_and_native_controls_get_correct_color_scheme(self):
         source = (ROOT / "src/tokens.css").read_text()
+        geometry = {
+            "grid": (".25rem", ".9rem"),
+            "noir": (".25rem", ".9rem"),
+            "industrial": (".15rem", ".45rem"),
+            "terminal": ("0", "0"),
+            "corporate": (".5rem", "0"),
+            "minimal": (".375rem", "0"),
+        }
         for name in THEMES:
             with self.subTest(theme=name):
                 self.assertIn(f'.cy-root [data-cy-theme="{name}"]', source)
-                self.assertRegex(source, r'--cy-radius:')
-        self.assertIn('color-scheme: light', source)
-        self.assertIn('color-scheme: dark', source)
+                tokens = theme_rules(source, name)
+                self.assertEqual(tokens.get("color-scheme"),
+                                 "light" if name in ("corporate", "minimal") else "dark")
+                self.assertEqual(tokens.get("--cy-radius"), geometry[name][0])
+                self.assertEqual(tokens.get("--cy-cut"), geometry[name][1])
 
     def test_utilities_are_opt_in_and_built_deterministically(self):
         utilities = (ROOT / "src/utilities.css").read_text()
@@ -84,6 +94,8 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         self.assertNotIn("@import", utilities)
         self.assertNotIn("javascript", utilities.lower())
         self.assertIn("'cyberline.utilities.css'", (ROOT / "scripts/build.py").read_text())
+        self.assertLess(utilities.index(".cy-u-center"), utilities.index(".cy-u-between"),
+                        "between must win over centered justification when both are present")
 
     def test_release_includes_optional_utility_distribution(self):
         from scripts.package_release import FILES
@@ -96,6 +108,9 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         self.assertTrue(set(THEMES) <= parser.themes)
         self.assertEqual(parser.scripts, 0)
         self.assertIn("cyberline.utilities.css", demo)
+        self.assertNotIn('class="cy-grid" aria-label=', demo, "unroled div should not have an aria-label")
+        self.assertNotIn('<button type="button"', demo, "gallery controls must perform navigation")
+        self.assertEqual(demo.count('href="../docs/#components"'), 6)
         self.assertIn('href="../examples/themes.html"', (ROOT / "docs/index.html").read_text())
         guide = (ROOT / "docs/theme-customization.md").read_text()
         for theme in THEMES:

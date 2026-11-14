@@ -5,8 +5,8 @@
   .cy-root :where(.cy-u-grid) { display: grid; min-width: 0; }
   .cy-root :where(.cy-u-stack) { display: grid; gap: var(--cy-space-2); min-width: 0; }
   .cy-root :where(.cy-u-inline) { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cy-space-2); }
-  .cy-root :where(.cy-u-between) { justify-content: space-between; }
   .cy-root :where(.cy-u-center) { align-items: center; justify-content: center; }
+  .cy-root :where(.cy-u-between) { justify-content: space-between; }
   .cy-root :where(.cy-u-gap-1) { gap: var(--cy-space-1); }
   .cy-root :where(.cy-u-gap-2) { gap: var(--cy-space-2); }
   .cy-root :where(.cy-u-gap-3) { gap: var(--cy-space-3); }

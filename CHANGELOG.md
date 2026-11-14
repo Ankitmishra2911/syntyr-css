@@ -4,6 +4,8 @@
 - Provide an opt-in finite CSS utility module for layout, spacing and visually hidden accessibility text.
 - Publish a static six-theme comparison gallery and documentation while retaining the existing MIT, no-runtime-JS contract.
 - Verify theme text/button contrast, nested selectors, reproducible bundles and release packaging in tests.
+- Address nested-theme inherited foreground/geometry defects and utility precedence identified by PR review; add real-browser regression cases.
+- Prepare unreleased `v0.3.0-alpha.2` candidate with a seven-page three-engine browser matrix and release evidence.
 - Verified earlier WebKit baseline in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
 - Documented zoom-test limitations and manual screen-reader follow-up.
 - Prepared a ten-interview design-partner pilot without claiming buyer commitments.

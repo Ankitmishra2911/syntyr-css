@@ -31,6 +31,8 @@
     --cy-success: #8ce6bb;
     --cy-warning: #ffd08b;
     --cy-accent-soft: rgb(118 231 247 / 11%);
+    --cy-radius: .25rem;
+    --cy-cut: .9rem;
     color-scheme: dark;
   }
   :where(.cy-root[data-cy-theme="noir"], .cy-root [data-cy-theme="noir"]) {
@@ -46,6 +48,8 @@
     --cy-success: #a5e4bc;
     --cy-warning: #fbd18c;
     --cy-accent-soft: rgb(241 181 116 / 10%);
+    --cy-radius: .25rem;
+    --cy-cut: .9rem;
     color-scheme: dark;
   }
   /* The same semantic component contract supports dark and light application UIs. */
@@ -127,6 +131,9 @@
     background: var(--cy-bg);
     -webkit-font-smoothing: antialiased;
   }
+  /* Recompute the foreground at nested palette boundaries; custom properties
+     inherit, but the computed color property otherwise stays in the outer theme. */
+  .cy-root :where([data-cy-theme]) { color: var(--cy-text); }
   .cy-root.cy-page { min-height: 100svh; }
   .cy-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
   .cy-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; }
@@ -376,8 +383,8 @@
   .cy-root :where(.cy-u-grid) { display: grid; min-width: 0; }
   .cy-root :where(.cy-u-stack) { display: grid; gap: var(--cy-space-2); min-width: 0; }
   .cy-root :where(.cy-u-inline) { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cy-space-2); }
-  .cy-root :where(.cy-u-between) { justify-content: space-between; }
   .cy-root :where(.cy-u-center) { align-items: center; justify-content: center; }
+  .cy-root :where(.cy-u-between) { justify-content: space-between; }
   .cy-root :where(.cy-u-gap-1) { gap: var(--cy-space-1); }
   .cy-root :where(.cy-u-gap-2) { gap: var(--cy-space-2); }
   .cy-root :where(.cy-u-gap-3) { gap: var(--cy-space-3); }

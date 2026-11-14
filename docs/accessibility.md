@@ -91,3 +91,20 @@ provenance if incorporating it into build infrastructure.
 5. Disable animations in system settings and ensure nothing depends on motion.
 6. Validate both the default Grid/Noir palettes and any project-specific
    token overrides for text contrast and non-text essential indicators.
+
+## v0.3.0-alpha.2 candidate regression evidence (2026-11-14)
+
+The expanded matrix now includes `examples/themes.html` in addition to the
+original six pages. Chromium, Firefox and WebKit each passed 7 pages × 3 CSS
+viewport widths (320, 390 and 1280), for **63 automated page/viewport cases**.
+The new checks exercise dark-to-light/light-to-dark nested palette foregrounds,
+nested geometry token resetting and composable spacing utilities. A separate
+14-test Chromium suite covers native control interactions.
+
+An axe-core 4.10.3 audit returned **zero automated WCAG A/AA violations**
+across seven pages but **nine inconclusive checks**, largely because text sits
+above decorative gradient backgrounds. These need manual evaluation; the result
+is **not** equivalent to complete WCAG conformance.
+
+For reproducible build sizes, distribution checks and remaining release gates,
+see [the alpha.2 candidate evidence](../RELEASE_CHECKS_ALPHA2.md).
