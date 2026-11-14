@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Static, accessible Syntyr application patterns and composable theme controls.">
+  <title>Syntyr | Operational application patterns</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.application.css">
+  <link rel="stylesheet" href="../dist/syntyr.presets.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio" data-syn-density="compact" data-syn-geometry="precision">
+  <div class="syn-app-shell">
+    <aside class="syn-app-rail">
+      <a class="syn-logo" href="../index.html">SYNTYR</a>
+      <nav class="syn-app-nav" aria-label="Page sections">
+        <a href="#records" aria-current="page">Asset records</a>
+        <a href="#details">Details</a>
+        <a href="#activity">Activity</a>
+        <a href="#theme-preview">Theme preview</a>
+        <a href="../docs/index.html">Documentation</a>
+      </nav>
+    </aside>
+    <main class="syn-workspace syn-region">
+      <header class="syn-app-topbar">
+        <div>
+          <p class="syn-eyebrow">Static application preview</p>
+          <h1 class="syn-heading">Operations overview</h1>
+          <p class="syn-muted">Semantic HTML patterns; data is illustrative, with no backend or filtering logic.</p>
+        </div>
+        <a class="syn-button syn-button--outline" href="../docs/components.md">CSS reference</a>
+      </header>
+      <section id="records" class="syn-app-card" aria-labelledby="records-title">
+        <div class="syn-section-heading">
+          <h2 id="records-title">Asset records</h2>
+          <span class="syn-status syn-status--success">Snapshot ready</span>
+        </div>
+        <div class="syn-data-toolbar">
+          <p class="syn-muted">Read-only demonstration: 3 records</p>
+          <div class="syn-filter-group">
+            <label class="syn-label" for="asset-search">Search (demo only)
+              <input class="syn-input" id="asset-search" type="search" placeholder="Connect in your app" disabled>
+            </label>
+            <a class="syn-button" href="#details">View details</a>
+          </div>
+        </div>
+        <div class="syn-table-wrap" role="region" aria-label="Sample asset records" tabindex="0">
+          <table class="syn-table syn-table--striped">
+            <caption class="syn-caption">Illustrative records, last updated 14 November 2026</caption>
+            <thead><tr><th scope="col">Asset</th><th scope="col">Region</th><th scope="col">Status</th><th scope="col" class="syn-cell--numeric">Impressions</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">A-104</th><td>Central</td><td><span class="syn-status syn-status--success">Active</span></td><td class="syn-cell--numeric">42,000</td></tr>
+              <tr><th scope="row">A-118</th><td>North</td><td><span class="syn-status syn-status--warning">Review</span></td><td class="syn-cell--numeric">18,900</td></tr>
+              <tr><th scope="row">A-132</th><td>West</td><td><span class="syn-status syn-status--danger">Paused</span></td><td class="syn-cell--numeric">0</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="syn-bulk-actions" aria-label="Sample record navigation">
+          <span>View navigation is functional; editing is not included.</span>
+          <a class="syn-button syn-button--small" href="#activity">View activity</a>
+        </nav>
+      </section>
+      <div class="syn-split" style="margin-block-start: var(--syn-space-3)">
+        <section id="details" class="syn-app-card syn-region" aria-labelledby="details-title">
+          <div class="syn-section-heading"><h2 id="details-title">Record details</h2><span class="syn-badge">A-104</span></div>
+          <dl class="syn-detail-list">
+            <div><dt>Owner</dt><dd>North Region Operations</dd></div>
+            <div><dt>Format</dt><dd>Digital display</dd></div>
+            <div><dt>Next audit</dt><dd>20 November 2026</dd></div>
+            <div><dt>Service level</dt><dd>Standard</dd></div>
+          </dl>
+        </section>
+        <section id="activity" class="syn-app-card" aria-labelledby="activity-title">
+          <h2 id="activity-title">Audit activity</h2>
+          <ol class="syn-timeline">
+            <li><strong>Inspection completed</strong><time datetime="2026-11-13">13 Nov 2026</time><span class="syn-muted">Verification recorded</span></li>
+            <li><strong>Creative updated</strong><time datetime="2026-11-11">11 Nov 2026</time><span class="syn-muted">Revision approved</span></li>
+            <li><strong>Asset activated</strong><time datetime="2026-11-10">10 Nov 2026</time><span class="syn-muted">Campaign started</span></li>
+          </ol>
+        </section>
+      </div>
+      <section id="theme-preview" class="syn-app-card" data-syn-theme="noir" data-syn-geometry="soft" data-syn-density="comfortable" style="margin-block-start: var(--syn-space-3)" aria-labelledby="preview-title">
+        <h2 id="preview-title">Nested theme + geometry + density</h2>
+        <p>This panel opts into Noir, soft geometry and comfortable spacing. The page above uses Studio, precision and compact.</p>
+        <a class="syn-button syn-button--primary" href="#records">Back to records</a>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

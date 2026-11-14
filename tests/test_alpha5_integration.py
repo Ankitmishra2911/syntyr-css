@@ -12,7 +12,7 @@ class Alpha5Integration(unittest.TestCase):
         from scripts.build import distributions
         definitions = distributions()
         expected = {f"syntyr{suffix}.css" for suffix in
-                    ("", ".core", ".semantic", ".recipes", ".effects",
+                    ("", ".core", ".semantic", ".recipes", ".application", ".presets", ".effects",
                      ".geometry", ".utilities", ".all")}
         self.assertEqual(set(definitions), expected)
         for filename in expected:

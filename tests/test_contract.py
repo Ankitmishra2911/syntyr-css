@@ -39,7 +39,7 @@ class ContractTests(unittest.TestCase):
     def test_built_css_exists_and_gzip_budget(self):
         css = (ROOT/'dist/syntyr.css').read_bytes()
         self.assertLessEqual(len(gzip.compress(css, mtime=0)), 5*1024)
-        self.assertIn(b'@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects;', css[:400])
+        self.assertIn(b'@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects, syn.application;', css[:400])
 
     def test_theme_tokens_and_components(self):
         css = (ROOT/'dist/syntyr.css').read_text()

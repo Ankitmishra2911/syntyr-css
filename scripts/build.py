@@ -23,6 +23,8 @@ def distributions():
     core = ('tokens.css', 'base.css') + COMPONENTS
     primary = {
         'syntyr.core.css': core,
+        'syntyr.application.css': ('application.css',),
+        'syntyr.presets.css': ('presets.css',),
         'syntyr.semantic.css': ('semantic.css',),
         'syntyr.recipes.css': ('recipes.css',),
         'syntyr.effects.css': ('effects.css',),

@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/application-patterns.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -69,6 +69,44 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert skeleton.get_attribute("aria-hidden") == "true"
         assert skeleton.evaluate("e => getComputedStyle(e).animationName") == "none"
         assert skeleton.evaluate("e => getComputedStyle(e).backgroundColor") != "rgba(0, 0, 0, 0)"
+    if name == "examples/application-patterns.html":
+        # Check real computed CSS values, not only source token strings.
+        body = page.locator("body")
+        assert body.get_attribute("data-syn-density") == "compact"
+        assert body.get_attribute("data-syn-geometry") == "precision"
+        outer = page.locator("#records .syn-button").first
+        computed = outer.evaluate("""e => {
+          const s = getComputedStyle(e);
+          return {radius:s.borderRadius, height:s.minHeight,
+                  color:s.color, focus:getComputedStyle(document.body).getPropertyValue('--syn-focus-ring').trim()};
+        }""")
+        assert computed["radius"] == "2px", (name, computed)
+        assert computed["height"] == "40px", (name, computed)
+        assert computed["focus"] == "#2458c6", (name, computed)
+        preview = page.locator("#theme-preview")
+        nested = preview.locator(".syn-button")
+        nested_values = nested.evaluate("""e => {
+          const s = getComputedStyle(e);
+          return { radius:s.borderRadius, height:s.minHeight,
+                   scheme:getComputedStyle(e.closest('#theme-preview')).colorScheme };
+        }""")
+        assert nested_values == {"radius": "12px", "height": "48px", "scheme": "dark"}, nested_values
+        # Outer geometry/density remain inherited when only the inner palette changes.
+        inherited = page.evaluate("""() => {
+          const control = document.createElement('button');
+          control.className = 'syn-button';
+          control.dataset.synTheme = 'noir';
+          control.textContent = 'Nested control';
+          document.body.append(control);
+          const style = getComputedStyle(control);
+          const values = {radius: style.borderRadius, height: style.minHeight,
+                          scheme: style.colorScheme};
+          control.remove();
+          return values;
+        }""")
+        assert inherited == {"radius": "2px", "height": "40px", "scheme": "dark"}, inherited
+        assert page.locator("table caption").count() == 1
+        assert page.get_by_role("searchbox", name="Search (demo only)").is_disabled()
     if name == "examples/resources.html":
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1

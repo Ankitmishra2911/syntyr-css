@@ -22,6 +22,8 @@ FILES = (
     "dist/syntyr.utilities.css",
     "dist/syntyr.semantic.css",
     "dist/syntyr.recipes.css",
+    "dist/syntyr.application.css",
+    "dist/syntyr.presets.css",
     "terminal/palettes.json",
 )
 
