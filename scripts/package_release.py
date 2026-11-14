@@ -9,19 +9,19 @@ import subprocess
 import sys
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
+if __package__:
+    from .build import distributions
+else:
+    from build import distributions
+
 ROOT = Path(__file__).resolve().parents[1]
+# One source of truth: scripts/build.py defines public CSS entrypoints.
 FILES = (
     "LICENSE",
     "README.md",
+    "ARCHITECTURE.md",
     "docs/distribution.md",
-    "dist/syntyr.all.css",
-    "dist/syntyr.core.css",
-    "dist/syntyr.css",
-    "dist/syntyr.effects.css",
-    "dist/syntyr.geometry.css",
-    "dist/syntyr.utilities.css",
-    "dist/syntyr.semantic.css",
-    "dist/syntyr.recipes.css",
+) + tuple(f"dist/{name}" for name in distributions()) + (
     "terminal/palettes.json",
 )
 

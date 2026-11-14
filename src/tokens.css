@@ -1,4 +1,4 @@
-@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects;
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects, syn.utilities;
 
 @layer syn.tokens {
   :where(.syn-root) {

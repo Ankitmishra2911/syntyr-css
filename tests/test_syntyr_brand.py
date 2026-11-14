@@ -39,8 +39,10 @@ class SyntyrBrandTests(unittest.TestCase):
             with ZipFile(archive) as zip_file:
                 names = zip_file.namelist()
                 prefix = 'syntyr-css-0.3.0-alpha.5/'
-                self.assertEqual(len(names),12)
+                from scripts.package_release import FILES
+                self.assertEqual(set(names), {prefix + path for path in FILES})
                 self.assertIn(prefix+'README.md',names)
+                self.assertIn(prefix+'ARCHITECTURE.md',names)
                 for suffix in ('','.core','.semantic','.effects','.recipes','.geometry','.utilities','.all'):
                     self.assertIn(prefix+f'dist/syntyr{suffix}.css',names)
 

@@ -99,9 +99,8 @@ class GeometryTerminalContract(unittest.TestCase):
         self.assertEqual(result.returncode, 0, "generated geometry CSS must be committed, not only built locally")
 
     def test_download_package_includes_geometry(self):
-        package = (ROOT / "scripts/package_release.py").read_text()
-        self.assertIn('"dist/syntyr.geometry.css"', package)
-        self.assertIn('"dist/syntyr.geometry.css"', package)
+        from scripts.package_release import FILES
+        self.assertIn("dist/syntyr.geometry.css", FILES)
 
 
 if __name__ == "__main__":

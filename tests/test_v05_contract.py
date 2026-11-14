@@ -84,7 +84,7 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
 
     def test_utilities_are_opt_in_and_built_deterministically(self):
         utilities = (ROOT / "src/utilities.css").read_text()
-        self.assertIn("@layer syn.components", utilities)
+        self.assertIn("@layer syn.utilities", utilities)
         self.assertIn(".syn-root", utilities)
         for cls in ("syn-u-flex", "syn-u-grid", "syn-u-gap-2",
                     "syn-u-p-2", "syn-u-mt-2", "syn-u-sr-only"):

@@ -1,4 +1,4 @@
-@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects;
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects, syn.utilities;
 
 @layer syn.tokens {
   :where(.syn-root) {
@@ -641,7 +641,7 @@
 }
 /* Optional, finite utilities: no generator, JS runtime, resets or network assets.
    Load after syntyr.core.css, or use syntyr.all.css. */
-@layer syn.components {
+@layer syn.utilities {
   .syn-root :where(.syn-u-flex) { display: flex; min-width: 0; }
   .syn-root :where(.syn-u-grid) { display: grid; min-width: 0; }
   .syn-root :where(.syn-u-stack) { display: grid; gap: var(--syn-space-2); min-width: 0; }
