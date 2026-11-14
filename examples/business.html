@@ -9,11 +9,15 @@
   <link rel="stylesheet" href="../dist/cyberline.recipes.css">
   <style>
     .business-header { padding-block:1.25rem; }
+    .business-hero-grid { display:grid; gap:clamp(2rem,5vw,4rem); align-items:center; }
+    @media (min-width:58rem) {
+      .business-hero-grid { grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); }
+    }
     .business-section { margin-block:clamp(3rem,7vw,6rem); }
     .business-section-heading { max-width:25ch; }
     .business-kicker { display:flex; align-items:center; gap:.65rem; }
     .business-kicker::before { content:""; width:1.25rem; height:2px; background:var(--cy-accent); }
-    .business-visual { padding:1.25rem; margin-block-start:2rem; max-width:35rem; background:var(--cy-bg); }
+    .business-visual { padding:1.25rem; max-width:35rem; background:var(--cy-bg); }
     .business-bars { display:grid; align-items:end; grid-template-columns:repeat(8,minmax(0,1fr)); gap:.4rem; height:7rem; margin-block:1rem; }
     .business-bars span { background:var(--cy-accent); opacity:.75; height:var(--bar-height); border-radius:3px 3px 0 0; }
     .business-foot { border-top:1px solid var(--cy-frame); padding-block:2rem; }
@@ -29,12 +33,14 @@
     </header>
     <main id="top">
       <section class="cy-site-hero" aria-labelledby="hero-heading">
+        <div class="business-hero-grid"><div>
         <p class="cy-eyebrow business-kicker">BUSINESS SOFTWARE / WITHOUT COMPLEXITY</p>
         <h1 id="hero-heading" class="cy-site-heading">Software that helps teams <strong>move forward.</strong></h1>
         <p class="cy-lede">A modern, restrained business identity built entirely with Cyberline's semantic, low-dependency CSS. Northstar is a fictional brand.</p>
         <div class="cy-actions">
           <a class="cy-button cy-button--primary" href="#services">Explore services</a>
           <a class="cy-button cy-button--outline" href="#contact">Get in touch</a>
+        </div>
         </div>
         <div class="business-visual cy-app-card cy-frame--soft" aria-label="Illustrative dashboard preview">
           <div class="cy-app-card-header"><strong>Operations overview</strong><span class="cy-status cy-status--success">Nominal</span></div>
@@ -46,6 +52,7 @@
             <span style="--bar-height:71%"></span><span style="--bar-height:93%"></span>
           </div>
           <p class="cy-caption">ILLUSTRATIVE / NOT FINANCIAL RESULTS</p>
+        </div>
         </div>
       </section>
       <section id="services" class="business-section" aria-labelledby="services-heading">

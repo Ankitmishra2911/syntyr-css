@@ -215,9 +215,18 @@ class BrowserTests(unittest.TestCase):
                 if example == 'saas.html':
                     self.assertEqual(self.page.locator('.cy-app-shell').count(), 1)
                     self.assertEqual(self.page.locator('.cy-table .cy-status').count(), 3)
+                if example == 'business.html':
+                    self.assertGreater(
+                        self.page.locator('.business-visual').bounding_box()['x'], 600)
                 if example == 'terminal.html':
                     self.assertEqual(self.page.locator('.cy-terminal').evaluate(
                         'e => getComputedStyle(e).backgroundColor'), 'rgb(11, 22, 37)')
+                    positions = self.page.locator('.cy-terminal-line').evaluate_all(
+                        'els => els.map(e => e.getBoundingClientRect().top)')
+                    self.assertLessEqual(positions[1] - positions[0], 30)
+                    studio_chip = self.page.locator('.cli-options [data-cy-theme="studio"]')
+                    self.assertEqual(studio_chip.evaluate(
+                        'e => getComputedStyle(e).backgroundColor'), 'rgb(255, 255, 255)')
 
 
 if __name__ == '__main__':

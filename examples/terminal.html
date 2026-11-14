@@ -11,7 +11,9 @@
     .cli-hero { padding-block:clamp(3rem,7vw,5rem) 2rem; }
     .cli-grid { display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); }
     .cli-section { margin-block:2rem; }
+    #preview { padding:1.25rem; }
     .cli-options { display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; }
+    .cli-options [data-cy-theme="studio"] { background:var(--cy-surface); color:var(--cy-accent); }
   </style>
 </head>
 <body class="cy-root cy-page" data-cy-theme="grid">
@@ -31,13 +33,7 @@
         <h2 class="cy-heading" id="preview-heading">Browser terminal surface</h2>
         <div class="cy-terminal" role="group" aria-label="Illustrative shell transcript">
           <div class="cy-terminal-bar"><span>CYBERLINE / DEVTOOLS</span><span>READ-ONLY DEMO</span></div>
-          <pre class="cy-terminal-body"><code><span class="cy-terminal-line"><span class="cy-terminal-prompt">$ </span><span class="cy-terminal-command">cyberline doctor</span></span>
-<span class="cy-terminal-line cy-terminal-muted">Checking project environment...</span>
-<span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  HTML semantics</span>
-<span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  Stylesheet budgets</span>
-<span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  No runtime JavaScript</span>
-<span class="cy-terminal-line"><span class="cy-terminal-prompt">$ </span><span class="cy-terminal-command">cyberline themes --list</span></span>
-<span class="cy-terminal-line">grid  noir  studio</span></code></pre>
+          <pre class="cy-terminal-body"><code><span class="cy-terminal-line"><span class="cy-terminal-prompt">$ </span><span class="cy-terminal-command">cyberline doctor</span></span><span class="cy-terminal-line cy-terminal-muted">Checking project environment...</span><span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  HTML semantics</span><span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  Stylesheet budgets</span><span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  No runtime JavaScript</span><span class="cy-terminal-line"><span class="cy-terminal-prompt">$ </span><span class="cy-terminal-command">cyberline themes --list</span></span><span class="cy-terminal-line">grid  noir  studio</span></code></pre>
         </div>
         <p class="cy-caption">The transcript is fictional. It is a static HTML example, not an interactive shell.</p>
       </section>
