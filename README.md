@@ -1,6 +1,6 @@
 # Cyberline CSS
 
-**Experimental v0.3.0-alpha.1** — framework-neutral, low-dependency, CSS-first styling for futuristic, TRON-inspired Grid and Blade Runner-inspired Noir websites.
+**Experimental v0.3.0-alpha.2** — framework-neutral, low-dependency, CSS-first styling for futuristic, TRON-inspired Grid and Blade Runner-inspired Noir websites.
 
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
@@ -13,12 +13,13 @@
 
 - [Live website](https://dporkka.github.io/cyberline-css/)
 - [Component gallery](https://dporkka.github.io/cyberline-css/docs/)
-- [Versioned release downloads](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1)
+- [Versioned release downloads](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
 - [Public design-partner review issue (seeking 10 participants)](https://github.com/dporkka/cyberline-css/issues/3)
+- [Preliminary brand-name risk research (NOT clearance)](business/trademark-screen.md)
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 
@@ -80,6 +81,7 @@ Chromium browser tests use Playwright (a **dev-only optional tool**) and run wit
 ```sh
 python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
+python3 tests/reflow_test.py --browsers chromium firefox webkit # enlarged-text reflow stress check
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js # dev-only checker; see docs/accessibility.md
 ```
 
@@ -113,4 +115,4 @@ See [LICENSE](LICENSE).
 - [Draft license boundary for *future* premium assets](business/premium-license-draft.md) — **not an operative contract**
 - [Validation and go/no-go plan](business/validation-plan.md)
 
-No paid kit has been shipped or put up for sale in this repository. No billing or license-key code is included. The Grid and Noir visual themes are original, not officially affiliated with any entertainment franchise. **Cyberline is a provisional name**, pending brand clearance.
+No paid kit has been shipped or put up for sale in this repository. No billing or license-key code is included. The Grid and Noir visual themes are original, not officially affiliated with any entertainment franchise. **Cyberline is a provisional name**, pending documented brand clearance. Do not treat the preliminary name-risk screen as permission for commercial branding.

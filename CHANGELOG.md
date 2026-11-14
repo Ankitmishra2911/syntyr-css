@@ -1,7 +1,8 @@
-## Unreleased
+## v0.3.0-alpha.2 (2026-11-14)
 
 - Improve text resize/reflow behavior of responsive buttons, one-column grids, badge text, and long headings.
 - Add a 320px enlarged-text regression suite; no JavaScript or new runtime packages.
+- Expose an opt-in design-partner call on both public entry pages; document provisional-name risks.
 
 - Verified WebKit in the official pinned Playwright Python container: 6 pages × 3 viewports; 54 checks total across Chromium/Firefox/WebKit.
 - Documented zoom-test limitations and manual screen-reader follow-up.

@@ -20,7 +20,8 @@
         <a href="#recipes">RECIPES</a>
         <a href="console-kit.html">CONSOLE KIT CONCEPT</a>
         <a href="#semantic">SEMANTIC MODE</a>
-        <a href="#accessibility">PRINCIPLES</a><a href="#examples">EXAMPLES</a>
+        <a href="#accessibility">PRINCIPLES</a>
+        <a href="#feedback">FEEDBACK</a><a href="#examples">EXAMPLES</a>
       </nav>
     </header>
     <main>
@@ -184,12 +185,12 @@
         <div class="docs-section-head"><h2 id="install-title">06 / Get started</h2><span class="cy-caption">COPY CSS / ZERO NPM / MIT</span></div>
         <div class="docs-two">
           <div>
-            <p class="cy-eyebrow">V0.3.0-ALPHA.1 / DISTRIBUTION</p>
+            <p class="cy-eyebrow">V0.3.0-ALPHA.2 / DISTRIBUTION</p>
             <h3 class="cy-heading">Use native HTML. Ship nothing extra.</h3>
             <p class="cy-muted">Download the compiled stylesheet and host it with your application. Grid and Noir are included in core. Semantic styling and effects stay optional.</p>
             <div class="cy-actions">
               <a class="cy-button cy-button--primary" href="../dist/cyberline.core.css" download>DOWNLOAD CORE CSS</a>
-              <a class="cy-button" href="https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1">RELEASE &amp; SOURCE</a>
+              <a class="cy-button" href="https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2">RELEASE &amp; SOURCE</a>
               <a class="cy-button cy-button--outline" href="../LICENSE">MIT LICENSE</a>
             </div>
           </div>
@@ -207,8 +208,22 @@
         <p class="cy-caption">Host the CSS at your own path. For tokens, nested themes, and styling examples, read <a href="https://github.com/dporkka/cyberline-css/blob/main/docs/theme-customization.md">the customization guide</a>. For optional modules, version pinning and CDN guidance, see <a href="https://github.com/dporkka/cyberline-css/blob/main/docs/distribution.md">the distribution guide</a>.</p>
       </section>
 
+      <section class="docs-section" id="feedback" aria-labelledby="feedback-title">
+        <div class="docs-section-head"><h2 id="feedback-title">07 / Review Cyberline in a real project</h2><span class="cy-caption">OPEN SOURCE / VOLUNTARY / NO PAYWALL</span></div>
+        <div class="cy-panel cy-panel--cut" data-cy-theme="noir">
+          <span class="cy-eyebrow">CALL FOR TEN DESIGN PARTNERS</span>
+          <h3 class="cy-heading">Help make HTML-first SaaS interfaces better.</h3>
+          <p class="cy-lede">Developers using Go/templ, HTMX, Astro, Rails, Django or plain HTML can test two original MIT-licensed dashboards and report integration friction, missing complete screens, and accessibility issues.</p>
+          <p class="cy-muted">The proposed $59 Console Kit is only a research concept. Nothing is for sale, and no personal details or payment are required.</p>
+          <div class="cy-actions">
+            <a class="cy-button cy-button--primary" href="https://github.com/dporkka/cyberline-css/issues/3">REVIEW AND SHARE FEEDBACK</a>
+            <a class="cy-button cy-button--outline" href="console-kit.html">VIEW KIT CONCEPT</a>
+          </div>
+        </div>
+      </section>
+
       <section class="docs-section" id="accessibility" aria-labelledby="accessibility-title">
-        <div class="docs-section-head"><h2 id="accessibility-title">07 / Engineering principles</h2><span class="cy-caption">BUILT FOR PRODUCTION AUDITS</span></div>
+        <div class="docs-section-head"><h2 id="accessibility-title">08 / Engineering principles</h2><span class="cy-caption">BUILT FOR PRODUCTION AUDITS</span></div>
         <div class="cy-grid">
           <article class="cy-panel"><span class="cy-eyebrow">LOW ENTROPY</span><h3 class="cy-heading">Just CSS</h3><p class="cy-muted">No browser JS, no external assets, no runtime package dependencies. Python only builds distributable files.</p></article>
           <article class="cy-panel"><span class="cy-eyebrow">PLATFORM FIRST</span><h3 class="cy-heading">Native controls</h3><p class="cy-muted">Real button, dialog, popover, select, details, input and progress. No faux ARIA tab or combobox implementations.</p></article>

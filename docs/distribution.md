@@ -5,7 +5,7 @@ icons, Sass compiler or CSS framework is required to use the distributed CSS.
 
 ## Recommended: self-host a versioned stylesheet
 
-1. Download the asset from the [GitHub release](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1), or copy the matching file from the tag.
+1. Download the asset from the [GitHub release](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2), or copy the matching file from the tag.
 2. Put `cyberline.core.css` in your application's static CSS directory.
 3. Load it normally:
 
@@ -38,7 +38,7 @@ Avoid loading these bundles alongside their component files: that duplicates CSS
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/dporkka/cyberline-css@v0.3.0-alpha.1/dist/cyberline.core.css">
+      href="https://cdn.jsdelivr.net/gh/dporkka/cyberline-css@v0.3.0-alpha.2/dist/cyberline.core.css">
 ```
 
 This is an *external* CDN (jsDelivr), not a Cyberline runtime dependency.
