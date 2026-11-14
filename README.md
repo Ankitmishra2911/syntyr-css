@@ -16,6 +16,7 @@
 - [Component gallery](https://dporkka.github.io/syntyr-css/docs/)
 - [Versioned release downloads](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
+- [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)

@@ -1,0 +1,105 @@
+/* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
+   These classes are separate from the small, stable core API. */
+@layer syn.recipes {
+  /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
+  .syn-app-shell {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    min-height: 100svh; min-width: 0;
+  }
+  .syn-app-rail {
+    display: flex; flex-direction: column; gap: var(--syn-space-2);
+    padding: var(--syn-space-3); border-block-end: 1px solid var(--syn-frame);
+    background: var(--syn-surface); color: var(--syn-text);
+  }
+  .syn-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+  .syn-app-nav a {
+    display: block; padding: .55rem .75rem; border-radius: var(--syn-radius);
+    color: var(--syn-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
+  }
+  .syn-app-nav a:where(:hover, [aria-current="page"]) {
+    color: var(--syn-accent); background: var(--syn-accent-soft);
+  }
+  .syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
+  .syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+  .syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
+  .syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
+  .syn-app-card {
+    min-width: 0; padding: var(--syn-space-3);
+    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+    background: var(--syn-surface); color: var(--syn-text);
+  }
+  .syn-app-card > :first-child { margin-block-start: 0; }
+  .syn-app-card > :last-child { margin-block-end: 0; }
+  .syn-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
+  .syn-app-card-header > :first-child { margin: 0; }
+  .syn-activity-list { list-style: none; margin: 0; padding: 0; }
+  .syn-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--syn-frame); }
+  .syn-activity-list li:last-child { border-block-end: 0; }
+  /* Business/marketing: typography and hierarchy without forcing a dark look. */
+  .syn-site-hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+    background: radial-gradient(ellipse at 80% 20%, var(--syn-accent-soft), transparent 56%), var(--syn-surface);
+    color: var(--syn-text);
+    padding: clamp(2rem, 6vw, 5rem);
+  }
+  .syn-site-hero::before {
+    content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
+    width: min(9rem, 40%); height: 3px; background: var(--syn-accent); pointer-events: none;
+  }
+  .syn-site-heading { font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
+  .syn-site-heading strong { color: var(--syn-accent); }
+  .syn-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--syn-space-2); }
+  .syn-feature-card { min-width: 0; padding: var(--syn-space-4); background: var(--syn-surface); color: var(--syn-text); border: 1px solid var(--syn-frame); border-radius: var(--syn-radius); }
+  .syn-feature-card > :first-child { margin-block-start: 0; }
+  .syn-feature-card > :last-child { margin-block-end: 0; }
+  .syn-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--syn-space-3); padding: var(--syn-space-4); background: var(--syn-accent-soft); color: var(--syn-text); border-inline-start: 3px solid var(--syn-accent); }
+  /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
+  .syn-terminal {
+    --syn-terminal-bg: #0b1625;
+    --syn-terminal-fg: #e6f4fa;
+    --syn-terminal-muted: #b6c8d8;
+    --syn-terminal-prompt: #85e7cf;
+    border: 1px solid var(--syn-frame-strong); border-radius: var(--syn-radius);
+    background: var(--syn-terminal-bg); color: var(--syn-terminal-fg);
+    font: 400 .85rem/1.65 var(--syn-mono); min-width: 0; overflow: hidden;
+  }
+  .syn-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--syn-terminal-muted); font-size: .73rem; }
+  .syn-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
+  .syn-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .syn-terminal-prompt { color: var(--syn-terminal-prompt); }
+  .syn-terminal-muted { color: var(--syn-terminal-muted); }
+  .syn-terminal-command { color: #f9dfad; }
+  .syn-terminal-success { color: #a1f1bf; }
+  .syn-terminal-error { color: #ffb6b2; }
+  .syn-terminal-warning { color: #ffe0a3; }
+  .syn-terminal-path { color: #b2dcff; }
+  .syn-terminal-meta { color: var(--syn-terminal-muted); font-size: .75em; letter-spacing: .06em; }
+  .syn-terminal-title { font-weight: 650; color: var(--syn-terminal-fg); overflow-wrap: anywhere; }
+  .syn-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
+  .syn-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
+  .syn-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
+  .syn-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
+  .syn-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  /* A static, non-blinking caret; it never suggests fake live input. */
+  .syn-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
+
+  /* Composable surface geometry; themes control colors, modifiers control shape. */
+  .syn-frame--precision { position: relative; border: 1px solid var(--syn-frame-strong); }
+  .syn-frame--precision::before {
+    content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
+    width: 3.5rem; height: 2px; background: var(--syn-accent); pointer-events: none;
+  }
+  .syn-frame--industrial { border-inline-start: 3px solid var(--syn-accent); background: linear-gradient(110deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); color: var(--syn-text); }
+  .syn-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+  @media (min-width: 53rem) {
+    .syn-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
+    .syn-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--syn-frame); }
+    .syn-app-nav { display: grid; }
+  }
+  @media (forced-colors: active) {
+    .syn-app-card, .syn-site-hero, .syn-feature-card, .syn-terminal, .syn-frame--precision, .syn-frame--industrial { border-color: CanvasText; }
+    .syn-frame--precision::before, .syn-site-hero::before { display: none; }
+    .syn-terminal { forced-color-adjust: auto; }
+  }
+}
