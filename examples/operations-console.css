@@ -1,0 +1,59 @@
+/* Free SYNTYR operations showcase layout. Page-level composition, not core API.
+   All content remains semantic and responsive without JavaScript or remote assets. */
+.ops-skip { position: absolute; inset-block-start: -10rem; inset-inline-start: 1rem; z-index: 20; }
+.ops-skip:focus { inset-block-start: 1rem; }
+.ops-rail-head { display: grid; gap: .4rem; }
+.ops-rail-foot { margin-block-start: auto; padding-block-start: 1.25rem; border-block-start: 1px solid var(--cy-frame); }
+.ops-rail-note { display: block; color: var(--cy-muted); font-size: .78rem; }
+.ops-heading-row { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; align-items: center; justify-content: space-between; }
+.ops-topnote { display: inline-flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.ops-workspace { display: grid; gap: clamp(1rem, 2.5vw, 1.75rem); }
+.ops-hero {
+  padding: clamp(1.35rem, 4vw, 2.5rem);
+  background: radial-gradient(ellipse at 90% 0%, var(--cy-accent-soft), transparent 58%), var(--cy-surface);
+}
+.ops-hero h1 { max-width: 18ch; font-size: clamp(1.7rem, 3.9vw, 3rem); margin: .6rem 0 1.1rem; }
+.ops-hero p { max-width: 62ch; }
+.ops-eyebrow { margin-block-end: .65rem; }
+.ops-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-block-start: 1.4rem; }
+.ops-metric {
+  display: grid; gap: .7rem;
+  background: var(--cy-surface);
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid var(--cy-frame);
+  min-width: 0;
+}
+.ops-metric p { margin: 0; }
+.ops-metric .cy-stat-value { overflow-wrap: anywhere; }
+.ops-metric .cy-caption { margin-block-start: .1rem; }
+.ops-section-title { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .4rem 1rem; }
+.ops-section-title > h2 { margin: 0; }
+.ops-split { display: grid; gap: var(--cy-space-3); grid-template-columns: minmax(0,1fr); }
+.ops-split > * { min-width: 0; }
+.ops-panel { padding: clamp(1rem, 2.4vw, 1.6rem); }
+.ops-panel > :last-child { margin-block-end: 0; }
+.ops-progresses { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.25rem; }
+.ops-progresses li { min-width: 0; }
+.ops-progress-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .3rem 1rem; margin-block-end: .45rem; font: 600 .8rem/1.4 var(--cy-mono); }
+.ops-progresses progress { display: block; width: 100%; }
+.ops-events { list-style: none; margin: 0; padding: 0; display: grid; gap: .25rem; }
+.ops-events li { min-width: 0; padding: .85rem 0 .85rem 1.1rem; border-inline-start: 2px solid var(--cy-frame-strong); }
+.ops-events li:first-child { border-inline-start-color: var(--cy-accent); }
+.ops-event-meta { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .3rem .8rem; }
+.ops-events p { margin: .4rem 0 0; color: var(--cy-muted); font-size: .88rem; }
+.ops-events time { font: .72rem/1.4 var(--cy-mono); color: var(--cy-muted); }
+.ops-log { margin-block: .8rem 0; }
+.ops-notice { padding: .8rem 1rem; border-inline-start: 3px solid var(--cy-warning); color: var(--cy-text); background: var(--cy-accent-soft); }
+.ops-panel details { margin-block-start: .75rem; }
+.ops-footer { padding-block: 1rem 2.5rem; color: var(--cy-muted); }
+@media (min-width: 70rem) {
+  .ops-split { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+}
+@media (forced-colors: active) {
+  .ops-metric, .ops-panel { border: 1px solid CanvasText; }
+  .ops-events li, .ops-notice { border-inline-start-color: CanvasText; }
+}
+
+/* Give keyboard and touch users an affordance for intentionally scrollable tables. */
+.ops-scroll-hint { display: none; margin: .55rem 0; font: .76rem/1.5 var(--cy-mono); color: var(--cy-muted); }
+@media (max-width: 50rem) { .ops-scroll-hint { display: block; } }

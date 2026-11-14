@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/saas.html",
-         "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html", "examples/geometry-terminal.html",
+         "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
+         "examples/operations-console.html", "examples/geometry-terminal.html",
          "examples/vertigo-admin.html")
 
 
@@ -56,6 +57,20 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1
         assert page.get_by_role("searchbox", name="SEARCH BY NAME").count() == 1
+    if name == "examples/operations-console.html":
+        assert page.get_by_role("heading", name="An operations console built on HTML.").count() == 1
+        assert page.locator(".cy-kpi-grid article").count() == 4
+        assert page.get_by_role("table").count() == 1
+        assert page.locator("progress").count() == 4
+        assert page.locator(".cy-terminal").count() == 1
+        noir = page.locator(".ops-metric[data-cy-theme='noir']")
+        assert noir.evaluate("e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()") == "#f1b574"
+        if viewport == 1280:
+            page.get_by_role("link", name="Skip to content").focus()
+            assert page.locator(":focus").evaluate("e => getComputedStyle(e).outlineStyle") != "none"
+            details = page.locator("#integration details").first
+            details.locator("summary").click()
+            assert details.evaluate("e => e.open"), "native disclosure should work without JS"
     if name == "examples/geometry-terminal.html":
         frames = page.locator(".cy-frame")
         assert frames.count() == 5, "all five frame profiles must render"

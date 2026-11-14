@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SYNTYR CSS operations console: free HTML/CSS SaaS reference with dashboards, data tables, diagnostics and responsive layouts.">
+  <meta name="theme-color" content="#080f19">
+  <title>SYNTYR / Operations Console</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.geometry.css">
+  <link rel="stylesheet" href="operations-console.css">
+</head>
+<body class="cy-root cy-page" data-cy-theme="grid">
+  <a class="cy-button ops-skip" href="#main">Skip to content</a>
+  <div class="cy-app-shell">
+    <aside class="cy-app-rail" aria-label="Console sidebar">
+      <div class="ops-rail-head">
+        <a class="cy-logo" href="../docs/index.html">SYNTYR / OPS</a>
+        <span class="cy-caption">WORKSPACE / DEMO ENVIRONMENT</span>
+      </div>
+      <nav class="cy-app-nav" aria-label="Operations sections">
+        <a href="#main" aria-current="page">Overview</a>
+        <a href="#deployments">Deployments</a>
+        <a href="#capacity">Capacity</a>
+        <a href="#activity">Activity</a>
+        <a href="#diagnostics">Diagnostics</a>
+        <a href="#integration">Integration notes</a>
+      </nav>
+      <div class="ops-rail-foot">
+        <span class="cy-status cy-status--success">Presentation ready</span>
+        <p class="ops-rail-note">ILLUSTRATIVE DATA ONLY. No live service connection.</p>
+        <p class="cy-caption">MIT CSS / ZERO RUNTIME JS</p>
+      </div>
+    </aside>
+
+    <main id="main" class="cy-workspace ops-workspace">
+      <header class="cy-app-topbar">
+        <div>
+          <p class="cy-eyebrow">OPERATIONS / CONTROL CENTER</p>
+          <p class="cy-muted">Workspace / Northstar infrastructure / Overview</p>
+        </div>
+        <div class="ops-topnote">
+          <span class="cy-badge">SIMULATED ENVIRONMENT</span>
+          <a class="cy-button cy-button--outline" href="../docs/index.html">Component reference</a>
+        </div>
+      </header>
+
+      <section class="ops-hero cy-frame cy-frame--bracket" aria-labelledby="hero-title">
+        <p class="cy-eyebrow ops-eyebrow">SYSTEM OVERVIEW / ORIGINAL SYNTYR DESIGN</p>
+        <h1 id="hero-title">An operations console built on HTML.</h1>
+        <p class="cy-lede">Readable telemetry, focused information hierarchy and distinctive futuristic framing. All content on this page is sample data, not a real-time monitoring service.</p>
+        <div class="ops-actions">
+          <a class="cy-button cy-button--primary" href="#deployments">Review deployments</a>
+          <a class="cy-button cy-button--ghost" href="#diagnostics">View diagnostics</a>
+        </div>
+      </section>
+
+      <section id="overview" aria-label="Illustrative operational metrics" class="cy-kpi-grid">
+        <article class="ops-metric cy-frame cy-frame--bevel">
+          <span class="cy-stat-label">REQUESTS PER HOUR</span>
+          <p class="cy-stat-value">8,241</p>
+          <span class="cy-status cy-status--success">Nominal traffic</span>
+          <p class="cy-caption">ILLUSTRATIVE DATA / LAST HOUR</p>
+        </article>
+        <article class="ops-metric">
+          <span class="cy-stat-label">SERVICE AVAILABILITY</span>
+          <p class="cy-stat-value">99.97%</p>
+          <span class="cy-status cy-status--success">Above target</span>
+          <p class="cy-caption">ILLUSTRATIVE DATA / 30 DAYS</p>
+        </article>
+        <article class="ops-metric">
+          <span class="cy-stat-label">ACTIVE DEPLOYMENTS</span>
+          <p class="cy-stat-value">28</p>
+          <span class="cy-status">Across 4 regions</span>
+          <p class="cy-caption">ILLUSTRATIVE DATA / CURRENT</p>
+        </article>
+        <article class="ops-metric" data-cy-theme="noir">
+          <span class="cy-stat-label">ITEMS NEEDING REVIEW</span>
+          <p class="cy-stat-value">02</p>
+          <span class="cy-status cy-status--warning">Review required</span>
+          <p class="cy-caption">ILLUSTRATIVE DATA / OPEN</p>
+        </article>
+      </section>
+
+      <div class="ops-split">
+        <section id="deployments" class="cy-app-card ops-panel" aria-labelledby="deployments-title">
+          <div class="ops-section-title">
+            <h2 id="deployments-title" class="cy-heading">Deployment health</h2>
+            <span class="cy-caption">ILLUSTRATIVE / FOUR SERVICES</span>
+          </div>
+          <p class="cy-muted">An operational table with explicit status labels, sensible numeric alignment and native table semantics.</p>
+          <p class="ops-scroll-hint" id="deployment-scroll-hint">Scroll horizontally inside the table to view all columns.</p>
+          <div class="cy-table-wrap" role="region" aria-label="Deployment status table" aria-describedby="deployment-scroll-hint" tabindex="0">
+            <table class="cy-table">
+              <caption class="cy-caption" style="text-align:left">Sample deployment status by service and region</caption>
+              <thead>
+                <tr><th scope="col">SERVICE</th><th scope="col">REGION</th><th scope="col">LATENCY</th><th scope="col">STATE</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Gateway API</th><td>us-east</td><td class="cy-cell--numeric">18 ms</td><td><span class="cy-status cy-status--success">Healthy</span></td></tr>
+                <tr><th scope="row">Worker Queue</th><td>eu-west</td><td class="cy-cell--numeric">42 ms</td><td><span class="cy-status cy-status--success">Healthy</span></td></tr>
+                <tr><th scope="row">Metrics Store</th><td>sa-east</td><td class="cy-cell--numeric">79 ms</td><td><span class="cy-status cy-status--warning">Degraded</span></td></tr>
+                <tr><th scope="row">Edge Cache</th><td>ap-south</td><td class="cy-cell--numeric">26 ms</td><td><span class="cy-status cy-status--success">Healthy</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="capacity" class="cy-app-card ops-panel" aria-labelledby="capacity-title">
+          <div class="ops-section-title">
+            <h2 id="capacity-title" class="cy-heading">Regional capacity</h2>
+            <span class="cy-caption">ILLUSTRATIVE / UTILIZATION</span>
+          </div>
+          <ul class="ops-progresses">
+            <li><div class="ops-progress-head"><label for="region-north">North America</label><span>72%</span></div><progress class="cy-meter" id="region-north" value="72" max="100">72%</progress></li>
+            <li><div class="ops-progress-head"><label for="region-europe">Europe</label><span>56%</span></div><progress class="cy-meter" id="region-europe" value="56" max="100">56%</progress></li>
+            <li><div class="ops-progress-head"><label for="region-south">South America</label><span>84%</span></div><progress class="cy-meter" id="region-south" value="84" max="100">84%</progress></li>
+            <li><div class="ops-progress-head"><label for="region-asia">Asia Pacific</label><span>47%</span></div><progress class="cy-meter" id="region-asia" value="47" max="100">47%</progress></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="ops-split">
+        <section id="activity" class="cy-app-card ops-panel" aria-labelledby="activity-title">
+          <div class="ops-section-title">
+            <h2 id="activity-title" class="cy-heading">Operations activity</h2>
+            <span class="cy-caption">ILLUSTRATIVE / EVENT STREAM</span>
+          </div>
+          <ol class="ops-events">
+            <li><div class="ops-event-meta"><strong>Deployment review completed</strong><time datetime="2026-11-14T15:24:00Z">15:24 UTC</time></div><p>Gateway API passed the example validation sequence.</p></li>
+            <li><div class="ops-event-meta"><strong>Traffic threshold checked</strong><time datetime="2026-11-14T14:10:00Z">14:10 UTC</time></div><p>Regional capacity sample reviewed against the fictional plan.</p></li>
+            <li><div class="ops-event-meta"><strong>Metrics snapshot recorded</strong><time datetime="2026-11-14T13:02:00Z">13:02 UTC</time></div><p>Daily dashboard snapshot generated for this sample workspace.</p></li>
+          </ol>
+        </section>
+
+        <section id="diagnostics" class="cy-app-card ops-panel" aria-labelledby="diagnostics-title">
+          <div class="ops-section-title">
+            <h2 id="diagnostics-title" class="cy-heading">Diagnostic transcript</h2>
+            <span class="cy-caption">ILLUSTRATIVE / READ ONLY</span>
+          </div>
+          <div class="cy-terminal ops-log" role="group" aria-label="Static sample command output">
+            <div class="cy-terminal-bar">
+              <span class="cy-terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span class="cy-terminal-title">operator@syntyr / workspace</span>
+              <span class="cy-terminal-meta">SAMPLE OUTPUT</span>
+            </div>
+            <div class="cy-terminal-body">
+              <span class="cy-terminal-line"><span class="cy-terminal-prompt">➜</span> <span class="cy-terminal-command">check --region all</span></span>
+              <span class="cy-terminal-line cy-terminal-success">✓ gateway latency / within target</span>
+              <span class="cy-terminal-line cy-terminal-success">✓ edge cache / healthy</span>
+              <span class="cy-terminal-line cy-terminal-warning">! metrics store / review queue</span>
+              <span class="cy-terminal-line cy-terminal-muted">3 checks completed in simulated mode</span>
+              <span class="cy-terminal-line"><span class="cy-terminal-prompt">➜</span> <span class="cy-terminal-cursor" aria-hidden="true"></span></span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section id="integration" class="cy-app-card ops-panel" aria-labelledby="integration-title">
+        <div class="ops-section-title">
+          <h2 id="integration-title" class="cy-heading">Implementation notes</h2>
+          <span class="cy-caption">HTML + CSS / FRAMEWORK INDEPENDENT</span>
+        </div>
+        <p class="ops-notice">This page is a static styling example: it does not authenticate, monitor services, fetch metrics or execute the displayed commands.</p>
+        <details class="cy-details">
+          <summary>How do I connect real application data?</summary>
+          <p>Render semantic HTML from your Go templates, Rust server, Django application or React components. Replace the example values with escaped server-provided data; use real backend authorization and input validation for operations.</p>
+        </details>
+        <details class="cy-details">
+          <summary>Does this require a frontend framework?</summary>
+          <p>No. The layout uses three standalone SYNTYR CSS modules and a local example stylesheet. Progressive enhancement with HTMX or Datastar is optional and belongs to the consuming application.</p>
+        </details>
+        <details class="cy-details">
+          <summary>Can I reuse this design commercially?</summary>
+          <p>Yes. This example is part of the MIT-licensed repository. Keep the required copyright and license notices when redistributing covered code.</p>
+        </details>
+      </section>
+      <footer class="cy-caption ops-footer">SYNTYR CSS / FREE MIT REFERENCE / ILLUSTRATIVE DATA / ZERO RUNTIME JAVASCRIPT</footer>
+    </main>
+  </div>
+</body>
+</html>
