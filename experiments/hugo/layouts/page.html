@@ -1,0 +1,9 @@
+{{ define "main" }}
+<article class="preview-content">
+  <p class="cy-eyebrow">GUIDE / CANONICAL MARKDOWN SOURCE</p>
+  {{ .Content }}
+</article>
+<nav aria-label="Documentation navigation">
+  <p><a class="cy-button" href="{{ "guide/" | relURL }}">All guides</a></p>
+</nav>
+{{ end }}

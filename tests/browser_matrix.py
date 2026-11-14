@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/themes.html",
-         "examples/saas.html", "examples/business.html", "examples/terminal.html")
+         "examples/saas.html", "examples/business.html", "examples/terminal.html",
+         "examples/vertigo-admin.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -126,6 +127,40 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert nested["gridInTerminal"]["cut"] == ".9rem", nested
             assert nested["justify"] == "space-between", nested
             assert nested["align"] == "center", nested
+    if name == "examples/vertigo-admin.html" and viewport == 1280:
+        def styles():
+            return page.evaluate("""() => {
+                const card = document.querySelector('.cy-vertigo-admin .card');
+                const button = document.querySelector('.cy-vertigo-admin button');
+                function themeColor(token) {
+                    const probe = document.createElement('span');
+                    probe.style.backgroundColor = 'var(' + token + ')';
+                    document.body.appendChild(probe);
+                    const value = getComputedStyle(probe).backgroundColor;
+                    probe.remove();
+                    return value;
+                }
+                return {
+                    cardBackground: getComputedStyle(card).backgroundColor,
+                    surface: themeColor('--cy-surface'),
+                    buttonBackground: getComputedStyle(button).backgroundColor,
+                    accent: themeColor('--cy-accent')
+                };
+            }""")
+        studio = styles()
+        assert studio["cardBackground"] == studio["surface"], studio
+        assert studio["buttonBackground"] == studio["accent"], studio
+        page.locator("body").evaluate("e => e.setAttribute('data-cy-theme', 'noir')")
+        noir = styles()
+        assert noir["cardBackground"] == noir["surface"], noir
+        assert noir["buttonBackground"] == noir["accent"], noir
+        assert noir["accent"] != studio["accent"], "theme override was ignored"
+        # Negative control: removing the optional adapter must remove its paint.
+        page.locator('link[href="../integrations/vertigo/admin.css"]').evaluate("e => e.remove()")
+        without_adapter = styles()
+        assert without_adapter["cardBackground"] != without_adapter["surface"], (
+            "adapter has no observable opt-in behavior"
+        )
     context.close()
 
 

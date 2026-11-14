@@ -1,0 +1,39 @@
+# Evaluation only. Live GitHub Pages still serves static HTML from main.
+baseURL = "https://example.invalid/cyberline-hugo-preview/"
+title = "Cyberline CSS — Hugo documentation proof"
+locale = "en-US"
+disableKinds = ["taxonomy", "term", "RSS"]
+enableGitInfo = false
+relativeURLs = false
+
+[markup.goldmark.renderer]
+unsafe = false
+
+# Existing docs Markdown is the source of truth; no theme or Go modules.
+[[module.mounts]]
+source = "content"
+target = "content"
+
+[[module.mounts]]
+source = "../../docs"
+target = "content/guide"
+files = ["*.md"]
+
+[[module.mounts]]
+source = "layouts"
+target = "layouts"
+
+[[module.mounts]]
+source = "../../dist"
+target = "static/dist"
+files = ["*.css"]
+
+[[module.mounts]]
+source = "../../examples"
+target = "static/examples"
+files = ["*.html"]
+
+[[module.mounts]]
+source = "../../terminal"
+target = "static/terminal"
+files = ["*.json"]

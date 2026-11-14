@@ -1,5 +1,10 @@
 ## Unreleased — v0.3.0-alpha.3 candidate
 
+- Add optional MIT CSS-only Vertigo admin skin and static preview, without changing Vertigo itself.
+- Add isolated Hugo docs proof and record static/Hugo/Zola tradeoffs; the live site remains unchanged.
+- Fix primary-action text disappearing under Chromium forced-colors using system colors and screenshot regressions.
+- Correct an ARIA group in the optional Vertigo preview and expand the browser and reflow matrices to eleven pages.
+
 - Add four original palettes (Industrial, Terminal, Corporate, Minimal) with explicit dark/light native control schemes alongside Grid and Noir.
 - Provide an opt-in finite CSS utility module for layout, spacing and visually hidden accessibility text.
 - Publish a static seven-theme comparison gallery and documentation while retaining the existing MIT, no-runtime-JS contract.

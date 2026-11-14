@@ -1,0 +1,8 @@
+{{ define "main" }}
+<section class="cy-panel cy-panel--cut" aria-labelledby="preview-title">
+  <span class="cy-eyebrow">DOCS ARCHITECTURE EXPERIMENT</span>
+  <h1 id="preview-title" class="cy-heading">{{ .Title }}</h1>
+  <div class="preview-content">{{ .Content }}</div>
+  <p><a class="cy-button cy-button--primary" href="{{ "guide/" | relURL }}">Read engineering guides</a></p>
+</section>
+{{ end }}

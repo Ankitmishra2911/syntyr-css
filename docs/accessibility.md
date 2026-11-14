@@ -96,15 +96,17 @@ provenance if incorporating it into build infrastructure.
 
 ## v0.3.0-alpha.3 candidate regression evidence (2026-11-14)
 
-The expanded matrix covers ten pages, including the new seven-theme gallery,
-Studio SaaS, business and browser-terminal examples. Chromium, Firefox and
-WebKit each passed 10 pages × 3 CSS viewport widths (320, 390, 1280), for
-**90 automated page/viewport cases**. Tests cover light/dark nested foregrounds,
+The latest matrix covers eleven pages, including the seven-theme gallery,
+Studio SaaS, business, browser-terminal and optional Vertigo admin examples.
+Chromium and Firefox passed 33 page/viewport cases each; the earlier ten-page
+branch passed WebKit, but exact-head WebKit coverage of the new Vertigo preview
+is pending. Tests cover light/dark nested foregrounds,
 geometry token isolation and composable utilities. A separate 17-test Chromium
-suite covers native interactions and layout.
+suite covers native interactions and layout. Enlarged-text reflow passed
+44 cases in each of Chromium and Firefox on the eleven-page branch.
 
-axe-core 4.10.3 returned **zero automated WCAG A/AA violations** across ten
-pages, with **nine inconclusive checks**, primarily where decorative gradients
+axe-core 4.10.3 returned **zero automated WCAG A/AA violations** across eleven
+pages, with **nine inconclusive rule results affecting 270 elements**, primarily where decorative gradients
 make automated color contrast indeterminate. Human inspection is still required.
 
 For reproducible build sizes, distribution checks and remaining release gates,

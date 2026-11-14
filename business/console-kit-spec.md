@@ -1,6 +1,6 @@
 # Cyberline Console Kit — proposed premium product specification
 
-**Status: proposal only; not built, available for sale, or accepting orders.** The CSS core, both themes, component classes, examples, recipe gallery and a11y fixes are MIT and remain free. This commercial product consists of new, original, separately licensed and clearly marked screen-level compositions.
+**Status: private prototype built, not for sale or accepting orders.** The private preview contains eight original screen types × Grid, Noir and Studio (24 generated variants), but no operative commercial license, checkout, customer distribution or validated buyer commitments. The MIT CSS core, all existing free themes, component classes, examples, recipe gallery and accessibility fixes remain free. Any future paid product must separately identify new original screen-level compositions and its operative license.
 
 ## Primary buyer and job-to-be-done
 

@@ -1,0 +1,13 @@
+{{- $destination := .Destination -}}
+{{- if eq $destination "index.html" -}}
+  {{- $destination = "guide/" | relURL -}}
+{{- else if strings.HasSuffix $destination ".md" -}}
+  {{- $destination = printf "guide/%s/" (strings.TrimSuffix ".md" $destination) | relURL -}}
+{{- else if strings.HasPrefix $destination "../examples/" -}}
+  {{- $destination = strings.TrimPrefix "../" $destination | relURL -}}
+{{- else if strings.HasPrefix $destination "../terminal/" -}}
+  {{- $destination = strings.TrimPrefix "../" $destination | relURL -}}
+{{- else if strings.HasPrefix $destination "../LICENSE" -}}
+  {{- $destination = "https://github.com/dporkka/cyberline-css/blob/main/LICENSE" -}}
+{{- end -}}
+<a href="{{ $destination }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>

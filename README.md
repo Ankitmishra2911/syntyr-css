@@ -23,7 +23,10 @@
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 - [Seven-theme CSS comparison gallery](examples/themes.html)
+- [Optional Vertigo admin demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
+- [Hugo/Zola/static docs decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
 - [Unreleased alpha.3 verification and remaining gates](RELEASE_CHECKS_ALPHA3.md)
+- [Alpha.3 accessibility element-level review and outstanding manual gates](docs/accessibility-alpha3-review.md)
 
 Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
