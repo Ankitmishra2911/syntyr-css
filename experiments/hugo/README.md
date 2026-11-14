@@ -36,3 +36,11 @@ migration have been deliberately planned.
 
 Current decision: **do not migrate**. Keep serving existing static HTML and
 add Hugo only if the documentation content and maintenance demands grow.
+
+## Validation recorded
+
+Official Hugo v0.170.0 generated 11 HTML pages from the current repository
+Markdown and templates. The standard-library verification script passed 67
+internal references and confirmed that the output contained neither
+JavaScript script tags nor Python source/cache files. This is a build smoke
+test, not a hosted production deployment or full visual-accessibility audit.

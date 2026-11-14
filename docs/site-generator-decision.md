@@ -87,3 +87,21 @@ Vertigo to Cyberline's customer portal only if buyers need retained
 entitlements, team licenses, or authenticated download management.
 One-time hosted checkout and private delivery should be validated before
 adding a persistent application stack.
+
+## Verified Hugo preview result
+
+Using official Hugo **v0.170.0**, the isolated build rendered **11 HTML
+pages** directly from the existing Cyberline Markdown guides and its two
+preview landing/section pages. The verification script checked **67 local
+links** and rejected browser JavaScript and unintended copied Python files.
+The input uses the live repository CSS and example HTML through native Hugo
+module mounts. The preview is not a public Pages deployment.
+
+Repeat the check with a pinned Hugo binary:
+
+~~~sh
+python3 scripts/verify_hugo_preview.py --hugo /path/to/hugo
+~~~
+
+This establishes feasibility, not a benefit large enough to justify migrating
+the current live site or its existing permalink structure.

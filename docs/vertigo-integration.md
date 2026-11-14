@@ -66,3 +66,18 @@ own tests, if enough customers request it.
 
 The styling adapter is independent of Hugo and Zola. Cyberline's static
 site does not need a Vertigo process to use this CSS.
+
+## Verified scope (November 14, 2026)
+
+- Chromium, Firefox and WebKit passed browser interaction/viewport checks
+  on the optional static admin preview at 320, 390 and 1280px.
+- Automated tests checked that the existing Vertigo-style card and button
+  class names actually render Cyberline surface/accent tokens in Studio and
+  Noir, then checked that removing the optional stylesheet removes its paint.
+- Enlarged-text reflow cases passed in Chromium, Firefox and WebKit.
+- axe-core 4.10.3 recorded no confirmed automated WCAG-tagged violations on
+  the static adapter demo, but one inconclusive check requires manual review.
+  Actual screen-reader and browser zoom testing remain incomplete.
+
+These are presentation-level checks of a standalone HTML example, not
+end-to-end verification of Vertigo's authenticated resource CRUD screens.
