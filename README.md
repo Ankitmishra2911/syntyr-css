@@ -20,6 +20,7 @@
 - [Tagged GitHub releases](https://github.com/dporkka/syntyr-css/releases)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
+- [Performance validation protocol and measured CSS size baseline](docs/performance-validation.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)

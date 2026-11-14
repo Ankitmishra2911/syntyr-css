@@ -81,8 +81,23 @@ Cloudflare routing may normalize trailing-slash URLs. Check for 301/308
 redirects as well as final 200 responses. The `_headers` file applies
 security and cache policy without adding application JavaScript.
 
+## CI release checks
+
+`.woodpecker/quality.yaml` gates pull requests and `main` pushes with
+Python-only CSS verification, the repository contract tests, the allowlisted
+Cloudflare output and deterministic release packaging. The existing Cloudflare
+build command independently runs the same Python tests.
+
+`.woodpecker/browser.yaml` is a manual/tag release gate using Playwright's
+pinned browser image (Chromium, Firefox and WebKit), enlarged-text reflow and
+the theme editor. Configuring the pipeline is **not** proof that the Woodpecker
+repository is activated or a pipeline executed. Require a real successful
+run on the exact proposed commit before declaring CI green.
+
 ## Performance validation
 
 Measure WebPageTest/Lighthouse in several regions and on mobile.
 Track LCP, CLS, INP, transfer bytes, and first-load connection overhead.
 Cloudflare reduces distance to content but does not fix CSS render costs.
+
+For comparative measurement rules, see [performance validation](performance-validation.md).
