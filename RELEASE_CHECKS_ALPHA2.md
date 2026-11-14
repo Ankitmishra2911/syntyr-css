@@ -1,7 +1,7 @@
-# Cyberline v0.3.0-alpha.2 — release-candidate evidence
+# Cyberline v0.3.0-alpha.3 — release-candidate evidence
 
 Status: **unreleased**, [PR #2](https://github.com/dporkka/cyberline-css/pull/2).
-Validated 2026-11-14. The published `v0.3.0-alpha.1` tag remains unchanged.
+Validated 2026-11-14. The published `v0.3.0-alpha.2` tag is a distinct Studio/CLI release and does not contain this seven-theme candidate.
 This document does not claim full production readiness.
 
 ## Automated verification

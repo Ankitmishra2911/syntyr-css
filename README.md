@@ -1,6 +1,6 @@
 # Cyberline CSS
 
-**Experimental v0.3.0-alpha.2 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
+**Experimental v0.3.0-alpha.3 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
 
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
@@ -14,7 +14,7 @@
 
 - [Live website](https://dporkka.github.io/cyberline-css/)
 - [Component gallery](https://dporkka.github.io/cyberline-css/docs/)
-- [Versioned release downloads](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1)
+- [Latest published v0.3.0-alpha.2 (Studio/CLI release)](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
@@ -23,7 +23,7 @@
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 - [Seven-theme CSS comparison gallery](examples/themes.html)
-- [Unreleased alpha.2 verification and remaining gates](RELEASE_CHECKS_ALPHA2.md)
+- [Unreleased alpha.3 verification and remaining gates](RELEASE_CHECKS_ALPHA2.md)
 
 Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
@@ -80,7 +80,7 @@ For production-oriented examples, load `cyberline.core.css` **then** `cyberline.
 
 **Native CLI apps cannot consume CSS.** Instead, use `terminal/palettes.json` with Go, Rust, Python or another CLI implementation to define ANSI 16-color palettes and foreground/background preferences. See the [stdlib Python demonstration](examples/ansi_cli.py) and [integration guide](docs/saas-cli-business.md). Respect `NO_COLOR`, TTY detection and user terminal preferences.
 
-All additions are MIT licensed and do not change the core runtime dependency contract. These development-branch enhancements are **not part of the published v0.3.0-alpha.1 release** until a new release is cut.
+All additions are MIT licensed and do not change the core runtime dependency contract. These development-branch enhancements are **not part of the published v0.3.0-alpha.2 release** until a new release is cut.
 
 ## Development and verification
 

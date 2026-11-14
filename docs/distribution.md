@@ -5,7 +5,7 @@ icons, Sass compiler or CSS framework is required to use the distributed CSS.
 
 ## Recommended: self-host a versioned stylesheet
 
-1. Download the asset from the [GitHub release](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.1), or copy the matching file from the tag.
+1. Download the asset from the [GitHub release](https://github.com/dporkka/cyberline-css/releases/tag/v0.3.0-alpha.2), or copy the matching file from the tag.
 2. Put `cyberline.core.css` in your application's static CSS directory.
 3. Load it normally:
 
@@ -24,9 +24,9 @@ renderers. Add `cy-page` to the root only if you want full-page min-height.
 
 The current source tree's core CSS ships seven themes: `grid`, `noir`,
 `studio`, `industrial`, `terminal`, `corporate` and `minimal`. Set
-`data-cy-theme` on the scoped root or any nested region. The historical
-`v0.3.0-alpha.1` release tag contains only Grid and Noir; the new themes
-are not in that already-published release.
+`data-cy-theme` on the scoped root or any nested region. The published `v0.3.0-alpha.2` release has Grid, Noir and Studio; the
+additional Industrial, Terminal, Corporate and Minimal themes are only in this
+unreleased alpha.3 source candidate.
 
 Load `cyberline.semantic.css` after core **only** if you want automatic semantic
 element styles within `.cy-semantic`. For static glows and decorative grid
@@ -42,7 +42,7 @@ Avoid loading these bundles alongside their component files: that duplicates CSS
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/dporkka/cyberline-css@v0.3.0-alpha.1/dist/cyberline.core.css">
+      href="https://cdn.jsdelivr.net/gh/dporkka/cyberline-css@v0.3.0-alpha.2/dist/cyberline.core.css">
 ```
 
 This is an *external* CDN (jsDelivr), not a Cyberline runtime dependency.

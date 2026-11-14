@@ -92,7 +92,7 @@ provenance if incorporating it into build infrastructure.
 6. Validate both the default Grid/Noir palettes and any project-specific
    token overrides for text contrast and non-text essential indicators.
 
-## v0.3.0-alpha.2 candidate regression evidence (2026-11-14)
+## v0.3.0-alpha.3 candidate regression evidence (2026-11-14)
 
 The expanded matrix covers ten pages, including the new seven-theme gallery,
 Studio SaaS, business and browser-terminal examples. Chromium, Firefox and
@@ -106,4 +106,4 @@ pages, with **nine inconclusive checks**, primarily where decorative gradients
 make automated color contrast indeterminate. Human inspection is still required.
 
 For reproducible build sizes, distribution checks and remaining release gates,
-see [the alpha.2 candidate evidence](../RELEASE_CHECKS_ALPHA2.md).
+see [the alpha.3 candidate evidence](../RELEASE_CHECKS_ALPHA2.md).
