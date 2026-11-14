@@ -7,6 +7,7 @@
   <meta name="description" content="Cyberline: a zero-JavaScript, dependency-free cyberpunk CSS starter.">
   <title>Cyberline CSS — Zero-JS Interface System</title>
   <link rel="stylesheet" href="dist/cyberline.css">
+  <link rel="stylesheet" href="dist/cyberline.recipes.css">
 </head>
 <body class="cy-root cy-page" data-cy-theme="grid">
   <div class="cy-shell">
@@ -15,12 +16,13 @@
       <nav class="cy-nav" aria-label="Page navigation">
         <a href="#grid">GRID</a>
         <a href="#noir">NOIR</a>
+        <a href="#studio">STUDIO</a>
         <a href="#components">COMPONENTS</a>
         <a href="docs/">COMPONENT GALLERY</a>
       </nav>
     </header>
     <main id="top">
-      <section id="grid" class="cy-stage cy-grid-effect" data-cy-theme="grid" aria-labelledby="grid-title">
+      <section id="grid" class="cy-stage cy-horizon" data-cy-theme="grid" aria-labelledby="grid-title">
         <div class="cy-stage-header"><span class="cy-eyebrow">01 / GRID PROTOCOL</span><span class="cy-badge">SYSTEM ONLINE</span></div>
         <div class="cy-layout">
           <div>
@@ -58,7 +60,7 @@
         </div>
       </section>
 
-      <section id="noir" class="cy-stage" data-cy-theme="noir" aria-labelledby="noir-title">
+      <section id="noir" class="cy-stage cy-atmosphere" data-cy-theme="noir" aria-labelledby="noir-title">
         <div class="cy-stage-header"><span class="cy-eyebrow">02 / NOIR DISTRICT</span><span class="cy-badge">SECTOR 09</span></div>
         <div class="cy-layout">
           <div>
@@ -79,8 +81,31 @@
         </div>
       </section>
 
+      <section id="studio" class="cy-stage" data-cy-theme="studio" aria-labelledby="studio-title">
+        <div class="cy-stage-header"><span class="cy-eyebrow">03 / STUDIO WORKSPACE</span><span class="cy-badge">PROFESSIONAL UI</span></div>
+        <div class="cy-layout">
+          <div>
+            <p class="cy-eyebrow">MODERN BUSINESS / LOW DEPENDENCY</p>
+            <h2 class="cy-title" id="studio-title">Professional by design.</h2>
+            <p class="cy-lede">A restrained, readable light theme for SaaS interfaces, operations tools and business websites.</p>
+            <div class="cy-actions">
+              <a class="cy-button cy-button--primary" href="examples/saas.html">VIEW SAAS EXAMPLE</a>
+              <a class="cy-button cy-button--outline" href="examples/business.html">VIEW BUSINESS WEBSITE</a>
+              <a class="cy-button" href="examples/terminal.html">CLI + TERMINAL</a>
+            </div>
+          </div>
+          <article class="cy-app-card cy-frame--soft" aria-label="Illustrative team metrics">
+            <p class="cy-eyebrow">OPERATIONS / DAILY VIEW</p>
+            <h3 class="cy-heading">Workspace status</h3>
+            <p class="cy-stat-value">99.9%</p><span class="cy-status cy-status--success">Healthy</span>
+            <hr class="cy-rule">
+            <p class="cy-muted">Native CSS components, container-friendly layouts and zero client-side JavaScript.</p>
+          </article>
+        </div>
+      </section>
+
       <section id="components" class="cy-stage" aria-labelledby="components-title">
-        <p class="cy-eyebrow">03 / PRIMITIVE COMPONENTS</p>
+        <p class="cy-eyebrow">04 / PRIMITIVE COMPONENTS</p>
         <h2 id="components-title" class="cy-heading">The foundation</h2>
         <div class="cy-grid">
           <div class="cy-panel cy-panel--cut"><p class="cy-eyebrow">DATA / NATIVE TABLE</p><div class="cy-table-wrap"><table class="cy-table"><thead><tr><th scope="col">NODE</th><th scope="col">STATUS</th></tr></thead><tbody><tr><td>AX-92</td><td>ONLINE</td></tr><tr><td>KX-14</td><td>READY</td></tr><tr><td>TR-08</td><td>ONLINE</td></tr></tbody></table></div></div>

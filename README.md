@@ -1,6 +1,6 @@
 # Cyberline CSS
 
-**Experimental v0.3.0-alpha.1** — framework-neutral, low-dependency, CSS-first styling for futuristic, TRON-inspired Grid and Blade Runner-inspired Noir websites.
+**Experimental v0.3.0-alpha.1** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
 
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
@@ -24,7 +24,7 @@ Use the release ZIP, copy `dist/cyberline.core.css` into your static assets, and
 
 ## Start in 10 seconds
 
-Open [docs/index.html](docs/index.html) in a browser. Or use the free [console example](examples/console.html), [Noir landing page](examples/landing.html), and [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
+Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
 
 ```html
 <link rel="stylesheet" href="cyberline.core.css">
@@ -50,7 +50,7 @@ For semantic mode, add `cyberline.semantic.css` **after** core:
 </div>
 ```
 
-`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` between `grid` and `noir`, including nested themed areas.
+`cy-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-cy-theme` between `grid`, `noir` and `studio`, including nested themed areas.
 
 ## Build outputs
 
@@ -59,10 +59,22 @@ For semantic mode, add `cyberline.semantic.css` **after** core:
 | `dist/cyberline.core.css` | Tokens, scoped base, components (default choice) |
 | `dist/cyberline.semantic.css` | Optional semantic HTML styling (load after core) |
 | `dist/cyberline.effects.css` | Optional, static decorative effects |
+| `dist/cyberline.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
+| `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
 | `dist/cyberline.css` | Backwards-compatible core + effects bundle |
 | `dist/cyberline.all.css` | All modules (semantic still opt-in by class) |
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+
+## Modern SaaS, CLI and business websites
+
+Use `data-cy-theme="studio"` for a neutral, professional light theme. The original dark Grid and Noir palettes remain available. The theme changes colors, while optional `cy-frame--precision`, `cy-frame--industrial` and `cy-frame--soft` classes control visual geometry independently.
+
+For production-oriented examples, load `cyberline.core.css` **then** `cyberline.recipes.css` for responsive application shells (`cy-app-shell`), business landing layouts (`cy-site-hero`) and browser terminal panels (`cy-terminal`). Continue to use real headings, tables, labels, links and forms. The recipes provide layout and presentation, not authentication, data fetching, filtering or backend actions.
+
+**Native CLI apps cannot consume CSS.** Instead, use `terminal/palettes.json` with Go, Rust, Python or another CLI implementation to define ANSI 16-color palettes and foreground/background preferences. See the [stdlib Python demonstration](examples/ansi_cli.py) and [integration guide](docs/saas-cli-business.md). Respect `NO_COLOR`, TTY detection and user terminal preferences.
+
+All additions are MIT licensed and do not change the core runtime dependency contract. These development-branch enhancements are **not part of the published v0.3.0-alpha.1 release** until a new release is cut.
 
 ## Development and verification
 

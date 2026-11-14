@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cyberline CSS terminal documentation example and dependency-free ANSI CLI theme companion.">
+  <title>Cyberline — Terminal & CLI</title>
+  <link rel="stylesheet" href="../dist/cyberline.core.css">
+  <link rel="stylesheet" href="../dist/cyberline.recipes.css">
+  <style>
+    .cli-hero { padding-block:clamp(3rem,7vw,5rem) 2rem; }
+    .cli-grid { display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); }
+    .cli-section { margin-block:2rem; }
+    .cli-options { display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; }
+  </style>
+</head>
+<body class="cy-root cy-page" data-cy-theme="grid">
+  <div class="cy-shell">
+    <header class="cy-header">
+      <a class="cy-logo" href="../docs/index.html">// CYBERLINE</a>
+      <nav class="cy-nav" aria-label="Sections"><a href="#preview">Preview</a><a href="#native">Native CLI</a><a href="#themes">Themes</a></nav>
+    </header>
+    <main>
+      <section class="cli-hero" aria-labelledby="title">
+        <p class="cy-eyebrow">TERMINAL / INTERFACE SYSTEM</p>
+        <h1 class="cy-title" id="title">Interfaces beyond the browser.</h1>
+        <p class="cy-lede">Style terminal previews with CSS, and use the matching JSON color palettes for real terminal applications. No JavaScript or CLI framework required.</p>
+        <div class="cy-actions"><a class="cy-button cy-button--primary" href="#preview">View terminal</a><a class="cy-button cy-button--outline" href="../terminal/palettes.json">View palettes JSON</a></div>
+      </section>
+      <section id="preview" class="cli-section cy-frame--precision" aria-labelledby="preview-heading">
+        <h2 class="cy-heading" id="preview-heading">Browser terminal surface</h2>
+        <div class="cy-terminal" role="group" aria-label="Illustrative shell transcript">
+          <div class="cy-terminal-bar"><span>CYBERLINE / DEVTOOLS</span><span>READ-ONLY DEMO</span></div>
+          <pre class="cy-terminal-body"><code><span class="cy-terminal-line"><span class="cy-terminal-prompt">$ </span><span class="cy-terminal-command">cyberline doctor</span></span>
+<span class="cy-terminal-line cy-terminal-muted">Checking project environment...</span>
+<span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  HTML semantics</span>
+<span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  Stylesheet budgets</span>
+<span class="cy-terminal-line"><span class="cy-terminal-success">PASS</span>  No runtime JavaScript</span>
+<span class="cy-terminal-line"><span class="cy-terminal-prompt">$ </span><span class="cy-terminal-command">cyberline themes --list</span></span>
+<span class="cy-terminal-line">grid  noir  studio</span></code></pre>
+        </div>
+        <p class="cy-caption">The transcript is fictional. It is a static HTML example, not an interactive shell.</p>
+      </section>
+      <div class="cli-grid cli-section">
+        <section id="native" class="cy-app-card cy-frame--industrial" aria-labelledby="native-heading">
+          <h2 class="cy-heading" id="native-heading">For native terminal applications</h2>
+          <p>CSS cannot style an actual shell process. Use <code class="cy-code">terminal/palettes.json</code> as a shared color contract in Go, Rust, Python, or your preferred CLI stack.</p>
+          <p>Use ANSI SGR colors only when output is to a color-capable TTY. Honor <code class="cy-code">NO_COLOR</code>, <code class="cy-code">CLICOLOR=0</code> and <code class="cy-code">TERM=dumb</code>. Logs and pipes should remain plain text.</p>
+          <a href="ansi_cli.py">Read stdlib Python CLI example</a>
+        </section>
+        <section id="themes" class="cy-app-card" aria-labelledby="themes-heading">
+          <h2 class="cy-heading" id="themes-heading">One palette, multiple contexts</h2>
+          <p class="cy-muted">Grid: technical dark mode. Noir: cinematic dark mode. Studio: restrained professional light mode.</p>
+          <div class="cli-options">
+            <span class="cy-badge">GRID</span><span class="cy-badge" data-cy-theme="noir">NOIR</span><span class="cy-badge" data-cy-theme="studio">STUDIO</span>
+          </div>
+          <p>Terminal colors are suggestions for application themes—not guaranteed to override a user's terminal emulator settings.</p>
+        </section>
+      </div>
+    </main>
+    <footer class="cy-header"><span class="cy-caption">CYBERLINE / PORTABLE THEMES / MIT LICENSE</span><a href="../docs/index.html">Component gallery</a></footer>
+  </div>
+</body>
+</html>

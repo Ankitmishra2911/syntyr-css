@@ -1,5 +1,5 @@
-/* Cyberline token contract. Unlayered app CSS can override all defaults. */
-@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.effects;
+/* Cyberline token contract. Host application CSS can override layered defaults. */
+@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
 
 @layer cy.tokens {
   :where(.cy-root) {
@@ -19,32 +19,56 @@
     --cy-duration-fast: 150ms;
   }
   :where(.cy-root), :where(.cy-root[data-cy-theme="grid"], .cy-root [data-cy-theme="grid"]) {
+    color-scheme: dark;
     --cy-bg: #080f19;
     --cy-surface: #111f2c;
     --cy-surface-hi: #172a3b;
     --cy-text: #edf9ff;
     --cy-muted: #adbfca;
     --cy-accent: #76e7f7;
+    --cy-accent-2: #f7b06c;
     --cy-on-accent: #07121a;
     --cy-frame: #345569;
+    --cy-frame-strong: #5086a0;
     --cy-danger: #ffaaa4;
     --cy-success: #8ce6bb;
     --cy-warning: #ffd08b;
     --cy-accent-soft: rgb(118 231 247 / 11%);
   }
   :where(.cy-root[data-cy-theme="noir"], .cy-root [data-cy-theme="noir"]) {
+    color-scheme: dark;
     --cy-bg: #0e0e12;
     --cy-surface: #1c1b20;
     --cy-surface-hi: #2a2628;
     --cy-text: #f8eee5;
     --cy-muted: #c3b5aa;
     --cy-accent: #f1b574;
+    --cy-accent-2: #9acfd5;
     --cy-on-accent: #1c100b;
     --cy-frame: #625048;
+    --cy-frame-strong: #9a7557;
     --cy-danger: #ffc1ac;
     --cy-success: #a5e4bc;
     --cy-warning: #fbd18c;
     --cy-accent-soft: rgb(241 181 116 / 10%);
+  }
+  /* Professional, contrast-oriented light palette for SaaS and business sites. */
+  :where(.cy-root[data-cy-theme="studio"], .cy-root [data-cy-theme="studio"]) {
+    color-scheme: light;
+    --cy-bg: #f5f7fb;
+    --cy-surface: #ffffff;
+    --cy-surface-hi: #eaf0f8;
+    --cy-text: #15233a;
+    --cy-muted: #4b5d76;
+    --cy-accent: #2458c6;
+    --cy-accent-2: #176b80;
+    --cy-on-accent: #ffffff;
+    --cy-frame: #b8c6d8;
+    --cy-frame-strong: #6685b2;
+    --cy-danger: #ad2637;
+    --cy-success: #17694b;
+    --cy-warning: #92500a;
+    --cy-accent-soft: rgb(36 88 198 / 9%);
   }
 }
 @layer cy.base {
@@ -212,7 +236,16 @@
   .cy-table { width: 100%; border-collapse: collapse; text-align: left; font: .75rem/1.65 var(--cy-mono); }
   .cy-table th, .cy-table td { padding: .7rem .6rem; border-block-end: 1px solid var(--cy-frame); white-space: nowrap; }
   .cy-table th { color: var(--cy-muted); font-weight: 550; }
-  .cy-table td:last-child { color: var(--cy-accent); }
+  /* No implicit last-column accent: table columns may contain any kind of data. */
+  .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
+  .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
+  .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
+  .cy-status--success { color: var(--cy-success); }
+  .cy-status--warning { color: var(--cy-warning); }
+  .cy-status--danger { color: var(--cy-danger); }
+  @media (forced-colors: active) {
+    .cy-status::before { border: 1px solid currentColor; }
+  }
 }
 /* Portable app/marketing compositions, inspired by patterns rather than code from UI kits.
    A named container prevents viewport-dependent components. All styles stay opt-in. */

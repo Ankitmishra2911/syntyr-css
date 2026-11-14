@@ -1,5 +1,5 @@
-/* Cyberline token contract. Unlayered app CSS can override all defaults. */
-@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.effects;
+/* Cyberline token contract. Host application CSS can override layered defaults. */
+@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
 
 @layer cy.tokens {
   :where(.cy-root) {
@@ -19,32 +19,56 @@
     --cy-duration-fast: 150ms;
   }
   :where(.cy-root), :where(.cy-root[data-cy-theme="grid"], .cy-root [data-cy-theme="grid"]) {
+    color-scheme: dark;
     --cy-bg: #080f19;
     --cy-surface: #111f2c;
     --cy-surface-hi: #172a3b;
     --cy-text: #edf9ff;
     --cy-muted: #adbfca;
     --cy-accent: #76e7f7;
+    --cy-accent-2: #f7b06c;
     --cy-on-accent: #07121a;
     --cy-frame: #345569;
+    --cy-frame-strong: #5086a0;
     --cy-danger: #ffaaa4;
     --cy-success: #8ce6bb;
     --cy-warning: #ffd08b;
     --cy-accent-soft: rgb(118 231 247 / 11%);
   }
   :where(.cy-root[data-cy-theme="noir"], .cy-root [data-cy-theme="noir"]) {
+    color-scheme: dark;
     --cy-bg: #0e0e12;
     --cy-surface: #1c1b20;
     --cy-surface-hi: #2a2628;
     --cy-text: #f8eee5;
     --cy-muted: #c3b5aa;
     --cy-accent: #f1b574;
+    --cy-accent-2: #9acfd5;
     --cy-on-accent: #1c100b;
     --cy-frame: #625048;
+    --cy-frame-strong: #9a7557;
     --cy-danger: #ffc1ac;
     --cy-success: #a5e4bc;
     --cy-warning: #fbd18c;
     --cy-accent-soft: rgb(241 181 116 / 10%);
+  }
+  /* Professional, contrast-oriented light palette for SaaS and business sites. */
+  :where(.cy-root[data-cy-theme="studio"], .cy-root [data-cy-theme="studio"]) {
+    color-scheme: light;
+    --cy-bg: #f5f7fb;
+    --cy-surface: #ffffff;
+    --cy-surface-hi: #eaf0f8;
+    --cy-text: #15233a;
+    --cy-muted: #4b5d76;
+    --cy-accent: #2458c6;
+    --cy-accent-2: #176b80;
+    --cy-on-accent: #ffffff;
+    --cy-frame: #b8c6d8;
+    --cy-frame-strong: #6685b2;
+    --cy-danger: #ad2637;
+    --cy-success: #17694b;
+    --cy-warning: #92500a;
+    --cy-accent-soft: rgb(36 88 198 / 9%);
   }
 }
 @layer cy.base {
@@ -212,7 +236,16 @@
   .cy-table { width: 100%; border-collapse: collapse; text-align: left; font: .75rem/1.65 var(--cy-mono); }
   .cy-table th, .cy-table td { padding: .7rem .6rem; border-block-end: 1px solid var(--cy-frame); white-space: nowrap; }
   .cy-table th { color: var(--cy-muted); font-weight: 550; }
-  .cy-table td:last-child { color: var(--cy-accent); }
+  /* No implicit last-column accent: table columns may contain any kind of data. */
+  .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
+  .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
+  .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
+  .cy-status--success { color: var(--cy-success); }
+  .cy-status--warning { color: var(--cy-warning); }
+  .cy-status--danger { color: var(--cy-danger); }
+  @media (forced-colors: active) {
+    .cy-status::before { border: 1px solid currentColor; }
+  }
 }
 /* Portable app/marketing compositions, inspired by patterns rather than code from UI kits.
    A named container prevents viewport-dependent components. All styles stay opt-in. */
@@ -282,7 +315,98 @@
     .cy-semantic :where(button:not([class]), input:not([class]), select:not([class]), textarea:not([class]), article:not([class]), fieldset:not([class])) { border-color: CanvasText; }
   }
 }
-/* Optional static cyberpunk effects. No paints or animations run by default. */
+/* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
+   These classes are separate from the small, stable core API. */
+@layer cy.recipes {
+  /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
+  .cy-app-shell {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    min-height: 100svh; min-width: 0;
+  }
+  .cy-app-rail {
+    display: flex; flex-direction: column; gap: var(--cy-space-2);
+    padding: var(--cy-space-3); border-block-end: 1px solid var(--cy-frame);
+    background: var(--cy-surface);
+  }
+  .cy-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+  .cy-app-nav a {
+    display: block; padding: .55rem .75rem; border-radius: var(--cy-radius);
+    color: var(--cy-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
+  }
+  .cy-app-nav a:where(:hover, [aria-current="page"]) {
+    color: var(--cy-accent); background: var(--cy-accent-soft);
+  }
+  .cy-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--cy-accent); }
+  .cy-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+  .cy-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
+  .cy-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cy-space-2); }
+  .cy-app-card {
+    min-width: 0; padding: var(--cy-space-3);
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: var(--cy-surface);
+  }
+  .cy-app-card > :first-child { margin-block-start: 0; }
+  .cy-app-card > :last-child { margin-block-end: 0; }
+  .cy-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
+  .cy-app-card-header > :first-child { margin: 0; }
+  .cy-activity-list { list-style: none; margin: 0; padding: 0; }
+  .cy-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--cy-frame); }
+  .cy-activity-list li:last-child { border-block-end: 0; }
+  /* Business/marketing: typography and hierarchy without forcing a dark look. */
+  .cy-site-hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: radial-gradient(ellipse at 80% 20%, var(--cy-accent-soft), transparent 56%), var(--cy-surface);
+    padding: clamp(2rem, 6vw, 5rem);
+  }
+  .cy-site-hero::before {
+    content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
+    width: min(9rem, 40%); height: 3px; background: var(--cy-accent); pointer-events: none;
+  }
+  .cy-site-heading { font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
+  .cy-site-heading strong { color: var(--cy-accent); }
+  .cy-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--cy-space-2); }
+  .cy-feature-card { min-width: 0; padding: var(--cy-space-4); background: var(--cy-surface); border: 1px solid var(--cy-frame); border-radius: var(--cy-radius); }
+  .cy-feature-card > :first-child { margin-block-start: 0; }
+  .cy-feature-card > :last-child { margin-block-end: 0; }
+  .cy-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--cy-space-3); padding: var(--cy-space-4); background: var(--cy-accent-soft); border-inline-start: 3px solid var(--cy-accent); }
+  /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
+  .cy-terminal {
+    --cy-terminal-bg: #0b1625;
+    --cy-terminal-fg: #e6f4fa;
+    --cy-terminal-muted: #b6c8d8;
+    --cy-terminal-prompt: #85e7cf;
+    border: 1px solid var(--cy-frame-strong); border-radius: var(--cy-radius);
+    background: var(--cy-terminal-bg); color: var(--cy-terminal-fg);
+    font: 400 .85rem/1.65 var(--cy-mono); min-width: 0; overflow: hidden;
+  }
+  .cy-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--cy-terminal-muted); font-size: .73rem; }
+  .cy-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
+  .cy-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .cy-terminal-prompt { color: var(--cy-terminal-prompt); }
+  .cy-terminal-muted { color: var(--cy-terminal-muted); }
+  .cy-terminal-command { color: #f9dfad; }
+  .cy-terminal-success { color: #a1f1bf; }
+  /* Composable surface geometry; themes control colors, modifiers control shape. */
+  .cy-frame--precision { position: relative; border: 1px solid var(--cy-frame-strong); }
+  .cy-frame--precision::before {
+    content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
+    width: 3.5rem; height: 2px; background: var(--cy-accent); pointer-events: none;
+  }
+  .cy-frame--industrial { border-inline-start: 3px solid var(--cy-accent); background: linear-gradient(110deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); }
+  .cy-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+  @media (min-width: 53rem) {
+    .cy-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
+    .cy-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--cy-frame); }
+    .cy-app-nav { display: grid; }
+  }
+  @media (forced-colors: active) {
+    .cy-app-card, .cy-site-hero, .cy-feature-card, .cy-terminal, .cy-frame--precision, .cy-frame--industrial { border-color: CanvasText; }
+    .cy-frame--precision::before, .cy-site-hero::before { display: none; }
+    .cy-terminal { forced-color-adjust: auto; }
+  }
+}
+/* Optional, static cinematic effects. Never animated or loaded by core. */
 @layer cy.effects {
   .cy-grid-effect {
     background-image:
@@ -291,10 +415,28 @@
     background-size: 2rem 2rem;
   }
   .cy-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--cy-accent), transparent 88%); }
+  /* Tron-like technical horizon: low-opacity CSS gradients, not a canvas. */
+  .cy-horizon {
+    background-image:
+      linear-gradient(to bottom, transparent 45%, var(--cy-bg) 100%),
+      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--cy-accent), transparent 90%) calc(3rem - 1px) 3rem),
+      radial-gradient(ellipse at 70% 20%, var(--cy-accent-soft), transparent 55%);
+  }
+  /* Blade Runner-like mood without images, remote assets, blur or movement. */
+  .cy-atmosphere {
+    background-image:
+      radial-gradient(ellipse at 85% 10%, var(--cy-accent-soft), transparent 55%),
+      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--cy-accent-2), transparent 94%), transparent 60%);
+    background-color: var(--cy-bg);
+  }
   .cy-scanlines { position: relative; isolation: isolate; }
   .cy-scanlines::after {
     content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
     background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
   }
-  @media (forced-colors: active) { .cy-scanlines::after { display: none; } }
+  @media (forced-colors: active) {
+    .cy-scanlines::after { display: none; }
+    .cy-horizon, .cy-atmosphere { background-image: none; }
+  }
 }

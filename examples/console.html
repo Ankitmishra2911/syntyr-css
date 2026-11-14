@@ -25,7 +25,7 @@
 <body class="cy-root cy-page" data-cy-theme="grid">
   <a class="cy-button cy-button--small example-skip" href="#main">SKIP TO CONTENT</a>
   <div class="example-split">
-    <aside class="example-rail" aria-label="Console navigation">
+    <aside class="example-rail cy-atmosphere" aria-label="Console navigation">
       <a class="cy-logo" href="../docs/index.html">// CYBERLINE</a>
       <p class="cy-eyebrow" style="margin-top:1.5rem">GRID CONTROL / 04</p>
       <nav aria-label="Sections">
@@ -35,23 +35,23 @@
       </nav>
       <p class="cy-caption">FREE EXAMPLE • MIT • ZERO JS</p>
     </aside>
-    <main id="main" class="example-main">
+    <main id="main" class="example-main cy-horizon">
       <header class="cy-header" style="padding-top:0">
         <div><p class="cy-eyebrow">REAL HTML / LIVE DEMO</p><h1 class="cy-title" style="margin:0">Control center</h1></div>
         <span class="cy-badge">SYSTEM NOMINAL</span>
       </header>
       <p class="cy-lede">A production-shaped dashboard layout without a component runtime. Figures are illustrative.</p>
       <section class="example-kpis" aria-label="Illustrative system metrics">
-        <article class="cy-panel cy-panel--cut"><span class="cy-caption">UPTIME</span><p class="cy-metric">99.8%</p><progress class="cy-meter" value="99.8" max="100" aria-label="Uptime">99.8%</progress></article>
-        <article class="cy-panel cy-panel--cut"><span class="cy-caption">CONNECTED NODES</span><p class="cy-metric">024</p><span class="cy-badge">STABLE</span></article>
-        <article class="cy-panel cy-panel--cut"><span class="cy-caption">PENDING ACTIONS</span><p class="cy-metric">003</p><span class="cy-caption">REQUIRES REVIEW</span></article>
+        <article class="cy-panel cy-panel--cut cy-frame--precision"><span class="cy-caption">UPTIME</span><p class="cy-metric">99.8%</p><progress class="cy-meter" value="99.8" max="100" aria-label="Uptime">99.8%</progress></article>
+        <article class="cy-panel cy-panel--cut cy-frame--precision"><span class="cy-caption">CONNECTED NODES</span><p class="cy-metric">024</p><span class="cy-badge">STABLE</span></article>
+        <article class="cy-panel cy-panel--cut cy-frame--precision"><span class="cy-caption">PENDING ACTIONS</span><p class="cy-metric">003</p><span class="cy-caption">REQUIRES REVIEW</span></article>
       </section>
       <div class="cy-grid">
-        <section id="nodes" class="cy-panel cy-panel--cut">
+        <section id="nodes" class="cy-panel cy-panel--cut cy-frame--precision">
           <div class="example-panel-head"><h2 class="cy-heading">Active nodes</h2><span class="cy-eyebrow">SECTOR GRID</span></div>
           <div class="cy-table-wrap"><table class="cy-table"><caption class="cy-caption" style="text-align:left">Sample telemetry data</caption><thead><tr><th scope="col">NODE</th><th scope="col">LATENCY</th><th scope="col">STATE</th></tr></thead><tbody><tr><td>SE-01</td><td>18 ms</td><td>ONLINE</td></tr><tr><td>SE-02</td><td>23 ms</td><td>ONLINE</td></tr><tr><td>NW-07</td><td>31 ms</td><td>REVIEW</td></tr></tbody></table></div>
         </section>
-        <section id="operations" class="cy-panel cy-panel--cut">
+        <section id="operations" class="cy-panel cy-panel--cut cy-frame--precision">
           <div class="example-panel-head"><h2 class="cy-heading">Operations</h2><span class="cy-eyebrow">NATIVE CONTROLS</span></div>
           <p class="cy-lede">Dialog and popover interactions work with supported HTML commands—no JavaScript.</p>
           <div class="cy-inline"><button class="cy-button cy-button--primary" type="button" popovertarget="console-actions">OPEN ACTIONS</button><button class="cy-button cy-button--outline" type="button" commandfor="console-dialog" command="show-modal">VIEW REPORT</button></div>

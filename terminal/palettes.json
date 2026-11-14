@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Original Cyberline terminal palettes. ANSI indices 0-15 are standard/bright colors; applications control when and whether to emit ANSI sequences.",
+  "themes": {
+    "grid": {
+      "background": "#080f19",
+      "foreground": "#edf9ff",
+      "accent": "#76e7f7",
+      "cursor": "#76e7f7",
+      "ansi": [
+        "#080f19",
+        "#f28d87",
+        "#8ce6bb",
+        "#ffd08b",
+        "#76bdf7",
+        "#b99af7",
+        "#76e7f7",
+        "#dceaf4",
+        "#647787",
+        "#ffaaa4",
+        "#a4ffd2",
+        "#ffe3ac",
+        "#a1d5ff",
+        "#d4b9ff",
+        "#a3f7ff",
+        "#ffffff"
+      ]
+    },
+    "noir": {
+      "background": "#0e0e12",
+      "foreground": "#f8eee5",
+      "accent": "#f1b574",
+      "cursor": "#f1b574",
+      "ansi": [
+        "#0e0e12",
+        "#d48377",
+        "#a5e4bc",
+        "#fbd18c",
+        "#99bed7",
+        "#d6aad5",
+        "#82d9e1",
+        "#f4e8df",
+        "#806e66",
+        "#ffc1ac",
+        "#c3f2d1",
+        "#ffe0ad",
+        "#b6ddf1",
+        "#eed4eb",
+        "#acebf0",
+        "#ffffff"
+      ]
+    },
+    "studio": {
+      "background": "#f5f7fb",
+      "foreground": "#15233a",
+      "accent": "#2458c6",
+      "cursor": "#2458c6",
+      "ansi": [
+        "#15233a",
+        "#ad2637",
+        "#17694b",
+        "#92500a",
+        "#2458c6",
+        "#7452ad",
+        "#176b80",
+        "#eaf0f8",
+        "#4b5d76",
+        "#bd4050",
+        "#237d5b",
+        "#aa6510",
+        "#3975d8",
+        "#9466c4",
+        "#17859c",
+        "#ffffff"
+      ]
+    }
+  }
+}

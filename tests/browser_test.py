@@ -183,5 +183,42 @@ class BrowserTests(unittest.TestCase):
         color = self.page.get_by_role('button', name='OPEN COMMAND').evaluate('e => getComputedStyle(e).borderTopStyle')
         self.assertEqual(color, 'solid')
 
+    def test_studio_theme_is_scoped_and_uses_light_controls(self):
+        studio = self.page.locator('#themes [data-cy-theme="studio"]')
+        self.assertEqual(studio.count(), 1)
+        self.assertEqual(studio.evaluate(
+            "e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()"), '#2458c6')
+        self.assertEqual(studio.evaluate("e => getComputedStyle(e).colorScheme"), 'light')
+        self.assertEqual(self.page.locator('body').evaluate(
+            "e => getComputedStyle(e).colorScheme"), 'dark')
+
+    def test_new_recipes_have_no_mobile_overflow_and_work_at_desktop_width(self):
+        core = (ROOT / 'dist/cyberline.core.css').read_text()
+        recipes = (ROOT / 'dist/cyberline.recipes.css').read_text()
+        for example in ('saas.html', 'business.html', 'terminal.html'):
+            with self.subTest(example=example):
+                html = (ROOT / 'examples' / example).read_text()
+                html = html.replace('<link rel="stylesheet" href="../dist/cyberline.core.css">',
+                                    f'<style>{core}</style>')
+                html = html.replace('<link rel="stylesheet" href="../dist/cyberline.recipes.css">',
+                                    f'<style>{recipes}</style>')
+                for width in (360, 1280):
+                    with self.subTest(width=width):
+                        self.page.set_viewport_size({'width': width, 'height': 900})
+                        self.page.set_content(html)
+                        metrics = self.page.evaluate(
+                            "() => ({scrollWidth: document.documentElement.scrollWidth, "
+                            "clientWidth: document.documentElement.clientWidth})")
+                        self.assertLessEqual(metrics['scrollWidth'],
+                                             metrics['clientWidth'] + 1, metrics)
+                        self.assertEqual(self.page.locator('main').count(), 1)
+                if example == 'saas.html':
+                    self.assertEqual(self.page.locator('.cy-app-shell').count(), 1)
+                    self.assertEqual(self.page.locator('.cy-table .cy-status').count(), 3)
+                if example == 'terminal.html':
+                    self.assertEqual(self.page.locator('.cy-terminal').evaluate(
+                        'e => getComputedStyle(e).backgroundColor'), 'rgb(11, 22, 37)')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

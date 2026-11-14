@@ -1,8 +1,20 @@
+<<<<<<< HEAD
 ## Unreleased
 
 - Add a free original Noir resource-index screen and theme-customization guide.
 - Publish an honest $59 Console Kit concept and feedback entry point without taking payment.
 - Fix duplicate gallery meta description and invalid ARIA on palette swatches; add browser-matrix and optional axe-core verification scripts.
+||||||| parent of 3633c60 (feat: add studio SaaS, business and terminal design system)
+=======
+## Unreleased — SaaS, CLI and business styling
+
+- Add professional light Studio theme alongside existing Grid and Noir.
+- Add separate, opt-in CSS recipes for SaaS application shells, business pages and browser terminals.
+- Export ANSI 16-color palettes and a stdlib Python CLI example for native terminal apps (CSS itself cannot style terminals).
+- Add original MIT demo pages for SaaS, business and terminal contexts, and explicit table status styling.
+- Add optional static horizon/atmosphere effects and enhance the Grid/Noir demos without continuous animation.
+- Retain zero runtime JavaScript, CSS bundle budgets and semantic HTML contracts.
+>>>>>>> 3633c60 (feat: add studio SaaS, business and terminal design system)
 
 ## v0.3.0-alpha.1 (2026-11-14)
 

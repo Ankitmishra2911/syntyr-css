@@ -7,5 +7,14 @@
   .cy-table { width: 100%; border-collapse: collapse; text-align: left; font: .75rem/1.65 var(--cy-mono); }
   .cy-table th, .cy-table td { padding: .7rem .6rem; border-block-end: 1px solid var(--cy-frame); white-space: nowrap; }
   .cy-table th { color: var(--cy-muted); font-weight: 550; }
-  .cy-table td:last-child { color: var(--cy-accent); }
+  /* No implicit last-column accent: table columns may contain any kind of data. */
+  .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
+  .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
+  .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
+  .cy-status--success { color: var(--cy-success); }
+  .cy-status--warning { color: var(--cy-warning); }
+  .cy-status--danger { color: var(--cy-danger); }
+  @media (forced-colors: active) {
+    .cy-status::before { border: 1px solid currentColor; }
+  }
 }

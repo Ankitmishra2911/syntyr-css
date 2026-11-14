@@ -129,4 +129,25 @@ Button state: `.cy-button[aria-pressed="true"]` is a pressed **toggle button**; 
 
 Additional inherited tokens: `--cy-ease`, `--cy-duration-fast`, `--cy-success`, `--cy-warning`. Extend themes with unlayered `.cy-root[data-cy-theme="custom"] { --cy-accent: ... }` CSS. Test contrast for your own values.
 
+<<<<<<< HEAD
 See [theme customization and token overrides](theme-customization.md), [MIT composition recipes](recipes.md) and [Tailwind architectural research](tailwind-research.md).
+||||||| parent of 3633c60 (feat: add studio SaaS, business and terminal design system)
+See [MIT composition recipes](recipes.md) and [Tailwind architectural research](tailwind-research.md).
+=======
+See [MIT composition recipes](recipes.md) and [Tailwind architectural research](tailwind-research.md).
+
+## Optional SaaS, business and CLI compositions (development branch)
+
+Load `cyberline.core.css` first and `cyberline.recipes.css` second. The core size budget is unchanged.
+
+| Context | Optional classes |
+| --- | --- |
+| SaaS | `.cy-app-shell`, `.cy-app-rail`, `.cy-app-nav`, `.cy-workspace`, `.cy-app-topbar`, `.cy-kpi-grid`, `.cy-app-card`, `.cy-activity-list` |
+| Business website | `.cy-site-hero`, `.cy-site-heading`, `.cy-feature-grid`, `.cy-feature-card`, `.cy-cta-band` |
+| Browser terminal | `.cy-terminal`, `.cy-terminal-bar`, `.cy-terminal-body`, `.cy-terminal-line`, `.cy-terminal-prompt` |
+| Surface design | `.cy-frame--precision`, `.cy-frame--industrial`, `.cy-frame--soft` |
+
+Professional light mode: `data-cy-theme="studio"`. Colors and geometry are intentionally independent. Use `.cy-table-emphasis` for explicit cell highlighting instead of relying on last-column position; `.cy-status--success`, `--warning`, or `--danger` should always accompany readable status text.
+
+Native terminal applications cannot render CSS. Use `terminal/palettes.json` as the portable color reference. See [usage and accessibility guidance](saas-cli-business.md). All new visual classes are optional and require no runtime JavaScript.
+>>>>>>> 3633c60 (feat: add studio SaaS, business and terminal design system)
