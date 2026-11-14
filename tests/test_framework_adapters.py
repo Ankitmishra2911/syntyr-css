@@ -11,6 +11,8 @@ class FrameworkAdaptersTest(unittest.TestCase):
             self.assertIn(selector, css)
         for variable in ("--vg-bg", "--vg-text", "--vg-primary", "--vg-focus"):
             self.assertIn(variable, css)
+        self.assertIn(".syn-vertigo .vg-topbar-inner { flex-wrap: wrap; }", css)
+        self.assertIn("overflow-wrap: anywhere;", css)
         self.assertNotIn("@import", css)
         self.assertNotIn("url(", css)
 

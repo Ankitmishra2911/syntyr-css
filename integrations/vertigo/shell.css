@@ -29,6 +29,14 @@ body.syn-root.syn-vertigo:is([data-syn-theme="grid"], [data-syn-theme="noir"]) {
   background: var(--syn-surface);
   border-bottom: 1px solid var(--syn-frame);
 }
+/* At 400% text zoom, a 320px viewport cannot fit the brand and both links
+ * on one row. Allow navigation to wrap instead of escaping the viewport. */
+.syn-vertigo .vg-topbar-inner { flex-wrap: wrap; }
+/* Long unbroken labels and collapsed details summaries can exceed a narrow
+ * reading column at 400% text zoom; allow emergency word breaks. */
+.syn-vertigo :is(.vg-main, .vg-main label, .vg-main summary, .vg-main .views, .vg-main .pager, .vg-main .actions) {
+  overflow-wrap: anywhere;
+}
 .syn-vertigo .vg-brand { color: var(--syn-text); }
 .syn-vertigo .vg-nav a { color: var(--syn-muted); }
 .syn-vertigo .vg-nav a:hover,
