@@ -29,7 +29,7 @@ You can nest differently themed elements.
 Load `syntyr.semantic.css` after core **only** if you want automatic semantic
 element styles within `.syn-semantic`. For static glows and decorative grid
 effects, load `syntyr.effects.css` after core. SaaS, business and terminal layouts
-are opt-in via `syntyr.recipes.css`. Optional frame geometry is in `syntyr.geometry.css` (or legacy `syntyr.geometry.css`).
+are opt-in via `syntyr.recipes.css`. Optional frame geometry is in `syntyr.geometry.css`.
 
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.syn-semantic` to opt into semantic element styles.
@@ -48,7 +48,7 @@ For production reliability, self-host your copy and control cache headers.
 
 ## Release artifacts and guarantees
 
-The downloadable ZIP contains seven SYNTYR CSS distributions plus seven byte-identical legacy Syntyr compatibility files and the terminal
+The downloadable ZIP contains seven SYNTYR CSS distributions and the terminal
 ANSI palette JSON, this guide, the MIT
 license, and the README. The ZIP is created deterministically using only
 Python's standard library:
@@ -64,4 +64,4 @@ premium templates, if introduced, will be independently authored and sold
 separately. This v0.3 alpha is **not** a v1 production compatibility guarantee;
 cross-browser and full accessibility audits are still release gates.
 
-For existing Syntyr integration paths and the unchanged `syn-` selectors, see [brand migration](brand-migration.md).
+All supported public CSS selectors use the `syn-` namespace. No legacy CSS aliases are shipped.

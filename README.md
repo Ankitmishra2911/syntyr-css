@@ -8,6 +8,7 @@
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.syn-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
+- **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
 
 ## Live gallery and installation
@@ -17,6 +18,7 @@
 - [Versioned release downloads](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
+- [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
 - [Public design-partner review issue (seeking 10 participants)](https://github.com/dporkka/syntyr-css/issues/3)
@@ -73,7 +75,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.css` | Backwards-compatible core + effects bundle |
 | `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
 
-Legacy `dist/syntyr.geometry.css` is byte-identical to `dist/syntyr.geometry.css`. The new geometry module is opt-in; neither the core bundle nor existing selectors require it.
+The geometry module is opt-in; neither the core bundle nor ordinary component selectors require it.
 
 The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
@@ -103,6 +105,7 @@ python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit # enlarged-text reflow stress check
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js # dev-only checker; see docs/accessibility.md
+python3 tests/theme_editor_browser.py # optional docs-only editor browser checks
 ```
 
 The browser scripts require `playwright` and a Chromium browser to be present; it autodetects `chromium` or `chromium-browser`, or accepts `PLAYWRIGHT_CHROMIUM_EXECUTABLE`; consumers of the CSS do **not** require either. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.

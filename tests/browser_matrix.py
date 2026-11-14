@@ -53,6 +53,22 @@ def assert_page(browser, name: str, viewport: int) -> None:
         details = page.locator("#components details").first
         details.locator("summary").click()
         assert details.evaluate("e => e.open"), "disclosure cannot open"
+        # New HTML-first navigation and static loading states must render in-browser.
+        breadcrumb = page.get_by_role("navigation", name="Breadcrumb")
+        assert breadcrumb.get_by_text("Component gallery").get_attribute("aria-current") == "page"
+        pages = page.get_by_role("navigation", name="Gallery sections")
+        assert pages.get_by_role("link").count() == 3
+        first_page_link = pages.get_by_role("link").first
+        assert first_page_link.evaluate("e => e.getBoundingClientRect().height") >= 44
+        # Match keyboard modality before programmatic focus: focus-visible is
+        # intentionally not required after a pointer-originated interaction.
+        page.keyboard.press("Tab")
+        first_page_link.focus()
+        assert first_page_link.evaluate("e => getComputedStyle(e).outlineStyle") != "none"
+        skeleton = page.locator(".syn-skeleton").first
+        assert skeleton.get_attribute("aria-hidden") == "true"
+        assert skeleton.evaluate("e => getComputedStyle(e).animationName") == "none"
+        assert skeleton.evaluate("e => getComputedStyle(e).backgroundColor") != "rgba(0, 0, 0, 0)"
     if name == "examples/resources.html":
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1
