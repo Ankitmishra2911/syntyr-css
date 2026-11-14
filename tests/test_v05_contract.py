@@ -7,11 +7,12 @@ import unittest
 from test_contract import contrast
 
 ROOT = Path(__file__).resolve().parents[1]
-THEMES = ("grid", "noir", "industrial", "terminal", "corporate", "minimal")
+THEMES = ("grid", "noir", "studio", "industrial", "terminal", "corporate", "minimal")
 REQUIRED_TOKENS = (
     "--cy-bg", "--cy-surface", "--cy-surface-hi", "--cy-text",
     "--cy-muted", "--cy-accent", "--cy-on-accent", "--cy-frame",
     "--cy-danger", "--cy-success", "--cy-warning", "--cy-accent-soft",
+    "--cy-accent-2", "--cy-frame-strong",
 )
 
 
@@ -66,6 +67,7 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         geometry = {
             "grid": (".25rem", ".9rem"),
             "noir": (".25rem", ".9rem"),
+            "studio": (".25rem", ".9rem"),
             "industrial": (".15rem", ".45rem"),
             "terminal": ("0", "0"),
             "corporate": (".5rem", "0"),
@@ -76,7 +78,7 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
                 self.assertIn(f'.cy-root [data-cy-theme="{name}"]', source)
                 tokens = theme_rules(source, name)
                 self.assertEqual(tokens.get("color-scheme"),
-                                 "light" if name in ("corporate", "minimal") else "dark")
+                                 "light" if name in ("studio", "corporate", "minimal") else "dark")
                 self.assertEqual(tokens.get("--cy-radius"), geometry[name][0])
                 self.assertEqual(tokens.get("--cy-cut"), geometry[name][1])
 
@@ -101,7 +103,7 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         from scripts.package_release import FILES
         self.assertIn("dist/cyberline.utilities.css", FILES)
 
-    def test_six_theme_gallery_is_static_accessible_and_discoverable(self):
+    def test_seven_theme_gallery_is_static_accessible_and_discoverable(self):
         demo = (ROOT / "examples/themes.html").read_text()
         parser = ThemeParser()
         parser.feed(demo)
@@ -110,7 +112,7 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
         self.assertIn("cyberline.utilities.css", demo)
         self.assertNotIn('class="cy-grid" aria-label=', demo, "unroled div should not have an aria-label")
         self.assertNotIn('<button type="button"', demo, "gallery controls must perform navigation")
-        self.assertEqual(demo.count('href="../docs/#components"'), 6)
+        self.assertEqual(demo.count('href="../docs/#components"'), 7)
         self.assertIn('href="../examples/themes.html"', (ROOT / "docs/index.html").read_text())
         guide = (ROOT / "docs/theme-customization.md").read_text()
         for theme in THEMES:

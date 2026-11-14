@@ -1,50 +1,62 @@
 # Cyberline v0.3.0-alpha.2 — release-candidate evidence
 
-Status: **unreleased**, PR [#2](https://github.com/dporkka/cyberline-css/pull/2).
-Reviewed 2026-11-14. This is not a claim of full production readiness or a
-newly published GitHub release. The published `v0.3.0-alpha.1` remains unchanged.
+Status: **unreleased**, [PR #2](https://github.com/dporkka/cyberline-css/pull/2).
+Validated 2026-11-14. The published `v0.3.0-alpha.1` tag remains unchanged.
+This document does not claim full production readiness.
 
-## Automated validation
+## Automated verification
 
 | Gate | Result |
 | --- | --- |
-| Unit and distribution contracts | PASS — 38/38 |
-| Chromium interaction tests | PASS — 14/14, including native popover/dialog, keyboard, container queries, forms and forced-color border |
-| Chromium browser matrix | PASS — 7 pages × 320, 390 and 1280 CSS px (21 cases) |
-| Firefox browser matrix | PASS — 7 pages × 3 widths (21 cases) |
-| WebKit browser matrix | PASS — 7 pages × 3 widths (21 cases), verified in an isolated official Playwright container |
-| Six-theme nested boundary checks | PASS — light-inside-dark and dark-inside-light foregrounds and color schemes, Grid geometry inside Terminal, utility precedence |
-| axe-core 4.10.3 tagged WCAG 2/2.1/2.2 A/AA | 0 automated violations across 7 pages; **9 inconclusive checks requiring manual review** |
-| CSS stylesheet parsing (tinycss2) | PASS — no top-level syntax errors across six distribution files |
-| Reproducible distributions | PASS — `python3 scripts/build.py --check` |
-| Source and ZIP release contract | PASS — deterministic 9-file ZIP including optional utilities |
-| Core size | 4,388 bytes gzip, within 5,120-byte budget |
-| All-module size | 5,319 bytes gzip, within 8,192-byte budget |
-| Library runtime JavaScript / npm | 0 / 0 |
+| Standard-library unit/distribution contracts | PASS — 51/51 |
+| Chromium interaction tests | PASS — 17/17 (native popover/dialog, keyboard, forms, responsive layouts, forced-color border) |
+| Chromium browser matrix | PASS — 10 pages × 320, 390, 1280 CSS px (30 cases) |
+| Firefox browser matrix | PASS — 10 pages × 3 widths (30 cases) |
+| WebKit browser matrix | PASS — 10 pages × 3 widths (30 cases), isolated Playwright container |
+| Seven-theme nesting and utility contracts | PASS — light inside dark, dark inside light, geometry isolation, utility precedence |
+| axe-core 4.10.3 tagged WCAG 2/2.1/2.2 A/AA | 0 automated violations across 10 pages; **9 inconclusive checks requiring manual review** |
+| CSS parsing with developer-only tinycss2 | PASS — 7 distribution files, zero top-level syntax errors |
+| Deterministic build and release packaging | PASS — `scripts/build.py --check` and reproducible 11-file ZIP (CSS, terminal palette data, MIT license, docs) |
+| Core stylesheet | 4,684 bytes gzip (limit 5,120) |
+| Backwards-compatible core + effects | 5,102 bytes gzip (legacy limit 5,120) |
+| Full CSS bundle | 6,957 bytes gzip (limit 8,192) |
+| Library runtime JavaScript / npm dependencies | 0 / 0 |
 
-The WebKit matrix was run with Python Playwright 1.64.1 against the browser
-binaries already present in the official
-`mcr.microsoft.com/playwright:v1.64.0-noble` test-only image. The UI is
-independent of the container and does not ship browser tooling.
+The isolated WebKit run uses Python Playwright 1.64.1 and the WebKit browser
+provided in the cached official test-only
+`mcr.microsoft.com/playwright:v1.64.0-noble` image. Browser tooling is not
+shipped to consumers. Core/semantic/effects/recipes/utilities can be self-hosted
+without an application build step.
 
-The test sequence reproduced three real review findings before their fixes:
-nested theme text could retain the outer foreground; Grid/Noir geometry
-could inherit another theme's corner tokens; and `cy-u-center` could
-override `cy-u-between`. Regression checks now cover these behaviors.
+The integration includes Studio SaaS and business layouts, an optional browser
+terminal recipe, a three-palette ANSI example, and seven interchangeable CSS
+themes. The existing premium Console Kit remains an illustrative, non-purchasable
+concept. No paid assets or proprietary CSS are included.
 
-## Still required before a production-quality compatibility claim
+## Reviewed defects with regression coverage
 
-- Inspect the **9 inconclusive axe checks**, primarily text against gradient
-  backgrounds, and conduct a manual contrast review at relevant UI states.
-- Verify keyboard and screen-reader interaction on representative real apps,
-  including light and dark nested semantic forms.
-- Check browser zoom at 200% and 400%; using a 320px viewport alone is **not**
-  equivalent to real browser zoom.
-- Review forced-colors appearance across all palettes, not just the smoke
-  assertion that controls retain visible borders.
-- Confirm browser support policy, trademark clearance of the provisional
-  Cyberline name, and commercial license before paid assets ship.
+- Nested theme text previously inherited the outer theme's computed foreground
+  even though CSS custom property values changed.
+- Grid/Noir geometry inherited a parent theme's radius and cut variables.
+- `cy-u-center` overrode `cy-u-between` despite their documented composition.
+- The theme gallery exposed an invalid `aria-label` on a plain div and inert
+  decorative buttons; its controls now navigate to the component documentation.
 
-Keep the MIT CSS core fully usable without premium components. The premium
-Console Kit remains a non-purchasable concept, and the design-partner pilot
-does not establish buyer demand.
+The corresponding focused tests failed on the original implementation and
+passed after the fixes. The browser matrix checks computed theme foregrounds,
+native `color-scheme`, geometry and utility precedence.
+
+## Manual gates still open
+
+- Review the 9 inconclusive axe results, especially text over gradient
+  backgrounds, and inspect contrast of controls in all interaction states.
+- Verify representative pages with actual screen readers and keyboard-only
+  navigation, including nested semantic forms and data tables.
+- Test real 200% and 400% browser zoom. A 320px CSS viewport is **not** the
+  equivalent of real zoom testing.
+- Visually inspect forced-colors and high-contrast behavior across all seven
+  palettes rather than relying on a single automated border smoke test.
+- Review the supported browser baseline, provisional Cyberline trademark,
+  and eventual separate commercial license before making marketing or v1 claims.
+
+No new GitHub tag or production release is authorized by this document.

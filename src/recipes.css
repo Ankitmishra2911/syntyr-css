@@ -1,0 +1,92 @@
+/* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
+   These classes are separate from the small, stable core API. */
+@layer cy.recipes {
+  /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
+  .cy-app-shell {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    min-height: 100svh; min-width: 0;
+  }
+  .cy-app-rail {
+    display: flex; flex-direction: column; gap: var(--cy-space-2);
+    padding: var(--cy-space-3); border-block-end: 1px solid var(--cy-frame);
+    background: var(--cy-surface); color: var(--cy-text);
+  }
+  .cy-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+  .cy-app-nav a {
+    display: block; padding: .55rem .75rem; border-radius: var(--cy-radius);
+    color: var(--cy-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
+  }
+  .cy-app-nav a:where(:hover, [aria-current="page"]) {
+    color: var(--cy-accent); background: var(--cy-accent-soft);
+  }
+  .cy-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--cy-accent); }
+  .cy-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+  .cy-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
+  .cy-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cy-space-2); }
+  .cy-app-card {
+    min-width: 0; padding: var(--cy-space-3);
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: var(--cy-surface); color: var(--cy-text);
+  }
+  .cy-app-card > :first-child { margin-block-start: 0; }
+  .cy-app-card > :last-child { margin-block-end: 0; }
+  .cy-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
+  .cy-app-card-header > :first-child { margin: 0; }
+  .cy-activity-list { list-style: none; margin: 0; padding: 0; }
+  .cy-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--cy-frame); }
+  .cy-activity-list li:last-child { border-block-end: 0; }
+  /* Business/marketing: typography and hierarchy without forcing a dark look. */
+  .cy-site-hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    border: 1px solid var(--cy-frame); border-radius: var(--cy-radius);
+    background: radial-gradient(ellipse at 80% 20%, var(--cy-accent-soft), transparent 56%), var(--cy-surface);
+    color: var(--cy-text);
+    padding: clamp(2rem, 6vw, 5rem);
+  }
+  .cy-site-hero::before {
+    content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
+    width: min(9rem, 40%); height: 3px; background: var(--cy-accent); pointer-events: none;
+  }
+  .cy-site-heading { font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
+  .cy-site-heading strong { color: var(--cy-accent); }
+  .cy-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--cy-space-2); }
+  .cy-feature-card { min-width: 0; padding: var(--cy-space-4); background: var(--cy-surface); color: var(--cy-text); border: 1px solid var(--cy-frame); border-radius: var(--cy-radius); }
+  .cy-feature-card > :first-child { margin-block-start: 0; }
+  .cy-feature-card > :last-child { margin-block-end: 0; }
+  .cy-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--cy-space-3); padding: var(--cy-space-4); background: var(--cy-accent-soft); color: var(--cy-text); border-inline-start: 3px solid var(--cy-accent); }
+  /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
+  .cy-terminal {
+    --cy-terminal-bg: #0b1625;
+    --cy-terminal-fg: #e6f4fa;
+    --cy-terminal-muted: #b6c8d8;
+    --cy-terminal-prompt: #85e7cf;
+    border: 1px solid var(--cy-frame-strong); border-radius: var(--cy-radius);
+    background: var(--cy-terminal-bg); color: var(--cy-terminal-fg);
+    font: 400 .85rem/1.65 var(--cy-mono); min-width: 0; overflow: hidden;
+  }
+  .cy-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--cy-terminal-muted); font-size: .73rem; }
+  .cy-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
+  .cy-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .cy-terminal-prompt { color: var(--cy-terminal-prompt); }
+  .cy-terminal-muted { color: var(--cy-terminal-muted); }
+  .cy-terminal-command { color: #f9dfad; }
+  .cy-terminal-success { color: #a1f1bf; }
+  /* Composable surface geometry; themes control colors, modifiers control shape. */
+  .cy-frame--precision { position: relative; border: 1px solid var(--cy-frame-strong); }
+  .cy-frame--precision::before {
+    content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
+    width: 3.5rem; height: 2px; background: var(--cy-accent); pointer-events: none;
+  }
+  .cy-frame--industrial { border-inline-start: 3px solid var(--cy-accent); background: linear-gradient(110deg, var(--cy-accent-soft), transparent 55%), var(--cy-surface); color: var(--cy-text); }
+  .cy-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+  @media (min-width: 53rem) {
+    .cy-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
+    .cy-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--cy-frame); }
+    .cy-app-nav { display: grid; }
+  }
+  @media (forced-colors: active) {
+    .cy-app-card, .cy-site-hero, .cy-feature-card, .cy-terminal, .cy-frame--precision, .cy-frame--industrial { border-color: CanvasText; }
+    .cy-frame--precision::before, .cy-site-hero::before { display: none; }
+    .cy-terminal { forced-color-adjust: auto; }
+  }
+}

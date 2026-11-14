@@ -22,8 +22,8 @@ renderers. Add `cy-page` to the root only if you want full-page min-height.
 
 ## Optional themes and semantic HTML
 
-The current source tree's core CSS ships six themes: `grid`, `noir`,
-`industrial`, `terminal`, `corporate` and `minimal`. Set
+The current source tree's core CSS ships seven themes: `grid`, `noir`,
+`studio`, `industrial`, `terminal`, `corporate` and `minimal`. Set
 `data-cy-theme` on the scoped root or any nested region. The historical
 `v0.3.0-alpha.1` release tag contains only Grid and Noir; the new themes
 are not in that already-published release.
@@ -31,7 +31,8 @@ are not in that already-published release.
 Load `cyberline.semantic.css` after core **only** if you want automatic semantic
 element styles within `.cy-semantic`. For static glows and decorative grid
 effects, load `cyberline.effects.css` after core. For finite layout and
-spacing utilities, optionally load `cyberline.utilities.css` after core.
+spacing utilities, optionally load `cyberline.utilities.css` after core. For
+SaaS and marketing compositions load `cyberline.recipes.css` after core.
 
 `cyberline.css` bundles core and effects. `cyberline.all.css` bundles all modules
 while still requiring `.cy-semantic` to opt into semantic element styles.
@@ -50,7 +51,7 @@ For production reliability, self-host your copy and control cache headers.
 
 ## Release artifacts and guarantees
 
-A new release ZIP built from this source includes all six CSS distributions, this guide, the MIT
+A new release ZIP built from this source includes all seven CSS distributions, this guide, the MIT
 license, and the README. The ZIP is created deterministically using only
 Python's standard library:
 
@@ -60,7 +61,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
 ```
 
-All six visual themes and essential components are MIT-licensed. Commercial
+All seven CSS themes and essential components are MIT-licensed. Commercial
 premium templates, if introduced, will be independently authored and sold
 separately. This v0.3 alpha is **not** a v1 production compatibility guarantee;
 cross-browser and full accessibility audits are still release gates.

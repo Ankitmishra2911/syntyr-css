@@ -7,7 +7,7 @@
   <meta name="description" content="A Blade Runner-inspired, original zero-JavaScript landing page made with Cyberline CSS.">
   <link rel="stylesheet" href="../dist/cyberline.all.css">
   <style>
-    .landing-hero { padding-block:clamp(4rem,12vw,10rem); border-block:1px solid var(--cy-frame); background:radial-gradient(ellipse at 70% 10%,var(--cy-accent-soft), transparent 60%); }
+    .landing-hero { padding-block:clamp(4rem,12vw,10rem); border-block:1px solid var(--cy-frame); }
     .landing-eyebrow {display:flex;gap:1rem; align-items:center;letter-spacing:.2em;}
     .landing-display {font-size:clamp(3.4rem,11vw,9rem);letter-spacing:-.07em;line-height:.94;max-width:11ch;margin-block:2rem;}
     .landing-display em {color:var(--cy-accent);font-style:normal;}
@@ -21,7 +21,7 @@
   <div class="cy-shell">
     <header class="cy-header"><a class="cy-logo" href="../docs/index.html">// CYBERLINE</a><nav class="cy-nav" aria-label="Primary"><a href="#capabilities">CAPABILITIES</a><a href="#contact">CONTACT</a></nav></header>
     <main>
-      <section class="landing-hero" aria-labelledby="hero">
+      <section class="landing-hero cy-atmosphere" aria-labelledby="hero">
         <span class="cy-eyebrow landing-eyebrow">AMBER / NOIR PROTOCOL 07</span>
         <h1 class="landing-display" id="hero">Build for a <em>different</em> future.</h1>
         <p class="cy-lede">Noir is an atmospheric theme for applications that still need to be legible, fast, and accessible.</p>
@@ -30,9 +30,9 @@
       <section id="capabilities" class="landing-cards" aria-labelledby="capabilities-title">
         <p class="cy-eyebrow">01 / THE CAPABILITIES</p><h2 id="capabilities-title" class="cy-title">Atomic visuals. Semantic controls.</h2>
         <div class="cy-grid">
-          <article class="cy-panel cy-panel--cut"><span class="cy-caption">01 / HTML</span><h3>Platform native</h3><p class="cy-muted">Use links, forms, details and dialog elements rather than reinventing interactions.</p></article>
-          <article class="cy-panel cy-panel--cut"><span class="cy-caption">02 / CSS</span><h3>Zero runtime</h3><p class="cy-muted">Layered CSS modules, token-driven colors, optional effects and no browser JavaScript requirement.</p></article>
-          <article class="cy-panel cy-panel--cut"><span class="cy-caption">03 / FREEDOM</span><h3>MIT licensed</h3><p class="cy-muted">Build commercial products, modify styles and redistribute the open-source core.</p></article>
+          <article class="cy-panel cy-panel--cut cy-frame--industrial"><span class="cy-caption">01 / HTML</span><h3>Platform native</h3><p class="cy-muted">Use links, forms, details and dialog elements rather than reinventing interactions.</p></article>
+          <article class="cy-panel cy-panel--cut cy-frame--industrial"><span class="cy-caption">02 / CSS</span><h3>Zero runtime</h3><p class="cy-muted">Layered CSS modules, token-driven colors, optional effects and no browser JavaScript requirement.</p></article>
+          <article class="cy-panel cy-panel--cut cy-frame--industrial"><span class="cy-caption">03 / FREEDOM</span><h3>MIT licensed</h3><p class="cy-muted">Build commercial products, modify styles and redistribute the open-source core.</p></article>
         </div>
       </section>
       <section class="landing-feature" aria-labelledby="policy-title" id="contact"><div class="cy-layout">

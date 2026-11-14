@@ -10,11 +10,13 @@ class BrowserCoverageContract(unittest.TestCase):
         for script in ("browser_matrix.py", "axe_audit.py"):
             with self.subTest(script=script):
                 source = (ROOT / "tests" / script).read_text(encoding="utf-8")
-                self.assertIn('"examples/themes.html"', source)
+                for page in ('"examples/themes.html"', '"examples/saas.html"',
+                             '"examples/business.html"', '"examples/terminal.html"'):
+                    self.assertIn(page, source)
 
-    def test_theme_matrix_checks_all_six_palettes_and_color_schemes(self):
+    def test_theme_matrix_checks_all_seven_palettes_and_color_schemes(self):
         source = (ROOT / "tests/browser_matrix.py").read_text(encoding="utf-8")
-        for theme in ("grid", "noir", "industrial", "terminal", "corporate", "minimal"):
+        for theme in ("grid", "noir", "studio", "industrial", "terminal", "corporate", "minimal"):
             self.assertIn(f'"{theme}"', source)
         self.assertIn('colorScheme', source)
 

@@ -1,7 +1,7 @@
 # Cyberline theme customization — copy, override, ship
 
 Cyberline themes are **CSS custom properties**, not JavaScript configuration.
-The MIT core already includes six palettes, from Grid and Noir to Corporate and Minimal, responsive primitives,
+The MIT core includes seven palettes, from Grid and Noir to Studio, Corporate and Minimal, plus responsive primitives,
 accessible focus styling and semantic element options.
 
 ## 1. Choose a theme
@@ -105,7 +105,7 @@ high-contrast/forced-colors, and relevant screen readers in the target app.
 live data, and server-side form handling are intentionally application
 responsibilities; optional advanced widgets are outside the CSS core.
 
-## 5. Six interchangeable palettes (including light-mode business UI)
+## 5. Seven interchangeable palettes (including light-mode business UI)
 
 Every palette supplies the **same** component tokens and classes. Switch themes
 without rewriting markup or installing Tailwind, React or a CSS compiler:
@@ -114,17 +114,18 @@ without rewriting markup or installing Tailwind, React or a CSS compiler:
 | --- | --- | --- |
 | `data-cy-theme="grid"` | High-contrast signal/cyberpunk dashboards | Dark |
 | `data-cy-theme="noir"` | Warm atmospheric interfaces and landing pages | Dark |
+| `data-cy-theme="studio"` | SaaS, analytics and business site components | Light |
 | `data-cy-theme="industrial"` | Operations consoles and control-room applications | Dark |
 | `data-cy-theme="terminal"` | CLI-adjacent tools and developer dashboards | Dark |
 | `data-cy-theme="corporate"` | Professional SaaS and B2B application shells | Light |
 | `data-cy-theme="minimal"` | Neutral marketing and business websites | Light |
 
-All six work on `.cy-root` or a nested `[data-cy-theme]` region. Native
+All seven work on `.cy-root` or a nested `[data-cy-theme]` region. Native
 controls and scrollbars follow the theme's `color-scheme`. The same markup and
 component classes remain usable across all themes. Theme palettes are not
 automatic `prefers-color-scheme` overrides; the application chooses a theme.
 
-[Browse all six themes](../examples/themes.html).
+[Browse all seven themes](../examples/themes.html).
 
 ## 6. Optional tiny utilities, not a utility compiler
 

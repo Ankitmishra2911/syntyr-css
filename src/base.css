@@ -7,8 +7,7 @@
     background: var(--cy-bg);
     -webkit-font-smoothing: antialiased;
   }
-  /* Recompute the foreground at nested palette boundaries; custom properties
-     inherit, but the computed color property otherwise stays in the outer theme. */
+  /* Nested theme boundaries recompute inherited text color. */
   .cy-root :where([data-cy-theme]) { color: var(--cy-text); }
   .cy-root.cy-page { min-height: 100svh; }
   .cy-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }

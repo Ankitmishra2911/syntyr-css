@@ -183,5 +183,70 @@ class BrowserTests(unittest.TestCase):
         color = self.page.get_by_role('button', name='OPEN COMMAND').evaluate('e => getComputedStyle(e).borderTopStyle')
         self.assertEqual(color, 'solid')
 
+    def test_studio_theme_is_scoped_and_uses_light_controls(self):
+        studio = self.page.locator('#themes [data-cy-theme="studio"]')
+        self.assertEqual(studio.count(), 1)
+        self.assertEqual(studio.evaluate(
+            "e => getComputedStyle(e).getPropertyValue('--cy-accent').trim()"), '#2458c6')
+        self.assertEqual(studio.evaluate("e => getComputedStyle(e).colorScheme"), 'light')
+        self.assertEqual(self.page.locator('body').evaluate(
+            "e => getComputedStyle(e).colorScheme"), 'dark')
+
+    def test_nested_studio_recipe_surfaces_have_matching_foreground_and_background(self):
+        core = (ROOT / "dist/cyberline.core.css").read_text()
+        recipes = (ROOT / "dist/cyberline.recipes.css").read_text()
+        self.page.set_content(f"""<style>{core}{recipes}</style>
+        <main class="cy-root" data-cy-theme="grid">
+            <section data-cy-theme="studio">
+                <aside class="cy-app-rail" id="nested-rail">Studio rail</aside>
+                <article class="cy-app-card" id="nested-card">Studio card</article>
+                <section class="cy-site-hero" id="nested-hero">Studio hero</section>
+                <section class="cy-feature-card" id="nested-feature">Studio feature</section>
+            </section>
+        </main>""")
+        for selector in ("#nested-rail", "#nested-card", "#nested-hero", "#nested-feature"):
+            with self.subTest(selector=selector):
+                computed = self.page.locator(selector).evaluate(
+                    "e => ({fg: getComputedStyle(e).color, bg: getComputedStyle(e).backgroundColor})")
+                self.assertEqual(computed["fg"], "rgb(21, 35, 58)")
+                self.assertEqual(computed["bg"], "rgb(255, 255, 255)")
+
+    def test_new_recipes_have_no_mobile_overflow_and_work_at_desktop_width(self):
+        core = (ROOT / 'dist/cyberline.core.css').read_text()
+        recipes = (ROOT / 'dist/cyberline.recipes.css').read_text()
+        for example in ('saas.html', 'business.html', 'terminal.html'):
+            with self.subTest(example=example):
+                html = (ROOT / 'examples' / example).read_text()
+                html = html.replace('<link rel="stylesheet" href="../dist/cyberline.core.css">',
+                                    f'<style>{core}</style>')
+                html = html.replace('<link rel="stylesheet" href="../dist/cyberline.recipes.css">',
+                                    f'<style>{recipes}</style>')
+                for width in (360, 1280):
+                    with self.subTest(width=width):
+                        self.page.set_viewport_size({'width': width, 'height': 900})
+                        self.page.set_content(html)
+                        metrics = self.page.evaluate(
+                            "() => ({scrollWidth: document.documentElement.scrollWidth, "
+                            "clientWidth: document.documentElement.clientWidth})")
+                        self.assertLessEqual(metrics['scrollWidth'],
+                                             metrics['clientWidth'] + 1, metrics)
+                        self.assertEqual(self.page.locator('main').count(), 1)
+                if example == 'saas.html':
+                    self.assertEqual(self.page.locator('.cy-app-shell').count(), 1)
+                    self.assertEqual(self.page.locator('.cy-table .cy-status').count(), 3)
+                if example == 'business.html':
+                    self.assertGreater(
+                        self.page.locator('.business-visual').bounding_box()['x'], 600)
+                if example == 'terminal.html':
+                    self.assertEqual(self.page.locator('.cy-terminal').evaluate(
+                        'e => getComputedStyle(e).backgroundColor'), 'rgb(11, 22, 37)')
+                    positions = self.page.locator('.cy-terminal-line').evaluate_all(
+                        'els => els.map(e => e.getBoundingClientRect().top)')
+                    self.assertLessEqual(positions[1] - positions[0], 30)
+                    studio_chip = self.page.locator('.cli-options [data-cy-theme="studio"]')
+                    self.assertEqual(studio_chip.evaluate(
+                        'e => getComputedStyle(e).backgroundColor'), 'rgb(255, 255, 255)')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
