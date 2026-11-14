@@ -23,6 +23,7 @@
 - [Preliminary SYNTYR brand-risk review (NOT clearance)](business/syntyr-trademark-screen.md)
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
+- [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
 
@@ -65,10 +66,13 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.core.css` | Tokens, scoped base, components (default choice) |
 | `dist/syntyr.semantic.css` | Optional semantic HTML styling (load after core) |
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
+| `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
 | `dist/syntyr.css` | Backwards-compatible core + effects bundle |
 | `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
+
+Legacy `dist/cyberline.geometry.css` is byte-identical to `dist/syntyr.geometry.css`. The new geometry module is opt-in; neither the core bundle nor existing selectors require it.
 
 The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, and `src/effects.css`. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 

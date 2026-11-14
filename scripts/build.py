@@ -26,8 +26,9 @@ def distributions():
         'syntyr.semantic.css': ('semantic.css',),
         'syntyr.recipes.css': ('recipes.css',),
         'syntyr.effects.css': ('effects.css',),
+        'syntyr.geometry.css': ('geometry.css',),
         'syntyr.css': core + ('effects.css',),
-        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'effects.css'),
+        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'geometry.css', 'effects.css'),
     }
     # Legacy paths are byte-for-byte equivalent to the SYNTYR distributions.
     # Do not remove these aliases before an explicitly versioned breaking release.

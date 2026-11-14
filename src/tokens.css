@@ -1,5 +1,5 @@
 /* Syntyr token contract. Host application CSS can override layered defaults. */
-@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.effects;
+@layer cy.tokens, cy.base, cy.components, cy.semantic, cy.recipes, cy.geometry, cy.effects;
 
 @layer cy.tokens {
   :where(.cy-root) {

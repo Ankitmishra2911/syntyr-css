@@ -9,6 +9,7 @@
   .cy-table th { color: var(--cy-muted); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
   .cy-table .cy-table-emphasis { color: var(--cy-accent); font-weight: 650; }
+  .cy-table .cy-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
   .cy-status { display: inline-flex; gap: .4em; align-items: center; color: var(--cy-text); font: 650 .75rem/1.5 var(--cy-mono); }
   .cy-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
   .cy-status--success { color: var(--cy-success); }

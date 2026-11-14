@@ -29,7 +29,7 @@ You can nest differently themed elements.
 Load `syntyr.semantic.css` after core **only** if you want automatic semantic
 element styles within `.cy-semantic`. For static glows and decorative grid
 effects, load `syntyr.effects.css` after core. SaaS, business and terminal layouts
-are opt-in via `syntyr.recipes.css`.
+are opt-in via `syntyr.recipes.css`. Optional frame geometry is in `syntyr.geometry.css` (or legacy `cyberline.geometry.css`).
 
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.cy-semantic` to opt into semantic element styles.
@@ -48,7 +48,7 @@ For production reliability, self-host your copy and control cache headers.
 
 ## Release artifacts and guarantees
 
-The downloadable ZIP contains six SYNTYR CSS distributions plus six byte-identical legacy Cyberline compatibility files and the terminal
+The downloadable ZIP contains seven SYNTYR CSS distributions plus seven byte-identical legacy Cyberline compatibility files and the terminal
 ANSI palette JSON, this guide, the MIT
 license, and the README. The ZIP is created deterministically using only
 Python's standard library:

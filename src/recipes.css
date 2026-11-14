@@ -71,6 +71,19 @@
   .cy-terminal-muted { color: var(--cy-terminal-muted); }
   .cy-terminal-command { color: #f9dfad; }
   .cy-terminal-success { color: #a1f1bf; }
+  .cy-terminal-error { color: #ffb6b2; }
+  .cy-terminal-warning { color: #ffe0a3; }
+  .cy-terminal-path { color: #b2dcff; }
+  .cy-terminal-meta { color: var(--cy-terminal-muted); font-size: .75em; letter-spacing: .06em; }
+  .cy-terminal-title { font-weight: 650; color: var(--cy-terminal-fg); overflow-wrap: anywhere; }
+  .cy-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
+  .cy-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
+  .cy-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
+  .cy-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
+  .cy-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+  /* A static, non-blinking caret; it never suggests fake live input. */
+  .cy-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
+
   /* Composable surface geometry; themes control colors, modifiers control shape. */
   .cy-frame--precision { position: relative; border: 1px solid var(--cy-frame-strong); }
   .cy-frame--precision::before {

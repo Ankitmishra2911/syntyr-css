@@ -18,6 +18,7 @@ FILES = (
     "dist/syntyr.core.css",
     "dist/syntyr.css",
     "dist/syntyr.effects.css",
+    "dist/syntyr.geometry.css",
     "dist/syntyr.semantic.css",
     "dist/syntyr.recipes.css",
     # Preserve legacy stylesheet paths in the archive.
@@ -25,6 +26,7 @@ FILES = (
     "dist/cyberline.core.css",
     "dist/cyberline.css",
     "dist/cyberline.effects.css",
+    "dist/cyberline.geometry.css",
     "dist/cyberline.semantic.css",
     "dist/cyberline.recipes.css",
     "terminal/palettes.json",

@@ -142,6 +142,8 @@ Load `syntyr.core.css` first and `syntyr.recipes.css` second. The core size budg
 | Browser terminal | `.cy-terminal`, `.cy-terminal-bar`, `.cy-terminal-body`, `.cy-terminal-line`, `.cy-terminal-prompt` |
 | Surface design | `.cy-frame--precision`, `.cy-frame--industrial`, `.cy-frame--soft` |
 
+Native disabled buttons cannot activate; aria-disabled does not block activation by itself. Host application code must suppress actions when ARIA-disabled and should preserve focus when appropriate. Cyberline does not disable click handlers via CSS.
+
 Professional light mode: `data-cy-theme="studio"`. Colors and geometry are intentionally independent. Use `.cy-table-emphasis` for explicit cell highlighting instead of relying on last-column position; `.cy-status--success`, `--warning`, or `--danger` should always accompany readable status text.
 
-Native terminal applications cannot render CSS. Use `terminal/palettes.json` as the portable color reference. See [usage and accessibility guidance](saas-cli-business.md). All new visual classes are optional and require no runtime JavaScript.
+Native terminal applications cannot render CSS. Use `terminal/palettes.json` as the portable color reference. See [usage and accessibility guidance](saas-cli-business.md). For bevel, notch, bracket, inset and circuit frame geometry, load the optional geometry stylesheet and follow [the frame guide](geometry-terminal.md). All new visual classes are optional and require no runtime JavaScript.

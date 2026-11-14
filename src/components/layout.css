@@ -18,7 +18,7 @@
   .cy-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
   .cy-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
   .cy-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
-  .cy-stack { display: grid; gap: var(--cy-space-3); }
+  .cy-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cy-space-3); }
   .cy-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--cy-space-2); }
   .cy-panel {
     position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
