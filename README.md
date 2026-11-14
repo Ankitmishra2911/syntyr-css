@@ -35,6 +35,7 @@
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
 - [Search, filtering, settings and pagination SaaS workflow demonstration](examples/saas-workflows.html): server-ready semantic HTML, static illustrative data, zero JavaScript
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
+- [Optional Rust SaaS Foundation / Askama / HTMX integration guide](docs/rust-saas-integration.md)
 - [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
 
 The linked alpha.4 release is already published; it does not include the four additional palettes or the optional utilities module. These are in the unreleased alpha.5 source candidate.

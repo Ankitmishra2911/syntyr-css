@@ -1,0 +1,61 @@
+/*
+ * Optional Vertigo kit/ui bridge for Syntyr CSS (MIT).
+ * Needs Syntyr core first. Never applies without the opt-in body classes.
+ * The existing admin.css adapter supplies legacy CRUD selector coverage.
+ */
+body.syn-root.syn-vertigo {
+  --vg-font: var(--syn-font);
+  --vg-bg: var(--syn-bg);
+  --vg-surface: var(--syn-surface);
+  --vg-surface-muted: var(--syn-surface-hi);
+  --vg-text: var(--syn-text);
+  --vg-muted: var(--syn-muted);
+  --vg-border: var(--syn-frame);
+  --vg-link: var(--syn-accent);
+  --vg-primary: var(--syn-accent);
+  --vg-on-primary: var(--syn-on-accent);
+  --vg-danger: var(--syn-danger);
+  --vg-on-danger: var(--syn-bg);
+  --vg-notice-bg: var(--syn-surface);
+  --vg-notice-text: var(--syn-text);
+  --vg-notice-border: var(--syn-frame);
+  --vg-focus: var(--syn-accent);
+  --vg-radius: var(--syn-radius);
+  font-family: var(--syn-font);
+}
+body.syn-root.syn-vertigo[data-syn-theme="studio"] { color-scheme: light; }
+body.syn-root.syn-vertigo:is([data-syn-theme="grid"], [data-syn-theme="noir"]) { color-scheme: dark; }
+.syn-vertigo .vg-topbar {
+  background: var(--syn-surface);
+  border-bottom: 1px solid var(--syn-frame);
+}
+.syn-vertigo .vg-brand { color: var(--syn-text); }
+.syn-vertigo .vg-nav a { color: var(--syn-muted); }
+.syn-vertigo .vg-nav a:hover,
+.syn-vertigo .vg-nav a[aria-current="page"] {
+  color: var(--syn-text);
+  background: var(--syn-surface-hi);
+}
+.syn-vertigo .vg-button {
+  border: 1px solid var(--syn-accent);
+  background: var(--syn-accent);
+  color: var(--syn-on-accent);
+}
+.syn-vertigo .vg-button--secondary {
+  border-color: var(--syn-frame);
+  background: var(--syn-surface);
+  color: var(--syn-text);
+}
+.syn-vertigo .vg-panel, .syn-vertigo .vg-table, .syn-vertigo .vg-badge {
+  border-color: var(--syn-frame);
+  background: var(--syn-surface);
+  color: var(--syn-text);
+}
+.syn-vertigo :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--syn-accent);
+  outline-offset: 2px;
+}
+@media (forced-colors: active) {
+  .syn-vertigo :is(.vg-panel, .vg-button, .vg-table, .vg-badge) { border-color: CanvasText; }
+  .syn-vertigo :is(a, button, input, select, textarea):focus-visible { outline-color: Highlight; }
+}
