@@ -40,6 +40,18 @@ class PilotReadinessTests(unittest.TestCase):
             self.assertIn("https://github.com/dporkka/cyberline-css/issues/3", html)
         self.assertIn('id="feedback"', gallery)
 
+    def test_public_kit_copy_truthfully_distinguishes_private_preview_from_sale(self):
+        page = (ROOT / "docs/console-kit.html").read_text()
+        self.assertIn("PRIVATE PROTOTYPE", page)
+        self.assertIn("24", page)
+        self.assertIn("NOT AVAILABLE FOR PURCHASE", page)
+        self.assertNotIn("BUY NOW", page)
+        spec = (ROOT / "business/console-kit-spec.md").read_text()
+        self.assertIn("private prototype", spec.lower())
+        self.assertIn("not for sale", spec.lower())
+        pilot = (ROOT / "business/design-partner-pilot.md").read_text()
+        self.assertIn("private prototype", pilot.lower())
+
     def test_kit_page_has_clear_non_sale_feedback_link(self):
         page = (ROOT / "docs/console-kit.html").read_text()
         self.assertIn("NOT AVAILABLE FOR PURCHASE", page)
