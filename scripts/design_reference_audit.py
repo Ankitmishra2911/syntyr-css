@@ -1,0 +1,120 @@
+"""Offline, deterministic asset audit for three design benchmark pages.
+
+Measures transferred stylesheet/markup sizes, not LCP, browser execution or accessibility.
+Run: python3 scripts/design_reference_audit.py [--json]
+"""
+from __future__ import annotations
+
+import argparse
+import gzip
+from html.parser import HTMLParser
+import json
+from pathlib import Path
+import re
+from urllib.parse import urlsplit
+
+ROOT = Path(__file__).resolve().parents[1]
+SAMPLES = ("marketing", "crm", "documentation")
+SAMPLE_DIR = ROOT / "examples/design-benchmarks"
+
+
+class Assets(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.stylesheets: list[str] = []
+        self.scripts: list[str | None] = []
+        self.inline_script_bytes = 0
+        self._in_script = False
+
+    def handle_starttag(self, tag: str, pairs: list[tuple[str, str | None]]) -> None:
+        attrs = dict(pairs)
+        if tag == "link" and "stylesheet" in (attrs.get("rel") or "").split():
+            self.stylesheets.append(attrs.get("href") or "")
+        if tag == "script":
+            self.scripts.append(attrs.get("src"))
+            self._in_script = True
+
+    def handle_data(self, data: str) -> None:
+        if self._in_script:
+            self.inline_script_bytes += len(data.encode("utf-8"))
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "script":
+            self._in_script = False
+
+
+def _local_file(href: str, parent: Path) -> Path:
+    parsed = urlsplit(href)
+    if parsed.scheme or parsed.netloc or not parsed.path or parsed.path.startswith("/"):
+        raise ValueError(f"external stylesheet or unsupported URL: {href}")
+    if parsed.query or parsed.fragment:
+        raise ValueError(f"stylesheet query/fragment is not supported: {href}")
+    path = (parent / parsed.path).resolve()
+    if not path.is_relative_to(ROOT.resolve()):
+        raise ValueError(f"stylesheet escapes repository: {href}")
+    if not path.is_file():
+        raise FileNotFoundError(f"missing stylesheet: {href}")
+    return path
+
+
+def audit_page(markup: str, parent: Path) -> dict[str, int]:
+    assets = Assets()
+    assets.feed(markup)
+    syntyr = []
+    custom = []
+    for href in dict.fromkeys(assets.stylesheets):
+        file = _local_file(href, parent)
+        data = file.read_bytes()
+        group = syntyr if file.is_relative_to(ROOT / "dist") else custom
+        group.append(data)
+    bytes_syntyr = sum(map(len, syntyr))
+    bytes_custom = sum(map(len, custom))
+    runtime_js = assets.inline_script_bytes
+    for script in assets.scripts:
+        if script:
+            parsed = urlsplit(script)
+            if parsed.scheme or parsed.netloc or parsed.path.startswith("/"):
+                raise ValueError(f"external script not included in offline audit: {script}")
+            candidate = (parent / parsed.path).resolve()
+            if not candidate.is_relative_to(ROOT) or not candidate.is_file():
+                raise FileNotFoundError(f"missing script: {script}")
+            runtime_js += candidate.stat().st_size
+
+    return {
+        "markup_bytes": len(markup.encode("utf-8")),
+        "syntyr_css_bytes": bytes_syntyr,
+        "syntyr_css_gzip_bytes": sum(len(gzip.compress(x, mtime=0)) for x in syntyr),
+        "custom_css_bytes": bytes_custom,
+        "custom_css_gzip_bytes": sum(len(gzip.compress(x, mtime=0)) for x in custom),
+        "custom_token_overrides": len(set(re.findall(r"--syn-[\w-]+\s*:", "\n".join(
+            x.decode("utf-8") for x in custom
+        )))),
+        "runtime_js_bytes": runtime_js,
+        "script_tags": len(assets.scripts),
+        "external_stylesheets": 0,
+        "missing_stylesheets": 0,
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--json", action="store_true", help="emit machine-readable data")
+    options = parser.parse_args()
+    reports = {name: audit_page((SAMPLE_DIR / f"{name}.html").read_text(encoding="utf-8"), SAMPLE_DIR)
+               for name in SAMPLES}
+    result = {"method": "source file sizes with deterministic gzip (mtime=0); not browser timings",
+              "pages": reports}
+    if options.json:
+        print(json.dumps(result, indent=2, sort_keys=True))
+    else:
+        for name, report in reports.items():
+            print(f"{name}: HTML={report['markup_bytes']} B; "
+                  f"Syntyr CSS gzip={report['syntyr_css_gzip_bytes']} B; "
+                  f"custom CSS gzip={report['custom_css_gzip_bytes']} B; "
+                  f"runtime JS={report['runtime_js_bytes']} B; "
+                  f"custom token overrides={report['custom_token_overrides']}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
