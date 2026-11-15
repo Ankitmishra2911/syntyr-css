@@ -43,9 +43,21 @@ candidate to have already been released. The existing published alpha.4
 assets and checksums were left unchanged. The docs-only theme editor is not
 a runtime dependency of the CSS library.
 
+## Post-merge verification (November 14, 2026; main `6109b79`)
+
+The original candidate figures above are preserved as historical evidence.
+A new head-level verification includes the additional SaaS workflows page and
+passes **126 browser** and **168 enlarged-text reflow** cases across Chromium,
+Firefox and WebKit using the Playwright 1.65.2 Linux image. The current
+Chromium axe-core 4.10.3 scan reports **0 confirmed violations, 11 incomplete
+rules and 325 review targets**; the prior 310 count is superseded for current
+main. The manual accessibility gates below remain open. Details and a
+reproducible JSON review-target command are in
+`docs/accessibility-alpha5-review.md`.
+
 ## Release gates still open
 
-- Manually evaluate **310 inconclusive text/background contrast elements**, especially layered gradients and pseudo-elements.
+- Manually evaluate **325 current inconclusive text/background contrast targets**, especially layered gradients and pseudo-elements.
 - Test keyboard and real screen-reader navigation (NVDA/JAWS/VoiceOver/Orca) on representative pages.
 - Verify genuine 200% and 400% browser zoom, not just simulated text enlargement or narrow viewports.
 - Check native operating-system high-contrast modes and establish the supported browser/version matrix.

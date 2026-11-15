@@ -9,7 +9,7 @@
 - Real browser matrix: Chromium, Firefox, and WebKit on desktop/mobile viewport widths,
   testing navigation, table semantics, native popover, disclosure, and overflow.
 - Automated accessibility: axe-core WCAG 2.0/2.1/2.2 A/AA tagged checks on the
-  showcase, component gallery, and seven additional pages. The tool may return
+  14 public showcase and example pages. The tool may return
   **incomplete/manual-review** findings even with zero confirmed violations.
 - Still needed: screen reader testing (NVDA + Firefox or Chrome, VoiceOver +
   Safari), actual browser zoom at 200% and 400%, touch target examination,
@@ -42,9 +42,10 @@ the repository to a directory that the container can read and run:
 
 ```sh
 podman run --rm --shm-size=1g -v "$PWD":/work:ro,Z -w /work \
-  mcr.microsoft.com/playwright/python:v1.64.1-noble \
-  bash -lc 'python3 -m pip install -q playwright==1.64.1 && \
-    python3 tests/browser_matrix.py --browsers webkit'
+  mcr.microsoft.com/playwright/python:v1.65.2-noble \
+  bash -lc 'python3 -m pip install -q playwright==1.65.2 && \
+    python3 tests/browser_matrix.py --browsers chromium firefox webkit && \
+    python3 tests/reflow_test.py --browsers chromium firefox webkit'
 ```
 
 The image supplies browser binaries and native dependencies, not the Python
@@ -56,29 +57,35 @@ The remote URL is part of a **developer-only test**, not a browser runtime
 dependency. Pin the checker release, review its MIT license, and verify its
 provenance if incorporating it into build infrastructure.
 
-## Interpretation and known limitations (2026-11-14)
+## Latest automated evidence (November 14, 2026, unreleased alpha.5)
 
-- Chromium and Firefox: **nine pages × three viewport widths** (320, 390,
-  1280px), keyboard focus, popover and disclosure checks passed on Fedora 44.
-- WebKit: those nine pages and three viewports passed in the separate Linux
-  CI host, with `mcr.microsoft.com/playwright/python:v1.64.1-noble` and
-  `playwright==1.64.1`. The tested integrated branch included the new
-  Studio, SaaS, business and browser terminal examples.
-- Total standard browser matrix: **81** page-and-viewport checks across
-  Chromium, Firefox and WebKit.
-- Enlarged-text stress: **108** checks on the nine pages (320/390px viewport
-  and 100%/150%/200% root-font sizes). The test caught and drove a fix for
-  narrow-layout overflow and subsequently detected clipped buttons in the
-  new Studio business example. Both problems are fixed in alpha.2.
-- These artificial layout/text measurements **are not equivalent** to real
-  browser zoom at 200% or 400%. Perform real zoom and screen-reader manual
-  tests before claiming WCAG accessibility.
-- The Chromium axe-core 4.10.3 WCAG-tagged scan on nine pages recorded
-  **zero confirmed violations and eight incomplete checks** for manual review.
-  Zero automated violations is not an accessibility certification.
-- Native HTML `commandfor="…" command="show-modal"` support varies by
-  browser. Critical flows should offer supported fallbacks/alternative
-  routes in production applications.
+Against post-merge `main` commit `6109b79`, an isolated Playwright v1.65.2
+Linux container passed **126** page/viewport cases (14 pages × 3 widths × 3
+engines) and **168** enlarged-text reflow cases (14 pages × 4 width/font
+configurations × 3 engines). Browser-reported versions: Chromium
+159.0.8154.6, Firefox 159.0 and WebKit 27.2. These versions describe a
+specific passing test environment; they are not a promise of broader browser
+support. Chromium additionally passed 17 interactive browser checks, two
+simulated forced-colors checks and three documentation theme-editor viewport
+checks in the developer environment.
+
+The axe-core 4.10.3 WCAG-tagged scan found **0 confirmed automated violations**
+across 14 pages, alongside **11 incomplete rule results encompassing 325
+individual nodes**. Gradients, pseudo-elements and obscured backgrounds cause
+most incomplete results; a missing automated verdict is **not** a passing
+contrast measurement. Generate a selector-level local review list with:
+
+```sh
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe-manual-review.json
+```
+
+See [`accessibility-alpha5-review.md`](accessibility-alpha5-review.md) for
+per-page counts and the remaining manual release gates. In particular, the
+browser harness modifies root font size; this is not equivalent to genuine
+200%/400% browser zoom; simulated forced colors do not represent all native OS contrast modes;
+and neither an axe scan nor automated keyboard actions constitute screen-reader
+validation. Native HTML dialog invoker command support also varies by browser.
 
 ## Manual checklist
 

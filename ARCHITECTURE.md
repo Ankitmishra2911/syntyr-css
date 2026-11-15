@@ -68,6 +68,9 @@ CSS cascade's reversed layer priority. Do not use `!important` for ordinary
 component or utility styling. Accessibility-related reduced-motion overrides
 are an existing documented exception.
 
+See [the public API stability policy](docs/api-stability.md) for the specific
+prerelease compatibility boundaries and v1 acceptance checklist.
+
 ## API stability and feature admission
 
 Before 1.0, refine the public surface rather than carrying compatibility
