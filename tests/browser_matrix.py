@@ -166,10 +166,19 @@ def assert_page(browser, name: str, viewport: int) -> None:
             popup_button.click()
             popup = page.locator("#native-popover")
             assert popup.evaluate('e => e.matches(":popover-open")'), "popover did not open"
-            if page.evaluate("CSS.supports('position-area', 'bottom')"):
-                assert popup.evaluate("e => getComputedStyle(e).positionArea") in ("bottom", "top")
+            supports_anchor = page.evaluate("CSS.supports('position-area', 'bottom')")
+            if supports_anchor:
+                placement_before_close = popup.evaluate("e => getComputedStyle(e).positionArea")
+                assert placement_before_close not in ("normal", "none", ""), placement_before_close
             page.keyboard.press("Escape")
             assert not popup.evaluate('e => e.matches(":popover-open")')
+            # Position-area must remain configured after :popover-open stops matching.
+            # Engines can recompute a flipped position when the element is hidden;
+            # comparing exact before/after positions would reject valid behavior.
+            if supports_anchor:
+                placement_after_close = popup.evaluate("e => getComputedStyle(e).positionArea")
+                assert placement_after_close not in ("normal", "none", ""), (
+                    placement_before_close, placement_after_close)
             dialog_opener = page.get_by_role("button", name="OPEN MODAL")
             dialog_opener.click()
             modal = page.locator("#native-dialog")

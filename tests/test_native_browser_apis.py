@@ -47,6 +47,23 @@ class NativeBrowserApisContract(unittest.TestCase):
         self.assertIn('position-try-fallbacks: flip-block', css)
         self.assertIn('&.syn-popover { margin:', css)  # existing usable fallback
 
+    def test_anchor_positioning_remains_active_during_exit(self):
+        css = (ROOT / 'src/components/overlays.css').read_text()
+        self.assertIn('&.syn-popover.syn-popover--anchored {', css)
+        self.assertNotIn('&.syn-popover.syn-popover--anchored:popover-open {', css)
+
+    def test_release_guide_demo_url_is_resolvable_outside_source_checkout(self):
+        # The release archive contains docs and styles, not the HTML gallery.
+        from scripts.package_release import FILES
+        import re
+        guide = (ROOT / 'docs/native-browser-apis.md').read_text()
+        demo = re.search(r'\[scriptless integration demo\]\(([^)]+)\)', guide)
+        self.assertIsNotNone(demo)
+        if demo.group(1).startswith('../'):
+            self.assertIn('examples/native-apis.html', FILES)
+        else:
+            self.assertEqual(demo.group(1), 'https://syntyr-css.pages.dev/examples/native-apis.html')
+
     def test_content_sized_textarea_has_constraints_and_fallback(self):
         css = (ROOT / 'src/components/forms.css').read_text()
         self.assertIn('.syn-textarea--autosize', css)
@@ -93,6 +110,7 @@ class NativeBrowserApisContract(unittest.TestCase):
                 self.assertIn(fragment, guide)
         self.assertIn('native-browser-apis.md', (ROOT / 'docs/index.html').read_text())
         self.assertIn('examples/native-apis.html', (ROOT / 'README.md').read_text())
+        self.assertIn('"examples/native-apis.html"', (ROOT / 'tests/reflow_test.py').read_text())
 
 
 if __name__ == '__main__':
