@@ -92,6 +92,15 @@ class CollaborationRecipes(unittest.TestCase):
         self.assertIn("application", guide.lower())
         self.assertIn("Chatudo", guide)
         self.assertIn("examples/collaboration.html", (ROOT / "README.md").read_text())
+        self.assertIn(
+            "https://syntyr-css.pages.dev/docs/collaboration.md",
+            (ROOT / "llms.txt").read_text(),
+            "new public guide must appear in the agent retrieval index",
+        )
+        example = (ROOT / "examples/collaboration.html").read_text()
+        self.assertIn('href="../docs/collaboration.md"', example)
+        # The ZIP is a self-contained allowlisted artifact; no HTML-only guide link.
+        self.assertIn("docs/collaboration.md", FILES)
         for script in ("browser_matrix.py", "reflow_test.py", "axe_audit.py"):
             self.assertIn('"examples/collaboration.html"', (ROOT / "tests" / script).read_text())
 
