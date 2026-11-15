@@ -80,6 +80,15 @@ python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
   --report /tmp/syntyr-axe-manual-review.json
 ```
 
+A subsequent post-merge investigation of `4a623d0` confirmed that live
+Cloudflare Pages serves identical CSS and selected documentation assets. A
+supplemental Chromium pixel-sampling pass at 1280, 390 and 320 px found no
+below-threshold contrast among **944 sampled element/viewport observations**
+(19,689 background-pixel samples). The lowest was 4.65:1; a textarea's
+placeholder was evaluated separately at 10.14:1. Sampling does **not**
+resolve axe's 325 inconclusive color-contrast targets into certified passes.
+See the detail and remaining exceptions in the review document.
+
 See [`accessibility-alpha5-review.md`](accessibility-alpha5-review.md) for
 per-page counts and the remaining manual release gates. In particular, the
 browser harness modifies root font size; this is not equivalent to genuine

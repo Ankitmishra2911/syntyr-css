@@ -1,6 +1,6 @@
 # SYNTYR alpha.5 — outstanding accessibility review
 
-This November 14, 2026 post-merge verification of `main` commit `6109b79` accompanies the **unreleased alpha.5 seven-theme candidate**. It is not an accessibility certification. The published alpha.4 release remains unchanged.
+The current November 14, 2026 (Brasília time) production baseline is `main` commit `4a623d0`, including merged [PR #21](https://github.com/dporkka/syntyr-css/pull/21). The **alpha.5 seven-theme release remains unpublished**; the published alpha.4 release is unchanged. The merged CSS and selected public documents have byte-for-byte SHA-256 parity with the live Cloudflare Pages site. This document tracks test evidence, **not an accessibility certification**.
 
 ## Automated axe-core findings
 
@@ -36,6 +36,49 @@ python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
 ```
 
 The automated checker cannot establish the effective paint underneath these foregrounds where gradients and pseudo-elements overlap text. Contrast-token unit tests are useful but do not certify composited backgrounds.
+
+## Supplemental browser-pixel contrast triage — merged `4a623d0`
+
+The axe report's **325 incomplete targets** were also investigated with a
+one-off Chromium screenshot-sampling pass on the merged source. This does not
+alter the number of axe findings or convert an incomplete axe result to a pass.
+
+| Viewport | Elements with pixel samples | Not directly sampled | Background-pixel samples | Lowest measured contrast |
+| --- | ---: | ---: | ---: | ---: |
+| 1280 px | 324 | 1 | 5,970 | 4.65:1 |
+| 390 px | 310 | 15 | 6,480 | 5.09:1 |
+| 320 px | 310 | 15 | 7,239 | 4.95:1 |
+| **Total element/viewport observations** | **944** | **31** | **19,689** | — |
+
+**No below-threshold result was found at the sampled positions** using 4.5:1
+for ordinary text and 3:1 for large/bold text. The closest result was the
+Studio header badge at 1280 px (4.65:1 against a gradient); it should receive
+priority in visual review because its margin above 4.5:1 is narrow.
+
+Method: Chromium **156.0.8078.4** at device scale factor 1, Playwright
+**1.65.2**, a 1280/390/320 px page viewport, `getComputedStyle().color`
+for text foreground, text-node `Range.getClientRects()` for location, and
+full-page screenshots with glyph fill temporarily transparent to reveal
+underlying gradients. Five horizontal by three vertical points per text
+fragment were sampled and compared using the WCAG sRGB luminance/contrast
+formula. These are **sampled background pixels**, not a guarantee about
+every pixel beneath every glyph. Fixed viewport and static states do not
+establish behavior across zoom, hover, focus or user-customized themes.
+
+The sole 1280 px unsampled target was `#dispatch`, a textarea without
+ordinary text nodes; its computed placeholder color `rgb(173,191,202)`
+against background `rgb(8,15,25)` measures **10.14:1**, and its input
+text color measures **17.93:1**. At 320/390 px, the 14 additional unsampled
+targets were horizontally off-screen cells/statuses inside the deliberately
+scrollable `examples/resources.html` table. These cells were sampled at
+1280 px, but their mobile scrolled state still warrants manual inspection.
+
+**Interpretation:** this triage found no obvious color-contrast regression in
+the sampled cases; it **does not** close the 325 manual-review targets or
+certify WCAG AA. Background sampling can miss local gradient extrema,
+overlapping pseudo-elements, text-shadow effects, embedded graphics, and
+interactive states. The actual screen reader, real zoom, high-contrast mode,
+and representative-product checks below remain open.
 
 ## Manual verification protocol
 
