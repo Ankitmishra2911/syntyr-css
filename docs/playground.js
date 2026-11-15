@@ -55,9 +55,13 @@
     // No script or form permissions, even if an editor pastes arbitrary markup.
     // allow-same-origin permits Syntyr's *local* stylesheet to load; it does
     // not permit script execution without allow-scripts.
+    // In Firefox an about:srcdoc stylesheet can have an opaque CSP 'self'
+    // even when the iframe permits same-origin CSS but never scripts.
+    // Explicitly allow ONLY the parent page's concrete origin for this CSS.
+    const localStyleOrigin = /^https?:$/.test(location.protocol) ? location.origin : "'self'";
     const shell = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' ${localStyleOrigin}; img-src data:; base-uri 'none'; form-action 'none'">
 <link rel="stylesheet" href="../dist/syntyr.all.css">
 <style>html,body{min-height:100%;} body.syn-root{margin:0;padding:1.5rem;} *,*::before,*::after{box-sizing:border-box;}</style>
 </head><body class="syn-root syn-page" data-syn-theme="${theme.value}">${markup.value}</body></html>`;
