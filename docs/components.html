@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="a210808cd900117be96e49e4073e2bb0deca2a0881e4e76ea53f0a2bac6a7f44">
+  <meta name="syntyr-source-sha256" content="5203874d1a0f9bd9fc3153d775a001af585fc81138d223d57d6e416b40e5afde">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -377,7 +377,9 @@ presentation hook, not an ARIA state. Numbered circles and connectors are
 decorative; the real ordered list and labels convey order and meaning. Preserve
 <code>role=&quot;list&quot;</code> for list semantics in Safari when CSS removes list markers.
 Never use colors alone to communicate completion or failure. CSS cannot
-implement step navigation, eligibility checks or server-side transitions.</p>
+implement step navigation, eligibility checks or server-side transitions.
+Long step descriptions and translated text keep numbered markers aligned at the
+block start so vertical connectors do not cross the marker or its numeral.</p>
 <p>See <a href="../examples/workflow-steps.html">the zero-JavaScript example</a>. These classes
 are not included in the published immutable alpha.4 release.</p>
         </article>

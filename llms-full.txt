@@ -402,6 +402,8 @@ decorative; the real ordered list and labels convey order and meaning. Preserve
 `role="list"` for list semantics in Safari when CSS removes list markers.
 Never use colors alone to communicate completion or failure. CSS cannot
 implement step navigation, eligibility checks or server-side transitions.
+Long step descriptions and translated text keep numbered markers aligned at the
+block start so vertical connectors do not cross the marker or its numeral.
 
 See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
 are not included in the published immutable alpha.4 release.

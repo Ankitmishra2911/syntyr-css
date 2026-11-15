@@ -46,7 +46,9 @@
       display: grid;
       grid-template-columns: 2.75rem minmax(0, 1fr);
       gap: var(--syn-space-2);
-      align-items: center;
+      /* Connectors start at the marker bottom, so tall translated text must
+         never vertically center the numbered marker into the connector. */
+      align-items: start;
       color: var(--syn-muted);
       overflow-wrap: anywhere;
       min-width: 0;
