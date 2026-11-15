@@ -2,6 +2,8 @@
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
+Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
+
 ## Loading and scoping
 
 For the explicitly classed API (no automatic unclassed element styles):
