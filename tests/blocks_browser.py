@@ -56,7 +56,7 @@ def layout_check(browser, engine, width, scale):
             radar = page.locator(".syn-block-asset--radar")
             require(radar.count() == 1, f"{engine}: radar preview missing")
             for theme in ("studio", "grid", "noir", "industrial", "terminal", "corporate", "minimal"):
-                page.locator("body.syn-root").set_attribute("data-syn-theme", theme)
+                page.locator("body.syn-root").evaluate("(e, value) => e.setAttribute('data-syn-theme', value)", theme)
                 fg = radar.locator("span").evaluate("e => getComputedStyle(e).color")
                 label = radar.locator("strong").evaluate("e => getComputedStyle(e).color")
                 require(fg == label, f"{engine} {theme}: small radar caption is less legible than its label: {fg} / {label}")
