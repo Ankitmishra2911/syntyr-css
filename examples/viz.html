@@ -11,12 +11,12 @@
     /* Page layout for this demonstration only; not part of Syntyr Viz. */
     body.syn-root { min-height: 100svh; padding: clamp(1rem, 3vw, 3rem); background: var(--syn-bg); color: var(--syn-text); }
     .viz-page { max-width: 95rem; margin-inline: auto; }
-    .viz-intro { max-width: 68ch; margin-block-end: 2rem; }
+    .viz-intro { max-width: 68ch; margin-block-end: 2rem; overflow-wrap: anywhere; }
     .viz-intro h1 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.12; margin: .7rem 0; }
     .viz-intro p { line-height: 1.65; }
     .viz-intro a { color: var(--syn-accent); }
     .viz-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.25rem; }
-    .viz-card { min-width: 0; padding: clamp(1rem, 2vw, 1.5rem); border: 1px solid var(--syn-frame);
+    .viz-card { min-width: 0; --syn-viz-columns: 12; padding: clamp(1rem, 2vw, 1.5rem); border: 1px solid var(--syn-frame);
       border-radius: var(--syn-radius); background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-sm); }
     .viz-card h2 { font-size: 1.18rem; margin: 0; letter-spacing: -.02em; }
@@ -36,13 +36,18 @@
     .viz-legend-mark[data-syn-state="degraded"] { background: var(--syn-warning); }
     .viz-legend-mark[data-syn-state="down"] { background: var(--syn-danger); }
     .viz-heatmap-description { font-size: .72rem; line-height: 1.5; color: var(--syn-muted); margin: .5rem 0 0; }
-    .viz-values { border-block-start: 1px solid var(--syn-border-subtle); margin-block-start: 1.35rem; padding-block-start: .6rem; }
+    .viz-values { border-block-start: 1px solid var(--syn-border-subtle); margin-block-start: 1.35rem; padding-block-start: .6rem; overflow-x: auto; }
     .viz-values summary { cursor: pointer; color: var(--syn-text); font-size: .78rem; font-weight: 600; }
     .viz-values summary:focus-visible { outline: 2px solid var(--syn-focus-ring); outline-offset: 3px; }
     .viz-values table { width: 100%; margin-block-start: .7rem; border-collapse: collapse; font-size: .75rem; }
     .viz-values th, .viz-values td { text-align: start; padding: .2rem .45rem; border-bottom: 1px solid var(--syn-border-subtle); }
     .viz-values td { text-align: end; font-variant-numeric: tabular-nums; }
     .viz-footer { margin-block-start: 2rem; color: var(--syn-muted); line-height: 1.5; }
+    @media (max-width: 40rem) {
+      .viz-card { --syn-viz-columns: 6; }
+      .viz-card .syn-viz-heatmap { grid-template-columns: repeat(var(--syn-viz-columns), minmax(0, 1fr)); }
+      .viz-card .syn-viz-cell { min-inline-size: 0; }
+    }
     @media (forced-colors: active) {
       .viz-card { border-color: CanvasText; }
       .viz-tracker-legend .viz-legend-mark { border-color: CanvasText; }
@@ -114,7 +119,7 @@
         </section>
         <section class="viz-section" aria-labelledby="grid-activity">
           <h3 id="grid-activity">24-day activity heatmap</h3>
-          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four" style="--syn-viz-columns: 12;">
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
             <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
@@ -214,7 +219,7 @@
         </section>
         <section class="viz-section" aria-labelledby="noir-activity">
           <h3 id="noir-activity">24-day activity heatmap</h3>
-          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four" style="--syn-viz-columns: 12;">
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
             <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
@@ -314,7 +319,7 @@
         </section>
         <section class="viz-section" aria-labelledby="studio-activity">
           <h3 id="studio-activity">24-day activity heatmap</h3>
-          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four" style="--syn-viz-columns: 12;">
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
             <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
@@ -414,7 +419,7 @@
         </section>
         <section class="viz-section" aria-labelledby="industrial-activity">
           <h3 id="industrial-activity">24-day activity heatmap</h3>
-          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four" style="--syn-viz-columns: 12;">
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
             <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
@@ -514,7 +519,7 @@
         </section>
         <section class="viz-section" aria-labelledby="terminal-activity">
           <h3 id="terminal-activity">24-day activity heatmap</h3>
-          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four" style="--syn-viz-columns: 12;">
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
             <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
@@ -614,7 +619,7 @@
         </section>
         <section class="viz-section" aria-labelledby="corporate-activity">
           <h3 id="corporate-activity">24-day activity heatmap</h3>
-          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four" style="--syn-viz-columns: 12;">
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
             <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
@@ -714,7 +719,7 @@
         </section>
         <section class="viz-section" aria-labelledby="minimal-activity">
           <h3 id="minimal-activity">24-day activity heatmap</h3>
-          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four" style="--syn-viz-columns: 12;">
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
             <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
             <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>

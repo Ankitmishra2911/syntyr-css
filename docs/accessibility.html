@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental alpha; not a WCAG certification or professional audit.">
-  <meta name="syntyr-source-sha256" content="51e74683711a95a8584ae32c6d22c68f872978d27306823097fa1b0dd58ce53e">
+  <meta name="syntyr-source-sha256" content="d23867c12602fe743a735d4183ceb4b4a363c995cc309bffa34f4ac69164ab52">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS accessibility validation — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility">
@@ -88,6 +88,7 @@ python3 -m unittest discover -s tests -v
 python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit
+python3 tests/published_reflow_browser.py --browsers chromium firefox webkit
 python3 tests/minimalist_browser.py --browsers chromium firefox webkit
 # Opt-in: seven-theme enlarged-label, scroll keyboard, and link-target checks.
 python3 tests/accessibility_regression_browser.py --browsers chromium firefox webkit
@@ -98,6 +99,20 @@ JavaScript file is shipped to application consumers:</p>
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
   --report /tmp/syntyr-axe-manual-review.json
 </code></pre>
+<p>The published-site reflow test serves the actual Cloudflare-allowlisted HTML
+and hashed CSS locally, checks every page in multiple portrait and landscape
+viewports, and stresses root text at 150%/200%. It permits independently
+scrollable data regions but rejects page-level horizontal overflow and
+out-of-viewport controls. This is <strong>not</strong> 200%/400% native browser zoom.</p>
+<p>For the remaining manual zoom gate, use the browser's own zoom control (not
+CSS <code>zoom</code>, a changed root font size, device pixel ratio, or pinch zoom):
+open the homepage, all-documentation index, free Noir landing, visualization
+gallery, pricing, and native forms. Check 200% and 400% zoom at a 1280 CSS-pixel
+starting window, then mobile landscape and portrait; record each browser,
+OS, zoom, viewport, navigation/control reachability and any overflow. Run with
+Chrome/Firefox and Safari/WebKit on a supported host, including keyboard and
+screen-reader inspection. Keep these as outstanding human review requirements
+until actually performed.</p>
 <p>The JSON now includes a <code>summary</code> that distinguishes incomplete rule results
 from <strong>inconclusive individual element targets</strong>, with counts by page and rule.
 Prioritize the highest-count pages for composited-gradient and pseudo-element

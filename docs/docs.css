@@ -111,6 +111,7 @@
   .docs-reference-group h2 { margin-block: .5rem 1rem; font-size: 1.4rem; }
   .docs-reference-group ul { padding-inline-start: 1.25rem; line-height: 1.7; }
   .docs-reference-group li { padding-block: .22rem; }
+  .docs-reference-group a { overflow-wrap: anywhere; }
   @media (max-width: 52rem) {
     .docs-article-layout { grid-template-columns: 1fr; }
     .docs-article-sidebar { position: static; grid-row: 1; max-height: none; overflow: visible; border-inline-start: 0; border-bottom: 1px solid var(--syn-frame); padding: 0 0 1rem; }

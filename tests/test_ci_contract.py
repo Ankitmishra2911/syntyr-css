@@ -59,6 +59,18 @@ class ContinuousIntegrationContract(unittest.TestCase):
         self.assertIn("event: tag", workflow)
         self.assertLess(matrix, blocks)
 
+    def test_published_reflow_matrix_is_an_active_three_engine_release_gate(self):
+        script = (ROOT / "tests" / "published_reflow_browser.py").read_text()
+        self.assertIn("from scripts.build_cloudflare_site import source_files", script)
+        self.assertIn("VIEWPORTS", script)
+        workflow = (ROOT / ".woodpecker" / "browser.yaml").read_text()
+        command = "python3 tests/published_reflow_browser.py --browsers chromium firefox webkit"
+        self.assertGreaterEqual(active_workflow_command_position(workflow, command), 0)
+        self.assertLess(
+            active_workflow_command_position(workflow, "python3 tests/reflow_test.py --browsers chromium firefox webkit"),
+            active_workflow_command_position(workflow, command),
+        )
+
     def test_release_browser_matrix_is_explicit_and_not_a_runtime_dependency(self):
         workflow = ROOT / ".woodpecker" / "browser.yaml"
         self.assertTrue(workflow.is_file(), "Require a reproducible release browser workflow")

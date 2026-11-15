@@ -2413,6 +2413,7 @@ python3 -m unittest discover -s tests -v
 python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit
+python3 tests/published_reflow_browser.py --browsers chromium firefox webkit
 python3 tests/minimalist_browser.py --browsers chromium firefox webkit
 # Opt-in: seven-theme enlarged-label, scroll keyboard, and link-target checks.
 python3 tests/accessibility_regression_browser.py --browsers chromium firefox webkit
@@ -2426,6 +2427,22 @@ curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o 
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
   --report /tmp/syntyr-axe-manual-review.json
 ```
+
+The published-site reflow test serves the actual Cloudflare-allowlisted HTML
+and hashed CSS locally, checks every page in multiple portrait and landscape
+viewports, and stresses root text at 150%/200%. It permits independently
+scrollable data regions but rejects page-level horizontal overflow and
+out-of-viewport controls. This is **not** 200%/400% native browser zoom.
+
+For the remaining manual zoom gate, use the browser's own zoom control (not
+CSS `zoom`, a changed root font size, device pixel ratio, or pinch zoom):
+open the homepage, all-documentation index, free Noir landing, visualization
+gallery, pricing, and native forms. Check 200% and 400% zoom at a 1280 CSS-pixel
+starting window, then mobile landscape and portrait; record each browser,
+OS, zoom, viewport, navigation/control reachability and any overflow. Run with
+Chrome/Firefox and Safari/WebKit on a supported host, including keyboard and
+screen-reader inspection. Keep these as outstanding human review requirements
+until actually performed.
 
 The JSON now includes a `summary` that distinguishes incomplete rule results
 from **inconclusive individual element targets**, with counts by page and rule.
