@@ -58,6 +58,18 @@ class SemanticStarterTests(unittest.TestCase):
         self.assertIn('action="?"', source)
         self.assertNotIn('onclick=', source)
 
+    def test_agent_documentation_exposes_pico_migration_only_for_alpha5(self):
+        index = (ROOT / "llms.txt").read_text()
+        sources = (ROOT / "scripts/build_agent_docs.py").read_text()
+        combined = (ROOT / "llms-full.txt").read_text()
+        self.assertIn("docs/from-pico.md", index)
+        self.assertIn('"docs/from-pico.md"', sources)
+        self.assertIn("## Source: docs/from-pico.md", combined)
+        guide = (ROOT / "docs/from-pico.md").read_text()
+        self.assertIn("alpha.5-only", guide)
+        self.assertIn("explicit", guide)
+        self.assertIn("alpha.4", guide)
+
     def test_documented_starter_is_not_misrepresented_as_published(self):
         for relative in ('README.md', 'docs/distribution.md', 'docs/ai-quickstart.md'):
             content = (ROOT / relative).read_text()

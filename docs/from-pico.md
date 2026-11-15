@@ -56,8 +56,10 @@ Do not combine either of those with the new one-file bundle: this duplicates CSS
 4. Translate existing `--pico-*` customizations **by design role**, not by
    search-and-replace. Syntyr's `--syn-*` tokens are not one-to-one aliases.
 5. If HTMX or another library adds temporary classes to formerly unclassed
-   elements, mark those elements with `data-syn-semantic` or use explicit
-   `syn-*` component classes.
+   elements, prefer explicit `syn-*` component classes on published alpha.4.
+   The `data-syn-semantic` marker is an **alpha.5-only** selector enhancement
+   for retaining semantic styling through transient class changes; do not use
+   it as an alpha.4 compatibility guarantee.
 6. Test keyboard navigation, light/dark behavior, small screens, 200%/400%
    browser zoom, forced colors, and screen readers in the actual application.
 
