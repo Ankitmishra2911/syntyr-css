@@ -1,9 +1,12 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Change classed data table cells to wrap prose by default; apply `.syn-cell--nowrap` for codes and identifiers, while `.syn-cell--numeric` remains non-wrapping. **Prerelease layout change:** update existing tables that depend on implicit no-wrap.
+- Support `--syn-panel-cut-fill` for cut-corner panels on nested or tinted surfaces. Add browser and palette-contrast regression checks.
 - Ensure `.syn-flow` stacks inline siblings and fully suppress the horizon fade under increased-contrast preferences.
 - Improve CSS-native usability with balanced short headings, configurable vertical flow composition, semantic raised/overlay elevation, and entrance motion tokens; no runtime dependencies.
 - Preserve primary-button hover contrast by default with a configurable hover background and contrasting border instead of unconditional color lightening.
 - Respect `prefers-contrast: more` for nested themed and cinematic-intensity regions; remove forced WebKit font smoothing and extend native CSS browser regressions.
+
 
 - Add opt-in system light/dark palette selection, composed from the existing Studio and Grid tokens without JavaScript.
 - Add opt-in intrinsic Sidebar/Switcher layouts and fluid typography in recipes; improve native checkbox/radio label alignment in semantic mode.

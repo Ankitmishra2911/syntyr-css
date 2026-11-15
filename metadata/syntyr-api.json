@@ -132,6 +132,11 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-cell--nowrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
       "name": "syn-cell--numeric",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
