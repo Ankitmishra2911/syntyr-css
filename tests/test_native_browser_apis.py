@@ -108,7 +108,7 @@ class NativeBrowserApisContract(unittest.TestCase):
                          'examples/native-apis.html'):
             with self.subTest(fragment=fragment):
                 self.assertIn(fragment, guide)
-        self.assertIn('native-browser-apis.md', (ROOT / 'docs/index.html').read_text())
+        self.assertIn('href="native-browser-apis.html"', (ROOT / 'docs/index.html').read_text())
         self.assertIn('examples/native-apis.html', (ROOT / 'README.md').read_text())
         self.assertIn('"examples/native-apis.html"', (ROOT / 'tests/reflow_test.py').read_text())
 

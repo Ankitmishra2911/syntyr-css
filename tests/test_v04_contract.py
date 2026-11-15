@@ -39,7 +39,7 @@ class V04Contract(unittest.TestCase):
     def test_site_gallery_links_to_new_demo_and_guide(self):
         page = (ROOT / "docs/index.html").read_text(encoding="utf-8")
         self.assertIn('href="../examples/resources.html"', page)
-        self.assertIn("theme-customization.md", page)
+        self.assertIn('href="theme-customization.html"', page)
         metadata = MetadataParser()
         metadata.feed(page)
         self.assertEqual(len(metadata.descriptions), 1, "one non-conflicting SEO meta description")

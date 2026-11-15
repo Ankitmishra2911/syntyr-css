@@ -61,7 +61,7 @@ class ProgressiveLoadingContract(unittest.TestCase):
         for required in ("critical CSS", "CSP", "LCP", "CLS", "warm", "cold",
                          "scripts/perf_loading_compare.py", "build_selective.py"):
             self.assertIn(required, guide)
-        self.assertIn("progressive-loading.md",
+        self.assertIn('href="progressive-loading.html"',
                       (ROOT / "docs/guides.html").read_text())
         self.assertIn("performance-first.html",
                       (ROOT / "docs/guides.html").read_text())

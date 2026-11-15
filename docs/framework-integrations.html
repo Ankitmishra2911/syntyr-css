@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Syntyr CSS integration guide: HTMX and common frontend stacks. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="74c6daac3326008089acbc619f82c56bdc850cf3bab266525eb86575e665cd9b">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr CSS integration guide: HTMX and common frontend stacks — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations.html">
+  <link rel="alternate" type="text/markdown" href="framework-integrations.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr CSS integration guide: HTMX and common frontend stacks</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="framework-integrations.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr CSS integration guide: HTMX and common frontend stacks">
+<h1 id="syntyr-css-integration-guide-htmx-and-common-frontend-stacks">Syntyr CSS integration guide: HTMX and common frontend stacks</h1>
+<p>Syntyr is a <strong>CSS presentation layer</strong>, not a state manager, request client, or component runtime.
+It has no JavaScript initialization, no required build tool, and no runtime dependency.
+Every example uses the same <code>syn-</code> classes, CSS tokens and standard HTML.</p>
+<h2 id="choose-one-styling-mode">Choose one styling mode</h2>
+<ol>
+<li><strong>Explicit classes (recommended for apps):</strong> load <code>syntyr.core.css</code>, use
+<code>.syn-root</code> on a stable ancestor, then <code>.syn-button</code>, <code>.syn-panel</code>, <code>.syn-input</code>, etc.</li>
+<li><strong>Optional semantic HTML:</strong> additionally load <code>syntyr.semantic.css</code> after core and
+add <code>.syn-semantic</code> to a scoped ancestor. Unclassed HTML receives semantic styles.
+For an element that an interaction framework will add classes to, opt it in once
+with <code>data-syn-semantic</code>. This preserves semantic styling while host-managed
+classes such as <code>htmx-request</code> are added and removed.</li>
+</ol>
+<pre><code class="language-html">&lt;section class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;button data-syn-semantic hx-get=&quot;/status&quot; hx-target=&quot;#status&quot;&gt;Check status&lt;/button&gt;
+  &lt;div id=&quot;status&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Host isolation:</strong> Loading the CSS alone does not style a <code>.syn-button</code>,
+<code>.syn-panel</code>, or other Syntyr class outside <code>.syn-root</code>. Existing host UI
+components and CSS retain their presentation. Put <code>.syn-root</code> on the actual
+Syntyr subtree (or on the component itself); do not assume a globally
+scoped component class creates its own theme root. Syntyr uses native CSS
+nesting for this boundary, so test embedding in each target browser.</p>
+<p>The marker is only considered <strong>inside</strong> <code>.syn-semantic</code>, so it does not style
+elements elsewhere. Do not put it on elements styled by a separate component
+library unless you explicitly want Syntyr semantic styling there. Prefer
+<code>.syn-button</code> for already-classed controls. The marker does <strong>not</strong> make the
+control stateful, disabled, or accessible by itself.</p>
+<h2 id="htmx-progressive-enhancement">HTMX: progressive enhancement</h2>
+<p>A complete example with a real stdlib Python HTTP server is at:
+<a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.html">examples/htmx.html</a>,
+<a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx_server.py">examples/htmx_server.py</a>, and
+<a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.css">examples/htmx.css</a>.
+These links lead to source files, not a live Cloudflare demonstration.</p>
+<p>From the repository root:</p>
+<pre><code class="language-sh">python3 examples/htmx_server.py
+# open http://127.0.0.1:8765/examples/htmx.html
+</code></pre>
+<p>The optional demo loads <strong>pinned HTMX 2.0.8</strong> from a third-party CDN. The CSS
+library doesn't load HTMX automatically. Production applications should
+self-host the pinned HTMX asset for control over performance, integrity, and CSP.</p>
+<p>The search form uses a real <code>action</code> and <code>method=get</code>. When HTMX sends
+<code>HX-Request: true</code>, the server returns only the result fragment. Ordinary
+navigation gets a complete HTML document. The server emits <code>Vary: HX-Request</code>
+to keep caches from mixing the representations, and escapes user-controlled
+query text before inserting it in HTML.</p>
+<p>For best results:</p>
+<ul>
+<li>Put <code>.syn-root</code> and <code>data-syn-theme</code> <strong>outside</strong> the swapped element.</li>
+<li>Swap the narrowest stable target (normally <code>innerHTML</code> inside a results container).</li>
+<li>Give labels and inputs stable IDs; preserve native form submission as a fallback.</li>
+<li>Use the framework's <code>hx-indicator</code> and <code>hx-disabled-elt</code> when appropriate;
+<code>aria-busy</code> does <strong>not</strong> block duplicate submissions by itself.</li>
+<li>Do not create a permanent Syntyr HTMX runtime or register Syntyr lifecycle events.</li>
+<li>For strict CSP, use <code>includeIndicatorStyles: false</code> and an external stylesheet.
+The demo shows this pattern with a small <strong>application-owned</strong> <code>htmx.css</code>.</li>
+<li>Test initial document, request state, swapped fragment, form fallback, and
+failure paths in an actual browser.</li>
+</ul>
+<p>The demo server intentionally exposes only four static assets and one GET route,
+listens on localhost, and is <strong>not</strong> included in the Cloudflare static-site build.
+A static host cannot serve its dynamic search endpoint without a backend.</p>
+<h2 id="lit-web-components">Lit / Web Components</h2>
+<p>Syntyr works with Lit but does not depend on it. Lit components using light DOM
+can use ordinary <code>.syn-*</code> classes within a Syntyr root. Components with Shadow
+DOM need local internal styles consuming inherited <code>--syn-*</code> tokens, and may
+expose supported styling surfaces with <code>::part()</code>. Stylesheets in the page do
+not automatically style the inside of a shadow root. See the
+<a href="lit-integration.html">Lit integration guide</a>, <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/lit">optional runnable example</a>
+and <a href="component-authoring.html">component-authoring conventions</a>.</p>
+<h2 id="alpinejs">Alpine.js</h2>
+<p>Use native attributes for real state, and Syntyr classes for presentation:</p>
+<pre><code class="language-html">&lt;div class=&quot;syn-root&quot; x-data=&quot;{ selected: false }&quot;&gt;
+  &lt;button class=&quot;syn-button&quot; type=&quot;button&quot;
+          :aria-pressed=&quot;String(selected)&quot; @click=&quot;selected = !selected&quot;&gt;
+    Toggle details
+  &lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Mount Alpine once in the host app. For <code>x-cloak</code>, define a tiny application
+rule <code>[x-cloak] { display: none !important; }</code> before Alpine initializes.
+Syntyr doesn't manage Alpine state.</p>
+<h2 id="datastar">Datastar</h2>
+<p>Bind standard <code>aria-*</code>, <code>data-syn-state</code>, and class attributes to Datastar
+signals. Style the resulting HTML as ordinary DOM. Keep the Syntyr theme root
+outside morph targets, and let Datastar own request and signal behavior.
+No Syntyr Datastar plugin is needed.</p>
+<h2 id="react-nextjs">React / Next.js</h2>
+<pre><code class="language-jsx">import &quot;./syntyr.core.css&quot;;
+
+export function StatusCard({ status }) {
+  return (
+    &lt;section className=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+      &lt;article className=&quot;syn-panel&quot;&gt;
+        &lt;h2 className=&quot;syn-heading&quot;&gt;Operations&lt;/h2&gt;
+        &lt;p&gt;{status}&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<p>Import CSS once from the app entry point (or root layout, as supported by
+the framework). No Syntyr provider, hooks, hydration, or dependency on React.</p>
+<h2 id="vue-nuxt-and-svelte-sveltekit">Vue / Nuxt and Svelte / SvelteKit</h2>
+<p>Import the same CSS once. Bind native classes, <code>aria-*</code>, and
+<code>data-syn-state</code> using each framework's built-in template syntax.
+Do not wrap simple visual classes in additional runtime components unless the
+application benefits from reusable semantic component boundaries.</p>
+<h2 id="astro-hugo-zola-django-rails-gotempl-and-rust-templates">Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates</h2>
+<p>Serve <code>syntyr.core.css</code> as a normal static asset. Write HTML partials
+with real headings, forms and links. Optional interactive islands can use
+HTMX, Alpine, Datastar, React or native browser elements without changing
+Syntyr's HTML/CSS contract. In Rails, Hotwire/Turbo updates have the same
+theme-root and swap-boundary considerations as HTMX.</p>
+<h2 id="existing-tailwind-or-component-library-applications">Existing Tailwind or component-library applications</h2>
+<ul>
+<li>Syntyr's <code>.syn-root</code> scope and <code>@layer syn.*</code> layers limit unintended
+interference, but Tailwind Preflight can still change global element defaults.</li>
+<li>Prefer explicit Syntyr classes. Apply <code>.syn-semantic</code> only to designated
+regions, not to a whole React/Headless UI component tree.</li>
+<li>Override public <code>--syn-*</code> tokens in application CSS; avoid copying or
+rebuilding utility frameworks inside Syntyr.</li>
+<li>Test cascade ordering, focus rings, dark/light color schemes, zoom and
+third-party components after integration.</li>
+</ul>
+<h2 id="performance-and-compatibility-contract">Performance and compatibility contract</h2>
+<ul>
+<li>CSS bytes are tracked by <code>python3 scripts/asset_report.py</code> with optional JSON baseline comparisons; no arbitrary gzip release gate.</li>
+<li>Syntyr runtime JS: <strong>zero</strong>. HTMX/Alpine/React are host-app dependencies.</li>
+<li>Self-host assets on the app's own origin when practical; pin external CDN
+versions. Don't load both <code>syntyr.all.css</code> and its constituent stylesheets.</li>
+<li>Use Playwright or equivalent browser automation to verify dynamic class
+changes, HTMX fragments, responsiveness and accessibility.</li>
+<li>Avoid large DOM swaps, expensive decorative effects on scrolling tables,
+and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
+</ul>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#choose-one-styling-mode">Choose one styling mode</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#htmx-progressive-enhancement">HTMX: progressive enhancement</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#lit-web-components">Lit / Web Components</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#alpinejs">Alpine.js</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#datastar">Datastar</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#react-nextjs">React / Next.js</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#vue-nuxt-and-svelte-sveltekit">Vue / Nuxt and Svelte / SvelteKit</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#astro-hugo-zola-django-rails-gotempl-and-rust-templates">Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#existing-tailwind-or-component-library-applications">Existing Tailwind or component-library applications</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#performance-and-compatibility-contract">Performance and compatibility contract</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="framework-integrations.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

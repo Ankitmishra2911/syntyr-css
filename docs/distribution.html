@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Syntyr CSS distribution. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="9b44a79d56992df211aaf20a43bcfcb6118245abea5b634fb7dfe5beb5d3a598">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr CSS distribution — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/distribution.html">
+  <link rel="alternate" type="text/markdown" href="distribution.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr CSS distribution</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="distribution.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr CSS distribution">
+<h1 id="syntyr-css-distribution">Syntyr CSS distribution</h1>
+<p>Syntyr CSS is MIT-licensed. No NPM install, JavaScript runtime, fonts,
+icons, Sass compiler or CSS framework is required to use the distributed CSS.</p>
+<h2 id="recommended-self-host-a-versioned-stylesheet">Recommended: self-host a versioned stylesheet</h2>
+<ol>
+<li>Download the asset from the <a href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4">GitHub release</a>, or copy the matching file from the tag.</li>
+<li>Put <code>syntyr.core.css</code> in your application's static CSS directory.</li>
+<li>Load it normally:</li>
+</ol>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;grid&quot;&gt;
+  &lt;button class=&quot;syn-button syn-button--primary&quot;&gt;Initialize&lt;/button&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The stylesheet's path is <em>your</em> path; mount or copy the file there.
+The above works with Go templates, plain HTML, Astro, HTMX, React and other
+renderers. See <a href="framework-integrations.html">the framework integration guide</a> for
+HTMX request-state classes, optional semantic markers, and server-side fragments. Add <code>syn-page</code> to the root only if you want full-page min-height.</p>
+<h2 id="one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</h2>
+<p>For a Pico-like HTML workflow, <code>dist/syntyr.semantic-bundle.css</code> combines core and semantic CSS into a single file. Copy it to your static assets, then opt in on the region you want styled:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.semantic-bundle.css&quot;&gt;
+&lt;body class=&quot;syn-root syn-page syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;main class=&quot;syn-shell&quot;&gt;
+    &lt;article&gt;&lt;h1&gt;Dashboard&lt;/h1&gt;&lt;button type=&quot;button&quot;&gt;Open&lt;/button&gt;&lt;/article&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+<p>Only the controls and elements inside <code>.syn-root.syn-semantic</code> are styled semantically. This is <strong>not</strong> Pico's globally classless behavior: the root scope is deliberate. No script or build tool is required. <a href="../examples/semantic-starter.html">See the runnable starter</a> and the <a href="from-pico.html">Pico migration guide</a>. <strong>This file is not in the published alpha.4 release</strong> and its <code>/dist/</code> URL is not an immutable release asset; pin a released version once alpha.5 is actually published. Do not load <code>core.css</code> or <code>semantic.css</code> alongside this bundle.</p>
+<h2 id="optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</h2>
+<p>A CSS-only <code>@syntyr/css</code> manifest is available in the alpha.5 repository candidate, but <strong>it has not been published to npm</strong>. See <a href="package-managers.html">package-manager installation and local tarball testing</a> for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.</p>
+<h2 id="optional-themes-and-semantic-html">Optional themes and semantic HTML</h2>
+<p>Grid, Noir and Studio ship in the <strong>same</strong> core stylesheet; set
+<code>data-syn-theme=&quot;grid&quot;</code> or <code>data-syn-theme=&quot;noir&quot;</code> or <code>data-syn-theme=&quot;studio&quot;</code> on the scoped root.
+You can nest differently themed elements.</p>
+<p>The unreleased alpha.5 candidate adds Industrial, Terminal, Corporate and Minimal using the same scoped <code>data-syn-theme</code> contract. The published alpha.4 release includes Grid, Noir and Studio only.</p>
+<p>Load <code>syntyr.semantic.css</code> after core <strong>only</strong> if you want automatic semantic
+element styles within <code>.syn-semantic</code>. For static glows and decorative grid
+effects, load <code>syntyr.effects.css</code> after core. SaaS, business and terminal layouts
+are opt-in via <code>syntyr.recipes.css</code>. Optional frame geometry is in <code>syntyr.geometry.css</code>.
+The alpha.5 working tree additionally provides <code>syntyr.utilities.css</code> for finite
+layout helpers and <code>syntyr.print.css</code> for print-friendly reports. System-aware
+Grid/Studio <code>data-syn-theme=&quot;auto&quot;</code> is already included in core CSS, with
+no additional stylesheet or runtime JavaScript. See the
+<a href="progressive-enhancement.html">progressive-enhancement guide</a> for examples.
+The optional <code>syntyr.symbols.css</code> adds BYO-SVG icon sizing, literal Unicode styling and ASCII/box-drawing alignment without shipping fonts or icons; see <a href="symbols.html">symbols and accessibility</a>.</p>
+<p><code>syntyr.semantic-bundle.css</code> bundles core and semantic styles with scoped opt-in.
+<code>syntyr.css</code> bundles core and effects. <code>syntyr.all.css</code> bundles all modules
+while still requiring <code>.syn-semantic</code> to opt into semantic element styles.
+Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final <code>syn.utilities</code> cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see <a href="https://github.com/dporkka/syntyr-css/blob/main/ARCHITECTURE.md">the architecture policy</a>.</p>
+<h2 id="optional-explicit-selective-build">Optional explicit selective build</h2>
+<p>Applications needing fewer core components can assemble a custom CSS file with
+the Python standard-library-only <code>scripts/build_selective.py</code>. It does not scan
+templates or purge individual selectors, and does not alter published assets.
+See <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/selective-builds.md">selective builds and their limits</a>.</p>
+<h2 id="pinned-cdn-for-prototyping">Pinned CDN for prototyping</h2>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot;
+      href=&quot;https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css&quot;&gt;
+</code></pre>
+<p>The first-party Cloudflare CDN serves frozen, checksum-verified CSS releases
+from a global edge network. Unversioned <code>/dist/</code> URLs can change with builds;
+pin <code>/v/&lt;version&gt;/</code> instead. The documentation's optional theme editor
+has JavaScript, but the library CSS and consumer sites do not require it.
+For production applications, copying the versioned CSS to your own origin
+usually avoids an additional hostname connection.</p>
+<h2 id="release-artifacts-and-guarantees">Release artifacts and guarantees</h2>
+<p>The published alpha.4 release contains seven SYNTYR CSS distributions. The
+unreleased alpha.5 source candidate includes modular SYNTYR distributions,
+including the optional utilities, print and symbols stylesheets, plus
+the terminal ANSI palette JSON, this guide, MIT license, and README. No retired compatibility aliases are shipped. The ZIP is created deterministically using only
+Python's standard library:</p>
+<pre><code class="language-sh">python3 scripts/build.py --check
+python3 -m unittest discover -s tests -v
+python3 scripts/package_release.py
+</code></pre>
+<p>Both visual themes and all essential components are MIT-licensed. Commercial
+premium templates, if introduced, will be independently authored and sold
+separately. This v0.3 alpha is <strong>not</strong> a v1 production compatibility guarantee;
+cross-browser and full accessibility audits are still release gates.</p>
+<p>The <code>syn-</code> selectors, <code>--syn-</code> custom properties and <code>data-syn-</code> attributes are the only supported source API.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#recommended-self-host-a-versioned-stylesheet">Recommended: self-host a versioned stylesheet</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-themes-and-semantic-html">Optional themes and semantic HTML</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-explicit-selective-build">Optional explicit selective build</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#pinned-cdn-for-prototyping">Pinned CDN for prototyping</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#release-artifacts-and-guarantees">Release artifacts and guarantees</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="distribution.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

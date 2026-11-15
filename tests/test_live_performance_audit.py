@@ -56,7 +56,7 @@ class LivePerfTests(unittest.TestCase):
             self.assertIn(expected.lower(), guide.lower())
         self.assertIn('"live-performance-audit.md"',
                       (ROOT / "scripts/build_cloudflare_site.py").read_text())
-        self.assertIn("live-performance-audit.md",
+        self.assertIn('href="live-performance-audit.html"',
                       (ROOT / "docs/guides.html").read_text())
         self.assertIn("https://syntyr-css.pages.dev/docs/live-performance-audit.md",
                       (ROOT / "llms.txt").read_text())
