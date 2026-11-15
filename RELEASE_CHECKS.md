@@ -1,3 +1,5 @@
+> Historical prerelease measurements only: the listed size targets are no longer enforced.
+
 # Syntyr CSS v0.3.0-alpha.4 — release verification
 
 **Checked November 14, 2026.** Integrated candidate: `integrate/reflow-alpha2`,

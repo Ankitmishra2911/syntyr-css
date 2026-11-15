@@ -5,6 +5,11 @@
     color-scheme: dark;
     --syn-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --syn-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    --syn-font-ui: var(--syn-font);
+    --syn-font-display: var(--syn-font);
+    --syn-type-xs: .75rem;
+    --syn-type-sm: .875rem;
+    --syn-type-base: 1rem;
     --syn-space-1: .375rem;
     --syn-space-2: .75rem;
     --syn-space-3: 1.125rem;
@@ -19,13 +24,31 @@
     --syn-panel-padding: clamp(1rem, 2.8vw, 1.75rem);
     --syn-control-padding-block: .7rem;
     --syn-control-padding-inline: .8rem;
-    --syn-table-padding-block: .7rem;
-    --syn-table-padding-inline: .6rem;
+    --syn-row-padding-block: .7rem;
+    --syn-table-padding-block: var(--syn-row-padding-block);
+    --syn-table-padding-inline: .65rem;
+    --syn-card-padding: var(--syn-space-3);
+    --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
     --syn-focus-ring: var(--syn-accent);
     --syn-link: var(--syn-accent);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
     --syn-duration-fast: 150ms;
+  }
+  /* Derived surfaces recompute inside nested themes, not just on the parent. */
+  :where(.syn-root, .syn-root [data-syn-theme]) {
+    --syn-surface-recessed: color-mix(in srgb, var(--syn-bg) 88%, var(--syn-surface));
+    --syn-surface-raised: color-mix(in srgb, var(--syn-surface) 72%, var(--syn-surface-hi));
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
+    --syn-font-ui: var(--syn-font);
+    --syn-font-display: var(--syn-font);
+  }
+  /* Compact presentation is an opt-in layout control, never a font-size override. */
+  :where(.syn-root[data-syn-density="compact"], .syn-root [data-syn-density="compact"]) {
+    --syn-control-height: 2.25rem;
+    --syn-control-padding-block: .3rem;
+    --syn-row-padding-block: .4rem;
+    --syn-table-padding-block: var(--syn-row-padding-block);
+    --syn-card-padding: var(--syn-space-2);
   }
   :where(.syn-root), :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
     color-scheme: dark;
@@ -44,7 +67,7 @@
     --syn-warning: #ffd08b;
     --syn-link: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: var(--syn-geometry-radius, .25rem);
     --syn-cut: var(--syn-geometry-cut, .9rem);
@@ -66,7 +89,7 @@
     --syn-warning: #fbd18c;
     --syn-link: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 10%, transparent);
     --syn-radius: var(--syn-geometry-radius, .25rem);
     --syn-cut: var(--syn-geometry-cut, .9rem);
@@ -88,7 +111,7 @@
     --syn-warning: #ffd08f;
     --syn-link: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: var(--syn-geometry-radius, .15rem);
     --syn-cut: var(--syn-geometry-cut, .45rem);
@@ -110,7 +133,7 @@
     --syn-warning: #eccd86;
     --syn-link: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: var(--syn-geometry-radius, 0);
     --syn-cut: var(--syn-geometry-cut, 0);
@@ -132,7 +155,7 @@
     --syn-warning: #9a5600;
     --syn-link: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
     --syn-radius: var(--syn-geometry-radius, .5rem);
     --syn-cut: var(--syn-geometry-cut, 0);
@@ -154,7 +177,7 @@
     --syn-warning: #8d5200;
     --syn-link: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 7%, transparent);
     --syn-radius: var(--syn-geometry-radius, .375rem);
     --syn-cut: var(--syn-geometry-cut, 0);
@@ -176,9 +199,17 @@
     --syn-warning: #92500a;
     --syn-link: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
     --syn-radius: var(--syn-geometry-radius, .25rem);
     --syn-cut: var(--syn-geometry-cut, .9rem);
+  }
+  /* Technical typography only for the fallback and explicit technical themes.
+     Do not force monospace on Studio/Minimal/Corporate roots. */
+  :where(.syn-root:not([data-syn-theme]), .syn-root[data-syn-theme="grid"],
+         .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
+         .syn-root [data-syn-theme="terminal"]) {
+    --syn-font-ui: var(--syn-mono);
+    --syn-font-display: var(--syn-mono);
   }
 }

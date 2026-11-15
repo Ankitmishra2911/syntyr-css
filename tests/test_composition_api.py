@@ -34,7 +34,7 @@ class CompositionApiTests(unittest.TestCase):
                       "--syn-control-padding-block", "--syn-table-padding-block"):
             self.assertIn(token, css)
         self.assertIn("var(--syn-control-padding-block)", (ROOT / "src/components/forms.css").read_text())
-        self.assertIn("var(--syn-table-padding-block)", (ROOT / "src/components/data.css").read_text())
+        self.assertIn("var(--syn-table-padding-block", (ROOT / "src/components/data.css").read_text())
 
     def test_geometry_overrides_inherit_across_nested_theme_boundaries(self):
         css = (ROOT / "src/presets.css").read_text()

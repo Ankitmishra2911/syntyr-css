@@ -72,7 +72,7 @@ Application CSS can override tokens:
 - Contrast target: WCAG 2.2 AA for text; manually verify any customized tokens.
 - Honor user preferences: `prefers-reduced-motion`, `forced-colors`; effects opt-in and static.
 - Avoid relying on color alone for state; use labels or icons with text alternatives.
-- CSS byte sizes are reported, not gated by arbitrary bundle limits; styling requires no runtime JavaScript.
+- Raw/gzip CSS sizes are diagnostic, not enforced budgets; runtime JS: 0 bytes.
 - Browser coverage: current Chromium, Firefox and WebKit. The included automated browser suite runs Chromium when installed and can be extended to other engines.
 - Do not automatically treat the demo or contract tests as an accessibility certification: test screen readers, 200%/400% zoom, form errors, contrast, and actual products separately.
 
@@ -135,7 +135,7 @@ See [theme customization and token overrides](theme-customization.md), [MIT comp
 
 ## Optional SaaS, business and CLI compositions (development branch)
 
-Load `syntyr.core.css` first and `syntyr.recipes.css` second. The core remains independent of optional recipe modules.
+Load `syntyr.core.css` first and `syntyr.recipes.css` second. Recipes remain optional and separate from the core.
 
 | Context | Optional classes |
 | --- | --- |

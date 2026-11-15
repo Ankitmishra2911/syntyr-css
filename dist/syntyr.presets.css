@@ -7,12 +7,13 @@
     --syn-space-3: .75rem;
     --syn-space-4: 1.25rem;
     --syn-space-5: 1.875rem;
-    --syn-control-height: 2.5rem;
+    --syn-control-height: 2.25rem;
     --syn-button-padding-block: .45rem;
     --syn-button-padding-inline: .625rem;
-    --syn-control-padding-block: .45rem;
+    --syn-control-padding-block: .3rem;
     --syn-control-padding-inline: .625rem;
-    --syn-table-padding-block: .45rem;
+    --syn-row-padding-block: .4rem;
+    --syn-table-padding-block: .4rem;
     --syn-table-padding-inline: .5rem;
   }
   :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
@@ -26,6 +27,7 @@
     --syn-button-padding-inline: 1rem;
     --syn-control-padding-block: .85rem;
     --syn-control-padding-inline: 1rem;
+    --syn-row-padding-block: .85rem;
     --syn-table-padding-block: .85rem;
     --syn-table-padding-inline: .85rem;
   }

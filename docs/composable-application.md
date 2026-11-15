@@ -41,7 +41,7 @@ Themes: `grid`, `noir`, `studio`, `industrial`, `terminal`,
 `corporate`, `minimal`.
 
 Density: default (omit attribute), `compact` or `comfortable`.
-The compact control minimum is 40 CSS px at the default root size, which
+The compact control minimum is 36 CSS px at the default root size, which
 can fall below touch-friendly guidelines; use the default or comfortable
 setting on touch-first experiences. A theme does not silently alter density.
 

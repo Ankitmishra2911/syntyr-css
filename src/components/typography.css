@@ -2,16 +2,16 @@
   /* Native CSS nesting: no component selector escapes the Syntyr root. */
   :where(.syn-root) {
   .syn-logo { font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
-  .syn-eyebrow { font: 700 .69rem/1.4 var(--syn-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
-  .syn-title { text-wrap: balance; font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
-  .syn-heading { text-wrap: balance; font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
+  .syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
+  .syn-title { text-wrap: balance; font-family: var(--syn-font-display); font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
+  .syn-heading { text-wrap: balance; font-family: var(--syn-font-display); font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
   .syn-lede { max-width: 56ch; color: var(--syn-muted); }
   .syn-muted { color: var(--syn-muted); }
   .syn-mono { font-family: var(--syn-mono); font-variant-numeric: tabular-nums; }
-  .syn-caption { overflow-wrap: anywhere; color: var(--syn-muted); font: 500 .72rem/1.5 var(--syn-mono); letter-spacing: .04em; }
-  .syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-mono); letter-spacing: -.06em; }
+  .syn-caption { overflow-wrap: anywhere; color: var(--syn-muted); font: 500 var(--syn-type-xs)/1.5 var(--syn-font-ui); letter-spacing: .04em; }
+  .syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-font-display); font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
   .syn-rule { border: 0; border-top: 1px solid var(--syn-frame); margin-block: 1.25rem; }
-  .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 .68rem/1.25 var(--syn-mono); letter-spacing: .04em; }
+  .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 var(--syn-type-xs)/1.25 var(--syn-font-ui); letter-spacing: .04em; }
   .syn-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
   .syn-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--syn-accent); background: var(--syn-surface); color: var(--syn-text); }
   .syn-alert--danger { border-inline-start-color: var(--syn-danger); }

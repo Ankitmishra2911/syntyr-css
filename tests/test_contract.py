@@ -37,6 +37,7 @@ def contrast(a,b):
 class ContractTests(unittest.TestCase):
     def test_built_css_exists_and_cascade_order(self):
         css = (ROOT/'dist/syntyr.css').read_bytes()
+        self.assertGreater(len(css), 0)
         self.assertIn(b'@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects, syn.application, syn.utilities;', css[:400])
 
     def test_theme_tokens_and_components(self):

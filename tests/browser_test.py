@@ -81,6 +81,83 @@ class BrowserTests(unittest.TestCase):
         range_border = self.page.locator('#range-audit').evaluate('e => getComputedStyle(e).borderTopWidth')
         self.assertEqual(range_border, '0px')
 
+    def test_nested_themes_and_compact_density_render_independently(self):
+        self.page.evaluate("""() => {
+            const region = document.createElement('section');
+            region.className = 'syn-root';
+            region.setAttribute('data-syn-theme', 'studio');
+            region.innerHTML = `
+                <button id="comfortable" class="syn-button">Comfortable</button>
+                <div id="compact" data-syn-density="compact">
+                  <button id="compact-button" class="syn-button">Compact</button>
+                </div>
+                <section id="grid-nested" data-syn-theme="grid">
+                  <button id="grid-button" class="syn-button">Telemetry</button>
+                </section>`;
+            document.body.appendChild(region);
+        }""")
+        normal_height = self.page.locator("#comfortable").evaluate(
+            "e => getComputedStyle(e).minHeight")
+        compact_height = self.page.locator("#compact-button").evaluate(
+            "e => getComputedStyle(e).minHeight")
+        self.assertEqual(normal_height, "44px")
+        self.assertEqual(compact_height, "36px")
+        studio_font = self.page.locator("#comfortable").evaluate(
+            "e => getComputedStyle(e).fontFamily")
+        grid_font = self.page.locator("#grid-button").evaluate(
+            "e => getComputedStyle(e).fontFamily")
+        self.assertNotEqual(studio_font, grid_font)
+        self.assertIn("mono", grid_font.lower())
+        surface_light = self.page.locator("#comfortable").evaluate(
+            "e => getComputedStyle(e.parentElement).getPropertyValue('--syn-surface-recessed').trim()")
+        surface_dark = self.page.locator("#grid-nested").evaluate(
+            "e => getComputedStyle(e).getPropertyValue('--syn-surface-recessed').trim()")
+        self.assertNotEqual(surface_light, surface_dark)
+
+    def test_selected_table_row_retains_state_on_hover(self):
+        css = (ROOT / "dist/syntyr.core.css").read_text()
+        self.page.set_content(f"""<style>{css}</style>
+        <section class="syn-root" data-syn-theme="studio">
+          <table class="syn-table"><tbody>
+            <tr aria-selected="true" id="selected"><td>Selected</td></tr>
+            <tr id="other"><td>Other</td></tr>
+          </tbody></table>
+        </section>""")
+        row = self.page.locator("#selected")
+        base = row.evaluate("e => getComputedStyle(e).backgroundColor")
+        row.hover()
+        hover = row.evaluate("e => getComputedStyle(e).backgroundColor")
+        self.assertEqual(hover, base, "Selection highlight must survive hover")
+        self.page.locator("#other").hover()
+        non_selected = self.page.locator("#other").evaluate(
+            "e => getComputedStyle(e).backgroundColor")
+        self.assertNotEqual(non_selected, base)
+
+    def test_compact_density_shortens_actual_text_controls(self):
+        css = (ROOT / "dist/syntyr.core.css").read_text()
+        self.page.set_content(f"""<style>{css}</style>
+        <section class="syn-root" data-syn-theme="studio">
+          <label for="normal">Normal</label><input class="syn-input" id="normal">
+          <label for="normal-select">Select</label>
+          <select class="syn-select" id="normal-select"><option>One</option></select>
+          <section data-syn-density="compact">
+            <label for="compact">Compact</label><input class="syn-input" id="compact">
+            <label for="compact-select">Select</label>
+            <select class="syn-select" id="compact-select"><option>One</option></select>
+          </section>
+        </section>""")
+        for normal_id, compact_id in (("normal", "compact"),
+                                       ("normal-select", "compact-select")):
+            with self.subTest(normal=normal_id, compact=compact_id):
+                normal = self.page.locator(f"#{normal_id}").evaluate(
+                    "e => e.getBoundingClientRect().height")
+                compact = self.page.locator(f"#{compact_id}").evaluate(
+                    "e => e.getBoundingClientRect().height")
+                self.assertLess(compact, normal - 4,
+                    "Compact density must affect measured height, not only min-height")
+                self.assertGreaterEqual(compact, 36,
+                    "Compact controls must retain a reasonable interactive target")
+
     def test_embedded_root_does_not_force_viewport_height(self):
         self.page.evaluate("""() => {
           const section = document.createElement('section');
@@ -209,7 +286,12 @@ class BrowserTests(unittest.TestCase):
                 computed = self.page.locator(selector).evaluate(
                     "e => ({fg: getComputedStyle(e).color, bg: getComputedStyle(e).backgroundColor})")
                 self.assertEqual(computed["fg"], "rgb(21, 35, 58)")
-                self.assertEqual(computed["bg"], "rgb(255, 255, 255)")
+                if selector == "#nested-rail":
+                    # Navigation recedes from the pure-white working surface.
+                    self.assertNotEqual(computed["bg"], "rgb(255, 255, 255)")
+                    self.assertNotEqual(computed["bg"], "rgba(0, 0, 0, 0)")
+                else:
+                    self.assertEqual(computed["bg"], "rgb(255, 255, 255)")
 
     def test_new_recipes_have_no_mobile_overflow_and_work_at_desktop_width(self):
         core = (ROOT / 'dist/syntyr.core.css').read_text()

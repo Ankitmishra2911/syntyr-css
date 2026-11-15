@@ -60,7 +60,10 @@ Useful tokens:
 | `--syn-text`, `--syn-muted` | Main and secondary text |
 | `--syn-accent`, `--syn-on-accent`, `--syn-accent-soft` | Brand accent, its foreground, soft fill |
 | `--syn-frame`, `--syn-danger`, `--syn-success`, `--syn-warning` | Borders and status |
-| `--syn-font`, `--syn-mono` | System-first font stacks |
+| `--syn-font`, `--syn-mono`, `--syn-font-ui`, `--syn-font-display` | Body, technical, control, and display typography |
+| `--syn-type-xs`, `--syn-type-sm`, `--syn-type-base` | Typography sizes |
+| `--syn-surface-recessed`, `--syn-surface-raised`, `--syn-border-subtle` | Derived surfaces and quiet separators |
+| `--syn-row-padding-block`, `--syn-card-padding`, `--syn-control-padding-block` | Density-aware spacing |
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
 | `--syn-duration-fast`, `--syn-ease` | Optional transitions |
@@ -149,3 +152,31 @@ for touch-first screens, or ensure equivalent target spacing.
 ## Derived accents and component-level overrides
 
 Each built-in palette derives `--syn-accent-soft` from `--syn-accent` with `color-mix()` using that palette's opacity. Override both on a nested subtree if you change the accent there: inherited custom properties can already be resolved at the ancestor theme boundary. You can independently customize `--syn-button-padding-block`, `--syn-button-padding-inline` and `--syn-panel-padding`. The optional presets file changes button padding with density without coupling it to palette selection.
+
+## Typography, density, and quiet surfaces
+
+Control and navigation text uses `--syn-font-ui`. Display headings use
+`--syn-font-display`, while code and CLI regions retain `--syn-mono`.
+Grid and Terminal choose monospace UI by default; light themes and Noir use
+system sans-serif controls. Replace the font variables if a product has its
+own typeface, without introducing required external fonts.
+
+The `--syn-surface-recessed`, `--syn-surface-raised`, and
+`--syn-border-subtle` tokens derive from the active theme palette and
+recompute in nested themed regions. Strong borders remain available for
+focus and essential controls. Avoid treating subtle separators as a substitute
+for accessible non-text contrast where boundaries are required.
+
+To opt into compact operational layouts:
+
+```html
+<section class="syn-root" data-syn-theme="minimal" data-syn-density="compact">
+  <table class="syn-table"><!-- ... semantic rows ... --></table>
+</section>
+```
+
+Compact density reduces padding and control heights, **not font sizes**.
+Use the default density for content-heavy business pages or touch-first forms.
+For an optional editorial hero, combine `syn-site-heading--editorial` from
+`syntyr.recipes.css` with `syn-gradient-wash` from `syntyr.effects.css`.
+Both use local fonts and static CSS without runtime dependencies.

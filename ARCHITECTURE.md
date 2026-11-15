@@ -117,7 +117,10 @@ Avoid accumulating near-identical version-labelled tests: retain valuable
 regressions, but consolidate them into enduring behavior/contract tests when
 refactoring those areas.
 
-No fixed CSS bundle-size ceilings are enforced. Track raw and compressed sizes in reproducible build reports, but prioritize correct rendering, accessibility, maintainability and low runtime overhead over arbitrary byte limits. Nonessential features should still live in optional modules. Runtime JavaScript remains unnecessary.
+Report raw and gzip bytes for every build, without arbitrary CSS size
+budgets or release failures based on byte ceilings. Browser behavior,
+accessibility, and modular loading govern performance decisions. Runtime
+JavaScript remains unnecessary; nonessential effects and recipes are opt-in.
 
 Before any 1.0 release, settle the supported browser matrix, close the open
 manual accessibility findings, and document precisely which selectors and

@@ -27,6 +27,14 @@ class BrowserCoverageContract(unittest.TestCase):
                              '"examples/business.html"', '"examples/terminal.html"'):
                     self.assertIn(page, source)
 
+    def test_cross_browser_matrix_covers_selected_hover_and_compact_inputs(self):
+        source = (ROOT / "tests/browser_matrix.py").read_text()
+        self.assertIn("assert_visual_refinement(browser)", source)
+        self.assertIn('data-syn-density="compact"', source)
+        self.assertIn('aria-selected="true"', source)
+        self.assertIn("getBoundingClientRect().height", source)
+        self.assertIn("row.hover()", source)
+
     def test_nested_theme_probes_use_the_current_dataset_contract(self):
         source = (ROOT / "tests/browser_matrix.py").read_text()
         self.assertIn("dataset.synTheme", source)

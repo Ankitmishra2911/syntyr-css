@@ -25,6 +25,10 @@ class Alpha5Integration(unittest.TestCase):
         self.assertNotIn("utilities.css", definitions["syntyr.core.css"])
         self.assertNotIn("geometry.css", definitions["syntyr.core.css"])
 
+    def test_core_and_optional_artifacts_are_nonempty(self):
+        for suffix in (".core", "", ".all"):
+            with self.subTest(suffix=suffix):
+                self.assertGreater((ROOT / "dist" / f"syntyr{suffix}.css").stat().st_size, 0)
     def test_all_demos_are_covered_once_by_all_browser_suites(self):
         pages = ("themes.html", "geometry-terminal.html", "operations-console.html")
         for script in ("browser_matrix.py", "reflow_test.py", "axe_audit.py"):
