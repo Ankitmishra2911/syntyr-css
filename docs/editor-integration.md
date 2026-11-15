@@ -77,6 +77,32 @@ printf '<button class="syn-buttn">Save</button>' | python3 scripts/syntyr_check.
 cat fragment.html | python3 scripts/syntyr_check.py --format json --stylesheets syntyr.core.css -
 ```
 
+### Agent-ready composition recipes
+
+The same generated `metadata/syntyr-contract.json` includes an optional
+`recipes` array curated in `metadata/components.json`. Each recipe declares:
+
+- A stable `id`, purpose, example page and required CSS distributions.
+- A native HTML `root` element and named `slots` with `tag`, `classes`,
+  `optional` and `repeatable` fields.
+- `variants` restricted to real, CSS-supported `data-syn-*` attribute values.
+- `host_behavior` explaining what CSS **cannot** perform (server requests,
+  selection, pagination, validation, focus or authorization).
+
+Available recipes cover a CRM filter form, semantic resource table, app shell,
+and validated form. Use a `.syn-root` ancestor for every composition, and load
+all listed stylesheets in the documented order (core before optional recipes).
+The contract's `slots` describe roles, **not a strict DOM nesting validator**;
+authors must still use accessible native HTML in context. The host application
+supplies state and behavior. No JavaScript component engine is required.
+
+Source truth is the existing curated `metadata/components.json`, not another
+hand-maintained metadata registry. After editing a recipe, run
+`python3 scripts/export_api_metadata.py` to regenerate the contract;
+`python3 scripts/export_api_metadata.py --check` detects drift. The exporter
+rejects stale class names, missing CSS modules, unsupported variant values,
+invalid example paths and duplicate slot names before publication.
+
 The checker reports source positions, unknown literal `syn-*` classes, invalid
 literal `data-syn-*` values, and missing optional CSS modules **when a Syntyr
 stylesheet is linked or explicitly specified**. For full HTML documents with
