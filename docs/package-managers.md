@@ -41,7 +41,7 @@ import '@syntyr/css/core.css';
 
 This is a **build-time stylesheet import** in the host application, not Syntyr JavaScript. For a browser `<link>` tag, serve a **copied CSS asset** at a real URL: browsers do not resolve the bare `@syntyr/css/...` package specifier in `href`.
 
-Available subpaths: `core.css` (default), `semantic.css`, `recipes.css`, `effects.css`, `geometry.css`, `symbols.css`, `viz.css`, `utilities.css`, `print.css`, `syntyr.css` (core + effects), and `all.css`. These exports are tested against the standard-library `scripts/build.py` distribution registry. Future CSS modules must update the exports and their contract test.
+Available subpaths: `core.css` (default), `semantic.css`, `recipes.css`, `effects.css`, `geometry.css`, `symbols.css`, `viz.css`, `utilities.css`, `print.css`, `syntyr.css` (core + effects), `all.css`, and the opt-in **Tailwind v4 build-time** bridge `tailwind.css`. These exports are tested against the standard-library `scripts/build.py` distribution registry. Future CSS modules must update the exports and their contract test.
 
 The default import is deliberately `core.css`; `all.css` is opt-in. Do not import `all.css` alongside its component stylesheets or import `syntyr.css` alongside `core.css` and `effects.css`: doing so duplicates CSS and can complicate cascade debugging.
 
@@ -49,7 +49,7 @@ The default import is deliberately `core.css`; `all.css` is opt-in. Do not impor
 
 - **No package publication is performed by the repository build.** Publishing is a separate release-owner action.
 - The `VERSION` and `package.json` version must match. Tagged alpha.4 CDN assets remain immutable.
-- npm package file inclusion is restricted to the generated `dist/` folder, `README.md` and `LICENSE` (plus npm's required package metadata). It excludes business notes, local configuration, unpublished premium designs and tests.
+- npm package file inclusion is restricted to the generated `dist/` folder, the optional `integrations/tailwind/` CSS bridge, `README.md` and `LICENSE` (plus npm's required package metadata). It excludes business notes, local configuration, unpublished premium designs and tests.
 - CSS exports and the published asset set are checked in the standard Python unit test suite. `npm pack --dry-run --json --ignore-scripts` confirms what the npm client would actually package.
 - The package contains no runtime JavaScript and requires no npm lifecycle scripts to install or consume.
 - The scoped name and release version must be verified before any publish command is attempted.

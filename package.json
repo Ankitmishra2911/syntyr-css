@@ -22,13 +22,15 @@
     "./print.css": "./dist/syntyr.print.css",
     "./syntyr.css": "./dist/syntyr.css",
     "./all.css": "./dist/syntyr.all.css",
-    "./viz.css": "./dist/syntyr.viz.css"
+    "./viz.css": "./dist/syntyr.viz.css",
+    "./tailwind.css": "./integrations/tailwind/syntyr.theme.css"
   },
   "sideEffects": [
     "**/*.css"
   ],
   "files": [
     "dist/",
+    "integrations/tailwind/",
     "README.md",
     "LICENSE"
   ],
