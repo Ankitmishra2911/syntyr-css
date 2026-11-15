@@ -1,0 +1,15 @@
+{
+  "name": "syntyr-lit-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild main.js --bundle --format=esm --target=es2022 --outfile=dist/demo.js"
+  },
+  "dependencies": {
+    "lit": "3.3.3"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

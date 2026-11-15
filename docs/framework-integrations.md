@@ -76,6 +76,16 @@ The demo server intentionally exposes only four static assets and one GET route,
 listens on localhost, and is **not** included in the Cloudflare static-site build.
 A static host cannot serve its dynamic search endpoint without a backend.
 
+## Lit / Web Components
+
+Syntyr works with Lit but does not depend on it. Lit components using light DOM
+can use ordinary `.syn-*` classes within a Syntyr root. Components with Shadow
+DOM need local internal styles consuming inherited `--syn-*` tokens, and may
+expose supported styling surfaces with `::part()`. Stylesheets in the page do
+not automatically style the inside of a shadow root. See the
+[Lit integration guide](lit-integration.md), [optional runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit)
+and [component-authoring conventions](component-authoring.md).
+
 ## Alpine.js
 
 Use native attributes for real state, and Syntyr classes for presentation:
