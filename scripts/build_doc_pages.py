@@ -58,6 +58,14 @@ DESCRIPTION_OVERRIDES = {
     "from-pico.md": "Migrate from Pico CSS to Syntyr with semantic HTML, explicit component styling, theme tokens, and minimal runtime dependencies.",
     "distribution.md": "Install and self-host Syntyr CSS using versioned stylesheets, optional modules, and immutable releases for production websites.",
     "theme-customization.md": "Customize Syntyr CSS themes and design tokens for SaaS dashboards, accessible business applications, and futuristic interfaces.",
+    "component-authoring.md": "Define semantic HTML, styling namespaces, theme scopes, and accessibility contracts for Syntyr-compatible application and Web Components.",
+    "design-research-linear-resend.md": "Explore the design principles Syntyr adapts from Linear, Resend, and other developer tools without copying proprietary interfaces or assets.",
+    "recipes.md": "Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.",
+    "saas-cli-business.md": "Style SaaS dashboards, business websites, and CLI-inspired interfaces with Syntyr's framework-neutral Grid, Noir, and Studio themes.",
+    "tailwind-research.md": "Compare Syntyr CSS with Tailwind CSS and Tailwind Plus: tokens, cascade layers, responsive components, build tooling, and licensing tradeoffs.",
+    "visual-composition.md": "Explore Syntyr's principles for layout hierarchy, typography, surfaces, visual restraint, and original product-led SaaS interface design.",
+    "visual-intensity.md": "Customize Syntyr's cyberpunk frames, decorative intensity, density, and palettes independently with CSS attributes and no runtime JavaScript.",
+    "viz.md": "Style server-rendered charts with Syntyr Viz, an optional CSS-only module using theme-aware visualization tokens and native HTML.",
 }
 
 
@@ -75,7 +83,7 @@ def description_of(name: str, tokens: list) -> str:
         summary = re.sub(r"\s+", " ", summary).strip()
         if len(summary) >= 70:
             if len(summary) > 158:
-                summary = summary[:158].rsplit(" ", 1)[0].rstrip(" .,;:") + "."
+                summary = summary[:155].rsplit(" ", 1)[0].rstrip(" .,;:") + "…"
             return summary
     title = title_of((ROOT / "docs" / name).read_text(encoding="utf-8"))
     return f"Explore {title} in Syntyr CSS with practical guidance, semantic HTML examples, and integration notes for developers."

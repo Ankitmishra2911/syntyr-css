@@ -6,7 +6,7 @@ import re
 import unittest
 from xml.etree import ElementTree
 
-from scripts.build_cloudflare_site import SITE_URL, source_files
+from scripts.build_cloudflare_site import SITE_URL, add_seo_metadata, source_files
 
 
 def meta(html: str, name: str) -> str:
@@ -74,6 +74,36 @@ class SEOOutputTests(unittest.TestCase):
         headers = self.site["_headers"].decode()
         self.assertIn("/llms-full.txt\n  X-Robots-Tag: noindex", headers)
         self.assertIn("/docs/*.md\n  X-Robots-Tag: noindex", headers)
+
+    def test_json_ld_escapes_script_terminators(self):
+        html = ('<!doctype html><html><head>'
+                '<title>Guide &lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;</title>'
+                '<meta name="description" content="Sample guide for safe structured data.">'
+                '</head><body><main><h1>Test guide</h1></main></body></html>')
+        files = {"docs/injected.html": html.encode("utf-8")}
+        add_seo_metadata(files)
+        result = files["docs/injected.html"].decode("utf-8")
+        self.assertEqual(result.count("</script>"), 1, result)
+        self.assertIn(r"\u003c/script>", result)
+        self.assertNotIn("</script><script>", result)
+
+    def test_search_description_overrides_are_complete_sentences(self):
+        stems = (
+            "component-authoring", "design-research-linear-resend", "recipes",
+            "saas-cli-business", "tailwind-research", "visual-composition",
+            "visual-intensity", "viz",
+        )
+        for stem in stems:
+            content = self.site[f"docs/{stem}.html"].decode()
+            description = meta(content, "description")
+            self.assertGreaterEqual(len(description), 75, stem)
+            self.assertLessEqual(len(description), 165, stem)
+            self.assertTrue(description.endswith("."), (stem, description))
+            self.assertFalse(description.endswith(" and."), (stem, description))
+            self.assertFalse(description.endswith(" their."), (stem, description))
+            self.assertFalse(description.endswith(" an."), (stem, description))
+            self.assertFalse(description.endswith(" a."), (stem, description))
+            self.assertNotIn(" .", description, stem)
 
     def test_generated_guide_metadata_is_descriptive(self):
         for name in ("ai-quickstart", "components", "framework-integrations", "from-pico"):

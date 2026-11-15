@@ -99,7 +99,7 @@ def add_seo_metadata(files: dict[str, bytes]) -> None:
                 schema = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}
             if schema and 'type="application/ld+json"' not in html:
                 # Escape markup sentinels even though data originates in checked-in source.
-                json_text = json.dumps(schema, ensure_ascii=True, separators=(",", ":")).replace("<", "\u003c")
+                json_text = json.dumps(schema, ensure_ascii=True, separators=(",", ":")).replace("<", r"\u003c")
                 html = html.replace("</head>", f'  <script type="application/ld+json">{json_text}</script>\n</head>', 1)
         files[name] = html.encode("utf-8")
 
