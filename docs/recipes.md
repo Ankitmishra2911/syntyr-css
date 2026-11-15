@@ -258,7 +258,8 @@ The example is illustrative, **not a configured server**. Avoid relying on color
 
 For a complete CSS-first account/task composition, see [the intrinsic task-page example](../examples/intrinsic-task-page.html).
 It combines the existing opt-in `.syn-sidebar`, core `.syn-region`, `.syn-field-row`,
-`.syn-alert` and `.syn-empty` patterns instead of introducing another dashboard API.
+`.syn-error-summary` and `.syn-empty` patterns instead of introducing another dashboard API.
+The error summary reuses the collection-workspace pattern above; no second summary component is added.
 
 The optional `.syn-cover` layout in `syntyr.recipes.css` reserves vertical
 space for an empty state, login step or onboarding task. Put the content in a

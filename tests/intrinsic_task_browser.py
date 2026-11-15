@@ -23,7 +23,8 @@ def check(browser, name, width, font_scale=1, forced_colors="none"):
         page.goto(EXAMPLE, wait_until="load")
         page.evaluate("(scale) => document.documentElement.style.fontSize = String(16 * scale) + 'px'", font_scale)
         assert page.locator("script").count() == 0, (name, "site shipped scripts")
-        assert page.get_by_role("alert").count() == 1, (name, "server-rendered error")
+        summary = page.get_by_role("region", name="There is a problem")
+        assert summary.count() == 1 and summary.get_attribute("tabindex") == "-1", (name, "focusable error summary")
         assert page.get_by_role("link", name="Enter a valid email address").get_attribute("href") == "#contact-email"
         field = page.get_by_label("Contact email")
         assert field.count() == 1 and field.get_attribute("aria-invalid") == "true"

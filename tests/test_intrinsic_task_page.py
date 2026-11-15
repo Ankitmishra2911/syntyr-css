@@ -63,6 +63,8 @@ class IntrinsicTaskPageContract(unittest.TestCase):
         self.assertIn('class="syn-cover"', html)
         self.assertIn('class="syn-cover-main syn-empty"', html)
         self.assertIn('class="syn-region"', html)
+        self.assertIn('class="syn-error-summary"', html)
+        self.assertIn('tabindex="-1" role="region" aria-labelledby="error-title"', html)
         self.assertIn('aria-invalid="true"', html)
         self.assertIn('aria-describedby=', html)
         self.assertNotIn("<script", html.lower())
