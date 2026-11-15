@@ -1,0 +1,51 @@
+// A separate opt-in real Nulang server-rendered application example.
+// Copy Syntyr's pinned dist/syntyr.core.css to static/syntyr.core.css.
+import stdlib::web::html
+import stdlib::web::types
+
+app "syntyr-demo" {
+    route "GET" "/" -> home
+}
+
+@placement(static)
+fn home() -> Html {
+    document(
+        head([
+            title("Syntyr × Nulang Web"),
+            el("link", [
+                ("rel", text("stylesheet")),
+                ("href", text("/syntyr.core.css"))
+            ], [])
+        ]),
+        body([
+            el("main", [
+                ("class", text("syn-root syn-page")),
+                ("data-syn-theme", text("studio"))
+            ], [
+                el("div", [("class", text("syn-shell"))], [
+                    el("h1", [("class", text("syn-heading"))], [
+                        text("Syntyr × Nulang")
+                    ]),
+                    el("section", [("class", text("syn-panel"))], [
+                        el("span", [("class", text("syn-badge"))], [
+                            text("SERVER-RENDERED / CSS-ONLY")
+                        ]),
+                        el("p", [], [
+                            text("Nulang renders semantic HTML. Syntyr styles it without JavaScript.")
+                        ]),
+                        el("a", [
+                            ("class", text("syn-button syn-button--primary")),
+                            ("href", text("#about"))
+                        ], [text("Read more")])
+                    ]),
+                    el("section", [("id", text("about"))], [
+                        el("h2", [("class", text("syn-heading"))], [
+                            text("Backend behavior stays in Nulang.")
+                        ]),
+                        el("p", [], [text("Visuals stay in Syntyr. The projects remain independent.")])
+                    ])
+                ])
+            ])
+        ])
+    )
+}

@@ -1,0 +1,10 @@
+version = 1
+[package]
+name = "syntyr-demo"
+version = "0.1.0"
+entry = "src/main.nula"
+
+[web]
+port = 3000
+static_dir = "static"
+output_dir = "dist"
