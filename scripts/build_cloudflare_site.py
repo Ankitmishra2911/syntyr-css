@@ -77,7 +77,7 @@ def source_files() -> dict[str, bytes]:
     public_docs = (
         "ai-quickstart.md", "agent-integration.md",
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "component-authoring.md", "components.md",
-        "console-kit.html", "component-recipes.md", "design-research-linear-resend.md",
+        "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "visual-composition.md",
         "distribution.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
         "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md",
         "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
@@ -92,6 +92,7 @@ def source_files() -> dict[str, bytes]:
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html",
+        "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
         "viz.html",
