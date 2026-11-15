@@ -26,6 +26,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Release freeze and exact-commit approval procedure](https://syntyr-css.pages.dev/docs/release-freeze.md): Maintainer-only human approval and evidence gates before freezing the unreleased alpha.5 candidate; technical preflight is not release authorization.
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary.
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
+- [Opt-in data-grid presentation](https://syntyr-css.pages.dev/docs/data-grid.md): Styling for host-owned data-grid behavior, ARIA states, and density (unreleased alpha.5 candidate).
 - [Machine-readable composition recipe contracts](https://syntyr-css.pages.dev/docs/editor-integration.md): Validated component slots, variant values, stylesheet modules, and required application-owned behavior for AI agents and editors (unreleased alpha.5 source candidate).
 - [Collection workspace and form-recovery example](https://syntyr-css.pages.dev/examples/resource-workspace.html): Native GET filtering, tabular records and linked field errors; server actions and validation require integration (alpha.5 candidate).
 - [Vertigo-inspired resource workflow HTML example](https://syntyr-css.pages.dev/examples/vertigo-resource-workflow.html): Copyable index, detail, editor, and settings UI with fictional data and no runtime JavaScript.

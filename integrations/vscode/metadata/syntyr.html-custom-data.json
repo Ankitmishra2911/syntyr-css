@@ -210,6 +210,62 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-data-grid",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__cell",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__cell--numeric",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__cell-text",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__columnheader",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__editor",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__footer",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__header",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__header-row",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__loading",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__row",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__status",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__toolbar",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid__viewport",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
           "name": "syn-defer-section",
           "description": "Syntyr CSS class (recipes.css)."
         },
