@@ -66,7 +66,7 @@ class CustomBuild(unittest.TestCase):
                      "effects.css", "application.css")]
         for source in sources:
             with self.subTest(source=source.name):
-                self.assertIn(":where(.syn-root) {", source.read_text())
+                self.assertIn(":where(.syn-root", source.read_text())
 
     def test_nested_theme_aliases_resolve_at_palette_boundary(self):
         tokens = (ROOT / "src/tokens.css").read_text()

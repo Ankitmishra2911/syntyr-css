@@ -33,16 +33,22 @@
   :where(.syn-root[data-syn-geometry="precision"], .syn-root [data-syn-geometry="precision"]) {
     --syn-geometry-radius: .125rem;
     --syn-geometry-cut: .8rem;
+    --syn-radius: var(--syn-geometry-radius);
+    --syn-cut: var(--syn-geometry-cut);
     --syn-frame-cut: .8rem;
   }
   :where(.syn-root[data-syn-geometry="industrial"], .syn-root [data-syn-geometry="industrial"]) {
     --syn-geometry-radius: 0;
     --syn-geometry-cut: .35rem;
+    --syn-radius: var(--syn-geometry-radius);
+    --syn-cut: var(--syn-geometry-cut);
     --syn-frame-cut: .35rem;
   }
   :where(.syn-root[data-syn-geometry="soft"], .syn-root [data-syn-geometry="soft"]) {
     --syn-geometry-radius: .75rem;
     --syn-geometry-cut: 0;
+    --syn-radius: var(--syn-geometry-radius);
+    --syn-cut: var(--syn-geometry-cut);
     --syn-frame-cut: 0;
   }
 }

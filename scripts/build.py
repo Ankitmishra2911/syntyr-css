@@ -8,6 +8,7 @@ from pathlib import Path
 import argparse
 import gzip
 import json
+import os
 import re
 import sys
 
@@ -72,11 +73,20 @@ def scan_classes(paths):
             raise ValueError(f"Scan path does not exist: {path}")
         if not (path.is_file() or path.is_dir()):
             raise ValueError(f"Scan path must be a regular file or directory: {path}")
-        files = [path] if path.is_file() else (
-            p for p in path.rglob("*") if p.is_file()
-            and not any(part in IGNORED_DIRS for part in p.relative_to(path).parts)
-            and p.suffix.lower() in SCAN_EXTENSIONS
-        )
+        if path.is_file():
+            files = [path]
+        else:
+            # Prune ignored trees before descending; avoid O(size of node_modules).
+            def selected_files():
+                for root, directories, filenames in os.walk(path, followlinks=False):
+                    directories[:] = sorted(name for name in directories if name not in IGNORED_DIRS)
+                    if Path(root) != path and Path(root).name in IGNORED_DIRS:
+                        continue
+                    for filename in sorted(filenames):
+                        candidate = Path(root) / filename
+                        if candidate.suffix.lower() in SCAN_EXTENSIONS and candidate.is_file() and not candidate.is_symlink():
+                            yield candidate
+            files = selected_files()
         for file in files:
             if file.stat().st_size > 5_000_000:
                 raise ValueError(f"Scan file exceeds 5 MB; select smaller files: {file}")
@@ -164,8 +174,13 @@ def main():
 
     try:
         if custom:
-            if args.output.resolve() in {(DIST / name).resolve() for name in distributions()}:
+            canonical_paths = {(DIST / name).resolve() for name in distributions()}
+            output_path = args.output.resolve()
+            report_path = args.report.resolve() if args.report else None
+            if output_path in canonical_paths:
                 raise ValueError("Custom build cannot overwrite the canonical dist artifacts")
+            if report_path and (report_path == output_path or report_path in canonical_paths):
+                raise ValueError("Report path must differ from CSS output and canonical dist artifacts")
             used = scan_classes(args.scan) if args.scan else None
             if args.safelist:
                 safe = choices(args.safelist, set(args.safelist.split(",")), "--safelist")

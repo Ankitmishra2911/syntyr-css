@@ -97,6 +97,52 @@ def assert_page(browser, name: str, viewport: int) -> None:
           return colors;
         }""")
         assert isolation["inside"] != isolation["outside"], isolation
+        # This application example intentionally omits the optional semantic
+        # module. Load it only in the browser contract fixture below.
+        page.add_style_tag(content=(ROOT / "dist/syntyr.semantic.css").read_text())
+        # Both semantic-mode boundaries are supported: same root and nested scope.
+        # No styles are applied to a semantic container outside any Syntyr root.
+        semantic = page.evaluate("""() => {
+          const wrapper = document.createElement('section');
+          wrapper.innerHTML = '<div class="syn-root syn-semantic" id="syn-root-semantic"><button>Root</button></div>' +
+                              '<div class="syn-root" id="syn-nested-root"><section class="syn-semantic"><button>Nested</button></section></div>';
+          document.body.append(wrapper);
+          const outsider = document.createElement('div');
+          outsider.className = 'syn-semantic';
+          outsider.innerHTML = '<button>Outside</button>';
+          document.documentElement.append(outsider);
+          const btn = selector => {
+            const e = document.querySelector(selector);
+            const cs = getComputedStyle(e);
+            return {background:cs.backgroundColor, height:cs.minHeight, border:cs.borderTopColor};
+          };
+          const result = {root:btn('#syn-root-semantic button'),
+                          nested:btn('#syn-nested-root button'),
+                          outside:btn('html > .syn-semantic button')};
+          wrapper.remove(); outsider.remove();
+          return result;
+        }""")
+        assert semantic["root"] == semantic["nested"], semantic
+        assert semantic["root"]["background"] != semantic["outside"]["background"], semantic
+        assert semantic["root"]["height"] == "44px", semantic
+
+        geometry = page.evaluate("""() => {
+          const region = document.createElement('section');
+          region.className = 'syn-root syn-region';
+          region.innerHTML = '<div data-syn-geometry="soft"><button class="syn-button">Soft</button></div>' +
+                             '<div data-syn-geometry="industrial"><button class="syn-button">Industrial</button></div>';
+          document.body.append(region);
+          const state = {
+            regionType:getComputedStyle(region).containerType,
+            regionName:getComputedStyle(region).containerName,
+            soft:getComputedStyle(region.querySelector('[data-syn-geometry="soft"] button')).borderRadius,
+            industrial:getComputedStyle(region.querySelector('[data-syn-geometry="industrial"] button')).borderRadius
+          };
+          region.remove();
+          return state;
+        }""")
+        assert geometry == {"regionType":"inline-size", "regionName":"syn-region",
+                            "soft":"12px", "industrial":"0px"}, geometry
         preview = page.locator("#theme-preview")
         # Derived aliases follow the nested palette, not just the outer root.
         nested_aliases = preview.evaluate("""e => {

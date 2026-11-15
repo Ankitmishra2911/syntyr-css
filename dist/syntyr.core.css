@@ -385,7 +385,8 @@
 @layer syn.components {
   /* Native CSS nesting: no component selector escapes the Syntyr root. */
   :where(.syn-root) {
-  .syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
+  /* A named container can be the root itself or a descendant region. */
+  &.syn-region, .syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
   .syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
   .syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
   .syn-stat { padding: var(--syn-space-3); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
