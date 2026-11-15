@@ -109,5 +109,14 @@ class FormCompositionAndRadixContract(unittest.TestCase):
         self.assertIn("docs/radix-integration.md", FILES)
 
 
+    def test_form_composition_has_the_single_shared_root_scope(self):
+        css = (ROOT / "src/components/form-composition.css").read_text()
+        self.assertIn(":where(.syn-root, .syn-root *) {", css)
+        self.assertIn("&.syn-field {", css)
+        self.assertIn("&.syn-field-row {", css)
+        self.assertIn("&.syn-input-group {", css)
+        self.assertIn("&.syn-input-addon {", css)
+
+
 if __name__ == "__main__":
     unittest.main()
