@@ -53,6 +53,17 @@ is the contrasting **foreground on primary buttons**. Change both when
 necessary. Verify 4.5:1 contrast for body text and 3:1 for essential non-text
 graphics; don't assume arbitrary overrides remain accessible.
 
+Primary-button hover backgrounds default to the unchanged accent. On hover,
+the border switches to the contrasting foreground for a visible affordance.
+To customize the hover fill, set `--syn-primary-hover-bg` on the desired
+theme/root and test its contrast with `--syn-on-accent` in both rest and hover
+states. Syntyr does not automatically invent a contrast-safe hover color.
+
+Use `.syn-panel--raised` for opt-in elevation. The `.syn-title`/`.syn-display`
+and `.syn-section-heading` roles use native `text-wrap: balance` when
+supported; unsupported browsers fall back to ordinary line wrapping.
+Syntyr leaves platform font smoothing untouched.
+
 Useful tokens:
 
 | Token | Description |
@@ -67,11 +78,13 @@ Useful tokens:
 | `--syn-surface-recessed`, `--syn-surface-raised`, `--syn-border-subtle` | Derived surfaces and quiet separators |
 | `--syn-text-subtle`, `--syn-border-default`, `--syn-border-hover`, `--syn-border-focus`, `--syn-focus-ring` | Semantic text, borders, and focus |
 | `--syn-surface-interactive`, `--syn-surface-hover`, `--syn-surface-pressed` | Theme-aware interactive control states |
+| `--syn-primary-hover-bg` | Primary-button hover background; defaults to the accent so foreground contrast does not regress |
+| `--syn-shadow-sm`, `--syn-shadow-raised`, `--syn-shadow-overlay` | Semantic elevation (small surfaces, raised panels, floating overlays) |
 | `--syn-type-display`, `--syn-type-section`, `--syn-type-heading`, `--syn-type-body`, `--syn-leading-body`, `--syn-tracking-display` | Composable typography roles |
 | `--syn-row-padding-block`, `--syn-card-padding`, `--syn-control-padding-block` | Density-aware spacing |
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
-| `--syn-duration-fast`, `--syn-ease` | Optional transitions |
+| `--syn-duration-fast`, `--syn-duration-standard`, `--syn-ease`, `--syn-ease-enter` | Optional transitions |
 | `--syn-panel-padding`, `--syn-panel-radius`, `--syn-panel-border-width` | Local panel customization |
 | `--syn-button-padding-inline`, `--syn-button-border-width` | Local button customization |
 
@@ -109,6 +122,12 @@ individual component files at the same time.
 Use `.syn-region` as the parent for container-responsive patterns such as
 `.syn-stats`, `.syn-split`, `.syn-pricing`; width comes from the container,
 not the whole viewport. Use `.syn-page` only for a full-page experience.
+
+Syntyr also honors `prefers-contrast: more` by strengthening tokenized borders
+and suppressing nonessential decorative effects, including inside nested
+themes and explicit cinematic-intensity regions. This is a preference-aware
+visual enhancement, not a substitute for actual high-contrast/forced-colors,
+zoom, and screen-reader testing.
 
 Syntyr honors `prefers-reduced-motion: reduce`. Theme overrides
 must not remove focus outlines, fake disabled states, or communicate state
