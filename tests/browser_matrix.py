@@ -280,7 +280,10 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert details.evaluate("e => e.open"), "native disclosure should work without JS"
     if name == "examples/geometry-terminal.html":
         frames = page.locator(".syn-frame")
-        assert frames.count() == 5, "all five frame profiles must render"
+        # The geometry gallery now includes bevel/notch/step/facet/bracket/inset/circuit.
+        assert frames.count() == 7, "all seven frame profiles must render"
+        assert page.locator(".syn-frame--step").count() == 1
+        assert page.locator(".syn-frame--facet").count() == 1
         bevel = frames.first
         clip = bevel.evaluate("e => getComputedStyle(e, '::before').clipPath")
         assert clip.startswith("polygon("), (name, viewport, clip)
