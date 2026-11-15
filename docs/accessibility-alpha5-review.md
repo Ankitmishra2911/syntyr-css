@@ -3,9 +3,57 @@
 This report distinguishes the most recent automated findings from older
 pixel-sampling evidence. It is **not** a WCAG certification.
 
+## PR #31 motion candidate — cross-engine verification (November 14, 2026)
+
+**Branch-only evidence; not published, merged, or WCAG-certified.** On the
+`feat/css-native-motion` candidate rebased onto `686f123`, the current
+on-device verification records:
+
+- **171** Python stdlib regression checks passed, including coverage of
+  isolated motion distributions and browser executable selection.
+- Chromium **156.0.8078.4**, Firefox **159.0**, and WebKit **27.2**
+  (Playwright Python **1.65.2**): **17 pages x 3 viewport widths x 3
+  engines** passed the gallery/keyboard/popover matrix (**153 cases**).
+- **17 pages x 4 enlarged-text cases x 3 engines** passed the reflow
+  stress suite (**204 cases**). These resize root text; they are *not*
+  genuine browser UI zoom at 200%/400%.
+- All three engines passed normal/reduced-motion, stagger, scope, native
+  popover and post-animation focus/disabled state tests. The progressive
+  auto-theme/print/layout matrix passed in each engine.
+- Chromium screenshot-based forced-colors link/outline tests passed. This
+  does not replace native OS high-contrast testing.
+- axe-core **4.10.3** WCAG-tagged automated audit on the **17-page** public
+  set returned **0 confirmed violations**, **14 incomplete rule results**,
+  and **355 unadjudicated target elements**: 345 carried forward from the
+  existing 16-page gallery plus 10 from the new motion showcase. Incomplete
+  findings are not passes, and opacity-changing text introductions should
+  not be used for essential explanatory copy; the motion demo now avoids one
+  reproduced transient contrast defect.
+- Automated review found one-shot animations previously retained `clip-path`
+  or `opacity` after completion, which could conceal focus outlines or
+  override disabled styling. Changed those presets to backwards-only fill;
+  a previously failing browser regression now passes on all three engines.
+
+On Ubuntu 26.04, local WebKit startup was initially blocked by missing
+`libevent-2.1-7t64`, `libavif16`, `libyuv0`, `libgav1-2` and
+`libmanette-0.2-0`. The packages were extracted into a temporary user
+folder and a temporary WebKit launcher supplied the library path. No
+system-wide package installation, runtime library, or consumer dependency
+was added. For normal developer setups, install Playwright's browser
+system dependencies in the **test host** before running the matrix.
+The test scripts now accept `PLAYWRIGHT_CHROMIUM_EXECUTABLE`,
+`PLAYWRIGHT_FIREFOX_EXECUTABLE`, and `PLAYWRIGHT_WEBKIT_EXECUTABLE` for
+custom browser paths.
+
+**Open manual gates:** adjudicate the 355 inconclusive contrast targets,
+test actual browser zoom at 200%/400%, verify actual screen-reader and
+native OS high-contrast/reduced-motion behavior, and exercise end-to-end
+keyboard workflows in representative real applications. Do not merge or
+publish a release solely on these automated findings.
+
 ## Post-merge snapshot: `b19c331` (November 14, 2026, Brasília)
 
-This is the latest **executed** audit snapshot, after the merges of
+This is a prior **executed** audit snapshot, after the merges of
 [PR #14](https://github.com/dporkka/syntyr-css/pull/14) and
 [PR #22](https://github.com/dporkka/syntyr-css/pull/22).
 The published alpha.4 CSS remains immutable; alpha.5 is not yet published.

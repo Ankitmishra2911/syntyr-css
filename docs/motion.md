@@ -29,7 +29,9 @@ animation engine is required. All selectors stay inside `.syn-root`.
 `enter` defaults to `up` (content moves upward from below); `reveal` defaults
 to left-to-right. These run once when the element enters the DOM or its
 animation style is newly applied. They **do not** trigger on viewport entry,
-reorder existing lists automatically, or animate route changes. For those use
+reorder existing lists automatically, or animate route changes.
+After each one-shot animation completes, the element releases its animation
+properties so component focus, disabled and layout styles can take precedence. For those use
 application logic or the optional integrations below.
 
 Customize without additional CSS classes:
@@ -116,7 +118,8 @@ their native instant opening/closing behavior. Do not fake dialogs with ARIA.
 - `clip-path` reveal is more expensive than opacity/translation; use it for
   occasional decorative introductions, not a long table or scrolling list.
 - Staggered elements remain accessible in the DOM while fading in. Do not
-  use long delays on buttons or critical controls. Test in Chromium, Firefox
+  apply opacity-changing motion to essential explanatory text or controls;
+  even brief fades can temporarily reduce contrast. Avoid long delays. Test in Chromium, Firefox
   and WebKit; new CSS capabilities must degrade cleanly.
 - Effects are one-shot. Re-triggering an animation requires an application
   state change, e.g. removing/re-adding the attribute or creating an element.

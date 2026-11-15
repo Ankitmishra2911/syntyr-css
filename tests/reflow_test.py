@@ -14,6 +14,7 @@ import shutil
 import sys
 
 from playwright.sync_api import sync_playwright
+from browser_launch import launch_options
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = (
@@ -61,11 +62,7 @@ def main() -> int:
     failed = 0
     with sync_playwright() as p:
         for engine in args.browsers:
-            opts = {"headless": True}
-            if engine == "chromium":
-                binary = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE") or shutil.which("chromium") or shutil.which("chromium-browser")
-                if binary:
-                    opts.update(executable_path=binary, args=["--no-sandbox"])
+            opts = launch_options(engine)
             try:
                 browser = getattr(p, engine).launch(**opts)
             except Exception as e:

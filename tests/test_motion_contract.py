@@ -27,6 +27,7 @@ class MotionContract(unittest.TestCase):
         self.assertIn('--syn-motion-index', css)
         self.assertIn('--syn-motion-delay', css)
         self.assertIn('prefers-reduced-motion: no-preference', css)
+        self.assertIn('animation-fill-mode: backwards', css)
         self.assertNotIn('animation-iteration-count: infinite', css)
 
     def test_css_native_overlay_and_loading_effects_are_opt_in(self):

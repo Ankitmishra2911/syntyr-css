@@ -90,7 +90,9 @@
       animation-duration: var(--syn-motion-duration);
       animation-timing-function: var(--syn-ease-out);
       animation-delay: var(--syn-motion-delay, 0ms);
-      animation-fill-mode: both;
+      /* Preserve the starting pose through delays, then release clip-path,
+         opacity, scale and translate so focus/disabled states work normally. */
+      animation-fill-mode: backwards;
       animation-iteration-count: 1;
     }
     .syn-root :where([data-syn-animate="fade"]) { animation-name: syn-motion-fade; }

@@ -26,6 +26,8 @@ def check(browser, name):
           <li id="stagger" data-syn-animate="enter" style="--syn-motion-index: 2">Third</li>
         </ul>
         <span id="loader" class="syn-loader" aria-hidden="true"></span>
+        <button class="syn-button" id="reveal-control" data-syn-animate="reveal">Review focus</button>
+        <button class="syn-button" id="disabled-control" data-syn-animate="fade" disabled>Disabled</button>
         <button popovertarget="menu">Menu</button>
         <div id="menu" popover class="syn-motion-popover">Menu content</div>
       </main>'''
@@ -54,6 +56,17 @@ def check(browser, name):
             assert style('#loader', 'animation-name') == 'syn-motion-spin', (name, preference, 'loader')
             assert style('#stagger', 'animation-delay') in ('0.13s', '130ms'), (
                 name, preference, 'stagger', style('#stagger', 'animation-delay'))
+            # After a one-shot effect finishes, native interaction styles must
+            # regain control: clipped focus rings and disabled-opacity overrides
+            # are regressions even when the entrance itself looked correct.
+            page.wait_for_timeout(700)
+            page.keyboard.press('Tab')
+            page.locator('#reveal-control').focus()
+            assert style('#reveal-control', 'clip-path') == 'none', (name, 'focus clip after reveal', style('#reveal-control', 'clip-path'))
+            assert style('#reveal-control', 'outline-style') != 'none', (name, 'focus outline after reveal')
+            assert abs(float(style('#disabled-control', 'opacity')) - .55) < .01, (name, 'disabled opacity after fade')
+            assert style('#enter', 'translate') == 'none', (name, 'released translate')
+            assert style('#scale', 'scale') == 'none', (name, 'released scale')
         page.get_by_role('button', name='Menu').click()
         assert page.locator('#menu').evaluate('e => e.matches(":popover-open")'), (name, preference, 'open')
         page.keyboard.press('Escape')
@@ -61,6 +74,7 @@ def check(browser, name):
         assert not errors, (name, preference, errors)
         page.goto((ROOT / 'examples/motion.html').as_uri())
         assert page.get_by_role('main').count() == 1, (name, preference, 'demo main')
+        assert page.locator('.motion-hero .syn-lede').evaluate('e => getComputedStyle(e).opacity') == '1', (name, preference, 'essential description opacity')
         assert page.locator('script').count() == 0, (name, preference, 'demo scripts')
         assert page.evaluate('document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1'), (name, preference, 'demo overflow')
         page.get_by_role('button', name='OPEN POPOVER').click()
