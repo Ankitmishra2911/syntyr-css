@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Optional isolated Syntyr agent-commerce Cloudflare Worker pilot",
-  "scripts": {"test": "node --test"},
+  "scripts": {"test": "node --test", "smoke": "node scripts/smoke.mjs"},
   "engines": {"node": ">=22"},
   "dependencies": {
     "@x402/core": "2.31.0",

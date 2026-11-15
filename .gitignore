@@ -33,3 +33,9 @@ benchmarks/frameworks/generated/
 
 # Staging commerce worker configuration must not contain production values.
 commerce/wrangler.toml
+
+
+# Never commit local Cloudflare Worker development state or secrets.
+commerce/.wrangler/
+commerce/.dev.vars*
+commerce/.env*

@@ -4,8 +4,13 @@ import { createApp } from '../src/app.js';
 import { generateTheme } from '../src/theme.js';
 
 function request(app, url, options = {}) {
-  return app.request('http://syntyr.test' + url, options);
+  return app.request('http://syntyr.test' + url, {
+    ...options,
+    headers: { 'cf-connecting-ip': '198.51.100.3', ...options.headers },
+  });
 }
+const rateLimiter = { async limit() { return { success: true }; } };
+
 
 test('public catalog is readable without auth, clearly separates free and pilot products', async () => {
   const response = await request(createApp({}), '/v1/catalog');
@@ -29,6 +34,7 @@ test('invalid custom colors are rejected before a payment attempt', async () => 
   const app = createApp({
     X402_TESTNET_ENABLED: 'true',
     X402_PAY_TO: '0x' + 'a'.repeat(40),
+    IP_RATE_LIMITER: rateLimiter,
   }, { makeX402Gate: () => async () => { throw new Error('should not charge'); } });
   const response = await request(app, '/v1/agent/theme?accent=javascript:alert(1)');
   assert.equal(response.status, 400);
@@ -39,6 +45,7 @@ test('successful x402-gated theme is generated with readable contrast and bounde
   const app = createApp({
     X402_TESTNET_ENABLED: 'true',
     X402_PAY_TO: '0x' + 'a'.repeat(40),
+    IP_RATE_LIMITER: rateLimiter,
   }, { makeX402Gate: () => async (_c, next) => { gated++; return next(); } });
   const response = await request(app, '/v1/agent/theme?accent=%23ffcc00&surface=%23111222');
   assert.equal(response.status, 200);
@@ -72,6 +79,8 @@ test('Stripe webhook cannot grant credits without a valid signed request', async
     STRIPE_SUCCESS_URL: 'https://syntyr.example/success',
     STRIPE_CANCEL_URL: 'https://syntyr.example/cancel',
     ENTITLEMENTS_DB: {},
+    IP_RATE_LIMITER: rateLimiter,
+    CHECKOUT_RATE_LIMITER: rateLimiter,
   }), '/v1/webhooks/stripe', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -84,6 +93,7 @@ test('real x402 v2 adapter returns a payment challenge without exposing tokens',
   const response = await request(createApp({
     X402_TESTNET_ENABLED: 'true',
     X402_PAY_TO: '0x' + 'a'.repeat(40),
+    IP_RATE_LIMITER: rateLimiter,
   }), '/v1/agent/theme');
   assert.equal(response.status, 402);
   const header = response.headers.get('payment-required');
@@ -150,6 +160,8 @@ function stripeEnv(db) {
     STRIPE_SUCCESS_URL: 'https://syntyr.example/complete',
     STRIPE_CANCEL_URL: 'https://syntyr.example/cancel',
     ENTITLEMENTS_DB: db,
+    IP_RATE_LIMITER: rateLimiter,
+    CHECKOUT_RATE_LIMITER: rateLimiter,
   };
 }
 
@@ -178,6 +190,8 @@ test('Stripe test checkout grants 20 atomic credits only after webhook; duplicat
       assert.equal(form.get('line_items[0][price]'), 'price_local123');
       assert.equal(form.get('mode'), 'payment');
       assert.equal(form.get('line_items[0][quantity]'), '1');
+      assert.equal(options.headers['Stripe-Version'], '2026-09-30.endive');
+      assert.match(form.get('integration_identifier'), /^syntyr-agent-[a-z]{8}$/);
       return new Response(JSON.stringify({
         id: 'cs_test_abc',
         url: 'https://checkout.stripe.com/c/pay/cs_test_abc',
@@ -258,6 +272,7 @@ test('Bearer token without Stripe configuration never falls back to free access'
   const response = await request(createApp({
     X402_TESTNET_ENABLED: 'true',
     X402_PAY_TO: '0x' + 'a'.repeat(40),
+    IP_RATE_LIMITER: rateLimiter,
   }), '/v1/agent/theme', { headers: { authorization: 'Bearer invalid' } });
   assert.equal(response.status, 503);
 });
@@ -308,4 +323,12 @@ test('Stripe webhook refuses oversized request bodies before attempting verifica
     headers: { 'stripe-signature': 't=1,v1=' + '0'.repeat(64) },
   });
   assert.equal(response.status, 413);
+});
+
+test('Stripe accepts test-only restricted keys, never live keys', async () => {
+  const { stripeReady } = await import('../src/stripe.js');
+  const props = stripeEnv(new FakeD1());
+  assert.equal(stripeReady({ ...props, STRIPE_SECRET_KEY: 'rk_test_restricted' }), true);
+  assert.equal(stripeReady({ ...props, STRIPE_SECRET_KEY: 'rk_live_not_allowed' }), false);
+  assert.equal(stripeReady({ ...props, STRIPE_SECRET_KEY: 'sk_live_not_allowed' }), false);
 });

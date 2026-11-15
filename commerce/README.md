@@ -41,9 +41,13 @@ stores only SHA-256 hashes of buyer tokens, not the tokens themselves.
 ## Deploy only to an isolated staging Worker
 
 1. Create a separate Cloudflare D1 database, then apply `schema.sql` with
-   `wrangler d1 execute syntyr-agent-commerce-pilot --remote --file=./schema.sql`
+   `wrangler d1 execute syntyr-agent-commerce-staging --remote --file=./schema.sql`
    from this directory. Verify the chosen database name and deployment target
    before applying migrations. Do **not** connect production Syntyr data.
+   As of November 15, 2026, a dedicated database named
+   `syntyr-agent-commerce-staging` has already been created and the initial
+   tables verified in the linked Cloudflare account. Check its schema before
+   applying migrations again; do not create a replacement database by default.
 2. Copy `wrangler.toml.example` to `wrangler.toml` and set its actual D1
    database ID. Deploy only to a specifically approved staging route; the
    template leaves `workers_dev = false` and does not define a route.
@@ -54,14 +58,24 @@ stores only SHA-256 hashes of buyer tokens, not the tokens themselves.
 4. Create a **Stripe test-mode** one-time price for **20 calls**, then set
    the following **staging-only** values: `STRIPE_PRICE_ID`,
    `STRIPE_SUCCESS_URL`, `STRIPE_CANCEL_URL`. Add
-   `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` through Wrangler
+   `STRIPE_SECRET_KEY` (prefer a scoped `rk_test_` restricted key) and
+   `STRIPE_WEBHOOK_SECRET` through Wrangler
    secrets; both are mandatory. Add `STRIPE_PILOT_ENABLED=true` only after
    the webhook endpoint is registered in Stripe and migration checks pass.
 5. Configure the webhook endpoint for `checkout.session.completed`,
    `checkout.session.async_payment_succeeded`, `charge.refunded`, and
    `charge.dispute.created`. Stripe signatures are checked with WebCrypto
    HMAC-SHA256, a 5-minute tolerance, and the unmodified raw request body.
-6. Exercise the paid route with a funded *testnet* agent wallet and a Stripe
+6. Keep the `IP_RATE_LIMITER` and `CHECKOUT_RATE_LIMITER` Cloudflare
+   rate-limit bindings configured. The Worker responds with HTTP 503 on
+   protected endpoints when the binding or Cloudflare client IP is
+   missing. The bindings limit requests to approximately 60/min/IP for
+   paid resource/balance queries and 5/min/IP for new checkout sessions.
+   These counters are **approximate per Cloudflare location** and cannot
+   guarantee strict global limits. Add Cloudflare WAF rate-limit rules,
+   bot protections and alerting before wider exposure; never trust
+   client-supplied `X-Forwarded-For`.
+7. Exercise the paid route with a funded *testnet* agent wallet and a Stripe
    test card. Confirm: 402 challenge, payment verification and settlement,
    Stripe webhook credit, idempotent redelivery, refund/dispute revocation,
    rate limiting, and operator reconciliation. Reconcile receipts against
@@ -79,6 +93,11 @@ stores only SHA-256 hashes of buyer tokens, not the tokens themselves.
 - **Webhook replay:** only a paid, expected Stripe session grants credits.
   D1 conditionally credits once; refunds/disputes leave tombstones so
   reordered event delivery cannot recredit a purchase.
+- **Privacy-first logs:** optional structured request logs contain only
+  a fresh request ID, fixed route label, HTTP method, and status. Do not
+  log the path query, buyer tokens, blockchain payment payloads or keys.
+  Logs and traces are explicitly enabled in the staging template.
+- **Abuse resistance:** protect Stripe checkout creation and paid API requests using Cloudflare rate-limit bindings, with 429 on excess and fail-closed 503 on missing bindings. Counts are approximate, not a substitute for WAF or financial reconciliation.
 - **No API security by CSS:** the gate lives server-side. The public static
   build allowlists only documentation, not any commerce executable or secrets.
 - **Before production:** independent security review, WAF/rate limits and
@@ -94,3 +113,34 @@ The pilot deliberately does **not** mint permanent licenses from testnet
 payments. Avoid presenting this as a finished subscription product.
 
 See `../docs/agent-commerce.md` for public-facing integration notes.
+
+## Safe smoke and rollout sequence
+
+From `commerce/`, with the Worker running locally or available at an
+explicitly isolated staging origin:
+
+```sh
+npm run smoke -- http://127.0.0.1:8787 disabled
+npm run smoke -- https://YOUR-ISOLATED-STAGING-ORIGIN disabled
+```
+
+Once an authorized operator has installed a Base Sepolia wallet, set
+`X402_TESTNET_ENABLED=true` and verify the unpaid v2 challenge without
+transferring funds:
+
+```sh
+npm run smoke -- https://YOUR-ISOLATED-STAGING-ORIGIN testnet
+```
+
+This smoke performs only safe public requests, malformed-color requests,
+and a Stripe-disabled checkout attempt. It **never signs, submits or
+settles** a testnet payment. A real funded test-wallet settlement and
+Stripe sandbox webhook round-trip still require separate E2E testing.
+
+Before real deployment, use a reviewed, restricted Cloudflare API token
+in the maintainer's local secret store or CI secret vault and configure
+`wrangler.toml` as an ignored local file. The template is deliberately
+inert: no public Worker URL, paid route or wallet is enabled by default.
+The Cloudflare account connection used to provision D1 does not itself
+authenticate the Wrangler CLI on Gertrude. Do not deploy by copying
+unrelated application tokens or production credentials from other repos.

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Agent commerce: x402 and Stripe pilot. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="3cbe3f9bebfa51d4959c7d8b6327612793bf00ffe485ce146d90b319988947f1">
+  <meta name="syntyr-source-sha256" content="94095181537276b91158f7175605e254b428866aab28f417440b22c0c3beefb1">
   <meta name="theme-color" content="#f5f7fb">
   <title>Agent commerce: x402 and Stripe pilot — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-commerce.html">
@@ -46,6 +46,10 @@ x402 v2 enables HTTP-native pay-per-use requests from AI coding agents,
 without requiring a Syntyr account. A common resource handler accepts
 either a valid prepaid Stripe credit or a verified x402 testnet payment.</p>
 <p>The pilot uses Base Sepolia (<code>eip155:84532</code>) and Stripe <strong>test mode</strong>.
+The optional Worker now enforces Cloudflare rate limiting on paid endpoints,
+and logs only fixed endpoint labels and random request IDs (never customer
+tokens or wallet payloads). Those limits are approximate and per-location,
+not a substitute for WAF protection or transaction reconciliation.
 It has <strong>not</strong> been deployed or connected to a live receiving wallet.
 The sample price is <strong>$0.25 per generated token response</strong> for the x402
 testnet demo, or a separately configured Stripe test price for 20 calls.
@@ -103,11 +107,22 @@ supplier and tax verification, operator reconciliation, transaction
 monitoring, refund and chargeback policies, a licensed commercial product,
 and tests with real settlement providers. A production payment rail is not
 enabled simply by configuring a wallet address.</p>
+<h2 id="staging-verification">Staging verification</h2>
+<p>The isolated D1 staging database has been provisioned and its credit and
+revocation tables verified; <strong>the Worker has not been deployed</strong>. Local
+Cloudflare workerd testing confirmed an unpaid x402 v2 challenge and
+rate-limit enforcement. Use <code>npm run smoke -- &lt;staging-origin&gt; disabled</code>
+from the optional <code>commerce/</code> package to verify a disabled staging
+deployment and <code>npm run smoke -- &lt;staging-origin&gt; testnet</code> to verify a
+Base Sepolia unpaid challenge. Neither command transfers funds. See the
+<a href="https://github.com/dporkka/syntyr-css/blob/main/commerce/README.md">commerce runbook</a>
+for remaining payment-provider E2E and operational release gates.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#why-two-rails">Why two rails?</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#discovery-and-integration">Discovery and integration</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#licensing-and-release-boundary">Licensing and release boundary</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#staging-verification">Staging verification</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="agent-commerce.md">Markdown source</a></nav>

@@ -4,7 +4,7 @@ export const STRIPE_CREDITS = 20;
 
 export function stripeReady(env) {
   return env.STRIPE_PILOT_ENABLED === 'true'
-    && env.STRIPE_SECRET_KEY?.startsWith('sk_test_')
+    && /^(sk|rk)_test_/.test(env.STRIPE_SECRET_KEY || '')
     && env.STRIPE_WEBHOOK_SECRET?.startsWith('whsec_')
     && /^price_[a-zA-Z0-9]+$/.test(env.STRIPE_PRICE_ID || '')
     && isHttpsUrl(env.STRIPE_SUCCESS_URL)
@@ -48,12 +48,17 @@ export async function beginCheckout(env, fetchImpl = fetch) {
     cancel_url: env.STRIPE_CANCEL_URL,
     client_reference_id: hash,
     'metadata[sku]': STRIPE_SKU,
+    // Stripe 2026-09-30.endive supports the custom integration identifier.
+    // The suffix is a non-secret, randomized usage-analysis label.
+    integration_identifier: 'syntyr-agent-' + Array.from(crypto.getRandomValues(new Uint8Array(8)),
+      (n) => String.fromCharCode(97 + n % 26)).join(''),
   });
   const response = await fetchImpl('https://api.stripe.com/v1/checkout/sessions', {
     method: 'POST',
     headers: {
       authorization: 'Bearer ' + env.STRIPE_SECRET_KEY,
       'content-type': 'application/x-www-form-urlencoded',
+      'Stripe-Version': '2026-09-30.endive',
       'idempotency-key': crypto.randomUUID(),
     },
     body: form.toString(),

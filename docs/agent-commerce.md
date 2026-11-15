@@ -14,6 +14,10 @@ without requiring a Syntyr account. A common resource handler accepts
 either a valid prepaid Stripe credit or a verified x402 testnet payment.
 
 The pilot uses Base Sepolia (`eip155:84532`) and Stripe **test mode**.
+The optional Worker now enforces Cloudflare rate limiting on paid endpoints,
+and logs only fixed endpoint labels and random request IDs (never customer
+tokens or wallet payloads). Those limits are approximate and per-location,
+not a substitute for WAF protection or transaction reconciliation.
 It has **not** been deployed or connected to a live receiving wallet.
 The sample price is **$0.25 per generated token response** for the x402
 testnet demo, or a separately configured Stripe test price for 20 calls.
@@ -57,3 +61,15 @@ supplier and tax verification, operator reconciliation, transaction
 monitoring, refund and chargeback policies, a licensed commercial product,
 and tests with real settlement providers. A production payment rail is not
 enabled simply by configuring a wallet address.
+
+## Staging verification
+
+The isolated D1 staging database has been provisioned and its credit and
+revocation tables verified; **the Worker has not been deployed**. Local
+Cloudflare workerd testing confirmed an unpaid x402 v2 challenge and
+rate-limit enforcement. Use `npm run smoke -- <staging-origin> disabled`
+from the optional `commerce/` package to verify a disabled staging
+deployment and `npm run smoke -- <staging-origin> testnet` to verify a
+Base Sepolia unpaid challenge. Neither command transfers funds. See the
+[commerce runbook](https://github.com/dporkka/syntyr-css/blob/main/commerce/README.md)
+for remaining payment-provider E2E and operational release gates.

@@ -18,6 +18,14 @@ class SqliteD1 {
   }
 }
 
+const limiter = { async limit() { return { success: true }; } };
+function send(app, path, options = {}) {
+  return app.request(path, {
+    ...options,
+    headers: { 'cf-connecting-ip': '203.0.113.12', ...options.headers },
+  });
+}
+
 function configuredEnv(db) {
   return {
     STRIPE_PILOT_ENABLED: 'true',
@@ -27,6 +35,8 @@ function configuredEnv(db) {
     STRIPE_SUCCESS_URL: 'https://syntyr.example/success',
     STRIPE_CANCEL_URL: 'https://syntyr.example/cancel',
     ENTITLEMENTS_DB: db,
+    IP_RATE_LIMITER: limiter,
+    CHECKOUT_RATE_LIMITER: limiter,
   };
 }
 
@@ -38,7 +48,7 @@ async function signedWebhook(app, event) {
   }, false, ['sign']);
   const mac = new Uint8Array(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(ts + '.' + body)));
   const signature = [...mac].map((n) => n.toString(16).padStart(2, '0')).join('');
-  return app.request('/v1/webhooks/stripe', {
+  return send(app, '/v1/webhooks/stripe', {
     method: 'POST', body,
     headers: { 'stripe-signature': 't=' + ts + ',v1=' + signature },
   });
@@ -52,7 +62,7 @@ test('real SQLite schema atomically prevents overspending 20 paid Stripe credits
       url: 'https://checkout.stripe.com/c/pay/cs_test_sqlite',
     }),
   });
-  const checkout = await app.request('/v1/checkout', { method: 'POST' });
+  const checkout = await send(app, '/v1/checkout', { method: 'POST' });
   assert.equal(checkout.status, 201);
   const { access_token: token } = await checkout.json();
   const hash = db.db.prepare('SELECT token_hash FROM stripe_credit_purchases').get().token_hash;
@@ -66,7 +76,7 @@ test('real SQLite schema atomically prevents overspending 20 paid Stripe credits
   };
   assert.equal((await signedWebhook(app, evt)).status, 200);
   const headers = { authorization: 'Bearer ' + token };
-  const requests = Array.from({ length: 30 }, () => app.request('/v1/agent/theme', { headers }));
+  const requests = Array.from({ length: 30 }, () => send(app, '/v1/agent/theme', { headers }));
   const responses = await Promise.all(requests);
   assert.equal(responses.filter((r) => r.status === 200).length, 20);
   assert.equal(responses.filter((r) => r.status === 403).length, 10);
@@ -85,7 +95,7 @@ test('SQLite revocation tombstone survives refund preceding checkout settlement'
       url: 'https://checkout.stripe.com/c/pay/cs_test_refund',
     }),
   });
-  await app.request('/v1/checkout', { method: 'POST' });
+  await send(app, '/v1/checkout', { method: 'POST' });
   const hash = db.db.prepare('SELECT token_hash FROM stripe_credit_purchases').get().token_hash;
 
   assert.equal((await signedWebhook(app, {

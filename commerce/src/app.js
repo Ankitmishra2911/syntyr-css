@@ -3,6 +3,7 @@ import { paymentMiddleware, x402ResourceServer } from '@x402/hono';
 import { ExactEvmScheme } from '@x402/evm/exact/server';
 import { HTTPFacilitatorClient } from '@x402/core/server';
 import { generateTheme } from './theme.js';
+import { checkRateLimit } from './abuse.js';
 import {
   stripeReady, bearerToken, beginCheckout, verifyWebhook,
   applyStripeEvent, findEntitlement, redeemCredit,
@@ -77,6 +78,35 @@ function noStore(c, body, status = 200) {
 
 export function createApp(env = {}, deps = {}) {
   const app = new Hono();
+  const loggedRoutes = new Set([
+    '/v1/health', '/v1/catalog', '/.well-known/agent-commerce.json',
+    '/v1/agent/theme', '/v1/checkout', '/v1/credits',
+    '/v1/webhooks/stripe',
+  ]);
+  app.use('*', async (c, next) => {
+    const requestId = crypto.randomUUID();
+    try {
+      await next();
+    } finally {
+      c.header('X-Request-ID', requestId);
+      if (env.LOG_REQUESTS === 'true') {
+        // Fixed route labels only. Never log query strings, bodies, payment
+        // headers, client IPs, wallet payloads, buyer bearer tokens or keys.
+        const event = {
+          service: 'syntyr-agent-commerce',
+          request_id: requestId,
+          route: loggedRoutes.has(c.req.path) ? c.req.path : 'unknown',
+          method: c.req.method,
+          status: c.res.status,
+        };
+        try {
+          (deps.logger || console).info(JSON.stringify(event));
+        } catch {
+          // A logging outage must never break settlement or fulfillment.
+        }
+      }
+    }
+  });
 
   app.onError(() => noStoreFallback());
   function noStoreFallback() {
@@ -139,6 +169,8 @@ export function createApp(env = {}, deps = {}) {
       return noStore(c, { error: 'invalid_hex_color', message: 'accent and surface must be six-digit #RRGGBB values' }, 400);
     }
     c.set('generatedTheme', theme);
+    const limited = await checkRateLimit(c, env, 'agent-theme');
+    if (limited) return limited;
     const token = bearerToken(c.req.raw);
     if (token !== null) {
       if (!stripeReady(env)) return noStore(c, { error: 'stripe_credits_unavailable' }, 503);
@@ -156,6 +188,8 @@ export function createApp(env = {}, deps = {}) {
 
   app.post('/v1/checkout', async (c) => {
     if (!stripeReady(env)) return noStore(c, { error: 'stripe_checkout_unavailable' }, 503);
+    const limited = await checkRateLimit(c, env, 'checkout');
+    if (limited) return limited;
     try {
       const checkout = await beginCheckout(env, deps.fetchImpl || fetch);
       return noStore(c, checkout, 201);
@@ -166,6 +200,8 @@ export function createApp(env = {}, deps = {}) {
 
   app.get('/v1/credits', async (c) => {
     if (!stripeReady(env)) return noStore(c, { error: 'stripe_credits_unavailable' }, 503);
+    const limited = await checkRateLimit(c, env, 'credit-status');
+    if (limited) return limited;
     const token = bearerToken(c.req.raw);
     if (!token) return noStore(c, { error: 'invalid_token' }, 401);
     const entitlement = await findEntitlement(env.ENTITLEMENTS_DB, token);
