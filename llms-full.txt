@@ -1525,6 +1525,7 @@ Original: https://syntyr-css.pages.dev/docs/accessibility.md
 The unmerged candidate combining `main` at `cfab482` with PR #55 at
 `6fdf594` passed **180 real Chromium/Firefox/WebKit viewport checks** and
 **240 enlarged-text reflow cases** in the Playwright 1.64.1 Linux container.
+The optional suites also passed 30 interaction tests, 2 simulated forced-colors checks, the theme editor across three widths, and a component playground check at two widths in all three engines.
 A new 20-page axe-core scan found **zero confirmed automated rule violations**
 while leaving **83 inconclusive `color-contrast` element targets across 10
 page/rule groups** for manual review. None of those 83 are certified passes.
