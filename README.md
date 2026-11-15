@@ -30,6 +30,7 @@
 - [Design research: Linear, Resend, and developer tooling](docs/design-research-linear-resend.md)
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
+- [Progressive enhancement, automatic color scheme and print styling](docs/progressive-enhancement.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
 - [Public design-partner review issue (seeking 10 participants)](https://github.com/dporkka/syntyr-css/issues/3)
 - [Preliminary SYNTYR brand-risk review (NOT clearance)](business/syntyr-trademark-screen.md)
@@ -91,9 +92,14 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |
+| `dist/syntyr.print.css` | Optional printer-friendly reports and business documents |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
 | `dist/syntyr.css` | Backwards-compatible core + effects bundle |
 | `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
+
+Grid/Studio system-aware `data-syn-theme="auto"` is built into the core stylesheet;
+no separate automatic-theme file is required. The optional print sheet is
+separate from core and included only in the all-in-one bundle.
 
 Geometry and utilities are opt-in; neither the core bundle nor ordinary component selectors require them.
 

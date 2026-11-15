@@ -20,8 +20,8 @@ class SyntyrBrandTests(unittest.TestCase):
     def test_current_stylesheet_paths_are_built_and_tracked(self):
         tracked = subprocess.check_output(
             ['git','ls-files','--','dist/'], cwd=ROOT, text=True).splitlines()
-        expected = {f'dist/syntyr{suffix}.css'
-                    for suffix in ('','.core','.semantic','.effects','.recipes','.geometry','.utilities','.all')}
+        from scripts.build import distributions
+        expected = {f'dist/{name}' for name in distributions()}
         self.assertTrue(expected <= set(tracked), f'Git is missing {expected-set(tracked)}')
         self.assertEqual({p.as_posix().split('/')[-1]
                           for p in (ROOT/'dist').glob('*.css')},
@@ -31,6 +31,7 @@ class SyntyrBrandTests(unittest.TestCase):
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
 
     def test_release_zip_is_syntyr_only(self):
+        from scripts.build import distributions
         with tempfile.TemporaryDirectory() as tmp:
             archive = Path(tmp)/'release.zip'
             result = subprocess.run([sys.executable,'scripts/package_release.py',str(archive)],
@@ -43,8 +44,8 @@ class SyntyrBrandTests(unittest.TestCase):
                 self.assertEqual(set(names), {prefix + path for path in FILES})
                 self.assertIn(prefix+'README.md',names)
                 self.assertIn(prefix+'ARCHITECTURE.md',names)
-                for suffix in ('','.core','.semantic','.effects','.recipes','.geometry','.utilities','.all'):
-                    self.assertIn(prefix+f'dist/syntyr{suffix}.css',names)
+                for name in distributions():
+                    self.assertIn(prefix+f'dist/{name}',names)
 
     def test_readme_explains_syn_namespace(self):
         readme=(ROOT/'README.md').read_text()

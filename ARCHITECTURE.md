@@ -62,7 +62,9 @@ Layers have an explicit normal-declaration priority, earliest to latest:
 Component styles belong in `syn.components`. Optional finite utilities belong
 in `syn.utilities` so explicitly applied utility classes can win over ordinary
 component declarations without new specificity tricks, regardless of the
-order in which component and utility modules appear. Author-defined unlayered
+order in which component and utility modules appear. Optional print styling uses
+a final `syn.print` layer (loaded after core and utilities) to override ordinary
+component and utility presentation on paper. Author-defined unlayered
 normal CSS takes priority over layered normal CSS; `!important` follows the
 CSS cascade's reversed layer priority. Do not use `!important` for ordinary
 component or utility styling. Accessibility-related reduced-motion overrides

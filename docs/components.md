@@ -164,3 +164,9 @@ Classless checkbox and radio labels align their controls inline when
 ## Visual role examples
 
 The optional [design-state example](../examples/design-states.html) exercises active, selected, disabled, and invalid presentation across nested light/dark themes. It contains no application state machine, backend operation, or runtime JavaScript.
+
+## Progressive rendering extensions
+
+System-aware `data-syn-theme="auto"` is built into core CSS. Use optional
+`syntyr.print.css` for printable reports and the
+[progressive-enhancement guide](progressive-enhancement.md) for fallbacks.

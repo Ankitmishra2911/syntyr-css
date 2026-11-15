@@ -65,7 +65,7 @@ def source_files() -> dict[str, bytes]:
         "console-kit.html", "design-research-linear-resend.md",
         "distribution.md", "docs.css", "framework-integrations.md",
         "geometry-terminal.md", "performance-and-polish.md",
-        "performance-validation.md",
+        "performance-validation.md", "progressive-enhancement.md",
         "index.html", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
         "theme-customization.md", "theme-editor.html", "theme-editor.js",

@@ -17,7 +17,7 @@
   .syn-stage::before { content: ""; position: absolute; top: 0; left: 0; width: 4rem; height: 2px; background: var(--syn-accent); }
   .syn-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
   .syn-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
-  .syn-layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
+  .syn-layout { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); align-items: start; }
   .syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); }
   .syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-2); }
   .syn-panel {
@@ -31,6 +31,5 @@
     width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-bg);
     clip-path: polygon(100% 0, 0 100%, 100% 100%);
   }
-  @media (max-width: 45rem) { .syn-layout { grid-template-columns: minmax(0, 1fr); } }
   @media (forced-colors: active) { .syn-stage, .syn-panel { border-color: CanvasText; } }
 }

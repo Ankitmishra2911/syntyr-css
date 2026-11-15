@@ -84,7 +84,7 @@
     background: var(--syn-terminal-bg); color: var(--syn-terminal-fg);
     font: 400 .85rem/1.65 var(--syn-mono); min-width: 0; overflow: hidden;
   }
-  .syn-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--syn-terminal-muted); font-size: .73rem; }
+  .syn-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--syn-terminal-muted); font-size: .8125rem; }
   .syn-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
   .syn-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
   .syn-terminal-prompt { color: var(--syn-terminal-prompt); }
