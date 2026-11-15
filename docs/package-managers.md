@@ -41,7 +41,7 @@ import '@syntyr/css/core.css';
 
 This is a **build-time stylesheet import** in the host application, not Syntyr JavaScript. For a browser `<link>` tag, serve a **copied CSS asset** at a real URL: browsers do not resolve the bare `@syntyr/css/...` package specifier in `href`.
 
-Available subpaths: `core.css` (default), `semantic.css`, `semantic-bundle.css` (one-file core + semantic), `recipes.css`, `effects.css`, `geometry.css`, `symbols.css`, `viz.css`, `utilities.css`, `print.css`, `syntyr.css` (core + effects), `all.css`, and the opt-in **Tailwind v4 build-time** bridge `tailwind.css` and scoped shadcn semantic bridge `shadcn.css`. These exports are tested against the standard-library `scripts/build.py` distribution registry. Future CSS modules must update the exports and their contract test.
+Available subpaths: `core.css` (default), `semantic.css`, `server.css` (optional server-HTML state bridge), `semantic-bundle.css` (one-file core + semantic), `recipes.css`, `effects.css`, `geometry.css`, `symbols.css`, `viz.css`, `utilities.css`, `print.css`, `syntyr.css` (core + effects), `all.css`, and the opt-in **Tailwind v4 build-time** bridge `tailwind.css` and scoped shadcn semantic bridge `shadcn.css`. These exports are tested against the standard-library `scripts/build.py` distribution registry. Future CSS modules must update the exports and their contract test.
 
 The default import is deliberately `core.css`; `all.css` is opt-in. Do not import `all.css` alongside its component stylesheets or import `syntyr.css` alongside `core.css` and `effects.css`: doing so duplicates CSS and can complicate cascade debugging.
 

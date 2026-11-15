@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Optional package-manager installation (alpha.5 candidate). Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="4bfe88587be02d88885c3bd113b954497acd2501092ecb51dd1f9a6115ae13f0">
+  <meta name="syntyr-source-sha256" content="e1c2c8bd9f77fd419ac3d6610ad73083600bf4bde7e506bfc40ebaeedcd10ab1">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional package-manager installation (alpha.5 candidate) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/package-managers.html">
@@ -58,7 +58,7 @@ npm pack --ignore-scripts
 <pre><code class="language-js">import '@syntyr/css/core.css';
 </code></pre>
 <p>This is a <strong>build-time stylesheet import</strong> in the host application, not Syntyr JavaScript. For a browser <code>&lt;link&gt;</code> tag, serve a <strong>copied CSS asset</strong> at a real URL: browsers do not resolve the bare <code>@syntyr/css/...</code> package specifier in <code>href</code>.</p>
-<p>Available subpaths: <code>core.css</code> (default), <code>semantic.css</code>, <code>semantic-bundle.css</code> (one-file core + semantic), <code>recipes.css</code>, <code>effects.css</code>, <code>geometry.css</code>, <code>symbols.css</code>, <code>viz.css</code>, <code>utilities.css</code>, <code>print.css</code>, <code>syntyr.css</code> (core + effects), <code>all.css</code>, and the opt-in <strong>Tailwind v4 build-time</strong> bridge <code>tailwind.css</code> and scoped shadcn semantic bridge <code>shadcn.css</code>. These exports are tested against the standard-library <code>scripts/build.py</code> distribution registry. Future CSS modules must update the exports and their contract test.</p>
+<p>Available subpaths: <code>core.css</code> (default), <code>semantic.css</code>, <code>server.css</code> (optional server-HTML state bridge), <code>semantic-bundle.css</code> (one-file core + semantic), <code>recipes.css</code>, <code>effects.css</code>, <code>geometry.css</code>, <code>symbols.css</code>, <code>viz.css</code>, <code>utilities.css</code>, <code>print.css</code>, <code>syntyr.css</code> (core + effects), <code>all.css</code>, and the opt-in <strong>Tailwind v4 build-time</strong> bridge <code>tailwind.css</code> and scoped shadcn semantic bridge <code>shadcn.css</code>. These exports are tested against the standard-library <code>scripts/build.py</code> distribution registry. Future CSS modules must update the exports and their contract test.</p>
 <p>The default import is deliberately <code>core.css</code>; <code>all.css</code> is opt-in. Do not import <code>all.css</code> alongside its component stylesheets or import <code>syntyr.css</code> alongside <code>core.css</code> and <code>effects.css</code>: doing so duplicates CSS and can complicate cascade debugging.</p>
 <h2 id="release-safety">Release safety</h2>
 <ul>
