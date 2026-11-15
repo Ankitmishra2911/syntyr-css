@@ -6,8 +6,12 @@
   .syn-table-wrap { overflow-x: auto; }
   .syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
   .syn-table th, .syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); white-space: nowrap; }
+  /* Allow descriptive cells to wrap without changing compact identifier/numeric cells. */
+  .syn-table .syn-cell--wrap { white-space: normal; overflow-wrap: anywhere; max-inline-size: 38ch; }
   .syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
   .syn-table tr[aria-selected="true"], .syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
+  .syn-table tr[aria-selected="true"] > :first-child,
+  .syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start: 3px solid var(--syn-accent); }
   .syn-table tr:focus-within { outline: 2px solid var(--syn-focus-ring); outline-offset: -2px; }
   .syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
@@ -19,6 +23,8 @@
   .syn-status--warning { color: var(--syn-warning); }
   .syn-status--danger { color: var(--syn-danger); }
   @media (forced-colors: active) {
+    .syn-table tr[aria-selected="true"] > :first-child,
+    .syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start-color: Highlight; }
     .syn-status::before { border: 1px solid currentColor; }
   }
 }

@@ -486,5 +486,54 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(css('#data', 'visibility'), 'visible')
         self.assertEqual(css('#action', 'color'), 'rgb(17, 17, 17)')
 
+
+    def test_neutral_first_palette_tables_and_opt_in_cinematic_styling(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        recipes = (ROOT / 'dist/syntyr.recipes.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{core}</style><style>{recipes}</style>
+          <main class="syn-root" id="default">
+            <h2 class="syn-section-heading" id="section-title">Customer records</h2>
+            <h3 class="syn-heading" id="card-title">Overview</h3>
+            <section class="syn-stage" id="stage">Neutral stage</section>
+            <article class="syn-panel" id="panel">
+              <span class="syn-badge" id="badge">Draft</span>
+            </article>
+            <table class="syn-table"><tbody>
+              <tr id="row" data-syn-state="selected"><th scope="row">Selected</th>
+                <td class="syn-cell--wrap" id="wrap">This description should wrap across multiple lines when needed.</td>
+                <td class="syn-cell--numeric" id="numeric">1,250</td>
+              </tr>
+            </tbody></table>
+            <section id="technical" data-syn-theme="grid">
+              <article id="accent-card" class="syn-app-card syn-surface--accent">
+                <span id="accent-badge" class="syn-badge syn-badge--accent">Active</span>
+              </article>
+            </section>
+          </main>""")
+        style = lambda sel, prop: self.page.locator(sel).evaluate(
+            "(e, property) => getComputedStyle(e).getPropertyValue(property).trim()", prop)
+        self.assertEqual(style('#default', 'background-color'), 'rgb(245, 247, 251)')
+        self.assertEqual(style('#technical', 'background-color'), 'rgb(8, 15, 25)')
+        self.assertNotIn('mono', style('#default', 'font-family').lower())
+        self.assertGreater(float(style('#section-title', 'font-size').removesuffix('px')),
+                           float(style('#card-title', 'font-size').removesuffix('px')))
+        self.assertEqual(style('#panel', 'background-image'), 'none')
+        self.assertEqual(style('#stage', 'background-image'), 'none')
+        self.assertEqual(self.page.locator('#badge').evaluate(
+            "e => getComputedStyle(e, '::before').content"), 'none')
+        self.assertEqual(style('#wrap', 'white-space'), 'normal')
+        self.assertEqual(style('#numeric', 'white-space'), 'nowrap')
+        self.assertEqual(style('#numeric', 'text-align'), 'right')
+        self.assertEqual(style('#row > :first-child', 'border-inline-start-width'), '3px')
+        self.assertEqual(style('#row > :first-child', 'border-inline-start-color'),
+                         'rgb(36, 88, 198)')
+        self.assertNotEqual(style('#accent-card', 'background-image'), 'none')
+        self.assertEqual(style('#accent-badge', 'color'), 'rgb(118, 231, 247)')
+        self.page.locator('#row').hover()
+        self.assertEqual(style('#row > :first-child', 'border-inline-start-width'), '3px')
+        self.page.emulate_media(forced_colors='active')
+        self.assertNotEqual(style('#row > :first-child', 'border-inline-start-color'),
+                            'rgb(36, 88, 198)')
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

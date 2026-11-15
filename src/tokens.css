@@ -2,7 +2,7 @@
 
 @layer syn.tokens {
   :where(.syn-root) {
-    color-scheme: dark;
+    color-scheme: light;
     --syn-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --syn-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
     --syn-font-ui: var(--syn-font);
@@ -13,6 +13,7 @@
     /* Type roles are independent from theme palettes and optional font loading. */
     --syn-type-body: var(--syn-type-base);
     --syn-type-heading: clamp(1.15rem, 2.4vw, 1.55rem);
+    --syn-type-section: clamp(1.5rem, 1.25rem + 1.25vw, 2.125rem);
     --syn-type-display: clamp(2rem, 5.5vw, 4rem);
     --syn-leading-body: 1.55;
     --syn-tracking-display: -.045em;
@@ -56,7 +57,27 @@
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }
-  :where(.syn-root), :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
+  /* Neutral default; named palettes override it independently. */
+  :where(.syn-root, .syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
+    color-scheme: light;
+    --syn-bg: #f5f7fb;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #eaf0f8;
+    --syn-text: #15233a;
+    --syn-muted: #4b5d76;
+    --syn-accent: #2458c6;
+    --syn-accent-2: #176b80;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #b8c6d8;
+    --syn-frame-strong: #6685b2;
+    --syn-danger: #ad2637;
+    --syn-success: #17694b;
+    --syn-warning: #92500a;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
+  }
+  :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
     color-scheme: dark;
     --syn-bg: #080f19;
     --syn-surface: #111f2c;
@@ -170,28 +191,10 @@
     --syn-radius: .375rem;
     --syn-cut: 0;
   }
-    :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
-    color-scheme: light;
-    --syn-bg: #f5f7fb;
-    --syn-surface: #ffffff;
-    --syn-surface-hi: #eaf0f8;
-    --syn-text: #15233a;
-    --syn-muted: #4b5d76;
-    --syn-accent: #2458c6;
-    --syn-accent-2: #176b80;
-    --syn-on-accent: #ffffff;
-    --syn-frame: #b8c6d8;
-    --syn-frame-strong: #6685b2;
-    --syn-danger: #ad2637;
-    --syn-success: #17694b;
-    --syn-warning: #92500a;
-    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
-    --syn-radius: .25rem;
-    --syn-cut: .9rem;
-  }
+
 
   /* Opt-in system palette: Studio in light mode, Grid in dark mode.
-     The guard preserves the original dark defaults in older browsers. */
+     Engines without light-dark() fall back to the neutral Studio palette. */
   @supports (color: light-dark(white, black)) {
     :where(.syn-root[data-syn-theme="auto"], .syn-root [data-syn-theme="auto"]) {
       color-scheme: light dark;
@@ -213,9 +216,8 @@
       --syn-cut: .9rem;
     }
   }
-  /* Technical typography only for the fallback and explicit technical themes.
-     Do not force monospace on Studio/Minimal/Corporate roots. */
-  :where(.syn-root:not([data-syn-theme]), .syn-root[data-syn-theme="grid"],
+  /* Technical typography is an explicit choice, not the neutral root default. */
+  :where(.syn-root[data-syn-theme="grid"],
          .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
          .syn-root [data-syn-theme="terminal"]) {
     --syn-font-ui: var(--syn-mono);

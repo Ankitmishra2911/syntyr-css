@@ -6,7 +6,8 @@
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
-- **Seven themes in the alpha.5 candidate:** Grid, Noir, Studio, Industrial, Terminal, Corporate and Minimal. The published alpha.4 release contains the original three.
+- **Neutral Studio palette by default:** opt into Grid, Noir, Industrial, Terminal, Corporate, or Minimal with `data-syn-theme`. Seven palettes are in the unreleased alpha.5 candidate; published alpha.4 provides Grid, Noir, and Studio.
+- **Quiet component surfaces by default:** use `.syn-surface--accent` from optional recipes and `.syn-badge--accent` for deliberate visual emphasis.
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.syn-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
