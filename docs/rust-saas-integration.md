@@ -1,0 +1,22 @@
+# Optional Rust SaaS Foundation / Askama / HTMX integration
+
+An opt-in Syntyr profile is implemented on the
+`feat/optional-syntyr-skin` integration branch of
+`dporkka/rust-saas-foundation`. It uses a separate Askama page template,
+shares the original `catalog.html` fragment, and does not require npm,
+external assets, or any additional runtime JavaScript.
+
+The source adapter is `integrations/rust-saas-foundation/catalog.css`.
+It scopes the existing `.wrap`, `.items` and `.item` classes beneath
+`.syn-rust-foundation` so the default page is unaffected. Load a pinned
+Syntyr core stylesheet first, then the adapter. The optional page sets
+`class="syn-root syn-rust-foundation"` and `data-syn-theme="studio"`.
+
+The Rust integration vendors the **published alpha.4 core CSS** and serves
+versioned assets from the application binary. It exposes `APP_UI_SKIN=syntyr`
+at startup; unknown values are rejected. The backend's identity, tenants,
+permissions, PostgreSQL queries and HTMX fragments are not touched.
+
+This demonstrates a public catalog. It does not prove an authenticated admin
+flow or certify accessibility. Browser, keyboard, contrast and zoom tests on
+real application pages are required before production claims.
