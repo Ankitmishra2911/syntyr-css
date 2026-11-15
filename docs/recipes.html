@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="d62b1d551e6d12dfa1346c72b40e33ba39dcd3572c700c5f117e72ead9f631cb">
+  <meta name="syntyr-source-sha256" content="88819419e5c09a71516ef923e2fcc84521d352263a312306a7aeb62193a9a3a9">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -233,6 +233,39 @@ application CSS. Keep real document headings and reading order.</p>
 <li>Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.</li>
 </ul>
 <p>The example is illustrative, <strong>not a configured server</strong>. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.</p>
+<h2 id="enterprise-collection-sheet-and-evidence-compositions-alpha5-source-candidate">Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)</h2>
+<p>The optional <code>syntyr.recipes.css</code> also includes reusable patterns tested against
+Adacavo-style resource workflows. They are original MIT-licensed presentation
+recipes, <strong>not a port of Adacavo's application code</strong>. See the
+<a href="../examples/enterprise-compositions.html">zero-JavaScript example</a>.</p>
+<ul>
+<li><code>.syn-view-switcher</code> contains real links (<code>aria-current=&quot;page&quot;</code>) for
+server-selected views, or host-controlled toggle buttons
+(<code>aria-pressed=&quot;true&quot;</code>). A link doesn't implement filtering, and a button
+needs a real event handler; never claim a view switched solely from CSS.</li>
+<li><code>.syn-sheet</code> and <code>.syn-sheet-header</code>, <code>.syn-sheet-body</code>,
+<code>.syn-sheet-footer</code> style a native <strong>nonmodal</strong> <code>[popover]</code> panel, or a
+native modal <code>&lt;dialog&gt;</code>. Native <code>popovertarget</code> works without JavaScript
+in supported browsers. A popover <strong>does not</strong> trap focus or make the rest of
+the page inert. For modal editing, call <code>showModal()</code> or use supported
+<code>commandfor</code>/<code>command=&quot;show-modal&quot;</code> and retain a direct-page fallback.
+The <code>--syn-sheet-width</code> CSS property defaults to <code>30rem</code>; set it on the
+sheet to adjust width. When closed, neither element is forced visible by
+the grid display rules.
+Don't set <code>aria-modal=&quot;true&quot;</code> on the nonmodal popover.</li>
+<li><code>.syn-evidence-grid</code>, <code>.syn-evidence-card</code>, <code>.syn-evidence-media</code>,
+<code>.syn-evidence-body</code>, <code>.syn-evidence-meta</code> and <code>.syn-evidence-actions</code>
+present <code>figure</code>, <code>figcaption</code>, <code>dl</code> and <code>time</code> records. Use
+<code>.syn-evidence-media--placeholder</code> for text-only media fallbacks so
+enlarged text can expand vertically rather than being clipped. Reuse the
+existing <code>.syn-status</code> for server-validated textual status. Application
+code owns uploads, verification, EXIF/GPS, image fallbacks, and approvals.</li>
+</ul>
+<p>All styles require a <code>.syn-root</code> ancestor, use semantic tokens, and are
+excluded from <code>syntyr.core.css</code>. The illustration uses labeled placeholders,
+not real customer evidence. Test keyboard and touch interactions, actual
+screen-reader focus behavior, 400% zoom, forced colors, RTL, and lengthy
+translated metadata in the consuming app before production use.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-vertical-flow">Optional vertical flow</a>
@@ -247,6 +280,7 @@ application CSS. Keep real document headings and reading order.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#collection-workspaces-and-error-recovery-source-candidate">Collection workspaces and error recovery (source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#enterprise-collection-sheet-and-evidence-compositions-alpha5-source-candidate">Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="recipes.md">Markdown source</a></nav>

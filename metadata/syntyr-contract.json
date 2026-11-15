@@ -919,6 +919,83 @@
       ]
     },
     {
+      "name": "syn-evidence-actions",
+      "module": "recipes.css",
+      "description": "Optional links or actions accompanying an evidence record.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-body",
+      "module": "recipes.css",
+      "description": "Caption and descriptive fields for a media evidence record.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-card",
+      "module": "recipes.css",
+      "description": "Semantic figure-based evidence record presentation; host verifies source and status.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-grid",
+      "module": "recipes.css",
+      "description": "Responsive layout for field inspections, media reviews and evidence cards.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-media",
+      "module": "recipes.css",
+      "description": "Media preview or labeled placeholder inside an evidence figure.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-media--placeholder",
+      "module": "recipes.css",
+      "description": "Content-height media fallback that grows for readable zoomed text.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-meta",
+      "module": "recipes.css",
+      "description": "Definition-list metadata for an evidence record.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-eyebrow",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css).",
@@ -2004,6 +2081,50 @@
       ]
     },
     {
+      "name": "syn-sheet",
+      "module": "recipes.css",
+      "description": "Off-canvas native popover (nonmodal) or dialog presentation; host owns modal behavior and focus.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-body",
+      "module": "recipes.css",
+      "description": "Scrollable body within an open native popover or dialog sheet.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-footer",
+      "module": "recipes.css",
+      "description": "Persistent action footer inside an open native sheet.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-header",
+      "module": "recipes.css",
+      "description": "Heading, contextual metadata and close action for a native sheet.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-shell",
       "module": "components/layout.css",
       "description": "Syntyr CSS class (components/layout.css).",
@@ -3074,6 +3195,17 @@
       ]
     },
     {
+      "name": "syn-view-switcher",
+      "module": "recipes.css",
+      "description": "Collection view links styled as a switcher; server or host owns active view state.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-viz-bar",
       "module": "viz.css",
       "description": "Syntyr CSS class (viz.css).",
@@ -4138,6 +4270,17 @@
         "syntyr.core.css",
         "syntyr.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-sheet-width",
+      "module": "recipes.css",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {

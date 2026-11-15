@@ -310,6 +310,34 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-evidence-actions",
+          "description": "Optional links or actions accompanying an evidence record."
+        },
+        {
+          "name": "syn-evidence-body",
+          "description": "Caption and descriptive fields for a media evidence record."
+        },
+        {
+          "name": "syn-evidence-card",
+          "description": "Semantic figure-based evidence record presentation; host verifies source and status."
+        },
+        {
+          "name": "syn-evidence-grid",
+          "description": "Responsive layout for field inspections, media reviews and evidence cards."
+        },
+        {
+          "name": "syn-evidence-media",
+          "description": "Media preview or labeled placeholder inside an evidence figure."
+        },
+        {
+          "name": "syn-evidence-media--placeholder",
+          "description": "Content-height media fallback that grows for readable zoomed text."
+        },
+        {
+          "name": "syn-evidence-meta",
+          "description": "Definition-list metadata for an evidence record."
+        },
+        {
           "name": "syn-eyebrow",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -648,6 +676,22 @@
         {
           "name": "syn-semantic",
           "description": "Opt-in styling of native HTML elements."
+        },
+        {
+          "name": "syn-sheet",
+          "description": "Off-canvas native popover (nonmodal) or dialog presentation; host owns modal behavior and focus."
+        },
+        {
+          "name": "syn-sheet-body",
+          "description": "Scrollable body within an open native popover or dialog sheet."
+        },
+        {
+          "name": "syn-sheet-footer",
+          "description": "Persistent action footer inside an open native sheet."
+        },
+        {
+          "name": "syn-sheet-header",
+          "description": "Heading, contextual metadata and close action for a native sheet."
         },
         {
           "name": "syn-shell",
@@ -1000,6 +1044,10 @@
         {
           "name": "syn-u-wrap",
           "description": "Syntyr CSS class (utilities.css)."
+        },
+        {
+          "name": "syn-view-switcher",
+          "description": "Collection view links styled as a switcher; server or host owns active view state."
         },
         {
           "name": "syn-viz-bar",

@@ -278,7 +278,7 @@ def source_files() -> dict[str, bytes]:
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
-        "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
+        "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
         "viz.html", "data-grid.html",
     )

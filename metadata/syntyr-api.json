@@ -382,6 +382,41 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-evidence-actions",
+      "module": "recipes.css",
+      "description": "Optional links or actions accompanying an evidence record."
+    },
+    {
+      "name": "syn-evidence-body",
+      "module": "recipes.css",
+      "description": "Caption and descriptive fields for a media evidence record."
+    },
+    {
+      "name": "syn-evidence-card",
+      "module": "recipes.css",
+      "description": "Semantic figure-based evidence record presentation; host verifies source and status."
+    },
+    {
+      "name": "syn-evidence-grid",
+      "module": "recipes.css",
+      "description": "Responsive layout for field inspections, media reviews and evidence cards."
+    },
+    {
+      "name": "syn-evidence-media",
+      "module": "recipes.css",
+      "description": "Media preview or labeled placeholder inside an evidence figure."
+    },
+    {
+      "name": "syn-evidence-media--placeholder",
+      "module": "recipes.css",
+      "description": "Content-height media fallback that grows for readable zoomed text."
+    },
+    {
+      "name": "syn-evidence-meta",
+      "module": "recipes.css",
+      "description": "Definition-list metadata for an evidence record."
+    },
+    {
       "name": "syn-eyebrow",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -805,6 +840,26 @@
       "name": "syn-semantic",
       "module": "semantic.css",
       "description": "Opt-in styling of native HTML elements."
+    },
+    {
+      "name": "syn-sheet",
+      "module": "recipes.css",
+      "description": "Off-canvas native popover (nonmodal) or dialog presentation; host owns modal behavior and focus."
+    },
+    {
+      "name": "syn-sheet-body",
+      "module": "recipes.css",
+      "description": "Scrollable body within an open native popover or dialog sheet."
+    },
+    {
+      "name": "syn-sheet-footer",
+      "module": "recipes.css",
+      "description": "Persistent action footer inside an open native sheet."
+    },
+    {
+      "name": "syn-sheet-header",
+      "module": "recipes.css",
+      "description": "Heading, contextual metadata and close action for a native sheet."
     },
     {
       "name": "syn-shell",
@@ -1247,6 +1302,11 @@
       "description": "Syntyr CSS class (utilities.css)."
     },
     {
+      "name": "syn-view-switcher",
+      "module": "recipes.css",
+      "description": "Collection view links styled as a switcher; server or host owns active view state."
+    },
+    {
       "name": "syn-viz-bar",
       "module": "viz.css",
       "description": "Syntyr CSS class (viz.css)."
@@ -1682,6 +1742,11 @@
       "name": "--syn-shadow-sm",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-sheet-width",
+      "module": "recipes.css",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem."
     },
     {
       "name": "--syn-space-1",

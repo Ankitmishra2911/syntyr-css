@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
-  <meta name="syntyr-source-sha256" content="01515c4993cfda6b1b4a7cef553b5ba8a8212b57b3eaa53bee12e6695f49c98c">
+  <meta name="syntyr-source-sha256" content="f7a273058e7d78b1cdb58ea41c933fb50750872f10eca2fa0daebe355ddff86e">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
@@ -178,6 +178,12 @@ migration note if prerelease contracts change.</li>
 layer ownership and dependency boundaries. Optional package integrations may
 provide additional contracts but must never introduce a mandatory core
 runtime dependency.</p>
+<h2 id="enterprise-presentation-recipes-unreleased-alpha5">Enterprise presentation recipes (unreleased alpha.5)</h2>
+<p>The optional <code>syntyr.recipes.css</code> source candidate adds <code>.syn-view-switcher</code>,
+<code>.syn-sheet</code> and <code>.syn-evidence-*</code> classes. These are experimental opt-in
+CSS selectors, not part of the immutable alpha.4 package and not a guarantee
+of application-level selection, dialog focus management, image verification
+or review workflows. See <a href="recipes.html">recipe contracts</a>.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#public-surface-and-intended-v1-boundaries">Public surface and intended v1 boundaries</a>
@@ -186,6 +192,7 @@ runtime dependency.</p>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#compatibility-and-version-policy">Compatibility and version policy</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#pre-10-release-checklist">Pre-1.0 release checklist</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#enterprise-presentation-recipes-unreleased-alpha5">Enterprise presentation recipes (unreleased alpha.5)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="api-stability.md">Markdown source</a></nav>
