@@ -48,7 +48,9 @@ class PilotReadinessTests(unittest.TestCase):
     def test_public_kit_copy_truthfully_distinguishes_private_preview_from_sale(self):
         page = (ROOT / "docs/console-kit.html").read_text()
         self.assertIn("PRIVATE PROTOTYPE", page)
-        self.assertIn("24", page)
+        self.assertIn("12 original screen types", page)
+        self.assertIn("36 static variants", page)
+        self.assertIn("eight screenshots below", page)
         self.assertIn("NOT AVAILABLE FOR PURCHASE", page)
         self.assertNotIn("BUY NOW", page)
         spec = (ROOT / "business/console-kit-spec.md").read_text()
