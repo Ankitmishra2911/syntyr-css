@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SYNTYR is a static website and CSS library. It does not need a server, database, JavaScript runtime, Node install, NPM install, or a CDN SDK.">
-  <meta name="syntyr-source-sha256" content="2591e95df92d7c9b049f4778475c75bfa55b1320df67a915a79b091555904058">
+  <meta name="syntyr-source-sha256" content="a843feec5594300e9f41bd9f08dca4ba5a367dea798c967600996713bdb9c6ac">
   <meta name="theme-color" content="#f5f7fb">
   <title>Hosting SYNTYR on Cloudflare — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/cloudflare-hosting">
@@ -110,6 +110,10 @@ unversioned preview CSS immutable. Frozen public <code>/v/&lt;version&gt;/*</cod
 releases remain byte-for-byte unchanged. Third-party applications should
 still self-host or pin versioned assets, rather than copy the hashed
 documentation-only URLs.</p>
+<p>Before adding a new frozen CDN version, follow the <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/release-freeze.md">release freeze review
+procedure</a> and run <code>python3 scripts/freeze_site_release.py --check</code>. The <code>--apply</code> freeze operation requires an exact-commit human evidence record
+and a fresh deterministic CSS build; the read-only technical preflight,
+routine CI and candidate ZIP creation do not grant publication approval.</p>
 <p>The builder recognizes local linked stylesheet files that are included
 in the public allowlist. It rejects CSS containing unresolved <code>@import</code>
 or <code>url()</code> dependencies rather than silently moving it to a different
