@@ -65,16 +65,21 @@ SNIPPET_CLASSES = (
 def collect():
     classes = {}
     tokens = {}
-    # Match the public build manifest, not filename sorting: print and token
-    # stylesheets *reference* component classes without defining their UI.
+    # Honor the public build manifest. Source ownership differs by API kind:
+    # class definitions live in base/components/recipes, while primary theme
+    # token declarations live in tokens.css (not their print-mode overrides).
     sources = list(dict.fromkeys(path for modules in distributions().values() for path in modules))
-    sources.sort(key=lambda path: (path == "tokens.css", path == "print.css"))
-    for path in sources:
-        file = SOURCE / path
-        css = CSS_COMMENT.sub("", file.read_text(encoding="utf-8"))
-        for name in CLASS.findall(css):
+    css_by_module = {
+        path: CSS_COMMENT.sub("", (SOURCE / path).read_text(encoding="utf-8"))
+        for path in sources
+    }
+    class_sources = sorted(sources, key=lambda path: (path == "tokens.css", path == "print.css"))
+    for path in class_sources:
+        for name in CLASS.findall(css_by_module[path]):
             classes.setdefault(name, path)
-        for name in TOKEN.findall(css):
+    token_sources = sorted(sources, key=lambda path: (path != "tokens.css", path == "print.css"))
+    for path in token_sources:
+        for name in TOKEN.findall(css_by_module[path]):
             tokens.setdefault(name, path)
     for name, path in EXPLICIT_TOKENS.items():
         content = (SOURCE / path).read_text(encoding="utf-8")

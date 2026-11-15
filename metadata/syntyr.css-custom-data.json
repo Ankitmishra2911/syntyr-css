@@ -7,11 +7,11 @@
     },
     {
       "name": "--syn-accent-2",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-accent-soft",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-bg",
@@ -91,7 +91,7 @@
     },
     {
       "name": "--syn-danger",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-duration-fast",
@@ -123,7 +123,7 @@
     },
     {
       "name": "--syn-frame",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-frame-shape",
@@ -131,7 +131,7 @@
     },
     {
       "name": "--syn-frame-strong",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-leading-body",
@@ -147,7 +147,7 @@
     },
     {
       "name": "--syn-muted",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-on-accent",
@@ -207,15 +207,15 @@
     },
     {
       "name": "--syn-success",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-surface",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-surface-hi",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-surface-hover",
@@ -299,7 +299,7 @@
     },
     {
       "name": "--syn-warning",
-      "description": "Syntyr CSS property (print.css)."
+      "description": "Syntyr CSS property (tokens.css)."
     }
   ]
 }

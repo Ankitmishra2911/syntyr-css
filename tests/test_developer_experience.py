@@ -39,6 +39,9 @@ class DeveloperExperienceTests(unittest.TestCase):
         self.assertEqual(classes["syn-page"], "base.css")
         self.assertEqual(classes["syn-root"], "base.css")
         self.assertEqual(classes["syn-button"], "components/buttons.css")
+        tokens = {entry["name"]: entry["module"] for entry in collect()["tokens"]}
+        for token in ("--syn-accent", "--syn-bg", "--syn-accent-2", "--syn-accent-soft"):
+            self.assertEqual(tokens[token], "tokens.css", token)
         self.assertNotIn("print.css", {classes["syn-app-shell"], classes["syn-terminal"]})
 
     def test_compositional_utilities_are_optional_and_scoped(self):

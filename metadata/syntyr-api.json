@@ -925,22 +925,22 @@
   "tokens": [
     {
       "name": "--syn-accent",
-      "module": "print.css",
+      "module": "tokens.css",
       "description": "Theme accent color; also check --syn-on-accent contrast."
     },
     {
       "name": "--syn-accent-2",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-accent-soft",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-bg",
-      "module": "print.css",
+      "module": "tokens.css",
       "description": "Theme background."
     },
     {
@@ -1035,8 +1035,8 @@
     },
     {
       "name": "--syn-danger",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-duration-fast",
@@ -1075,8 +1075,8 @@
     },
     {
       "name": "--syn-frame",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-frame-shape",
@@ -1085,8 +1085,8 @@
     },
     {
       "name": "--syn-frame-strong",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-leading-body",
@@ -1105,12 +1105,12 @@
     },
     {
       "name": "--syn-muted",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-on-accent",
-      "module": "print.css",
+      "module": "tokens.css",
       "description": "Foreground color for the primary accent."
     },
     {
@@ -1180,18 +1180,18 @@
     },
     {
       "name": "--syn-success",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-surface",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-surface-hi",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-surface-hover",
@@ -1240,7 +1240,7 @@
     },
     {
       "name": "--syn-text",
-      "module": "print.css",
+      "module": "tokens.css",
       "description": "Default text color."
     },
     {
@@ -1295,8 +1295,8 @@
     },
     {
       "name": "--syn-warning",
-      "module": "print.css",
-      "description": "Syntyr CSS property (print.css)."
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     }
   ],
   "themes": [
