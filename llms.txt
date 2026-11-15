@@ -8,13 +8,14 @@ The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The 
 
 - [AI quickstart](https://syntyr-css.pages.dev/docs/ai-quickstart.md): Version-aware CSS installation and valid HTML examples.
 - [Complete curated reference](https://syntyr-css.pages.dev/llms-full.txt): Concatenated public technical guides, generated from source.
-- [Component reference](https://syntyr-css.pages.dev/docs/components.md): Real classes, tokens, scopes and semantic modes.
+- [Component reference](https://syntyr-css.pages.dev/docs/components.md): Real classes, tokens, scopes, semantic modes and candidate-only table wrapping migration (use .syn-cell--nowrap for identifiers).
 - [Component manifest](https://syntyr-css.pages.dev/metadata/components.json): Curated, validated selectors with their required CSS modules.
 - [Consumer agent skill](https://syntyr-css.pages.dev/agents/syntyr/SKILL.md): Portable, opt-in instructions.
 
 ## Reference
 
 - [Distribution and pinned CSS](https://syntyr-css.pages.dev/docs/distribution.md): Self-hosting and stable asset URLs.
+- [Cloudflare hosting and cache contract](https://syntyr-css.pages.dev/docs/cloudflare-hosting.md): Content-addressed website CSS, mutable preview URLs and immutable consumer releases.
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary.
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
 - [Copyable form recipes](https://syntyr-css.pages.dev/docs/component-recipes.md): Candidate-only native form groups and accessible markup.
@@ -26,6 +27,8 @@ The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The 
 - [Optional advanced geometry guide](https://syntyr-css.pages.dev/docs/geometry-terminal.md): Seven frame shapes, per-corner cuts, gradient borders, inlays and integration boundaries (alpha.5 source candidate only).
 - [Interactive geometry mixer](https://syntyr-css.pages.dev/docs/playground.html#geometry-title): Documentation-only editor with copyable HTML and no consumer runtime JavaScript (alpha.5 source candidate).
 - [Accessibility guide](https://syntyr-css.pages.dev/docs/accessibility.md): Practical verification.
+- [Progressive CSS loading](https://syntyr-css.pages.dev/docs/progressive-loading.md): Selective CSS, critical CSS tradeoffs, and measured loading approaches.
+- [Deployed mobile performance audit](https://syntyr-css.pages.dev/docs/live-performance-audit.md): Reproducible LCP, caching, CSP and accessibility evidence for the hosted business and SaaS examples.
 - [Optional visualization styles](https://syntyr-css.pages.dev/docs/viz.md): SVG/HTML rendering and boundaries.
 - [How to use Syntyr with coding agents](https://syntyr-css.pages.dev/docs/agent-integration.md): Recommended prompts, retrieval and validation.
 

@@ -51,7 +51,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Forms | `.syn-form`, `.syn-label`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-check`, `.syn-fieldset`, `.syn-help`, `.syn-error` | unclassed form controls |
 | Form compositions | `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` | native `form`, `label`, `input`, `button` |
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
-| Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--numeric` | unclassed `table` |
+| Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--nowrap`, `.syn-cell--numeric` | unclassed `table` |
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
@@ -80,6 +80,10 @@ set of modifiers:
 
 Defaults preserve the previous appearance: fluid panel padding, square
 panel corners, and 1px borders; button inline padding defaults to 1rem.
+When `.syn-panel--cut` sits on a tinted or nested surface, set
+`--syn-panel-cut-fill` to the **background behind the panel** so its cut
+corner does not show the page-level `--syn-bg` by mistake. The default
+remains `var(--syn-bg)` for existing flat page layouts.
 These values are local CSS custom properties, not compile-time settings.
 Inspect `metadata/syntyr-api.json` for the machine-readable API index,
 or use the [editor integration instructions](editor-integration.md).
@@ -95,7 +99,7 @@ For component-level package imports and optional native UI recipes, see
 
 The implicit `.syn-root` palette is Studio (light and sans-serif). Explicit `data-syn-theme="grid"` and `data-syn-theme="terminal"` retain technical monospace presentation; other themes remain opt-in. `.syn-panel` and `.syn-stage` are flat by default; add `syn-surface--accent` from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. `.syn-badge` is a neutral label; use `.syn-status` with readable status text for meaningful state, or `.syn-badge--accent` to emphasize a badge.
 
-Use `.syn-section-heading` between `.syn-heading` and `.syn-display`. Tables retain compact no-wrap defaults for identifiers and numeric values; add `.syn-cell--wrap` to descriptive cells. Selected rows have a logical inline-start accent border in addition to their fill. Keep wide tables in `.syn-table-wrap` and provide an accessible caption.
+Use `.syn-section-heading` between `.syn-heading` and `.syn-display`. Table content wraps by default for better readability in narrow regions, including long text. Apply `.syn-cell--nowrap` to identifiers or short labels that must stay on one line; `.syn-cell--numeric` also preserves no-wrap numeric alignment. `.syn-cell--wrap` remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside `.syn-table-wrap` with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with `tabindex="0"`, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.
 
 ## Theme tokens
 

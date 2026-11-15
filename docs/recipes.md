@@ -1,6 +1,6 @@
 # MIT-licensed composition recipes
 
-For copyable input groups, labeled fields, container-responsive settings forms and optional headless UI styling, see [form composition recipes](component-recipes.md) and the [Radix adapter](radix-integration.md).
+For copyable input groups, labeled fields, container-responsive settings forms and optional headless UI styling, see [form composition recipes](component-recipes.md) and the [Radix adapter](radix-integration.md). For layered depth, incident-detail layouts, command presentation, timelines, and editorial product sections, see [premium compositions](premium-compositions.md).
 
 These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see [the gallery](index.html), the [Grid console](../examples/console.html), and the [Noir pricing layout](../examples/pricing.html).
 

@@ -22,6 +22,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-border-floating",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
       "name": "--syn-border-focus",
       "description": "Syntyr CSS property (tokens.css)."
     },
@@ -287,6 +291,10 @@
     },
     {
       "name": "--syn-surface",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-floating",
       "description": "Syntyr CSS property (tokens.css)."
     },
     {

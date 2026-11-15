@@ -41,6 +41,9 @@
   :where(.syn-root, .syn-root [data-syn-theme]) {
     --syn-surface-recessed: color-mix(in srgb, var(--syn-bg) 88%, var(--syn-surface));
     --syn-surface-raised: color-mix(in srgb, var(--syn-surface) 72%, var(--syn-surface-hi));
+    /* Nested-theme-aware overlay roles; no hardcoded light/dark surface colors. */
+    --syn-surface-floating: color-mix(in srgb, var(--syn-surface) 45%, var(--syn-surface-hi));
+    --syn-border-floating: var(--syn-frame-strong);
     --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     /* These aliases recompute in nested themed regions. */
     --syn-text-subtle: var(--syn-muted);
