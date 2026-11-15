@@ -110,7 +110,7 @@ unversioned preview CSS immutable. Frozen public <code>/v/&lt;version&gt;/*</cod
 releases remain byte-for-byte unchanged. Third-party applications should
 still self-host or pin versioned assets, rather than copy the hashed
 documentation-only URLs.</p>
-<p>Before adding a new frozen CDN version, follow the <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/release-freeze.md">release freeze review
+<p>Before adding a new frozen CDN version, follow the <a href="release-freeze.html">release freeze review
 procedure</a> and run <code>python3 scripts/freeze_site_release.py --check</code>. The <code>--apply</code> freeze operation requires an exact-commit human evidence record
 and a fresh deterministic CSS build; the read-only technical preflight,
 routine CI and candidate ZIP creation do not grant publication approval.</p>
