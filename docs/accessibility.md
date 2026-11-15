@@ -164,3 +164,49 @@ inspection, NVDA/VoiceOver validation, or a WCAG conformance audit. The
 pre-existing inconclusive axe contrast cases and manual release gates remain
 open. Use the separate [native example](../examples/native-elements.html)
 for representative manual checks after publishing.
+
+## Post-merge native-element review follow-up (November 15, 2026)
+
+The native HTML example received four confirmed actionable review findings after
+PR #38 merged. The follow-up fixes make its horizontally scrollable `pre`
+region keyboard-focusable with an accessible name/region role, allow long `kbd`
+chords to wrap, preserve readable foreground color for `mark > code`, and
+strengthen the browser regression to verify actual internal scrolling and
+keyboard focus instead of merely checking `scrollWidth >= clientWidth`.
+
+Reproducible checks on the follow-up worktree:
+
+- New unit contracts: 11 native-element tests pass; the full stdlib suite
+  passed 189 tests before final documentation/rebase.
+- Developer-only Playwright smoke: Chromium, Firefox, WebKit each passed
+  across seven themes, light/dark auto, 320px/900px widths, forced-colors
+  emulation, 200%/400% root-font enlargement and keyboard access to the
+  scrollable SQL example.
+- Shared browser matrix: all three engines passed 18 pages at three viewports.
+- Shared reflow matrix: all three engines completed 72 checks each (216 total).
+- Pinned axe-core 4.10.3 audit: **0 confirmed automated violations**, with
+  **10 incomplete rule checks** across the 18 included pages. The new
+  `examples/native-elements.html` page reported 0 violations and 0
+  incomplete checks. Other pages' inconclusive findings remain manual-review
+  items; these results are not blanket color-contrast certification.
+
+### Outstanding human validation (not yet performed)
+
+1. With **VoiceOver + Safari** and **NVDA + Firefox/Chrome** (Orca + Firefox
+   can be supplementary on Linux), navigate to
+   [the native HTML example](../examples/native-elements.html); verify the
+   "SQL query example" region is named, focusable with Tab, and responds to
+   horizontal scroll keys, without trapping focus.
+2. In a real browser, set **200% and 400% browser zoom**, not only the root
+   font-size test harness. At a 320 CSS-pixel effective viewport, verify
+   readable captions, long keyboard shortcuts, full access to the code
+   example, visible focus and no clipped form action.
+3. With an actual OS high-contrast/forced-colors mode, distinguish highlights,
+   focus rings, and selected controls. Also examine all axe inconclusive
+   contrast targets from the main release accessibility report.
+4. Record device, assistive technology version, browser version, observed
+   behavior, any defects, and reviewer sign-off before claiming WCAG
+   conformance or closing the manual release gate.
+
+These are QA instructions, not evidence that human assistive-technology or
+browser-UI zoom testing has happened.
