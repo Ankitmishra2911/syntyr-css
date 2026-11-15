@@ -214,6 +214,10 @@
           "description": "Syntyr CSS class (components/forms.css)."
         },
         {
+          "name": "syn-flow",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-fluid-display",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -383,6 +387,10 @@
         },
         {
           "name": "syn-panel--cut",
+          "description": "Syntyr CSS class (components/layout.css)."
+        },
+        {
+          "name": "syn-panel--raised",
           "description": "Syntyr CSS class (components/layout.css)."
         },
         {
