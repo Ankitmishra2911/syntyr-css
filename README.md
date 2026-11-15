@@ -153,6 +153,29 @@ python3 scripts/perf_benchmark.py --browsers chromium,firefox,webkit --runs 3 --
 
 The browser scripts require developer-installed `playwright` and the browser engines selected for testing; Chromium is autodetected from `chromium` or `chromium-browser`, or may be set with `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. The benchmark records unavailable browsers as blocked. Consumers of the CSS do **not** require Playwright or browser automation. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
 
+### Verifying PR merge candidates (maintainers only)
+
+The optional Woodpecker `pr-merge` pipeline fetches the current `main` and tests
+an **isolated combined working tree** instead of validating the PR head alone.
+To reproduce locally from your feature branch:
+
+```sh
+git fetch --no-tags origin main
+python3 scripts/check_merge_candidate.py --base FETCH_HEAD
+```
+
+The test checks CSS, editor API metadata, consolidated agent documentation,
+Python contracts, Cloudflare allowlisted assets, and release packaging. It
+leaves the source branch unchanged and requires only Python 3 and Git.
+
+**Race boundary:** A passing check proves compatibility with the specific
+base SHA it fetched. It does not protect against another PR landing afterward.
+To prevent stale generated artifacts from reaching `main`, require the
+merge-candidate Woodpecker check on the **current base** through branch rules
+or a merge queue, and verify the actual main push is green. The workflow YAML
+alone does not prove a Woodpecker pipeline has executed; do not assume it is
+an enforced required check until the GitHub/CI integration is verified.
+
 ## Important boundaries
 
 - This is a **CSS library**, not a JS widget framework. Native `dialog`, `[popover]` and `details` provide native interaction in supported browsers. The HTML Invoker Commands API used to open modal dialogs is not supported in every older browser. Use progressive enhancement for critical interactions.
