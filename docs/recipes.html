@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: MIT-licensed composition recipes. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="d1ff2c75d9278757c0151445f610c34142d1a5c45925afa595d4d4b12cef33e9">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes.html">
+  <link rel="alternate" type="text/markdown" href="recipes.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">MIT-licensed composition recipes</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="recipes.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="MIT-licensed composition recipes">
+<h1 id="mit-licensed-composition-recipes">MIT-licensed composition recipes</h1>
+<p>For copyable input groups, labeled fields, container-responsive settings forms and optional headless UI styling, see <a href="component-recipes.html">form composition recipes</a> and the <a href="radix-integration.html">Radix adapter</a>. For layered depth, incident-detail layouts, command presentation, timelines, and editorial product sections, see <a href="premium-compositions.html">premium compositions</a>.</p>
+<p>These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see <a href="index.html">the gallery</a>, the <a href="../examples/console.html">Grid console</a>, and the <a href="../examples/pricing.html">Noir pricing layout</a>.</p>
+<h2 id="optional-vertical-flow">Optional vertical flow</h2>
+<p>Use <code>.syn-flow</code> from <code>syntyr.recipes.css</code> on a content group to add
+consistent gaps between adjacent <strong>direct children</strong>. The flex-column
+composition stacks both inline and block elements, without overriding a
+child component's own display. It does not globally reset margins or modify
+unwrapped host markup. When children already have vertical margins, adjust
+them at the application level to avoid unexpectedly large combined spacing.
+For prose with heading rhythm, prefer the existing <code>.syn-prose</code> class.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;div class=&quot;syn-flow&quot; style=&quot;--syn-flow-gap: 1.5rem&quot;&gt;
+    &lt;h2 class=&quot;syn-section-heading&quot;&gt;A native-first design system&lt;/h2&gt;
+    &lt;p&gt;Readable content with consistent configurable vertical rhythm.&lt;/p&gt;
+    &lt;a href=&quot;/documentation&quot;&gt;Read the documentation&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p><code>.syn-flow</code> is an opt-in composition, not part of the minimal core.
+All spacing remains controlled by ordinary CSS custom properties.</p>
+<h2 id="1-responsive-telemetry-cards">1. Responsive telemetry cards</h2>
+<p>The <code>.syn-region</code> element establishes a <strong>named inline-size container</strong>. Unlike media queries, the cards respond to the width of the enclosing widget/sidebar. This is a native browser feature; no JavaScript observer is needed.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;grid&quot; aria-label=&quot;Network telemetry&quot;&gt;
+  &lt;div class=&quot;syn-stats&quot;&gt;
+    &lt;article class=&quot;syn-stat&quot;&gt;&lt;span class=&quot;syn-stat-label&quot;&gt;UPTIME&lt;/span&gt;&lt;p class=&quot;syn-stat-value&quot;&gt;99.8%&lt;/p&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-stat&quot;&gt;&lt;span class=&quot;syn-stat-label&quot;&gt;NODES&lt;/span&gt;&lt;p class=&quot;syn-stat-value&quot;&gt;24&lt;/p&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-stat&quot;&gt;&lt;span class=&quot;syn-stat-label&quot;&gt;ALERTS&lt;/span&gt;&lt;p class=&quot;syn-stat-value&quot;&gt;02&lt;/p&gt;&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<h2 id="2-accessible-empty-state">2. Accessible empty state</h2>
+<pre><code class="language-html">&lt;section class=&quot;syn-empty&quot; aria-labelledby=&quot;empty-heading&quot;&gt;
+  &lt;p class=&quot;syn-eyebrow&quot;&gt;QUEUE / EMPTY&lt;/p&gt;
+  &lt;h2 id=&quot;empty-heading&quot;&gt;No pending actions&lt;/h2&gt;
+  &lt;p class=&quot;syn-muted&quot;&gt;New items appear here once submitted.&lt;/p&gt;
+  &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/new&quot;&gt;Create an item&lt;/a&gt;
+&lt;/section&gt;
+</code></pre>
+<p>This is a <em>visual composition</em>, not a live queue implementation. Preserve real links, meaningful labels, and server-side behavior.</p>
+<h2 id="3-three-card-pricing-display">3. Three-card pricing display</h2>
+<pre><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;noir&quot; aria-label=&quot;Illustrative plans&quot;&gt;
+  &lt;div class=&quot;syn-pricing&quot;&gt;
+    &lt;article class=&quot;syn-price-card&quot;&gt;
+      &lt;h2&gt;Personal&lt;/h2&gt;
+      &lt;p class=&quot;syn-price-value&quot;&gt;$19&lt;small&gt; / month&lt;/small&gt;&lt;/p&gt;
+      &lt;ul class=&quot;syn-feature-list&quot;&gt;&lt;li&gt;One project&lt;/li&gt;&lt;li&gt;Basic support&lt;/li&gt;&lt;/ul&gt;
+      &lt;a class=&quot;syn-button&quot; href=&quot;/contact&quot;&gt;Contact us&lt;/a&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;syn-price-card&quot; data-syn-featured&gt;
+      &lt;h2&gt;Studio&lt;/h2&gt;
+      &lt;p class=&quot;syn-price-value&quot;&gt;$49&lt;small&gt; / month&lt;/small&gt;&lt;/p&gt;
+      &lt;ul class=&quot;syn-feature-list&quot;&gt;&lt;li&gt;Unlimited projects&lt;/li&gt;&lt;li&gt;Team seats&lt;/li&gt;&lt;/ul&gt;
+      &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/contact&quot;&gt;Contact us&lt;/a&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;syn-price-card&quot;&gt;
+      &lt;h2&gt;Enterprise&lt;/h2&gt;
+      &lt;p class=&quot;syn-price-value&quot;&gt;Custom&lt;/p&gt;
+      &lt;ul class=&quot;syn-feature-list&quot;&gt;&lt;li&gt;Security review&lt;/li&gt;&lt;li&gt;Dedicated support&lt;/li&gt;&lt;/ul&gt;
+      &lt;a class=&quot;syn-button&quot; href=&quot;/contact&quot;&gt;Contact us&lt;/a&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<h2 id="4-stateful-native-button-host-controlled">4. Stateful native button (host controlled)</h2>
+<pre><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; aria-pressed=&quot;true&quot;&gt;Grid view&lt;/button&gt;
+&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; aria-busy=&quot;true&quot;&gt;Syncing status&lt;/button&gt;
+</code></pre>
+<p><code>aria-pressed=&quot;true&quot;</code> conveys a real toggle state to accessibility APIs; set it only when a toggle actually is pressed. <code>aria-busy</code> signals that updates are in progress; it <strong>does not</strong> disable a button or create loading logic. The UI state must come from your application/server. If a state is only decorative, use <code>data-syn-state=&quot;active&quot;</code> instead of misusing ARIA.</p>
+<h2 id="token-only-custom-theme">Token-only custom theme</h2>
+<pre><code class="language-css">/* Unlayered application CSS intentionally overrides Syntyr's layered tokens. */
+.syn-root[data-syn-theme=&quot;custom&quot;] {
+  --syn-bg: #0b1019;
+  --syn-surface: #192333;
+  --syn-accent: #82f9d1;
+  --syn-on-accent: #09120e;
+  --syn-text: #eefbf7;
+  --syn-muted: #bbd4ce;
+  --syn-frame: #496b68;
+}
+</code></pre>
+<p>For custom themes, test <em>every</em> textual token pairing and important state for WCAG contrast. The example overrides only a subset of the available color tokens and is not an accessibility certification.</p>
+<h2 id="reusing-recipes-across-stacks">Reusing recipes across stacks</h2>
+<ul>
+<li><strong>Go / templ, PHP, Django, Rust templates:</strong> Make recipes server-rendered partials and pass content as arguments.</li>
+<li><strong>HTMX / Datastar:</strong> Use the same classes on server-returned fragments. Their JavaScript, if chosen, is outside the CSS library.</li>
+<li><strong>React / Vue / Astro:</strong> Wrap the exact markup in framework components only when the host application calls for it.</li>
+</ul>
+<p>Favor stable component classes and CSS variables over copying long lists of generated utilities. See <a href="components.html">contract</a> and <a href="tailwind-research.html">Tailwind research</a>.</p>
+<h2 id="accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</h2>
+<p>Breadcrumbs use a real ordered list inside a labeled navigation landmark. The separator is a CSS border rather than spoken punctuation:</p>
+<pre><code class="language-html">&lt;nav class=&quot;syn-breadcrumbs&quot; aria-label=&quot;Breadcrumb&quot;&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span aria-current=&quot;page&quot;&gt;Reports&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>Page controls are <strong>real links</strong>, not inert buttons. Match the selected page to the actual URL, and label any symbol-only links:</p>
+<pre><code class="language-html">&lt;nav class=&quot;syn-pagination&quot; aria-label=&quot;Results pages&quot;&gt;
+  &lt;a class=&quot;syn-page-link&quot; href=&quot;?page=1&quot;&gt;1&lt;/a&gt;
+  &lt;a class=&quot;syn-page-link&quot; href=&quot;?page=2&quot; aria-current=&quot;page&quot;&gt;2&lt;/a&gt;
+  &lt;a class=&quot;syn-page-link&quot; href=&quot;?page=3&quot;&gt;3&lt;/a&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>Skeletons are deliberately static. Hide the visual placeholder from assistive technology and announce loading outside it with application-owned state. Do not leave an infinite loading message or use fake progress values:</p>
+<pre><code class="language-html">&lt;section aria-busy=&quot;true&quot; aria-label=&quot;Reports&quot;&gt;
+  &lt;p role=&quot;status&quot;&gt;Loading reports…&lt;/p&gt;
+  &lt;span class=&quot;syn-skeleton&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+  &lt;span class=&quot;syn-skeleton syn-skeleton--short&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;
+</code></pre>
+<p>When loading finishes, the application replaces the placeholders with content and clears <code>aria-busy</code>. The CSS library does not implement fetching or state changes.</p>
+<h2 id="server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</h2>
+<p>The <a href="../examples/saas-workflows.html">SaaS workflow demonstration</a> shows how to combine standard HTML search forms, a table, navigation landmarks, native settings disclosures and no-JavaScript placeholders. The page's data is illustrative and <strong>is not filtered</strong>; the following behavior belongs to the host application:</p>
+<ul>
+<li>Parse and validate <code>query</code>, <code>status</code>, <code>owner</code> and <code>page</code> on the server, apply authorization before filtering, paginate the results, and escape all rendered user input.</li>
+<li>Preserve submitted form values and <code>aria-current</code> based on the actual result page, and emit a truthful result count plus empty-state or error message.</li>
+<li>Persist preferences in the server's settings endpoint, with CSRF protection for changes; the static demo intentionally has no save button.</li>
+<li>When using HTMX, Datastar or another enhancement layer, keep GET filters, ordinary links and form labels working without client-side JavaScript.</li>
+</ul>
+<p>The scoped <code>examples/saas-workflows.css</code> stylesheet contains layout glue only and is <strong>not</strong> added to the distributed core or all-in-one bundle.</p>
+<h2 id="intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</h2>
+<p>Load <code>syntyr.core.css</code> plus <code>syntyr.recipes.css</code>. The layout primitives are
+scoped to <code>.syn-root</code> and require no JavaScript, framework or viewport media
+queries. Their children are ordinary semantic HTML.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot;&gt;
+  &lt;div class=&quot;syn-sidebar&quot; style=&quot;--syn-sidebar-width: 14rem&quot;&gt;
+    &lt;aside&gt;Navigation or filters&lt;/aside&gt;
+    &lt;main&gt;Main content&lt;/main&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;syn-switcher&quot; style=&quot;--syn-switcher-threshold: 42rem&quot;&gt;
+    &lt;article&gt;First card&lt;/article&gt;
+    &lt;article&gt;Second card&lt;/article&gt;
+    &lt;article&gt;Third card&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p><code>.syn-sidebar</code> expects <strong>exactly two</strong> direct children: sidebar first,
+content second. Defaults: sidebar 16rem, content minimum 28rem (capped at
+100% of available width). In narrow containers they stack, and neither
+child is forced wider than the container by the layout primitive. Content
+with long unbreakable text should still use appropriate wrapping.</p>
+<p><code>.syn-switcher</code> treats all direct children uniformly. Above the 40rem
+default threshold they share a row; below it every child stacks. Override
+<code>--syn-switcher-threshold</code> per instance. This differs from <code>.syn-grid</code>,
+which can display different numbers of columns at intermediate widths.</p>
+<p>Use opt-in fluid type classes <code>.syn-fluid-display</code>, <code>.syn-fluid-lede</code> and
+<code>.syn-reading</code>. The CSS custom properties <code>--syn-fluid-display-size</code>,
+<code>--syn-type-lede</code> and <code>--syn-reading-width</code> can be overridden in plain
+application CSS. Keep real document headings and reading order.</p>
+<p>See <a href="../examples/minimalist-patterns.html">the working minimalist demo</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-vertical-flow">Optional vertical flow</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#1-responsive-telemetry-cards">1. Responsive telemetry cards</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#2-accessible-empty-state">2. Accessible empty state</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#3-three-card-pricing-display">3. Three-card pricing display</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#4-stateful-native-button-host-controlled">4. Stateful native button (host controlled)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#token-only-custom-theme">Token-only custom theme</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#reusing-recipes-across-stacks">Reusing recipes across stacks</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="recipes.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Using Syntyr with coding agents. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="d2a75aedf8de3230d00aeaad456afcb7fe7e0c743ed5d3751027097c4a4b1a33">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Using Syntyr with coding agents — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-integration.html">
+  <link rel="alternate" type="text/markdown" href="agent-integration.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Using Syntyr with coding agents</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="agent-integration.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Using Syntyr with coding agents">
+<h1 id="using-syntyr-with-coding-agents">Using Syntyr with coding agents</h1>
+<p>Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that generate HTML or framework markup. No Syntyr-specific service, account, MCP server or runtime JavaScript is required.</p>
+<h2 id="recommended-context-to-supply-an-agent">Recommended context to supply an agent</h2>
+<ol>
+<li>Specify <strong>the exact Syntyr release and CSS modules installed</strong> (published <code>0.3.0-alpha.4</code> versus unreleased source <code>0.3.0-alpha.5</code>).</li>
+<li>Link to <a href="ai-quickstart.html">AI quickstart</a> and the relevant <a href="components.html">component reference</a>. If the agent can fetch websites, include <a href="../llms.txt"><code>/llms.txt</code></a>.</li>
+<li>For complex UI, supply <a href="recipes.html">recipes</a>, <a href="framework-integrations.html">framework integrations</a> and the <a href="../metadata/components.json">component manifest</a>. For unreleased alpha.5 source-only form patterns, use <a href="component-recipes.html">copy-owned form recipes</a> and the optional <a href="radix-integration.html">Radix styling adapter</a>; do not attribute these to published alpha.4.</li>
+<li>Ask it to state which stylesheets it used, avoid undocumented classes and verify keyboard/form semantics.</li>
+</ol>
+<p>Suggested prompt for an existing application:</p>
+<blockquote>
+<p>Use Syntyr CSS to build a responsive, accessible account dashboard. My app uses the published v0.3.0-alpha.4 core and recipes CSS, with Studio as the theme. Read the Syntyr AI quickstart and relevant component docs. Generate semantic HTML compatible with my framework. Use only classes present in those stylesheets; if a needed component is unavailable, compose native HTML with application CSS instead. Keep data, auth and actions in the host app. Return the necessary markup, CSS links and a list of any custom styles.</p>
+</blockquote>
+<h2 id="project-level-integration">Project-level integration</h2>
+<p>A consumer may copy <a href="https://github.com/dporkka/syntyr-css/blob/main/agents/syntyr/SKILL.md"><code>agents/syntyr/SKILL.md</code></a> as an optional local skill in agent tooling that supports Skills. It is a portable instruction document, <strong>not a published package, automatic installation, or guaranteed discovery mechanism</strong>.</p>
+<p>The repository's root <code>AGENTS.md</code> guides agents contributing to Syntyr itself. It does <strong>not</strong> automatically become instructions in a separate application repository.</p>
+<h2 id="documents-and-machine-readable-inventory">Documents and machine-readable inventory</h2>
+<ul>
+<li><a href="../llms.txt"><code>llms.txt</code></a>: small navigation file following the community <code>llms.txt</code> convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.</li>
+<li><a href="../llms-full.txt"><code>llms-full.txt</code></a>: generated, version-stamped concatenation of selected public technical docs, for tools that benefit from one context file.</li>
+<li><a href="../metadata/components.json"><code>metadata/components.json</code></a>: small <strong>curated, non-exhaustive</strong> inventory with the CSS modules required by the included classes. Do not infer that a class is unavailable solely because this catalog omits it.</li>
+</ul>
+<p>Documentation follows the current source candidate; always check <a href="api-stability.html">release boundaries</a> and the <a href="distribution.html">distribution guide</a> before using candidate-only features.</p>
+<h2 id="documentation-formats-html-for-people-markdown-for-agents">Documentation formats: HTML for people, Markdown for agents</h2>
+<p>Every approved public guide is published at two stable paths. Use the readable HTML page (for example, <a href="components.html"><code>/docs/components.html</code></a>) in browser navigation, search results and links to end users. Use the original Markdown (<code>/docs/components.md</code>) for coding-agent retrieval, repository editing and <code>llms.txt</code> references. The <a href="reference.html">complete HTML guide directory</a> is the human entry point. Both formats contain the same authored guide content; the HTML is rendered ahead of time, not by client-side JavaScript.</p>
+<p>These are <strong>different representations of the same public documentation</strong>, not user-agent cloaking. Anyone can request Markdown directly; agents can also read HTML. Markdown responses have a <code>text/markdown</code> content type and <code>X-Robots-Tag: noindex</code> so search engines favor HTML, while <code>robots.txt</code> and the sitemap advertise public HTML pages. Do not disallow Markdown in <code>robots.txt</code>: agents need to fetch it explicitly. HTML has canonical URLs and points back to its Markdown source via <code>rel=&quot;alternate&quot; type=&quot;text/markdown&quot;</code>.</p>
+<p>When adding a guide for public consumption, review the explicit <code>PUBLIC_DOCS</code> allowlist in <code>scripts/build_cloudflare_site.py</code>. Regenerate the committed HTML with the maintainer-only generator (<code>python3 scripts/build_doc_pages.py</code>), and verify it with <code>--check</code>. The core static-site and CI builds require no Markdown parsing package or client runtime.</p>
+<h2 id="validation-and-maintenance">Validation and maintenance</h2>
+<p>The repository uses Python standard-library scripts:</p>
+<pre><code class="language-sh">python3 scripts/build_agent_docs.py --check
+python3 scripts/build.py --check
+python3 -m unittest discover -s tests -v
+python3 scripts/build_cloudflare_site.py --check
+</code></pre>
+<p>The consolidated reference is deterministic and checked in CI through the Python test suite. The Cloudflare publisher uses a strict allowlist, so exposing new documentation does not expose internal files or business planning documents.</p>
+<h2 id="what-syntyr-does-not-do">What Syntyr does not do</h2>
+<p>Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission, remote data access or an MCP server. Use your existing application technology for those responsibilities.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#recommended-context-to-supply-an-agent">Recommended context to supply an agent</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#project-level-integration">Project-level integration</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#documents-and-machine-readable-inventory">Documents and machine-readable inventory</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#documentation-formats-html-for-people-markdown-for-agents">Documentation formats: HTML for people, Markdown for agents</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#validation-and-maintenance">Validation and maintenance</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#what-syntyr-does-not-do">What Syntyr does not do</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="agent-integration.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

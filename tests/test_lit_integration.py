@@ -89,7 +89,7 @@ class LitInteroperabilityContract(unittest.TestCase):
             self.assertIn(term.lower(), spec.lower(), term)
         self.assertIn("lit-integration.md", framework_guide)
         self.assertIn("lit-integration.md", readme)
-        self.assertIn("lit-integration.md", (ROOT / "docs/guides.html").read_text())
+        self.assertIn('href="lit-integration.html"', (ROOT / "docs/guides.html").read_text())
         self.assertTrue((ROOT / "tests/lit_browser.py").is_file())
 
 

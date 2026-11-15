@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Copy-owned form recipes. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="f73a6f1e9e06e0b2ddd06fff938b80d77a110f128afce1cadb3d92f7b2b1177d">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Copy-owned form recipes — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-recipes.html">
+  <link rel="alternate" type="text/markdown" href="component-recipes.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Copy-owned form recipes</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="component-recipes.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Copy-owned form recipes">
+<h1 id="copy-owned-form-recipes">Copy-owned form recipes</h1>
+<p>These are <strong>MIT-licensed, plain-HTML examples</strong>. Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime. Syntyr provides presentation; your browser and application provide behavior.</p>
+<p>Load <code>dist/syntyr.core.css</code> and apply <code>.syn-root</code> on a stable ancestor. Input groups and fields are included in core. The examples below also work in Go/templ, Askama, Django templates, Astro, React, and HTMX.</p>
+<h2 id="1-labeled-field-with-assistance-and-server-side-validation">1. Labeled field with assistance and server-side validation</h2>
+<pre><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;div class=&quot;syn-field&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;email&quot;&gt;Work email&lt;/label&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot;
+           autocomplete=&quot;email&quot; aria-invalid=&quot;true&quot;
+           aria-describedby=&quot;email-help email-error&quot; required&gt;
+    &lt;p class=&quot;syn-help&quot; id=&quot;email-help&quot;&gt;Use your company email address.&lt;/p&gt;
+    &lt;p class=&quot;syn-error&quot; id=&quot;email-error&quot;&gt;Enter a valid work email.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Only render <code>aria-invalid=&quot;true&quot;</code> and the error message when the form is actually invalid. Do not use CSS as a substitute for server-side validation. The field class groups presentation; the native <code>label for</code> association supplies the accessible name.</p>
+<h2 id="2-search-field-with-a-connected-button">2. Search field with a connected button</h2>
+<pre><code class="language-html">&lt;search class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-label=&quot;Search accounts&quot;&gt;
+  &lt;form method=&quot;get&quot; action=&quot;/accounts&quot;&gt;
+    &lt;div class=&quot;syn-field&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;account-query&quot;&gt;Account name&lt;/label&gt;
+      &lt;div class=&quot;syn-input-group&quot;&gt;
+        &lt;input class=&quot;syn-input&quot; id=&quot;account-query&quot; name=&quot;q&quot;
+               type=&quot;search&quot; placeholder=&quot;Search accounts&quot;&gt;
+        &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/search&gt;
+</code></pre>
+<p>This is <strong>progressive enhancement</strong>: the GET form submits with <strong>No JavaScript</strong>. An HTMX application may add <code>hx-get</code> and <code>hx-target</code> while preserving <code>action</code>, <code>method</code>, and a server-rendered fallback. The application must implement the endpoint and return actual search results.</p>
+<h2 id="3-input-addon-currency-and-unit">3. Input addon (currency and unit)</h2>
+<pre><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;div class=&quot;syn-field&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;monthly-budget&quot;&gt;Monthly budget (USD)&lt;/label&gt;
+    &lt;div class=&quot;syn-input-group&quot;&gt;
+      &lt;span class=&quot;syn-input-addon&quot; aria-hidden=&quot;true&quot;&gt;$&lt;/span&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;monthly-budget&quot; name=&quot;budget&quot;
+             type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.01&quot; inputmode=&quot;decimal&quot;&gt;
+      &lt;span class=&quot;syn-input-addon&quot; aria-hidden=&quot;true&quot;&gt;USD&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input.</p>
+<h2 id="4-container-responsive-horizontal-form">4. Container-responsive horizontal form</h2>
+<pre><code class="language-html">&lt;form class=&quot;syn-root syn-region syn-form&quot; action=&quot;/settings&quot; method=&quot;post&quot;
+      data-syn-theme=&quot;corporate&quot;&gt;
+  &lt;div class=&quot;syn-field-row&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;org-name&quot;&gt;Organization&lt;/label&gt;
+    &lt;div class=&quot;syn-field-body&quot;&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;org-name&quot; name=&quot;organization&quot;
+             aria-describedby=&quot;org-help&quot; required&gt;
+      &lt;p class=&quot;syn-help&quot; id=&quot;org-help&quot;&gt;Visible to members of your team.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>The <code>syn-region</code> container determines whether rows become horizontal at 42rem. Without that ancestor they remain safely stacked. This is intentionally not a full grid/breakpoint framework. The help text is associated with its input via <code>aria-describedby</code>. A production POST endpoint must handle authorization, validation and CSRF.</p>
+<h2 id="optional-companion-styles">Optional companion styles</h2>
+<ul>
+<li><a href="radix-integration.html">Radix Primitives state styling</a> provides an opt-in adapter for React applications while keeping Radix responsible for keyboard behavior.</li>
+<li>shadcn/ui components can adopt Syntyr tokens in application-owned CSS. Modern color variables can use values such as <code>--background: var(--syn-bg)</code> and <code>--foreground: var(--syn-text)</code>, <strong>only when</strong> the shadcn component expects complete CSS color values. Older <code>hsl(var(--background))</code> consumers require an HSL-channel bridge instead; do not apply the mappings blindly.</li>
+<li><code>syntyr.semantic.css</code> remains a separate opt-in style for unclassed native HTML. Do not apply it indiscriminately around other component libraries.</li>
+</ul>
+<p>See <a href="../examples/form-composition.html">the static form showcase</a> and the <a href="components.html">main component contract</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#1-labeled-field-with-assistance-and-server-side-validation">1. Labeled field with assistance and server-side validation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#2-search-field-with-a-connected-button">2. Search field with a connected button</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#3-input-addon-currency-and-unit">3. Input addon (currency and unit)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#4-container-responsive-horizontal-form">4. Container-responsive horizontal form</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-companion-styles">Optional companion styles</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="component-recipes.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>
