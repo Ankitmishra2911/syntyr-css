@@ -1,6 +1,5 @@
 """v0.4 geometry + terminal enhancement contracts (zero runtime JS)."""
 from pathlib import Path
-import gzip
 import subprocess
 import unittest
 
@@ -26,7 +25,6 @@ class GeometryTerminalContract(unittest.TestCase):
         all_css = (ROOT / "dist/syntyr.all.css").read_text()
         self.assertNotIn(".syn-frame--bevel", core)
         self.assertIn(".syn-frame--bevel", all_css)
-        self.assertLessEqual(len(gzip.compress((ROOT / "dist/syntyr.all.css").read_bytes(), mtime=0)), 8 * 1024)
 
     def test_table_emphasis_is_opt_in(self):
         css = (ROOT / "src/components/data.css").read_text()

@@ -2,7 +2,7 @@
   .syn-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
   .syn-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
   .syn-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  .syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 .76rem var(--syn-mono); }
+  .syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm) var(--syn-font-ui); }
   .syn-nav a:hover, .syn-nav a[aria-current] { color: var(--syn-accent); }
   .syn-stage {
     --syn-stage-pad: clamp(1.25rem, 4vw, 3rem);
@@ -22,7 +22,7 @@
   .syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-2); }
   .syn-panel {
     position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
-    color: var(--syn-text); border: 1px solid var(--syn-frame);
+    color: var(--syn-text); border: 1px solid var(--syn-border-subtle);
     background: linear-gradient(160deg, var(--syn-accent-soft), transparent 40%), var(--syn-surface);
     min-width: 0;
   }

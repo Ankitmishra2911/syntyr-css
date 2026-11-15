@@ -5,6 +5,11 @@
     color-scheme: dark;
     --syn-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --syn-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    --syn-font-ui: var(--syn-font);
+    --syn-font-display: var(--syn-font);
+    --syn-type-xs: .75rem;
+    --syn-type-sm: .875rem;
+    --syn-type-base: 1rem;
     --syn-space-1: .375rem;
     --syn-space-2: .75rem;
     --syn-space-3: 1.125rem;
@@ -14,8 +19,27 @@
     --syn-radius: .25rem;
     --syn-line: 1.55;
     --syn-control-height: 2.75rem;
+    --syn-control-padding-block: .7rem;
+    --syn-row-padding-block: .7rem;
+    --syn-card-padding: var(--syn-space-3);
+    --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
     --syn-duration-fast: 150ms;
+  }
+  /* Derived surfaces recompute inside nested themes, not just on the parent. */
+  :where(.syn-root, .syn-root [data-syn-theme]) {
+    --syn-surface-recessed: color-mix(in srgb, var(--syn-bg) 88%, var(--syn-surface));
+    --syn-surface-raised: color-mix(in srgb, var(--syn-surface) 72%, var(--syn-surface-hi));
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
+    --syn-font-ui: var(--syn-font);
+    --syn-font-display: var(--syn-font);
+  }
+  /* Compact presentation is an opt-in layout control, never a font-size override. */
+  :where(.syn-root[data-syn-density="compact"], .syn-root [data-syn-density="compact"]) {
+    --syn-control-height: 2.25rem;
+    --syn-control-padding-block: .3rem;
+    --syn-row-padding-block: .4rem;
+    --syn-card-padding: var(--syn-space-2);
   }
   :where(.syn-root), :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
     color-scheme: dark;
@@ -150,6 +174,14 @@
     --syn-radius: .25rem;
     --syn-cut: .9rem;
   }
+  /* Technical typography only for the fallback and explicit technical themes.
+     Do not force monospace on Studio/Minimal/Corporate roots. */
+  :where(.syn-root:not([data-syn-theme]), .syn-root[data-syn-theme="grid"],
+         .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
+         .syn-root [data-syn-theme="terminal"]) {
+    --syn-font-ui: var(--syn-mono);
+    --syn-font-display: var(--syn-mono);
+  }
 }
 @layer syn.base {
   :where(.syn-root), :where(.syn-root) *, :where(.syn-root) *::before, :where(.syn-root) *::after { box-sizing: border-box; }
@@ -184,7 +216,7 @@
   .syn-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
   .syn-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
   .syn-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  .syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 .76rem var(--syn-mono); }
+  .syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm) var(--syn-font-ui); }
   .syn-nav a:hover, .syn-nav a[aria-current] { color: var(--syn-accent); }
   .syn-stage {
     --syn-stage-pad: clamp(1.25rem, 4vw, 3rem);
@@ -204,7 +236,7 @@
   .syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-2); }
   .syn-panel {
     position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
-    color: var(--syn-text); border: 1px solid var(--syn-frame);
+    color: var(--syn-text); border: 1px solid var(--syn-border-subtle);
     background: linear-gradient(160deg, var(--syn-accent-soft), transparent 40%), var(--syn-surface);
     min-width: 0;
   }
@@ -218,16 +250,16 @@
 }
 @layer syn.components {
   .syn-logo { font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
-  .syn-eyebrow { font: 700 .69rem/1.4 var(--syn-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
-  .syn-title { font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
-  .syn-heading { font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
+  .syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
+  .syn-title { font-family: var(--syn-font-display); font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
+  .syn-heading { font-family: var(--syn-font-display); font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
   .syn-lede { max-width: 56ch; color: var(--syn-muted); }
   .syn-muted { color: var(--syn-muted); }
   .syn-mono { font-family: var(--syn-mono); font-variant-numeric: tabular-nums; }
-  .syn-caption { overflow-wrap: anywhere; color: var(--syn-muted); font: 500 .72rem/1.5 var(--syn-mono); letter-spacing: .04em; }
-  .syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-mono); letter-spacing: -.06em; }
+  .syn-caption { overflow-wrap: anywhere; color: var(--syn-muted); font: 500 var(--syn-type-xs)/1.5 var(--syn-font-ui); letter-spacing: .04em; }
+  .syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-font-display); font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
   .syn-rule { border: 0; border-top: 1px solid var(--syn-frame); margin-block: 1.25rem; }
-  .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 .68rem/1.25 var(--syn-mono); letter-spacing: .04em; }
+  .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 var(--syn-type-xs)/1.25 var(--syn-font-ui); letter-spacing: .04em; }
   .syn-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
   .syn-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--syn-accent); background: var(--syn-surface); color: var(--syn-text); }
   .syn-alert--danger { border-inline-start-color: var(--syn-danger); }
@@ -242,7 +274,7 @@
     min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
     border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
     background: var(--syn-surface-hi); color: var(--syn-text);
-    text-decoration: none; font: 650 .81rem/1.2 var(--syn-mono);
+    text-decoration: none; font: 600 var(--syn-type-sm)/1.2 var(--syn-font-ui); letter-spacing: -.005em;
     cursor: pointer; transition: background-color var(--syn-duration-fast) var(--syn-ease), border-color var(--syn-duration-fast) var(--syn-ease), color var(--syn-duration-fast) var(--syn-ease);
   }
   .syn-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
@@ -252,7 +284,7 @@
   .syn-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); }
   .syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
   .syn-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
-  .syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: .72rem; }
+  .syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: var(--syn-type-xs); }
   .syn-button--ghost { background: transparent; border-color: transparent; }
   .syn-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
     .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
@@ -270,9 +302,9 @@
 }
 @layer syn.components {
   .syn-form { display: grid; gap: 1rem; }
-  .syn-label { display: grid; gap: .35rem; font: 600 .75rem/1.35 var(--syn-mono); }
+  .syn-label { display: grid; gap: .35rem; font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui); }
   .syn-input, .syn-select, .syn-textarea {
-    width: 100%; min-height: var(--syn-control-height); padding: .7rem .8rem;
+    width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
     border: 1px solid var(--syn-frame); background: var(--syn-bg);
     border-radius: var(--syn-radius); color: var(--syn-text);
   }
@@ -314,13 +346,15 @@
   .syn-meter::-webkit-progress-value { background: var(--syn-accent); }
   .syn-meter::-moz-progress-bar { background: var(--syn-accent); }
   .syn-table-wrap { overflow-x: auto; }
-  .syn-table { width: 100%; border-collapse: collapse; text-align: left; font: .75rem/1.65 var(--syn-mono); }
-  .syn-table th, .syn-table td { padding: .7rem .6rem; border-block-end: 1px solid var(--syn-frame); white-space: nowrap; }
+  .syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
+  .syn-table th, .syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); white-space: nowrap; }
+  .syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
+  .syn-table tr[aria-selected="true"], .syn-table tr[data-syn-state="selected"] { background: var(--syn-accent-soft); }
   .syn-table th { color: var(--syn-muted); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
   .syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
   .syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
-  .syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 .75rem/1.5 var(--syn-mono); }
+  .syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 var(--syn-type-xs)/1.5 var(--syn-font-ui); }
   .syn-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
   .syn-status--success { color: var(--syn-success); }
   .syn-status--warning { color: var(--syn-warning); }

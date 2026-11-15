@@ -1,3 +1,5 @@
+> Historical prerelease measurements only: the listed size targets are no longer enforced.
+
 # SYNTYR v0.3.0-alpha.5 — integrated release candidate
 
 **Status: unreleased.** This candidate ports the seven-theme/utility feature work from [PR #2](https://github.com/dporkka/syntyr-css/pull/2) onto the **SYNTYR-only `syn-` namespace** introduced in the published [alpha.4 release](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4). It must not recreate former CSS aliases or overwrite that release.

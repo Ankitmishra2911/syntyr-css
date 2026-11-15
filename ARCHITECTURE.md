@@ -111,10 +111,10 @@ Avoid accumulating near-identical version-labelled tests: retain valuable
 regressions, but consolidate them into enduring behavior/contract tests when
 refactoring those areas.
 
-Maintain the existing compressed size budgets: core <= 5 KiB and full bundle
-<= 8 KiB, with zero runtime JavaScript. These are guardrails, not permission
-to compromise readability, functionality or accessibility for a smaller gzip
-number. Nonessential features should live in optional modules.
+Report raw and gzip bytes for every build, without arbitrary CSS size
+budgets or release failures based on byte ceilings. Browser behavior,
+accessibility, and modular loading govern performance decisions. Runtime
+JavaScript remains unnecessary; nonessential effects and recipes are opt-in.
 
 Before any 1.0 release, settle the supported browser matrix, close the open
 manual accessibility findings, and document precisely which selectors and

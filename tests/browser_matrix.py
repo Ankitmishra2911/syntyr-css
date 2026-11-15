@@ -258,6 +258,49 @@ def assert_page(browser, name: str, viewport: int) -> None:
     context.close()
 
 
+def assert_visual_refinement(browser) -> None:
+    """Verify interactive state and compact controls in each real rendering engine."""
+    context = browser.new_context(viewport={"width": 900, "height": 700})
+    try:
+        page = context.new_page()
+        css = (ROOT / "dist/syntyr.core.css").read_text()
+        page.set_content(f"""<style>{css}</style>
+        <main class="syn-root" data-syn-theme="studio">
+          <label for="ordinary">Ordinary</label><input class="syn-input" id="ordinary">
+          <label for="ordinary-choice">Choice</label>
+          <select class="syn-select" id="ordinary-choice"><option>One</option></select>
+          <div data-syn-density="compact">
+            <label for="compact">Compact</label><input class="syn-input" id="compact">
+            <label for="compact-choice">Choice</label>
+            <select class="syn-select" id="compact-choice"><option>One</option></select>
+          </div>
+          <table role="grid" class="syn-table"><tbody>
+            <tr id="chosen" aria-selected="true"><td>Chosen</td></tr>
+            <tr id="available"><td>Available</td></tr>
+          </tbody></table>
+        </main>""")
+        for ordinary, compact in (("ordinary", "compact"),
+                                  ("ordinary-choice", "compact-choice")):
+            large_height = page.locator(f"#{ordinary}").evaluate(
+                "e => e.getBoundingClientRect().height")
+            small_height = page.locator(f"#{compact}").evaluate(
+                "e => e.getBoundingClientRect().height")
+            assert small_height < large_height - 4, (
+                "compact height unchanged", ordinary, large_height, small_height)
+            assert small_height >= 36, ("compact target too small", compact, small_height)
+        row = page.locator("#chosen")
+        selected_background = row.evaluate("e => getComputedStyle(e).backgroundColor")
+        row.hover()
+        assert row.evaluate("e => getComputedStyle(e).backgroundColor") == selected_background, (
+            "hover must preserve selected-row emphasis")
+        other = page.locator("#available")
+        other.hover()
+        assert other.evaluate("e => getComputedStyle(e).backgroundColor") != selected_background, (
+            "nonselected hover must not look selected")
+    finally:
+        context.close()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--browsers", nargs="+",
@@ -287,7 +330,8 @@ def main() -> int:
                             assert_page(browser, path, width)
                         except Exception as exc:
                             raise AssertionError(f"{path} viewport {width}: {exc}") from exc
-                print(f"PASS {name}: {len(PAGES)} pages × 3 viewports + keyboard/popover checks",
+                assert_visual_refinement(browser)
+                print(f"PASS {name}: {len(PAGES)} pages × 3 viewports + keyboard/popover and design-refinement checks",
                       flush=True)
             except Exception as exc:
                 failed += 1
