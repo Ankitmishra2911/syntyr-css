@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr's zero-JavaScript semantic form styling, fluid typography, intrinsic layouts and automatic system palette.">
+  <title>SYNTYR CSS — Minimalist patterns</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.semantic.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+</head>
+<body class="syn-root syn-page syn-semantic" data-syn-theme="auto">
+  <main class="syn-shell" style="padding-block:2rem 4rem">
+    <nav aria-label="Back"><a href="../docs/">Documentation</a></nav>
+    <header style="padding-block:2rem">
+      <p class="syn-eyebrow">SYNTYR / CLASSLESS + COMPOSITION</p>
+      <h1 class="syn-fluid-display syn-reading">Less markup, adaptable by default.</h1>
+      <p class="syn-fluid-lede syn-reading">Native HTML controls, system-aware colors and responsive compositions without runtime JavaScript. Resize this page or change your OS appearance.</p>
+    </header>
+    <div class="syn-sidebar">
+      <aside class="syn-panel" aria-labelledby="patterns-title">
+        <h2 id="patterns-title">Layout notes</h2>
+        <p>The first column is a sidebar. It stacks naturally when the space is too narrow.</p>
+        <nav aria-label="Examples">
+          <ul><li><a href="#options">Switching layout</a></li><li><a href="#form">Native form</a></li></ul>
+        </nav>
+      </aside>
+      <section aria-label="Examples and form">
+        <h2 id="options">Intrinsic switcher</h2>
+        <div class="syn-switcher">
+          <article><h3>Small by default</h3><p>Semantic HTML still works without component classes.</p></article>
+          <article><h3>Container aware</h3><p>All cards switch between a row and a stack together.</p></article>
+          <article><h3>Theme independent</h3><p>Colors follow the user preference using CSS alone.</p></article>
+        </div>
+        <section id="form" aria-labelledby="form-heading">
+          <h2 id="form-heading">Native form</h2>
+          <p>This is a static visual example; no backend processes form submissions.</p>
+          <form action="#form" method="get">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.org" required>
+            <label><input type="checkbox" name="updates" value="yes"> Send optional release updates</label>
+            <fieldset>
+              <legend>Preferred format</legend>
+              <label><input type="radio" name="format" value="short" checked> Brief</label>
+              <label><input type="radio" name="format" value="detailed"> Detailed</label>
+            </fieldset>
+            <button type="submit">Preview native submission</button>
+          </form>
+        </section>
+      </section>
+    </div>
+    <section data-syn-theme="noir" class="syn-panel" aria-labelledby="explicit-heading" style="margin-block-start:2rem">
+      <h2 id="explicit-heading">Explicit themes still win</h2>
+      <p>A nested Noir region stays Noir even when the outer auto palette follows system light/dark preference.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -135,3 +135,42 @@ The [SaaS workflow demonstration](../examples/saas-workflows.html) shows how to 
 - When using HTMX, Datastar or another enhancement layer, keep GET filters, ordinary links and form labels working without client-side JavaScript.
 
 The scoped `examples/saas-workflows.css` stylesheet contains layout glue only and is **not** added to the distributed core or all-in-one bundle.
+
+
+## Intrinsic responsive layouts (optional recipes CSS)
+
+Load `syntyr.core.css` plus `syntyr.recipes.css`. The layout primitives are
+scoped to `.syn-root` and require no JavaScript, framework or viewport media
+queries. Their children are ordinary semantic HTML.
+
+```html
+<section class="syn-root">
+  <div class="syn-sidebar" style="--syn-sidebar-width: 14rem">
+    <aside>Navigation or filters</aside>
+    <main>Main content</main>
+  </div>
+  <div class="syn-switcher" style="--syn-switcher-threshold: 42rem">
+    <article>First card</article>
+    <article>Second card</article>
+    <article>Third card</article>
+  </div>
+</section>
+```
+
+`.syn-sidebar` expects **exactly two** direct children: sidebar first,
+content second. Defaults: sidebar 16rem, content minimum 28rem (capped at
+100% of available width). In narrow containers they stack, and neither
+child is forced wider than the container by the layout primitive. Content
+with long unbreakable text should still use appropriate wrapping.
+
+`.syn-switcher` treats all direct children uniformly. Above the 40rem
+default threshold they share a row; below it every child stacks. Override
+`--syn-switcher-threshold` per instance. This differs from `.syn-grid`,
+which can display different numbers of columns at intermediate widths.
+
+Use opt-in fluid type classes `.syn-fluid-display`, `.syn-fluid-lede` and
+`.syn-reading`. The CSS custom properties `--syn-type-display`,
+`--syn-type-lede` and `--syn-reading-width` can be overridden in plain
+application CSS. Keep real document headings and reading order.
+
+See [the working minimalist demo](../examples/minimalist-patterns.html).

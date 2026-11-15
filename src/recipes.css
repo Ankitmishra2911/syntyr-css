@@ -1,6 +1,23 @@
 /* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
    These classes are separate from the small, stable core API. */
 @layer syn.recipes {
+  /* Small fluid type scale and intrinsic layouts (all opt-in). */
+  .syn-root {
+    --syn-type-display: clamp(2rem, 1.3rem + 2.8vw, 4.25rem);
+    --syn-type-lede: clamp(1.0625rem, 1rem + .4vw, 1.375rem);
+    --syn-reading-width: 65ch;
+  }
+  .syn-root .syn-fluid-display { font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: -.035em; overflow-wrap: anywhere; }
+  .syn-root .syn-fluid-lede { font-size: var(--syn-type-lede); }
+  .syn-root .syn-reading { max-inline-size: var(--syn-reading-width); }
+  /* First child is sidebar; second child is the flexible content region. */
+  .syn-root .syn-sidebar { display: flex; flex-wrap: wrap; align-items: start; gap: var(--syn-space-3); min-width: 0; }
+  .syn-root .syn-sidebar > :first-child { flex: 1 1 var(--syn-sidebar-width, 16rem); min-width: min(100%, var(--syn-sidebar-width, 16rem)); }
+  .syn-root .syn-sidebar > :last-child { flex: 999 1 0; min-width: min(100%, var(--syn-sidebar-content-min, 28rem)); }
+  /* All children switch together from stacked to inline as space permits. */
+  .syn-root .syn-switcher { display: flex; flex-wrap: wrap; gap: var(--syn-space-3); min-width: 0; }
+  .syn-root .syn-switcher > * { flex-grow: 1; flex-basis: max(0px, calc((var(--syn-switcher-threshold, 40rem) - 100%) * 999)); min-width: 0; }
+
   /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
   .syn-app-shell {
     display: grid; grid-template-columns: minmax(0, 1fr);

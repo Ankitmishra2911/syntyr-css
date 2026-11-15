@@ -118,3 +118,22 @@ The published alpha.4 tag offers Grid, Noir and Studio. This candidate adds Indu
 - `data-syn-theme="minimal"`
 
 To use finite opt-in layout utilities, load `syntyr.utilities.css` after `syntyr.core.css` (or use the all bundle). Utilities include `.syn-u-flex`, `.syn-u-grid`, `.syn-u-between`, spacing helpers and a visually hidden helper. No compiler or runtime JavaScript is required.
+
+
+## System palette, no JavaScript (experimental)
+
+`data-syn-theme="auto"` on `.syn-root` or a nested themed region
+uses Studio colors for light system preference and Grid colors for dark
+system preference. It relies on native `color-scheme: light dark` and
+CSS `light-dark()`, supported by current Chromium, Firefox and WebKit.
+Older engines that lack `light-dark()` retain the inherited/default
+palette. No preference is stored or read by Syntyr.
+
+```html
+<body class="syn-root syn-page" data-syn-theme="auto">
+  <section data-syn-theme="noir">This remains Noir regardless of OS theme.</section>
+</body>
+```
+
+Explicit palettes are unchanged. For sensitive applications, test nested
+themes, native form controls, and contrast in both OS preference modes.
