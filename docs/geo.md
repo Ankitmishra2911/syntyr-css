@@ -75,3 +75,16 @@ Touch targets are at least 44 CSS pixels in the provided controls and markers. R
 ## Product fit
 
 Geo deliberately stays in its own CSS module rather than bloating core. Use it for OOH asset inventory maps, real-estate site selection, logistics fleet screens, field operations, municipal dashboards, parcel analysis and geospatial intelligence consoles. Any paid Syntyr Pro templates can compose this free MIT foundation while keeping premium implementation, integrations and domain-specific workflows in a separate licensed product.
+
+## Optional real-MapLibre browser smoke (maintainers)
+
+The repository also includes an intentionally **unpublished, developer-only** MapLibre smoke harness. It loads a locally installed MapLibre, Playwright and esbuild from a separate host application, bundles them only for the temporary browser page, and supplies a **synthetic offline map style** with no third-party tiles or credentials. This verifies the renderer, a MapLibre-managed DOM marker, pointer activation, keyboard activation, zoom control wiring, overlay click-through, named container reflow and 44 px targets. It also checks 2× and 4× **root text-size stress**, which is not a substitute for browser-level zoom testing or screen reader review.
+
+~~~sh
+SYNTYR_VENDOR_NODE_MODULES=/path/to/installed/node_modules \
+  node tests/geo_maplibre_browser.mjs
+~~~
+
+Set `SYNTYR_GEO_CHROMIUM_PATH` if the locally installed Playwright browser revision differs from Playwright's default, or `SYNTYR_GEO_SCREENSHOT_DIR` to save developer-only screenshots. The harness never runs as a Syntyr consumer dependency. Its static fixture and scripts are **not** published on Cloudflare or in the release ZIP.
+
+**Adacavo integration decision:** prefer borrowing Syntyr Geo layout, legend and accessible map-chrome patterns into the existing MapLibre inventory view **without importing an unreleased Syntyr CSS package**. Retain Adacavo's tenant-safe APIs, actual inventory status colors, source clustering, positioning, map controls and map attribution. Reevaluate package-level integration only after Syntyr's CSS is released and proven stable.

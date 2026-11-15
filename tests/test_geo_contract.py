@@ -105,6 +105,20 @@ class GeoContract(unittest.TestCase):
         self.assertIn("--syn-geo-point", (ROOT / "metadata/syntyr.css-custom-data.json").read_text())
         self.assertIn("docs/geo.md", (ROOT / "llms.txt").read_text())
 
+    def test_live_maplibre_smoke_is_dev_only(self):
+        harness = (ROOT / "tests/geo_maplibre_browser.mjs").read_text()
+        fixture = (ROOT / "tests/fixtures/geo-maplibre.html").read_text()
+        from scripts.build_cloudflare_site import source_files
+        from scripts.package_release import FILES
+        self.assertIn("new maplibregl.Map", harness)
+        self.assertIn("new maplibregl.Marker", harness)
+        self.assertIn("map.zoomIn", harness)
+        self.assertIn("cooperativeGestures", harness)
+        self.assertIn("SYNTYR_VENDOR_NODE_MODULES", harness)
+        self.assertIn("syntyr.geo.css", fixture)
+        self.assertNotIn("tests/fixtures/geo-maplibre.html", source_files())
+        self.assertNotIn("tests/geo_maplibre_browser.mjs", FILES)
+
     def test_guide_and_discovery_make_renderer_boundary_explicit(self):
         guide = (ROOT / "docs/geo.md").read_text()
         readme = (ROOT / "README.md").read_text()

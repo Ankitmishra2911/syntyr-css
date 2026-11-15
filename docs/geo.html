@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Style responsive GIS map controls, markers, legends and geospatial workspaces with an optional CSS-only Syntyr module.">
-  <meta name="syntyr-source-sha256" content="b3f50b1d21e789c0dc6884e328502989562ed61f07ca56c7418dd9d5140aaf6b">
+  <meta name="syntyr-source-sha256" content="e93d72941d66d48e04cabcf67b2a828232ae215ce026a48f7231473a11561c9b">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Geo — renderer-neutral geospatial interface styles — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/geo">
@@ -87,6 +87,13 @@
 <p>Touch targets are at least 44 CSS pixels in the provided controls and markers. Reflow should be audited at 320px and 400% zoom; verify that map overlays do not obscure attribution or details. Forced-colors users get native system-color surfaces and selected-marker outlines. Reduced-motion settings should also be respected by the <strong>map renderer</strong>, including camera transitions and animated geospatial layers.</p>
 <h2 id="product-fit">Product fit</h2>
 <p>Geo deliberately stays in its own CSS module rather than bloating core. Use it for OOH asset inventory maps, real-estate site selection, logistics fleet screens, field operations, municipal dashboards, parcel analysis and geospatial intelligence consoles. Any paid Syntyr Pro templates can compose this free MIT foundation while keeping premium implementation, integrations and domain-specific workflows in a separate licensed product.</p>
+<h2 id="optional-real-maplibre-browser-smoke-maintainers">Optional real-MapLibre browser smoke (maintainers)</h2>
+<p>The repository also includes an intentionally <strong>unpublished, developer-only</strong> MapLibre smoke harness. It loads a locally installed MapLibre, Playwright and esbuild from a separate host application, bundles them only for the temporary browser page, and supplies a <strong>synthetic offline map style</strong> with no third-party tiles or credentials. This verifies the renderer, a MapLibre-managed DOM marker, pointer activation, keyboard activation, zoom control wiring, overlay click-through, named container reflow and 44 px targets. It also checks 2× and 4× <strong>root text-size stress</strong>, which is not a substitute for browser-level zoom testing or screen reader review.</p>
+<pre><code class="language-sh">SYNTYR_VENDOR_NODE_MODULES=/path/to/installed/node_modules \
+  node tests/geo_maplibre_browser.mjs
+</code></pre>
+<p>Set <code>SYNTYR_GEO_CHROMIUM_PATH</code> if the locally installed Playwright browser revision differs from Playwright's default, or <code>SYNTYR_GEO_SCREENSHOT_DIR</code> to save developer-only screenshots. The harness never runs as a Syntyr consumer dependency. Its static fixture and scripts are <strong>not</strong> published on Cloudflare or in the release ZIP.</p>
+<p><strong>Adacavo integration decision:</strong> prefer borrowing Syntyr Geo layout, legend and accessible map-chrome patterns into the existing MapLibre inventory view <strong>without importing an unreleased Syntyr CSS package</strong>. Retain Adacavo's tenant-safe APIs, actual inventory status colors, source clustering, positioning, map controls and map attribution. Reevaluate package-level integration only after Syntyr's CSS is released and proven stable.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#the-boundary-cartographic-behavior-is-an-application-concern">The boundary: cartographic behavior is an application concern</a>
@@ -95,6 +102,7 @@
 <a class="docs-article-toc-link docs-article-toc-3" href="#map-controls-and-overlays">Map controls and overlays</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#theming-and-accessibility">Theming and accessibility</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#product-fit">Product fit</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-real-maplibre-browser-smoke-maintainers">Optional real-MapLibre browser smoke (maintainers)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="geo.md">Markdown source</a></nav>
