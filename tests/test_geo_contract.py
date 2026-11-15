@@ -67,6 +67,7 @@ class GeoContract(unittest.TestCase):
         parsed = GeoHTML()
         parsed.feed(html)
         self.assertIn('syntyr.geo.css', html)
+        self.assertNotIn('aria-current="location"', html, "Illustrative schematic must not claim a current geographic location")
         self.assertIn('syn-geo-workspace', html)
         self.assertIn('Not to scale', html)
         self.assertIn('Schematic', html)
@@ -113,6 +114,9 @@ class GeoContract(unittest.TestCase):
         self.assertIn("new maplibregl.Map", harness)
         self.assertIn("new maplibregl.Marker", harness)
         self.assertIn("map.zoomIn", harness)
+        self.assertIn("delete marker.dataset.inspected", harness,
+                      "Keyboard assertion must not reuse pointer activation state")
+        self.assertIn("let browser;", harness, "Browser launch must be cleanup-protected")
         self.assertIn("cooperativeGestures", harness)
         self.assertIn("SYNTYR_VENDOR_NODE_MODULES", harness)
         self.assertIn("syntyr.geo.css", fixture)

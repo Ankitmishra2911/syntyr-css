@@ -42,8 +42,9 @@ const server = createServer((req, res) => {
 });
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 const base = "http://127.0.0.1:" + server.address().port;
-const browser = await chromium.launch({ headless:true, ...(process.env.SYNTYR_GEO_CHROMIUM_PATH ? {executablePath:process.env.SYNTYR_GEO_CHROMIUM_PATH} : {}), args:["--no-sandbox","--enable-webgl","--use-gl=angle","--use-angle=swiftshader","--enable-unsafe-swiftshader"] });
+let browser;
 try {
+  browser = await chromium.launch({ headless:true, ...(process.env.SYNTYR_GEO_CHROMIUM_PATH ? {executablePath:process.env.SYNTYR_GEO_CHROMIUM_PATH} : {}), args:["--no-sandbox","--enable-webgl","--use-gl=angle","--use-angle=swiftshader","--enable-unsafe-swiftshader"] });
   for (const width of [1280, 390, 320]) {
     const page = await browser.newPage({ viewport:{width,height:900} });
     const pageErrors = [];
@@ -75,6 +76,7 @@ try {
     if (after <= before) throw new Error("Zoom click did not change MapLibre zoom: " + before + " -> " + after);
     await page.getByRole("button",{name:"Inspect Site A"}).click();
     if (await page.locator('[data-inspected="yes"]').count() !== 1) throw new Error("MapLibre marker click failed");
+    await page.evaluate(() => { const marker = document.querySelector(".syn-geo-marker"); delete marker.dataset.inspected; });
     await page.getByRole("button",{name:"Inspect Site A"}).focus();
     await page.keyboard.press("Enter");
     if (await page.locator('[data-inspected="yes"]').count() !== 1) throw new Error("Keyboard marker activation failed");
@@ -108,4 +110,10 @@ try {
     await page.close();
     console.log("PASS MapLibre real render/zoom/marker/responsive at "+width+"px");
   }
-} finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }
+} finally {
+  try {
+    await browser?.close();
+  } finally {
+    await new Promise(resolve => server.close(resolve));
+  }
+}
