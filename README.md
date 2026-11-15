@@ -114,7 +114,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
 ```
 
-Chromium browser tests use Playwright (a **dev-only optional tool**) and run with:
+Browser checks and the synthetic performance benchmark use Playwright (a **dev-only optional tool**) and run with:
 
 ```sh
 python3 tests/browser_test.py
@@ -122,9 +122,10 @@ python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit # enlarged-text reflow stress check
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js # dev-only checker; see docs/accessibility.md
 python3 tests/theme_editor_browser.py # optional docs-only editor browser checks
+python3 scripts/perf_benchmark.py --browsers chromium,firefox,webkit --runs 3 --rows 1200 --sections 12 # local synthetic performance
 ```
 
-The browser scripts require `playwright` and a Chromium browser to be present; it autodetects `chromium` or `chromium-browser`, or accepts `PLAYWRIGHT_CHROMIUM_EXECUTABLE`; consumers of the CSS do **not** require either. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
+The browser scripts require developer-installed `playwright` and the browser engines selected for testing; Chromium is autodetected from `chromium` or `chromium-browser`, or may be set with `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. The benchmark records unavailable browsers as blocked. Consumers of the CSS do **not** require Playwright or browser automation. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
 
 ## Important boundaries
 
