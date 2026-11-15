@@ -16,6 +16,11 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "metadata" / "syntyr-contract.json"
+# HTMLParser does not synthesize end tags for void elements.
+_VOID_TAGS = frozenset({
+    "area", "base", "br", "col", "embed", "hr", "img", "input", "link",
+    "meta", "param", "source", "track", "wbr",
+})
 
 
 def _stylesheet_name(href: str, names: set[str]) -> str | None:
@@ -39,6 +44,10 @@ class _SyntyrParser(HTMLParser):
         self.stylesheet_names = set(contract["stylesheets"])
         self.linked_stylesheets: set[str] = set()
         self.used_classes: list[tuple[int, int, str]] = []
+        self.unscoped_classes: list[tuple[int, int, str]] = []
+        self.complete_document = False
+        # (tag, known-root-ancestor, possible-dynamic-root-ancestor)
+        self.scope_stack: list[tuple[str, bool, bool]] = []
         self.diagnostics: list[dict] = []
 
     def _error(self, code: str, message: str, line: int, column: int, **details):
@@ -49,9 +58,24 @@ class _SyntyrParser(HTMLParser):
         })
 
     def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
         data = dict(attrs)
         line, col = self.getpos()
-        if tag.lower() == "link" and "stylesheet" in (data.get("rel") or "").split():
+        if tag == "html":
+            self.complete_document = True
+        class_values = [data.get(key) or "" for key in ("class", "classname")]
+        local_root = any("syn-root" in value.split()
+                         for value in class_values if not _is_dynamic(value))
+        dynamic_scope = any(_is_dynamic(value) for value in class_values)
+        parent_root = self.scope_stack[-1][1] if self.scope_stack else False
+        parent_possible = self.scope_stack[-1][2] if self.scope_stack else False
+        has_root = parent_root or local_root
+        possibly_scoped = has_root or parent_possible or dynamic_scope
+        if tag not in _VOID_TAGS:
+            self.scope_stack.append((tag, has_root, possibly_scoped))
+        # Inert <template> content may be cloned into an existing Syntyr root.
+        within_template = any(frame[0] == "template" for frame in self.scope_stack)
+        if tag == "link" and "stylesheet" in (data.get("rel") or "").split():
             name = _stylesheet_name(data.get("href") or "", self.stylesheet_names)
             if name:
                 self.linked_stylesheets.add(name)
@@ -72,6 +96,8 @@ class _SyntyrParser(HTMLParser):
                                 line, col, suggestions=suggestions)
                 else:
                     self.used_classes.append((line, col, name))
+                    if name != "syn-root" and not possibly_scoped and not within_template:
+                        self.unscoped_classes.append((line, col, name))
         for name, allowed in self.attribute_values.items():
             value = data.get(name)
             if value is not None and not _is_dynamic(value) and allowed and value not in allowed:
@@ -79,8 +105,17 @@ class _SyntyrParser(HTMLParser):
                             f"Invalid {name}='{value}'; expected one of: {', '.join(allowed)}.",
                             line, col, attribute=name, allowed_values=list(allowed))
 
+    def handle_endtag(self, tag):
+        # Drop any inner implicitly-unclosed tags alongside the closing tag.
+        # Unmatched closing tags must not disturb the known scope.
+        for index in range(len(self.scope_stack) - 1, -1, -1):
+            if self.scope_stack[index][0] == tag.lower():
+                del self.scope_stack[index:]
+                break
+
     def handle_startendtag(self, tag, attrs):
         self.handle_starttag(tag, attrs)
+        self.handle_endtag(tag)
 
 
 def validate_html(html: str, contract: dict, *, stylesheets: set[str] | None = None) -> list[dict]:
@@ -92,6 +127,13 @@ def validate_html(html: str, contract: dict, *, stylesheets: set[str] | None = N
     parser = _SyntyrParser(contract)
     parser.feed(html)
     parser.close()
+    # A fragment may inherit .syn-root from its host, so only diagnose root
+    # scope when the input explicitly contains a full HTML document.
+    if parser.complete_document:
+        for line, col, name in parser.unscoped_classes:
+            parser._error("unscoped-class",
+                          f"'{name}' is outside .syn-root; wrap it in a Syntyr root.",
+                          line, col, class_name=name, required_root="syn-root")
     loaded = parser.linked_stylesheets if stylesheets is None else stylesheets
     # An explicit empty set means the caller knows no Syntyr CSS is loaded;
     # None with no recognized <link> means an unverifiable HTML fragment.
