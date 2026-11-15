@@ -55,8 +55,12 @@ class VertigoResourceReference(unittest.TestCase):
         self.assertNotIn("@keyframes",styles)
         self.assertIn("vertigo-resource-workflow.html",(ROOT/"README.md").read_text())
         self.assertIn("vertigo-resource-workflow.html",(ROOT/"docs/index.html").read_text())
+        self.assertIn("vertigo-resource-workflow.html",(ROOT/"llms.txt").read_text())
         site=(ROOT/"scripts/build_cloudflare_site.py").read_text()
         self.assertIn('"vertigo-resource-workflow.html"',site)
         self.assertIn('"vertigo-resource-workflow.css"',site)
+
+        for test_path in ("tests/browser_matrix.py","tests/reflow_test.py","tests/axe_audit.py"):
+            self.assertIn("vertigo-resource-workflow.html",(ROOT/test_path).read_text())
 
 if __name__=="__main__": unittest.main()

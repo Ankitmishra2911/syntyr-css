@@ -32,3 +32,19 @@
 @media (forced-colors:active) {
   .vrw-inspector { border:1px solid CanvasText; }
 }
+
+/* Keep long labels and metadata inside their allocated areas when text is
+   enlarged. This is example-only; the MIT core API and shared recipes stay
+   unchanged. */
+.vrw-rail :is(.syn-logo, .syn-app-nav a) { min-inline-size:0; overflow-wrap:anywhere; }
+.vrw-main :is(.syn-page-header, .syn-breadcrumbs, .syn-app-card, .syn-detail-main,
+  .syn-detail-aside, .syn-empty, .syn-activity-timeline, .syn-field, .syn-fieldset) {
+  min-inline-size:0;
+  overflow-wrap:anywhere;
+}
+.vrw-main .syn-activity-timeline > li { overflow-wrap:anywhere; }
+.vrw-fieldset > legend { max-inline-size:100%; overflow-wrap:anywhere; }
+@media (max-width:40rem) {
+  .vrw-main { padding-inline:clamp(12px, 3vw, 2rem); }
+  .vrw-main .syn-empty { padding:clamp(8px, 2vw, 1rem); }
+}

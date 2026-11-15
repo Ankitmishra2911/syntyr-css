@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
+         "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
          "examples/semantic-starter.html", "examples/premium-compositions.html",
 )
@@ -505,6 +505,18 @@ def assert_page(browser, name: str, viewport: int) -> None:
             searchbox = page.get_by_role("searchbox", name="SEARCH RECORDS")
             searchbox.fill("Atlas")
             assert searchbox.input_value() == "Atlas"
+
+    if name == "examples/vertigo-resource-workflow.html":
+        assert page.get_by_role("search", name="Search task resources").count() == 1
+        assert page.get_by_role("table").count() == 1
+        assert page.locator("#resource-detail").count() == 1
+        assert page.locator("#resource-editor fieldset").get_attribute("disabled") is not None
+        assert page.get_by_role("button", name="Save (requires backend)", include_hidden=True).is_disabled()
+        assert page.locator("script").count() == 0
+        assert page.locator('body[data-syn-theme="studio"][data-syn-density="compact"]').count() == 1
+        if viewport == 320:
+            table = page.locator(".vrw-table-scroll")
+            assert table.evaluate("e => getComputedStyle(e).overflowX") in ("auto", "scroll")
     if name == "examples/vertigo-admin.html" and viewport == 1280:
         def styles():
             return page.evaluate("""() => {
