@@ -67,5 +67,21 @@ class FormCompositionAndRadixContract(unittest.TestCase):
         self.assertIn("does not", doc.lower())
 
 
+    def test_review_forced_color_state_visibility(self):
+        css = (ROOT / "integrations/radix/states.css").read_text()
+        forced = css.split("@media (forced-colors: active)", 1)[1]
+        self.assertIn('.syn-button[data-state="on"]', forced)
+        self.assertIn('.syn-button[data-state="checked"]', forced)
+        self.assertIn("border-color: Highlight", forced)
+
+    def test_review_readme_links_to_live_rendered_example(self):
+        readme = (ROOT / "README.md").read_text()
+        self.assertIn("https://syntyr-css.pages.dev/examples/form-composition.html", readme)
+
+    def test_review_browser_test_avoids_immediate_transition_sampling(self):
+        smoke = (ROOT / "tests/form_composition_browser.py").read_text()
+        self.assertIn("page.wait_for_function", smoke)
+
+
 if __name__ == "__main__":
     unittest.main()

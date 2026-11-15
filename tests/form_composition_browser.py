@@ -40,8 +40,16 @@ def run():
                         return page.locator("#radix-toggle").evaluate("(e) => getComputedStyle(e).backgroundColor")
                     baseline = bg()
                     page.evaluate('document.body.classList.add("syn-radix")')
+                    page.wait_for_function(
+                        "(baseline) => getComputedStyle(document.querySelector('#radix-toggle')).backgroundColor !== baseline",
+                        arg=baseline,
+                    )
                     assert bg() != baseline, (name, "root adapter failed")
                     page.evaluate('document.body.classList.remove("syn-radix"); document.querySelector("#radix-toggle").remove(); document.body.insertAdjacentHTML("beforeend", \'<div class="syn-radix"><button id="radix-toggle" class="syn-button" data-state="on">Pin</button></div>\')')
+                    page.wait_for_function(
+                        "(baseline) => getComputedStyle(document.querySelector('#radix-toggle')).backgroundColor !== baseline",
+                        arg=baseline,
+                    )
                     assert bg() != baseline, (name, "nested adapter failed")
                 page.close()
             browser.close()

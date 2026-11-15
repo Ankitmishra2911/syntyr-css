@@ -19,7 +19,9 @@
     padding-inline-start: var(--syn-space-2);
   }
   @media (forced-colors: active) {
-    :is(.syn-root.syn-radix, .syn-root .syn-radix) .syn-accordion-trigger[data-state="open"] {
+    :is(.syn-root.syn-radix, .syn-root .syn-radix) .syn-accordion-trigger[data-state="open"],
+    :is(.syn-root.syn-radix, .syn-root .syn-radix) .syn-button[data-state="on"],
+    :is(.syn-root.syn-radix, .syn-root .syn-radix) .syn-button[data-state="checked"] {
       border-color: Highlight;
     }
   }
