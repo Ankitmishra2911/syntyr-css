@@ -19,6 +19,13 @@
     &.syn-help { color: var(--syn-muted); font-size: .8rem; }
     &.syn-error { color: var(--syn-danger); font-size: .8rem; }
     &.syn-textarea { min-height: 6rem; resize: vertical; }
+    /* `field-sizing` is ignored in older engines; the standard textarea still works. */
+    &.syn-textarea.syn-textarea--autosize {
+      field-sizing: content;
+      min-height: 6rem;
+      max-height: 24rem;
+      overflow-y: auto;
+    }
     &.syn-input[type="checkbox"], &.syn-input[type="radio"] { width: max(1.5rem, 24px); min-width: max(1.5rem, 24px); min-height: max(1.5rem, 24px); height: max(1.5rem, 24px); padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
     &.syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
     &.syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }

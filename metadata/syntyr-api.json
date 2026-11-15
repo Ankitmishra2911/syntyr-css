@@ -472,6 +472,16 @@
       "description": "Syntyr CSS class (components/overlays.css)."
     },
     {
+      "name": "syn-popover--anchored",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-popover--transition",
+      "module": "motion.css",
+      "description": "Syntyr CSS class (motion.css)."
+    },
+    {
       "name": "syn-price-card",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
@@ -500,6 +510,11 @@
       "name": "syn-reading",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-reading-progress",
+      "module": "motion.css",
+      "description": "Syntyr CSS class (motion.css)."
     },
     {
       "name": "syn-region",
@@ -763,6 +778,11 @@
     },
     {
       "name": "syn-textarea",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-textarea--autosize",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css)."
     },

@@ -19,6 +19,7 @@ SOURCES = (
     "docs/distribution.md",
     "docs/api-stability.md",
     "docs/framework-integrations.md",
+    "docs/native-browser-apis.md",
     "docs/theme-customization.md",
     "docs/visual-intensity.md",
     "docs/viz.md",

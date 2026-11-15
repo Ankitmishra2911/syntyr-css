@@ -15,6 +15,7 @@
     "./semantic.css": "./dist/syntyr.semantic.css",
     "./recipes.css": "./dist/syntyr.recipes.css",
     "./effects.css": "./dist/syntyr.effects.css",
+    "./motion.css": "./dist/syntyr.motion.css",
     "./geometry.css": "./dist/syntyr.geometry.css",
     "./symbols.css": "./dist/syntyr.symbols.css",
     "./utilities.css": "./dist/syntyr.utilities.css",

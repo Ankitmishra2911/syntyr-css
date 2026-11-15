@@ -29,6 +29,7 @@ FILES = (
     "docs/component-recipes.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
+    "docs/native-browser-apis.md",
     "docs/theme-customization.md",
     "docs/visual-intensity.md",
     "docs/accessibility.md",
