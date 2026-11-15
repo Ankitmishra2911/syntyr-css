@@ -117,7 +117,11 @@ class BrowserTests(unittest.TestCase):
         plain = self.page.locator('#plain')
         before = accent.evaluate("e => getComputedStyle(e).boxShadow")
         self.assertIn("241, 181, 116", before)
-        self.assertEqual(plain.evaluate('e => getComputedStyle(e).boxShadow'), 'none')
+        # Newer neutral cards have a subtle default shadow; the accent treatment
+        # must remain opt-in and visibly distinct from that baseline.
+        plain_shadow = plain.evaluate('e => getComputedStyle(e).boxShadow')
+        self.assertNotEqual(plain_shadow, before)
+        self.assertNotIn("241, 181, 116", plain_shadow)
         self.page.emulate_media(reduced_motion='reduce')
         accent.locator('input').focus()
         focused_border = accent.evaluate('e => getComputedStyle(e).borderTopColor')
