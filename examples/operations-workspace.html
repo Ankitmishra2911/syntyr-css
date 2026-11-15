@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr Operations Workspace: a dependency-free, map-and-results layout for vertical SaaS and operational software.">
+  <title>Syntyr — Operations Workspace</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.workspaces.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio" data-syn-intensity="quiet" data-syn-density="compact">
+  <a class="syn-button" href="#main">Skip to workspace</a>
+  <div class="syn-app-shell">
+    <aside class="syn-app-rail" aria-label="Workspace sidebar">
+      <a href="../docs/index.html" class="syn-logo">SYNTYR <span class="syn-caption">/ OPS</span></a>
+      <p class="syn-caption">NORTHSTAR / DEMONSTRATION</p>
+      <nav class="syn-app-nav" aria-label="Workspace navigation">
+        <a href="#main" aria-current="page">Overview</a>
+        <a href="#results">Assets</a>
+        <a href="#selection">Inspector</a>
+        <a href="#integration">Integration notes</a>
+      </nav>
+      <p class="syn-caption">ILLUSTRATIVE DATA · NO LIVE SERVICE</p>
+      <p class="syn-muted">Original Syntyr compositions, inspired by generic spatial operations workflows.</p>
+    </aside>
+
+    <main id="main" class="syn-workspace">
+      <header class="syn-app-topbar">
+        <div>
+          <p class="syn-eyebrow">OPERATIONS / ASSET INTELLIGENCE</p>
+          <h1 class="syn-title">Regional asset workspace</h1>
+          <p class="syn-muted">One view for coverage, availability and record details.</p>
+        </div>
+        <a href="../docs/recipes.html" class="syn-button syn-button--outline">Explore recipes</a>
+      </header>
+
+      <p role="status" class="syn-caption">ILLUSTRATIVE DATA: fictional locations and values. The graphic is not a live map. Filtering and cross-view selection require an application or server.</p>
+
+      <section class="syn-kpi-grid" aria-label="Illustrative inventory summary">
+        <article class="syn-app-card">
+          <span class="syn-stat-label">TOTAL ASSETS</span>
+          <p class="syn-stat-value">248</p>
+          <span class="syn-caption">Across 4 coverage zones</span>
+        </article>
+        <article class="syn-app-card">
+          <span class="syn-stat-label">AVAILABLE</span>
+          <p class="syn-stat-value">186</p>
+          <span class="syn-status syn-status--success">74.9% of inventory</span>
+        </article>
+        <article class="syn-app-card">
+          <span class="syn-stat-label">REVIEW REQUIRED</span>
+          <p class="syn-stat-value">12</p>
+          <span class="syn-status syn-status--warning">Action needed</span>
+        </article>
+      </section>
+
+      <form class="syn-filter-bar syn-app-card" action="operations-workspace.html" method="get" role="search" aria-label="Sample asset filters">
+        <label class="syn-filter-field syn-filter-field--query" for="filter-query">
+          Search assets
+          <input class="syn-input" id="filter-query" name="query" type="search" placeholder="Location or reference">
+        </label>
+        <label class="syn-filter-field" for="filter-status">
+          Status
+          <select class="syn-select" id="filter-status" name="status">
+            <option value="all">All statuses</option>
+            <option value="available">Available</option>
+            <option value="booked">Booked</option>
+            <option value="review">Needs review</option>
+          </select>
+        </label>
+        <label class="syn-filter-field" for="filter-type">
+          Asset type
+          <select class="syn-select" id="filter-type" name="type">
+            <option value="all">All types</option>
+            <option value="static">Static</option>
+            <option value="digital">Digital</option>
+          </select>
+        </label>
+        <div class="syn-filter-actions"><button type="submit" class="syn-button syn-button--primary">Apply filters</button></div>
+      </form>
+      <p class="syn-caption">Sample GET form: this static preview does not filter assets. Real applications interpret query parameters on the server or in their own state layer.</p>
+
+      <div class="syn-ops-workspace">
+        <section class="syn-ops-stage" aria-label="Coverage preview and selected asset">
+          <figure class="syn-ops-map" role="group" aria-label="Illustrative map markers">
+            <figcaption class="syn-ops-map-label">REGIONAL VIEW / ABSTRACT COVERAGE GRID</figcaption>
+            <a class="syn-ops-marker" data-syn-selected="true" style="--syn-marker-x:28%; --syn-marker-y:37%"
+               href="#asset-east" aria-label="Go to East Junction asset in results">01</a>
+            <a class="syn-ops-marker" style="--syn-marker-x:68%; --syn-marker-y:28%"
+               href="#asset-central" aria-label="Go to Central Loop asset in results">02</a>
+            <a class="syn-ops-marker" style="--syn-marker-x:58%; --syn-marker-y:75%"
+               href="#asset-south" aria-label="Go to South Exchange asset in results">03</a>
+          </figure>
+          <ul class="syn-ops-legend" aria-label="Map legend">
+            <li><span class="syn-ops-legend-key" aria-hidden="true"></span>Sample asset marker</li>
+            <li><span class="syn-ops-legend-key" data-syn-state="muted" aria-hidden="true"></span>Illustrative background</li>
+          </ul>
+          <article class="syn-ops-inspector" id="selection" aria-labelledby="selection-title">
+            <p class="syn-eyebrow">SELECTED / ASSET 01</p>
+            <h2 id="selection-title" class="syn-heading">East Junction · ES-024</h2>
+            <p class="syn-muted">Illustrative site · East district · Static format</p>
+            <dl class="syn-record-fields">
+              <div><dt>Availability</dt><dd>Available</dd></div>
+              <div><dt>Face size</dt><dd>14 × 48 ft</dd></div>
+              <div><dt>Reference</dt><dd>ES-024</dd></div>
+            </dl>
+            <div class="syn-ops-inspector-footer">
+              <span class="syn-status syn-status--success">Available</span>
+              <a href="#asset-east" class="syn-button syn-button--outline">Find in results</a>
+            </div>
+          </article>
+        </section>
+
+        <section class="syn-ops-results" id="results" tabindex="0" aria-label="Inventory results, scrollable on wide screens">
+          <header class="syn-ops-results-header">
+            <h2 class="syn-heading">Inventory results</h2>
+            <span class="syn-caption">3 sample records / 248 total</span>
+          </header>
+          <p class="syn-muted">Markers are ordinary anchors to records. In a real app, selection, counts and filters are supplied by the host.</p>
+          <ul class="syn-ops-list">
+            <li>
+              <article id="asset-east" class="syn-ops-record" data-syn-selected="true" aria-labelledby="asset-east-title">
+                <div class="syn-ops-record-head">
+                  <h3 id="asset-east-title" class="syn-heading">East Junction</h3>
+                  <span class="syn-status syn-status--success">Available</span>
+                </div>
+                <p class="syn-caption">ES-024 · Static roadside · East district</p>
+                <div class="syn-ops-record-foot">
+                  <strong>$2,400 / month</strong>
+                  <span class="syn-caption">Selected asset · Sample rate</span>
+                </div>
+                <a href="#selection">Review selected asset</a>
+              </article>
+            </li>
+            <li>
+              <article id="asset-central" class="syn-ops-record" aria-labelledby="asset-central-title">
+                <div class="syn-ops-record-head">
+                  <h3 id="asset-central-title" class="syn-heading">Central Loop</h3>
+                  <span class="syn-status syn-status--warning">Booked</span>
+                </div>
+                <p class="syn-caption">CL-108 · Digital display · Central district</p>
+                <div class="syn-ops-record-foot">
+                  <strong>$4,800 / month</strong>
+                  <span class="syn-caption">Sample rate</span>
+                </div>
+                <p class="syn-muted">Next availability is not included in this static preview.</p>
+              </article>
+            </li>
+            <li>
+              <article id="asset-south" class="syn-ops-record" aria-labelledby="asset-south-title">
+                <div class="syn-ops-record-head">
+                  <h3 id="asset-south-title" class="syn-heading">South Exchange</h3>
+                  <span class="syn-status syn-status--warning">Needs review</span>
+                </div>
+                <p class="syn-caption">SX-061 · Static roadside · South district</p>
+                <div class="syn-ops-record-foot">
+                  <strong>$1,950 / month</strong>
+                  <span class="syn-caption">Sample rate</span>
+                </div>
+                <p class="syn-muted">Inspection required before booking.</p>
+              </article>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <section id="integration" class="syn-app-card syn-ops-notes" aria-labelledby="integration-title">
+        <h2 class="syn-heading" id="integration-title">Integration boundary</h2>
+        <p>Load <code>syntyr.core.css</code>, <code>syntyr.recipes.css</code> for the shell, and <code>syntyr.workspaces.css</code> for the split workspace. The module does not load MapLibre, React, a network tile source or any JavaScript.</p>
+        <p>Replace the illustrative map graphic with your map renderer or image, and keep accessible list results. Your application owns actual locations, selection synchronization, saved filters, permissions, loading and error states. The CSS only styles host-supplied semantics and state.</p>
+        <a href="../docs/index.html">Back to component gallery</a>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

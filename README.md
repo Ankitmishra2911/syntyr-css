@@ -70,6 +70,7 @@
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
 - [Three flagship visual compositions](docs/visual-composition.md): [Studio operations](examples/flagship-studio.html), [Noir editorial](examples/flagship-noir.html), and [Grid control](examples/flagship-grid.html); original, static, zero-JavaScript showcases.
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
+- [Operations workspace](examples/operations-workspace.html): optional CSS-only map/results/inspector composition, accessible markers and server-ready filters (illustrative data)
 - [Search, filtering, settings and pagination SaaS workflow demonstration](examples/saas-workflows.html): server-ready semantic HTML, static illustrative data, zero JavaScript
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Optional Rust SaaS Foundation / Askama / HTMX integration guide](docs/rust-saas-integration.md)
@@ -149,6 +150,7 @@ For a smaller two-file installation, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
 | `dist/syntyr.viz.css` | Optional theme-aware data visualization styles, no chart renderer or JS |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
+| `dist/syntyr.workspaces.css` | Optional asset/map/results/inspector workspace layout (no map engine) |
 | `dist/syntyr.native-recipes.css` | Optional floating labels, timelines and captioned code |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |
 | `dist/syntyr.print.css` | Optional printer-friendly reports and business documents |
@@ -163,6 +165,37 @@ separate from core and included only in the all-in-one bundle.
 Geometry, symbols, Viz and utilities are opt-in; neither the core bundle nor ordinary component selectors require them. The symbols module ships no SVG assets, icon fonts, glyph sets or runtime dependencies.
 
 The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/motion.css`, `src/geometry.css`, `src/symbols.css`, `src/viz.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+
+## Optional map-and-results operations workspace
+
+Load `syntyr.core.css` and, for the map/results layout only,
+`syntyr.workspaces.css`; add `syntyr.recipes.css` for a surrounding app shell,
+filter bar and metadata panels. This module adds no map engine, JavaScript, or
+network requests, and is not required by `syntyr.core.css`.
+
+```html
+<section class="syn-root syn-ops-workspace" data-syn-theme="studio">
+  <div class="syn-ops-stage">
+    <figure class="syn-ops-map" aria-label="Site coverage">
+      <a class="syn-ops-marker" href="#record-1"
+         style="--syn-marker-x:40%;--syn-marker-y:35%">1</a>
+    </figure>
+  </div>
+  <section class="syn-ops-results" aria-label="Site results" tabindex="0">
+    <article id="record-1" class="syn-ops-record">Example site</article>
+  </section>
+</section>
+```
+
+The region uses intrinsic CSS Grid plus a container query: on wide containers,
+the context stage can stick while a keyboard-focusable results pane scrolls.
+The sample markers are *real anchors*, not interactive map markers. Supply
+meaningful link names when they represent records. The container can host
+MapLibre, a static map image, or another renderer without changing Syntyr's
+dependency contract. The application owns data, filtering, selection,
+permissions, availability and map/list synchronization. `data-syn-selected`
+only styles a state already determined by the host; it does not select records.
+See the [complete fictional operations workspace](examples/operations-workspace.html).
 
 ## Modern SaaS, CLI and business websites
 

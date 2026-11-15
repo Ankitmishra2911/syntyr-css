@@ -18,7 +18,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
-         "examples/operations-console.html", "examples/themes.html",
+         "examples/operations-console.html", "examples/operations-workspace.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
          "examples/semantic-starter.html", "examples/premium-compositions.html",
@@ -339,6 +339,15 @@ def assert_page(browser, name: str, viewport: int) -> None:
             details = page.locator("#integration details").first
             details.locator("summary").click()
             assert details.evaluate("e => e.open"), "native disclosure should work without JS"
+    if name == "examples/operations-workspace.html":
+        assert page.get_by_role("heading", name="Regional asset workspace").count() == 1
+        assert page.locator(".syn-ops-marker").count() == 3
+        assert page.locator(".syn-ops-record").count() == 3
+        assert page.get_by_role("search", name="Sample asset filters").count() == 1
+        assert page.locator(".syn-ops-workspace").evaluate("e => getComputedStyle(e).display") == "grid"
+        assert page.locator(".syn-ops-record[data-syn-selected='true']").count() == 1
+        page.get_by_role("link", name="Go to East Junction asset in results").focus()
+        assert page.locator(":focus").evaluate("e => getComputedStyle(e).outlineStyle") != "none"
     if name == "examples/geometry-terminal.html":
         frames = page.locator(".syn-frame")
         # The geometry gallery now includes bevel/notch/step/facet/bracket/inset/circuit.

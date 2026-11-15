@@ -1129,6 +1129,231 @@
     }
   }
 }
+/* Optional operations/map-and-results composition.
+ * Original Syntyr CSS; no map engine, filtering logic, or JavaScript runtime.
+ * Load after core; optionally combine with recipes for the application shell.
+ */
+@layer syn.recipes {
+  :where(.syn-root, .syn-root *) {
+    &.syn-ops-workspace {
+      --syn-ops-pane-height: 42rem;
+      --syn-ops-stage-min: 18rem;
+      --syn-ops-selected: var(--syn-accent);
+      container: syn-ops / inline-size;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 27rem), 1fr));
+      gap: var(--syn-space-3);
+      min-inline-size: 0;
+    }
+    &.syn-ops-stage, &.syn-ops-results {
+      min-inline-size: 0;
+      align-self: start;
+    }
+    &.syn-ops-stage {
+      display: grid;
+      gap: var(--syn-space-2);
+    }
+    &.syn-ops-map {
+      position: relative;
+      inline-size: 100%;
+      min-inline-size: 0;
+      margin: 0;
+      box-sizing: border-box;
+      min-block-size: var(--syn-ops-stage-min);
+      aspect-ratio: 1.45;
+      isolation: isolate;
+      overflow: hidden;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed);
+      color: var(--syn-text);
+    }
+    /* Illustrative map backdrop only. Replace with a real map or an image in apps. */
+    &.syn-ops-map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(32deg, transparent 45%, var(--syn-border-subtle) 45.2% 46.6%, transparent 46.8%),
+        linear-gradient(117deg, transparent 26%, var(--syn-border-subtle) 26.2% 27.6%, transparent 27.8%),
+        linear-gradient(151deg, transparent 65%, var(--syn-border-subtle) 65.2% 66.8%, transparent 67%),
+        repeating-linear-gradient(0deg, transparent 0 3.25rem, var(--syn-border-subtle) 3.3rem 3.35rem),
+        repeating-linear-gradient(90deg, transparent 0 3.25rem, var(--syn-border-subtle) 3.3rem 3.35rem);
+      opacity: .67;
+      pointer-events: none;
+    }
+    &.syn-ops-map-label {
+      position: absolute;
+      inset-block-start: var(--syn-space-2);
+      inset-inline-start: var(--syn-space-2);
+      z-index: 1;
+      max-inline-size: calc(100% - 1.5rem);
+      padding: .35rem .6rem;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface);
+      color: var(--syn-muted);
+      font-size: var(--syn-type-xs);
+      overflow-wrap: anywhere;
+    }
+    &.syn-ops-marker {
+      position: absolute;
+      inset-inline-start: clamp(1.5rem, var(--syn-marker-x, 50%), calc(100% - 1.5rem));
+      inset-block-start: clamp(1.5rem, var(--syn-marker-y, 50%), calc(100% - 1.5rem));
+      display: grid;
+      place-items: center;
+      inline-size: 2.75rem;
+      block-size: 2.75rem;
+      transform: translate(-50%, -50%);
+      border: 2px solid var(--syn-surface);
+      border-radius: 50%;
+      background: var(--syn-accent);
+      color: var(--syn-on-accent);
+      box-shadow: 0 2px 7px rgb(0 0 0 / 18%);
+      text-decoration: none;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    &.syn-ops-marker[data-syn-selected="true"] {
+      outline: 3px solid var(--syn-ops-selected);
+      outline-offset: 2px;
+    }
+    &.syn-ops-marker:focus-visible {
+      outline: 3px solid var(--syn-focus-ring);
+      outline-offset: 3px;
+      z-index: 2;
+    }
+    &.syn-ops-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .45rem 1rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      color: var(--syn-muted);
+      font-size: var(--syn-type-xs);
+    }
+    &.syn-ops-legend li {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    &.syn-ops-legend-key {
+      inline-size: .7rem;
+      block-size: .7rem;
+      border: 1px solid var(--syn-frame);
+      background: var(--syn-accent);
+      border-radius: 50%;
+      flex: none;
+    }
+    &.syn-ops-legend-key[data-syn-state="muted"] {
+      background: var(--syn-surface-hi);
+    }
+    &.syn-ops-inspector {
+      display: grid;
+      gap: var(--syn-space-1);
+      padding: var(--syn-space-2);
+      border: 1px solid var(--syn-border-default);
+      border-inline-start: 3px solid var(--syn-ops-selected);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface);
+      color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-ops-inspector > :where(h2, h3, p) { margin: 0; }
+    &.syn-ops-inspector-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--syn-space-1);
+      flex-wrap: wrap;
+    }
+    &.syn-ops-results {
+      display: grid;
+      gap: var(--syn-space-2);
+    }
+    &.syn-ops-results-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: .5rem;
+    }
+    &.syn-ops-results-header > :where(h2, h3, p) { margin: 0; }
+    &.syn-ops-notes { min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-ops-notes code { white-space: normal; overflow-wrap: anywhere; }
+    &.syn-ops-list {
+      display: grid;
+      gap: var(--syn-space-2);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      min-inline-size: 0;
+    }
+    &.syn-ops-record {
+      display: grid;
+      gap: .4rem;
+      min-inline-size: 0;
+      padding: var(--syn-card-padding);
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface);
+      color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-ops-record[data-syn-selected="true"] {
+      border-color: var(--syn-ops-selected);
+      box-shadow: inset 3px 0 var(--syn-ops-selected);
+    }
+    &.syn-ops-record > :where(h3, p) { margin: 0; }
+    &.syn-ops-record-head, &.syn-ops-record-foot {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: .35rem .75rem;
+    }
+    &.syn-ops-record a:focus-visible {
+      outline: 2px solid var(--syn-focus-ring);
+      outline-offset: 2px;
+    }
+    @container syn-ops (min-width: 60rem) {
+      &.syn-ops-stage {
+        position: sticky;
+        inset-block-start: var(--syn-ops-sticky-top, 1rem);
+      }
+      &.syn-ops-results {
+        max-block-size: var(--syn-ops-pane-height);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding-inline-end: .25rem;
+      }
+      &.syn-ops-results:focus-visible {
+        outline: 2px solid var(--syn-focus-ring);
+        outline-offset: -2px;
+      }
+    }
+    @media (forced-colors: active) {
+      &.syn-ops-map, &.syn-ops-inspector, &.syn-ops-record { border-color: CanvasText; }
+      &.syn-ops-marker { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
+      &.syn-ops-marker[data-syn-selected="true"], &.syn-ops-record[data-syn-selected="true"] {
+        outline: 2px solid Highlight; box-shadow: none;
+      }
+      &.syn-ops-legend-key { background: CanvasText; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      &.syn-ops-marker, &.syn-ops-record { scroll-behavior: auto; transition: none; }
+    }
+    @media print {
+      &.syn-ops-stage { position: static; }
+      &.syn-ops-results { max-block-size: none; overflow: visible; }
+      &.syn-ops-map { print-color-adjust: exact; }
+    }
+  }
+
+}
 /* Optional native HTML recipes: no runtime JavaScript or global selectors.
    Load after Syntyr core or alongside selective component imports. */
 @layer syn.recipes {

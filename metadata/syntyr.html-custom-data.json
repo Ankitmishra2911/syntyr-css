@@ -450,6 +450,70 @@
           "description": "Syntyr CSS class (components/layout.css)."
         },
         {
+          "name": "syn-ops-inspector",
+          "description": "Contextual record summary in a map/results workspace."
+        },
+        {
+          "name": "syn-ops-inspector-footer",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-legend",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-legend-key",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-list",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-map",
+          "description": "Illustrative map stage or host-owned map renderer container."
+        },
+        {
+          "name": "syn-ops-map-label",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-marker",
+          "description": "Accessible positioned link to a record; set --syn-marker-x/y."
+        },
+        {
+          "name": "syn-ops-notes",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-record",
+          "description": "Record card, with host-controlled data-syn-selected state."
+        },
+        {
+          "name": "syn-ops-record-foot",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-record-head",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-results",
+          "description": "Keyboard-focusable record results; independently scrollable in wide layouts."
+        },
+        {
+          "name": "syn-ops-results-header",
+          "description": "Syntyr CSS class (workspaces.css)."
+        },
+        {
+          "name": "syn-ops-stage",
+          "description": "Map/visual context column in an operations workspace."
+        },
+        {
+          "name": "syn-ops-workspace",
+          "description": "Optional responsive operations split layout; no map engine or business logic."
+        },
+        {
           "name": "syn-page",
           "description": "Syntyr CSS class (base.css)."
         },

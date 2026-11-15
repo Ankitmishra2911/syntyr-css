@@ -218,6 +218,18 @@
       "description": "Foreground color for the primary accent."
     },
     {
+      "name": "--syn-ops-pane-height",
+      "description": "Syntyr CSS property (workspaces.css)."
+    },
+    {
+      "name": "--syn-ops-selected",
+      "description": "Syntyr CSS property (workspaces.css)."
+    },
+    {
+      "name": "--syn-ops-stage-min",
+      "description": "Syntyr CSS property (workspaces.css)."
+    },
+    {
       "name": "--syn-panel-border-width",
       "description": "Per-panel border width; defaults to 1px."
     },

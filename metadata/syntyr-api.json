@@ -557,6 +557,86 @@
       "description": "Syntyr CSS class (components/layout.css)."
     },
     {
+      "name": "syn-ops-inspector",
+      "module": "workspaces.css",
+      "description": "Contextual record summary in a map/results workspace."
+    },
+    {
+      "name": "syn-ops-inspector-footer",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-legend",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-legend-key",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-list",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-map",
+      "module": "workspaces.css",
+      "description": "Illustrative map stage or host-owned map renderer container."
+    },
+    {
+      "name": "syn-ops-map-label",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-marker",
+      "module": "workspaces.css",
+      "description": "Accessible positioned link to a record; set --syn-marker-x/y."
+    },
+    {
+      "name": "syn-ops-notes",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-record",
+      "module": "workspaces.css",
+      "description": "Record card, with host-controlled data-syn-selected state."
+    },
+    {
+      "name": "syn-ops-record-foot",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-record-head",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-results",
+      "module": "workspaces.css",
+      "description": "Keyboard-focusable record results; independently scrollable in wide layouts."
+    },
+    {
+      "name": "syn-ops-results-header",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS class (workspaces.css)."
+    },
+    {
+      "name": "syn-ops-stage",
+      "module": "workspaces.css",
+      "description": "Map/visual context column in an operations workspace."
+    },
+    {
+      "name": "syn-ops-workspace",
+      "module": "workspaces.css",
+      "description": "Optional responsive operations split layout; no map engine or business logic."
+    },
+    {
       "name": "syn-page",
       "module": "base.css",
       "description": "Syntyr CSS class (base.css)."
@@ -1437,6 +1517,21 @@
       "name": "--syn-on-accent",
       "module": "tokens.css",
       "description": "Foreground color for the primary accent."
+    },
+    {
+      "name": "--syn-ops-pane-height",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS property (workspaces.css)."
+    },
+    {
+      "name": "--syn-ops-selected",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS property (workspaces.css)."
+    },
+    {
+      "name": "--syn-ops-stage-min",
+      "module": "workspaces.css",
+      "description": "Syntyr CSS property (workspaces.css)."
     },
     {
       "name": "--syn-panel-border-width",
