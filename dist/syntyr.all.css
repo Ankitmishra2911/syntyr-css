@@ -359,7 +359,7 @@
 @layer syn.components {
   /* All component rules match the root itself or a descendant, never a host sibling. */
   :where(.syn-root, .syn-root *) {
-    &.syn-logo { font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
+    &.syn-logo { display: inline-block; max-inline-size: 100%; overflow-wrap: anywhere; font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
     &.syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
     &.syn-title, &.syn-display { font-family: var(--syn-font-display); font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: var(--syn-tracking-display); margin-block: 1rem; max-width: 14ch; text-wrap: balance; }
     &.syn-heading { font-family: var(--syn-font-display); font-size: var(--syn-type-heading); line-height: 1.2; margin-block: .5rem 1rem; }
@@ -604,7 +604,7 @@
   /* All component rules match the root itself or a descendant, never a host sibling. */
   :where(.syn-root, .syn-root *) {
     &.syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
-    &.syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
+    &.syn-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); min-width: 0; }
     &.syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
     &.syn-stat { padding: var(--syn-space-3); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
     &.syn-stat-label { color: var(--syn-muted); font: 650 .8125rem/1.4 var(--syn-mono); letter-spacing: .05em; }
@@ -813,7 +813,7 @@
       color: var(--syn-accent); background: var(--syn-accent-soft);
     }
     &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
-    &.syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+    &.syn-workspace { width: 100%; min-width: 0; overflow-wrap: anywhere; padding: clamp(1rem, 3vw, 2.5rem); }
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
     &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
     &.syn-app-card {
@@ -1057,7 +1057,7 @@
     /* An ordered activity stream: markers and lines are decoration, text is truth. */
     &.syn-activity-timeline { margin: 0; padding: 0; list-style: none; }
     &.syn-activity-timeline > li {
-      position: relative; padding: 0 0 var(--syn-space-3) 1.75rem; min-width: 0;
+      position: relative; padding: 0 0 var(--syn-space-3) 1.75rem; min-width: 0; overflow-wrap: anywhere;
     }
     &.syn-activity-timeline > li:last-child { padding-block-end: 0; }
     &.syn-activity-timeline > li::before {
@@ -1134,8 +1134,11 @@
 @layer syn.recipes {
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) {
     position: relative;
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     min-inline-size: 0;
+    container-name: syn-floating-field;
+    container-type: inline-size;
   }
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea) {
     padding-block-start: 1.35rem;
@@ -1158,6 +1161,35 @@
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)) + .syn-floating-label {
     transform: translateY(-.62rem) scale(.82);
     color: var(--syn-text);
+  }
+
+
+  /* At narrow container sizes (including enlarged root text), restore a
+     persistent full-width label above the input. No JS or aria changes.
+     The label follows the input in source for :placeholder-shown support;
+     grid placement makes the visible order match a conventional form. */
+  @container syn-floating-field (max-width: 21rem) {
+    :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea) {
+      grid-row: 2;
+      padding-block: var(--syn-control-padding-block);
+      min-block-size: var(--syn-control-height);
+    }
+    :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > .syn-floating-label,
+    :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)) + .syn-floating-label {
+      position: static;
+      grid-row: 1;
+      inset: auto;
+      max-inline-size: 100%;
+      overflow: visible;
+      overflow-wrap: anywhere;
+      white-space: normal;
+      text-overflow: clip;
+      transform: none;
+      color: var(--syn-text);
+      font-size: var(--syn-type-sm);
+      line-height: 1.4;
+      margin-block-end: .35rem;
+    }
   }
 
   :where(.syn-root.syn-timeline, .syn-root .syn-timeline) {

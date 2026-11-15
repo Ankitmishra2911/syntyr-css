@@ -58,6 +58,13 @@
 .flagship[data-syn-theme="noir"] .flagship-quote { font-family: ui-serif, Georgia, Cambria, serif; font-weight: 500; }
 .flagship[data-syn-theme="grid"] .flagship-display { max-inline-size: 14ch; }
 .flagship[data-syn-theme="grid"] .flagship-navigation a[aria-current] { color: var(--syn-accent); }
+/* Prevent the bright horizon grid from crossing small body text. The
+   cinematic gradient remains visible outside this restrained reading scrim. */
+.flagship[data-syn-theme="grid"] .flagship-hero .flagship-lede {
+  background: color-mix(in srgb, var(--syn-bg) 96%, transparent);
+  padding: .2rem .4rem;
+  border-radius: .2rem;
+}
 .flagship .flagship-signal { background: var(--syn-surface); border: 1px solid var(--syn-border-subtle); padding: clamp(1.1rem, 2vw, 1.6rem); }
 @media (max-width: 56rem) {
   .flagship .flagship-hero-grid, .flagship .flagship-split { grid-template-columns: minmax(0, 1fr); }

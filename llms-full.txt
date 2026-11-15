@@ -793,6 +793,14 @@ does not implement a custom ARIA menu.
 
 Keep a persistent programmatic label with for/id. The one-space placeholder
 is a deliberate :placeholder-shown state hook, **not** the accessible label.
+
+The field becomes a **stacked, wrapping label above the input** when its own
+container is narrow (21rem or less). This protects visible field identification
+when users enlarge text, including long translated labels. At wider sizes the
+floating presentation remains. The label is always a real `<label for>`; the
+CSS never substitutes placeholders for an accessible name. Test real browser
+zoom and translations in consuming applications.
+
 Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast
 and long translated labels in the actual application.
@@ -2406,6 +2414,8 @@ python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit
 python3 tests/minimalist_browser.py --browsers chromium firefox webkit
+# Opt-in: seven-theme enlarged-label, scroll keyboard, and link-target checks.
+python3 tests/accessibility_regression_browser.py --browsers chromium firefox webkit
 ```
 
 For a pinned axe-core 4.10.3 audit, provide the checker at test time. No
@@ -2413,8 +2423,57 @@ JavaScript file is shipped to application consumers:
 
 ```sh
 curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
-python3 tests/axe_audit.py --axe-file /tmp/axe.min.js
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe-manual-review.json
 ```
+
+The JSON now includes a `summary` that distinguishes incomplete rule results
+from **inconclusive individual element targets**, with counts by page and rule.
+Prioritize the highest-count pages for composited-gradient and pseudo-element
+contrast inspection. These targets are unresolved, not automatically passing
+or failing; record measured contrast, viewport, state, and reviewer decision
+before approving a release. The enlarged-label tests change root font size,
+not genuine browser zoom; human zoom and screen-reader gates remain open.
+
+## Contrast pixel triage (developer-only; NOT a conformance result)
+
+An optional Chromium screenshot sampler helps prioritize axe-core findings that
+cannot automatically evaluate gradients and pseudo-elements. It samples the
+painted background under temporarily transparent glyphs, groups results by
+page/viewport/selector, and retains non-text and unsampled targets explicitly.
+The helper is deliberately **not a release gate**: selected pixels do not prove
+the contrast of every glyph, hover/focus state, overlay or customized theme.
+Run it with pinned tooling in a disposable developer environment:
+
+```sh
+python3 -m pip install playwright==1.65.2 Pillow==12.1.1
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe.json
+python3 tests/contrast_pixel_triage.py \
+  --axe-report /tmp/syntyr-axe.json \
+  --output /tmp/syntyr-contrast-triage.json \
+  --widths 1280 390 320
+```
+
+The November 15, 2026 `9ff10ac` baseline contained 162 incomplete contrast
+elements. After rebasing the targeted contrast fixes onto `7e5c14d` (a newer
+main with additional unrelated changes), a fresh axe scan reported **160
+incomplete elements** across 27 pages. Across three widths (480 observations),
+the heuristic classified 450 as sampled above their text threshold, 27 as
+non-text (9 distinct targets), and 3 as unsampled placeholders (one distinct
+target). **Zero samples fell below their threshold or within a 0.5:1 margin.**
+The earlier 162-target and 456-above sample counts are historical; neither
+report closes any axe incompletes as certified passes. Verify actual glyph
+pixels, interaction states and screen reader/zoom/OS high-contrast behavior
+before making a conformance claim.
+Following a further rebase onto `c726dc3` (restored native-APIs page),
+the newest candidate scan found **161 incomplete elements across 28 pages**:
+450 text/viewport observations sampled above threshold, 27 non-text and six
+unsampled textarea observations. There were still zero sampled-below or
+narrow-margin observations. All 161 inconclusives remain open for manual
+adjudication; the preceding 160-element count is historical.
+
+See [the manual release review](accessibility-alpha5-review.md) for limitations.
 
 For reproducible WebKit on an isolated testing host with Podman or Docker, clone
 the repository to a directory that the container can read and run:
@@ -2628,11 +2687,22 @@ A consumer may copy [`agents/syntyr/SKILL.md`](../agents/syntyr/SKILL.md) as an 
 
 The repository's root `AGENTS.md` guides agents contributing to Syntyr itself. It does **not** automatically become instructions in a separate application repository.
 
+## Optional local MCP adapter
+
+An optional **read-only local MCP server** can now expose the checked-in
+component catalog and CSS API to supported coding agents. It is not needed to
+use Syntyr CSS, is not installed by the npm package, and does not expose a
+hosted endpoint. See the [MCP adapter source and installation guide](https://github.com/dporkka/syntyr-css/tree/main/agent_mcp)
+for the separate Python SDK installation, version-safe tools, and limits.
+It defaults to the published immutable `0.3.0-alpha.4` CSS rather than
+silently offering source-only `0.3.0-alpha.5` selectors.
+
 ## Documents and machine-readable inventory
 
 - [`llms.txt`](../llms.txt): small navigation file following the community `llms.txt` convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.
 - [`llms-full.txt`](../llms-full.txt): generated, version-stamped concatenation of selected public technical docs, for tools that benefit from one context file.
 - [`metadata/components.json`](../metadata/components.json): small **curated, non-exhaustive** inventory with the CSS modules required by the included classes. Do not infer that a class is unavailable solely because this catalog omits it.
+- [`metadata/syntyr-contract.json`](../metadata/syntyr-contract.json): full source-discovered Syntyr classes, tokens, known stylesheet distributions, themes, literal state values and curated component recipes. This candidate-version manifest is suitable for LLM tooling and optional [static HTML checks](editor-integration.md#optional-static-html-diagnostics); it is not a compiler or an accessibility certification.
 
 Documentation follows the current source candidate; always check [release boundaries](api-stability.md) and the [distribution guide](distribution.md) before using candidate-only features.
 
@@ -2659,4 +2729,4 @@ The consolidated reference is deterministic and checked in CI through the Python
 
 ## What Syntyr does not do
 
-Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission, remote data access or an MCP server. Use your existing application technology for those responsibilities.
+Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission or remote data access. The optional local read-only MCP adapter is a separate developer tool, never a CSS runtime dependency. Use your existing application technology for those responsibilities.
