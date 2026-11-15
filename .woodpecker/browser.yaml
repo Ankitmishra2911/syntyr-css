@@ -4,6 +4,12 @@ when:
   - event: manual
   - event: tag
 
+# The generic extra runner blocks PyPI through a 403 proxy. Pin this
+# developer-only browser gate to the bootstrap agent with verified
+# package-index connectivity; regular quality CI remains pool-agnostic.
+labels:
+  hostname: ci-adacavo
+
 steps:
   - name: three-engine-browser-and-reflow-matrix
     image: mcr.microsoft.com/playwright/python:v1.65.2-noble
