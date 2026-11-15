@@ -2,6 +2,26 @@
 
 **Status:** experimental alpha; not a WCAG certification or professional audit.
 
+## Latest post-merge results (November 14, 2026)
+
+On `main` commit `b19c331` (after PRs #14 and #22), the Python suite
+passed **155 tests**. The 16-page, three-viewport gallery matrix and 64
+reflow cases per engine passed in Chromium **156.0.8078.4**, Firefox
+**157.0**, and WebKit **27.2** using the pinned Playwright 1.64.1
+Linux developer container. Twenty-three Chromium interaction
+tests and the documentation theme-editor checks also passed.
+
+axe-core 4.10.3 reported **zero confirmed automated violations** but
+**345 inconclusive color-contrast element entries on 13 of 16 pages**.
+These remain open for manual review. Live Cloudflare assets sampled against
+the reproducible 63-file allowlisted build matched byte-for-byte; private
+repository paths returned 404. Cloudflare's exact-head build passed, but
+an independent Woodpecker pipeline execution has not been verified.
+
+See [the current per-page evidence and manual gates](accessibility-alpha5-review.md).
+This is not WCAG certification or verification of real zoom, screen-reader
+behavior, or native OS high-contrast mode.
+
 ## What is and is not covered
 
 - Source contracts: native HTML, semantic labels, opt-in scoping, predictable
@@ -9,7 +29,7 @@
 - Real browser matrix: Chromium, Firefox, and WebKit on desktop/mobile viewport widths,
   testing navigation, table semantics, native popover, disclosure, and overflow.
 - Automated accessibility: axe-core WCAG 2.0/2.1/2.2 A/AA tagged checks on the
-  14 public showcase and example pages. The tool may return
+  16 public showcase and example pages. The tool may return
   **incomplete/manual-review** findings even with zero confirmed violations.
 - Still needed: screen reader testing (NVDA + Firefox or Chrome, VoiceOver +
   Safari), actual browser zoom at 200% and 400%, touch target examination,
@@ -58,7 +78,7 @@ The remote URL is part of a **developer-only test**, not a browser runtime
 dependency. Pin the checker release, review its MIT license, and verify its
 provenance if incorporating it into build infrastructure.
 
-## Latest automated evidence (November 14, 2026, unreleased alpha.5)
+## Earlier automated baseline (November 14, 2026, unreleased alpha.5)
 
 Against post-merge `main` commit `6109b79`, an isolated Playwright v1.65.2
 Linux container passed **126** page/viewport cases (14 pages × 3 widths × 3
