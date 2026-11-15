@@ -29,6 +29,7 @@ def expected_files(root: Path) -> dict[str, Path]:
         "integrations/tailwind/syntyr.theme.css",
         "integrations/shadcn/syntyr.tokens.css",
         "integrations/headless/interactions.css",
+        "integrations/dropdown/menu.mjs",
         "metadata/css-contract.v1.json",
         "metadata/component-gallery.v1.json",
         # Opt-in companions are explicitly exported but never required by CSS.

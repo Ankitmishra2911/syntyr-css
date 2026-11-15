@@ -250,7 +250,7 @@ PUBLIC_DOCS = (
     "compare-daisyui.md", "compare-pico.md", "compare-native-css.md",
     "distribution.md", "native-patterns.md", "native-workflows.md", "semantic-components.md", "composition-adoption.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "how-to.html", "how-to.css", "how-to.js", "catalog.html", "catalog.css", "catalog.js",
     "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "framework-integrations.md", "mobile-frameworks.md",
-    "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
+    "geometry-terminal.md", "native-browser-apis.md", "dropdowns.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
     "index.html", "animation.md", "clipboard.md", "lit-integration.md", "playground.html", "playground.css", "playground.js", "playground-catalog.js", "playground-editor.js", "playground-editor.licenses.txt", "page-builder-guide.md", "page-builder.html", "page-builder.css", "page-builder.js", "page-builder-model.mjs",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
@@ -309,7 +309,7 @@ def source_files() -> dict[str, bytes]:
 
     public_examples = (
         "business.html", "email.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
-        "minimalist-patterns.html", "design-states.html", "native-elements.html", "semantic-compositions.html", "native-interactions.html", "native-recipes.html", "resource-outline.html", "query-review.html", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "performance-first.html",
+        "minimalist-patterns.html", "design-states.html", "native-elements.html", "semantic-compositions.html", "native-interactions.html", "native-recipes.html", "resource-outline.html", "query-review.html", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "dropdowns.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "permission-matrix.html", "permission-matrix.css", "crm.html", "resource-workspace.html", "native-workflows.html", "file-lifecycle.html", "saas-workflows.css", "workflow-operations.html", "workflow-operations.css", "premium-compositions.html",

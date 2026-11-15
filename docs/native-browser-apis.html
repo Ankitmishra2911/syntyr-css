@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr is a styling system, not a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser&#x27;s built-in semantics and…">
-  <meta name="syntyr-source-sha256" content="9c4ad414e18ba9a1579063cc19e2a4651dc915e838f165a392014ea168d37364">
+  <meta name="syntyr-source-sha256" content="8849b78753a90f0f0896fa053d31c4673918501e8d6ee6a3e6c9933e0d939aab">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native browser APIs in Syntyr — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-browser-apis">
@@ -98,6 +98,7 @@ no Custom Elements runtime for ordinary HTML components.</p>
 </tbody>
 </table>
 <p>All new classes are <strong>opt-in</strong>. Core styles only add the anchor and textarea declarations; optional motion requires <code>syntyr.motion.css</code> (included in <code>syntyr.all.css</code>). Do not load <code>syntyr.all.css</code> alongside component files.</p>
+<p>For practical scriptless action panels and an optional enhanced menu adapter, see <a href="dropdowns.html">dropdown patterns</a>.</p>
 <h2 id="example-popover-near-its-invoker">Example: popover near its invoker</h2>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.motion.css&quot;&gt;

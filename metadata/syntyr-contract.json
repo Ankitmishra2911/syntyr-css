@@ -434,6 +434,22 @@
       ]
     },
     {
+      "name": "syn-button--icon",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css).",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-button--outline",
       "module": "components/buttons.css",
       "description": "Syntyr CSS class (components/buttons.css).",
@@ -1051,6 +1067,86 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown__group-label",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown__item",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown__separator",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown__shortcut",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",
@@ -2619,6 +2715,22 @@
     },
     {
       "name": "syn-select",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-select--enhanced",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
@@ -5982,6 +6094,26 @@
         "syn-file-item-header"
       ],
       "notes": "Unreleased alpha.5 CSS-only queue snapshots. Native input lives in core; host owns upload progress, failure and completion truth, validation, retry, status announcements and storage."
+    },
+    {
+      "name": "Native dropdowns and menus",
+      "module": "syntyr.core.css",
+      "elements": [
+        "div",
+        "a",
+        "button",
+        "select"
+      ],
+      "classes": [
+        "syn-popover",
+        "syn-dropdown",
+        "syn-dropdown__item",
+        "syn-dropdown__group-label",
+        "syn-dropdown__separator",
+        "syn-dropdown__shortcut",
+        "syn-select--enhanced"
+      ],
+      "notes": "Scriptless action panels use Tab/Escape. Optional @syntyr/css/menu.mjs adds ARIA menu keyboard behavior only when explicitly initialized; see docs/dropdowns.md."
     }
   ],
   "recipes": [

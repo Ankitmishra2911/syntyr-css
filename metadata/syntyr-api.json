@@ -147,6 +147,11 @@
       "description": "Syntyr CSS class (components/buttons.css)."
     },
     {
+      "name": "syn-button--icon",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
       "name": "syn-button--outline",
       "module": "components/buttons.css",
       "description": "Syntyr CSS class (components/buttons.css)."
@@ -415,6 +420,31 @@
       "name": "syn-divider-label",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-dropdown",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-dropdown__group-label",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-dropdown__item",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-dropdown__separator",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-dropdown__shortcut",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
     },
     {
       "name": "syn-email-body",
@@ -1038,6 +1068,11 @@
     },
     {
       "name": "syn-select",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-select--enhanced",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css)."
     },
