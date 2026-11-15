@@ -155,6 +155,9 @@ appropriate browser/performance infrastructure and disclose the settings.
 A stylesheet request count is **not** the transferred CSS byte count.
 Run a real-user measurement where traffic permits.
 
+For measurements on actual deployed business and SaaS pages, see the
+[mobile, cache and accessibility audit](live-performance-audit.md).
+
 ## Rendering and release decisions
 
 Large independent below-the-fold regions may opt in to
