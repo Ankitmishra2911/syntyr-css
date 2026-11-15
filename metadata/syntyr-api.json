@@ -272,6 +272,11 @@
       "description": "Syntyr CSS class (components/overlays.css)."
     },
     {
+      "name": "syn-dialog--transition",
+      "module": "motion.css",
+      "description": "Syntyr CSS class (motion.css)."
+    },
+    {
       "name": "syn-display",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."

@@ -18,6 +18,7 @@ SOURCES = (
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/distribution.md",
+    "docs/from-pico.md",
     "docs/api-stability.md",
     "docs/framework-integrations.md",
     "docs/native-browser-apis.md",

@@ -549,28 +549,6 @@
         max-inline-size: calc(100vw - 2rem);
       }
     }
-    /* Transitions are enhancement only; native focus, inertness and Esc
-       are managed by the browser with or without animation support. */
-    @media (prefers-reduced-motion: no-preference) {
-      @supports (transition-behavior: allow-discrete) {
-        &.syn-dialog, &.syn-popover {
-          opacity: 0;
-          transform: translateY(.4rem);
-          transition: opacity 180ms ease, transform 180ms ease,
-                      display 180ms allow-discrete, overlay 180ms allow-discrete;
-        }
-        &.syn-dialog[open], &.syn-popover:popover-open {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        @starting-style {
-          &.syn-dialog[open], &.syn-popover:popover-open {
-            opacity: 0;
-            transform: translateY(.4rem);
-          }
-        }
-      }
-    }
   }
 }
 @layer syn.components {

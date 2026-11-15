@@ -57,13 +57,37 @@ class BladesAdoptionContract(unittest.TestCase):
         css = (ROOT / "src/components/overlays.css").read_text()
         for fragment in (
             ".syn-popover--anchored", "position-area:", "position-try-fallbacks:",
-            "@supports", "@starting-style", "prefers-reduced-motion: no-preference",
-            ":popover-open", ".syn-dialog[open]", "allow-discrete",
+            "@supports", "position-area: block-end span-inline-end",
         ):
             with self.subTest(fragment=fragment):
                 self.assertIn(fragment, css)
         self.assertNotIn("@import", css)
         self.assertNotIn("url(", css)
+
+    def test_overlay_motion_is_in_opt_in_stylesheet_only(self):
+        core = (ROOT / "src/components/overlays.css").read_text()
+        motion = (ROOT / "src/motion.css").read_text()
+        self.assertNotIn("transition: opacity", core)
+        self.assertNotIn("@starting-style", core)
+        self.assertIn("&.syn-popover.syn-popover--transition", motion)
+        self.assertIn("&.syn-dialog.syn-dialog--transition", motion)
+        self.assertIn("prefers-reduced-motion: no-preference", motion)
+        self.assertIn("@starting-style", motion)
+        html = (ROOT / "examples/native-recipes.html").read_text()
+        self.assertIn('href="../dist/syntyr.motion.css"', html)
+        self.assertIn("syn-popover--transition", html)
+        self.assertIn("syn-dialog--transition", html)
+
+    def test_native_guide_release_links_are_self_contained_or_hosted(self):
+        import re
+        import posixpath
+        text = (ROOT / "docs/native-patterns.md").read_text()
+        for href in re.findall(r'\]\(([^)]+)\)', text):
+            if href.startswith(("https://", "http://", "#")):
+                continue
+            local = posixpath.normpath(posixpath.join("docs", href.split("#", 1)[0]))
+            with self.subTest(href=href):
+                self.assertIn(local, FILES, f"ZIP does not contain {local}")
 
     def test_logical_anchor_position_rule_matches_fallback_specificity(self):
         css = (ROOT / "src/components/overlays.css").read_text()

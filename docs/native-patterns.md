@@ -2,7 +2,7 @@
 
 This prerelease Syntyr example uses original CSS, not upstream Blades source.
 All patterns retain native HTML semantics and need **no runtime JavaScript**.
-For a live static preview, see [the native recipe example](../examples/native-recipes.html).
+For a live static preview, see [the native recipe example (live alpha.5 source preview)](https://syntyr-css.pages.dev/examples/native-recipes.html).
 
 ## Individually importable CSS
 
@@ -54,7 +54,12 @@ other browsers it falls back to Syntyr's existing fixed corner positioning.
 For vital actions, links remain real links. Modal invoker commands are not
 universally available in older browsers, so provide a navigable fallback for
 critical content or use a small explicit progressive enhancement in the host.
-Transition support is optional and disabled by reduced-motion preferences.
+Transitions do **not** ship in core. To opt into native popover/dialog
+motion, load the additional `syntyr.motion.css` file, then add
+`.syn-popover--transition` to a `.syn-popover` or
+`.syn-dialog--transition` to a `.syn-dialog`. Both class and file are
+required. The motion module honors reduced-motion preferences; without
+either opt-in, dialogs and popovers use their native static behavior.
 Native browsers own focus management, Escape and dialog inertness; the stylesheet
 does not implement a custom ARIA menu.
 
@@ -173,5 +178,5 @@ provide their own HTMX script and server response semantics.
 
 This guide intentionally avoids wrappers and framework-specific JavaScript.
 Refer to [framework integrations](framework-integrations.md) and the
-[progressive enhancement guide](progressive-enhancement.md) for host behavior
+[progressive enhancement guide (online)](https://syntyr-css.pages.dev/docs/progressive-enhancement.md) for host behavior
 and fallbacks.

@@ -7,6 +7,7 @@
   <title>Syntyr CSS — Native patterns</title>
   <link rel="stylesheet" href="../dist/syntyr.core.css">
   <link rel="stylesheet" href="../dist/syntyr.native-recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.motion.css">
 </head>
 <body class="syn-root syn-page" data-syn-theme="studio">
   <main class="syn-shell" id="main-content">
@@ -53,11 +54,11 @@
           <button class="syn-button" popovertarget="native-actions" type="button">Open actions</button>
           <button class="syn-button syn-button--outline" type="button" commandfor="native-dialog" command="show-modal">Open dialog</button>
         </div>
-        <div class="syn-popover syn-popover--anchored" popover id="native-actions" role="group" aria-label="Example actions">
+        <div class="syn-popover syn-popover--anchored syn-popover--transition" popover id="native-actions" role="group" aria-label="Example actions">
           <p>Native popover, keyboard dismissible.</p>
           <button type="button" class="syn-button" popovertarget="native-actions" popovertargetaction="hide">Close actions</button>
         </div>
-        <dialog class="syn-dialog" id="native-dialog" aria-labelledby="native-dialog-title" closedby="any">
+        <dialog class="syn-dialog syn-dialog--transition" id="native-dialog" aria-labelledby="native-dialog-title" closedby="any">
           <h3 id="native-dialog-title">System report</h3>
           <p>Use Escape, light dismiss in supporting browsers, or the Close button.</p>
           <form method="dialog"><button class="syn-button syn-button--primary">Close</button></form>
