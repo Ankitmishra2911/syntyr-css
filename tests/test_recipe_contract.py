@@ -60,6 +60,31 @@ class RecipeContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "root"):
             validate_recipes(broken, classes, self.contract["attributes"])
 
+    def test_rejects_non_list_stylesheets_with_known_names(self):
+        classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
+        broken = copy.deepcopy(self.curated["recipes"])
+        broken[0]["stylesheets"] = {
+            name: False for name in broken[0]["stylesheets"]
+        }
+        with self.assertRaisesRegex(ValueError, "stylesheets must be a nonempty list"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+
+    def test_component_only_recipe_requires_base_and_tokens(self):
+        classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
+        broken = copy.deepcopy(self.curated["recipes"])
+        broken[0].update({
+            "stylesheets": ["components/buttons.css"],
+            "root": {"tag": "button", "classes": ["syn-button"]},
+            "slots": [],
+            "variants": {},
+        })
+        with self.assertRaisesRegex(ValueError, "requires tokens and base"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+        broken[0]["stylesheets"] += [
+            "components/tokens.css", "components/base.css"
+        ]
+        validate_recipes(broken, classes, self.contract["attributes"])
+
     def test_agent_docs_index_links_new_recipe_contract(self):
         from build_agent_docs import SOURCES
         self.assertIn("docs/editor-integration.md", SOURCES)

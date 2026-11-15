@@ -163,12 +163,21 @@ def validate_recipes(recipes, class_stylesheets, attributes):
         if not re.fullmatch(r"[a-z][a-z0-9-]*", ident) or ident in ids:
             raise ValueError(f"invalid or duplicate recipe id: {ident}")
         ids.add(ident)
-        stylesheets = set(recipe["stylesheets"])
-        if not stylesheets:
-            raise ValueError(f"{ident}: missing stylesheets")
-        unknown_stylesheets = stylesheets - set(all_distributions())
+        stylesheet_names = recipe.get("stylesheets")
+        if (not isinstance(stylesheet_names, list) or not stylesheet_names
+                or any(not isinstance(name, str) or not name for name in stylesheet_names)):
+            raise ValueError(f"{ident}: stylesheets must be a nonempty list of strings")
+        stylesheets = set(stylesheet_names)
+        distributions = all_distributions()
+        unknown_stylesheets = stylesheets - set(distributions)
         if unknown_stylesheets:
             raise ValueError(f"{ident}: unknown stylesheet: {sorted(unknown_stylesheets)}")
+        if any(name.startswith("components/") for name in stylesheets):
+            supplied_sources = {
+                source for name in stylesheets for source in distributions[name]
+            }
+            if not {"tokens.css", "base.css"}.issubset(supplied_sources):
+                raise ValueError(f"{ident}: component CSS requires tokens and base")
         if not recipe["description"].strip() or not recipe["host_behavior"].strip():
             raise ValueError(f"{ident}: missing descriptive or host behavior contract")
         example = recipe["example"]
