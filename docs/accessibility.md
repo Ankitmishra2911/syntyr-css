@@ -27,6 +27,7 @@ python3 -m unittest discover -s tests -v
 python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit
+python3 tests/minimalist_browser.py --browsers chromium firefox webkit
 ```
 
 For a pinned axe-core 4.10.3 audit, provide the checker at test time. No
@@ -100,3 +101,16 @@ validation. Native HTML dialog invoker command support also varies by browser.
 5. Disable animations in system settings and ensure nothing depends on motion.
 6. Validate both the default Grid/Noir palettes and any project-specific
    token overrides for text contrast and non-text essential indicators.
+
+
+## Optional system palette and intrinsic layout checks
+
+The [minimalist patterns example](../examples/minimalist-patterns.html)
+uses a CSS-only `auto` palette (Studio for light, Grid for dark),
+classless form controls and intrinsic layouts. Its optional browser test
+checks both OS color-scheme emulations, an explicit nested Noir region,
+native checkbox/radio label layout, keyboard focus and mobile wrapping.
+
+These automated checks do **not** replace manual audits at actual 200% and
+400% browser zoom, assistive-technology operation, or customized palette
+contrast validation. Record browser engine and OS when testing these paths.

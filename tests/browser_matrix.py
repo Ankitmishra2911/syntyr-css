@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -36,7 +36,10 @@ def assert_page(browser, name: str, viewport: int) -> None:
     assert page.get_by_role("main").count() == 1, name
     assert page.locator('link[rel="stylesheet"]').count() >= 1
     css = page.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()")
-    assert css in ("#76e7f7", "#f1b574", "#2458c6", "#ffb36b", "#65e8a0", "#155ac8", "#313a45"), (name, css)
+    if name == "examples/minimalist-patterns.html":
+        assert "light-dark(" in css, (name, css)
+    else:
+        assert css in ("#76e7f7", "#f1b574", "#2458c6", "#ffb36b", "#65e8a0", "#155ac8", "#313a45"), (name, css)
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)

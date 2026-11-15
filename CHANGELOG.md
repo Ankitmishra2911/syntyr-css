@@ -1,5 +1,9 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Add opt-in system light/dark palette selection, composed from the existing Studio and Grid tokens without JavaScript.
+- Add opt-in intrinsic Sidebar/Switcher layouts and fluid typography in recipes; improve native checkbox/radio label alignment in semantic mode.
+- Publish a standalone minimalist HTML example and source/browser regression checks. No new CSS distribution or runtime dependency.
+
 - Add four original opt-in palettes (Industrial, Terminal, Corporate and Minimal) for seven interchangeable SYNTYR themes.
 - Add a standalone finite CSS-only utilities module and an MIT-licensed seven-theme comparison gallery.
 - Validate nested theme foreground, native color-scheme and geometry inheritance, utility precedence, and keyboard/forced-colors presentation.
