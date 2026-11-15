@@ -23,7 +23,8 @@
     "./syntyr.css": "./dist/syntyr.css",
     "./all.css": "./dist/syntyr.all.css",
     "./viz.css": "./dist/syntyr.viz.css",
-    "./tailwind.css": "./integrations/tailwind/syntyr.theme.css"
+    "./tailwind.css": "./integrations/tailwind/syntyr.theme.css",
+    "./shadcn.css": "./integrations/shadcn/syntyr.tokens.css"
   },
   "sideEffects": [
     "**/*.css"
@@ -31,6 +32,7 @@
   "files": [
     "dist/",
     "integrations/tailwind/",
+    "integrations/shadcn/",
     "README.md",
     "LICENSE"
   ],

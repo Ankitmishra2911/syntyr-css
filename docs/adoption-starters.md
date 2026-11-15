@@ -28,7 +28,21 @@ npm run build
 npm run preview
 ```
 
-Both starters refer to `"@syntyr/css": "file:../.."` to avoid implying
+## shadcn/ui semantic token compatibility
+
+[Source](../examples/shadcn-bridge/) — a Tailwind v4 project exercising
+scoped shadcn semantic colors, a nested Noir palette and host isolation.
+This exercises shadcn-style utility output, not an actual generated React
+component. See the [adapter guide](shadcn-integration.md).
+
+```sh
+cd examples/shadcn-bridge
+npm install
+npm run build
+python3 -m http.server 8000
+```
+
+All three starters refer to `"@syntyr/css": "file:../.."` to avoid implying
 the alpha.5 package is published. Replace this with an actual pinned version
 after npm release. Generated assets, caches and dependencies are ignored.
 

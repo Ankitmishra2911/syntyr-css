@@ -99,9 +99,9 @@ The exported values include thirteen literal SRGB palette colors and
 **assumed 16px root size** for editable design coordinates; browser CSS
 continues to use `rem`. Derived `color-mix()` values, `auto` mode and
 component-specific expressions are excluded rather than approximated.
-An [editable Figma component-kit pilot](figma-component-kit.md) now supplies
-four native components and seven separate palette collections; richer variants,
-component state coverage, and full design/code parity remain future work.
+An [editable Figma component-kit pilot](figma-component-kit.md) now includes
+Studio button and input state variants, navigation, a table and separate
+palette collections. Full accessibility, font and visual parity remain open.
 
 Source: https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables
 
@@ -123,9 +123,10 @@ insert any adapter into a production stylesheet by default.
 
 ## Deferred integrations
 
-- **shadcn/ui and daisyUI**: test an explicit, opt-in semantic bridge only
-  after the Tailwind coexistence example runs in a representative real app;
-  do not overwrite global component tokens.
+- **shadcn/ui**: the opt-in [semantic token bridge](shadcn-integration.md)
+  now has a runnable Tailwind consumer test. Real React/Radix component parity
+  remains unverified; do not override the host's global theme.
+- **daisyUI**: evaluate a separate optional bridge only when actual users need it.
 - **Storybook**: add browser-backed reference stories and contrast/state
   coverage, with dev-only tooling.
 - **Webflow and Framer**: start with tested templates and import guides rather
