@@ -72,8 +72,12 @@ class ContractTests(unittest.TestCase):
                 with self.subTest(theme=name, label=label):
                     self.assertGreaterEqual(contrast(front, back),4.5)
 
-    def test_no_package_manager_or_remote_assets(self):
-        self.assertFalse((ROOT/'package.json').exists())
+    def test_no_mandatory_package_manager_or_installed_runtime(self):
+        # The optional CSS-only npm manifest is distribution metadata, not a
+        # prerequisite for the canonical self-hosted stylesheets.
         self.assertFalse((ROOT/'node_modules').exists())
+        self.assertFalse((ROOT/'package-lock.json').exists())
+        self.assertFalse((ROOT/'pnpm-lock.yaml').exists())
+        self.assertFalse((ROOT/'yarn.lock').exists())
 
 if __name__ == '__main__': unittest.main()

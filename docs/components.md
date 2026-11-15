@@ -94,7 +94,7 @@ fetch data or require a renderer. Read [Syntyr Viz](viz.md) and open the
 
 ## Distribution behavior
 
-The repository contains **no `package.json`**, Node runtime requirement, or bundling dependency. A standard Python 3 build script creates deterministic concatenated CSS and validates exact committed outputs:
+The repository now includes an **optional CSS-only `package.json` for package-manager distribution**; there is still no Node runtime requirement, bundling dependency, or mandatory package manager. A standard Python 3 build script creates deterministic concatenated CSS and validates exact committed outputs (see [optional package-manager guide](package-managers.md)):
 
 ```sh
 python3 scripts/build.py

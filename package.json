@@ -1,0 +1,44 @@
+{
+  "name": "@syntyr/css",
+  "version": "0.3.0-alpha.5",
+  "description": "Framework-neutral CSS-first design system for modern apps and sites; no runtime JavaScript",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dporkka/syntyr-css.git"
+  },
+  "homepage": "https://syntyr-css.pages.dev/",
+  "style": "./dist/syntyr.core.css",
+  "exports": {
+    ".": "./dist/syntyr.core.css",
+    "./core.css": "./dist/syntyr.core.css",
+    "./semantic.css": "./dist/syntyr.semantic.css",
+    "./recipes.css": "./dist/syntyr.recipes.css",
+    "./effects.css": "./dist/syntyr.effects.css",
+    "./geometry.css": "./dist/syntyr.geometry.css",
+    "./symbols.css": "./dist/syntyr.symbols.css",
+    "./utilities.css": "./dist/syntyr.utilities.css",
+    "./print.css": "./dist/syntyr.print.css",
+    "./syntyr.css": "./dist/syntyr.css",
+    "./all.css": "./dist/syntyr.all.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "css",
+    "design-system",
+    "css-framework",
+    "no-javascript",
+    "css-only",
+    "themes"
+  ]
+}
