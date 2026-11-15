@@ -61,15 +61,16 @@ def source_files() -> dict[str, bytes]:
         ROOT / "agents/syntyr/SKILL.md",
         ROOT / "terminal/palettes.json",
         ROOT / "integrations/vertigo/admin.css",
+        ROOT / "integrations/radix/states.css",
         ROOT / "examples/ansi_cli.py",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
     public_docs = (
         "ai-quickstart.md", "agent-integration.md",
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
-        "console-kit.html", "design-research-linear-resend.md",
+        "console-kit.html", "component-recipes.md", "design-research-linear-resend.md",
         "distribution.md", "package-managers.md", "docs.css", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
-        "geometry-terminal.md", "performance-and-polish.md",
+        "geometry-terminal.md", "radix-integration.md", "performance-and-polish.md",
         "performance-validation.md", "progressive-enhancement.md",
         "index.html", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
@@ -77,7 +78,7 @@ def source_files() -> dict[str, bytes]:
         "vertigo-integration.md", "viz.md",
     )
     public_examples = (
-        "business.html", "console.html", "geometry-terminal.html", "landing.html",
+        "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "landing.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",

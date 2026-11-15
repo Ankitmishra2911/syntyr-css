@@ -1,0 +1,52 @@
+"""Dev-only browser smoke tests for new forms and optional Radix style hooks.
+
+Run with Playwright + all three browsers installed; not a consumer dependency.
+"""
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+
+ROOT = Path(__file__).resolve().parents[1]
+URL = (ROOT / "examples/form-composition.html").as_uri()
+ADAPTER = ROOT / "integrations/radix/states.css"
+
+
+def run():
+    with sync_playwright() as p:
+        for name in ("chromium", "firefox", "webkit"):
+            browser = getattr(p, name).launch()
+            for width in (320, 900):
+                page = browser.new_page(viewport={"width": width, "height": 850})
+                page.goto(URL)
+                assert page.get_by_label("Account name").count() == 1, (name, width, "label")
+                assert page.get_by_label("Monthly budget (USD)").count() == 1, (name, width, "unit")
+                row = page.locator(".syn-field-row").first
+                columns = row.evaluate("(element) => getComputedStyle(element).gridTemplateColumns").split()
+                assert len(columns) == (1 if width == 320 else 2), (name, width, columns)
+                input_rect = page.locator("#budget").bounding_box()
+                assert input_rect and input_rect["x"] >= -1 and input_rect["x"] + input_rect["width"] <= width + 1, (name, width, input_rect)
+                if width == 900:
+                    page.get_by_label("Account name").fill("Syntyr")
+                    page.get_by_role("button", name="Search").click()
+                    assert "q=Syntyr" in page.url, (name, page.url)
+                    page.add_style_tag(path=str(ADAPTER))
+                    page.evaluate("""() => {
+                      const button = document.createElement("button");
+                      button.id = "radix-toggle"; button.className = "syn-button";
+                      button.setAttribute("data-state", "on");
+                      button.textContent = "Pin";
+                      document.body.append(button);
+                    }""")
+                    def bg():
+                        return page.locator("#radix-toggle").evaluate("(e) => getComputedStyle(e).backgroundColor")
+                    baseline = bg()
+                    page.evaluate('document.body.classList.add("syn-radix")')
+                    assert bg() != baseline, (name, "root adapter failed")
+                    page.evaluate('document.body.classList.remove("syn-radix"); document.querySelector("#radix-toggle").remove(); document.body.insertAdjacentHTML("beforeend", \'<div class="syn-radix"><button id="radix-toggle" class="syn-button" data-state="on">Pin</button></div>\')')
+                    assert bg() != baseline, (name, "nested adapter failed")
+                page.close()
+            browser.close()
+            print("PASS", name, "form layout 320/900, native form GET, root/nested Radix states")
+
+
+if __name__ == "__main__":
+    run()

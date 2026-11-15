@@ -13,7 +13,7 @@ DIST = ROOT / 'dist'
 COMPONENTS = (
     'components/layout.css', 'components/typography.css',
     'components/buttons.css', 'components/forms.css',
-    'components/overlays.css', 'components/data.css', 'components/patterns.css',
+    'components/form-composition.css', 'components/overlays.css', 'components/data.css', 'components/patterns.css',
 )
 
 def assemble(paths):
