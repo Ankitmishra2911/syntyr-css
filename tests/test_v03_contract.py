@@ -39,7 +39,7 @@ class V03Contract(unittest.TestCase):
         self.assertNotIn('<script', pricing)
         self.assertIn('MIT', pricing)
 
-    def test_license_and_bundle_constraints(self):
+    def test_license_and_dependency_constraints(self):
         self.assertIn('MIT License', (ROOT / 'LICENSE').read_text())
         self.assertNotIn('tailwindcss', (ROOT / 'dist/syntyr.core.css').read_text().lower())
         self.assertFalse((ROOT / 'node_modules').exists())

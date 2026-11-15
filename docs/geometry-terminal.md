@@ -4,7 +4,7 @@ These are original, MIT-licensed SYNTYR CSS components. They do not replicate en
 
 ## Installation
 
-Load only the modules you need. Advanced geometry is a separate file so apps need not fetch extra frame CSS when they only use the core:
+Load only the modules you need. Advanced geometry is separate so ordinary pages do not load its CSS:
 
 ```html
 <link rel="stylesheet" href="/css/syntyr.core.css">

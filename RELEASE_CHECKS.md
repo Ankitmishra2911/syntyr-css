@@ -1,3 +1,5 @@
+> Historical prerelease measurements only: the listed size targets are no longer enforced.
+
 # Syntyr CSS v0.3.0-alpha.4 — release verification
 
 > Historical record. Size targets listed below applied to that release candidate; they are no longer enforced in the current source. Current raw/gzip diagnostics: `python3 scripts/asset_report.py`.
