@@ -24,6 +24,7 @@ def distributions():
     primary = {
         'syntyr.core.css': core,
         'syntyr.semantic.css': ('semantic.css',),
+        'syntyr.semantic-bundle.css': core + ('semantic.css',),
         'syntyr.recipes.css': ('recipes.css',),
         'syntyr.effects.css': ('effects.css',),
         'syntyr.geometry.css': ('geometry.css',),

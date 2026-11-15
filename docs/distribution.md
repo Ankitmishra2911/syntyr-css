@@ -21,6 +21,21 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## One-file semantic starter (unreleased alpha.5 source)
+
+For a Pico-like HTML workflow, `dist/syntyr.semantic-bundle.css` combines core and semantic CSS into a single file. Copy it to your static assets, then opt in on the region you want styled:
+
+```html
+<link rel="stylesheet" href="/css/syntyr.semantic-bundle.css">
+<body class="syn-root syn-page syn-semantic" data-syn-theme="studio">
+  <main class="syn-shell">
+    <article><h1>Dashboard</h1><button type="button">Open</button></article>
+  </main>
+</body>
+```
+
+Only the controls and elements inside `.syn-root.syn-semantic` are styled semantically. This is **not** Pico's globally classless behavior: the root scope is deliberate. No script or build tool is required. [See the runnable starter](../examples/semantic-starter.html) and the [Pico migration guide](from-pico.md). **This file is not in the published alpha.4 release** and its `/dist/` URL is not an immutable release asset; pin a released version once alpha.5 is actually published. Do not load `core.css` or `semantic.css` alongside this bundle.
+
 ## Optional npm/package-manager distribution
 
 A CSS-only `@syntyr/css` manifest is available in the alpha.5 repository candidate, but **it has not been published to npm**. See [package-manager installation and local tarball testing](package-managers.md) for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.
@@ -44,6 +59,7 @@ no additional stylesheet or runtime JavaScript. See the
 [progressive-enhancement guide](progressive-enhancement.md) for examples.
 The optional `syntyr.symbols.css` adds BYO-SVG icon sizing, literal Unicode styling and ASCII/box-drawing alignment without shipping fonts or icons; see [symbols and accessibility](symbols.md).
 
+`syntyr.semantic-bundle.css` bundles core and semantic styles with scoped opt-in.
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.syn-semantic` to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final `syn.utilities` cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see [the architecture policy](../ARCHITECTURE.md).
@@ -72,7 +88,7 @@ usually avoids an additional hostname connection.
 ## Release artifacts and guarantees
 
 The published alpha.4 release contains seven SYNTYR CSS distributions. The
-unreleased alpha.5 working tree currently contains ten SYNTYR distributions,
+unreleased alpha.5 source candidate includes modular SYNTYR distributions,
 including the optional utilities, print and symbols stylesheets, plus
 the terminal ANSI palette JSON, this guide, MIT license, and README. No retired compatibility aliases are shipped. The ZIP is created deterministically using only
 Python's standard library:
