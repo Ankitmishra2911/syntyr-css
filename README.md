@@ -31,6 +31,7 @@
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Optional CSS-only npm package (unpublished alpha.5 candidate)](docs/package-managers.md)
 - [Performance and design polish guide (no size gate)](docs/performance-and-polish.md)
+- [Progressive loading and critical CSS decision guide](docs/progressive-loading.md) and [zero-JS performance-first example](examples/performance-first.html)
 - [Framework integrations: HTMX, Alpine, Datastar, React, Vue, Svelte and server templates](docs/framework-integrations.md)
 - [Lit / Web Components integration guide](docs/lit-integration.md), [opt-in runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit), and [component-authoring contract](docs/component-authoring.md)
 - [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
