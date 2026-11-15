@@ -111,13 +111,17 @@ message must use an associated `aria-describedby` and `aria-invalid`
 on the input. Do not use `phx-update="ignore"` or `wire:ignore` just to
 make styling survive framework patches.
 
+For the same project-search interface rendered in all three backends,
+see the [Go vs Rails vs Laravel comparison](backend-integration-comparison.md).
+
 ## Go, Ruby/Rails, and PHP/Laravel: copyable application recipes
 
 The same CSS works without a component runtime or build tool. Copy
 `dist/syntyr.core.css` from the checked-out revision to your application's
 `public/css/syntyr.core.css`; load it once and render HTML under `.syn-root`.
 
-- **Go:** [Go templ GET search](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/search.templ).
+- **Go:** [Runnable Go stdlib search](https://github.com/dporkka/syntyr-css/blob/main/examples/go-stdlib-projects/README.md)
+  with an accessible table and Go runtime tests, plus [Go templ GET search](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/search.templ).
   Go `html/template` can emit the same `syn-*` classes; no Syntyr Go module
   is needed.
 - **Ruby on Rails:** [Rails ERB + optional Hotwire/Turbo recipe](https://github.com/dporkka/syntyr-css/blob/main/examples/rails-hotwire/README.md)

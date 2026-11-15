@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="3057829fdfad360dc5a2b444c528b21c8053dc5a3ab638f4a478d1ae872c1f7f">
+  <meta name="syntyr-source-sha256" content="e952c6f582d190ae3867a34f178fefa7f50ee529693aa5bd4abe493047c68364">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -125,12 +125,15 @@ Prefer stable, unique input and form IDs. A server-rendered validation
 message must use an associated <code>aria-describedby</code> and <code>aria-invalid</code>
 on the input. Do not use <code>phx-update=&quot;ignore&quot;</code> or <code>wire:ignore</code> just to
 make styling survive framework patches.</p>
+<p>For the same project-search interface rendered in all three backends,
+see the <a href="backend-integration-comparison.html">Go vs Rails vs Laravel comparison</a>.</p>
 <h2 id="go-rubyrails-and-phplaravel-copyable-application-recipes">Go, Ruby/Rails, and PHP/Laravel: copyable application recipes</h2>
 <p>The same CSS works without a component runtime or build tool. Copy
 <code>dist/syntyr.core.css</code> from the checked-out revision to your application's
 <code>public/css/syntyr.core.css</code>; load it once and render HTML under <code>.syn-root</code>.</p>
 <ul>
-<li><strong>Go:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/search.templ">Go templ GET search</a>.
+<li><strong>Go:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/go-stdlib-projects/README.md">Runnable Go stdlib search</a>
+with an accessible table and Go runtime tests, plus <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/search.templ">Go templ GET search</a>.
 Go <code>html/template</code> can emit the same <code>syn-*</code> classes; no Syntyr Go module
 is needed.</li>
 <li><strong>Ruby on Rails:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/rails-hotwire/README.md">Rails ERB + optional Hotwire/Turbo recipe</a>
