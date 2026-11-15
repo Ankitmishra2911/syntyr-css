@@ -24,6 +24,10 @@
     .premium-showcase-card p { margin-block-end: 0; }
     .premium-skip { position: absolute; inset-block-start: -10rem; inset-inline-start: 1rem; z-index: 5; }
     .premium-skip:focus-visible { inset-block-start: 1rem; }
+    @media (max-width: 40rem) {
+      .premium-theme, .premium-showcase-card { padding: min(12px, var(--syn-space-2)); }
+      .premium-theme .syn-eyebrow, .premium-theme strong { overflow-wrap: anywhere; }
+    }
     @media (forced-colors: active) { .premium-theme, .premium-values div, .premium-showcase-card { border-color: CanvasText; } }
   </style>
 </head>

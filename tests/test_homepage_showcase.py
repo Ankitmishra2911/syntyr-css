@@ -65,6 +65,19 @@ class HomeShowcaseContract(unittest.TestCase):
         self.assertIn("MIT", self.html)
         self.assertNotIn("no dependencies, ever", self.html.lower())
 
+    def test_hero_shows_real_published_palette_choices_without_runtime_javascript(self):
+        hero = self.html.split('<section class="site-hero"', 1)[1].split('</section>', 1)[0]
+        self.assertIn('class="site-hero-gallery"', hero)
+        self.assertIn('class="site-hero-palette-nav" aria-label="Explore published themes"', hero)
+        self.assertIn('class="site-preview-board" data-syn-theme="grid"', hero)
+        for theme in ("studio", "grid", "noir"):
+            with self.subTest(theme=theme):
+                self.assertIn(f'class="site-palette-link" data-syn-theme="{theme}"', hero)
+        self.assertIn('href="#theme-comparison"', hero)
+        self.assertIn("No live data", hero)
+        self.assertIn('data-syn-theme="studio" id="top"', self.html)
+        self.assertNotIn('<script', hero.lower())
+
     def test_visual_previews_are_not_fake_operable_controls(self):
         self.assertEqual(self.html.count('class="site-showcase-card'), 3)
         self.assertEqual(sum("site-preview" in attrs.get("class", "").split()

@@ -1,8 +1,9 @@
 # Optional real-browser adoption regression
 
-`tests/adoption_visual_browser.py` runs **Chromium** against three built
-independent consumer fixtures: Tailwind v4, static Astro and the opt-in
-shadcn semantic-token example. It uses ephemeral local HTTP servers and
+`tests/adoption_visual_browser.py` runs **Chromium** against four built
+independent consumer fixtures: Tailwind v4, static Astro, a plain HTML
+shadcn semantic-token example and an official CLI-generated shadcn React/Radix
+button example. It uses ephemeral local HTTP servers and
 checks real DOM/computed styles, nested theme tokens, keyboard focus outlines,
 missing assets and viewport overflow. It compares PNG screenshots against
 checked-in baselines at `tests/visual-baselines/`.
@@ -16,6 +17,7 @@ its zero-JS runtime contract. It is not yet an enforced release gate.
 cd examples/tailwind-v4 && npm install && npm run build && cd ../..
 cd examples/astro && npm install && npm run build && cd ../..
 cd examples/shadcn-bridge && npm install && npm run build && cd ../..
+cd examples/syntyr-shadcn-react && npm install && npm run build && cd ../..
 
 python3 -m venv /tmp/syntyr-adoption-browser
 /tmp/syntyr-adoption-browser/bin/pip install playwright pillow
