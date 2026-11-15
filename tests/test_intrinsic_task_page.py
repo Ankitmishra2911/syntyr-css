@@ -40,6 +40,21 @@ class IntrinsicTaskPageContract(unittest.TestCase):
         self.assertIn(".syn-cover", (ROOT / "dist/syntyr.recipes.css").read_text())
         self.assertNotIn(".syn-cover", (ROOT / "dist/syntyr.core.css").read_text())
 
+    def test_app_shell_selector_survives_cover_insertion(self):
+        # A literal backslash-n between nested rules changes the following
+        # selector into an invalid/nonmatching type selector. It previously
+        # escaped our source and generated-bundle checks.
+        for path in ("src/recipes.css", "dist/syntyr.recipes.css", "dist/syntyr.all.css"):
+            with self.subTest(path=path):
+                css = (ROOT / path).read_text()
+                self.assertNotIn(r"\n    /* Application shell", css)
+                self.assertIn("\n    /* Application shell:", css)
+                self.assertIn("&.syn-app-shell {", css)
+
+    def test_task_page_is_covered_by_accessibility_audit(self):
+        source = (ROOT / "tests/axe_audit.py").read_text()
+        self.assertIn('"examples/intrinsic-task-page.html"', source)
+
     def test_task_page_uses_semantics_and_server_owned_behavior(self):
         html = (ROOT / "examples/intrinsic-task-page.html").read_text()
         self.assertIn('syntyr.recipes.css', html)

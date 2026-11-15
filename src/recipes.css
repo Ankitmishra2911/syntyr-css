@@ -33,7 +33,8 @@
       min-inline-size: 0;
     }
     &.syn-cover > .syn-cover-main { margin-block: auto; min-inline-size: 0; }
-\n    /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
+
+    /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
     &.syn-app-shell {
       display: grid; grid-template-columns: minmax(0, 1fr);
       min-height: 100svh; min-width: 0;
