@@ -52,6 +52,27 @@ class CommercialOfferCatalogTests(unittest.TestCase):
         self.assertNotIn('business/premium-license-draft.md', published)
         self.assertFalse(any(path.startswith(('private/', 'business/', 'premium/')) for path in published))
 
+    def test_details_urls_resolve_to_published_product_pages(self):
+        from urllib.parse import urljoin, urlsplit, unquote
+        published = source_files()
+        catalog_url = 'https://syntyr-css.pages.dev/metadata/commercial-offers.json'
+        expected = {
+            'core': 'docs/distribution.html',
+            'console-kit': 'docs/console-kit.html',
+            'pro': 'docs/products.html',
+            'studio': 'docs/products.html',
+            'agency': 'docs/products.html',
+        }
+        for product in self.catalog['products']:
+            with self.subTest(product=product['id']):
+                url = urlsplit(urljoin(catalog_url, product['details_url']))
+                self.assertEqual(url.scheme, 'https')
+                self.assertEqual(url.hostname, 'syntyr-css.pages.dev')
+                self.assertFalse(url.query or url.fragment)
+                published_path = unquote(url.path).lstrip('/')
+                self.assertEqual(published_path, expected[product['id']])
+                self.assertIn(published_path, published)
+
     def test_mobile_navigation_has_native_no_javascript_disclosure(self):
         self.assertIn('<details class="site-mobile-menu">', self.html)
         self.assertIn('<summary>Menu</summary>', self.html)
