@@ -85,3 +85,23 @@ is complete, because CSS cannot materialize unloaded or virtualized rows.
 - Reduced motion, forced colors and assistive-technology behavior still need
   manual, representative real-device verification. Automated checks alone
   cannot establish WCAG compliance.
+
+## Cross-engine regression verification
+
+The development-only `tests/progressive_browser.py` checks computed theme
+colors, nested opt-in themes, semantic-mode isolation, narrow embedded layout,
+print-safe readable data, and disabled print motion in real browser engines:
+
+```sh
+python3 tests/progressive_browser.py --browsers chromium firefox webkit
+```
+
+It requires Playwright and installed browser binaries for **development only**.
+For a host without WebKit libraries, use an official matching Playwright
+container. The test fails visibly if a browser cannot launch; it never counts
+unexecuted engines as passing. Run accessibility and reflow suites separately.
+
+**Limitations:** Playwright viewport/root-font stress tests do not establish
+real browser UI zoom at 200%/400%. CSS `zoom` and CDP page scale are not
+interchangeable with native browser zoom: page scale may be post-layout.
+Real OS high-contrast and assistive-technology testing must be done manually.

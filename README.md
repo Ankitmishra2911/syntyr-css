@@ -131,6 +131,7 @@ Browser checks and the synthetic performance benchmark use Playwright (a **dev-o
 python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit # enlarged-text reflow stress check
+python3 tests/progressive_browser.py --browsers chromium firefox webkit # opt-in auto/print/scoping behavior
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js # dev-only checker; see docs/accessibility.md
 python3 tests/theme_editor_browser.py # optional docs-only editor browser checks
 python3 scripts/perf_benchmark.py --browsers chromium,firefox,webkit --runs 3 --rows 1200 --sections 12 # local synthetic performance
