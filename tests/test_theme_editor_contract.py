@@ -1,6 +1,7 @@
 """An optional docs-only theme tool must not alter the CSS runtime contract."""
 from html.parser import HTMLParser
 from pathlib import Path
+import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +47,30 @@ class ThemeEditorContract(unittest.TestCase):
         self.assertNotIn('localStorage', js)
         for name in ('syntyr.core.css', 'syntyr.all.css'):
             self.assertNotIn('theme-editor.js', (ROOT / 'dist' / name).read_text())
+
+
+    def test_soft_accent_is_derived_from_overridden_accent_in_each_theme(self):
+        tokens = (ROOT / 'src/tokens.css').read_text()
+        # A user-supplied primary color must not retain the original palette's hover tint.
+        # Every shipped theme must provide a tint derived from its active accent.
+        themes = set(re.findall(r'data-syn-theme="([^"]+)"', tokens))
+        self.assertEqual(
+            tokens.count('--syn-accent-soft: color-mix(in srgb, var(--syn-accent)'),
+            len(themes),
+        )
+        self.assertGreaterEqual(len(themes), 7)
+        self.assertNotIn('--syn-accent-soft: rgb(', tokens)
+
+    def test_editor_offers_all_seven_shipped_palettes(self):
+        page = (ROOT / 'docs/theme-editor.html').read_text()
+        for name in ('grid', 'noir', 'studio', 'industrial', 'terminal', 'corporate', 'minimal'):
+            with self.subTest(theme=name):
+                self.assertIn(f'<option value="{name}">', page)
+
+    def test_exported_palette_supports_embedded_theme_scopes(self):
+        js = (ROOT / 'docs/theme-editor.js').read_text()
+        # The preview is a nested data-syn-theme element; generated overrides must work there.
+        self.assertIn('.syn-root [data-syn-theme=', js)
 
 
 if __name__ == '__main__':

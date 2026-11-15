@@ -1,0 +1,17 @@
+# Standard-library-only CI. No npm, Node, or browser dependency is needed
+# to build, consume, or verify the shipped CSS.
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+  - event: manual
+
+steps:
+  - name: css-site-release-contract
+    image: python:3.14-slim
+    commands:
+      - python3 scripts/build.py --check
+      - python3 -m unittest discover -s tests -v
+      - python3 scripts/build_cloudflare_site.py
+      - python3 scripts/build_cloudflare_site.py --check
+      - python3 scripts/package_release.py /tmp/syntyr-ci.zip
