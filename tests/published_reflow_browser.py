@@ -8,6 +8,7 @@ zoom, touch hardware, or manual screen-reader verification. Internal horizontal
 scrolling is allowed only inside an actually scrollable ancestor.
 """
 import argparse
+import os
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -137,7 +138,10 @@ def main():
             with sync_playwright() as playwright:
                 for engine in args.browsers:
                     try:
-                        browser = getattr(playwright, engine).launch(headless=True)
+                        options = {"headless": True}
+                        if engine == "webkit" and os.getenv("SYNTYR_WEBKIT_EXECUTABLE"):
+                            options["executable_path"] = os.environ["SYNTYR_WEBKIT_EXECUTABLE"]
+                        browser = getattr(playwright, engine).launch(**options)
                     except Exception as exc:
                         print(f"BLOCKED {engine}: {str(exc).splitlines()[0]}", flush=True)
                         failures += 1

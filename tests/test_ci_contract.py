@@ -63,6 +63,7 @@ class ContinuousIntegrationContract(unittest.TestCase):
         script = (ROOT / "tests" / "published_reflow_browser.py").read_text()
         self.assertIn("from scripts.build_cloudflare_site import source_files", script)
         self.assertIn("VIEWPORTS", script)
+        self.assertIn("SYNTYR_WEBKIT_EXECUTABLE", script)
         workflow = (ROOT / ".woodpecker" / "browser.yaml").read_text()
         command = "python3 tests/published_reflow_browser.py --browsers chromium firefox webkit"
         self.assertGreaterEqual(active_workflow_command_position(workflow, command), 0)
