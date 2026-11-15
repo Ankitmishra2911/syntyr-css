@@ -14,7 +14,7 @@ import sys
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "docs/index.html", "examples/console.html",
+PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
@@ -32,7 +32,12 @@ def assert_page(browser, name: str, viewport: int) -> None:
     response = page.goto(url, wait_until="load")
     assert page.url == url, (url, page.url)
     assert response is None or response.ok, (url, response.status)
-    assert page.locator("script").count() == 0, name
+    if name == "docs/catalog.html":
+        # Catalog-owned progressive enhancement only; the consumer CSS has no JS.
+        assert page.locator('script[src="catalog.js"]').count() == 1
+        assert page.locator("script").count() == 1
+    else:
+        assert page.locator("script").count() == 0, name
     assert page.get_by_role("main").count() == 1, name
     assert page.locator('link[rel="stylesheet"]').count() >= 1
     css = page.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()")
@@ -43,6 +48,48 @@ def assert_page(browser, name: str, viewport: int) -> None:
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
+    if name == "docs/catalog.html":
+        cards = page.locator(".catalog-card")
+        total = cards.count()
+        assert total >= 8, total
+        assert all(cards.nth(i).is_visible() for i in range(total))
+        search = page.get_by_role("searchbox", name="Find a component")
+        assert search.is_visible()
+        search.fill("buttons")
+        assert page.locator(".catalog-card:visible").count() == 1, "search must hide unmatched cards"
+        assert f"Showing 1 of {total}" in page.locator("#catalog-results").inner_text()
+        search.fill("no-matching-syntyr-component-123456")
+        assert page.locator(".catalog-card:visible").count() == 0
+        assert page.locator("#catalog-empty").is_visible()
+        search.fill("")
+        assert page.locator(".catalog-card:visible").count() == total
+        if viewport == 1280:
+            button = page.get_by_role("button", name="Copy HTML").first
+            assert button.is_visible()
+            button.click()
+            # Clipboard permission handling is async; await the observable live
+            # region update rather than asserting synchronously after a click.
+            page.wait_for_function("""() => {
+                const message = document.getElementById('catalog-results')?.textContent || '';
+                return message.includes('HTML copied.') || message.includes('HTML selected.');
+            }""", timeout=3000)
+            status = page.locator("#catalog-results").inner_text()
+            assert ("HTML copied." in status or "HTML selected." in status), status
+            # Without documentation JavaScript, actual components and HTML source
+            # must still be usable; do not ship a JS-only catalog by accident.
+            fallback = browser.new_context(viewport={"width": 1280, "height": 850},
+                                           java_script_enabled=False)
+            try:
+                static = fallback.new_page()
+                static.goto(url, wait_until="load")
+                assert static.locator("#catalog-controls").is_hidden()
+                assert static.locator(".catalog-card:visible").count() == total
+                assert static.locator(".catalog-copy:visible").count() == 0
+                summary = static.locator(".catalog-code-details summary").first
+                summary.click()
+                assert static.locator(".catalog-code-details").first.get_attribute("open") is not None
+            finally:
+                fallback.close()
     if name == "index.html":
         assert page.locator('body').get_attribute('data-syn-theme') == 'studio'
         assert page.get_by_role('heading', level=1).count() == 1
