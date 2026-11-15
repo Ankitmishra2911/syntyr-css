@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental alpha; not a WCAG certification or professional audit.">
-  <meta name="syntyr-source-sha256" content="c1439df8057b914497de4f0a2dd56257745b34abb17e0c9ab9c78007fa13481b">
+  <meta name="syntyr-source-sha256" content="51e74683711a95a8584ae32c6d22c68f872978d27306823097fa1b0dd58ce53e">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS accessibility validation — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility">
@@ -105,6 +105,40 @@ contrast inspection. These targets are unresolved, not automatically passing
 or failing; record measured contrast, viewport, state, and reviewer decision
 before approving a release. The enlarged-label tests change root font size,
 not genuine browser zoom; human zoom and screen-reader gates remain open.</p>
+<h2 id="contrast-pixel-triage-developer-only-not-a-conformance-result">Contrast pixel triage (developer-only; NOT a conformance result)</h2>
+<p>An optional Chromium screenshot sampler helps prioritize axe-core findings that
+cannot automatically evaluate gradients and pseudo-elements. It samples the
+painted background under temporarily transparent glyphs, groups results by
+page/viewport/selector, and retains non-text and unsampled targets explicitly.
+The helper is deliberately <strong>not a release gate</strong>: selected pixels do not prove
+the contrast of every glyph, hover/focus state, overlay or customized theme.
+Run it with pinned tooling in a disposable developer environment:</p>
+<pre><code class="language-sh">python3 -m pip install playwright==1.65.2 Pillow==12.1.1
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe.json
+python3 tests/contrast_pixel_triage.py \
+  --axe-report /tmp/syntyr-axe.json \
+  --output /tmp/syntyr-contrast-triage.json \
+  --widths 1280 390 320
+</code></pre>
+<p>The November 15, 2026 <code>9ff10ac</code> baseline contained 162 incomplete contrast
+elements. After rebasing the targeted contrast fixes onto <code>7e5c14d</code> (a newer
+main with additional unrelated changes), a fresh axe scan reported <strong>160
+incomplete elements</strong> across 27 pages. Across three widths (480 observations),
+the heuristic classified 450 as sampled above their text threshold, 27 as
+non-text (9 distinct targets), and 3 as unsampled placeholders (one distinct
+target). <strong>Zero samples fell below their threshold or within a 0.5:1 margin.</strong>
+The earlier 162-target and 456-above sample counts are historical; neither
+report closes any axe incompletes as certified passes. Verify actual glyph
+pixels, interaction states and screen reader/zoom/OS high-contrast behavior
+before making a conformance claim.
+Following a further rebase onto <code>c726dc3</code> (restored native-APIs page),
+the newest candidate scan found <strong>161 incomplete elements across 28 pages</strong>:
+450 text/viewport observations sampled above threshold, 27 non-text and six
+unsampled textarea observations. There were still zero sampled-below or
+narrow-margin observations. All 161 inconclusives remain open for manual
+adjudication; the preceding 160-element count is historical.</p>
+<p>See <a href="accessibility-alpha5-review.html">the manual release review</a> for limitations.</p>
 <p>For reproducible WebKit on an isolated testing host with Podman or Docker, clone
 the repository to a directory that the container can read and run:</p>
 <pre><code class="language-sh">podman run --rm --shm-size=1g -v &quot;$PWD&quot;:/work:ro,Z -w /work \
@@ -269,6 +303,7 @@ targets. Do not present these findings as WCAG conformance certification.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#historical-post-merge-results-november-14-2026">Historical post-merge results (November 14, 2026)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#what-is-and-is-not-covered">What is and is not covered</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reproduce-the-tests-without-installing-production-dependencies">Reproduce the tests without installing production dependencies</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#contrast-pixel-triage-developer-only-not-a-conformance-result">Contrast pixel triage (developer-only; NOT a conformance result)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#earlier-automated-baseline-november-14-2026-unreleased-alpha5">Earlier automated baseline (November 14, 2026, unreleased alpha.5)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#manual-checklist">Manual checklist</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-system-palette-and-intrinsic-layout-checks">Optional system palette and intrinsic layout checks</a>
