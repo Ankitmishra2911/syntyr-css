@@ -15,6 +15,8 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Component reference](https://syntyr-css.pages.dev/docs/components.md): Real classes, tokens, scopes, semantic modes and candidate-only table wrapping migration (use .syn-cell--nowrap for identifiers).
 - [Component manifest](https://syntyr-css.pages.dev/metadata/components.json): Curated, validated selectors with their required CSS modules.
 - [Consumer agent skill](https://syntyr-css.pages.dev/agents/syntyr/SKILL.md): Portable, opt-in instructions.
+- [Contribution policy](https://github.com/dporkka/syntyr-css/blob/main/CONTRIBUTING.md): Public repository development, test, release and documentation rules.
+- [Private security reporting](https://github.com/dporkka/syntyr-css/blob/main/SECURITY.md): Report vulnerabilities privately through GitHub; never include exploits in public issues.
 
 ## Reference
 
@@ -24,6 +26,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
 - [Premium CSS-only compositions and browser validation](https://syntyr-css.pages.dev/docs/premium-compositions.md): SaaS surfaces, native command presentation, responsive layouts, and maintainer-only Chromium/Firefox/WebKit reflow, keyboard and axe verification (alpha.5 source candidate).
 - [Copyable form recipes](https://syntyr-css.pages.dev/docs/component-recipes.md): Candidate-only native form groups and accessible markup.
+- [Native patterns and component imports](https://syntyr-css.pages.dev/docs/native-patterns.md): Candidate-only native browser recipes and individual CSS entrypoints (not in alpha.4).
 - [Pico.css migration and semantic starter](https://syntyr-css.pages.dev/docs/from-pico.md): Candidate-only one-file semantic bundle and migration cautions (not in alpha.4).
 - [Optional Radix adapter](https://syntyr-css.pages.dev/docs/radix-integration.md): State-only styling for projects that already use Radix Primitives.
 - [Framework integrations](https://syntyr-css.pages.dev/docs/framework-integrations.md): HTMX, server templates, React and other stacks.

@@ -10,9 +10,9 @@ import sys
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 if __package__:
-    from .build import distributions
+    from .build import all_distributions
 else:
-    from build import distributions
+    from build import all_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 # One source of truth: scripts/build.py defines public CSS entrypoints.
@@ -27,6 +27,7 @@ FILES = (
     "docs/components.md",
     "docs/recipes.md",
     "docs/component-recipes.md",
+    "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
     "docs/native-browser-apis.md",
@@ -44,7 +45,7 @@ FILES = (
     "metadata/syntyr.css-custom-data.json",
     "metadata/syntyr.code-snippets",
 
-) + tuple(f"dist/{name}" for name in distributions()) + (
+) + tuple(f"dist/{name}" for name in all_distributions()) + (
     "terminal/palettes.json",
 )
 

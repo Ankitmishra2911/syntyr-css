@@ -16,9 +16,9 @@ import sys
 import tempfile
 
 if __package__:
-    from .build import distributions
+    from .build import all_distributions
 else:
-    from build import distributions
+    from build import all_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -121,7 +121,7 @@ PUBLIC_DOCS = (
     "ai-quickstart.md", "agent-integration.md",
     "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "component-authoring.md", "components.md",
     "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md",
-    "distribution.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
+    "distribution.md", "native-patterns.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
     "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
@@ -160,9 +160,10 @@ def source_files() -> dict[str, bytes]:
         ROOT / "examples/ansi_cli.py",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
+
     public_examples = (
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
-        "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-apis.html", "performance-first.html",
+        "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
@@ -170,7 +171,7 @@ def source_files() -> dict[str, bytes]:
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.
-    public_css = tuple(distributions())
+    public_css = tuple(all_distributions())
     paths.extend(ROOT / "docs" / name for name in PUBLIC_DOCS)
     paths.extend(ROOT / "docs" / (name.removesuffix(".md") + ".html")
                  for name in PUBLIC_DOCS if name.endswith(".md"))

@@ -5,7 +5,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from build import distributions
+from build import distributions, all_distributions
 from package_release import FILES
 from build_cloudflare_site import source_files
 
@@ -23,7 +23,7 @@ class ArchitectureContract(unittest.TestCase):
         self.assertNotIn(".syn-u-", (ROOT / "dist/syntyr.core.css").read_text())
 
     def test_public_css_artifacts_are_complete_across_distributions(self):
-        canonical = set(distributions())
+        canonical = set(all_distributions())
         self.assertEqual(
             {f"dist/{name}" for name in canonical},
             {path for path in FILES if path.startswith("dist/")},

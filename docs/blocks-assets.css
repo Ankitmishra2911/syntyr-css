@@ -28,6 +28,9 @@
 .syn-root .syn-block-asset--radar {
   background-image:repeating-radial-gradient(circle at 75% 25%,transparent 0 1.2rem,color-mix(in srgb,var(--syn-accent) 35%,transparent) calc(1.2rem + 1px) calc(1.2rem + 2px));
 }
+/* The radar ring can cross tiny muted captions; use the theme's text token
+   rather than relying on a close-to-4.5:1 gradient-specific margin. */
+.syn-root .syn-block-asset--radar>span {color:var(--syn-text)}
 /* asset: ambient-glow */
 .syn-root .syn-block-asset--ambient-glow {
   background-image:radial-gradient(ellipse at 80% 15%,var(--syn-accent-soft),transparent 72%);

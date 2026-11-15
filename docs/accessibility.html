@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Syntyr CSS accessibility validation. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="3cd472b99493f90a77b2b4edc2326f93f8532c179f1bdf563a4bdb47ac32fcde">
+  <meta name="syntyr-source-sha256" content="d01262e636f8b766aa8d652e84ced1688d5e2c53c4f03589f204da5201c6d8c4">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS accessibility validation — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility.html">
@@ -252,6 +252,7 @@ lacks libevent-2.1.so.7.</li>
 <p>The remaining release gates are genuine browser 200%/400% zoom, screen readers,
 native high-contrast inspection, and manual resolution of incomplete axe
 targets. Do not present these findings as WCAG conformance certification.</p>
+<p>Optional native recipe smoke test: run <code>node tests/native_recipes_browser.js</code> with developer-installed Playwright and its browser engines. It exercises form label state, popover escape/dismissal, modal commands where supported, reduced-motion transitions, and narrow viewport reflow. No Playwright package is shipped to consumers.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#audited-source-snapshot-november-15-2026-commit-038a24d">Audited source snapshot (November 15, 2026; commit 038a24d)</a>

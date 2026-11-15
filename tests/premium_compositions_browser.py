@@ -4,13 +4,27 @@ Usage: python3 tests/premium_compositions_browser.py --browsers chromium firefox
 No browser or JavaScript runtime is needed by Syntyr consumers.
 """
 import argparse
+import os
 from pathlib import Path
+import shutil
 import sys
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
 URL=(ROOT/"examples/premium-compositions.html").as_uri()
 RULE_TAGS=["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]
+
+
+def chromium_launch_options():
+    """Honor the optional system browser override used by the other suites."""
+    opts = {"headless": True}
+    executable = (os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
+                  or shutil.which("chromium") or shutil.which("chromium-browser"))
+    if executable:
+        opts["executable_path"] = executable
+        opts["args"] = ["--no-sandbox"]
+    return opts
+
 
 def audit(browser, engine, axe_file):
     cases=0
@@ -91,7 +105,7 @@ def main():
     with sync_playwright() as pw:
         for engine in args.browsers:
             try:
-                opts={"headless":True}
+                opts=chromium_launch_options() if engine=="chromium" else {"headless":True}
                 if engine=="webkit" and args.webkit_executable:
                     opts["executable_path"]=str(args.webkit_executable)
                 browser=getattr(pw,engine).launch(**opts)

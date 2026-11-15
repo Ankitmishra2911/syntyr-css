@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Native platform patterns and component imports. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="e7ae644db7df23aa30eee53f7676155ef3fba2f0cdb834a24483707f2026235e">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Native platform patterns and component imports — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns.html">
+  <link rel="alternate" type="text/markdown" href="native-patterns.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Native platform patterns and component imports</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="native-patterns.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Native platform patterns and component imports">
+<h1 id="native-platform-patterns-and-component-imports">Native platform patterns and component imports</h1>
+<p>This prerelease Syntyr example uses original CSS, not upstream Blades source.
+All patterns retain native HTML semantics and need <strong>no runtime JavaScript</strong>.
+For a live static preview, see <a href="https://syntyr-css.pages.dev/examples/native-recipes.html">the native recipe example (live alpha.5 source preview)</a>.</p>
+<h2 id="individually-importable-css">Individually importable CSS</h2>
+<p>Use the following <strong>source-tree alpha.5 candidate</strong> entrypoints after this PR
+is merged and released; they are not available in the published alpha.4 package:</p>
+<pre><code class="language-css">@import &quot;@syntyr/css/components/tokens.css&quot;;
+@import &quot;@syntyr/css/components/base.css&quot;;
+@import &quot;@syntyr/css/components/buttons.css&quot;;
+@import &quot;@syntyr/css/components/forms.css&quot;;
+@import &quot;@syntyr/css/components/form-composition.css&quot;;
+@import &quot;@syntyr/css/components/overlays.css&quot;;
+@import &quot;@syntyr/css/native-recipes.css&quot;;
+</code></pre>
+<p>Every component CSS file is directly generated from its original source, using
+the same order and cascade layers as core. Tokens, then base, then components,
+then optional recipes is the supported loading order. Form-composition requires
+forms. Do <strong>not</strong> load core and component entrypoints together, or styles will be
+duplicated. Runtime CSS dependencies, imports and JavaScript are not included in
+these distributables. In plain HTML, link the equivalent checked-in files under
+the dist directory. Use version-pinned self-hosted assets in production.</p>
+<p>If no selective loading is needed, use core plus the optional recipe sheet:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.native-recipes.css&quot;&gt;
+</code></pre>
+<h2 id="native-anchored-popovers-and-modal-commands">Native anchored popovers and modal commands</h2>
+<pre><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;actions&quot;&gt;Actions&lt;/button&gt;
+&lt;div id=&quot;actions&quot; popover class=&quot;syn-popover syn-popover--anchored&quot;&gt;
+  &lt;a href=&quot;/settings&quot;&gt;Settings&lt;/a&gt;
+&lt;/div&gt;
+&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; commandfor=&quot;report&quot; command=&quot;show-modal&quot;&gt;Report&lt;/button&gt;
+&lt;dialog id=&quot;report&quot; class=&quot;syn-dialog&quot; aria-labelledby=&quot;report-title&quot;&gt;
+  &lt;h2 id=&quot;report-title&quot;&gt;Report&lt;/h2&gt;
+  &lt;form method=&quot;dialog&quot;&gt;&lt;button type=&quot;submit&quot;&gt;Close&lt;/button&gt;&lt;/form&gt;
+&lt;/dialog&gt;
+</code></pre>
+<p>Native popover invokers provide an implicit CSS anchor in supporting browsers.
+The anchored variant uses position-area plus block/inline flip candidates; in
+other browsers it falls back to Syntyr's existing fixed corner positioning.
+For vital actions, links remain real links. Modal invoker commands are not
+universally available in older browsers, so provide a navigable fallback for
+critical content or use a small explicit progressive enhancement in the host.
+Transitions do <strong>not</strong> ship in core. To opt into native popover/dialog
+motion, load the additional <code>syntyr.motion.css</code> file, then add
+<code>.syn-popover--transition</code> to a <code>.syn-popover</code> or
+<code>.syn-dialog--transition</code> to a <code>.syn-dialog</code>. Both class and file are
+required. The motion module honors reduced-motion preferences; without
+either opt-in, dialogs and popovers use their native static behavior.
+Native browsers own focus management, Escape and dialog inertness; the stylesheet
+does not implement a custom ARIA menu.</p>
+<h2 id="floating-labels">Floating labels</h2>
+<pre><code class="language-html">&lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
+  &lt;input id=&quot;name&quot; name=&quot;name&quot; class=&quot;syn-input&quot; placeholder=&quot; &quot; required&gt;
+  &lt;label for=&quot;name&quot; class=&quot;syn-floating-label&quot;&gt;Full name&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Keep a persistent programmatic label with for/id. The one-space placeholder
+is a deliberate :placeholder-shown state hook, <strong>not</strong> the accessible label.
+Use only for text-like controls that implement placeholder-shown. Avoid for
+date, color, select, checkbox, radio and unsupported types. Validate contrast
+and long translated labels in the actual application.</p>
+<h2 id="semantic-timelines-and-captioned-code">Semantic timelines and captioned code</h2>
+<pre><code class="language-html">&lt;ol class=&quot;syn-timeline&quot; role=&quot;list&quot;&gt;
+  &lt;li&gt;&lt;time datetime=&quot;2026-11-15&quot;&gt;15 November&lt;/time&gt;Published&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;syn-code-figure&quot;&gt;
+  &lt;figcaption id=&quot;example-caption&quot;&gt;example.go&lt;/figcaption&gt;
+  &lt;pre tabindex=&quot;0&quot; aria-labelledby=&quot;example-caption&quot;&gt;&lt;code&gt;package main&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+</code></pre>
+<p>An ordered list communicates sequence; date/time labels are optional.
+The figure gives code an authentic, accessible caption, and the focusable pre
+supports keyboard scrolling of wide code samples.</p>
+<h2 id="server-rendering-and-framework-use">Server-rendering and framework use</h2>
+<ul>
+<li><strong>Go templates and templ:</strong> Emit the same native HTML; escape dynamic label,
+body and code text with the renderer and ensure stable unique id/for pairs.</li>
+<li><strong>Rust Askama:</strong> Render this markup in a regular Askama template. Escape
+dynamic content; let forms submit to real routes.</li>
+<li><strong>Astro:</strong> Import selected CSS files through its CSS pipeline, render standard
+HTML, and use Astro islands only for behaviors that require application state.</li>
+<li><strong>HTMX:</strong> Keep popovertarget and commandfor on native controls; for actions
+that mutate data, use real forms/links and HTMX only as progressive enhancement.</li>
+</ul>
+<h3 id="go-htmltemplate">Go html/template</h3>
+<pre><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;&gt;
+  &lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;profile-email&quot; name=&quot;email&quot;
+           type=&quot;email&quot; value=&quot;{{ .Email }}&quot; placeholder=&quot; &quot; required&gt;
+    &lt;label class=&quot;syn-floating-label&quot; for=&quot;profile-email&quot;&gt;Email address&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>The standard Go html/template engine escapes the Email value by context.</p>
+<h3 id="rust-askama">Rust Askama</h3>
+<pre><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;&gt;
+  &lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;profile-email&quot; name=&quot;email&quot;
+           type=&quot;email&quot; value=&quot;{{ email }}&quot; placeholder=&quot; &quot; required&gt;
+    &lt;label class=&quot;syn-floating-label&quot; for=&quot;profile-email&quot;&gt;Email address&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Use Askama's HTML autoescaping, unique IDs when rendering multiple forms, and
+normal server-side validation.</p>
+<h3 id="astro">Astro</h3>
+<pre><code class="language-astro">---
+import &quot;@syntyr/css/components/tokens.css&quot;;
+import &quot;@syntyr/css/components/base.css&quot;;
+import &quot;@syntyr/css/components/buttons.css&quot;;
+import &quot;@syntyr/css/components/forms.css&quot;;
+import &quot;@syntyr/css/native-recipes.css&quot;;
+---
+&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;&gt;
+  &lt;div class=&quot;syn-root syn-field syn-field--floating&quot;&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;astro-email&quot; name=&quot;email&quot;
+           type=&quot;email&quot; placeholder=&quot; &quot; required /&gt;
+    &lt;label class=&quot;syn-floating-label&quot; for=&quot;astro-email&quot;&gt;Email address&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>In a real Astro page place the syn-root scope around the entire page region,
+as in this form. Package imports
+are source candidate features until a corresponding npm release is published.</p>
+<h3 id="htmx-optional-enhancement">HTMX (optional enhancement)</h3>
+<pre><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;
+      hx-post=&quot;/profile&quot; hx-target=&quot;#profile-result&quot; hx-swap=&quot;outerHTML&quot;&gt;
+  &lt;label for=&quot;profile-email&quot;&gt;Email address&lt;/label&gt;
+  &lt;input class=&quot;syn-input&quot; id=&quot;profile-email&quot; name=&quot;email&quot; type=&quot;email&quot; required&gt;
+  &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+&lt;p id=&quot;profile-result&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;&lt;/p&gt;
+</code></pre>
+<p>The action/method pair remains functional without HTMX. Host applications must
+provide their own HTMX script and server response semantics.</p>
+<p>This guide intentionally avoids wrappers and framework-specific JavaScript.
+Refer to <a href="framework-integrations.html">framework integrations</a> and the
+<a href="https://syntyr-css.pages.dev/docs/progressive-enhancement.md">progressive enhancement guide (online)</a> for host behavior
+and fallbacks.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#individually-importable-css">Individually importable CSS</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-anchored-popovers-and-modal-commands">Native anchored popovers and modal commands</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#floating-labels">Floating labels</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#semantic-timelines-and-captioned-code">Semantic timelines and captioned code</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#server-rendering-and-framework-use">Server-rendering and framework use</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#go-htmltemplate">Go html/template</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#rust-askama">Rust Askama</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#astro">Astro</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#htmx-optional-enhancement">HTMX (optional enhancement)</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="native-patterns.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

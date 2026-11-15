@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Syntyr CSS component and token contract. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="511c7b782ad73c5a69d332b62600fb1eaba4870407534775d16d094825e9a273">
+  <meta name="syntyr-source-sha256" content="469a376f9a9b8630a4212a61ca51fbee1eb3e921d9a649c16575f0b476c866fa">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components.html">
@@ -163,6 +163,8 @@ Inspect <code>metadata/syntyr-api.json</code> for the machine-readable API index
 or use the <a href="editor-integration.html">editor integration instructions</a>.</p>
 <p>Optional native browser integrations: <code>.syn-popover--anchored</code> for invoker-relative popovers, <code>.syn-textarea--autosize</code> for <code>field-sizing: content</code>, and (with the optional <code>syntyr.motion.css</code> stylesheet) <code>.syn-popover--transition</code> and <code>.syn-reading-progress</code>. See the <a href="native-browser-apis.html">browser API guide</a> for compatibility and fallbacks.</p>
 <p>Use native button <code>popovertarget=&quot;id&quot;</code> to control a popover and <code>commandfor=&quot;id&quot; command=&quot;show-modal&quot;</code> to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.</p>
+<p>For component-level package imports and optional native UI recipes, see
+<a href="native-patterns.html">native patterns</a>.</p>
 <h2 id="neutral-first-visual-styling">Neutral-first visual styling</h2>
 <p>The implicit <code>.syn-root</code> palette is Studio (light and sans-serif). Explicit <code>data-syn-theme=&quot;grid&quot;</code> and <code>data-syn-theme=&quot;terminal&quot;</code> retain technical monospace presentation; other themes remain opt-in. <code>.syn-panel</code> and <code>.syn-stage</code> are flat by default; add <code>syn-surface--accent</code> from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. <code>.syn-badge</code> is a neutral label; use <code>.syn-status</code> with readable status text for meaningful state, or <code>.syn-badge--accent</code> to emphasize a badge.</p>
 <p>Use <code>.syn-section-heading</code> between <code>.syn-heading</code> and <code>.syn-display</code>. Table content wraps by default for better readability in narrow regions, including long text. Apply <code>.syn-cell--nowrap</code> to identifiers or short labels that must stay on one line; <code>.syn-cell--numeric</code> also preserves no-wrap numeric alignment. <code>.syn-cell--wrap</code> remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside <code>.syn-table-wrap</code> with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with <code>tabindex=&quot;0&quot;</code>, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.</p>

@@ -1,5 +1,10 @@
 # Performance validation protocol
 
+For the optional reproducible five-framework comparison harness, see
+[framework performance benchmark](framework-performance.md). It does not
+establish a named-framework ranking until visual parity is independently
+validated.
+
 SYNTYR CSS is small and has no required runtime JavaScript, but neither
 property proves that its pages render faster than Tailwind, UnoCSS, Pico, or
 hand-written CSS. Do not publish cross-framework speed rankings without
