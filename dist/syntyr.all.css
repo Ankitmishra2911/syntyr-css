@@ -405,6 +405,13 @@
     &.syn-help { color: var(--syn-muted); font-size: .8rem; }
     &.syn-error { color: var(--syn-danger); font-size: .8rem; }
     &.syn-textarea { min-height: 6rem; resize: vertical; }
+    /* `field-sizing` is ignored in older engines; the standard textarea still works. */
+    &.syn-textarea.syn-textarea--autosize {
+      field-sizing: content;
+      min-height: 6rem;
+      max-height: 24rem;
+      overflow-y: auto;
+    }
     &.syn-input[type="checkbox"], &.syn-input[type="radio"] { width: max(1.5rem, 24px); min-width: max(1.5rem, 24px); min-height: max(1.5rem, 24px); height: max(1.5rem, 24px); padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
     &.syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
     &.syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
@@ -489,6 +496,16 @@
       box-shadow: 0 20px 70px rgb(0 0 0 / 45%);
     }
     &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    /* The ordinary corner popover remains the fallback if anchors are unsupported. */
+    @supports (position-area: bottom) {
+      &.syn-popover.syn-popover--anchored:popover-open {
+        inset: auto;
+        margin: .5rem 0 0;
+        position-anchor: auto;
+        position-area: bottom;
+        position-try-fallbacks: flip-block, flip-inline;
+      }
+    }
     &.syn-dialog { margin: auto; }
     &.syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
     &.syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
@@ -1056,6 +1073,55 @@
     @media (forced-colors: active) {
       &.syn-scanlines::after { display: none; }
       &.syn-horizon, &.syn-atmosphere, &.syn-gradient-wash { background-image: none; }
+    }
+  }
+}
+/* Deliberately separate from static effects; no selectors activate without opt-in classes. */
+@layer syn.effects {
+  @keyframes syn-reading-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  /* All UI selectors are bounded by a Syntyr root. */
+  :where(.syn-root, .syn-root *) {
+    /* Opt-in, decorative scroll progress. Unsupported engines and reduced motion hide it. */
+    &.syn-reading-progress { display: none; }
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll(root block)) {
+        &.syn-reading-progress {
+          display: block;
+          position: fixed;
+          inset-block-start: 0;
+          inset-inline-start: 0;
+          inline-size: 100%;
+          block-size: .2rem;
+          background: var(--syn-accent);
+          pointer-events: none;
+          z-index: 50;
+          transform-origin: left center;
+          animation: syn-reading-progress linear both;
+          animation-timeline: scroll(root block);
+        }
+      }
+      /* Native top-layer entry/exit animation without a JavaScript animation engine. */
+      @supports (transition-behavior: allow-discrete) {
+        &.syn-popover.syn-popover--transition {
+          opacity: 0;
+          transform: translateY(-.4rem);
+          transition: opacity 180ms ease, transform 180ms ease, display 180ms, overlay 180ms;
+          transition-behavior: allow-discrete;
+        }
+        &.syn-popover.syn-popover--transition:popover-open {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        @starting-style {
+          &.syn-popover.syn-popover--transition:popover-open {
+            opacity: 0;
+            transform: translateY(-.4rem);
+          }
+        }
+      }
     }
   }
 }

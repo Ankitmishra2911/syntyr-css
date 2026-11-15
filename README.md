@@ -103,6 +103,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.core.css` | Tokens, scoped base, components (default choice) |
 | `dist/syntyr.semantic.css` | Optional semantic HTML styling (load after core) |
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
+| `dist/syntyr.motion.css` | Optional browser-native scroll progress and discrete popover transitions |
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
 | `dist/syntyr.viz.css` | Optional theme-aware data visualization styles, no chart renderer or JS |
@@ -119,7 +120,7 @@ separate from core and included only in the all-in-one bundle.
 
 Geometry, symbols, Viz and utilities are opt-in; neither the core bundle nor ordinary component selectors require them. The symbols module ships no SVG assets, icon fonts, glyph sets or runtime dependencies.
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css`, `src/symbols.css`, `src/viz.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/motion.css`, `src/geometry.css`, `src/symbols.css`, `src/viz.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites
 
@@ -130,6 +131,8 @@ For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipe
 **Native CLI apps cannot consume CSS.** Instead, use `terminal/palettes.json` with Go, Rust, Python or another CLI implementation to define ANSI 16-color palettes and foreground/background preferences. See the [stdlib Python demonstration](examples/ansi_cli.py) and [integration guide](docs/saas-cli-business.md). Respect `NO_COLOR`, TTY detection and user terminal preferences.
 
 All additions are MIT licensed and do not change the core runtime dependency contract. The Studio theme, recipes and CLI palettes are included in the v0.3.0-alpha.4 release.
+
+For native platform integration, see the [browser API compatibility and progressive enhancement guide](docs/native-browser-apis.md) and the [script-free native API demo](examples/native-apis.html). The core stays JavaScript-free; native CSS anchors and content-sized textareas are opt-in, and scroll-progress / overlay transitions live in the dedicated motion module.
 
 ## Development and verification
 
