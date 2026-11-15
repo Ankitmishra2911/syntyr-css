@@ -18,6 +18,7 @@
 ## Live gallery and installation
 
 - [Live website on Cloudflare](https://syntyr-css.pages.dev/)
+- [Tailwind alternative decision guide](docs/tailwind-alternative.html): honest tradeoffs against Tailwind v4 and plain CSS, free SaaS demos, and HTML-first adoption guidance.
 - [Native enterprise data table example](examples/data-tables.html) and [accessible table guide](docs/data-tables.html)
 - [Component gallery](https://syntyr-css.pages.dev/docs/)
 - [20 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
