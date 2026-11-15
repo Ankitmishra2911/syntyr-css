@@ -1,0 +1,80 @@
+"""Curated CSS-only recipe contracts are safe for coding-agent composition."""
+import copy
+import json
+from pathlib import Path
+import sys
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from export_api_metadata import outputs, validate_recipes  # noqa: E402
+
+
+class RecipeContractTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.contract = json.loads(outputs()[ROOT / "metadata/syntyr-contract.json"])
+        cls.curated = json.loads((ROOT / "metadata/components.json").read_text())
+
+    def test_exported_recipes_have_valid_class_and_stylesheet_coverage(self):
+        recipes = self.contract["recipes"]
+        self.assertEqual({recipe["id"] for recipe in recipes}, {
+            "crm-filter", "resource-table", "app-shell", "validated-form"
+        })
+        classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
+        for recipe in recipes:
+            self.assertTrue(recipe["description"])
+            self.assertIn("examples/", recipe["example"])
+            self.assertTrue((ROOT / recipe["example"]).is_file())
+            self.assertTrue(recipe["host_behavior"])
+            used = list(recipe["root"]["classes"])
+            used += [name for slot in recipe["slots"] for name in slot["classes"]]
+            for name in used:
+                self.assertIn(name, classes)
+                self.assertTrue(classes[name].intersection(recipe["stylesheets"]), name)
+            self.assertEqual(len({s["name"] for s in recipe["slots"]}), len(recipe["slots"]))
+        self.assertEqual(self.curated["recipes"], recipes)
+
+    def test_rejects_unknown_classes_and_missing_css_module(self):
+        original = self.curated["recipes"]
+        classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
+        broken = copy.deepcopy(original)
+        broken[0]["slots"][0]["classes"].append("syn-not-a-class")
+        with self.assertRaisesRegex(ValueError, "unknown class"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+        broken = copy.deepcopy(original)
+        broken[0]["stylesheets"] = ["syntyr.core.css"]
+        with self.assertRaisesRegex(ValueError, "not loaded"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+
+    def test_rejects_unknown_distribution_and_duplicate_recipe_id(self):
+        original = self.curated["recipes"]
+        classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
+        broken = copy.deepcopy(original)
+        broken[0]["stylesheets"].append("syntyr.missing.css")
+        with self.assertRaisesRegex(ValueError, "unknown stylesheet"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+        broken = copy.deepcopy(original)
+        broken[1]["id"] = broken[0]["id"]
+        with self.assertRaisesRegex(ValueError, "duplicate recipe id"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+
+    def test_rejects_invalid_variants_and_duplicate_slots(self):
+        original = self.curated["recipes"]
+        classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
+        broken = copy.deepcopy(original)
+        broken[0]["variants"]["data-syn-density"] = ["impossible"]
+        with self.assertRaisesRegex(ValueError, "unsupported variant"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+        broken = copy.deepcopy(original)
+        broken[0]["slots"].append(copy.deepcopy(broken[0]["slots"][0]))
+        with self.assertRaisesRegex(ValueError, "duplicate slot"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+
+    def test_checked_in_contract_matches_exporter(self):
+        content = outputs()[ROOT / "metadata/syntyr-contract.json"]
+        self.assertEqual(content, (ROOT / "metadata/syntyr-contract.json").read_text())
+
+
+if __name__ == "__main__":
+    unittest.main()

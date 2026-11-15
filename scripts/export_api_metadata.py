@@ -150,6 +150,53 @@ def collect():
     }
 
 
+
+def validate_recipes(recipes, class_stylesheets, attributes):
+    """Check curated multi-part recipes against actual source-discovered CSS.
+
+    Recipes are compositional guidance, never runtime widgets or strict HTML
+    authoring rules. Validation catches stale classes and missing modules.
+    """
+    ids = set()
+    for recipe in recipes:
+        ident = recipe["id"]
+        if not re.fullmatch(r"[a-z][a-z0-9-]*", ident) or ident in ids:
+            raise ValueError(f"invalid or duplicate recipe id: {ident}")
+        ids.add(ident)
+        stylesheets = set(recipe["stylesheets"])
+        if not stylesheets:
+            raise ValueError(f"{ident}: missing stylesheets")
+        unknown_stylesheets = stylesheets - set(all_distributions())
+        if unknown_stylesheets:
+            raise ValueError(f"{ident}: unknown stylesheet: {sorted(unknown_stylesheets)}")
+        if not recipe["description"].strip() or not recipe["host_behavior"].strip():
+            raise ValueError(f"{ident}: missing descriptive or host behavior contract")
+        example = recipe["example"]
+        if not example.startswith("examples/") or ".." in Path(example).parts or not (ROOT / example).is_file():
+            raise ValueError(f"{ident}: example not found: {example}")
+        slots = [recipe["root"]] + recipe["slots"]
+        slot_names = set()
+        for part in slots:
+            if "name" in part:
+                if part["name"] in slot_names:
+                    raise ValueError(f"{ident}: duplicate slot: {part['name']}")
+                slot_names.add(part["name"])
+                if not isinstance(part["optional"], bool) or not isinstance(part["repeatable"], bool):
+                    raise ValueError(f"{ident}: slot flags must be booleans")
+            if not re.fullmatch(r"[a-z][a-z0-9-]*", part["tag"]):
+                raise ValueError(f"{ident}: invalid HTML tag: {part['tag']}")
+            if not part["classes"]:
+                raise ValueError(f"{ident}: slot missing classes")
+            for name in part["classes"]:
+                if name not in class_stylesheets:
+                    raise ValueError(f"{ident}: unknown class: {name}")
+                if not class_stylesheets[name].intersection(stylesheets):
+                    raise ValueError(f"{ident}: class {name} not loaded by {sorted(stylesheets)}")
+        for attribute, values in recipe.get("variants", {}).items():
+            if attribute not in attributes or not values or not set(values).issubset(attributes[attribute]):
+                raise ValueError(f"{ident}: unsupported variant {attribute}: {values}")
+
+
 def component_contract(api, html_data):
     """Full source-discovered inventory plus curated semantic component recipes.
 
@@ -176,6 +223,16 @@ def component_contract(api, html_data):
             for item in items
         ]
 
+    attributes = {
+        attribute["name"]: [value["name"] for value in attribute["values"]]
+        for attribute in html_data["globalAttributes"]
+        if attribute["name"].startswith("data-syn-") and "values" in attribute
+    }
+    class_stylesheets = {
+        item["name"]: set(item["stylesheets"]) for item in with_stylesheets(api["classes"])
+    }
+    validate_recipes(curated.get("recipes", []), class_stylesheets, attributes)
+
     return {
         "schema_version": 1,
         "source_version": (ROOT / "VERSION").read_text(encoding="utf-8").strip(),
@@ -185,12 +242,9 @@ def component_contract(api, html_data):
         "classes": with_stylesheets(api["classes"]),
         "tokens": with_stylesheets(api["tokens"]),
         "themes": api["themes"],
-        "attributes": {
-            attribute["name"]: [value["name"] for value in attribute["values"]]
-            for attribute in html_data["globalAttributes"]
-            if attribute["name"].startswith("data-syn-") and "values" in attribute
-        },
+        "attributes": attributes,
         "components": curated["components"],
+        "recipes": curated.get("recipes", []),
     }
 
 
