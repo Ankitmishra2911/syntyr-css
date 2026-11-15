@@ -103,10 +103,22 @@ Prefer removing duplicate rules and simplifying variants before adding new
 features. Do not add a CSS compiler, framework runtime, NPM dependency,
 custom widget system or site generator without measured demand.
 
+## Generated editor metadata
+
+`scripts/export_api_metadata.py` reads the CSS source and produces a small,
+committed JSON index, VS Code HTML/CSS custom data, and optional editor snippets
+in `metadata/`. It uses only the Python standard library. The generated
+outputs are checked by unit tests and package release validation, so the
+autocomplete surface cannot silently drift from the CSS source. Metadata
+is a documentation/tooling adapter, never an application build requirement.
+The interactive playground runs only in `docs/`, renders editable markup in a
+script-disabled sandbox, and is never bundled into distributed stylesheets.
+
 ## Maintainer checks and release gates
 
 ```sh
 python3 scripts/build.py --check
+python3 scripts/export_api_metadata.py --check
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
 ```

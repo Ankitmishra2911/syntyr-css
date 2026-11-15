@@ -72,8 +72,14 @@ Useful tokens:
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
 | `--syn-duration-fast`, `--syn-ease` | Optional transitions |
+| `--syn-panel-padding`, `--syn-panel-radius`, `--syn-panel-border-width` | Local panel customization |
+| `--syn-button-padding-inline`, `--syn-button-border-width` | Local button customization |
 
-## 3. CSS component mode versus native semantic mode
+## 3. Independent visual intensity
+
+Use `data-syn-intensity="quiet"` on a dense dashboard, the default `standard` for a balanced presentation, or `cinematic` on a limited hero region. Intensity controls only opt-in decoration in `syntyr.effects.css`; it does not alter palette, density, typography or control contrast. Nested regions can override an inherited value. See the [visual-intensity guide](visual-intensity.md) and [live comparison](../examples/intensity-geometry.html).
+
+## 4. CSS component mode versus native semantic mode
 
 Scoped component classes: `.syn-panel`, `.syn-button`, `.syn-table`.
 They work with only `syntyr.core.css`.
@@ -98,7 +104,7 @@ If you need glows or static grid effects, add `syntyr.effects.css`
 as a third optional file. Don't load `syntyr.all.css` **and** its
 individual component files at the same time.
 
-## 4. Responsive applications and accessibility
+## 5. Responsive applications and accessibility
 
 Use `.syn-region` as the parent for container-responsive patterns such as
 `.syn-stats`, `.syn-split`, `.syn-pricing`; width comes from the container,

@@ -38,7 +38,7 @@
   .site-mobile-menu nav { position: absolute; inset-block-start: calc(100% + .45rem); inset-inline-end: 0; z-index: 15; width: min(18rem, 85vw); display: grid; gap: .15rem; padding: .55rem; border: 1px solid var(--syn-frame); border-radius: .5rem; background: var(--syn-surface); box-shadow: 0 20px 45px rgb(0 0 0 / 20%); }
   .site-mobile-menu nav a { min-height: 44px; display: flex; align-items: center; padding: .6rem .75rem; text-decoration: none; color: var(--syn-text); border-radius: .25rem; }
   .site-mobile-menu nav a:hover, .site-mobile-menu nav a:focus-visible { background: var(--syn-surface-hi); }
-  .docs-title { font-size: clamp(2.75rem, 7vw, 5.3rem); letter-spacing: -.06em; max-width: 14ch; overflow-wrap: normal; }
+  .docs-title { font-size: clamp(2.75rem, 7vw, 5.3rem); letter-spacing: -.06em; max-width: 14ch; overflow-wrap: anywhere; }
   .docs-hero { padding-block: clamp(2rem, 4vw, 4rem) 2rem; }
   .docs-hero .syn-lede { max-width: 62ch; }
   .docs-hero .syn-actions { flex-wrap: wrap; }

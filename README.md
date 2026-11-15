@@ -8,6 +8,7 @@
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
 - **Neutral Studio palette by default:** opt into Grid, Noir, Industrial, Terminal, Corporate, or Minimal with `data-syn-theme`. Seven palettes are in the unreleased alpha.5 candidate; published alpha.4 provides Grid, Noir, and Studio.
 - **Quiet component surfaces by default:** use `.syn-surface--accent` from optional recipes and `.syn-badge--accent` for deliberate visual emphasis.
+- **Independent visual intensity:** optional `data-syn-intensity="quiet|standard|cinematic"` controls decorative effects without changing the theme, component semantics or runtime JavaScript contract.
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.syn-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
@@ -22,6 +23,7 @@
 - [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md)
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
+- [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)
 - [Tagged GitHub releases](https://github.com/dporkka/syntyr-css/releases)
 - [Architecture, API stability and low-entropy maintenance policy](ARCHITECTURE.md)
@@ -36,6 +38,8 @@
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Design research: Linear, Resend, and developer tooling](docs/design-research-linear-resend.md)
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
+- [Interactive component playground — live prerelease preview](https://8cfcb0ce.syntyr-css.pages.dev/docs/playground.html) ([permanent site URL after merge](https://syntyr-css.pages.dev/docs/playground.html); [HTML source](docs/playground.html))
+- [Editor metadata and autocomplete setup](docs/editor-integration.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Progressive enhancement, automatic color scheme and print styling](docs/progressive-enhancement.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
@@ -49,6 +53,7 @@
 - [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
 - [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
+- [Quiet / standard / cinematic intensity comparison](examples/intensity-geometry.html) with [composability guide](docs/visual-intensity.md): independent effect controls, composable frame accents, and nested presets without JavaScript
 - [Optional SVG icons, Unicode markers and ASCII/box-drawing demo](examples/symbols.html) with [copy-paste guide](docs/symbols.md)
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
@@ -131,6 +136,7 @@ All additions are MIT licensed and do not change the core runtime dependency con
 ```sh
 python3 scripts/build.py
 python3 scripts/build.py --check
+python3 scripts/export_api_metadata.py --check # editor metadata stays in sync
 python3 scripts/asset_report.py # informational raw/gzip sizes, no hard ceiling
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
@@ -149,6 +155,29 @@ python3 scripts/perf_benchmark.py --browsers chromium,firefox,webkit --runs 3 --
 ```
 
 The browser scripts require developer-installed `playwright` and the browser engines selected for testing; Chromium is autodetected from `chromium` or `chromium-browser`, or may be set with `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. The benchmark records unavailable browsers as blocked. Consumers of the CSS do **not** require Playwright or browser automation. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
+
+### Verifying PR merge candidates (maintainers only)
+
+The optional Woodpecker `pr-merge` pipeline fetches the current `main` and tests
+an **isolated combined working tree** instead of validating the PR head alone.
+To reproduce locally from your feature branch:
+
+```sh
+git fetch --no-tags origin main
+python3 scripts/check_merge_candidate.py --base FETCH_HEAD
+```
+
+The test checks CSS, editor API metadata, consolidated agent documentation,
+Python contracts, Cloudflare allowlisted assets, and release packaging. It
+leaves the source branch unchanged and requires only Python 3 and Git.
+
+**Race boundary:** A passing check proves compatibility with the specific
+base SHA it fetched. It does not protect against another PR landing afterward.
+To prevent stale generated artifacts from reaching `main`, require the
+merge-candidate Woodpecker check on the **current base** through branch rules
+or a merge queue, and verify the actual main push is green. The workflow YAML
+alone does not prove a Woodpecker pipeline has executed; do not assume it is
+an enforced required check until the GitHub/CI integration is verified.
 
 ## Important boundaries
 

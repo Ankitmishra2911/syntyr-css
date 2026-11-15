@@ -52,6 +52,26 @@
       "notes": "Real handlers and field validation belong to the application."
     },
     {
+      "name": "Form compositions",
+      "module": "syntyr.core.css",
+      "elements": [
+        "form",
+        "label",
+        "input",
+        "button",
+        "span",
+        "div"
+      ],
+      "classes": [
+        "syn-field",
+        "syn-field-row",
+        "syn-field-body",
+        "syn-input-group",
+        "syn-input-addon"
+      ],
+      "notes": "Unreleased alpha.5 candidate only. Native form behavior, associated labels, server validation; use syn-region for container-responsive rows. The Radix adapter is separately optional."
+    },
+    {
       "name": "Tables",
       "module": "syntyr.core.css",
       "elements": [
@@ -152,6 +172,38 @@
         "syn-viz-cell"
       ],
       "notes": "Supply textual cell labels, data-syn-level and real data."
+    },
+    {
+      "name": "Advanced geometry frames",
+      "module": "syntyr.geometry.css",
+      "elements": [
+        "article",
+        "section",
+        "div"
+      ],
+      "classes": [
+        "syn-frame",
+        "syn-frame--bevel",
+        "syn-frame--notch",
+        "syn-frame--bracket",
+        "syn-frame--accent"
+      ],
+      "notes": "Load optional geometry CSS. One shape per frame; accent emphasis is additive. Refer to visual-intensity.md for pseudo-element ownership and backgrounds."
+    },
+    {
+      "name": "Decorative effects",
+      "module": "syntyr.effects.css",
+      "elements": [
+        "article",
+        "section",
+        "div"
+      ],
+      "classes": [
+        "syn-glow",
+        "syn-grid-effect",
+        "syn-gradient-wash"
+      ],
+      "notes": "Optional CSS only. data-syn-intensity on .syn-root or nested regions selects quiet, standard or cinematic effects without changing semantic state."
     }
   ]
 }

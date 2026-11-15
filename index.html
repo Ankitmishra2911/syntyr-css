@@ -30,7 +30,7 @@
     .site-nav a:hover, .site-nav a:focus-visible { color: var(--syn-text); }
     .site-nav a:last-child { color: var(--syn-accent); }
     .site-tertiary-link { align-self: center; color: var(--syn-muted); text-underline-offset: .2em; font-size: .9rem; }
-    .site-mobile-menu { display: none; position: relative; }
+    .site-mobile-menu { display: none; position: relative; margin-inline-start: auto; }
     .site-mobile-menu summary { cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 44px; min-width: 5rem; padding: .55rem .85rem; border: 1px solid var(--syn-border-subtle); border-radius: .4rem; background: var(--syn-surface); list-style: none; color: var(--syn-text); font-weight: 650; }
     .site-mobile-menu summary::-webkit-details-marker { display: none; }
     .site-mobile-menu summary::after { content: "⌄"; margin-inline-start: .65rem; }
@@ -91,7 +91,7 @@
     .site-compare-card header { display: flex; justify-content: space-between; gap: .5rem; align-items: center; margin-block-end: .85rem; }
     .site-compare-main { padding: 1rem; border: 1px solid var(--syn-frame); border-radius: .45rem; background: var(--syn-surface); }
     .site-compare-main small { color: var(--syn-muted); }
-    .site-compare-main strong { display: block; font: 690 1.75rem/1.4 var(--syn-font-display); margin-block: .15rem .8rem; }
+    .site-compare-main strong { display: block; font: 690 1.75rem/1.4 var(--syn-font-display); margin-block: .15rem .8rem; overflow-wrap: anywhere; }
     .site-compare-bars { display: flex; align-items: end; gap: .35rem; height: 2.4rem; }
     .site-compare-bars i { flex: 1; height: var(--bar); background: var(--syn-accent); border-radius: .15rem .15rem 0 0; }
     .site-theme-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: .65rem; }
@@ -199,7 +199,7 @@
         <div class="site-section-head">
           <div><span class="site-kicker">Use cases</span><h2 class="site-section-title" id="showcase-title">One foundation. Three directions.</h2>
           <p class="site-section-intro">Each demo uses the same semantic HTML and CSS building blocks. The visual identity is a theme choice, not a framework rewrite.</p></div>
-          <a href="docs/">See every component</a>
+          <a href="docs/catalog.html">Search and copy components</a>
         </div>
         <div class="site-showcase-grid">
           <article class="site-showcase-card syn-panel" id="studio" data-syn-theme="studio" aria-labelledby="studio-title">
@@ -317,6 +317,7 @@
       <span class="syn-caption">SYNTYR CSS · MIT-LICENSED · NO REQUIRED RUNTIME JAVASCRIPT</span>
       <nav aria-label="Footer navigation">
         <a href="docs/">Documentation</a>
+        <a href="docs/catalog.html">Component catalog</a>
         <a href="docs/#install">Installation</a>
         <a href="https://github.com/dporkka/syntyr-css">Source</a>
         <a href="https://github.com/dporkka/syntyr-css/issues/3">Developer feedback</a>

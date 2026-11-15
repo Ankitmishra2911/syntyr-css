@@ -44,7 +44,7 @@ These style variables are inherited and can be overridden on a specific panel:
 - `--syn-frame-fill`: default `var(--syn-surface)`; interior background
 - `--syn-frame-outline`: default `var(--syn-frame-strong)`; border tone
 
-**Important:** Advanced frame profiles own both pseudo-elements of the host node. Do not combine them on the same element with `.syn-panel--cut` or the older `.syn-frame--precision` variant, which also uses pseudo-elements. Nest elements if you need to combine decorations. The clipped border geometry does not depend on a matching parent background.
+**Composition:** Advanced frame profiles own both pseudo-elements of the host node. They now reset the prior layer's corner dimensions and clip-path, so `.syn-panel--cut` can be used on the same element: the selected frame shape **supersedes** its simpler corner decoration. Add `.syn-frame--accent` for a stronger outline without adding any pseudo-elements. Do not combine multiple shape variants. The older `.syn-frame--precision` also owns `::before`; nest those two treatments if both accents must remain visible. The clipped border geometry does not depend on matching the parent background, but background gradients on the host can bleed into cut corners; prefer solid `--syn-frame-fill` or an inner element.
 
 In forced-colors mode, decorative pseudo-elements disappear and a visible native border and Canvas background take over. Frames should not be the only way you communicate operational state.
 

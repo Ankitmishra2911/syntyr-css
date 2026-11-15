@@ -1,0 +1,337 @@
+{
+  "version": 1.1,
+  "properties": [
+    {
+      "name": "--syn-accent",
+      "description": "Theme accent color; also check --syn-on-accent contrast."
+    },
+    {
+      "name": "--syn-accent-2",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-accent-soft",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-bg",
+      "description": "Theme background."
+    },
+    {
+      "name": "--syn-border-default",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-border-focus",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-border-hover",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-border-subtle",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-bracket-size",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-button-border-width",
+      "description": "Per-button border width; defaults to 1px."
+    },
+    {
+      "name": "--syn-button-padding-inline",
+      "description": "Per-button inline padding; defaults to 1rem."
+    },
+    {
+      "name": "--syn-card-padding",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-chart-1",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-2",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-3",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-4",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-axis",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-grid",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-tooltip-bg",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-control-height",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-control-padding-block",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-cut",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-danger",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-duration-fast",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-ease",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-fluid-display-size",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-focus-ring",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-font",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-font-display",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-font-ui",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-frame",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-frame-outline",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-frame-shape",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-frame-stroke",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-frame-strong",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-glow-alpha",
+      "description": "Glow accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-grid-alpha",
+      "description": "Grid-line accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-horizon-alpha",
+      "description": "Horizon line accent share."
+    },
+    {
+      "name": "--syn-leading-body",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-line",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-mono",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-muted",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-on-accent",
+      "description": "Foreground color for the primary accent."
+    },
+    {
+      "name": "--syn-panel-border-width",
+      "description": "Per-panel border width; defaults to 1px."
+    },
+    {
+      "name": "--syn-panel-padding",
+      "description": "Per-panel padding; defaults to the existing fluid panel padding."
+    },
+    {
+      "name": "--syn-panel-radius",
+      "description": "Per-panel border radius; defaults to square corners."
+    },
+    {
+      "name": "--syn-radius",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-reading-width",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-row-padding-block",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-scanline-alpha",
+      "description": "Scanline overlay opacity percentage."
+    },
+    {
+      "name": "--syn-shadow-sm",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-1",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-2",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-3",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-4",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-5",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-stage-pad",
+      "description": "Syntyr CSS property (components/layout.css)."
+    },
+    {
+      "name": "--syn-success",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-hi",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-hover",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-interactive",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-pressed",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-raised",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-recessed",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-terminal-bg",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-terminal-fg",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-terminal-muted",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-terminal-prompt",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-text",
+      "description": "Default text color."
+    },
+    {
+      "name": "--syn-text-subtle",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-tracking-display",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-base",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-body",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-display",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-heading",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-lede",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-type-section",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-sm",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-xs",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-warning",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-wash-alpha",
+      "description": "Primary atmospheric wash share."
+    },
+    {
+      "name": "--syn-wash-secondary-alpha",
+      "description": "Secondary atmospheric wash share."
+    }
+  ]
+}

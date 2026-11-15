@@ -8,7 +8,7 @@ description: Use Syntyr's documented CSS classes, modules, themes and semantic H
 Use when a user asks you to build, redesign, or maintain an interface **using Syntyr CSS**.
 
 1. Determine which **version and CSS modules** are installed. Published immutable v0.3.0-alpha.4 supports Studio, Grid and Noir; current repository source v0.3.0-alpha.5 is unreleased and has additional modules/themes. Never silently mix the two.
-2. Read [AI quickstart](../../docs/ai-quickstart.md). For components, use [component documentation](../../docs/components.md) and [recipes](../../docs/recipes.md); a curated selector/module index is in [metadata/components.json](../../metadata/components.json).
+2. Read [AI quickstart](../../docs/ai-quickstart.md). For components, use [component documentation](../../docs/components.md) and [recipes](../../docs/recipes.md); a curated selector/module index is in [metadata/components.json](../../metadata/components.json). Source-only alpha.5 form compositions are documented in [form recipes](../../docs/component-recipes.md); projects already using Radix may opt into the separate [style adapter](../../docs/radix-integration.md).
 3. Prefer `syntyr.core.css`; add `syntyr.recipes.css`, `syntyr.semantic.css`, `syntyr.viz.css` or other optional modules only when their documented classes are needed. Do not load `syntyr.all.css` alongside modules.
 4. Use `.syn-root` as a styling scope and `data-syn-theme` for a palette. Use `.syn-semantic` only where the optional semantic stylesheet is loaded.
 5. Generate real, semantic HTML. Preserve labels, focus, responsive layout and native interaction. Syntyr has no required runtime JS, and it does not implement API calls, state changes, chart geometry or form handlers.

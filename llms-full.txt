@@ -161,7 +161,7 @@ a zero-specificity selector rather than a global reset. Checkboxes and
 radio controls using the explicit styling API retain a minimum 24 CSS px box;
 the surrounding label should provide additional activation area.
 
-For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.syn-semantic`). `syn-root` should wrap any themed subtree; nested `data-syn-theme` overrides color tokens.
+For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.syn-semantic`). `syn-root` should wrap any themed subtree; nested `data-syn-theme` overrides color tokens. The separate `data-syn-intensity="quiet|standard|cinematic"` attribute controls decorative strength on a root or nested region. Load `syntyr.geometry.css` for a `.syn-frame` with one shape and optional `.syn-frame--accent`. See the [visual-intensity guide](visual-intensity.md).
 
 ## Components
 
@@ -173,11 +173,40 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Typography | `.syn-logo`, `.syn-eyebrow`, `.syn-title`, `.syn-section-heading`, `.syn-heading`, `.syn-lede`, `.syn-mono`, `.syn-caption`, `.syn-muted` | native heading/text |
 | Status | `.syn-badge`, `.syn-badge--accent`, `.syn-status` and semantic variants, `.syn-alert`, `.syn-alert--danger`, `.syn-meter` on `progress` | native `progress` |
 | Forms | `.syn-form`, `.syn-label`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-check`, `.syn-fieldset`, `.syn-help`, `.syn-error` | unclassed form controls |
+| Form compositions | `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` | native `form`, `label`, `input`, `button` |
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
 | Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--numeric` | unclassed `table` |
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
+
+### Optional composition utilities and component overrides
+
+Load `syntyr.utilities.css` in addition to core to use finite helpers:
+`syn-u-w-full`, `syn-u-max-reading`, `syn-u-overflow-auto`,
+`syn-u-text-center`, `syn-u-min-w-0` and `syn-u-wrap`. These classes
+work only inside `.syn-root` and do not require a class generator.
+The existing flex/grid/spacing helpers are unchanged. Load the optional
+module only when it is needed.
+
+Customize individual components with custom properties rather than a new
+set of modifiers:
+
+```html
+<article class="syn-panel"
+         style="--syn-panel-padding:1.5rem; --syn-panel-radius:.75rem;
+                --syn-panel-border-width:2px">
+  <button class="syn-button"
+          style="--syn-button-padding-inline:1.25rem;
+                 --syn-button-border-width:2px">Open</button>
+</article>
+```
+
+Defaults preserve the previous appearance: fluid panel padding, square
+panel corners, and 1px borders; button inline padding defaults to 1rem.
+These values are local CSS custom properties, not compile-time settings.
+Inspect `metadata/syntyr-api.json` for the machine-readable API index,
+or use the [editor integration instructions](editor-integration.md).
 
 Use native button `popovertarget="id"` to control a popover and `commandfor="id" command="show-modal"` to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.
 
@@ -327,6 +356,8 @@ System-aware `data-syn-theme="auto"` is built into core CSS. Use optional
 Original: https://syntyr-css.pages.dev/docs/recipes.md
 
 # MIT-licensed composition recipes
+
+For copyable input groups, labeled fields, container-responsive settings forms and optional headless UI styling, see [form composition recipes](component-recipes.md) and the [Radix adapter](radix-integration.md).
 
 These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see [the gallery](index.html), the [Grid console](../examples/console.html), and the [Noir pricing layout](../examples/pricing.html).
 
@@ -505,6 +536,163 @@ See [the working minimalist demo](../examples/minimalist-patterns.html).
 
 ---
 
+## Source: docs/component-recipes.md
+
+Original: https://syntyr-css.pages.dev/docs/component-recipes.md
+
+# Copy-owned form recipes
+
+These are **MIT-licensed, plain-HTML examples**. Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime. Syntyr provides presentation; your browser and application provide behavior.
+
+Load `dist/syntyr.core.css` and apply `.syn-root` on a stable ancestor. Input groups and fields are included in core. The examples below also work in Go/templ, Askama, Django templates, Astro, React, and HTMX.
+
+## 1. Labeled field with assistance and server-side validation
+
+```html
+<div class="syn-root" data-syn-theme="studio">
+  <div class="syn-field">
+    <label class="syn-label" for="email">Work email</label>
+    <input class="syn-input" id="email" name="email" type="email"
+           autocomplete="email" aria-invalid="true"
+           aria-describedby="email-help email-error" required>
+    <p class="syn-help" id="email-help">Use your company email address.</p>
+    <p class="syn-error" id="email-error">Enter a valid work email.</p>
+  </div>
+</div>
+```
+
+Only render `aria-invalid="true"` and the error message when the form is actually invalid. Do not use CSS as a substitute for server-side validation. The field class groups presentation; the native `label for` association supplies the accessible name.
+
+## 2. Search field with a connected button
+
+```html
+<search class="syn-root" data-syn-theme="studio" aria-label="Search accounts">
+  <form method="get" action="/accounts">
+    <div class="syn-field">
+      <label class="syn-label" for="account-query">Account name</label>
+      <div class="syn-input-group">
+        <input class="syn-input" id="account-query" name="q"
+               type="search" placeholder="Search accounts">
+        <button class="syn-button syn-button--primary" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+</search>
+```
+
+This is **progressive enhancement**: the GET form submits with **No JavaScript**. An HTMX application may add `hx-get` and `hx-target` while preserving `action`, `method`, and a server-rendered fallback. The application must implement the endpoint and return actual search results.
+
+## 3. Input addon (currency and unit)
+
+```html
+<div class="syn-root" data-syn-theme="studio">
+  <div class="syn-field">
+    <label class="syn-label" for="monthly-budget">Monthly budget (USD)</label>
+    <div class="syn-input-group">
+      <span class="syn-input-addon" aria-hidden="true">$</span>
+      <input class="syn-input" id="monthly-budget" name="budget"
+             type="number" min="0" step="0.01" inputmode="decimal">
+      <span class="syn-input-addon" aria-hidden="true">USD</span>
+    </div>
+  </div>
+</div>
+```
+
+The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input.
+
+## 4. Container-responsive horizontal form
+
+```html
+<form class="syn-root syn-region syn-form" action="/settings" method="post"
+      data-syn-theme="corporate">
+  <div class="syn-field-row">
+    <label class="syn-label" for="org-name">Organization</label>
+    <div class="syn-field-body">
+      <input class="syn-input" id="org-name" name="organization"
+             aria-describedby="org-help" required>
+      <p class="syn-help" id="org-help">Visible to members of your team.</p>
+    </div>
+  </div>
+  <button class="syn-button syn-button--primary" type="submit">Save</button>
+</form>
+```
+
+The `syn-region` container determines whether rows become horizontal at 42rem. Without that ancestor they remain safely stacked. This is intentionally not a full grid/breakpoint framework. The help text is associated with its input via `aria-describedby`. A production POST endpoint must handle authorization, validation and CSRF.
+
+## Optional companion styles
+
+- [Radix Primitives state styling](radix-integration.md) provides an opt-in adapter for React applications while keeping Radix responsible for keyboard behavior.
+- shadcn/ui components can adopt Syntyr tokens in application-owned CSS. Modern color variables can use values such as `--background: var(--syn-bg)` and `--foreground: var(--syn-text)`, **only when** the shadcn component expects complete CSS color values. Older `hsl(var(--background))` consumers require an HSL-channel bridge instead; do not apply the mappings blindly.
+- `syntyr.semantic.css` remains a separate opt-in style for unclassed native HTML. Do not apply it indiscriminately around other component libraries.
+
+See [the static form showcase](../examples/form-composition.html) and the [main component contract](components.md).
+
+---
+
+## Source: docs/radix-integration.md
+
+Original: https://syntyr-css.pages.dev/docs/radix-integration.md
+
+# Optional Radix Primitives visual adapter
+
+Syntyr core remains plain CSS with zero runtime JavaScript and zero React dependencies. Radix is a **separate application choice**. Its components own the accessible name, **ARIA** attributes, focus management, keyboard controls and state updates. Syntyr only adds styling.
+
+## Install and opt in
+
+In a React project using Radix Primitives, add a link **after** the core CSS:
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/radix/states.css">
+```
+
+Copy [the adapter](../integrations/radix/states.css) into your project, or reference its repository source. Do not load it when you do not use Radix. It is **not** included in `syntyr.all.css`, either.
+
+Wrap the relevant app area in `.syn-root`. Apply `.syn-radix` on that root, on a container inside it, **or directly on a stateful Syntyr control** to opt in only that control. If Radix portals content to the document body, set that portal's `container` inside the styled root, or style the portal explicitly. Do not assume portal content inherits Syntyr tokens when it is mounted outside the root.
+
+## Example: controlled behavior, CSS presentation
+
+```jsx
+import * as Accordion from "@radix-ui/react-accordion";
+import * as Toggle from "@radix-ui/react-toggle";
+
+export function Controls() {
+  return (
+    <section className="syn-root syn-radix" data-syn-theme="studio">
+      <Toggle.Root className="syn-button" aria-label="Pin dashboard">
+        Pin dashboard
+      </Toggle.Root>
+      <Accordion.Root type="single" collapsible>
+        <Accordion.Item value="filters">
+          <Accordion.Header>
+            <Accordion.Trigger className="syn-button syn-accordion-trigger">
+              Advanced filters
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content className="syn-accordion-content">
+            <p>Additional filters belong here.</p>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
+    </section>
+  );
+}
+```
+
+Radix supplies `data-state="on"`, `data-state="open"`, `data-state="closed"`, and `data-disabled` where applicable. The adapter consumes only those documented state hooks on **explicit Syntyr component classes**. It does not create a generic `data-state` styling API, and it does not replace Radix behavior.
+
+## Accessibility and compatibility boundaries
+
+- Test with keyboard only (Enter, Space, Arrow keys where appropriate, Escape) and screen readers; CSS passing a contract test is **not** an accessibility certification.
+- Use a native button or Radix trigger for actions. Visual `[data-disabled]` states do not prevent click handlers from running; Radix/application logic must enforce disabled behavior.
+- Preserve the focus-visible indication from Syntyr core and verify contrasts for all themes and custom token overrides.
+- Avoid CSS-only emulations of focus traps, listbox navigation, complex comboboxes or dialogs.
+- The adapter does not guarantee complete styling for every Radix primitive. Extend it with component-specific classes only when real use cases justify maintenance.
+
+Related: [copy-owned component recipes](component-recipes.md), [framework integrations](framework-integrations.md).
+
+---
+
 ## Source: docs/distribution.md
 
 Original: https://syntyr-css.pages.dev/docs/distribution.md
@@ -559,6 +747,13 @@ The optional `syntyr.symbols.css` adds BYO-SVG icon sizing, literal Unicode styl
 while still requiring `.syn-semantic` to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final `syn.utilities` cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see [the architecture policy](../ARCHITECTURE.md).
 
+## Optional explicit selective build
+
+Applications needing fewer core components can assemble a custom CSS file with
+the Python standard-library-only `scripts/build_selective.py`. It does not scan
+templates or purge individual selectors, and does not alter published assets.
+See [selective builds and their limits](selective-builds.md).
+
 ## Pinned CDN for prototyping
 
 ```html
@@ -611,6 +806,7 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Surface | Current policy | Intent for v1 |
 | --- | --- | --- |
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
+| New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
 | `data-syn-theme` and documented `data-syn-*` state hooks | Public prerelease API | Stable names and meanings |
 | `syntyr.semantic.css` and `.syn-semantic` | Opt-in prerelease API | Stable scoped semantics after audit |
@@ -907,8 +1103,14 @@ Useful tokens:
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
 | `--syn-duration-fast`, `--syn-ease` | Optional transitions |
+| `--syn-panel-padding`, `--syn-panel-radius`, `--syn-panel-border-width` | Local panel customization |
+| `--syn-button-padding-inline`, `--syn-button-border-width` | Local button customization |
 
-## 3. CSS component mode versus native semantic mode
+## 3. Independent visual intensity
+
+Use `data-syn-intensity="quiet"` on a dense dashboard, the default `standard` for a balanced presentation, or `cinematic` on a limited hero region. Intensity controls only opt-in decoration in `syntyr.effects.css`; it does not alter palette, density, typography or control contrast. Nested regions can override an inherited value. See the [visual-intensity guide](visual-intensity.md) and [live comparison](../examples/intensity-geometry.html).
+
+## 4. CSS component mode versus native semantic mode
 
 Scoped component classes: `.syn-panel`, `.syn-button`, `.syn-table`.
 They work with only `syntyr.core.css`.
@@ -933,7 +1135,7 @@ If you need glows or static grid effects, add `syntyr.effects.css`
 as a third optional file. Don't load `syntyr.all.css` **and** its
 individual component files at the same time.
 
-## 4. Responsive applications and accessibility
+## 5. Responsive applications and accessibility
 
 Use `.syn-region` as the parent for container-responsive patterns such as
 `.syn-stats`, `.syn-split`, `.syn-pricing`; width comes from the container,
@@ -1031,6 +1233,108 @@ For errors, pair `aria-invalid="true"` with an associated error message
 
 See [the live design-state example](../examples/design-states.html) for
 semantic typography, nested themes, compact layout and form states.
+
+---
+
+## Source: docs/visual-intensity.md
+
+Original: https://syntyr-css.pages.dev/docs/visual-intensity.md
+
+# Visual intensity and composable cyberpunk frames
+
+SYNTYR separates **palette** (`data-syn-theme`), **decorative intensity**
+(`data-syn-intensity`), **density** (`data-syn-density`) and optional geometry
+(`.syn-frame` plus one shape). These are independent controls and do not load
+JavaScript, fonts, sprites or third-party assets.
+
+## Choose the right intensity
+
+Use `data-syn-intensity` on `.syn-root` or any descendant element. It is
+inherited, so a child can opt into a different intensity without switching
+palette. Omitting the attribute is equivalent to `standard`.
+
+| Value | Effects | Good for |
+| --- | --- | --- |
+| `quiet` | Nearly invisible grids/washes; no visible glow/scanline overlay | Data-heavy SaaS, forms, accessibility-sensitive dashboards |
+| `standard` | Existing effect strengths and opt-in behavior (default) | Marketing sites, documentation |
+| `cinematic` | Stronger washes, luminous shadows and optional scanlines | Demos, editorial hero sections, limited promotional panels |
+
+Intensity changes **only opt-in decorative effects** from
+`syntyr.effects.css`. It does not change status colors, border contrast,
+focus rings, typography, form affordances or any theme's underlying palette.
+For zero decoration, simply do not load effects.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.effects.css">
+<link rel="stylesheet" href="/css/syntyr.geometry.css">
+
+<main class="syn-root" data-syn-theme="grid" data-syn-intensity="quiet">
+  <article class="syn-panel syn-glow">
+    <h2>Operational view</h2>
+    <p>Quiet default for dense data.</p>
+  </article>
+  <section data-syn-intensity="cinematic">
+    <article class="syn-panel syn-glow syn-frame syn-frame--bevel syn-frame--accent">
+      <h2>Featured transmission</h2>
+      <p>A localized visual accent without changing colors or density.</p>
+    </article>
+  </section>
+</main>
+```
+
+For custom presets, override `--syn-grid-alpha`, `--syn-glow-alpha`,
+`--syn-wash-alpha`, `--syn-wash-secondary-alpha`,
+`--syn-horizon-alpha`, and `--syn-scanline-alpha` on a region.
+Values are percentages used in color interpolation, not animation speed.
+Cinematic does **not** animate automatically; use optional motion modules
+separately and respect `prefers-reduced-motion`.
+
+## Geometry that composes
+
+The optional `syntyr.geometry.css` stylesheet supports five shapes:
+`bevel`, `notch`, `bracket`, `inset` and `circuit`.
+Use exactly one shape on `.syn-frame`, optionally adding
+`.syn-frame--accent` for a stronger outline (2px accent-colored border).
+The geometry layer explicitly resets pseudo-element dimensions and clipping
+from earlier CSS layers, so `.syn-panel--cut` on the **same host** is safely
+superseded by the selected frame geometry rather than corrupting it.
+
+```html
+<article class="syn-panel syn-panel--cut syn-frame syn-frame--notch syn-frame--accent">
+  <h2>System status</h2>
+  <p>The notch frame takes precedence over the simpler panel cut.</p>
+</article>
+```
+
+`syn-frame--accent` is an *optional* style modifier, not an additional
+shape. Set `--syn-frame-cut`, `--syn-frame-stroke`,
+`--syn-frame-fill` or `--syn-frame-outline` on the host to customize
+one frame. Avoid combining two shape modifiers.
+
+**Remaining composability boundary:** both `syn-frame` geometry and the
+older `syn-frame--precision` recipe own `::before`. Applying both
+to the same host still supersedes the precision accent; nest separate
+elements when both treatments are needed. Likewise, geometry intentionally
+uses a transparent host background so gradients painted on the **host**
+may spill into its cut corners. Apply complex host backgrounds on an inner
+element, or set `--syn-frame-fill` to a solid value.
+
+## Accessibility and performance
+
+- Always keep readable status text; never communicate errors only by glow or color.
+- In forced-colors mode, frames fall back to solid system borders and effects
+  suppress nonessential backgrounds.
+- Prefer `quiet` for long operational pages; reserve `cinematic` for a few
+  deliberate accents. Measure paint and scrolling on actual devices.
+- The library core does not require any script. The optional docs theme editor
+  can preview intensity but is not shipped as an application dependency.
+- Test with 200% and 400% zoom, keyboard input, forced colors and all three
+  browser engines before relying on a theme in production.
+
+See [live intensity comparison](../examples/intensity-geometry.html),
+[advanced geometry](geometry-terminal.md) and
+[theme customization](theme-customization.md).
 
 ---
 
@@ -1425,6 +1729,36 @@ Reproducible checks on the follow-up worktree:
 These are QA instructions, not evidence that human assistive-technology or
 browser-UI zoom testing has happened.
 
+## Searchable component catalog coverage (November 15, 2026)
+
+The documentation-only component catalog has been added to the normal browser,
+reflow, and axe-core matrices rather than relying only on static contracts.
+It contains ten rendered component examples. With JavaScript disabled, the
+examples and native HTML source disclosures remain available. Enhanced search,
+empty state, live result count and clipboard/keyboard fallback were checked
+in both Chromium and Firefox.
+
+Exact-branch developer-only verification:
+
+- Chromium and Firefox: **19 pages × 3 viewports** each, including the catalog
+  interactions, passed.
+- Chromium and Firefox: **76 enlarged-root-font reflow cases per engine**
+  passed. This is **not** genuine browser-UI zoom.
+- Local axe-core: **zero confirmed automated violations** across the 19
+  audited pages, with **10 incomplete rule checks** requiring manual review.
+  The catalog contributed one incomplete color-contrast rule with two nodes
+  in the featured pricing demo: axe cannot infer its gradient background.
+- For the catalog Studio palette, a source-token-based conservative calculation
+  gives approximately **13.79:1** for dark #15233a text against the strongest
+  9% blue-accent overlay on white. This is theoretical CSS compositing, not
+  sampled pixels or a conformance certification.
+- WebKit was **not** validated on this exact branch: the Gertrude test host
+  lacks libevent-2.1.so.7.
+
+The remaining release gates are genuine browser 200%/400% zoom, screen readers,
+native high-contrast inspection, and manual resolution of incomplete axe
+targets. Do not present these findings as WCAG conformance certification.
+
 ---
 
 ## Source: docs/agent-integration.md
@@ -1439,7 +1773,7 @@ Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that gene
 
 1. Specify **the exact Syntyr release and CSS modules installed** (published `0.3.0-alpha.4` versus unreleased source `0.3.0-alpha.5`).
 2. Link to [AI quickstart](ai-quickstart.md) and the relevant [component reference](components.md). If the agent can fetch websites, include [`/llms.txt`](../llms.txt).
-3. For complex UI, supply [recipes](recipes.md), [framework integrations](framework-integrations.md) and the [component manifest](../metadata/components.json).
+3. For complex UI, supply [recipes](recipes.md), [framework integrations](framework-integrations.md) and the [component manifest](../metadata/components.json). For unreleased alpha.5 source-only form patterns, use [copy-owned form recipes](component-recipes.md) and the optional [Radix styling adapter](radix-integration.md); do not attribute these to published alpha.4.
 4. Ask it to state which stylesheets it used, avoid undocumented classes and verify keyboard/form semantics.
 
 Suggested prompt for an existing application:
