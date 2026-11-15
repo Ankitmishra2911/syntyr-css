@@ -832,6 +832,18 @@ finite utilities are explicit overrides in their own final `syn.utilities`
 cascade layer. Do not load a convenience bundle and its component modules
 simultaneously.
 
+### Alpha.5 data-table wrapping migration
+
+The unreleased alpha.5 candidate changes classed `.syn-table` cells to wrap
+descriptive text by default, including when a table is placed in a narrow
+container. This **prerelease layout compatibility change** may increase row
+height in existing screens. To preserve the former implicit no-wrap behavior
+for short codes, dates, or identifiers, explicitly add `.syn-cell--nowrap`
+to those cells. Numeric cells with `.syn-cell--numeric` remain no-wrap.
+Keep long prose wrapping whenever possible; if full columns require sideways
+scrolling, use `.syn-table-wrap` with keyboard reachability and an accessible
+table caption. The published immutable alpha.4 stylesheet is unchanged.
+
 ## Compatibility and version policy
 
 - Before v1: breaking prerelease changes are possible; document them in the

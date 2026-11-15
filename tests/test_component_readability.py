@@ -48,6 +48,14 @@ class ComponentReadability(unittest.TestCase):
         self.assertIsNotNone(corner)
         self.assertIn('var(--syn-panel-cut-fill, var(--syn-bg))', corner.group(1))
 
+    def test_layout_change_has_public_migration_guidance(self):
+        stability = (ROOT / "docs/api-stability.md").read_text()
+        self.assertIn(".syn-cell--nowrap", stability)
+        self.assertIn("prerelease", stability.lower())
+        index = (ROOT / "llms.txt").read_text()
+        self.assertIn("docs/components.md", index)
+        self.assertIn("table", index.lower())
+
     def test_component_docs_explain_table_and_corner_customization(self):
         docs = (ROOT / 'docs/components.md').read_text()
         self.assertIn('.syn-cell--nowrap', docs)
