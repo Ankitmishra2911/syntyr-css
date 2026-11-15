@@ -149,7 +149,7 @@ Screenshots help detect a visually incorrect candidate; they are not
 a substitute for a11y, reflow or forced-color testing.
 
 A clean result on localhost cannot establish field Core Web Vitals, production
-network RTT, HTTP transfer bytes, realistic cache distributions or INP.
+network RTT, realistic HTTP transfer behavior, cache distributions or INP.
 The tool does not throttle networks or emulate slow CPUs; do that with
 appropriate browser/performance infrastructure and disclose the settings.
 A stylesheet request count is **not** the transferred CSS byte count.
@@ -167,3 +167,96 @@ counterexample in [the rendering benchmark](performance-and-polish.md).
 Only consider an optional external/adapter critical CSS extractor after
 repeatable LCP/CLS and visual evidence from realistic marketing and SaaS
 routes. No arbitrary gzip-size release gates are justified.
+
+## Reproducible route-specific CSS delivery experiment (November 15, 2026)
+
+To determine whether an additional optimization is justified, we compared
+three **equivalent versions of the same static landing page**:
+
+1. **Baseline:** regular `syntyr.core.css` plus `syntyr.recipes.css` links.
+2. **Selective:** explicit `tokens`, `base`, `layout`, `typography`,
+   `buttons` and `recipes` source modules, assembled into one external CSS.
+3. **Inline:** **the same complete selected CSS** copied into a `<style>`
+   element in the document head, with no external stylesheet.
+
+This is a **route-specific whole-stylesheet inlining test, not automatic
+critical CSS extraction**. It does not dynamically determine above-fold rules
+or split a shared stylesheet into critical and deferred noncritical parts.
+All variants have the same body, images and actual visual styling. They
+require no application JavaScript.
+
+Generate the test fixture using the Python standard library:
+
+```sh
+python3 scripts/perf_loading_fixture.py \
+  --output /tmp/syntyr-loading-fixture
+python3 scripts/perf_loading_fixture.py \
+  --output /tmp/syntyr-loading-fixture --serve --port 8955 --css-delay-ms 150
+```
+
+The fixture server binds only to `127.0.0.1`, gzip-encodes HTML/CSS,
+responds with `Cache-Control: no-store` for HTML, caches CSS for one day,
+and optionally introduces a **synthetic 150 ms delay to CSS responses**.
+Run baseline comparisons from another terminal:
+
+```sh
+python3 scripts/perf_loading_compare.py \
+  --baseline http://127.0.0.1:8955/baseline.html \
+  --candidate http://127.0.0.1:8955/selective.html \
+  --browsers chromium,firefox --viewports mobile,desktop --runs 10 \
+  --output /tmp/selective-result.json
+python3 scripts/perf_loading_compare.py \
+  --baseline http://127.0.0.1:8955/baseline.html \
+  --candidate http://127.0.0.1:8955/inline.html \
+  --browsers chromium,firefox --viewports mobile,desktop --runs 10 \
+  --output /tmp/inline-result.json
+```
+
+The same comparisons were also executed against a simple localhost
+server **without the artificial delay**. Results below are median
+**cold LCP, milliseconds**, from 10 runs per variant on Gertrude,
+using the Syntyr source at commit `f32aaca`.
+
+| Browser/viewport | No-delay baseline | No-delay selective | No-delay inline |
+| --- | ---: | ---: | ---: |
+| Chromium mobile | 24 | 24 | 28 |
+| Chromium desktop | 28 | 32 | 30 |
+| Firefox mobile | 32 | 30 | 29 |
+| Firefox desktop | 29.5 | 32.5 | 29.5 |
+
+| Browser/viewport | 150 ms CSS-delay baseline | 150 ms CSS-delay selective | 150 ms CSS-delay inline |
+| --- | ---: | ---: | ---: |
+| Chromium mobile | 176 | 180 | 28 |
+| Chromium desktop | 180 | 180 | 32 |
+| Firefox mobile | 183 | 185 | 27.5 |
+| Firefox desktop | 183.5 | 183 | 29 |
+
+Eight pairs of full-page screenshots (Chromium/Firefox, mobile/desktop,
+baseline compared with each CSS alternative) were **pixel-identical**.
+Chromium reported zero CLS in those runs; Firefox did not expose a
+comparable layout-shift measurement (`null`). This does not replace
+accessibility validation in other themes, interactions or reduced-motion
+states. WebKit validation was blocked on the development device by
+missing native system dependencies; it is **not** counted as passed.
+
+**Payload comparison:** baseline CSS is 43,991 raw bytes across two files
+(10,145 combined gzip bytes); selective CSS is 31,300 raw / 7,117 gzip
+bytes. Inline HTML grows from roughly 4.6 KB to 35.8 KB raw. This
+particular static fixture lacks a production application's HTML variability.
+
+**Interpretation:** with no simulated network delay, LCP differences are
+inconsistent and small. Under the artificial CSS delay, inline CSS
+predictably avoids the blocked request and improves the first-load LCP
+by approximately 148–155 ms. Warm LCP is approximately 14–16 ms for all
+three methods. These are **synthetic local measurements**, not real-user
+Core Web Vitals or a general latency prediction. The test does not emulate
+real-world mobile throughput, packet loss, HTTP/2 priorities or server-side
+HTML processing time. Extra inlined HTML is repeated on every uncached
+document response and cannot be independently shared across routes.
+
+**Decision:** prefer small, cacheable, selective external CSS for ordinary
+apps; reserve inline route-specific CSS for a measured high-latency case.
+Do **not** add a required runtime loader or automatic critical CSS
+extractor to Syntyr core on this evidence. A genuine extractor would also
+need to preserve nested themes, all responsive breakpoints, accessibility
+states, cascade layers, changing HTML and CSP authorizations.
