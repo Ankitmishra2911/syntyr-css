@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "catalog_status": "research-not-a-storefront",
+  "currency": "USD",
+  "last_reviewed": "2026-11-15",
+  "note": "Research concepts only. Prices for non-core products are hypotheses, not offers. No payment is accepted and no premium customer deliverables are available. The MIT framework stays free.",
+  "products": [
+    {
+      "id": "core",
+      "name": "Syntyr Core",
+      "status": "available",
+      "display_price": "Free",
+      "price_usd": 0,
+      "billing_model": "free",
+      "license_status": "MIT",
+      "deliverable_ready": true,
+      "description": "MIT-licensed CSS framework, published palettes, native HTML components and documentation.",
+      "details_url": "../docs/distribution.html"
+    },
+    {
+      "id": "console-kit",
+      "name": "Console Kit",
+      "status": "research",
+      "display_price": "$59 one-time",
+      "price_usd": 59,
+      "billing_model": "one-time-proposed",
+      "license_status": "draft-not-operative",
+      "deliverable_ready": false,
+      "description": "Separately authored private prototype: eight application screen types across three visual themes, for design-partner evaluation.",
+      "details_url": "console-kit.html"
+    },
+    {
+      "id": "pro",
+      "name": "Syntyr Pro",
+      "status": "research",
+      "display_price": "$149 one-time",
+      "price_usd": 149,
+      "billing_model": "one-time-proposed",
+      "license_status": "draft-not-operative",
+      "deliverable_ready": false,
+      "description": "Proposed premium website sections, original themes and application layouts on top of the MIT core.",
+      "details_url": "console-kit.html"
+    },
+    {
+      "id": "studio",
+      "name": "Syntyr Studio",
+      "status": "research",
+      "display_price": "$299 one-time",
+      "price_usd": 299,
+      "billing_model": "one-time-proposed",
+      "license_status": "draft-not-operative",
+      "deliverable_ready": false,
+      "description": "Proposed complete website templates, dashboard compositions and deeper design assets. Not a hosted drag-and-drop builder.",
+      "details_url": "console-kit.html"
+    },
+    {
+      "id": "agency",
+      "name": "Syntyr Agency",
+      "status": "research",
+      "display_price": "$499/year",
+      "price_usd": 499,
+      "billing_model": "annual-proposed",
+      "license_status": "draft-not-operative",
+      "deliverable_ready": false,
+      "description": "Proposed agency/team licensing, future releases and team-oriented support subject to demand validation.",
+      "details_url": "console-kit.html"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the free MIT-licensed Syntyr CSS framework and proposed commercial UI template products. Premium products are currently research concepts, not for sale.">
+  <meta name="theme-color" content="#f5f7fb">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/products.html">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+  <title>Products and commercial roadmap — Syntyr CSS</title>
+  <style>
+    .offers-hero { padding-block: clamp(2.5rem, 7vw, 5.5rem) 2.25rem; max-width: 70rem; }
+    .offers-hero h1 { font-size: clamp(2.7rem, 6vw, 5rem); line-height: 1.05; letter-spacing: -.045em; max-width: 18ch; }
+    .offers-hero p { max-width: 70ch; }
+    .offers-status { display:inline-flex; align-items:center; border:1px solid var(--syn-frame); padding:.4rem .7rem; font:600 .77rem var(--syn-mono); letter-spacing:.02em; margin-block:1rem; }
+    .offers-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr)); gap:1rem; margin-block:1.75rem 3.5rem; }
+    .offers-card { display:flex; flex-direction:column; min-width:0; gap:.8rem; padding:clamp(1.25rem,2.5vw,2rem); }
+    .offers-card h3 { font-size:1.45rem; margin:0; }
+    .offers-card .offers-price { font:650 clamp(1.45rem,3vw,2rem)/1.2 var(--syn-mono); margin:0; color:var(--syn-accent); }
+    .offers-card .offers-term { font-size:.81rem; margin:0; }
+    .offers-card .syn-button { margin-block-start:auto; align-self:flex-start; }
+    .offers-card ul { margin:.4rem 0 1rem; padding-inline-start:1.15rem; }
+    .offers-card li { margin-block:.45rem; }
+    .offers-section { padding-block:1.6rem 3rem; max-width:77rem; }
+    .offers-section h2 { font-size:clamp(1.5rem,3vw,2.25rem); }
+    .offers-note { border-inline-start:3px solid var(--syn-accent); padding:1rem 1.25rem; background:var(--syn-surface); max-width:70rem; }
+    .offers-faq { max-width:65rem; }
+    .offers-faq details { padding:1rem 0; border-block-end:1px solid var(--syn-frame); }
+    .offers-faq summary { cursor:pointer; font-weight:650; }
+    .offers-faq summary:focus-visible { outline:2px solid var(--syn-accent); outline-offset:3px; }
+    @media (forced-colors:active) { .offers-status, .offers-note { border-color:CanvasText; } }
+  </style>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#offers-main">Skip to products</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Product navigation">
+        <a href="../index.html">Home</a><a href="index.html">Docs</a><a href="catalog.html">Components</a><a aria-current="page" href="products.html">Products</a><a href="console-kit.html">Console Kit</a>
+      </nav>
+      <details class="site-mobile-menu">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile product navigation">
+          <a href="../index.html">Home</a>
+          <a href="index.html">Docs</a>
+          <a href="catalog.html">Components</a>
+          <a href="products.html" aria-current="page">Products</a>
+          <a href="console-kit.html">Console Kit</a>
+        </nav>
+      </details>
+    </header>
+    <main id="offers-main">
+      <section class="offers-hero" aria-labelledby="offers-title">
+        <span class="syn-eyebrow">SYNTYR / PRODUCTS &amp; ROADMAP</span>
+        <h1 id="offers-title">Great interfaces, without the lock-in.</h1>
+        <p class="syn-lede">A free MIT CSS foundation today. Original, portable premium website and application templates are being researched for the future.</p>
+        <p class="offers-status">CORE AVAILABLE / PREMIUM NOT FOR SALE</p>
+        <p class="syn-muted"><strong>Only Syntyr Core is available.</strong> All premium prices below are proposed research hypotheses, not purchase offers or preorders. No payment is accepted; no paid assets, delivery date, production support, or final commercial license are promised.</p>
+        <div class="syn-actions">
+          <a class="syn-button syn-button--primary" href="distribution.html">Get the free MIT core</a>
+          <a class="syn-button syn-button--outline" href="console-kit.html">Inspect private prototype previews</a>
+        </div>
+      </section>
+      <section class="offers-section" aria-labelledby="offers-compare-title">
+        <h2 id="offers-compare-title">Available now vs. proposed</h2>
+        <p class="syn-muted">Build on the free foundation. Help determine whether a paid template collection is worth producing.</p>
+        <div class="offers-grid">
+          <article class="syn-panel offers-card" data-product-id="core">
+            <span class="syn-eyebrow">AVAILABLE / MIT</span><h3>Syntyr Core</h3>
+            <p class="offers-price">Free</p><p>Use the published CSS framework for personal, client and commercial work.</p>
+            <ul><li>MIT-licensed CSS and published themes</li><li>Semantic HTML components and documentation</li><li>Zero required consumer JavaScript</li></ul>
+            <a class="syn-button syn-button--primary" href="distribution.html">Install free core</a>
+          </article>
+          <article class="syn-panel offers-card" data-product-id="console-kit">
+            <span class="syn-eyebrow">PRIVATE PROTOTYPE / RESEARCH</span><h3>Console Kit</h3>
+            <p class="offers-price">$59 one-time</p><p class="offers-term syn-muted">Proposed introductory price; not for sale.</p>
+            <p>Eight privately authored dashboard screen types in Grid, Noir and Studio, shown as static previews.</p>
+            <ul><li>HTML/CSS-first compositions</li><li>Server-template-oriented handoff concept</li><li>License and support not yet finalized</li></ul>
+            <a class="syn-button syn-button--outline" href="console-kit.html">See prototype previews</a>
+          </article>
+          <article class="syn-panel offers-card" data-product-id="pro">
+            <span class="syn-eyebrow">CONCEPT / RESEARCH</span><h3>Syntyr Pro</h3>
+            <p class="offers-price">$149 one-time</p><p class="offers-term syn-muted">Proposed price; not for sale.</p>
+            <p>A prospective collection of original website sections, application layouts and design themes.</p>
+            <ul><li>Responsive, accessible component compositions</li><li>Portable HTML and CSS</li><li>Potential 12-month update window</li></ul>
+            <a class="syn-button syn-button--outline" href="https://github.com/dporkka/syntyr-css/issues/new?template=commercial-product-feedback.yml">Share what you would buy</a>
+          </article>
+          <article class="syn-panel offers-card" data-product-id="studio">
+            <span class="syn-eyebrow">CONCEPT / RESEARCH</span><h3>Syntyr Studio</h3>
+            <p class="offers-price">$299 one-time</p><p class="offers-term syn-muted">Proposed price; not for sale.</p>
+            <p>A proposed expanded library of complete website and operational SaaS templates.</p>
+            <ul><li>Page-level layout compositions</li><li>Design assets and integration documentation</li><li>Not a hosted drag-and-drop builder</li></ul>
+            <a class="syn-button syn-button--outline" href="https://github.com/dporkka/syntyr-css/issues/new?template=commercial-product-feedback.yml">Influence the roadmap</a>
+          </article>
+          <article class="syn-panel offers-card" data-product-id="agency">
+            <span class="syn-eyebrow">CONCEPT / RESEARCH</span><h3>Syntyr Agency</h3>
+            <p class="offers-price">$499/year</p><p class="offers-term syn-muted">Proposed annual price; not for sale.</p>
+            <p>A potential agency/team plan for organizations that build multiple customer interfaces.</p>
+            <ul><li>Broader developer/team licensing concept</li><li>Future releases rather than lifetime updates</li><li>Support scope to be validated</li></ul>
+            <a class="syn-button syn-button--outline" href="https://github.com/dporkka/syntyr-css/issues/new?template=commercial-product-feedback.yml">Describe agency needs</a>
+          </article>
+        </div>
+      </section>
+      <section class="offers-section" aria-labelledby="offers-terms-title">
+        <h2 id="offers-terms-title">A clear licensing boundary</h2>
+        <div class="offers-note"><strong>The existing MIT core stays MIT.</strong> The CSS framework, published themes, components and free examples remain open for commercial use. Any future commercial license would apply only to separately authored premium template and asset files. It cannot revoke MIT rights in the open-source files.</div>
+        <p class="syn-muted">Premium license terms are still being reviewed. One-time purchase concepts would grant perpetual use of purchased versions, with any update period specified at launch. A future subscription would require continuing value. None of those terms is offered today.</p>
+      </section>
+      <section class="offers-section offers-faq" aria-labelledby="offers-faq-title">
+        <h2 id="offers-faq-title">Questions before a paid launch</h2>
+        <details><summary>Can I use the free core for commercial projects?</summary><p>Yes. Syntyr Core is MIT-licensed, including commercial use. Review the <a href="../LICENSE">license</a> and <a href="distribution.html">published release boundaries</a>.</p></details>
+        <details><summary>Can I purchase Pro, Studio or Console Kit now?</summary><p>No. They are research concepts or private prototypes. There is no payment, preorder, customer download or guaranteed launch date.</p></details>
+        <details><summary>Will Syntyr require React, Tailwind or hosted services?</summary><p>No required framework or service is planned. Proposed assets would use native HTML and CSS and work with supported backend or frontend stacks. Complex application behavior remains the responsibility of your code.</p></details>
+        <details><summary>Can I inspect the work before expressing interest?</summary><p>Yes. The <a href="console-kit.html">Console Kit research page</a> contains genuine static screenshots with synthetic data; <a href="../examples/console.html">free public examples</a> demonstrate the existing MIT library.</p></details>
+      </section>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR / CORE MIT / PREMIUM RESEARCH ONLY</span><a href="../index.html">Home</a><a href="../LICENSE">MIT License</a><a href="../llms.txt">Agent index</a></footer>
+  </div>
+</body>
+</html>

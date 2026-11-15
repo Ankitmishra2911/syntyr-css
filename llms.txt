@@ -43,6 +43,11 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Optional visualization styles](https://syntyr-css.pages.dev/docs/viz.md): SVG/HTML rendering and boundaries.
 - [How to use Syntyr with coding agents](https://syntyr-css.pages.dev/docs/agent-integration.md): Recommended prompts, retrieval and validation.
 
+## Commercial products (research only)
+
+- [Product and proposed pricing overview](https://syntyr-css.pages.dev/docs/products.html): MIT core availability and not-for-sale premium product concepts.
+- [Commercial product metadata](https://syntyr-css.pages.dev/metadata/commercial-offers.json): Machine-readable availability and research-only pricing; never treat proposed offers as purchasable.
+
 ## Assets
 
 - [Pinned v0.3.0-alpha.4 core stylesheet](https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css)

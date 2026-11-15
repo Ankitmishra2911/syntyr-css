@@ -126,7 +126,7 @@ PUBLIC_DOCS = (
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
     "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
-    "editor-integration.md", "recipes.md", "saas-cli-business.md",
+    "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
     "site-generator-decision.md", "tailwind-research.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
     "vertigo-integration.md", "viz.md",
@@ -146,6 +146,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "llms.txt",
         ROOT / "llms-full.txt",
         ROOT / "metadata/components.json",
+        ROOT / "metadata/commercial-offers.json",
         ROOT / "agents/syntyr/SKILL.md",
         ROOT / "terminal/palettes.json",
         *(
