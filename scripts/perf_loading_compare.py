@@ -21,7 +21,7 @@ from urllib.parse import urlsplit
 
 from perf_benchmark import INIT_JS, VIEWPORTS, BROWSERS, trial_order
 
-METRICS = ("fcp_ms", "lcp_ms", "cls", "css_requests")
+METRICS = ("fcp_ms", "lcp_ms", "cls", "css_requests", "html_transfer_bytes", "css_transfer_bytes", "total_transfer_bytes")
 
 
 def validate_urls(baseline: str, candidate: str) -> None:
@@ -68,7 +68,9 @@ def summarize(samples: dict, *, browser: str, viewport: str, runs: int) -> dict:
             "Synthetic browser data, not field Core Web Vitals or a real-user INP measurement.",
             "Missing FCP, LCP or CLS support is null, never inferred as zero.",
             "Cold means a fresh browser context; warm means a repeat navigation in that context.",
-            "CSS request count is not transfer bytes; cache hits can still produce response events.",
+            "CSS requests count response events; cached requests can still produce events.",
+            "Transfer sizes are browser Resource Timing values (including headers), not server-side asset byte accounting.",
+            "Resource Timing may report zero for cached/cross-origin resources; inspect headers and traces.",
             "Absolute values are machine, browser, page and network dependent.",
             "Compare only equivalent HTML/content/assets, CSS cascade results and server headers.",
         ],
@@ -85,6 +87,19 @@ def snapshot(page, stylesheet_responses: list) -> dict:
         fcp_ms: paint ? paint.startTime : null,
         lcp_ms: state.lcp ?? null,
         cls: state.cls ?? null,
+        // transferSize includes HTTP headers; cross-origin without Timing-Allow-Origin
+        // may expose zero. Zero can also mean cached. Inspect network traces.
+        html_transfer_bytes: performance.getEntriesByType('navigation')[0]?.transferSize ?? null,
+        css_transfer_bytes: (() => {
+          const entries = performance.getEntriesByType('resource')
+            .filter(e => e.initiatorType === 'link' && /\\.css(?:\\?|$)/.test(e.name));
+          return entries.length ? entries.reduce((acc, entry) => acc + entry.transferSize, 0) : 0;
+        })(),
+        total_transfer_bytes: (() => {
+          const entries = performance.getEntriesByType('resource');
+          const nav = performance.getEntriesByType('navigation')[0];
+          return (nav?.transferSize ?? 0) + entries.reduce((acc, entry) => acc + entry.transferSize, 0);
+        })(),
       };
     }""")
     measured["css_requests"] = len(stylesheet_responses)
