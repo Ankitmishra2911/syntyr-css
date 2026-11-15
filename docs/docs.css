@@ -25,6 +25,8 @@
   .docs-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; flex-wrap: wrap; border-bottom: 1px solid var(--syn-frame); padding-bottom: .8rem; margin-bottom: 1.5rem; }
   .docs-section-head h2 { margin: 0; font: 600 clamp(1.5rem, 3vw, 2.35rem) var(--syn-font); }
   .docs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  /* Shrink the large empty-state inset at 200% text zoom without clipping content. */
+  .syn-split > .syn-empty { box-sizing: border-box; min-inline-size: 0; max-inline-size: 100%; }
   .docs-panel-title { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding-bottom: .8rem; border-bottom: 1px solid var(--syn-frame); margin-bottom: 1.25rem; }
   .docs-swatch { display: flex; gap: .35rem; margin-top: 1rem; }
   .docs-swatch span { display: block; width: 2.5rem; height: 2.5rem; border: 1px solid var(--syn-frame); }
