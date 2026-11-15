@@ -40,6 +40,14 @@ class CommercialFunnelTests(unittest.TestCase):
         self.assertIn("not implemented", page.lower())
         self.assertNotIn('action="/api/', page)
 
+    def test_agent_index_discovers_the_non_sale_console_kit_research_page(self):
+        index = (ROOT / "llms.txt").read_text(encoding="utf-8")
+        self.assertIn("https://syntyr-css.pages.dev/docs/console-kit.html", index)
+        self.assertIn("private prototype", index.lower())
+        self.assertIn("not for sale", index.lower())
+        self.assertIn("preview request", index.lower())
+        self.assertIn("integration quote", index.lower())
+
     def test_service_contact_and_kit_contact_are_separate(self):
         page = (ROOT / "docs/console-kit.html").read_text(encoding="utf-8")
         self.assertIn("REQUEST AN INTEGRATION QUOTE", page)
