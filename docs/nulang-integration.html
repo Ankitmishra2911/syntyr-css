@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Nulang and Syntyr — optional integration. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="6ef270111a631b61aef23d7756d2bb4c93249437ace98989366d9384e439e78f">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Nulang and Syntyr — optional integration — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/nulang-integration.html">
+  <link rel="alternate" type="text/markdown" href="nulang-integration.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Nulang and Syntyr — optional integration</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="nulang-integration.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Nulang and Syntyr — optional integration">
+<h1 id="nulang-and-syntyr-optional-integration">Nulang and Syntyr — optional integration</h1>
+<p>Syntyr CSS is <strong>not bundled into Nulang</strong>, and Nulang is <strong>not a Syntyr runtime dependency</strong>. This is a reference integration for two independent projects: Nulang renders HTML and owns state/actions; Syntyr supplies static styles.</p>
+<p><strong>Status:</strong> Experimental adapter/source examples for Syntyr alpha.5, not a released Nulang library or production action runtime. The Nulang Web framework and <code>nulang-ui/1</code> protocol are experimental. Pin tested versions of both projects.</p>
+<h2 id="path-a-style-a-real-nulang-web-application">Path A: Style a real Nulang Web application</h2>
+<p>See the <a href="https://github.com/dporkka/syntyr-css/tree/main/integrations/nulang/web-example">Nulang Web sample source</a>, which follows Nulang's own <code>examples/hello-web</code> package patterns. The page uses native <code>Html</code> elements with <code>syn-root</code>, <code>syn-panel</code>, <code>syn-heading</code>, <code>syn-badge</code> and <code>syn-button</code> classes. No Syntyr-specific compiler, component runtime, or JavaScript is required.</p>
+<p>Run it from a checkout containing <code>integrations/nulang/web-example</code>:</p>
+<pre><code class="language-sh">cd integrations/nulang/web-example
+mkdir -p static
+cp ../../../dist/syntyr.core.css static/syntyr.core.css
+nulang nula dev
+</code></pre>
+<p>The <code>[web]</code> config mounts <code>static/</code> for <code>/syntyr.core.css</code>. The link is same-origin; do not depend on remote fonts, script bundles, or a CSS CDN. For a static deployment, try <code>nulang nula build --web</code> and inspect the generated <code>dist/</code>. Nulang's <strong>development host may inject its own client runtime</strong>, entirely separate from Syntyr. Production behavior and security depend on Nulang and its host configuration.</p>
+<p>The Nulang example was reviewed against Nulang's current Web examples and documentation. <strong>It has not been compiled or served in this Syntyr validation run:</strong> a native Nulang executable was not available on the test device. Do not treat static source checks as proof of Nulang compiler/runtime compatibility.</p>
+<h2 id="path-b-render-a-restricted-nulang-ui1-semantic-document">Path B: Render a restricted <code>nulang-ui/1</code> semantic document</h2>
+<p>The independent Python 3 standard-library adapter <code>integrations/nulang/render.py</code> reads the authentic Nulang UI document envelope:</p>
+<ul>
+<li><code>protocol: &quot;nulang-ui/1&quot;</code>, <code>document_id</code>, <code>revision</code> as a decimal string, <code>root</code>, and <code>nodes</code>.</li>
+<li>Each node has a stable <code>id</code>, <code>kind</code>, tagged typed <code>properties</code>, ordered <code>children</code> references, and optional <code>actions</code>.</li>
+<li>The adapter's <strong>opt-in kinds</strong>, which are not universal Nulang kind semantics, are <code>column</code>, <code>row</code>, <code>panel</code>, <code>heading</code>, <code>text</code>, <code>badge</code>, <code>metric</code>, and <code>link</code>.</li>
+<li>Only leaf properties defined by the adapter are permitted; strings use <code>{&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;...&quot;}</code>, and numeric metrics can use lossless <code>{&quot;type&quot;:&quot;i64&quot;,&quot;value&quot;:&quot;42&quot;}</code>.</li>
+</ul>
+<p>Run from the Syntyr repository root:</p>
+<pre><code class="language-sh">python3 integrations/nulang/render.py \
+  --input integrations/nulang/sample-ui.json \
+  --output examples/nulang-ui.html
+python3 integrations/nulang/render.py \
+  --input integrations/nulang/sample-ui.json \
+  --output examples/nulang-ui.html --check
+python3 scripts/syntyr_check.py examples/nulang-ui.html
+</code></pre>
+<p>The generated <a href="../examples/nulang-ui.html">Syntyr-styled Nulang UI preview</a> is static HTML. It references the repository's built <code>dist/syntyr.core.css</code> with a local relative URL. You can opt into a different supported theme using <code>--theme grid</code> or change the local CSS path with <code>--css</code>.</p>
+<p>This is a <strong>snapshot renderer</strong>, not a Nulang host or a UI client. In particular, Nulang's compiler-produced <code>SignalGraph.to_ui_document()</code> emits <code>interaction_root</code>, <code>signal</code>, <code>signal_read</code> and <code>action</code> nodes that express relationships, <strong>not a second DOM tree</strong>. The adapter rejects these rather than inventing markup. It also rejects action bindings instead of producing buttons that appear to work but do nothing; action placement, dispatch, authorization, idempotency, and incremental patches stay with the Nulang runtime/host.</p>
+<h3 id="contract-safety-and-limits">Contract, safety, and limits</h3>
+<p>The renderer checks that every class it uses is available in Syntyr's generated <code>metadata/syntyr-contract.json</code> and in <code>syntyr.core.css</code>. It validates protocol version, node identity and graph structure, depth, typed attributes, themes, and link URLs. Text and HTML attributes are escaped; arbitrary tags, CSS, event handlers and scripts are not allowed. It validates only a small documented subset, with a maximum of 512 nodes and 64 levels; it is <strong>not</strong> a replacement for Nulang's Rust protocol validator, template escape rules, or browser accessibility tests.</p>
+<p>To support real Nulang interactions, write a separate explicitly trusted renderer/host integration that forwards actions and patches to Nulang, with its own security boundary and end-to-end tests. A static preview is intentionally not that host.</p>
+<h3 id="verification">Verification</h3>
+<p>On this Syntyr branch, <code>tests/test_nulang_integration.py</code> validates supported schema rendering, HTML injection escaping, unsafe URL rejection, action refusal, malformed graphs and class provenance; the checked-in preview is rebuilt deterministically and analyzed by Syntyr's static checker. The Nulang compiler and browser action dispatch are <strong>not</strong> covered by these tests.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#path-a-style-a-real-nulang-web-application">Path A: Style a real Nulang Web application</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#path-b-render-a-restricted-nulang-ui1-semantic-document">Path B: Render a restricted nulang-ui/1 semantic document</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#contract-safety-and-limits">Contract, safety, and limits</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#verification">Verification</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="nulang-integration.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

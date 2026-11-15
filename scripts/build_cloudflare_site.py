@@ -125,7 +125,7 @@ PUBLIC_DOCS = (
     "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
-    "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
+    "index.html", "lit-integration.md", "nulang-integration.md", "playground.html", "playground.css", "playground.js",
     "editor-integration.md", "recipes.md", "saas-cli-business.md",
     "site-generator-decision.md", "tailwind-research.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
@@ -168,7 +168,7 @@ def source_files() -> dict[str, bytes]:
         "operations-console.css", "operations-console.html", "pricing.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "saas.html", "saas-workflows.html", "crm.html", "saas-workflows.css", "premium-compositions.html",
-        "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
+        "terminal.html", "themes.html", "vertigo-admin.html", "nulang-ui.html", "symbols.html",
         "viz.html",
     )
     # Import the canonical distribution registry rather than maintaining

@@ -1,0 +1,110 @@
+{
+  "protocol": "nulang-ui/1",
+  "document_id": "syntyr-operations-demo",
+  "revision": "1",
+  "root": "root",
+  "nodes": [
+    {
+      "id": "root",
+      "kind": "column",
+      "children": [
+        "heading",
+        "intro",
+        "kpis",
+        "action"
+      ]
+    },
+    {
+      "id": "heading",
+      "kind": "heading",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Syntyr × Nulang"
+        },
+        "level": {
+          "type": "i64",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "id": "intro",
+      "kind": "panel",
+      "children": [
+        "intro-text",
+        "readiness"
+      ]
+    },
+    {
+      "id": "intro-text",
+      "kind": "text",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "A static, semantic UI preview from a Nulang UI document. No actions or backend are connected."
+        }
+      }
+    },
+    {
+      "id": "readiness",
+      "kind": "badge",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "PREVIEW / NO RUNTIME JS"
+        }
+      }
+    },
+    {
+      "id": "kpis",
+      "kind": "row",
+      "children": [
+        "metric1",
+        "metric2"
+      ]
+    },
+    {
+      "id": "metric1",
+      "kind": "metric",
+      "properties": {
+        "label": {
+          "type": "string",
+          "value": "Queued jobs"
+        },
+        "value": {
+          "type": "i64",
+          "value": "42"
+        }
+      }
+    },
+    {
+      "id": "metric2",
+      "kind": "metric",
+      "properties": {
+        "label": {
+          "type": "string",
+          "value": "Completed today"
+        },
+        "value": {
+          "type": "i64",
+          "value": "128"
+        }
+      }
+    },
+    {
+      "id": "action",
+      "kind": "link",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Syntyr documentation"
+        },
+        "href": {
+          "type": "string",
+          "value": "../docs/nulang-integration.html"
+        }
+      }
+    }
+  ]
+}
