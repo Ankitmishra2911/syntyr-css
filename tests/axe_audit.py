@@ -9,12 +9,12 @@ a temporary test environment and supply a local axe-core script, e.g.:
 Automated checks do not replace screen reader, keyboard or zoom verification.
 """
 import argparse
+import json
 from pathlib import Path
 import os
 import shutil
 import sys
 
-from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "examples/console.html",
@@ -25,9 +25,28 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "examples/vertigo-admin.html", "examples/saas-workflows.html")
 
 
+def normalize_findings(page_path: str, result: dict) -> dict:
+    """Keep actionable axe targets for manual review without shipping a browser tool."""
+    findings = {"page": page_path, "violations": [], "incomplete": []}
+    for category in ("violations", "incomplete"):
+        for rule in result.get(category, []):
+            for node in rule.get("nodes", []):
+                findings[category].append({
+                    "page": page_path,
+                    "rule": rule["id"],
+                    "impact": rule.get("impact"),
+                    "help": rule.get("help"),
+                    "selector": node.get("target", []),
+                    "html": node.get("html"),
+                    "failure_summary": node.get("failureSummary"),
+                })
+    return findings
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--axe-file", type=Path, required=True)
+    parser.add_argument("--report", type=Path, help="write actionable JSON findings for manual review")
     args = parser.parse_args()
     if not args.axe_file.is_file():
         parser.error(f"Missing local axe-core script: {args.axe_file}")
@@ -36,8 +55,10 @@ def main() -> int:
     kwargs = {"headless": True}
     if exe:
         kwargs.update(executable_path=exe, args=["--no-sandbox"])
+    from playwright.sync_api import sync_playwright  # developer-only dependency
     violations = 0
     manual_review = 0
+    findings = []
     with sync_playwright() as p:
         browser = p.chromium.launch(**kwargs)
         for path in PAGES:
@@ -47,6 +68,7 @@ def main() -> int:
             result = page.evaluate("""async () => axe.run(document, {
                 runOnly: { type: 'tag', values: ['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa'] }
             })""")
+            findings.append(normalize_findings(path, result))
             count = len(result["violations"])
             incomplete = len(result["incomplete"])
             violations += count
@@ -57,6 +79,9 @@ def main() -> int:
                       ", ".join(str(n["target"]) for n in item["nodes"][:4]))
             page.close()
         browser.close()
+    if args.report:
+        args.report.write_text(json.dumps({"schema_version": 1, "pages": findings}, indent=2) + "\n", encoding="utf-8")
+        print(f"WROTE manual review targets: {args.report}")
     print(f"TOTAL: {violations} violations, {manual_review} incomplete checks requiring review")
     return int(bool(violations))
 

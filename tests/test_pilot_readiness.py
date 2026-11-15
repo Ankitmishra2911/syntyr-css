@@ -10,9 +10,9 @@ class PilotReadinessTests(unittest.TestCase):
     def test_accessibility_matrix_documents_success_and_unverified_gates(self):
         doc = (ROOT / "docs/accessibility.md").read_text()
         self.assertIn("WebKit", doc)
-        self.assertIn("v1.64.1-noble", doc)
-        self.assertIn("81", doc)
-        self.assertIn("108", doc)
+        self.assertIn("v1.65.2-noble", doc)
+        self.assertIn("126", doc)
+        self.assertIn("168", doc)
         self.assertIn("manual", doc.lower())
         self.assertIn("400%", doc)
         self.assertIn("not equivalent", doc.lower())

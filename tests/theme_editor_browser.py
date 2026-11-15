@@ -4,10 +4,21 @@ Run with the developer-only Playwright dependency:
   uv run --no-project --with playwright==1.64.1 python tests/theme_editor_browser.py
 """
 from pathlib import Path
-from playwright.sync_api import sync_playwright
+import os
+import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 URL = (ROOT / 'docs/theme-editor.html').as_uri()
+
+
+def chromium_launch_options():
+    opts = {"headless": True}
+    executable = (os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
+                  or shutil.which("chromium")
+                  or shutil.which("chromium-browser"))
+    if executable:
+        opts.update(executable_path=executable, args=["--no-sandbox"])
+    return opts
 
 
 def check(browser, viewport):
@@ -45,8 +56,9 @@ def check(browser, viewport):
 
 
 if __name__ == '__main__':
+    from playwright.sync_api import sync_playwright  # dev-only
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch()
+        browser = playwright.chromium.launch(**chromium_launch_options())
         for width in (320, 390, 1280):
             check(browser, width)
         browser.close()

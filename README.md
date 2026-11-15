@@ -19,6 +19,7 @@
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)
 - [Tagged GitHub releases](https://github.com/dporkka/syntyr-css/releases)
 - [Architecture, API stability and low-entropy maintenance policy](ARCHITECTURE.md)
+- [Public API and prerelease stability policy](docs/api-stability.md)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
