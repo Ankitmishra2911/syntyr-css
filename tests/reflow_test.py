@@ -44,8 +44,12 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
                 if(s.display==='none'||s.visibility==='hidden'||r.width===0||r.height===0) return false;
                 // Closed native details conceal their content even if a child computes a display value.
                 if(e.closest('details:not([open])') && !e.closest('summary')) return false;
-                // Controls inside intentionally scrollable tables are exempt.
+                // Keep naturally horizontal data regions scrollable while
+                // rejecting links clipped by regular containers.
                 if(e.closest('.syn-table-wrap')) return false;
+                const pipeline = e.closest('.syn-pipeline');
+                if(pipeline && pipeline.matches('[tabindex="0"][aria-label]') &&
+                   getComputedStyle(pipeline).overflowX === 'auto') return false;
                 return r.left < -1 || r.right > innerWidth + 1;
               }).slice(0,5).map(e=>[e.tagName, e.textContent.trim().slice(0,35),
                  Math.round(e.getBoundingClientRect().left),Math.round(e.getBoundingClientRect().right)]);
@@ -54,6 +58,15 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
         assert data["scrollWidth"] <= data["clientWidth"] + 1 and not data["clipped"], (
             f"{path}: viewport={width}px, font scale={scale}x: {data}"
         )
+        if path == 'examples/crm.html':
+            # The pipeline is intentionally scrollable horizontally and must
+            # remain keyboard-focusable and named for assistive technology.
+            pipeline = page.locator('.syn-pipeline')
+            assert pipeline.count() == 1
+            assert pipeline.get_attribute('tabindex') == '0'
+            assert pipeline.get_attribute('aria-label')
+            assert pipeline.evaluate("e => getComputedStyle(e).overflowX") == 'auto'
+            assert pipeline.evaluate('e => e.scrollWidth > e.clientWidth')
         mobile_menu = page.locator('details.site-mobile-menu')
         if mobile_menu.count() and mobile_menu.is_visible():
             mobile_menu.evaluate('e => e.open = true')
