@@ -169,7 +169,7 @@ default threshold they share a row; below it every child stacks. Override
 which can display different numbers of columns at intermediate widths.
 
 Use opt-in fluid type classes `.syn-fluid-display`, `.syn-fluid-lede` and
-`.syn-reading`. The CSS custom properties `--syn-type-display`,
+`.syn-reading`. The CSS custom properties `--syn-fluid-display-size`,
 `--syn-type-lede` and `--syn-reading-width` can be overridden in plain
 application CSS. Keep real document headings and reading order.
 
