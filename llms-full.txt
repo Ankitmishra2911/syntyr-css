@@ -2435,6 +2435,46 @@ or failing; record measured contrast, viewport, state, and reviewer decision
 before approving a release. The enlarged-label tests change root font size,
 not genuine browser zoom; human zoom and screen-reader gates remain open.
 
+## Contrast pixel triage (developer-only; NOT a conformance result)
+
+An optional Chromium screenshot sampler helps prioritize axe-core findings that
+cannot automatically evaluate gradients and pseudo-elements. It samples the
+painted background under temporarily transparent glyphs, groups results by
+page/viewport/selector, and retains non-text and unsampled targets explicitly.
+The helper is deliberately **not a release gate**: selected pixels do not prove
+the contrast of every glyph, hover/focus state, overlay or customized theme.
+Run it with pinned tooling in a disposable developer environment:
+
+```sh
+python3 -m pip install playwright==1.65.2 Pillow==12.1.1
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe.json
+python3 tests/contrast_pixel_triage.py \
+  --axe-report /tmp/syntyr-axe.json \
+  --output /tmp/syntyr-contrast-triage.json \
+  --widths 1280 390 320
+```
+
+The November 15, 2026 `9ff10ac` baseline contained 162 incomplete contrast
+elements. After rebasing the targeted contrast fixes onto `7e5c14d` (a newer
+main with additional unrelated changes), a fresh axe scan reported **160
+incomplete elements** across 27 pages. Across three widths (480 observations),
+the heuristic classified 450 as sampled above their text threshold, 27 as
+non-text (9 distinct targets), and 3 as unsampled placeholders (one distinct
+target). **Zero samples fell below their threshold or within a 0.5:1 margin.**
+The earlier 162-target and 456-above sample counts are historical; neither
+report closes any axe incompletes as certified passes. Verify actual glyph
+pixels, interaction states and screen reader/zoom/OS high-contrast behavior
+before making a conformance claim.
+Following a further rebase onto `c726dc3` (restored native-APIs page),
+the newest candidate scan found **161 incomplete elements across 28 pages**:
+450 text/viewport observations sampled above threshold, 27 non-text and six
+unsampled textarea observations. There were still zero sampled-below or
+narrow-margin observations. All 161 inconclusives remain open for manual
+adjudication; the preceding 160-element count is historical.
+
+See [the manual release review](accessibility-alpha5-review.md) for limitations.
+
 For reproducible WebKit on an isolated testing host with Podman or Docker, clone
 the repository to a directory that the container can read and run:
 
