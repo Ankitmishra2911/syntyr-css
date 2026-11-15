@@ -2,18 +2,59 @@
 
 **Status:** Experimental alpha.5 source gallery, not an immutable release or published npm package.
 
-[Browse 20 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
+[Browse 23 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
 
 ## Contract
 
-The 20 copy-owned HTML compositions cover marketing, application and technical use
+The 23 copy-owned HTML compositions cover marketing, application and technical use
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.
 
 The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all twenty static previews remain visible, with
+buttons. Disable JavaScript and all 23 static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.
+
+## Safe local registry installation (experimental alpha.5 source)
+
+The static [universal registry](../registry/registry.json) contains the 23 MIT
+HTML blocks and eight CSS module entries. Every item includes its exact
+source-tree version, SHA-256 content hashes, declared CSS dependencies, files,
+and destination paths. This is **not** a published immutable alpha.5 release.
+
+A no-network, optional Python standard-library helper can preview a block's
+complete dependency plan (the core CSS, any optional modules, the HTML file and
+one MIT license notice) without modifying a project:
+
+~~~sh
+python3 scripts/registry_install.py resource-workspace --project /path/to/app
+# After reviewing every path/digest, opt in to copying missing files only:
+python3 scripts/registry_install.py resource-workspace --project /path/to/app --apply
+~~~
+
+The script refuses incompatible versions, mismatched hashes, untrusted
+registry URLs, unsafe/symlinked paths, and changed existing files. It never
+executes installed markup or installs JavaScript dependencies. Re-running an
+identical installation is safe. The helper intentionally does **not** offer
+a force-overwrite mode; manage customization and upgrades through your own
+source control. Syntyr still works by copying a prebuilt CSS file directly,
+without Python in the consuming application.
+
+For reproducible developer-only checks (without shipping a browser runtime),
+run `node tests/registry_form_workflows_browser.cjs` with
+`SYNTYR_PLAYWRIGHT_MODULE` pointing to an installed Playwright package and
+optionally `SYNTYR_CHROME_BIN` pointing to Chromium. The checks verify real
+computed component token styles and the form/workflow gallery at 320, 390
+and 1280 CSS pixels, plus browser-emulated forced colors. These do not replace
+manual keyboard, screen-reader or actual browser zoom review.
+
+The three complete application compositions in this source candidate are:
+`resource-workspace` (GET search and records),
+`crm-workspace` (accessible, keyboard-scrollable pipeline), and
+`billing-workspace` (server-owned billing contact and invoices). They
+contain **illustrative data and placeholder host routes**. Their host
+application must supply authorization, data queries, CSRF protection,
+validation and persistence. See [form state contracts](component-recipes.md).
 
 ## Native HTML and framework integration
 

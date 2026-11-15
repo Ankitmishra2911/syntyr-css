@@ -290,6 +290,57 @@
         "releases",
         "updates"
       ]
+    },
+    {
+      "id": "resource-workspace",
+      "category": "Applications",
+      "title": "Resource management workspace",
+      "description": "Server-ready resource search, record table, pagination and empty state.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "saas",
+        "resources",
+        "crud",
+        "admin",
+        "operations"
+      ]
+    },
+    {
+      "id": "crm-workspace",
+      "category": "Applications",
+      "title": "CRM pipeline workspace",
+      "description": "Accessible native deal stages, filters and links with no drag runtime.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "saas",
+        "crm",
+        "pipeline",
+        "deals",
+        "sales"
+      ]
+    },
+    {
+      "id": "billing-workspace",
+      "category": "Applications",
+      "title": "Billing and settings workspace",
+      "description": "Subscription details, invoice history and a server-owned billing contact form.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "saas",
+        "billing",
+        "settings",
+        "invoices",
+        "forms"
+      ]
     }
   ]
 }

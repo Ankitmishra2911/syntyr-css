@@ -84,3 +84,33 @@ The `syn-region` container determines whether rows become horizontal at 42rem. W
 - `syntyr.semantic.css` remains a separate opt-in style for unclassed native HTML. Do not apply it indiscriminately around other component libraries.
 
 See [the static form showcase](../examples/form-composition.html) and the [main component contract](components.md).
+
+## Server-owned validation and local component variables (alpha.5 candidate)
+
+Syntyr does **not** validate data, track touched fields, submit forms, or
+announce errors automatically. The server should return the invalid form with
+`aria-invalid="true"` on the affected field, an associated error via
+`aria-describedby`, and optionally a visible error summary containing real
+fragment links to the invalid fields. The browser's native `:user-invalid`
+and `:user-valid` states style fields after user interaction where supported;
+server-confirmed valid values may opt into
+`data-syn-validation="valid"` (a **visual hint**, not ARIA and not proof).
+Do not display success styling on untouched inputs. Never render an error
+summary merely to hide it with CSS; omit it when the form is valid.
+
+The optional `.syn-error-summary` class from `syntyr.recipes.css` leaves the summary visible and readable
+in forced-colors mode. If the server inserts the message following a submit,
+the host application determines focus, announcement and validation logic.
+
+For one-off app themes, override **component-local CSS custom properties**
+rather than selectors. Examples: `--syn-button-bg`,
+`--syn-button-color`, `--syn-button-border-color`,
+`--syn-button-hover-bg`, `--syn-panel-bg`,
+`--syn-panel-border-color`, `--syn-field-bg`,
+`--syn-field-border-color`, `--syn-field-valid-border-color`,
+and `--syn-field-invalid-border-color`. All use existing Syntyr theme tokens
+as fallbacks. Set the variables on the actual element or a containing
+theme scope; they do not require Sass or JavaScript. For button color changes,
+choose foreground/hover colors that meet applicable contrast requirements.
+
+[See the static example with server-error, valid, disabled and token states](../examples/form-state-contracts.html).

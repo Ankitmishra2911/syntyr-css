@@ -26,6 +26,7 @@ class QuietHandler(SimpleHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--package", default="shadcn@4.23.0")
+    parser.add_argument("--cli-bin", type=Path, help="Already installed shadcn CLI; avoid npx/npm fetch")
     args = parser.parse_args()
     with tempfile.TemporaryDirectory(prefix="syntyr-shadcn-") as temp:
         temp = Path(temp)
@@ -42,11 +43,15 @@ def main():
         thread.start()
         try:
             for block, modules in (("faq", ("core",)),
-                                   ("hero-product", ("core", "recipes"))):
+                                   ("hero-product", ("core", "recipes")),
+                                   ("resource-workspace", ("core", "recipes"))):
                 consumer = temp / block
                 consumer.mkdir()
+                command = ([str(args.cli_bin), "add", f"{base_url}/{block}.json", "--yes"]
+                           if args.cli_bin else
+                           ["npx", "--yes", args.package, "add", f"{base_url}/{block}.json", "--yes"])
                 result = subprocess.run(
-                    ["npx", "--yes", args.package, "add", f"{base_url}/{block}.json", "--yes"],
+                    command,
                     cwd=consumer, capture_output=True, text=True, timeout=120)
                 if result.returncode:
                     raise RuntimeError(f"shadcn failed for {block}:\n{result.stdout}\n{result.stderr}")

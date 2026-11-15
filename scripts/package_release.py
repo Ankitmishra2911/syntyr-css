@@ -29,6 +29,7 @@ FILES = (
     "docs/recipes.md",
     "docs/component-recipes.md",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
+    "examples/form-state-contracts.html",  # Native server-supplied form states.
     "examples/preset-preview.html",  # One local CSS file per named preset.
     "docs/native-patterns.md",
     "docs/radix-integration.md",

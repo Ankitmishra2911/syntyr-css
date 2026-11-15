@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="These are MIT-licensed, plain-HTML examples . Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime…">
-  <meta name="syntyr-source-sha256" content="f73a6f1e9e06e0b2ddd06fff938b80d77a110f128afce1cadb3d92f7b2b1177d">
+  <meta name="syntyr-source-sha256" content="92d12973729511b779e454d2247832c9262581c5c81c6bedbe291ba949871fb2">
   <meta name="theme-color" content="#f5f7fb">
   <title>Copy-owned form recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-recipes">
@@ -101,6 +101,31 @@
 <li><code>syntyr.semantic.css</code> remains a separate opt-in style for unclassed native HTML. Do not apply it indiscriminately around other component libraries.</li>
 </ul>
 <p>See <a href="../examples/form-composition.html">the static form showcase</a> and the <a href="components.html">main component contract</a>.</p>
+<h2 id="server-owned-validation-and-local-component-variables-alpha5-candidate">Server-owned validation and local component variables (alpha.5 candidate)</h2>
+<p>Syntyr does <strong>not</strong> validate data, track touched fields, submit forms, or
+announce errors automatically. The server should return the invalid form with
+<code>aria-invalid=&quot;true&quot;</code> on the affected field, an associated error via
+<code>aria-describedby</code>, and optionally a visible error summary containing real
+fragment links to the invalid fields. The browser's native <code>:user-invalid</code>
+and <code>:user-valid</code> states style fields after user interaction where supported;
+server-confirmed valid values may opt into
+<code>data-syn-validation=&quot;valid&quot;</code> (a <strong>visual hint</strong>, not ARIA and not proof).
+Do not display success styling on untouched inputs. Never render an error
+summary merely to hide it with CSS; omit it when the form is valid.</p>
+<p>The optional <code>.syn-error-summary</code> class from <code>syntyr.recipes.css</code> leaves the summary visible and readable
+in forced-colors mode. If the server inserts the message following a submit,
+the host application determines focus, announcement and validation logic.</p>
+<p>For one-off app themes, override <strong>component-local CSS custom properties</strong>
+rather than selectors. Examples: <code>--syn-button-bg</code>,
+<code>--syn-button-color</code>, <code>--syn-button-border-color</code>,
+<code>--syn-button-hover-bg</code>, <code>--syn-panel-bg</code>,
+<code>--syn-panel-border-color</code>, <code>--syn-field-bg</code>,
+<code>--syn-field-border-color</code>, <code>--syn-field-valid-border-color</code>,
+and <code>--syn-field-invalid-border-color</code>. All use existing Syntyr theme tokens
+as fallbacks. Set the variables on the actual element or a containing
+theme scope; they do not require Sass or JavaScript. For button color changes,
+choose foreground/hover colors that meet applicable contrast requirements.</p>
+<p><a href="../examples/form-state-contracts.html">See the static example with server-error, valid, disabled and token states</a>.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#1-labeled-field-with-assistance-and-server-side-validation">1. Labeled field with assistance and server-side validation</a>
@@ -108,6 +133,7 @@
 <a class="docs-article-toc-link docs-article-toc-2" href="#3-input-addon-currency-and-unit">3. Input addon (currency and unit)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-container-responsive-horizontal-form">4. Container-responsive horizontal form</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-companion-styles">Optional companion styles</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#server-owned-validation-and-local-component-variables-alpha5-candidate">Server-owned validation and local component variables (alpha.5 candidate)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="component-recipes.md">Markdown source</a></nav>

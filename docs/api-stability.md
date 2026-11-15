@@ -69,6 +69,22 @@ Keep long prose wrapping whenever possible; if full columns require sideways
 scrolling, use `.syn-table-wrap` with keyboard reachability and an accessible
 table caption. The published immutable alpha.4 stylesheet is unchanged.
 
+### Alpha.5 component-local styling and registry installation
+
+In unreleased alpha.5, buttons, panels and form controls add optional,
+inherited `--syn-button-*`, `--syn-panel-*` and `--syn-field-*`
+custom-property overrides with their existing theme tokens as fallback.
+Button variants do not require Sass or a separate compiled theme.
+Server-supplied `data-syn-validation="valid"` is presentation-only; valid
+and invalid states do not create validation, focus management, or ARIA
+semantics. The existing opt-in `syn-error-summary` component remains
+the supported form-level error presentation.
+
+The source candidate includes an optional, **local-only** Python registry
+planner. It resolves declared CSS dependencies and checks the current
+source version, SHA-256 hashes and file collisions before any opt-in copy.
+It does not fetch remote code, install a runtime or promise v1 API stability.
+
 ## Compatibility and version policy
 
 - Before v1: breaking prerelease changes are possible; document them in the
