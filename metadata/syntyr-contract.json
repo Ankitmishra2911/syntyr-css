@@ -225,6 +225,15 @@
       ]
     },
     {
+      "name": "syn-bulk-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-button",
       "module": "components/buttons.css",
       "description": "Native button or link styling; use semantic HTML.",
@@ -450,6 +459,24 @@
       ]
     },
     {
+      "name": "syn-collection-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-collection-toolbar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-command-description",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
@@ -624,6 +651,15 @@
         "syntyr.core.css",
         "syntyr.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-error-summary",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -1444,6 +1480,15 @@
       ]
     },
     {
+      "name": "syn-result-state",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-root",
       "module": "base.css",
       "description": "Required style scope for Syntyr components and themes.",
@@ -1905,6 +1950,15 @@
         "syntyr.core.css",
         "syntyr.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table--compact",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
