@@ -20,6 +20,10 @@ Both increasing and decreasing sizes are diagnostic: **there is no 5 KiB or
 compressed bytes. Instead, investigate surprising jumps and measure real
 LCP, CLS, INP, style recalculation, and paint cost in production-shaped pages.
 
+For resource priority, LCP images, optional critical CSS experiments and
+cold/warm loading comparisons, see the [progressive-loading guide](progressive-loading.md)
+and [performance-first example](../examples/performance-first.html).
+
 Start with `syntyr.core.css` alone. Add `syntyr.recipes.css`,
 `syntyr.semantic.css`, or effects only when the application uses them.
 Do not include both `syntyr.all.css` and its individual modules. Prefer
