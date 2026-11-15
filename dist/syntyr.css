@@ -653,6 +653,10 @@
       content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
       background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / var(--syn-scanline-alpha, 10%)) 3px 4px);
     }
+    /* A zero-opacity grid still leaves the opaque horizon fade; remove that too. */
+    @media (prefers-contrast: more) {
+      &.syn-horizon { background-image: none; }
+    }
     @media (forced-colors: active) {
       &.syn-scanlines::after { display: none; }
       &.syn-horizon, &.syn-atmosphere, &.syn-gradient-wash { background-image: none; }

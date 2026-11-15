@@ -45,10 +45,23 @@ class NativeCSSDesignContract(unittest.TestCase):
         self.assertIn("--syn-grid-alpha: 0%;", contrast)
         self.assertIn("--syn-glow-alpha: 0%;", contrast)
 
+    def test_native_flow_blockifies_inline_children_without_overriding_component_display(self):
+        recipes = source("src/recipes.css")
+        self.assertIn("&.syn-flow {", recipes)
+        self.assertIn("display: flex;", recipes)
+        self.assertIn("flex-direction: column;", recipes)
+        self.assertIn("gap: var(--syn-flow-gap, var(--syn-space-3));", recipes)
+
+    def test_high_contrast_clears_horizon_background_gradients(self):
+        effects = source("src/effects.css")
+        self.assertIn("@media (prefers-contrast: more)", effects)
+        rule = effects.split("@media (prefers-contrast: more)", 1)[1]
+        self.assertIn("&.syn-horizon { background-image: none; }", rule)
+
     def test_optional_flow_composition_uses_configurable_logical_gap(self):
         recipes = source("src/recipes.css")
-        self.assertIn("&.syn-flow > :where(* + *)", recipes)
-        self.assertIn("margin-block-start: var(--syn-flow-gap, var(--syn-space-3));", recipes)
+        self.assertIn("&.syn-flow {", recipes)
+        self.assertIn("gap: var(--syn-flow-gap, var(--syn-space-3));", recipes)
         self.assertNotIn(".syn-flow", source("src/components/layout.css"))
 
 if __name__ == "__main__":

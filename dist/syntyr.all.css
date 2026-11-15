@@ -753,8 +753,9 @@
     &.syn-root .syn-fluid-display { font-size: var(--syn-fluid-display-size); line-height: 1.08; letter-spacing: -.035em; overflow-wrap: anywhere; }
     &.syn-root .syn-fluid-lede { font-size: var(--syn-type-lede); }
     &.syn-root .syn-reading { max-inline-size: var(--syn-reading-width); }
-    /* Optional vertical flow independent of semantic prose defaults. */
-    &.syn-flow > :where(* + *) { margin-block-start: var(--syn-flow-gap, var(--syn-space-3)); }
+    /* A column flex layout blockifies inline direct children without changing their own display.
+       Child margins are preserved; use un-margined children for exact gap spacing. */
+    &.syn-flow { display: flex; flex-direction: column; gap: var(--syn-flow-gap, var(--syn-space-3)); min-width: 0; }
     /* First child is sidebar; second child is the flexible content region. */
     &.syn-root .syn-sidebar { display: flex; flex-wrap: wrap; align-items: start; gap: var(--syn-space-3); min-width: 0; }
     &.syn-root .syn-sidebar > :first-child { flex: 1 1 var(--syn-sidebar-width, 16rem); min-width: min(100%, var(--syn-sidebar-width, 16rem)); }
@@ -1162,6 +1163,10 @@
     &.syn-scanlines::after {
       content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
       background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / var(--syn-scanline-alpha, 10%)) 3px 4px);
+    }
+    /* A zero-opacity grid still leaves the opaque horizon fade; remove that too. */
+    @media (prefers-contrast: more) {
+      &.syn-horizon { background-image: none; }
     }
     @media (forced-colors: active) {
       &.syn-scanlines::after { display: none; }

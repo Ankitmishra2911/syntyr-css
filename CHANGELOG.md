@@ -1,5 +1,6 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Ensure `.syn-flow` stacks inline siblings and fully suppress the horizon fade under increased-contrast preferences.
 - Improve CSS-native usability with balanced short headings, configurable vertical flow composition, semantic raised/overlay elevation, and entrance motion tokens; no runtime dependencies.
 - Preserve primary-button hover contrast by default with a configurable hover background and contrasting border instead of unconditional color lightening.
 - Respect `prefers-contrast: more` for nested themed and cinematic-intensity regions; remove forced WebKit font smoothing and extend native CSS browser regressions.

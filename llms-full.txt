@@ -366,11 +366,12 @@ These original Syntyr recipes are free to copy, edit, commercialize, and distrib
 ## Optional vertical flow
 
 Use `.syn-flow` from `syntyr.recipes.css` on a content group to add
-consistent block-start spacing between adjacent **direct children**. It
-does not globally reset margins or modify unwrapped host markup. When
-children already have vertical margins, adjust them at the application level
-to avoid unexpectedly large combined spacing. For prose with heading rhythm,
-prefer the existing `.syn-prose` class.
+consistent gaps between adjacent **direct children**. The flex-column
+composition stacks both inline and block elements, without overriding a
+child component's own display. It does not globally reset margins or modify
+unwrapped host markup. When children already have vertical margins, adjust
+them at the application level to avoid unexpectedly large combined spacing.
+For prose with heading rhythm, prefer the existing `.syn-prose` class.
 
 ```html
 <section class="syn-root" data-syn-theme="studio">

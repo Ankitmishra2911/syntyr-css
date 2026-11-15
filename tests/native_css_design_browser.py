@@ -42,15 +42,19 @@ def verify(browser_name, browser, css):
           <div id="flow" class="syn-flow" style="--syn-flow-gap: 2rem">
             <div id="flow-first">First</div><div id="flow-second">Second</div>
           </div>
+          <div id="inline-flow" class="syn-flow" style="--syn-flow-gap: 2rem"><span id="inline-one">First inline</span><span id="inline-two">Second inline</span></div>
           <h2 id="heading" class="syn-section-heading">Balanced section typography</h2>
           <section data-syn-theme="grid" data-syn-intensity="cinematic" id="nested">
-            <div class="syn-panel">Nested theme</div>
+            <div class="syn-panel syn-horizon" id="nested-horizon" style="height: 6rem">Nested horizon</div>
           </section>
         </main>"""
     page.set_content(markup)
     assert computed(page, "#outside", "display") != "inline-flex", "host styling leaked"
     assert computed(page, "#heading", "text-wrap") == "balance", "balanced heading missing"
-    assert computed(page, "#flow-second", "margin-block-start") == "32px", "flow gap not applied"
+    first = page.locator("#inline-one").bounding_box()
+    second = page.locator("#inline-two").bounding_box()
+    assert second["y"] >= first["y"] + first["height"] + 31, f"inline flow children overlap instead of stacking: {first}, {second}"
+    assert computed(page, "#flow", "row-gap") == "32px", "flow gap not applied"
     assert computed(page, "#raised", "box-shadow") != "none", "panel elevation missing"
 
     for theme in THEMES:
@@ -68,6 +72,7 @@ def verify(browser_name, browser, css):
     assert subtle_border == strong_border, f"nested high contrast border not promoted {strong_border!r} vs {subtle_border!r}"
     assert computed(page, "#nested", "--syn-grid-alpha") == "0%", "cinematic effects not suppressed"
     assert computed(page, "#nested", "--syn-glow-alpha") == "0%", "cinematic glow not suppressed"
+    assert computed(page, "#nested-horizon", "background-image") == "none", "horizon fade remains at higher contrast"
     page.close()
     print(f"PASS {browser_name}: seven-theme hover contrast, scoped styles, flow, heading, shadows, nested contrast")
 
