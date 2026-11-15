@@ -70,6 +70,8 @@ To validate static HTML during development (Python 3.10+, standard library only)
 ```sh
 python3 scripts/syntyr_check.py index.html examples/saas.html
 python3 scripts/syntyr_check.py --format json index.html
+# Opt-in, conservative native HTML checks (warnings do not fail the CLI):
+python3 scripts/syntyr_check.py --semantic --format json examples/semantic-starter.html
 python3 scripts/syntyr_check.py --stylesheets syntyr.core.css,syntyr.recipes.css partial.html
 # Pipe generated markup into the same deterministic checker without a temporary file:
 printf '<button class="syn-buttn">Save</button>' | python3 scripts/syntyr_check.py --format json -
@@ -112,6 +114,22 @@ selectors are scoped, those classes would otherwise silently render without
 Syntyr styles. Plain HTML fragments are exempt because the embedding app may
 supply the root; dynamic ancestor classes and inert `<template>` contents are
 also exempt because their rendered scope is unknown.
+
+With `--semantic`, a second standard-library pass checks literal HTML for
+duplicate static IDs, missing form labels, unmatched `label for` and
+`aria-labelledby`/`aria-describedby` ID references (the latter two only in
+complete documents). It advises when an ordinary table row uses
+`aria-selected` instead of `data-syn-state`, or when a headed data table
+lacks a caption or other accessible name. Errors produce exit code 1; advisory
+warnings are included in text/JSON output but do not fail the command.
+The mode is **off by default** to preserve existing integrations.
+
+This is not an HTML conformance parser, a WCAG audit, or a template renderer.
+It deliberately skips inert template content and avoids guessing what dynamic
+attributes resolve to. Validate rendered server/framework templates and actual
+screen-reader behavior separately. Static fragments may reference IDs supplied
+by their embedding document, so cross-document references are checked only
+when a full `<html>` document is supplied.
 
 The checker recognizes local and version-pinned stylesheet paths (including
 query parameters). Without a known Syntyr stylesheet, module-presence checks

@@ -2,7 +2,7 @@
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
-Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
+Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
 
 ## Loading and scoping
 
@@ -27,6 +27,14 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
   </article>
 </section>
 ```
+
+Use `article` only for genuinely self-contained content; to draw a visual
+card around a generic region use `.syn-panel` on the appropriate native
+element. Use `fieldset` + `legend` to name control groups. In semantic mode
+the default form layout applies to *unclassed* `form` (or explicit
+`data-syn-semantic`), while `.syn-form` and application-owned classes retain
+their separate styling contract. Use `label` rather than placeholders to name
+inputs, and always give buttons a deliberate `type`.
 
 Class-based components, recipes, effects, and geometry apply only to elements
 inside a Syntyr root, including classes attached directly to the root itself.

@@ -42,6 +42,21 @@ experimental and are not in immutable alpha.4. Core adds explicit
 existing `"compact"` profile, allowing nested density overrides.
 No application behaviors or JavaScript are shipped with these compositions.
 
+### Alpha.5 semantic HTML authoring changes
+
+The unreleased semantic CSS candidate gives native classless `form` and
+`fieldset` a composed vertical layout, a comfortable native `summary`
+target, and readable table `caption` styling. Classed forms continue using
+their explicit component API. For ordinary `.syn-table` rows,
+`data-syn-state="selected"` remains the visual state; the
+`aria-selected="true"` row selector now applies only to a real ARIA grid or
+treegrid. Consumers styling ordinary table rows with `aria-selected` should
+switch to the visual data attribute rather than inventing widget semantics.
+The published immutable alpha.4 assets are unchanged.
+
+The optional validator `--semantic` mode adds conservative native HTML
+diagnostics, with no change to default validation or consumer runtime.
+
 ### Alpha.5 data-table wrapping migration
 
 The unreleased alpha.5 candidate changes classed `.syn-table` cells to wrap
