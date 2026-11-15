@@ -97,6 +97,11 @@
       "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
+      "name": "syn-bulk-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-button",
       "module": "components/buttons.css",
       "description": "Native button or link styling; use semantic HTML."
@@ -202,6 +207,16 @@
       "description": "Syntyr CSS class (native-recipes.css)."
     },
     {
+      "name": "syn-collection-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-collection-toolbar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-command-description",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -290,6 +305,11 @@
       "name": "syn-error",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-error-summary",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-eyebrow",
@@ -682,6 +702,11 @@
       "description": "Container query boundary for responsive compositions."
     },
     {
+      "name": "syn-result-state",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-root",
       "module": "base.css",
       "description": "Required style scope for Syntyr components and themes."
@@ -895,6 +920,11 @@
       "name": "syn-table",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-table--compact",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-table-emphasis",
