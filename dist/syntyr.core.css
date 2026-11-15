@@ -310,10 +310,13 @@
       min-width: 0;
     }
     &.syn-panel--cut::after {
-      content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
+      content: ""; pointer-events: none; position: absolute;
+      inset-inline-end: -1px; inset-block-end: -1px;
       width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-bg);
       clip-path: polygon(100% 0, 0 100%, 100% 100%);
     }
+    /* Direction is inherited from the nearest element, including nested RTL panels. */
+    &.syn-panel--cut:dir(rtl)::after { clip-path: polygon(0 0, 100% 100%, 0 100%); }
     @media (forced-colors: active) { &.syn-stage, &.syn-panel { border-color: CanvasText; } }
   }
 }
@@ -614,6 +617,7 @@
       &.syn-breadcrumbs ol { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
     &.syn-breadcrumbs li { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
     &.syn-breadcrumbs li + li::before { content: ""; height: .85em; border-inline-start: 1px solid var(--syn-frame-strong); transform: skew(-22deg); }
+    &.syn-breadcrumbs li + li:dir(rtl)::before { transform: skew(22deg); }
     &.syn-breadcrumbs a { color: var(--syn-muted); }
     &.syn-breadcrumbs [aria-current="page"] { color: var(--syn-text); font-weight: 650; }
     &.syn-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; }

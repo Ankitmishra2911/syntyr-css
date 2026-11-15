@@ -50,7 +50,11 @@ Leave inactive column headers without `aria-sort` or explicitly use `none` when 
 
 ## RTL, forced-colors and reliability
 
-The new compositions use logical border/padding properties. Table base alignment uses `text-align: start` and numeric cells use `text-align: end` rather than hard-coded left/right alignment, so they follow the active writing direction. This is a **targeted RTL improvement**, not a claim that Syntyr's entire visual system has been audited for RTL.
+The new compositions use logical border/padding properties. Table base alignment uses `text-align: start` and numeric cells use `text-align: end` rather than hard-coded left/right alignment, so they follow the active writing direction.
+
+Navigation and geometry also honor the nearest `dir` context: `.syn-app-nav` places its active marker at the inline start, breadcrumb separators mirror, `.syn-panel--cut` places its clipped corner at the inline end, and the asymmetric `.syn-frame--notch` and `.syn-frame--circuit` decorations mirror without reversing the text itself. A nested `dir="ltr"` subsection remains LTR even inside an RTL parent. These visual rules use native `:dir(rtl)`, not a new theme or JavaScript.
+
+This is a **targeted RTL improvement**, not a claim that every Syntyr recipe, animation, third-party integration or mixed writing mode has received a complete human localization audit.
 
 Test in Chromium, Firefox and WebKit at desktop/mobile widths, 200% and 400% browser zoom, keyboard-only navigation, real screen readers, and operating-system forced-colors mode before declaring release readiness. The existing `@media (forced-colors: active)` fallback makes error-summary borders visible with system colors, but cannot substitute for human checks.
 

@@ -3,15 +3,15 @@
 Requires developer-only Playwright + browsers:
   python3 tests/browser_matrix.py --browsers chromium firefox webkit
   PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium-browser python3 ...
+  PLAYWRIGHT_WEBKIT_EXECUTABLE=/path/to/browser-wrapper python3 ...
 Run on a machine with the native browser dependencies installed. A missing
 browser is reported as BLOCKED and never counted as PASS.
 """
 import argparse
 from pathlib import Path
-import os
-import shutil
 import sys
 from playwright.sync_api import sync_playwright
+from browser_options import launch_options
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "examples/console.html",
@@ -160,6 +160,21 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert rtl_table.evaluate("e => getComputedStyle(e).textAlign") == "start"
         assert rtl_table.locator(".syn-cell--numeric").evaluate(
             "e => getComputedStyle(e).textAlign") == "end"
+        # CSS must follow the nearest direction context, not only body/root.
+        rtl_cut = page.locator('[dir="rtl"] > .syn-panel--cut:not([dir])')
+        ltr_cut = page.locator('[dir="ltr"].syn-panel--cut')
+        rtl_clip = rtl_cut.evaluate("e => getComputedStyle(e, '::after').clipPath")
+        ltr_clip = ltr_cut.evaluate("e => getComputedStyle(e, '::after').clipPath")
+        assert rtl_clip != ltr_clip, (rtl_clip, ltr_clip)
+        assert rtl_cut.evaluate("e => getComputedStyle(e, '::after').insetInlineEnd") == "-1px"
+        nav = page.locator('[dir="rtl"] .syn-app-nav [aria-current="page"]')
+        assert nav.evaluate("e => getComputedStyle(e, '::before').right") == "0px"
+        circuit = page.locator('[dir="rtl"] .syn-frame--circuit')
+        assert circuit.evaluate("e => getComputedStyle(e, '::after').transform").startswith("matrix(-1")
+        notch = page.locator('[dir="rtl"] .syn-frame--notch')
+        assert "polygon(" in notch.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-frame-shape')")
+        sep = page.locator('[dir="rtl"] .syn-breadcrumbs li + li')
+        assert sep.evaluate("e => getComputedStyle(e, '::before').transform") != "none"
     if name == "examples/resources.html":
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1
@@ -260,7 +275,7 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert page.locator(".syn-terminal-error").count() == 1
         assert page.locator(".syn-terminal-warning").count() == 1
         numeric = page.locator(".syn-cell--numeric").first
-        assert numeric.evaluate("e => getComputedStyle(e).textAlign") == "right"
+        assert numeric.evaluate("e => getComputedStyle(e).textAlign") == "end"
         if viewport == 1280:
             panel_group = page.locator("#geometry .syn-grid")
             panel_group.evaluate("e => e.style.setProperty('--syn-frame-fill', '#225533')")
@@ -501,13 +516,7 @@ def main() -> int:
     with sync_playwright() as p:
         failed = 0
         for name in args.browsers:
-            kwargs = {"headless": True}
-            if name == "chromium":
-                exe = (os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
-                       or shutil.which("chromium") or shutil.which("chromium-browser"))
-                if exe:
-                    kwargs["executable_path"] = exe
-                    kwargs["args"] = ["--no-sandbox"]
+            kwargs = launch_options(name)
             try:
                 browser = getattr(p, name).launch(**kwargs)
             except Exception as exc:

@@ -310,10 +310,13 @@
       min-width: 0;
     }
     &.syn-panel--cut::after {
-      content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
+      content: ""; pointer-events: none; position: absolute;
+      inset-inline-end: -1px; inset-block-end: -1px;
       width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-bg);
       clip-path: polygon(100% 0, 0 100%, 100% 100%);
     }
+    /* Direction is inherited from the nearest element, including nested RTL panels. */
+    &.syn-panel--cut:dir(rtl)::after { clip-path: polygon(0 0, 100% 100%, 0 100%); }
     @media (forced-colors: active) { &.syn-stage, &.syn-panel { border-color: CanvasText; } }
   }
 }
@@ -614,6 +617,7 @@
       &.syn-breadcrumbs ol { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
     &.syn-breadcrumbs li { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
     &.syn-breadcrumbs li + li::before { content: ""; height: .85em; border-inline-start: 1px solid var(--syn-frame-strong); transform: skew(-22deg); }
+    &.syn-breadcrumbs li + li:dir(rtl)::before { transform: skew(22deg); }
     &.syn-breadcrumbs a { color: var(--syn-muted); }
     &.syn-breadcrumbs [aria-current="page"] { color: var(--syn-text); font-weight: 650; }
     &.syn-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; }
@@ -676,8 +680,8 @@
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(fieldset:not([class]), fieldset[data-syn-semantic])) { border: 1px solid var(--syn-frame); min-width: 0; padding: 1rem; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(legend:not([class]), legend[data-syn-semantic])) { padding-inline: .4rem; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(article:not([class]), article[data-syn-semantic])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
-  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(table:not([class]), table[data-syn-semantic])) { width: 100%; border-collapse: collapse; text-align: left; }
-  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic]), :is(td:not([class]), td[data-syn-semantic])) { padding: .65rem; border-bottom: 1px solid var(--syn-frame); }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(table:not([class]), table[data-syn-semantic])) { width: 100%; border-collapse: collapse; text-align: start; }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic]), :is(td:not([class]), td[data-syn-semantic])) { padding: .65rem; border-block-end: 1px solid var(--syn-frame); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic])) { color: var(--syn-text-subtle); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(details:not([class]), details[data-syn-semantic])) { padding-block: .75rem; border-block-start: 1px solid var(--syn-frame); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(summary:not([class]), summary[data-syn-semantic])) { cursor: pointer; font-weight: 600; }
@@ -800,7 +804,15 @@
     &.syn-app-nav a:where(:hover, [aria-current="page"]) {
       color: var(--syn-accent); background: var(--syn-accent-soft);
     }
-    &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
+    &.syn-app-nav a[aria-current="page"] { position: relative; }
+    &.syn-app-nav a[aria-current="page"]::before {
+      content: ""; position: absolute; pointer-events: none;
+      inset-block: 0; inset-inline-start: 0;
+      width: 3px; background: var(--syn-accent);
+    }
+    @media (forced-colors: active) {
+      &.syn-app-nav a[aria-current="page"]::before { background: Highlight; }
+    }
     &.syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
     &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
@@ -972,6 +984,14 @@
         100% var(--syn-frame-cut, 1rem), 100% 100%,
         var(--syn-frame-cut, 1rem) 100%, 0 calc(100% - var(--syn-frame-cut, 1rem)));
     }
+    /* Flip the asymmetric notch, not the content or text. */
+    &.syn-frame--notch:dir(rtl) {
+      --syn-frame-shape: polygon(
+        var(--syn-frame-cut, 1rem) 0, 100% 0,
+        100% calc(100% - var(--syn-frame-cut, 1rem)),
+        calc(100% - var(--syn-frame-cut, 1rem)) 100%,
+        0 100%, 0 var(--syn-frame-cut, 1rem));
+    }
     &.syn-frame--bevel::before,
     &.syn-frame--notch::before {
       clip-path: var(--syn-frame-shape);
@@ -1020,6 +1040,8 @@
         linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 28% 2px no-repeat,
         linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 2px 38% no-repeat;
     }
+    /* Decorative pseudo-layer only; mirror circuit corners for RTL regions. */
+    &.syn-frame--circuit:dir(rtl)::after { transform: scaleX(-1); }
     @media (forced-colors: active) {
       &.syn-frame {
         border: 1px solid CanvasText;

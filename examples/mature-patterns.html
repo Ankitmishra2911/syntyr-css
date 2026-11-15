@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Syntyr – mature component patterns</title>
   <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.geometry.css">
 </head>
 <body class="syn-root syn-page" data-syn-theme="studio">
   <main class="syn-shell syn-stack" style="padding-block: 2rem;">
@@ -57,6 +59,16 @@
         <thead><tr><th scope="col">الاسم</th><th scope="col">المبلغ</th></tr></thead>
         <tbody><tr><th scope="row">المثال</th><td class="syn-cell--numeric">100</td></tr></tbody>
       </table>
+      <nav class="syn-breadcrumbs" aria-label="التسلسل">
+        <ol><li><a href="#rtl-heading">الرئيسية</a></li><li aria-current="page">الحساب</li></ol>
+      </nav>
+      <nav class="syn-app-nav" aria-label="التنقل">
+        <a href="#rtl-heading" aria-current="page">الحساب</a><a href="#table-heading">التقارير</a>
+      </nav>
+      <div class="syn-panel syn-panel--cut">لوحة بزاوية معكوسة</div>
+      <div class="syn-frame syn-frame--notch syn-panel">إطار متكيف مع الاتجاه</div>
+      <div class="syn-frame syn-frame--circuit syn-panel">إطار تقني متكيف مع الاتجاه</div>
+      <div class="syn-panel syn-panel--cut" dir="ltr" lang="en">Nested left-to-right exception</div>
     </section>
   </main>
 </body>
