@@ -1,0 +1,45 @@
+/* Optional icon, Unicode and text-art presentations.
+   No shipped glyphs, SVG assets, fonts or runtime JavaScript. */
+@layer syn.symbols {
+  /* Place on an inline SVG or a wrapper around an SVG. Keep icon artwork
+     vendor-controlled: do not force stroke, fill, or stroke-width. */
+  .syn-icon {
+    display: inline-block;
+    inline-size: var(--syn-icon-size, 1.25em);
+    block-size: var(--syn-icon-size, 1.25em);
+    flex: none;
+    vertical-align: -.15em;
+    color: inherit;
+  }
+  .syn-icon > svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  /* Symbols belong in the DOM; CSS does not generate meaningful content. */
+  .syn-symbol {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: -.075em;
+  }
+  .syn-symbol--accent { color: var(--syn-accent, currentColor); }
+  .syn-symbol--muted { color: var(--syn-muted, currentColor); }
+
+  /* Preserve ASCII / Unicode box geometry, with horizontal scroll instead
+     of wrapping and breaking columns on a narrow screen. */
+  .syn-ascii {
+    display: block;
+    max-inline-size: 100%;
+    margin: 0;
+    overflow-x: auto;
+    white-space: pre;
+    font-family: var(--syn-mono, ui-monospace, monospace);
+    font-variant-ligatures: none;
+    font-kerning: none;
+    line-height: 1.4;
+    tab-size: 4;
+  }
+  .syn-ascii--accent { color: var(--syn-accent, currentColor); }
+  .syn-ascii--muted { color: var(--syn-muted, currentColor); }
+}

@@ -38,6 +38,7 @@ layout helpers and `syntyr.print.css` for print-friendly reports. System-aware
 Grid/Studio `data-syn-theme="auto"` is already included in core CSS, with
 no additional stylesheet or runtime JavaScript. See the
 [progressive-enhancement guide](progressive-enhancement.md) for examples.
+The optional `syntyr.symbols.css` adds BYO-SVG icon sizing, literal Unicode styling and ASCII/box-drawing alignment without shipping fonts or icons; see [symbols and accessibility](symbols.md).
 
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.syn-semantic` to opt into semantic element styles.
@@ -60,8 +61,8 @@ usually avoids an additional hostname connection.
 ## Release artifacts and guarantees
 
 The published alpha.4 release contains seven SYNTYR CSS distributions. The
-unreleased alpha.5 working tree currently contains nine SYNTYR distributions,
-including the optional utilities and print stylesheets, plus
+unreleased alpha.5 working tree currently contains ten SYNTYR distributions,
+including the optional utilities, print and symbols stylesheets, plus
 the terminal ANSI palette JSON, this guide, MIT license, and README. No retired compatibility aliases are shipped. The ZIP is created deterministically using only
 Python's standard library:
 

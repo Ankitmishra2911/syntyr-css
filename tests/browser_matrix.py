@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -228,6 +228,29 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert selected.evaluate("e => getComputedStyle(e).outlineStyle") != "none"
             page.emulate_media(forced_colors="active")
             assert selected.evaluate("e => getComputedStyle(e).outlineStyle") != "none"
+    if name == "examples/symbols.html":
+        icons = page.locator(".syn-icon")
+        assert icons.count() == 2
+        for icon in icons.all():
+            values = icon.evaluate("""e => ({
+                width: e.getBoundingClientRect().width,
+                height: e.getBoundingClientRect().height,
+                color: getComputedStyle(e).color,
+            })""")
+            assert values["width"] >= 12 and abs(values["width"] - values["height"]) <= 1, values
+        ascii = page.locator(".syn-ascii").first
+        styles = ascii.evaluate("""e => ({
+            whiteSpace: getComputedStyle(e).whiteSpace,
+            overflowX: getComputedStyle(e).overflowX,
+            fontVariantLigatures: getComputedStyle(e).fontVariantLigatures,
+        })""")
+        assert styles == {"whiteSpace": "pre", "overflowX": "auto",
+                          "fontVariantLigatures": "none"}, styles
+        # The long line must scroll *inside* the pre, not expand the document.
+        ascii.evaluate("e => e.style.inlineSize = '10ch'")
+        assert ascii.evaluate("e => e.scrollWidth > e.clientWidth")
+        assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1")
+        assert page.locator(".syn-symbol[aria-hidden='true']").count() >= 5
     if name == "examples/saas-workflows.html":
         assert page.get_by_role("search").count() == 1, name
         assert page.get_by_role("table").count() == 1, name

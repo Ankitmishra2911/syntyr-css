@@ -21,6 +21,8 @@ class Alpha5Integration(unittest.TestCase):
                 filename)
         self.assertIn("geometry.css", definitions["syntyr.all.css"])
         self.assertIn("utilities.css", definitions["syntyr.all.css"])
+        self.assertIn("symbols.css", definitions["syntyr.all.css"])
+        self.assertNotIn("symbols.css", definitions["syntyr.core.css"])
         self.assertNotIn("utilities.css", definitions["syntyr.core.css"])
         self.assertNotIn("geometry.css", definitions["syntyr.core.css"])
 
@@ -33,7 +35,7 @@ class Alpha5Integration(unittest.TestCase):
             self.assertGreater(measured[filename]["raw_bytes"], measured[filename]["gzip_bytes"])
 
     def test_all_demos_are_covered_once_by_all_browser_suites(self):
-        pages = ("themes.html", "geometry-terminal.html", "operations-console.html")
+        pages = ("themes.html", "geometry-terminal.html", "operations-console.html", "symbols.html")
         for script in ("browser_matrix.py", "reflow_test.py", "axe_audit.py"):
             module = ast.parse((ROOT / "tests" / script).read_text())
             assignment = next(
