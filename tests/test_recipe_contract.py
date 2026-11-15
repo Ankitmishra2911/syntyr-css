@@ -47,6 +47,28 @@ class RecipeContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "not loaded"):
             validate_recipes(broken, classes, self.contract["attributes"])
 
+    def test_rejects_incomplete_slot_or_root(self):
+        original = self.curated["recipes"]
+        classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
+        for key in ("name", "optional", "repeatable"):
+            broken = copy.deepcopy(original)
+            del broken[0]["slots"][0][key]
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, "required slot"):
+                validate_recipes(broken, classes, self.contract["attributes"])
+        broken = copy.deepcopy(original)
+        del broken[0]["root"]["tag"]
+        with self.assertRaisesRegex(ValueError, "root"):
+            validate_recipes(broken, classes, self.contract["attributes"])
+
+    def test_agent_docs_index_links_new_recipe_contract(self):
+        from build_agent_docs import SOURCES
+        self.assertIn("docs/editor-integration.md", SOURCES)
+        index = (ROOT / "llms.txt").read_text()
+        self.assertIn("https://syntyr-css.pages.dev/docs/editor-integration.md", index)
+        full = (ROOT / "llms-full.txt").read_text()
+        self.assertIn("## Source: docs/editor-integration.md", full)
+        self.assertIn("### Agent-ready composition recipes", full)
+
     def test_rejects_unknown_distribution_and_duplicate_recipe_id(self):
         original = self.curated["recipes"]
         classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}

@@ -174,18 +174,29 @@ def validate_recipes(recipes, class_stylesheets, attributes):
         example = recipe["example"]
         if not example.startswith("examples/") or ".." in Path(example).parts or not (ROOT / example).is_file():
             raise ValueError(f"{ident}: example not found: {example}")
-        slots = [recipe["root"]] + recipe["slots"]
+        root = recipe.get("root")
+        if not isinstance(root, dict) or not all(
+            key in root for key in ("tag", "classes")
+        ):
+            raise ValueError(f"{ident}: root requires tag and classes")
+        slots = recipe.get("slots")
+        if not isinstance(slots, list):
+            raise ValueError(f"{ident}: slots must be an array")
         slot_names = set()
         for part in slots:
-            if "name" in part:
-                if part["name"] in slot_names:
-                    raise ValueError(f"{ident}: duplicate slot: {part['name']}")
-                slot_names.add(part["name"])
-                if not isinstance(part["optional"], bool) or not isinstance(part["repeatable"], bool):
-                    raise ValueError(f"{ident}: slot flags must be booleans")
-            if not re.fullmatch(r"[a-z][a-z0-9-]*", part["tag"]):
+            if not isinstance(part, dict) or any(
+                key not in part for key in ("name", "tag", "classes", "optional", "repeatable")
+            ) or not isinstance(part.get("name"), str) or not part["name"].strip():
+                raise ValueError(f"{ident}: required slot name, tag, classes and flags")
+            if part["name"] in slot_names:
+                raise ValueError(f"{ident}: duplicate slot: {part['name']}")
+            slot_names.add(part["name"])
+            if not isinstance(part["optional"], bool) or not isinstance(part["repeatable"], bool):
+                raise ValueError(f"{ident}: required slot flags must be booleans")
+        for part in [root] + slots:
+            if not isinstance(part["tag"], str) or not re.fullmatch(r"[a-z][a-z0-9-]*", part["tag"]):
                 raise ValueError(f"{ident}: invalid HTML tag: {part['tag']}")
-            if not part["classes"]:
+            if not isinstance(part["classes"], list) or not part["classes"]:
                 raise ValueError(f"{ident}: slot missing classes")
             for name in part["classes"]:
                 if name not in class_stylesheets:
