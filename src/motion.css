@@ -37,10 +37,26 @@
           opacity: 1;
           transform: translateY(0);
         }
+        /* A dialog animates only when the host opts in to the motion module
+           and the explicit transition class. Native focus and inertness stay intact. */
+        &.syn-dialog.syn-dialog--transition {
+          opacity: 0;
+          transform: translateY(.4rem);
+          transition: opacity 180ms ease, transform 180ms ease, display 180ms, overlay 180ms;
+          transition-behavior: allow-discrete;
+        }
+        &.syn-dialog.syn-dialog--transition[open] {
+          opacity: 1;
+          transform: translateY(0);
+        }
         @starting-style {
           &.syn-popover.syn-popover--transition:popover-open {
             opacity: 0;
             transform: translateY(-.4rem);
+          }
+          &.syn-dialog.syn-dialog--transition[open] {
+            opacity: 0;
+            transform: translateY(.4rem);
           }
         }
       }

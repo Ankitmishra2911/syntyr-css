@@ -22,6 +22,7 @@ The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The 
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
 - [Premium CSS-only compositions and browser validation](https://syntyr-css.pages.dev/docs/premium-compositions.md): SaaS surfaces, native command presentation, responsive layouts, and maintainer-only Chromium/Firefox/WebKit reflow, keyboard and axe verification (alpha.5 source candidate).
 - [Copyable form recipes](https://syntyr-css.pages.dev/docs/component-recipes.md): Candidate-only native form groups and accessible markup.
+- [Native patterns and component imports](https://syntyr-css.pages.dev/docs/native-patterns.md): Candidate-only native browser recipes and individual CSS entrypoints (not in alpha.4).
 - [Pico.css migration and semantic starter](https://syntyr-css.pages.dev/docs/from-pico.md): Candidate-only one-file semantic bundle and migration cautions (not in alpha.4).
 - [Optional Radix adapter](https://syntyr-css.pages.dev/docs/radix-integration.md): State-only styling for projects that already use Radix Primitives.
 - [Framework integrations](https://syntyr-css.pages.dev/docs/framework-integrations.md): HTMX, server templates, React and other stacks.

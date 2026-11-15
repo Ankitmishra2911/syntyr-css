@@ -15,6 +15,7 @@ SOURCES = (
     "docs/components.md",
     "docs/recipes.md",
     "docs/component-recipes.md",
+    "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/distribution.md",
     "docs/from-pico.md",

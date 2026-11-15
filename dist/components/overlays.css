@@ -1,0 +1,40 @@
+@layer syn.components {
+  /* All component rules match the root itself or a descendant, never a host sibling. */
+  :where(.syn-root, .syn-root *) {
+    &.syn-popover, &.syn-dialog {
+      width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
+      border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      box-shadow: var(--syn-shadow-overlay);
+    }
+    &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    /* The ordinary corner popover remains the fallback if anchors are unsupported. */
+    @supports (position-area: bottom) {
+      &.syn-popover.syn-popover--anchored {
+        inset: auto;
+        margin: .5rem 0 0;
+        position-anchor: auto;
+        position-area: bottom;
+        position-try-fallbacks: flip-block, flip-inline;
+      }
+    }
+    &.syn-dialog { margin: auto; }
+    &.syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
+    &.syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
+    &.syn-details summary { cursor: pointer; color: var(--syn-text); font-weight: 650; }
+    &.syn-details[open] summary { color: var(--syn-accent); }
+    &.syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
+    @media (forced-colors: active) { &.syn-popover, &.syn-dialog, &.syn-details { border-color: CanvasText; } }
+
+    /* Native popovertarget supplies an implicit anchor in supporting browsers. */
+    @supports (position-area: block-end) {
+      &.syn-popover.syn-popover--anchored {
+        position-area: block-end span-inline-end;
+        position-try-fallbacks: flip-block, flip-inline;
+        inset: auto;
+        margin: .5rem 0;
+        max-inline-size: calc(100vw - 2rem);
+      }
+    }
+  }
+}

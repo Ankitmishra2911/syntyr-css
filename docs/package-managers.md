@@ -53,3 +53,5 @@ The default import is deliberately `core.css`; `all.css` is opt-in. Do not impor
 - CSS exports and the published asset set are checked in the standard Python unit test suite. `npm pack --dry-run --json --ignore-scripts` confirms what the npm client would actually package.
 - The package contains no runtime JavaScript and requires no npm lifecycle scripts to install or consume.
 - The scoped name and release version must be verified before any publish command is attempted.
+
+Individual CSS component exports (alpha.5 source candidate) are described in [native patterns](native-patterns.md). Load tokens and base before selected components. Do not combine full core with individual component imports.

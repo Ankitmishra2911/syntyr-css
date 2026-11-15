@@ -162,6 +162,10 @@
           "description": "Syntyr CSS class (components/typography.css)."
         },
         {
+          "name": "syn-code-figure",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
           "name": "syn-command-description",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -218,6 +222,10 @@
           "description": "Syntyr CSS class (components/overlays.css)."
         },
         {
+          "name": "syn-dialog--transition",
+          "description": "Syntyr CSS class (motion.css)."
+        },
+        {
           "name": "syn-display",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -250,6 +258,10 @@
           "description": "Syntyr CSS class (components/form-composition.css)."
         },
         {
+          "name": "syn-field--floating",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
           "name": "syn-field-body",
           "description": "Syntyr CSS class (components/form-composition.css)."
         },
@@ -260,6 +272,10 @@
         {
           "name": "syn-fieldset",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-floating-label",
+          "description": "Syntyr CSS class (native-recipes.css)."
         },
         {
           "name": "syn-flow",
@@ -732,6 +748,10 @@
         {
           "name": "syn-textarea--autosize",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-timeline",
+          "description": "Syntyr CSS class (native-recipes.css)."
         },
         {
           "name": "syn-title",
