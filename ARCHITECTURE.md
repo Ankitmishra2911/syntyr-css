@@ -14,6 +14,11 @@ smallest working application must need only a local stylesheet and HTML.
    same styling concern.
 3. **Scoped by default:** Syntyr styles must not affect HTML outside
    `.syn-root`. Semantic element styling requires explicit `.syn-semantic`.
+   Core components and optional recipes/effects/geometry use native CSS nesting
+   under a zero-specificity `:where(.syn-root, .syn-root *)` boundary. This also
+   supports classes placed directly on the root; it does not mutate host
+   elements bearing similar names outside the root. Semantic/native, symbols,
+   chart and utility modules retain their existing explicit root selectors.
 4. **Composable themes:** a theme changes tokens, not component implementations.
    Theme-specific component forks and cascade-specificity escalation are
    architectural defects to fix, not patterns to repeat.
