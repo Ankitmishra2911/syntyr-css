@@ -64,3 +64,43 @@ reproducible JSON review-target command are in
 - Complete the separate SYNTYR naming-clearance review before commercial branding or monetization.
 
 These are not reasons to discard tested code, but they are reasons **not to label it production-certified**. No alpha.5 tag or release has been published by this work.
+
+
+## Stability follow-up on the seven-theme alpha.5 candidate
+
+After PR #2 was integrated, the independent
+`feat/syntyr-alpha5-stability-v2-20261114` branch added accent-token
+consistency and release checks without modifying the frozen alpha.4 snapshot:
+
+- All seven `--syn-accent-soft` values are derived from their theme's
+  active `--syn-accent` with `color-mix()`; custom theme accents no
+  longer retain the original palette's soft tint.
+- Documentation palette editor now exposes **all seven** themes, and its
+  generated overrides work for root **and nested** theme scopes.
+- A PR/push Python-only Woodpecker quality workflow and a separate
+  manual/tag three-engine browser workflow are configured.
+- A repeatable performance benchmark protocol has been added; no
+  Tailwind-vs-SYNTYR browser speed claim is being made.
+- Current candidate CSS: **4,590 bytes gzip core**, **7,649 bytes gzip
+  all modules**, under the existing 5 KiB and 8 KiB targets.
+- Python contracts: **102 passed** on the rebased candidate, including
+  new regression coverage and the SaaS workflow examples.
+- Chromium interactive suite: **17/17 pass**.
+- Chromium + Firefox page matrix: **14 pages × 3 widths × 2 engines pass**
+  (84 page-width runs), including keyboard/popover checks.
+- Chromium + Firefox enlarged-text reflow: **56 cases × 2 engines pass**.
+- Chromium forced-colors tests: **2/2 pass**.
+- Chromium theme editor: **3 widths pass**, exercising all seven choices,
+  copy-paste nested selector behavior, theme reset and contrast warnings.
+- These follow-up browser checks ran locally with Playwright v1.64.1.
+  **WebKit was not rerun for the follow-up** because Gertrude lacks the
+  Playwright WebKit system dependencies. The existing earlier seven-theme
+  baseline did pass in the official v1.65.2 container. Run the new
+  manual/tag browser workflow on this exact commit before release.
+- Actual Woodpecker execution, manual accessibility, and cross-framework
+  performance measurements remain unverified.
+- The original alpha.5 manual accessibility gates above remain open;
+  configuration alone is not proof of Woodpecker execution.
+
+No new immutable alpha.5 assets or GitHub release were published by
+this stability branch.

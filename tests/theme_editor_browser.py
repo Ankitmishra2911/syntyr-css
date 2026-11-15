@@ -34,10 +34,30 @@ def check(browser, viewport):
     assert page.locator('#contrast-result').get_attribute('data-result') == 'pass'
     assert '--syn-accent: #76e7f7' in page.locator('#generated-css').inner_text()
 
+    for variant in ('grid', 'noir', 'studio', 'industrial', 'terminal', 'corporate', 'minimal'):
+        page.locator('#theme').select_option(variant)
+        assert preview.get_attribute('data-syn-theme') == variant
+        assert page.locator('#contrast-result').get_attribute('data-result') == 'pass'
+
     page.locator('#theme').select_option('noir')
     assert preview.get_attribute('data-syn-theme') == 'noir'
     assert page.locator('#accent').input_value() == '#f1b574'
     assert page.locator('#on-accent').input_value() == '#1c100b'
+
+    # Changing accent must also update the derived soft background tint.
+    original_soft = preview.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent-soft').trim()")
+    page.locator('#accent').fill('#00ff00')
+    updated_soft = preview.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent-soft').trim()")
+    assert updated_soft != original_soft, (original_soft, updated_soft)
+    assert '.syn-root [data-syn-theme="noir"]' in page.locator('#generated-css').inner_text()
+
+    # Apply the generated CSS as a host would. It must theme nested scopes.
+    css = page.locator('#generated-css').inner_text()
+    override = page.add_style_tag(content=css)
+    preview.evaluate("e => e.style.removeProperty('--syn-accent')")
+    assert preview.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()") == '#00ff00'
+    override.evaluate("e => e.remove()")
+    preview.evaluate("e => e.style.setProperty('--syn-accent', '#00ff00')")
 
     page.locator('#accent').fill('#ffffff')
     page.locator('#on-accent').fill('#ffffff')
