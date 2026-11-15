@@ -19,6 +19,11 @@ def run():
                 page.goto(URL)
                 assert page.get_by_label("Account name").count() == 1, (name, width, "label")
                 assert page.get_by_label("Monthly budget (USD)").count() == 1, (name, width, "unit")
+                field = page.locator(".syn-field").first
+                assert field.evaluate("(e) => getComputedStyle(e).display") == "grid", (name, width, "scoped field")
+                page.locator("body").evaluate("(e) => e.classList.remove('syn-root')")
+                assert field.evaluate("(e) => getComputedStyle(e).display") != "grid", (name, width, "unscoped CSS leaked")
+                page.locator("body").evaluate("(e) => e.classList.add('syn-root')")
                 row = page.locator(".syn-field-row").first
                 columns = row.evaluate("(element) => getComputedStyle(element).gridTemplateColumns").split()
                 assert len(columns) == (1 if width == 320 else 2), (name, width, columns)
