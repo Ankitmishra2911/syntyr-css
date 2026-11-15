@@ -43,6 +43,32 @@ def assert_page(browser, name: str, viewport: int) -> None:
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
+    if name == "index.html":
+        assert page.locator('body').get_attribute('data-syn-theme') == 'studio'
+        assert page.get_by_role('heading', level=1).count() == 1
+        assert page.locator('.site-showcase-card').count() == 3
+        assert page.locator('.site-theme-swatch').count() == 7
+        assert page.get_by_role('img', name='Illustrative Studio SaaS dashboard with navigation, key metrics and a chart. No live data.').count() == 1
+        assert page.locator('#grid').evaluate('e => getComputedStyle(e).colorScheme') == 'dark'
+        assert page.locator('#business').evaluate('e => getComputedStyle(e).colorScheme') == 'light'
+        for path in ('examples/saas-workflows.html', 'examples/business.html',
+                     'examples/console.html', 'examples/landing.html'):
+            assert page.locator(f'a[href="{path}"]').count() >= 1, (name, path)
+        cards = [page.locator('.site-showcase-card').nth(i).bounding_box() for i in range(3)]
+        if viewport < 700:
+            assert cards[0]['y'] < cards[1]['y'] < cards[2]['y'], cards
+        else:
+            assert cards[0]['x'] < cards[1]['x'] < cards[2]['x'], cards
+        assert page.locator('.site-code code').evaluate('e => getComputedStyle(e).whiteSpace') == 'pre-wrap'
+        page.keyboard.press('Tab')
+        assert page.evaluate("document.activeElement.classList.contains('site-skip')"), 'skip link first in tab order'
+        assert page.locator('.site-skip').bounding_box()['y'] >= 0, 'skip link must become visible'
+        if viewport == 1280:
+            trigger = page.get_by_role('button', name='Try native popover')
+            trigger.click()
+            assert page.locator('#grid-popover').evaluate('e => e.matches(":popover-open")')
+            page.keyboard.press('Escape')
+            assert not page.locator('#grid-popover').evaluate('e => e.matches(":popover-open")')
     if name == "docs/index.html" and viewport == 1280:
         button = page.get_by_role("button", name="OPEN COMMAND")
         button.focus()
