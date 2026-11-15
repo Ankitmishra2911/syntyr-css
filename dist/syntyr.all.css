@@ -30,8 +30,12 @@
     --syn-row-padding-block: .7rem;
     --syn-card-padding: var(--syn-space-3);
     --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
+    --syn-shadow-raised: 0 8px 24px rgb(0 0 0 / 12%);
+    --syn-shadow-overlay: 0 20px 70px rgb(0 0 0 / 45%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
+    --syn-ease-enter: cubic-bezier(.16, 1, .3, 1);
     --syn-duration-fast: 150ms;
+    --syn-duration-standard: 240ms;
   }
   /* Derived surfaces recompute inside nested themes, not just on the parent. */
   :where(.syn-root, .syn-root [data-syn-theme]) {
@@ -47,6 +51,8 @@
     --syn-surface-interactive: var(--syn-surface-hi);
     --syn-surface-hover: color-mix(in srgb, var(--syn-surface-hi) 83%, var(--syn-accent));
     --syn-surface-pressed: var(--syn-accent-soft);
+    /* Keep hover contrast identical to the approved accent/foreground pair by default. */
+    --syn-primary-hover-bg: var(--syn-accent);
     --syn-font-ui: var(--syn-font);
     --syn-font-display: var(--syn-font);
   }
@@ -249,6 +255,22 @@
     --syn-font-ui: var(--syn-mono);
     --syn-font-display: var(--syn-mono);
   }
+
+  /* Higher contrast preserves nested theme and intensity overrides.
+     Custom application CSS can still override these layered defaults. */
+  @media (prefers-contrast: more) {
+    :where(.syn-root, .syn-root [data-syn-theme], .syn-root [data-syn-intensity]) {
+      --syn-border-subtle: var(--syn-frame-strong);
+      --syn-border-default: var(--syn-frame-strong);
+      --syn-shadow-raised: 0 0 0 transparent;
+      --syn-grid-alpha: 0%;
+      --syn-glow-alpha: 0%;
+      --syn-wash-alpha: 0%;
+      --syn-wash-secondary-alpha: 0%;
+      --syn-horizon-alpha: 0%;
+      --syn-scanline-alpha: 0%;
+    }
+  }
 }
 @layer syn.base {
   :where(.syn-root), :where(.syn-root) *, :where(.syn-root) *::before, :where(.syn-root) *::after { box-sizing: border-box; }
@@ -257,7 +279,6 @@
     font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font);
     color: var(--syn-text);
     background: var(--syn-bg);
-    -webkit-font-smoothing: antialiased;
   }
   .syn-root :where([data-syn-theme]) { color: var(--syn-text); background-color: var(--syn-bg); }
   .syn-root.syn-page { min-height: 100svh; }
@@ -309,6 +330,7 @@
       background: var(--syn-surface);
       min-width: 0;
     }
+    &.syn-panel--raised { box-shadow: var(--syn-shadow-raised); }
     &.syn-panel--cut::after {
       content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
       width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-bg);
@@ -322,9 +344,9 @@
   :where(.syn-root, .syn-root *) {
     &.syn-logo { font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
     &.syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
-    &.syn-title, &.syn-display { font-family: var(--syn-font-display); font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: var(--syn-tracking-display); margin-block: 1rem; max-width: 14ch; }
+    &.syn-title, &.syn-display { font-family: var(--syn-font-display); font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: var(--syn-tracking-display); margin-block: 1rem; max-width: 14ch; text-wrap: balance; }
     &.syn-heading { font-family: var(--syn-font-display); font-size: var(--syn-type-heading); line-height: 1.2; margin-block: .5rem 1rem; }
-    &.syn-section-heading { font: 650 var(--syn-type-section)/1.16 var(--syn-font-display); letter-spacing: -.03em; margin-block: .5rem 1rem; max-inline-size: 32ch; }
+    &.syn-section-heading { font: 650 var(--syn-type-section)/1.16 var(--syn-font-display); letter-spacing: -.03em; margin-block: .5rem 1rem; max-inline-size: 32ch; text-wrap: balance; }
     &.syn-body { font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
     &.syn-text-support { font: 400 var(--syn-type-sm)/1.5 var(--syn-font-ui); color: var(--syn-text-subtle); }
     /* Opt-in vertical rhythm; does not alter unwrapped host document styles. */
@@ -362,7 +384,7 @@
     &.syn-button:where(:not(:disabled):not([aria-disabled="true"]):hover) { border-color: var(--syn-border-hover); background: var(--syn-surface-hover); }
     &.syn-button:where(:not(:disabled):not([aria-disabled="true"]):active) { box-shadow: inset 0 2px 3px rgb(0 0 0 / 14%); }
     &.syn-button--primary { background: var(--syn-accent); border-color: var(--syn-accent); color: var(--syn-on-accent); }
-    &.syn-button--primary:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
+    &.syn-button--primary:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-primary-hover-bg); border-color: var(--syn-on-accent); color: var(--syn-on-accent); }
     &.syn-button--outline { background: transparent; border-color: var(--syn-accent); color: var(--syn-accent); }
     &.syn-button--outline:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); }
     &.syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
@@ -405,6 +427,13 @@
     &.syn-help { color: var(--syn-muted); font-size: .8rem; }
     &.syn-error { color: var(--syn-danger); font-size: .8rem; }
     &.syn-textarea { min-height: 6rem; resize: vertical; }
+    /* `field-sizing` is ignored in older engines; the standard textarea still works. */
+    &.syn-textarea.syn-textarea--autosize {
+      field-sizing: content;
+      min-height: 6rem;
+      max-height: 24rem;
+      overflow-y: auto;
+    }
     &.syn-input[type="checkbox"], &.syn-input[type="radio"] { width: max(1.5rem, 24px); min-width: max(1.5rem, 24px); min-height: max(1.5rem, 24px); height: max(1.5rem, 24px); padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
     &.syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
     &.syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
@@ -486,9 +515,19 @@
       width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
       border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
       background: var(--syn-surface); color: var(--syn-text);
-      box-shadow: 0 20px 70px rgb(0 0 0 / 45%);
+      box-shadow: var(--syn-shadow-overlay);
     }
     &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    /* The ordinary corner popover remains the fallback if anchors are unsupported. */
+    @supports (position-area: bottom) {
+      &.syn-popover.syn-popover--anchored {
+        inset: auto;
+        margin: .5rem 0 0;
+        position-anchor: auto;
+        position-area: bottom;
+        position-try-fallbacks: flip-block, flip-inline;
+      }
+    }
     &.syn-dialog { margin: auto; }
     &.syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
     &.syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
@@ -747,6 +786,9 @@
     &.syn-root .syn-fluid-display { font-size: var(--syn-fluid-display-size); line-height: 1.08; letter-spacing: -.035em; overflow-wrap: anywhere; }
     &.syn-root .syn-fluid-lede { font-size: var(--syn-type-lede); }
     &.syn-root .syn-reading { max-inline-size: var(--syn-reading-width); }
+    /* A column flex layout blockifies inline direct children without changing their own display.
+       Child margins are preserved; use un-margined children for exact gap spacing. */
+    &.syn-flow { display: flex; flex-direction: column; gap: var(--syn-flow-gap, var(--syn-space-3)); min-width: 0; }
     /* First child is sidebar; second child is the flexible content region. */
     &.syn-root .syn-sidebar { display: flex; flex-wrap: wrap; align-items: start; gap: var(--syn-space-3); min-width: 0; }
     &.syn-root .syn-sidebar > :first-child { flex: 1 1 var(--syn-sidebar-width, 16rem); min-width: min(100%, var(--syn-sidebar-width, 16rem)); }
@@ -859,15 +901,15 @@
     /* Use on small, interactive surfaces. No persistent will-change or transforms. */
     &.syn-surface--lift {
       transition: border-color var(--syn-duration-fast) var(--syn-ease),
-                  box-shadow var(--syn-duration-fast) var(--syn-ease);
+                  box-shadow var(--syn-duration-standard) var(--syn-ease-enter);
     }
     @media (hover: hover) and (pointer: fine) {
       &.syn-surface--lift:where(:hover, :focus-within) {
         border-color: var(--syn-frame-strong);
-        box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+        box-shadow: var(--syn-shadow-raised);
       }
       &.syn-surface--accent.syn-surface--lift:where(:hover, :focus-within) {
-        box-shadow: inset 0 3px var(--syn-accent), 0 8px 24px rgb(0 0 0 / 12%);
+        box-shadow: inset 0 3px var(--syn-accent), var(--syn-shadow-raised);
       }
     }
     &.syn-surface--lift:focus-within { border-color: var(--syn-accent); }
@@ -1014,6 +1056,18 @@
       border-radius: 0;
       background: transparent;
       color: var(--syn-text);
+      /* User controls inherit: legacy --syn-frame-cut remains the fallback. */
+      --_syn-outer-tl: var(--syn-frame-cut-tl, var(--syn-frame-cut, 1rem));
+      --_syn-outer-tr: var(--syn-frame-cut-tr, var(--syn-frame-cut, 1rem));
+      --_syn-outer-br: var(--syn-frame-cut-br, var(--syn-frame-cut, 1rem));
+      --_syn-outer-bl: var(--syn-frame-cut-bl, var(--syn-frame-cut, 1rem));
+      /* For a 45-degree bevel, subtract (2 - sqrt(2)) * stroke from the
+         inner cut. This keeps diagonal and orthogonal ring widths closer.
+         Use a positive cut >= stroke; stepped shapes keep square offsets. */
+      --_syn-inner-tl: max(0px, calc(var(--_syn-outer-tl) - var(--syn-frame-stroke, 1px) * 0.585786));
+      --_syn-inner-tr: max(0px, calc(var(--_syn-outer-tr) - var(--syn-frame-stroke, 1px) * 0.585786));
+      --_syn-inner-br: max(0px, calc(var(--_syn-outer-br) - var(--syn-frame-stroke, 1px) * 0.585786));
+      --_syn-inner-bl: max(0px, calc(var(--_syn-outer-bl) - var(--syn-frame-stroke, 1px) * 0.585786));
     }
     &.syn-frame::before,
     &.syn-frame::after {
@@ -1032,31 +1086,88 @@
       --syn-frame-outline: var(--syn-accent);
       --syn-frame-stroke: 2px;
     }
-    /* Two clipped nested surfaces form a border along the diagonal edges;
-       no parent-background-colored triangle is needed. */
+    /* A shape owns both pseudo-elements. The outer layer draws a paintable
+       perimeter; the inner layer is inset and exposes the border ring. */
     &.syn-frame--bevel {
       --syn-frame-shape: polygon(
-        var(--syn-frame-cut, 1rem) 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
-        100% var(--syn-frame-cut, 1rem), 100% calc(100% - var(--syn-frame-cut, 1rem)),
-        calc(100% - var(--syn-frame-cut, 1rem)) 100%, var(--syn-frame-cut, 1rem) 100%,
-        0 calc(100% - var(--syn-frame-cut, 1rem)), 0 var(--syn-frame-cut, 1rem));
+        var(--_syn-outer-tl) 0,
+        calc(100% - var(--_syn-outer-tr)) 0,
+        100% var(--_syn-outer-tr),
+        100% calc(100% - var(--_syn-outer-br)),
+        calc(100% - var(--_syn-outer-br)) 100%,
+        var(--_syn-outer-bl) 100%,
+        0 calc(100% - var(--_syn-outer-bl)),
+        0 var(--_syn-outer-tl));
+      --_syn-inner-shape: polygon(
+        var(--_syn-inner-tl) 0,
+        calc(100% - var(--_syn-inner-tr)) 0,
+        100% var(--_syn-inner-tr),
+        100% calc(100% - var(--_syn-inner-br)),
+        calc(100% - var(--_syn-inner-br)) 100%,
+        var(--_syn-inner-bl) 100%,
+        0 calc(100% - var(--_syn-inner-bl)),
+        0 var(--_syn-inner-tl));
     }
     &.syn-frame--notch {
       --syn-frame-shape: polygon(
-        0 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
-        100% var(--syn-frame-cut, 1rem), 100% 100%,
-        var(--syn-frame-cut, 1rem) 100%, 0 calc(100% - var(--syn-frame-cut, 1rem)));
+        0 0,
+        calc(100% - var(--_syn-outer-tr)) 0,
+        100% var(--_syn-outer-tr),
+        100% 100%,
+        var(--_syn-outer-bl) 100%,
+        0 calc(100% - var(--_syn-outer-bl)));
+      --_syn-inner-shape: polygon(
+        0 0,
+        calc(100% - var(--_syn-inner-tr)) 0,
+        100% var(--_syn-inner-tr),
+        100% 100%,
+        var(--_syn-inner-bl) 100%,
+        0 calc(100% - var(--_syn-inner-bl)));
     }
-    &.syn-frame--bevel::before,
-    &.syn-frame--notch::before {
+    &.syn-frame--step {
+      --syn-frame-shape: polygon(
+        0 0,
+        calc(100% - var(--_syn-outer-tr)) 0,
+        calc(100% - var(--_syn-outer-tr)) calc(var(--_syn-outer-tr) / 2),
+        calc(100% - calc(var(--_syn-outer-tr) / 2)) calc(var(--_syn-outer-tr) / 2),
+        calc(100% - calc(var(--_syn-outer-tr) / 2)) var(--_syn-outer-tr),
+        100% var(--_syn-outer-tr),
+        100% 100%,
+        var(--_syn-outer-bl) 100%,
+        var(--_syn-outer-bl) calc(100% - calc(var(--_syn-outer-bl) / 2)),
+        calc(var(--_syn-outer-bl) / 2) calc(100% - calc(var(--_syn-outer-bl) / 2)),
+        calc(var(--_syn-outer-bl) / 2) calc(100% - var(--_syn-outer-bl)),
+        0 calc(100% - var(--_syn-outer-bl)));
+      --_syn-inner-shape: var(--syn-frame-shape);
+    }
+    &.syn-frame--facet {
+      --syn-frame-shape: polygon(
+        var(--_syn-outer-tl) 0,
+        100% 0,
+        100% calc(100% - var(--_syn-outer-br)),
+        calc(100% - var(--_syn-outer-br)) 100%,
+        0 100%,
+        0 var(--_syn-outer-tl));
+      --_syn-inner-shape: polygon(
+        var(--_syn-inner-tl) 0,
+        100% 0,
+        100% calc(100% - var(--_syn-inner-br)),
+        calc(100% - var(--_syn-inner-br)) 100%,
+        0 100%,
+        0 var(--_syn-inner-tl));
+    }
+    &.syn-frame--bevel::before, &.syn-frame--notch::before,
+    &.syn-frame--step::before, &.syn-frame--facet::before {
       clip-path: var(--syn-frame-shape);
-      background: var(--syn-frame-outline, var(--syn-frame-strong));
+      background: var(--syn-frame-border-paint, var(--syn-frame-outline, var(--syn-frame-strong)));
     }
-    &.syn-frame--bevel::after,
-    &.syn-frame--notch::after {
+    &.syn-frame--bevel::after, &.syn-frame--notch::after,
+    &.syn-frame--step::after, &.syn-frame--facet::after {
       inset: var(--syn-frame-stroke, 1px);
-      clip-path: var(--syn-frame-shape);
-      background: var(--syn-frame-fill, var(--syn-surface));
+      clip-path: var(--_syn-inner-shape);
+      /* Optional overlay follows the inner shape. No extra markup is required. */
+      background: var(--syn-frame-inlay-paint, linear-gradient(transparent, transparent)),
+                  var(--syn-frame-fill, var(--syn-surface));
     }
     /* Brackets don't obscure the content or assume an enclosing background. */
     &.syn-frame--bracket::before {
@@ -1188,9 +1299,62 @@
       content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
       background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / var(--syn-scanline-alpha, 10%)) 3px 4px);
     }
+    /* A zero-opacity grid still leaves the opaque horizon fade; remove that too. */
+    @media (prefers-contrast: more) {
+      &.syn-horizon { background-image: none; }
+    }
     @media (forced-colors: active) {
       &.syn-scanlines::after { display: none; }
       &.syn-horizon, &.syn-atmosphere, &.syn-gradient-wash { background-image: none; }
+    }
+  }
+}
+/* Deliberately separate from static effects; no selectors activate without opt-in classes. */
+@layer syn.effects {
+  @keyframes syn-reading-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  /* All UI selectors are bounded by a Syntyr root. */
+  :where(.syn-root, .syn-root *) {
+    /* Opt-in, decorative scroll progress. Unsupported engines and reduced motion hide it. */
+    &.syn-reading-progress { display: none; }
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll(root block)) {
+        &.syn-reading-progress {
+          display: block;
+          position: fixed;
+          inset-block-start: 0;
+          inset-inline-start: 0;
+          inline-size: 100%;
+          block-size: .2rem;
+          background: var(--syn-accent);
+          pointer-events: none;
+          z-index: 50;
+          transform-origin: left center;
+          animation: syn-reading-progress linear both;
+          animation-timeline: scroll(root block);
+        }
+      }
+      /* Native top-layer entry/exit animation without a JavaScript animation engine. */
+      @supports (transition-behavior: allow-discrete) {
+        &.syn-popover.syn-popover--transition {
+          opacity: 0;
+          transform: translateY(-.4rem);
+          transition: opacity 180ms ease, transform 180ms ease, display 180ms, overlay 180ms;
+          transition-behavior: allow-discrete;
+        }
+        &.syn-popover.syn-popover--transition:popover-open {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        @starting-style {
+          &.syn-popover.syn-popover--transition:popover-open {
+            opacity: 0;
+            transform: translateY(-.4rem);
+          }
+        }
+      }
     }
   }
 }

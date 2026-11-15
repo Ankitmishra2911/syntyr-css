@@ -30,8 +30,12 @@
     --syn-row-padding-block: .7rem;
     --syn-card-padding: var(--syn-space-3);
     --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
+    --syn-shadow-raised: 0 8px 24px rgb(0 0 0 / 12%);
+    --syn-shadow-overlay: 0 20px 70px rgb(0 0 0 / 45%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
+    --syn-ease-enter: cubic-bezier(.16, 1, .3, 1);
     --syn-duration-fast: 150ms;
+    --syn-duration-standard: 240ms;
   }
   /* Derived surfaces recompute inside nested themes, not just on the parent. */
   :where(.syn-root, .syn-root [data-syn-theme]) {
@@ -47,6 +51,8 @@
     --syn-surface-interactive: var(--syn-surface-hi);
     --syn-surface-hover: color-mix(in srgb, var(--syn-surface-hi) 83%, var(--syn-accent));
     --syn-surface-pressed: var(--syn-accent-soft);
+    /* Keep hover contrast identical to the approved accent/foreground pair by default. */
+    --syn-primary-hover-bg: var(--syn-accent);
     --syn-font-ui: var(--syn-font);
     --syn-font-display: var(--syn-font);
   }
@@ -248,5 +254,21 @@
          .syn-root [data-syn-theme="terminal"]) {
     --syn-font-ui: var(--syn-mono);
     --syn-font-display: var(--syn-mono);
+  }
+
+  /* Higher contrast preserves nested theme and intensity overrides.
+     Custom application CSS can still override these layered defaults. */
+  @media (prefers-contrast: more) {
+    :where(.syn-root, .syn-root [data-syn-theme], .syn-root [data-syn-intensity]) {
+      --syn-border-subtle: var(--syn-frame-strong);
+      --syn-border-default: var(--syn-frame-strong);
+      --syn-shadow-raised: 0 0 0 transparent;
+      --syn-grid-alpha: 0%;
+      --syn-glow-alpha: 0%;
+      --syn-wash-alpha: 0%;
+      --syn-wash-secondary-alpha: 0%;
+      --syn-horizon-alpha: 0%;
+      --syn-scanline-alpha: 0%;
+    }
   }
 }

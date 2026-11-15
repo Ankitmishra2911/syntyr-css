@@ -15,6 +15,7 @@
     "./semantic.css": "./dist/syntyr.semantic.css",
     "./recipes.css": "./dist/syntyr.recipes.css",
     "./effects.css": "./dist/syntyr.effects.css",
+    "./motion.css": "./dist/syntyr.motion.css",
     "./geometry.css": "./dist/syntyr.geometry.css",
     "./symbols.css": "./dist/syntyr.symbols.css",
     "./utilities.css": "./dist/syntyr.utilities.css",
@@ -32,13 +33,17 @@
     "./components/overlays.css": "./dist/components/overlays.css",
     "./components/data.css": "./dist/components/data.css",
     "./components/patterns.css": "./dist/components/patterns.css",
-    "./native-recipes.css": "./dist/syntyr.native-recipes.css"
+    "./native-recipes.css": "./dist/syntyr.native-recipes.css",
+    "./tailwind.css": "./integrations/tailwind/syntyr.theme.css",
+    "./shadcn.css": "./integrations/shadcn/syntyr.tokens.css"
   },
   "sideEffects": [
     "**/*.css"
   ],
   "files": [
     "dist/",
+    "integrations/tailwind/",
+    "integrations/shadcn/",
     "README.md",
     "LICENSE"
   ],

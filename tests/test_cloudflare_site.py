@@ -43,6 +43,8 @@ class CloudflareSiteTests(unittest.TestCase):
             self.assertTrue((out / "dist/syntyr.core.css").is_file())
             self.assertTrue((out / "examples/operations-console.html").is_file())
             self.assertTrue((out / "examples/themes.html").is_file())
+            self.assertTrue((out / "docs/native-browser-apis.md").is_file())
+            self.assertTrue((out / "examples/native-apis.html").is_file())
             self.assertTrue((out / "dist/syntyr.utilities.css").is_file())
             self.assertTrue((out / "terminal/palettes.json").is_file())
             self.assertFalse((out / "business").exists())

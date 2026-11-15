@@ -54,15 +54,15 @@
           <div>
             <p class="syn-eyebrow">PUBLISHED ALPHA.4 / SOURCE ALPHA.5</p>
             <h3 class="syn-heading">Use native HTML. Ship nothing extra.</h3>
-            <p class="syn-muted">The published v0.3.0-alpha.4 release includes Grid, Noir and Studio themes. This download serves the unreleased alpha.5 source candidate with seven palettes. Pin a tagged release for reproducible experiments, self-host the CSS with your application, and load semantic styling, recipes and effects only when needed.</p>
+            <p class="syn-muted">Start with the immutable published v0.3.0-alpha.4 stylesheet. That release includes Grid, Noir and Studio themes. The current source preview is an unreleased alpha.5 candidate with seven palettes: use it only when testing experimental changes, not as a pinned production release.</p>
             <div class="syn-actions">
-              <a class="syn-button syn-button--primary" href="../dist/syntyr.core.css" download>DOWNLOAD CORE CSS</a>
-              <a class="syn-button" href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4">RELEASE &amp; SOURCE</a>
-              <a class="syn-button syn-button--outline" href="../LICENSE">MIT LICENSE</a>
+              <a class="syn-button syn-button--primary" href="https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css">PUBLISHED ALPHA.4 CSS</a>
+              <a class="syn-button syn-button--outline" href="../dist/syntyr.core.css" download>UNRELEASED ALPHA.5 PREVIEW</a>
+              <a class="syn-button" href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4">RELEASE FILES</a>
             </div>
           </div>
           <pre class="docs-code"><code>&lt;link rel="stylesheet"
-      href="/css/syntyr.core.css"&gt;
+      href="https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css"&gt;
 
 &lt;section class="syn-root"
          data-syn-theme="grid"&gt;
@@ -72,7 +72,7 @@
   &lt;/button&gt;
 &lt;/section&gt;</code></pre>
         </div>
-        <p class="syn-caption">Host the CSS at your own path. For tokens, nested themes, and styling examples, read <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/theme-customization.md">the customization guide</a>. For optional modules, version pinning and CDN guidance, see <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/distribution.md">the distribution guide</a>.</p>
+        <p class="syn-caption">The pinned URL above works for a quick trial; for production, download the tagged release and self-host the stylesheet at a path such as <code>/css/syntyr.core.css</code>. Additional modules are opt-in. See the <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/theme-customization.md">customization guide</a>, <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/distribution.md">distribution guide</a>, and <a href="../LICENSE">MIT license</a>.</p>
       </section>
 
       <section class="docs-section" id="themes" aria-labelledby="themes-title">
@@ -247,6 +247,7 @@
           <article class="syn-panel syn-frame--bracket"><span class="syn-eyebrow">SYNTYR / OPERATIONS SHOWCASE</span><h3>Complete operations console</h3><p class="syn-muted">Responsive SaaS sidebar, KPI dashboard, deployment table, capacity readouts, activity timeline and diagnostics—all with sample data and zero runtime JS.</p><a class="syn-button syn-button--primary" href="../examples/operations-console.html">OPEN OPERATIONS DEMO</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">SYSTEM / MINIMALIST</span><h3>Intrinsic layouts + classless forms</h3><p class="syn-muted">Responsive sidebar and switcher, fluid type, native form controls, and OS-following light/dark styling with no JavaScript.</p><a class="syn-button syn-button--primary" href="../examples/minimalist-patterns.html">OPEN MINIMALIST EXAMPLE</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">DESIGN SYSTEM / STATES</span><h3>Semantic roles and interactions</h3><p class="syn-muted">Typography, keyboard focus, validation, density and nested themes. Class-based and native semantic modes.</p><a class="syn-button syn-button--outline" href="../examples/design-states.html">OPEN DESIGN-STATE EXAMPLE</a></article>
+          <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">BROWSER / PROGRESSIVE API</span><h3>Native browser integrations</h3><p class="syn-muted">Anchored popovers, declarative dialogs, content-sized textareas and optional scroll effects. No JavaScript.</p><a class="syn-button syn-button--outline" href="../examples/native-apis.html">OPEN NATIVE API DEMO</a> <a href="native-browser-apis.md">Read the API guide</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">NATIVE / HTML PRIMITIVES</span><h3>Real browser controls</h3><p class="syn-muted">Native form fields and disclosures, progressive CSS styling and accessible markup.</p><a class="syn-button syn-button--outline" href="../examples/native-elements.html">OPEN NATIVE HTML DEMO</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">STUDIO / WORKFLOWS</span><h3>Search, filters and settings</h3><p class="syn-muted">A complete static SaaS UI example with search form, data table, native settings and pagination. Server-ready markup; no live backend or JavaScript.</p><a class="syn-button syn-button--primary" href="../examples/saas-workflows.html">OPEN WORKFLOW EXAMPLE</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">NATIVE / OPT-IN</span><h3>Popovers, floating labels, timelines and code</h3><p class="syn-muted">Native browser commands, accessible labels and copyable CSS-only recipes.</p><a class="syn-button syn-button--outline" href="../examples/native-recipes.html">OPEN NATIVE PATTERNS</a></article>
