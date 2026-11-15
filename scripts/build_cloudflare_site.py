@@ -37,6 +37,22 @@ HEADERS = """/*
 /docs/*
   Cache-Control: public, max-age=0, must-revalidate
 
+/docs/*.md
+  X-Robots-Tag: noindex
+  Content-Type: text/markdown; charset=utf-8
+
+/README.md
+  X-Robots-Tag: noindex
+  Content-Type: text/markdown; charset=utf-8
+
+/ARCHITECTURE.md
+  X-Robots-Tag: noindex
+  Content-Type: text/markdown; charset=utf-8
+
+/agents/syntyr/SKILL.md
+  X-Robots-Tag: noindex
+  Content-Type: text/markdown; charset=utf-8
+
 /examples/*
   Cache-Control: public, max-age=0, must-revalidate
 
@@ -101,6 +117,22 @@ def immutable_site_css(files: dict[str, bytes]) -> None:
     files.update(derived)
 
 
+PUBLIC_DOCS = (
+    "ai-quickstart.md", "agent-integration.md",
+    "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "component-authoring.md", "components.md",
+    "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
+    "distribution.md", "native-patterns.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
+    "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md",
+    "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
+    "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
+    "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
+    "editor-integration.md", "recipes.md", "saas-cli-business.md",
+    "site-generator-decision.md", "tailwind-research.md",
+    "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
+    "vertigo-integration.md", "viz.md",
+)
+
+
 def source_files() -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     paths = [
@@ -128,21 +160,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "examples/ansi_cli.py",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
-    public_docs = (
-        "ai-quickstart.md", "agent-integration.md",
-        "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "component-authoring.md", "components.md",
-        "console-kit.html", "component-recipes.md", "design-research-linear-resend.md",
-        "visual-composition.md", "premium-compositions.md", "native-patterns.md",
-        "distribution.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
-        "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md",
-        "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
-        "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
-        "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
-        "editor-integration.md", "recipes.md", "saas-cli-business.md",
-        "site-generator-decision.md", "tailwind-research.md",
-        "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
-        "vertigo-integration.md", "viz.md",
-    )
+
     public_examples = (
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
@@ -155,7 +173,10 @@ def source_files() -> dict[str, bytes]:
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.
     public_css = tuple(all_distributions())
-    paths.extend(ROOT / "docs" / name for name in public_docs)
+    paths.extend(ROOT / "docs" / name for name in PUBLIC_DOCS)
+    paths.extend(ROOT / "docs" / (name.removesuffix(".md") + ".html")
+                 for name in PUBLIC_DOCS if name.endswith(".md"))
+    paths.append(ROOT / "docs/reference.html")
     # Only approved raster captures from the privately authored Console Kit.
     # Never publish premium HTML, CSS, build output, or other private assets.
     public_preview_images = (
@@ -192,6 +213,17 @@ def source_files() -> dict[str, bytes]:
                 raise ValueError(f"Modified immutable release asset: {path}")
             files[f"v/{version}/{filename}"] = data
 
+    # Index HTML for people. Keep public Markdown fetchable by agents but
+    # exclude it from human-facing search results and the HTML sitemap.
+    from xml.sax.saxutils import escape as escape_xml
+    pages = sorted(name for name in files if name.endswith(".html"))
+    addresses = ["/"] + ["/" + name for name in pages if name != "index.html"]
+    files["sitemap.xml"] = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                            + "".join(f"  <url><loc>{escape_xml('https://syntyr-css.pages.dev' + url)}</loc></url>\n"
+                                      for url in addresses)
+                            + "</urlset>\n").encode("utf-8")
+    files["robots.txt"] = b"User-agent: *\nAllow: /\n\nSitemap: https://syntyr-css.pages.dev/sitemap.xml\n"
     immutable_site_css(files)
     files["_headers"] = HEADERS.encode("utf-8")
     return files

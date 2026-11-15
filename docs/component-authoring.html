@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Syntyr component-authoring contract (experimental). Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="1ca921b94afa8b6c337d8049f7acac79fd67dc891f42a34f450386f394f30b9c">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr component-authoring contract (experimental) — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-authoring.html">
+  <link rel="alternate" type="text/markdown" href="component-authoring.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr component-authoring contract (experimental)</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="component-authoring.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr component-authoring contract (experimental)">
+<h1 id="syntyr-component-authoring-contract-experimental">Syntyr component-authoring contract (experimental)</h1>
+<p>This document defines conventions for application-owned, framework-owned, and
+future optional Syntyr-compatible Web Components. It does <strong>not</strong> introduce a
+JavaScript API, runtime dependency, or widget package into <code>@syntyr/css</code>.</p>
+<h2 id="public-styling-contract">Public styling contract</h2>
+<ol>
+<li><strong>Real HTML semantics first:</strong> use <code>button</code> for actions, <code>a</code> for
+navigation, <code>label</code> and correctly associated form controls, native
+<code>details</code>/<code>dialog</code>/<code>popover</code> where supported. A styled generic element
+is not automatically a usable control.</li>
+<li><strong>One styling namespace:</strong> use Syntyr classes <code>.syn-*</code>, CSS custom
+properties <code>--syn-*</code>, and <code>data-syn-*</code> only for Syntyr-specific
+presentation state. Do not add a competing global reset or theme registry.</li>
+<li><strong>Explicit scope:</strong> document styles require an enclosing <code>.syn-root</code>;
+<code>.syn-semantic</code> is optional and applies only to its marked subtree.
+Shadow DOM internals must consume inherited tokens via their own styles,
+or explicitly load scoped Syntyr CSS internally.</li>
+<li><strong>Theme independence:</strong> components should work under every theme; prefer
+public semantic design tokens over hard-coded palettes and per-theme forks.</li>
+<li><strong>State:</strong> use native <code>disabled</code>, <code>checked</code>, <code>required</code>, <code>aria-pressed</code>,
+<code>aria-expanded</code>, <code>aria-invalid</code>, or <code>aria-busy</code> where semantically
+appropriate. Use <code>data-syn-state</code> only for supplemental visual state,
+and keep any ARIA state synchronized with real behavior.</li>
+<li><strong>Events:</strong> reuse standard DOM events when sufficient. If using
+<code>CustomEvent</code>, document its name, <code>detail</code> payload, dispatch source,
+bubbling and composed behavior. Use <code>bubbles: true</code> and <code>composed: true</code>
+for consumer-facing events intended to cross a Shadow DOM boundary.</li>
+<li><strong>Properties and attributes:</strong> prefer native properties and meaningful
+primitive attributes. Use documented defaults, avoid conflicting states,
+and only reflect state to attributes when useful for external consumers.</li>
+<li><strong>Composition:</strong> slots and <code>::part()</code> should expose deliberately supported
+customization surfaces, not all internal markup as a permanent API.
+Light DOM components can reuse existing <code>.syn-*</code> styles directly.</li>
+<li><strong>Progressive enhancement:</strong> preserve readable content and working native
+navigation/form fallbacks if JavaScript is blocked or fails. Interactivity,
+authorization, validation and persistence belong to the host application.</li>
+<li><strong>Accessibility:</strong> validate keyboard-only activation and focus order,
+visible <code>:focus-visible</code>, accessible names, announced status, motion
+preferences, forced colors, text contrast and zoom/reflow. Do not replace
+accessible native behaviors with untested ARIA patterns.</li>
+</ol>
+<h2 id="suggested-review-checklist">Suggested review checklist</h2>
+<ul>
+<li>Has an HTML-only fallback when the workflow requires it</li>
+<li>Does not require a particular frontend framework for presentation</li>
+<li>Documents all public tokens, attributes, and emitted custom events</li>
+<li>Works in nested Studio/Grid/Noir themes and a narrow embedded host</li>
+<li>Does not restyle the document outside <code>.syn-root</code></li>
+<li>Maintains accessible state when disabled or busy</li>
+<li>Handles text content safely without raw-HTML interpolation</li>
+<li>Passes cross-engine tests and manual assistive-technology review</li>
+</ul>
+<h2 id="example-boundaries">Example boundaries</h2>
+<p>The optional <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/lit">Syntyr + Lit sample</a> provides
+light-DOM class styling and Shadow DOM token + <code>::part()</code> styling. It
+demonstrates a <code>CustomEvent</code> contract but uses only local demonstration
+state. It is not a proposed production widget API.</p>
+<p>For stable CSS selector/token guarantees see <a href="api-stability.html">API stability</a>.
+For native HTML fallbacks see
+<a href="progressive-enhancement.html">progressive enhancement</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#public-styling-contract">Public styling contract</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#suggested-review-checklist">Suggested review checklist</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#example-boundaries">Example boundaries</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="component-authoring.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

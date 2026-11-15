@@ -4,6 +4,10 @@
 
 The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The main branch currently represents an **unreleased v0.3.0-alpha.5 candidate** with additional themes and modules. Documentation follows current source unless it explicitly refers to the published tag; verify availability against the version you actually install.
 
+## Choose the right representation
+
+For browser readers, use the [human-readable HTML documentation directory](https://syntyr-css.pages.dev/docs/reference.html) and [practical HTML guides](https://syntyr-css.pages.dev/docs/guides.html). For retrieval by coding agents, the links below point to public Markdown source files with the same guide content. Markdown is served directly; no user-agent spoofing, browser rendering, or JavaScript is necessary.
+
 ## Start here
 
 - [AI quickstart](https://syntyr-css.pages.dev/docs/ai-quickstart.md): Version-aware CSS installation and valid HTML examples.

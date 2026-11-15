@@ -2463,6 +2463,14 @@ The repository's root `AGENTS.md` guides agents contributing to Syntyr itself. I
 
 Documentation follows the current source candidate; always check [release boundaries](api-stability.md) and the [distribution guide](distribution.md) before using candidate-only features.
 
+## Documentation formats: HTML for people, Markdown for agents
+
+Every approved public guide is published at two stable paths. Use the readable HTML page (for example, [`/docs/components.html`](components.html)) in browser navigation, search results and links to end users. Use the original Markdown (`/docs/components.md`) for coding-agent retrieval, repository editing and `llms.txt` references. The [complete HTML guide directory](reference.html) is the human entry point. Both formats contain the same authored guide content; the HTML is rendered ahead of time, not by client-side JavaScript.
+
+These are **different representations of the same public documentation**, not user-agent cloaking. Anyone can request Markdown directly; agents can also read HTML. Markdown responses have a `text/markdown` content type and `X-Robots-Tag: noindex` so search engines favor HTML, while `robots.txt` and the sitemap advertise public HTML pages. Do not disallow Markdown in `robots.txt`: agents need to fetch it explicitly. HTML has canonical URLs and points back to its Markdown source via `rel="alternate" type="text/markdown"`.
+
+When adding a guide for public consumption, review the explicit `PUBLIC_DOCS` allowlist in `scripts/build_cloudflare_site.py`. Regenerate the committed HTML with the maintainer-only generator (`python3 scripts/build_doc_pages.py`), and verify it with `--check`. The core static-site and CI builds require no Markdown parsing package or client runtime.
+
 ## Validation and maintenance
 
 The repository uses Python standard-library scripts:

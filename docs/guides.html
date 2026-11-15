@@ -20,6 +20,7 @@
         <a href="catalog.html">Components</a>
         <a href="index.html#themes">Themes</a>
         <a href="guides.html" aria-current="page">Guides</a>
+        <a href="reference.html">All docs</a>
         <a href="../index.html#showcase">Examples</a>
       </nav>
       <details class="site-mobile-menu">
@@ -29,6 +30,7 @@
           <a href="catalog.html">Components</a>
           <a href="index.html#themes">Themes</a>
           <a href="guides.html" aria-current="page">Guides</a>
+        <a href="reference.html">All docs</a>
           <a href="../index.html#showcase">Examples</a>
         </nav>
       </details>
@@ -37,7 +39,8 @@
       <section class="docs-guide-hero">
         <p class="syn-eyebrow">GUIDES / HTML-FIRST</p>
         <h1 class="docs-guide-title">Build with less machinery.</h1>
-        <p class="syn-lede">Install Syntyr, integrate it into the renderer you already use, and progressively enhance only where interaction is required. These quick references link to complete source guides.</p>
+        <p class="syn-lede">Install Syntyr, integrate it into the renderer you already use, and progressively enhance only where interaction is required. These quick references link to complete, readable HTML guides.</p>
+        <p><a class="syn-button syn-button--primary" href="reference.html">Browse the full documentation index</a></p>
         <nav class="docs-guide-links" aria-label="Guide sections">
           <a href="#installation">Installation</a><a href="#integration">Integrations</a>
           <a href="#customization">Customization</a><a href="#progressive-enhancement">Progressive enhancement</a>
@@ -51,35 +54,35 @@
 &lt;main class="syn-root" data-syn-theme="studio"&gt;
   &lt;button class="syn-button syn-button--primary"&gt;Continue&lt;/button&gt;
 &lt;/main&gt;</code></pre>
-        <p><a href="index.html#install">Download and version guidance</a> · <a href="distribution.md">Full distribution reference (Markdown)</a></p>
-        <p>Testing the unreleased alpha.5 source? Try the <a href="../examples/semantic-starter.html">one-file semantic HTML starter</a> or read <a href="from-pico.md">how to migrate from Pico.css</a>. The published alpha.4 release uses two separate CSS files; see the guide for compatibility notes.</p>
+        <p><a href="index.html#install">Download and version guidance</a> · <a href="distribution.html">Full distribution reference</a></p>
+        <p>Testing the unreleased alpha.5 source? Try the <a href="../examples/semantic-starter.html">one-file semantic HTML starter</a> or read <a href="from-pico.html">how to migrate from Pico.css</a>. The published alpha.4 release uses two separate CSS files; see the guide for compatibility notes.</p>
       </section>
       <section class="docs-section" id="integration" aria-labelledby="integration-guide-title">
         <h2 id="integration-guide-title">02 / Any HTML renderer</h2>
         <p>Syntyr is a presentation layer, not a request client or state manager. Use the same markup with HTMX, Django templates, Go templ, Astro, React, Vue, Svelte or Rails. Native controls work without client-side code; your application owns submission, state and data.</p>
         <p>For HTMX and similar tools, keep CSS classes on persistent elements, use native forms, and apply <code>data-syn-semantic</code> to opt-in elements that receive transient framework classes.</p>
-        <p><a href="framework-integrations.md">Full framework integration guide (Markdown)</a> · <a href="lit-integration.md">Lit / Web Components guide</a> · <a href="component-authoring.md">Component authoring contract</a> · <a href="../examples/saas-workflows.html">Working SaaS patterns</a></p>
-        <p>Working with an AI coding agent? See the <a href="ai-quickstart.md">agent quickstart</a>, <a href="agent-integration.md">integration guide</a> and <a href="../llms.txt">public LLM index</a>.</p>
+        <p><a href="framework-integrations.html">Full framework integration guide</a> · <a href="lit-integration.html">Lit / Web Components guide</a> · <a href="component-authoring.html">Component authoring contract</a> · <a href="../examples/saas-workflows.html">Working SaaS patterns</a></p>
+        <p>For AI coding agents, start from the <a href="../llms.txt">Markdown documentation index</a>; humans can read the <a href="ai-quickstart.html">agent quickstart</a> and <a href="agent-integration.html">integration guide</a> as HTML.</p>
       </section>
       <section class="docs-section" id="customization" aria-labelledby="customization-guide-title">
         <h2 id="customization-guide-title">03 / Themes and design tokens</h2>
         <p>Change visual identity through <code>data-syn-theme</code> on a component subtree. Studio, Grid and Noir are part of the published alpha.4 release; the unreleased alpha.5 source adds four more palettes. Override exposed <code>--syn-*</code> custom properties locally rather than editing generated CSS.</p>
-        <p><a href="theme-editor.html">Interactive theme editor</a> · <a href="theme-customization.md">Complete token reference (Markdown)</a></p>
+        <p><a href="theme-editor.html">Interactive theme editor</a> · <a href="theme-customization.html">Complete token reference</a></p>
       </section>
       <section class="docs-section" id="progressive-enhancement" aria-labelledby="enhancement-guide-title">
         <h2 id="enhancement-guide-title">04 / Progressive enhancement</h2>
         <p>Use <code>&lt;details&gt;</code> for disclosures and real anchors for navigation. Native popover and dialog invoker commands only work in supporting browsers; supply a working fallback or progressive JavaScript enhancement when an interaction is essential. CSS effects should never be required for content or workflow completion.</p>
-        <p><a href="progressive-enhancement.md">Browser compatibility and fallbacks (Markdown)</a> · <a href="../examples/native-elements.html">Native HTML demo</a></p>
+        <p><a href="progressive-enhancement.html">Browser compatibility and fallbacks</a> · <a href="../examples/native-elements.html">Native HTML demo</a></p>
       </section>
       <section class="docs-section" id="performance" aria-labelledby="performance-guide-title">
         <h2 id="performance-guide-title">05 / Performance without arbitrary budgets</h2>
         <p>Load only the CSS modules you use; prefer the core stylesheet for ordinary apps. Decorative effects and geometry are separate opt-ins. Avoid unnecessary layout shifts, audit real pages in representative browsers, and measure transferred CSS, rendering and interactions rather than enforcing arbitrary bundle-size ceilings.</p>
-        <p><a href="progressive-loading.md">Progressive loading and critical CSS guide</a> · <a href="../examples/performance-first.html">Performance-first example</a> · <a href="performance-and-polish.md">Performance guidance (Markdown)</a> · <a href="performance-validation.md">Validation methodology (Markdown)</a> · <a href="live-performance-audit.md">Deployed mobile audit (Markdown)</a></p>
+        <p><a href="progressive-loading.html">Progressive loading and critical CSS guide</a> · <a href="../examples/performance-first.html">Performance-first example</a> · <a href="performance-and-polish.html">Performance guidance</a> · <a href="performance-validation.html">Validation methodology</a> · <a href="live-performance-audit.html">Deployed mobile audit</a></p>
       </section>
       <section class="docs-section" id="accessibility" aria-labelledby="accessibility-guide-title">
         <h2 id="accessibility-guide-title">06 / Accessible by default, verified in context</h2>
         <p>Keep visible labels, meaningful native semantics and keyboard focus. Validate contrast across all active themes, check mobile reflow at 320px, and inspect forced-colors and reduced-motion modes. CSS alone cannot guarantee accessibility in an application with poor markup.</p>
-        <p><a href="accessibility.md">Accessibility review guidance (Markdown)</a> · <a href="catalog.html">View accessible component examples</a></p>
+        <p><a href="accessibility.html">Accessibility review guidance</a> · <a href="catalog.html">View accessible component examples</a></p>
       </section>
     </main>
     <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>

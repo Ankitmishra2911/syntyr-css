@@ -79,6 +79,21 @@ The linked alpha.4 release is already published; it does not include the four ad
 
 Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application. For package-manager projects, an optional CSS-only `@syntyr/css` manifest is now prepared for an **unpublished** alpha.5 candidate; [test it locally](docs/package-managers.md) until registry ownership and release approval are confirmed. No package installation is required by Syntyr itself.
 
+## Documentation for humans and AI agents
+
+- **For humans:** [browse every guide as HTML](https://syntyr-css.pages.dev/docs/reference.html), or start with [practical walkthroughs](https://syntyr-css.pages.dev/docs/guides.html). All publicly approved Markdown guides have readable, navigable HTML counterparts; links on the site prefer HTML.
+- **For LLMs and coding agents:** retrieve [llms.txt](https://syntyr-css.pages.dev/llms.txt) to discover the public Markdown guides, or use [llms-full.txt](https://syntyr-css.pages.dev/llms-full.txt) as one curated source. Raw Markdown is publicly accessible, but intentionally excluded from human search indexing. Do not rely on crawler detection or user-agent-specific content.
+
+Maintain one authored Markdown source per guide. After changing approved public Markdown, regenerate the committed HTML:
+
+```sh
+python3 -m pip install -r requirements-docs.txt  # maintainers only
+python3 scripts/build_doc_pages.py
+python3 scripts/build_doc_pages.py --check
+```
+
+The authoring dependency does **not** ship to consumers or run during the static-site build. CI's stdlib-only tests verify that HTML source hashes match the public Markdown allowlist. See the [agent documentation integration contract](docs/agent-integration.md).
+
 ## Start in 10 seconds
 
 Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.

@@ -120,15 +120,15 @@ class BrandCohesionContract(unittest.TestCase):
     def test_public_site_contains_showcases_and_visual_guidelines(self):
         from scripts.build_cloudflare_site import source_files
         published = source_files()
-        for filename in ("examples/flagship.css", "docs/visual-composition.md",
+        for filename in ("examples/flagship.css", "docs/visual-composition.md", "docs/visual-composition.html",
                          *(f"examples/flagship-{variant}.html" for variant in FLAGSHIPS)):
-            self.assertIn(filename, published)
+            self.assertTrue(filename in published, filename)
         home = (ROOT / "index.html").read_text()
         docs = (ROOT / "docs/index.html").read_text()
         for variant in FLAGSHIPS:
             self.assertIn(f'examples/flagship-{variant}.html', home)
             self.assertIn(f'../examples/flagship-{variant}.html', docs)
-        self.assertIn('visual-composition.md', docs)
+        self.assertIn('visual-composition.html', docs)
         self.assertIn("Resend", (ROOT / "docs/visual-composition.md").read_text())
 
 
