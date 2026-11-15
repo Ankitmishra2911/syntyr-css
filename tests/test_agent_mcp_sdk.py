@@ -34,6 +34,17 @@ class AgentMcpSdkTests(unittest.TestCase):
                 })
                 self.assertTrue(invalid.is_error)
                 self.assertIn("unavailable", str(invalid.content).lower())
+                check = await client.call_tool("validate_markup", {
+                    "html": '<button class="syn-buttn" data-syn-theme="industrial">Go</button>',
+                    "release": "0.3.0-alpha.4", "stylesheets": ["syntyr.core.css"],
+                })
+                self.assertFalse(check.is_error)
+                result = check.structured_content
+                self.assertEqual(result["unknown_classes"], ["syn-buttn"])
+                self.assertEqual({d["code"] for d in result["diagnostics"]},
+                                 {"unknown-class", "invalid-attribute-value"})
+                typo = next(d for d in result["diagnostics"] if d["code"] == "unknown-class")
+                self.assertIn("syn-button", [s["name"] for s in typo["suggestions"]])
                 for tool in listing.tools:
                     self.assertIs(tool.annotations.read_only_hint, True)
         asyncio.run(run())

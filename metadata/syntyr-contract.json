@@ -3532,7 +3532,13 @@
       "spacious"
     ],
     "data-syn-state": [
-      "active"
+      "active",
+      "degraded",
+      "down",
+      "healthy",
+      "loading",
+      "selected",
+      "unknown"
     ]
   },
   "components": [

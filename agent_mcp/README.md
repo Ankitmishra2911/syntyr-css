@@ -37,8 +37,39 @@ The server offers these **read-only** tools:
 - `get_component(name, release)` — native element guidance and stylesheets.
 - `lookup_api(name, release)` — class or token existence.
 - `get_theme_tokens(query, release)` — property names, not computed values.
-- `validate_markup(html, release, stylesheets)` — unknown `syn-*` classes
-  and required CSS files. This is not an accessibility conformance audit.
+- `validate_markup(html, release, stylesheets)` — unknown `syn-*` classes,
+  allowed theme/state values, missing CSS files, and structured repair hints.
+  This is not an accessibility conformance audit.
+
+### Agent verification loop
+
+Call `validate_markup` with the generated **literal HTML**, explicit release,
+and the stylesheets actually installed. The response preserves
+`classes_checked`, `unknown_classes`, `missing_stylesheets`, and
+`installed_stylesheets`; it additionally includes a deterministic `diagnostics`
+array with 1-based source positions, errors, class-name `suggestions` limited
+to the selected release, `allowed_values` for known states, and
+`required_stylesheets` / `loaded_stylesheets` when a CSS module is missing.
+Recognized `<link rel="stylesheet">` paths are used if `stylesheets` is
+omitted; explicit values override detected links. An explicitly empty array
+means **no Syntyr CSS is loaded** and produces missing-module diagnostics.
+When the field is omitted and no stylesheet link is found,
+`missing_stylesheets` lists recommended CSS entrypoints, but the validator
+cannot assert what the application already loads. Dynamic template expressions
+are skipped conservatively. The MCP tool never edits files or installs CSS.
+
+```json
+{
+  "html": "<button class=\"syn-buttn\">Save</button>",
+  "release": "0.3.0-alpha.4",
+  "stylesheets": ["syntyr.core.css"]
+}
+```
+
+Validate again after applying an appropriate class or stylesheet correction,
+and verify actual rendered behavior with native keyboard and browser checks.
+Do not apply suggestions automatically. A typo near an alpha.5-only selector
+is **not** proof that the class exists in published alpha.4.
 
 Version defaults to **published and immutable `0.3.0-alpha.4`**; explicitly
 select `0.3.0-alpha.5` only when using the unreleased current-source CSS

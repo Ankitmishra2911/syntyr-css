@@ -59,7 +59,7 @@ def get_theme_tokens(query: str = "", release: str = PUBLISHED) -> dict[str, Any
 @server.tool(annotations=READ_ONLY, structured_output=True)
 def validate_markup(html: str, release: str = PUBLISHED,
                     stylesheets: list[str] | None = None) -> dict[str, Any]:
-    """Check Syntyr class names and missing stylesheets in HTML (not WCAG)."""
+    """Validate literal markup; return pinned-release diagnostics and repair hints, not WCAG."""
     return checked(catalog.validate_markup, html, release, stylesheets)
 
 
