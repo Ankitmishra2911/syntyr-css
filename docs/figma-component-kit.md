@@ -1,46 +1,65 @@
-# Syntyr Figma Component Kit — alpha.5 preview
+# Syntyr Figma Design Kit — alpha.5 pilot
 
-[Open the editable Syntyr Figma kit](https://www.figma.com/design/Lj8uKUtgJfXMyzVb96x5Q1)
+[Open the editable Syntyr kit](https://www.figma.com/design/Lj8uKUtgJfXMyzVb96x5Q1)
 
-This is a **first component-library pilot**, not a published Figma Community
-library or a complete replacement for browser rendering.
+This is **an editable design pilot**, not a Figma Community publication, a
+complete accessible component library, or a pixel-perfect mirror of CSS.
 
-## What exists
+## Created in Figma
 
-- Seven independent single-mode color variable collections: Studio, Grid,
-  Noir, Industrial, Terminal, Corporate and Minimal.
-- Four native reusable components using Studio variables: primary button,
-  outline button, default panel and success status.
-- An instance-based review frame with editable text and auto-layout.
-- CSS token code syntax (`var(--syn-*)`) and descriptive component names.
+- Seven independent **single-mode** collections: Studio, Grid, Noir,
+  Industrial, Terminal, Corporate and Minimal; nine literal palette
+  color variables per collection (**63 variables**). Code syntax maps to
+  `var(--syn-*)`.
+- Existing four Studio components: primary and outline button, panel, and
+  success status, plus their original review.
+- New **Syntyr / Button Variants v1** component set: Style=Primary/Outline
+  × State=Default/Focus/Disabled (**six variants**). Each has a label
+  property linked to the text node.
+- New **Syntyr / Input States v1** component set: Default, Focus,
+  Invalid and Disabled (**four variants**) with editable placeholder text.
+- New standalone **Syntyr / Navigation v1** and **Syntyr / Table v1**
+  components; review frames contain instances rather than copies.
 
-Figma Starter mode limits this file to **one mode per collection**, so all seven
-themes are separate collections rather than seven switchable modes. Do not
-claim that theme switching works on the same component instance.
+Both new review frames were inspected visually. The input review still has
+a **compact invalid-state instance** despite an attempted width correction,
+and the primary focus ring is an approximation. Do not publish until these
+discrepancies and all relevant contrast states are resolved.
 
-## Source of truth and parity
+## What Figma does not guarantee
 
-CSS: `src/tokens.css`, `src/components/buttons.css`,
-`src/components/data.css`. Machine-readable palettes:
+The Figma Starter workspace only permits **one variable mode per collection**.
+Theme switching is not implemented as seven modes in a single collection.
+The source JSON includes 13 literal colors and 2 dimensions per theme;
+the current native kit contains only nine selected color roles per theme.
+Do not claim exact 1:1 token parity or copy over incomplete modes blindly.
+
+Studio references from `src/tokens.css`: background #F5F7FB, surface
+#FFFFFF, text #15233A, accent #2458C6, accent foreground #FFFFFF,
+frame #B8C6D8 and success #17694B. Default button min-height 44px,
+14px semibold text, 16px horizontal padding, 4px radius at 16px root.
+
+The design uses Inter as a practical font substitute for CSS's system stack;
+native focus outline positioning, disabled behavior, ARIA semantics, layout
+reflow, responsive rules and hover states **must be verified in a browser**.
+Component instances are visual examples only; they are not interactive UI.
+
+The Figma MCP request quota was reached during this iteration. Remaining
+work requires additional tool access and review rather than guessing at
+the resulting canvas.
+
+## Remaining designer release gates
+
+1. Repair the invalid input preview width and accurate focus-visible rings.
+2. Add full spacing/typography roles and component-level semantic token aliases.
+3. Validate color and layout against browser screenshots at all seven themes,
+   both default and high contrast / disabled states.
+4. Add form label/error/description relationships, responsive tables and
+   navigation variants; audit accessibility semantics during handoff.
+5. Review editability, variant properties and component descriptions; only then
+   consider Figma library/community publication or Code Connect.
+
+Source of truth: `src/tokens.css`, `src/components/buttons.css`,
+`src/components/forms.css`, `src/components/data.css`, and
+`src/components/layout.css`. Token exchange:
 `metadata/figma/syntyr-<theme>.tokens.json`.
-
-Studio reference values: background #F5F7FB, surface #FFFFFF,
-text #15233A, accent #2458C6, accent foreground #FFFFFF,
-border #B8C6D8, success #17694B. Button minimum height 44px,
-14px semi-bold type, 16px horizontal padding and 4px corners
-(normal CSS `--syn-radius` .25rem at a 16px root).
-
-The pilot uses Inter as a practical local font substitute for
-Syntyr's platform system font stack; it is **not exact typography parity**.
-Native hover, focus-visible, disabled behavior and geometry effects
-remain browser responsibilities. Browser validation and contrast testing
-are required before publishing or distributing this as a production kit.
-
-## Next Figma steps
-
-- Add a coherent Button component set with state and size variants and
-  variable bindings for all applicable states.
-- Add spacing, typography and semantic alias variables.
-- Add native input, table, card, navigation and accessible form patterns.
-- Validate on-canvas components against CSS screenshots across themes.
-- Upgrade Figma plan only if a single collection with seven modes is needed.
