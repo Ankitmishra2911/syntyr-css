@@ -64,7 +64,11 @@ class SemanticRolesAndStates(unittest.TestCase):
         # Keep interactive pseudo-class specificity below explicit state styling.
         self.assertIn(':where(:not(:disabled):not([aria-disabled="true"]):hover)', buttons)
         self.assertIn(":where(:not(:disabled):hover)", forms)
-        self.assertIn(":where(:focus)", forms)
+        for selector in (".syn-input:where(:focus)", ".syn-select:where(:focus)",
+                         ".syn-textarea:where(:focus)"):
+            self.assertIn(selector, forms)
+        self.assertNotIn(".syn-input:focus", forms)
+        self.assertNotIn(".syn-select:focus", forms)
         self.assertIn(":where(:not(:disabled):hover)", semantic)
         self.assertIn(":where(:focus)", semantic)
         self.assertLess(buttons.index(":hover"), buttons.index('[aria-pressed="true"]'))
