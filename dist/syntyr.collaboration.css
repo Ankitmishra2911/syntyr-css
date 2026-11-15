@@ -129,6 +129,7 @@
       flex-wrap: wrap;
       gap: .35rem;
       min-inline-size: 0;
+      overflow-wrap: anywhere;
       font-weight: 650;
     }
     &.syn-identity__role {

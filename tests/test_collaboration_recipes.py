@@ -20,8 +20,9 @@ class DemoParser(HTMLParser):
         self.classes = set()
         self.themes = set()
         self.scripts = 0
-        self.unlabeled_textareas = []
         self.textareas = []
+        self.labels = []
+        self.open_labels = []
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -30,8 +31,36 @@ class DemoParser(HTMLParser):
             self.themes.add(a["data-syn-theme"])
         if tag == "script":
             self.scripts += 1
+        if tag == "label":
+            label = {"for": a.get("for"), "id": a.get("id"), "text": []}
+            self.labels.append(label)
+            self.open_labels.append(label)
         if tag == "textarea":
+            a["_wrapping_label"] = self.open_labels[-1] if self.open_labels else None
             self.textareas.append(a)
+
+    def handle_data(self, data):
+        for label in self.open_labels:
+            label["text"].append(data)
+
+    def handle_endtag(self, tag):
+        if tag == "label" and self.open_labels:
+            self.open_labels.pop()
+
+    def textarea_has_name(self, textarea):
+        if (textarea.get("aria-label") or "").strip():
+            return True
+        references = set((textarea.get("aria-labelledby") or "").split())
+        field_id = textarea.get("id")
+        for label in self.labels:
+            linked = (
+                (field_id and label["for"] == field_id)
+                or (label is textarea.get("_wrapping_label"))
+                or (label["id"] and label["id"] in references)
+            )
+            if linked and "".join(label["text"]).strip():
+                return True
+        return False
 
 
 class CollaborationRecipes(unittest.TestCase):
@@ -55,6 +84,9 @@ class CollaborationRecipes(unittest.TestCase):
                       "--syn-muted", "--syn-accent", "--syn-focus-ring"):
             self.assertIn("var(" + token, source)
         self.assertIn(":focus-visible", source)
+        identity_rule = source.split("&.syn-identity {", 1)[1].split("}", 1)[0]
+        self.assertIn("overflow-wrap: anywhere", identity_rule,
+                      "unbroken author names must wrap within the message")
         self.assertIn("--syn-collab-avatar: min(2rem, 36px)", source)
         self.assertIn("forced-colors: active", source)
         self.assertIn("prefers-reduced-motion: reduce", source)
@@ -78,9 +110,21 @@ class CollaborationRecipes(unittest.TestCase):
         self.assertIn('aria-label="', demo)
         self.assertIn('disabled', demo)  # no fake posting or execution
         for textarea in parser.textareas:
-            self.assertTrue(textarea.get("aria-label") or textarea.get("aria-labelledby") or textarea.get("id"))
+            self.assertTrue(parser.textarea_has_name(textarea),
+                            "textarea must have a real, nonempty accessible name")
         self.assertNotRegex(demo, r'<button(?![^>]*disabled)[^>]*>\s*(?:Send|Approve|Run)')
         self.assertNotIn("onclick=", demo.lower())
+
+    def test_id_alone_is_not_a_textarea_name(self):
+        parser = DemoParser()
+        parser.feed('<textarea id="field"></textarea>')
+        self.assertFalse(parser.textarea_has_name(parser.textareas[0]))
+        with_label = DemoParser()
+        with_label.feed('<label for="field">Description</label><textarea id="field"></textarea>')
+        self.assertTrue(with_label.textarea_has_name(with_label.textareas[0]))
+        empty_label = DemoParser()
+        empty_label.feed('<label for="field">  </label><textarea id="field"></textarea>')
+        self.assertFalse(empty_label.textarea_has_name(empty_label.textareas[0]))
 
     def test_release_documentation_and_packaging(self):
         from scripts.package_release import FILES

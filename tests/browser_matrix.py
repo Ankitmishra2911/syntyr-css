@@ -71,6 +71,20 @@ def assert_page(browser, name: str, viewport: int) -> None:
         ]
         assert len(set(themes)) == 3, themes
         assert page.get_by_role("button", name="Send").is_disabled()
+        assert page.get_by_role("textbox", name="Reply to Release operations").count() == 1
+        if viewport == 320:
+            identity = page.locator("#minimal .syn-identity").first
+            measure = identity.evaluate("""e => {
+              e.textContent = 'LongNameWithoutSpaces'.repeat(25);
+              const r = e.getBoundingClientRect();
+              const parent = e.parentElement.getBoundingClientRect();
+              return {height: r.height, lineHeight: parseFloat(getComputedStyle(e).lineHeight),
+                      right: r.right, parentRight: parent.right,
+                      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth};
+            }""")
+            assert measure["height"] > measure["lineHeight"] * 2, measure
+            assert measure["right"] <= measure["parentRight"] + 1, measure
+            assert measure["pageOverflow"] <= 1, measure
     if name == "examples/crm.html":
         board = page.locator(".syn-pipeline")
         assert board.get_attribute("tabindex") == "0"
