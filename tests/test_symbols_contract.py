@@ -68,6 +68,24 @@ class OptionalSymbolsContract(unittest.TestCase):
         self.assertIn("Lucide", guide)
         self.assertIn("NO_COLOR", guide)
 
+    def test_every_symbol_rule_is_scoped_to_a_syntyr_root(self):
+        css = (ROOT / "src/symbols.css").read_text(encoding="utf-8")
+        # Each selector must support both an element inside .syn-root and the
+        # root element when it also carries the presentation class.
+        for name in ("syn-icon", "syn-icon > svg", "syn-symbol",
+                     "syn-symbol--accent", "syn-symbol--muted", "syn-ascii",
+                     "syn-ascii--accent", "syn-ascii--muted"):
+            with self.subTest(selector=name):
+                self.assertIn(".syn-root ." + name, css)
+                self.assertIn(".syn-root." + name, css)
+
+    def test_hidden_text_art_has_matching_visible_equivalents(self):
+        example = (ROOT / "examples/symbols.html").read_text(encoding="utf-8")
+        guide = (ROOT / "docs/symbols.md").read_text(encoding="utf-8")
+        self.assertIn("API online and jobs online", example)
+        self.assertIn("Gateway healthy and queue connected", example)
+        self.assertIn("API online and jobs online", guide)
+
     def test_docs_and_gallery_discover_new_module(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         gallery = (ROOT / "docs/index.html").read_text(encoding="utf-8")

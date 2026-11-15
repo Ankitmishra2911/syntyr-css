@@ -70,7 +70,7 @@ monospace alignment and scrolls horizontally rather than splitting a border.
 It pairs with existing `.syn-terminal` recipes, but does not require them.
 
 ```html
-<p id="sys-health">Gateway healthy; queue connected.</p>
+<p id="sys-health">API online and jobs online.</p>
 <pre class="syn-ascii syn-ascii--accent" aria-hidden="true">+-------------------+
 |  SYSTEM: ONLINE   |
 +-------------------+
