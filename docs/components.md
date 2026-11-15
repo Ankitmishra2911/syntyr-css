@@ -20,13 +20,22 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
 <link rel="stylesheet" href="syntyr.semantic.css">
-<section class="syn-semantic">
+<section class="syn-root syn-semantic" data-syn-theme="studio">
   <article>
     <label for="id">Operator <input id="id" name="id" required></label>
     <button data-syn-semantic>Continue</button>
   </article>
 </section>
 ```
+
+Class-based components, recipes, effects, and geometry apply only to elements
+inside a Syntyr root, including classes attached directly to the root itself.
+A bare Syntyr class on an unrelated host element is deliberately ignored, so
+framework-owned components and existing application CSS are not restyled.
+The root boundary is enforced through modern native CSS nesting with
+a zero-specificity selector rather than a global reset. Checkboxes and
+radio controls using the explicit styling API retain a minimum 24 CSS px box;
+the surrounding label should provide additional activation area.
 
 For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.syn-semantic`). `syn-root` should wrap any themed subtree; nested `data-syn-theme` overrides color tokens.
 

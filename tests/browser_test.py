@@ -56,6 +56,58 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(noir.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()"), '#f1b574')
         self.assertEqual(grid.locator('.syn-panel').count(), 0) # this panel *is* the theme root
 
+    def test_explicit_and_optional_css_never_escape_root(self):
+        """CSS class names on a host page must not trigger Syntyr styling."""
+        all_css = (ROOT / 'dist/syntyr.all.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{all_css}</style>
+          <button id="host-button" class="syn-button">Host action</button>
+          <article id="host-panel" class="syn-panel">Host article</article>
+          <div id="host-shell" class="syn-app-shell">Unrelated grid</div>
+          <section id="host-glow" class="syn-glow">Host glow</section>
+          <div id="host-frame" class="syn-frame syn-frame--precision">Host frame</div>
+          <section class="syn-root" data-syn-theme="studio">
+            <button id="inside-button" class="syn-button syn-button--primary">Inside action</button>
+            <article id="inside-panel" class="syn-panel">Inside article</article>
+            <div id="inside-shell" class="syn-app-shell">Inside grid</div>
+            <section id="inside-glow" class="syn-glow">Inside glow</section>
+            <div id="inside-frame" class="syn-frame syn-frame--precision">Inside frame</div>
+          </section>
+          <article id="self-panel" class="syn-root syn-panel" data-syn-theme="studio">Root is panel</article>
+          <section id="self-region" class="syn-root syn-region" data-syn-theme="studio">
+            <div id="region-child" class="syn-stats"><article class="syn-stat">Stat</article></div>
+          </section>""")
+        get = lambda selector, prop: self.page.locator(selector).evaluate(
+            "(e, p) => getComputedStyle(e).getPropertyValue(p).trim()", prop)
+        self.assertNotEqual(get('#host-button', 'display'), 'inline-flex')
+        self.assertNotEqual(get('#host-panel', 'position'), 'relative')
+        self.assertNotEqual(get('#host-shell', 'display'), 'grid')
+        self.assertEqual(get('#host-glow', 'box-shadow'), 'none')
+        self.assertEqual(get('#host-frame', 'border-top-style'), 'none')
+        self.assertEqual(get('#inside-button', 'display'), 'inline-flex')
+        self.assertEqual(get('#inside-panel', 'position'), 'relative')
+        self.assertEqual(get('#inside-shell', 'display'), 'grid')
+        self.assertNotEqual(get('#inside-glow', 'box-shadow'), 'none')
+        self.assertNotEqual(self.page.locator('#inside-frame').evaluate(
+            "e => getComputedStyle(e, '::before').content"), 'none')
+        self.assertEqual(get('#self-panel', 'position'), 'relative')
+        self.assertEqual(get('#self-region', 'container-name'), 'syn-region')
+
+    def test_explicit_checkbox_and_radio_are_at_least_24_css_pixels(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{core}</style>
+          <main class="syn-root" data-syn-theme="studio">
+            <label class="syn-check"><input id="box" class="syn-input" type="checkbox"> Checkbox</label>
+            <label class="syn-check"><input id="radio" class="syn-input" type="radio"> Radio</label>
+            <section data-syn-density="compact">
+              <label class="syn-check"><input id="compact-box" class="syn-input" type="checkbox"> Compact</label>
+            </section>
+          </main>""")
+        for control in ('box', 'radio', 'compact-box'):
+            with self.subTest(control=control):
+                size = self.page.locator('#' + control).bounding_box()
+                self.assertGreaterEqual(size['width'], 24)
+                self.assertGreaterEqual(size['height'], 24)
+
     def test_semantic_mode_is_scoped_and_styled(self):
         semantic_button = self.page.locator('#semantic .syn-semantic button')
         self.assertEqual(semantic_button.count(), 1)

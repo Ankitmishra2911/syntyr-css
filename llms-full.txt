@@ -144,13 +144,22 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
 <link rel="stylesheet" href="syntyr.semantic.css">
-<section class="syn-semantic">
+<section class="syn-root syn-semantic" data-syn-theme="studio">
   <article>
     <label for="id">Operator <input id="id" name="id" required></label>
     <button data-syn-semantic>Continue</button>
   </article>
 </section>
 ```
+
+Class-based components, recipes, effects, and geometry apply only to elements
+inside a Syntyr root, including classes attached directly to the root itself.
+A bare Syntyr class on an unrelated host element is deliberately ignored, so
+framework-owned components and existing application CSS are not restyled.
+The root boundary is enforced through modern native CSS nesting with
+a zero-specificity selector rather than a global reset. Checkboxes and
+radio controls using the explicit styling API retain a minimum 24 CSS px box;
+the surrounding label should provide additional activation area.
 
 For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.syn-semantic`). `syn-root` should wrap any themed subtree; nested `data-syn-theme` overrides color tokens.
 
@@ -218,7 +227,7 @@ fetch data or require a renderer. Read [Syntyr Viz](viz.md) and open the
 
 ## Distribution behavior
 
-The repository contains **no `package.json`**, Node runtime requirement, or bundling dependency. A standard Python 3 build script creates deterministic concatenated CSS and validates exact committed outputs:
+The repository now includes an **optional CSS-only `package.json` for package-manager distribution**; there is still no Node runtime requirement, bundling dependency, or mandatory package manager. A standard Python 3 build script creates deterministic concatenated CSS and validates exact committed outputs (see [optional package-manager guide](package-managers.md)):
 
 ```sh
 python3 scripts/build.py
@@ -523,6 +532,10 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Optional npm/package-manager distribution
+
+A CSS-only `@syntyr/css` manifest is available in the alpha.5 repository candidate, but **it has not been published to npm**. See [package-manager installation and local tarball testing](package-managers.md) for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.
+
 ## Optional themes and semantic HTML
 
 Grid, Noir and Studio ship in the **same** core stylesheet; set
@@ -677,6 +690,13 @@ Every example uses the same `syn-` classes, CSS tokens and standard HTML.
   <div id="status" aria-live="polite"></div>
 </section>
 ```
+
+**Host isolation:** Loading the CSS alone does not style a `.syn-button`,
+`.syn-panel`, or other Syntyr class outside `.syn-root`. Existing host UI
+components and CSS retain their presentation. Put `.syn-root` on the actual
+Syntyr subtree (or on the component itself); do not assume a globally
+scoped component class creates its own theme root. Syntyr uses native CSS
+nesting for this boundary, so test embedding in each target browser.
 
 The marker is only considered **inside** `.syn-semantic`, so it does not style
 elements elsewhere. Do not put it on elements styled by a separate component
@@ -1358,6 +1378,52 @@ inspection, NVDA/VoiceOver validation, or a WCAG conformance audit. The
 pre-existing inconclusive axe contrast cases and manual release gates remain
 open. Use the separate [native example](../examples/native-elements.html)
 for representative manual checks after publishing.
+
+## Post-merge native-element review follow-up (November 15, 2026)
+
+The native HTML example received four confirmed actionable review findings after
+PR #38 merged. The follow-up fixes make its horizontally scrollable `pre`
+region keyboard-focusable with an accessible name/region role, allow long `kbd`
+chords to wrap, preserve readable foreground color for `mark > code`, and
+strengthen the browser regression to verify actual internal scrolling and
+keyboard focus instead of merely checking `scrollWidth >= clientWidth`.
+
+Reproducible checks on the follow-up worktree:
+
+- New unit contracts: 11 native-element tests pass; the full stdlib suite
+  passed 189 tests before final documentation/rebase.
+- Developer-only Playwright smoke: Chromium, Firefox, WebKit each passed
+  across seven themes, light/dark auto, 320px/900px widths, forced-colors
+  emulation, 200%/400% root-font enlargement and keyboard access to the
+  scrollable SQL example.
+- Shared browser matrix: all three engines passed 18 pages at three viewports.
+- Shared reflow matrix: all three engines completed 72 checks each (216 total).
+- Pinned axe-core 4.10.3 audit: **0 confirmed automated violations**, with
+  **10 incomplete rule checks** across the 18 included pages. The new
+  `examples/native-elements.html` page reported 0 violations and 0
+  incomplete checks. Other pages' inconclusive findings remain manual-review
+  items; these results are not blanket color-contrast certification.
+
+### Outstanding human validation (not yet performed)
+
+1. With **VoiceOver + Safari** and **NVDA + Firefox/Chrome** (Orca + Firefox
+   can be supplementary on Linux), navigate to
+   [the native HTML example](../examples/native-elements.html); verify the
+   "SQL query example" region is named, focusable with Tab, and responds to
+   horizontal scroll keys, without trapping focus.
+2. In a real browser, set **200% and 400% browser zoom**, not only the root
+   font-size test harness. At a 320 CSS-pixel effective viewport, verify
+   readable captions, long keyboard shortcuts, full access to the code
+   example, visible focus and no clipped form action.
+3. With an actual OS high-contrast/forced-colors mode, distinguish highlights,
+   focus rings, and selected controls. Also examine all axe inconclusive
+   contrast targets from the main release accessibility report.
+4. Record device, assistive technology version, browser version, observed
+   behavior, any defects, and reviewer sign-off before claiming WCAG
+   conformance or closing the manual release gate.
+
+These are QA instructions, not evidence that human assistive-technology or
+browser-UI zoom testing has happened.
 
 ---
 
