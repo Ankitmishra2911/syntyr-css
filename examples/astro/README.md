@@ -1,12 +1,23 @@
 # Syntyr + Astro (opt-in)
 
-Static Astro page using the locally packaged @syntyr/css core stylesheet.
+This static Astro example imports the local `@syntyr/css` distribution.
+It is **not** part of the Syntyr runtime or the hosted CSS distribution.
+
+Requires **Node.js 22.23.4 or newer** (Node 24 LTS recommended) and a compatible
+npm version, following Astro 7.4's updated minimum runtime requirements.
+The Astro 5 dependency was retired because it had multiple known security
+advisories. Keep this *example* on patched Astro releases.
 
 ```sh
 cd examples/astro
+node --version
 npm install
 npm run build
 npm run preview
 ```
 
-Generated HTML needs no Syntyr JavaScript runtime.
+The generated static HTML needs no Syntyr JavaScript runtime. Neither
+installing Astro nor using a build step is required for Syntyr consumers.
+
+Check the Astro [upgrade guide](https://docs.astro.build/en/upgrade-astro/)
+before changing major versions, and rerun the example build.
