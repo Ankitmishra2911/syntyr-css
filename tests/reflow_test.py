@@ -23,7 +23,11 @@ PAGES = (
     "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/native-apis.html", "examples/semantic-starter.html", "examples/premium-compositions.html",)
+    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html",
+    "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
+    "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
+    "examples/semantic-starter.html", "examples/premium-compositions.html",
+)
 
 
 def check_page(browser, path: str, width: int, scale: float) -> None:
@@ -77,6 +81,10 @@ def main() -> int:
                 binary = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE") or shutil.which("chromium") or shutil.which("chromium-browser")
                 if binary:
                     opts.update(executable_path=binary, args=["--no-sandbox"])
+            if engine == "webkit":
+                custom_webkit = os.getenv("SYNTYR_WEBKIT_EXECUTABLE")
+                if custom_webkit:
+                    opts["executable_path"] = custom_webkit
             try:
                 browser = getattr(p, engine).launch(**opts)
             except Exception as e:

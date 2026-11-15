@@ -50,6 +50,12 @@
     .site-trust { display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; padding: 0; list-style: none; color: var(--syn-muted); font-size: .85rem; }
     .site-trust li { display: flex; align-items: center; gap: .4rem; }
     .site-trust li::before { content: ""; inline-size: .4rem; block-size: .4rem; border-radius: 100%; background: var(--syn-success); }
+    .site-preview-source { border: 1px solid var(--syn-border-subtle); border-radius: .6rem; background: var(--syn-surface); padding: .7rem 1rem 1rem; }
+    .site-preview-source summary { cursor: pointer; font: 650 .85rem/1.5 var(--syn-font-ui); color: var(--syn-text); min-height: 2.3rem; padding-block: .4rem; }
+    .site-preview-source summary:hover, .site-preview-source summary:focus-visible { color: var(--syn-accent); }
+    .site-preview-source pre { margin-block: .7rem; font-size: .75rem; line-height: 1.6; }
+    .site-preview-code { padding: 1rem; background: var(--syn-surface-recessed); color: var(--syn-text); overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid var(--syn-border-subtle); font-family: var(--syn-mono); }
+    .site-preview-source .syn-caption { margin: 0; }
     .site-hero-gallery { min-width: 0; display: grid; gap: .75rem; }
     .site-hero-palette-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
     .site-palette-link { min-width: 0; display: flex; align-items: center; gap: .55rem; padding: .65rem .75rem; border: 1px solid var(--syn-frame); border-radius: .45rem; background: var(--syn-surface); color: var(--syn-text); text-decoration: none; font: 650 .8rem/1.3 var(--syn-font-ui); }
@@ -83,6 +89,8 @@
     .site-showcase-card h3 { margin: 0; font: 650 1.3rem/1.22 var(--syn-font-display); letter-spacing: -.025em; }
     .site-showcase-card p { margin: 0; color: var(--syn-muted); }
     .site-showcase-card > .syn-button { align-self: flex-start; margin-block-start: auto; }
+    .site-showcase-card > .site-secondary-link { align-self: flex-start; color: var(--syn-accent); font: 600 .83rem/1.5 var(--syn-font-ui); text-underline-offset: .2em; }
+    .site-section-links { display: flex; align-items: center; flex-wrap: wrap; gap: .7rem 1.2rem; }
     .site-preview { margin-block: .5rem 1rem; border: 1px solid var(--syn-border-subtle); border-radius: .45rem; min-width: 0; min-height: 10rem; padding: 1.1rem; background: var(--syn-bg); display: grid; align-content: center; gap: .6rem; overflow: hidden; }
     .site-preview-title { font-size: .8rem; color: var(--syn-muted); }
     .site-preview-number { font: 680 2.3rem/1.1 var(--syn-font-display); letter-spacing: -.06em; }
@@ -212,9 +220,9 @@
             <div class="site-preview-rail"><span></span><span></span><span></span><span></span></div>
             <div class="site-preview-main">
               <p class="syn-heading">Overview</p>
-              <div class="site-preview-metrics">
-                <div class="site-mini-metric"><small>Revenue</small><strong>$24,680</strong></div>
-                <div class="site-mini-metric"><small>Active projects</small><strong>18</strong></div>
+              <div class="syn-kpi-grid site-preview-metrics">
+                <article class="syn-app-card site-mini-metric"><small>Revenue</small><strong>$24,680</strong></article>
+                <article class="syn-app-card site-mini-metric"><small>Active projects</small><strong>18</strong></article>
               </div>
               <div class="site-chart">
                 <span style="--bar:40%"></span><span style="--bar:58%"></span><span style="--bar:48%"></span>
@@ -225,6 +233,24 @@
             </div>
           </div>
           </div>
+          <details class="site-preview-source" data-syn-theme="grid">
+            <summary>View the HTML for these cards</summary>
+            <pre class="site-preview-code"><code>&lt;link rel="stylesheet" href="syntyr.core.css"&gt;
+&lt;link rel="stylesheet" href="syntyr.recipes.css"&gt;
+&lt;section class="syn-root" data-syn-theme="grid"&gt;
+  &lt;div class="syn-kpi-grid"&gt;
+    &lt;article class="syn-app-card"&gt;
+      &lt;small&gt;Revenue&lt;/small&gt;
+      &lt;strong&gt;$24,680&lt;/strong&gt;
+    &lt;/article&gt;
+    &lt;article class="syn-app-card"&gt;
+      &lt;small&gt;Active projects&lt;/small&gt;
+      &lt;strong&gt;18&lt;/strong&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+            <p class="syn-caption">Uses the actual Syntyr card and grid recipes, with example-specific preview styling. Copy the HTML, then bind your own data.</p>
+          </details>
         </div>
       </section>
 
@@ -269,7 +295,8 @@
               <span class="site-preview-number">24,680</span>
               <div class="site-preview-bars"><span style="--bar:45%"></span><span style="--bar:75%"></span><span style="--bar:55%"></span><span style="--bar:92%"></span><span style="--bar:68%"></span><span style="--bar:100%"></span></div>
             </div>
-            <a class="syn-button syn-button--primary" href="examples/saas-workflows.html">View SaaS workflows</a>
+            <a class="syn-button syn-button--primary" href="examples/flagship-studio.html">Open Studio showcase</a>
+            <a class="site-secondary-link" href="examples/saas-workflows.html">See workflow example</a>
           </article>
           <article class="site-showcase-card syn-panel" id="business" data-syn-theme="minimal" aria-labelledby="business-title">
             <span class="syn-eyebrow">02 / Minimal · Business</span>
@@ -281,6 +308,7 @@
               <span class="site-preview-rule"></span>
             </div>
             <a class="syn-button syn-button--primary" href="examples/business.html">View business website</a>
+            <a class="site-secondary-link" href="examples/flagship-noir.html">Explore Noir editorial showcase</a>
           </article>
           <article class="site-showcase-card syn-panel" id="grid" data-syn-theme="grid" aria-labelledby="grid-title">
             <span class="syn-eyebrow">03 / Grid · Futuristic</span>
@@ -292,7 +320,8 @@
               <span class="site-console-line">UPLINK <strong>ACTIVE</strong></span>
               <span class="site-console-line">LATENCY 12MS</span>
             </div>
-            <a class="syn-button syn-button--primary" href="examples/console.html">View Grid console</a>
+            <a class="syn-button syn-button--primary" href="examples/flagship-grid.html">Open Grid showcase</a>
+            <a class="site-secondary-link" href="examples/console.html">See original console</a>
           </article>
         </div>
       </section>
@@ -301,7 +330,7 @@
         <div class="site-section-head">
           <div><span class="site-kicker">Customizable appearance</span><h2 class="site-section-title" id="themes-title">Seven palettes. One HTML contract.</h2>
           <p class="site-section-intro">Studio, Grid and Noir are in the published alpha.4 release. All seven palettes shown below belong to the unreleased alpha.5 source candidate. Select themes explicitly for different sections.</p></div>
-          <a href="examples/themes.html">Explore the theme gallery</a>
+          <div class="site-section-links"><a href="#theme-comparison">Compare three themes</a><a href="examples/themes.html">Explore the theme gallery</a></div>
         </div>
         <div id="theme-comparison" class="site-theme-comparison" role="group" aria-label="The same sample dashboard in three themes">
           <article class="site-compare-card" data-syn-theme="studio">

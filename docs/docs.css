@@ -5,6 +5,19 @@
   .docs-title em { font-style: normal; color: var(--syn-accent); text-shadow: 0 0 42px var(--syn-accent-soft); }
   .docs-hero { padding-block: clamp(3rem, 9vw, 7rem) 2rem; }
   .docs-hero-bar { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .75rem; border-block: 1px solid var(--syn-frame); padding-block: .75rem; }
+  .docs-hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); align-items: center; gap: clamp(1.5rem, 4vw, 4rem); }
+  .docs-hero-preview { min-width: 0; padding: 1.2rem; border: 1px solid var(--syn-border-subtle); border-radius: .85rem; background: var(--syn-bg); color: var(--syn-text); }
+  .docs-proof-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem; margin-block-end: 1rem; }
+  .docs-proof-main { background: var(--syn-surface); border: 1px solid var(--syn-border-subtle); border-radius: .5rem; padding: 1.1rem; }
+  .docs-proof-main h2 { margin-block: 0 1rem; }
+  .docs-proof-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; }
+  .docs-proof-metrics .syn-app-card { padding: .85rem; }
+  .docs-proof-metrics small { display: block; color: var(--syn-muted); }
+  .docs-proof-metrics strong { display: block; font: 700 clamp(1.1rem, 2.5vw, 1.65rem)/1.3 var(--syn-font-ui); font-variant-numeric: tabular-nums; }
+  .docs-hero-preview .docs-code { margin-block: 1rem .5rem; background: var(--syn-surface-recessed); color: var(--syn-text); border-color: var(--syn-border-subtle); font-size: .73rem; }
+  .docs-hero-preview .syn-caption { margin-block: .5rem 0; }
+  .docs-flagship-links { display: flex; flex-wrap: wrap; gap: .65rem 1.5rem; margin-block: 1.3rem; }
+  .docs-flagship-links a { font: 650 .9rem/1.5 var(--syn-font-ui); text-underline-offset: .2em; }
   .docs-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
   .docs-kpis > div { border-left: 1px solid var(--syn-frame); padding-left: 1rem; }
   .docs-kpis strong { display: block; font: 650 clamp(1.4rem, 3vw, 2.4rem)/1.2 var(--syn-mono); }
@@ -51,11 +64,11 @@
   @media (max-width: 45rem) {
     .docs-header .syn-nav { display: none; }
     .docs-header .site-mobile-menu { display: block; }
-    .docs-grid, .docs-two, .docs-kpis { grid-template-columns: minmax(0, 1fr); }
+    .docs-grid, .docs-two, .docs-kpis, .docs-hero-layout { grid-template-columns: minmax(0, 1fr); }
     .docs-kpis { gap: .5rem; }
     .docs-kpis > div { padding-left: .6rem; }
   }
-  @media (forced-colors: active) { .docs-code { background: Canvas; color: CanvasText; } }
+  @media (forced-colors: active) { .docs-code, .docs-hero-preview, .docs-proof-main { background: Canvas; color: CanvasText; border-color: CanvasText; } }
 }
 
 /* Documentation articles are pre-rendered from public Markdown, no runtime JS. */

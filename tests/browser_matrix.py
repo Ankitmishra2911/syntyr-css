@@ -20,7 +20,9 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
-         "examples/native-apis.html", "examples/semantic-starter.html", "examples/premium-compositions.html")
+         "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
+         "examples/semantic-starter.html", "examples/premium-compositions.html",
+)
 
 def assert_page(browser, name: str, viewport: int) -> None:
     context = browser.new_context(viewport={"width": viewport, "height": 820},
@@ -142,6 +144,26 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert page.locator('#grid-popover').evaluate('e => e.matches(":popover-open")')
             page.keyboard.press('Escape')
             assert not page.locator('#grid-popover').evaluate('e => e.matches(":popover-open")')
+    if name == "examples/flagship-grid.html" and viewport == 320:
+        page.evaluate("document.documentElement.style.fontSize = '32px'")
+        output = page.get_by_role("region", name="Simulated command output")
+        output.scroll_into_view_if_needed()
+        page.keyboard.press("Tab")
+        output.focus()
+        assert output.evaluate("e => document.activeElement === e")
+        assert output.evaluate("e => getComputedStyle(e).outlineStyle") != "none"
+        measures = output.evaluate("e => ({client:e.clientWidth, scroll:e.scrollWidth})")
+        assert measures["scroll"] > measures["client"], measures
+        output.evaluate("e => {e.scrollLeft = e.scrollWidth;}")
+        assert output.evaluate("e => e.scrollLeft") > 0
+    if name == "examples/flagship-noir.html" and viewport == 320:
+        page.emulate_media(forced_colors="active")
+        pillar = page.locator(".flagship-pillar").first
+        colors = pillar.evaluate("""e => ({
+            background: getComputedStyle(e).backgroundColor,
+            foreground: getComputedStyle(e.querySelector('h3')).color
+        })""")
+        assert colors["background"] != colors["foreground"], colors
     if name == "docs/index.html" and viewport == 1280:
         button = page.get_by_role("button", name="OPEN COMMAND")
         button.focus()
@@ -590,6 +612,13 @@ def main() -> int:
                 if exe:
                     kwargs["executable_path"] = exe
                     kwargs["args"] = ["--no-sandbox"]
+            if name == "webkit":
+                # Opt-in path for a local compatible WebKit launcher, e.g. on
+                # Linux distributions missing Playwright's bundled OS libraries.
+                # The default Playwright-managed browser remains unchanged.
+                custom_webkit = os.environ.get("SYNTYR_WEBKIT_EXECUTABLE")
+                if custom_webkit:
+                    kwargs["executable_path"] = custom_webkit
             try:
                 browser = getattr(p, name).launch(**kwargs)
             except Exception as exc:
