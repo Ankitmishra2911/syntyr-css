@@ -172,6 +172,38 @@
         "syn-viz-cell"
       ],
       "notes": "Supply textual cell labels, data-syn-level and real data."
+    },
+    {
+      "name": "Advanced geometry frames",
+      "module": "syntyr.geometry.css",
+      "elements": [
+        "article",
+        "section",
+        "div"
+      ],
+      "classes": [
+        "syn-frame",
+        "syn-frame--bevel",
+        "syn-frame--notch",
+        "syn-frame--bracket",
+        "syn-frame--accent"
+      ],
+      "notes": "Load optional geometry CSS. One shape per frame; accent emphasis is additive. Refer to visual-intensity.md for pseudo-element ownership and backgrounds."
+    },
+    {
+      "name": "Decorative effects",
+      "module": "syntyr.effects.css",
+      "elements": [
+        "article",
+        "section",
+        "div"
+      ],
+      "classes": [
+        "syn-glow",
+        "syn-grid-effect",
+        "syn-gradient-wash"
+      ],
+      "notes": "Optional CSS only. data-syn-intensity on .syn-root or nested regions selects quiet, standard or cinematic effects without changing semantic state."
     }
   ]
 }

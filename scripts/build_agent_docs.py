@@ -20,6 +20,7 @@ SOURCES = (
     "docs/api-stability.md",
     "docs/framework-integrations.md",
     "docs/theme-customization.md",
+    "docs/visual-intensity.md",
     "docs/viz.md",
     "docs/accessibility.md",
     "docs/agent-integration.md",

@@ -21,6 +21,15 @@
       pointer-events: none;
       z-index: -1;
       inset: 0;
+      /* Reset dimensions/clips left by earlier-layer panel decorations. */
+      width: auto;
+      height: auto;
+      clip-path: none;
+    }
+    /* Shape-independent accent emphasis adds no pseudo-elements. */
+    &.syn-frame--accent {
+      --syn-frame-outline: var(--syn-accent);
+      --syn-frame-stroke: 2px;
     }
     /* Two clipped nested surfaces form a border along the diagonal edges;
        no parent-background-colored triangle is needed. */

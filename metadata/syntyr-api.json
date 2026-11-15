@@ -282,6 +282,11 @@
       "description": "Syntyr CSS class (geometry.css)."
     },
     {
+      "name": "syn-frame--accent",
+      "module": "geometry.css",
+      "description": "Optional 2px accent outline for a selected frame shape."
+    },
+    {
       "name": "syn-frame--bevel",
       "module": "geometry.css",
       "description": "Syntyr CSS class (geometry.css)."
@@ -324,7 +329,7 @@
     {
       "name": "syn-glow",
       "module": "effects.css",
-      "description": "Syntyr CSS class (effects.css)."
+      "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity."
     },
     {
       "name": "syn-gradient-wash",
@@ -1104,7 +1109,17 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-frame-outline",
+      "module": "geometry.css",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
       "name": "--syn-frame-shape",
+      "module": "geometry.css",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-frame-stroke",
       "module": "geometry.css",
       "description": "Syntyr CSS property (geometry.css)."
     },
@@ -1112,6 +1127,21 @@
       "name": "--syn-frame-strong",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-glow-alpha",
+      "module": "tokens.css",
+      "description": "Glow accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-grid-alpha",
+      "module": "tokens.css",
+      "description": "Grid-line accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-horizon-alpha",
+      "module": "tokens.css",
+      "description": "Horizon line accent share."
     },
     {
       "name": "--syn-leading-body",
@@ -1167,6 +1197,11 @@
       "name": "--syn-row-padding-block",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-scanline-alpha",
+      "module": "tokens.css",
+      "description": "Scanline overlay opacity percentage."
     },
     {
       "name": "--syn-shadow-sm",
@@ -1322,6 +1357,16 @@
       "name": "--syn-warning",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-wash-alpha",
+      "module": "tokens.css",
+      "description": "Primary atmospheric wash share."
+    },
+    {
+      "name": "--syn-wash-secondary-alpha",
+      "module": "tokens.css",
+      "description": "Secondary atmospheric wash share."
     }
   ],
   "themes": [

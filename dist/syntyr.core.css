@@ -57,6 +57,32 @@
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }
+  /* Visual richness is independent of palette, geometry and density.
+     Explicit values on descendants reset the inherited presentation profile. */
+  :where(.syn-root, .syn-root [data-syn-intensity="standard"]) {
+    --syn-grid-alpha: 5%;
+    --syn-glow-alpha: 12%;
+    --syn-wash-alpha: 15%;
+    --syn-wash-secondary-alpha: 10%;
+    --syn-horizon-alpha: 10%;
+    --syn-scanline-alpha: 10%;
+  }
+  :where(.syn-root[data-syn-intensity="quiet"], .syn-root [data-syn-intensity="quiet"]) {
+    --syn-grid-alpha: 1%;
+    --syn-glow-alpha: 0%;
+    --syn-wash-alpha: 4%;
+    --syn-wash-secondary-alpha: 3%;
+    --syn-horizon-alpha: 2%;
+    --syn-scanline-alpha: 0%;
+  }
+  :where(.syn-root[data-syn-intensity="cinematic"], .syn-root [data-syn-intensity="cinematic"]) {
+    --syn-grid-alpha: 10%;
+    --syn-glow-alpha: 25%;
+    --syn-wash-alpha: 26%;
+    --syn-wash-secondary-alpha: 18%;
+    --syn-horizon-alpha: 17%;
+    --syn-scanline-alpha: 12%;
+  }
   /* Neutral default; named palettes override it independently. */
   :where(.syn-root, .syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
     color-scheme: light;

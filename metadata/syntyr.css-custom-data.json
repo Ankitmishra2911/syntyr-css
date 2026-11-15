@@ -126,12 +126,32 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-frame-outline",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
       "name": "--syn-frame-shape",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-frame-stroke",
       "description": "Syntyr CSS property (geometry.css)."
     },
     {
       "name": "--syn-frame-strong",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-glow-alpha",
+      "description": "Glow accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-grid-alpha",
+      "description": "Grid-line accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-horizon-alpha",
+      "description": "Horizon line accent share."
     },
     {
       "name": "--syn-leading-body",
@@ -176,6 +196,10 @@
     {
       "name": "--syn-row-padding-block",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-scanline-alpha",
+      "description": "Scanline overlay opacity percentage."
     },
     {
       "name": "--syn-shadow-sm",
@@ -300,6 +324,14 @@
     {
       "name": "--syn-warning",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-wash-alpha",
+      "description": "Primary atmospheric wash share."
+    },
+    {
+      "name": "--syn-wash-secondary-alpha",
+      "description": "Secondary atmospheric wash share."
     }
   ]
 }

@@ -37,7 +37,7 @@ a zero-specificity selector rather than a global reset. Checkboxes and
 radio controls using the explicit styling API retain a minimum 24 CSS px box;
 the surrounding label should provide additional activation area.
 
-For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.syn-semantic`). `syn-root` should wrap any themed subtree; nested `data-syn-theme` overrides color tokens.
+For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient core + effects entry point. `syntyr.all.css` combines everything (semantic styling still requires `.syn-semantic`). `syn-root` should wrap any themed subtree; nested `data-syn-theme` overrides color tokens. The separate `data-syn-intensity="quiet|standard|cinematic"` attribute controls decorative strength on a root or nested region. Load `syntyr.geometry.css` for a `.syn-frame` with one shape and optional `.syn-frame--accent`. See the [visual-intensity guide](visual-intensity.md).
 
 ## Components
 

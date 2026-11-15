@@ -30,6 +30,7 @@ FILES = (
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
     "docs/theme-customization.md",
+    "docs/visual-intensity.md",
     "docs/accessibility.md",
     "docs/viz.md",
     "llms.txt",
