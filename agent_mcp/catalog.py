@@ -1,0 +1,197 @@
+"""Version-pinned public Syntyr catalog, using checked-in distribution artifacts.
+
+The CSS files and curated metadata are the source of truth. No network,
+authentication, writes, generated HTML, or invented component names.
+"""
+from __future__ import annotations
+
+from html.parser import HTMLParser
+import json
+from pathlib import Path
+import re
+
+ROOT = Path(__file__).resolve().parents[1]
+PUBLISHED = "0.3.0-alpha.4"
+CANDIDATE = "0.3.0-alpha.5"
+RELEASES = (PUBLISHED, CANDIDATE)
+MAX_HTML_CHARS = 20_000
+MAX_RESULTS = 40
+
+SELECTOR = re.compile(r"(?<![\w-])\.(syn-[a-zA-Z0-9_-]+)(?![a-zA-Z0-9_-])")
+TOKEN = re.compile(r"(?<![\w-])(--syn-[a-zA-Z0-9_-]+)\s*:")
+CSS_COMMENT = re.compile(r"/\*.*?\*/", re.S)
+PREFER = (
+    "syntyr.core.css", "syntyr.recipes.css", "syntyr.semantic.css",
+    "syntyr.geometry.css", "syntyr.effects.css", "syntyr.viz.css",
+    "syntyr.utilities.css", "syntyr.motion.css", "syntyr.symbols.css",
+    "syntyr.native-recipes.css", "syntyr.server.css", "syntyr.print.css",
+    "syntyr.css", "syntyr.all.css",
+)
+
+
+class CatalogError(ValueError):
+    """A caller requested a nonexistent or unsupported public API."""
+
+
+class ClassExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.names: set[str] = set()
+
+    def handle_starttag(self, tag, attrs):
+        self._parse_attrs(attrs)
+
+    def handle_startendtag(self, tag, attrs):
+        self._parse_attrs(attrs)
+
+    def _parse_attrs(self, attrs):
+        for key, val in attrs:
+            if key == "class" and val:
+                self.names.update(name for name in val.split() if name.startswith("syn-"))
+
+
+class SyntyrCatalog:
+    def __init__(self, root: Path = ROOT):
+        self.root = Path(root)
+        self.component_data = json.loads((self.root / "metadata/components.json").read_text())
+        self.api_data = json.loads((self.root / "metadata/syntyr-api.json").read_text())
+        if self.component_data["source_version"] != CANDIDATE:
+            raise RuntimeError("Syntyr component catalog version needs review")
+        if (self.root / "VERSION").read_text().strip() != CANDIDATE:
+            raise RuntimeError("Syntyr candidate metadata differs from source VERSION")
+        self._cache = {}
+
+    def _release(self, release: str):
+        if release not in RELEASES:
+            raise CatalogError(f"Unsupported release {release!r}; choose {PUBLISHED} (published) or {CANDIDATE} (unreleased candidate)")
+        return {
+            "release": release,
+            "release_status": "published" if release == PUBLISHED else "unreleased_candidate",
+            "curated_catalog": True,
+        }
+
+    def _directory(self, release: str):
+        return self.root / ("site-releases/" + PUBLISHED if release == PUBLISHED else "dist")
+
+    def _catalog(self, release: str):
+        self._release(release)
+        if release in self._cache:
+            return self._cache[release]
+        directory = self._directory(release)
+        found = {}
+        for file in directory.glob("syntyr*.css"):
+            if file.name in PREFER:
+                # Sources are checked-in release artifacts, not transitive runtime APIs.
+                src = CSS_COMMENT.sub("", file.read_text(encoding="utf-8"))
+                found[file.name] = {
+                    "classes": set(SELECTOR.findall(src)),
+                    "tokens": set(TOKEN.findall(src)),
+                }
+        if "syntyr.core.css" not in found:
+            raise RuntimeError(f"Missing checked-in core stylesheet for {release}")
+        classes = set().union(*(v["classes"] for v in found.values()))
+        tokens = set().union(*(v["tokens"] for v in found.values()))
+        info = {"files": found, "classes": classes, "tokens": tokens}
+        self._cache[release] = info
+        return info
+
+    def _stylesheet(self, name: str, kind: str, release: str):
+        for file in PREFER:
+            info = self._catalog(release)["files"].get(file)
+            if info and name in info["classes" if kind == "class" else "tokens"]:
+                return file
+        return None
+
+    def search_components(self, query: str = "", release: str = PUBLISHED):
+        info = self._catalog(release)
+        base = self._release(release)
+        term = query.strip().casefold()
+        matches = []
+        for component in self.component_data["components"]:
+            # Curated alpha.5 components may contain classes absent from alpha.4.
+            if any(cls not in info["classes"] for cls in component["classes"]):
+                continue
+            if term not in (component["name"] + " " + component["notes"] + " " + " ".join(component["classes"])).casefold():
+                continue
+            matches.append({
+                "name": component["name"],
+                "classes": component["classes"],
+                "stylesheets": sorted({
+                    self._stylesheet(cls, "class", release)
+                    for cls in component["classes"]
+                }),
+                "notes": component["notes"],
+            })
+        return {**base, "components": matches[:MAX_RESULTS],
+                "note": "Curated examples only, not a complete class inventory."}
+
+    def get_component(self, name: str, release: str = PUBLISHED):
+        base = self._release(release)
+        component = next((entry for entry in self.component_data["components"]
+                          if entry["name"].casefold() == name.strip().casefold()), None)
+        if component is None:
+            raise CatalogError(f"Unknown component {name!r}; use search_components")
+        info = self._catalog(release)
+        missing = [cls for cls in component["classes"] if cls not in info["classes"]]
+        if missing:
+            raise CatalogError(f"Component {name!r} is unavailable in {release}: {', '.join(missing)}")
+        return {**base, "component": {
+            **component, "stylesheets": sorted({
+                self._stylesheet(cls, "class", release) for cls in component["classes"]
+            }),
+        }, "note": "Syntyr styles native HTML; it does not implement app behavior."}
+
+    def lookup_api(self, name: str, release: str = PUBLISHED):
+        base = self._release(release)
+        kind = "class" if name.startswith("syn-") else "token" if name.startswith("--syn-") else None
+        if not kind:
+            raise CatalogError("Only syn-* class selectors or --syn-* custom properties are supported")
+        info = self._catalog(release)
+        if name not in info[kind + "es" if kind == "class" else "tokens"]:
+            raise CatalogError(f"Unknown {kind} {name!r} for release {release}")
+        metadata = next((entry for entry in self.api_data["classes" if kind == "class" else "tokens"]
+                         if entry["name"] == name), None)
+        stylesheet = self._stylesheet(name, kind, release)
+        return {**base, "entry": {
+            "name": name, "kind": kind, "stylesheet": stylesheet,
+            "description": metadata["description"] if metadata and release == CANDIDATE else f"Syntyr {kind} ({stylesheet}); see version-pinned CSS and docs.",
+        }}
+
+    def get_theme_tokens(self, query: str = "", release: str = PUBLISHED):
+        info = self._catalog(release)
+        base = self._release(release)
+        themes = ["grid", "noir", "studio"] if release == PUBLISHED else [
+            t for t in self.api_data["themes"] if t != "auto"
+        ]
+        tokens = []
+        for name in sorted(info["tokens"]):
+            if query.strip().casefold() not in name.casefold():
+                continue
+            tokens.append(self.lookup_api(name, release)["entry"])
+            if len(tokens) >= MAX_RESULTS:
+                break
+        return {**base, "themes": themes, "tokens": tokens,
+                "note": "Names and stylesheets only, not computed browser values. Results capped at 40."}
+
+    def validate_markup(self, html: str, release: str = PUBLISHED,
+                        stylesheets: list[str] | None = None):
+        base = self._release(release)
+        if not isinstance(html, str) or len(html) > MAX_HTML_CHARS:
+            raise CatalogError(f"HTML is too long or invalid (limit {MAX_HTML_CHARS} characters)")
+        extractor = ClassExtractor()
+        extractor.feed(html)
+        found = sorted(extractor.names)
+        info = self._catalog(release)
+        if not isinstance(stylesheets, (list, type(None))) or not all(isinstance(s, str) for s in (stylesheets or [])):
+            raise CatalogError("stylesheets must be an array of Syntyr CSS filenames")
+        provided = sorted(set(stylesheets or []))
+        invalid = sorted(set(provided) - set(info["files"]))
+        if invalid:
+            raise CatalogError(f"Unknown stylesheet(s) in {release}: {', '.join(invalid)}")
+        known = [c for c in found if c in info["classes"]]
+        missing = [c for c in found if c not in info["classes"]]
+        loaded = set().union(*(info["files"][f]["classes"] for f in provided)) if provided else set()
+        required = sorted({self._stylesheet(c, "class", release) for c in known if c not in loaded})
+        return {**base, "classes_checked": known, "unknown_classes": missing,
+                "missing_stylesheets": required, "installed_stylesheets": provided,
+                "note": "Static class check only. Not a WCAG or runtime behavior audit. Non-syn classes belong to the host app."}

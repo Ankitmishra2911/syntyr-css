@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that generate HTML or framework markup. No Syntyr-specific service, account, MCP…">
-  <meta name="syntyr-source-sha256" content="a4d919d5cb43d497a6a6dbba1b810ea98d925247ff27fb4267d0e19af13dfa56">
+  <meta name="syntyr-source-sha256" content="d77f050437541f44e5d6308d70360a937a3d6b98a165f5c8389c601cd809ffa1">
   <meta name="theme-color" content="#f5f7fb">
   <title>Using Syntyr with coding agents — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-integration">
@@ -50,6 +50,14 @@
 <h2 id="project-level-integration">Project-level integration</h2>
 <p>A consumer may copy <a href="https://github.com/dporkka/syntyr-css/blob/main/agents/syntyr/SKILL.md"><code>agents/syntyr/SKILL.md</code></a> as an optional local skill in agent tooling that supports Skills. It is a portable instruction document, <strong>not a published package, automatic installation, or guaranteed discovery mechanism</strong>.</p>
 <p>The repository's root <code>AGENTS.md</code> guides agents contributing to Syntyr itself. It does <strong>not</strong> automatically become instructions in a separate application repository.</p>
+<h2 id="optional-local-mcp-adapter">Optional local MCP adapter</h2>
+<p>An optional <strong>read-only local MCP server</strong> can now expose the checked-in
+component catalog and CSS API to supported coding agents. It is not needed to
+use Syntyr CSS, is not installed by the npm package, and does not expose a
+hosted endpoint. See the <a href="https://github.com/dporkka/syntyr-css/tree/main/agent_mcp">MCP adapter source and installation guide</a>
+for the separate Python SDK installation, version-safe tools, and limits.
+It defaults to the published immutable <code>0.3.0-alpha.4</code> CSS rather than
+silently offering source-only <code>0.3.0-alpha.5</code> selectors.</p>
 <h2 id="documents-and-machine-readable-inventory">Documents and machine-readable inventory</h2>
 <ul>
 <li><a href="../llms.txt"><code>llms.txt</code></a>: small navigation file following the community <code>llms.txt</code> convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.</li>
@@ -71,11 +79,12 @@ python3 scripts/build_cloudflare_site.py --check
 </code></pre>
 <p>The consolidated reference is deterministic and checked in CI through the Python test suite. The Cloudflare publisher uses a strict allowlist, so exposing new documentation does not expose internal files or business planning documents.</p>
 <h2 id="what-syntyr-does-not-do">What Syntyr does not do</h2>
-<p>Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission, remote data access or an MCP server. Use your existing application technology for those responsibilities.</p>
+<p>Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission or remote data access. The optional local read-only MCP adapter is a separate developer tool, never a CSS runtime dependency. Use your existing application technology for those responsibilities.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#recommended-context-to-supply-an-agent">Recommended context to supply an agent</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#project-level-integration">Project-level integration</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-local-mcp-adapter">Optional local MCP adapter</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#documents-and-machine-readable-inventory">Documents and machine-readable inventory</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#documentation-formats-html-for-people-markdown-for-agents">Documentation formats: HTML for people, Markdown for agents</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#validation-and-maintenance">Validation and maintenance</a>
