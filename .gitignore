@@ -25,6 +25,9 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock
 
+# Actual design-partner respondents and private research stay off public GitHub.
+business/private/
+
 # Benchmark output and optional dev-only dependencies.
 benchmarks/frameworks/generated/
 # Nested benchmark lockfile is intentional; root package-lock stays ignored.

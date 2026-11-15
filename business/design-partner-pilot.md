@@ -1,6 +1,7 @@
 # Syntyr Console Kit — 10-interview design-partner pilot
 
-**Status: recruiting infrastructure prepared; no prospects contacted yet.**
+**Public baseline (2026-11-15): no verified prospects contacted.**
+This is the repository's initial research snapshot, not a claim about later offline activity. Run the private scorecard below for current evidence.
 A [public invitation is posted](https://github.com/dporkka/syntyr-css/issues/3), but no actual participants have been recruited. This is a zero-budget qualitative validation experiment, not a marketing
 automation or a promise to ship premium assets. Core CSS, Grid and Noir themes,
 the full component library, and the free examples remain MIT-licensed.
@@ -76,6 +77,23 @@ Good first channels:
    intent**, not actual revenue.
 
 ## Logging and thresholds
+
+### Private, reproducible research scorecard
+
+The committed `design-partner-pilot.csv` contains **ten synthetic target slots, not real people**. Do not commit names, email addresses, identifying descriptions, client data, interview notes, or private contact histories to this public repository.
+
+Copy it to the ignored `business/private/` directory and record real, consented research there:
+
+```sh
+mkdir -p business/private
+cp business/design-partner-pilot.csv business/private/design-partner-pilot.csv
+python3 scripts/commercial_pilot_report.py --csv business/private/design-partner-pilot.csv
+python3 scripts/commercial_pilot_report.py --csv business/private/design-partner-pilot.csv --json
+```
+
+The private CSV preserves the existing ten slots. Set `status` to exactly one of `not_contacted`, `invited`, `accepted`, `interviewed`, or `declined`. Set `intent` to `would_buy`, `maybe`, or `would_not_buy` **only after an interview**. Set `paid_commitment` to `documented` only if a completed interview includes explicit, independently documented buyer commitment; keep the supporting evidence privately. A verbal `would_buy` alone is not a commitment. The scorecard counts these separately and never infers orders, revenue, or conversion rates.
+
+The report is **aggregated only**: no contact identifiers or notes appear in standard or JSON output. The interview target is a research milestone, not permission to enable checkout; the commercial launch gates in [commercial-launch-gates.md](commercial-launch-gates.md) must be independently satisfied. Do not publish the local private file, aggregate counts that identify an individual, or claim confidence in conversion rates from ten interviews.
 
 - Update each slot's status `not_contacted` → `invited` → `accepted` →
   `interviewed` or `declined`. Store personally identifying respondent
