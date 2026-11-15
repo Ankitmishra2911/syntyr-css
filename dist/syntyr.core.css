@@ -2,7 +2,7 @@
 
 @layer syn.tokens {
   :where(.syn-root) {
-    color-scheme: dark;
+    color-scheme: light;
     --syn-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --syn-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
     --syn-font-ui: var(--syn-font);
@@ -13,6 +13,7 @@
     /* Type roles are independent from theme palettes and optional font loading. */
     --syn-type-body: var(--syn-type-base);
     --syn-type-heading: clamp(1.15rem, 2.4vw, 1.55rem);
+    --syn-type-section: clamp(1.5rem, 1.25rem + 1.25vw, 2.125rem);
     --syn-type-display: clamp(2rem, 5.5vw, 4rem);
     --syn-leading-body: 1.55;
     --syn-tracking-display: -.045em;
@@ -56,7 +57,27 @@
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }
-  :where(.syn-root), :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
+  /* Neutral default; named palettes override it independently. */
+  :where(.syn-root, .syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
+    color-scheme: light;
+    --syn-bg: #f5f7fb;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #eaf0f8;
+    --syn-text: #15233a;
+    --syn-muted: #4b5d76;
+    --syn-accent: #2458c6;
+    --syn-accent-2: #176b80;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #b8c6d8;
+    --syn-frame-strong: #6685b2;
+    --syn-danger: #ad2637;
+    --syn-success: #17694b;
+    --syn-warning: #92500a;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
+  }
+  :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
     color-scheme: dark;
     --syn-bg: #080f19;
     --syn-surface: #111f2c;
@@ -170,28 +191,10 @@
     --syn-radius: .375rem;
     --syn-cut: 0;
   }
-    :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
-    color-scheme: light;
-    --syn-bg: #f5f7fb;
-    --syn-surface: #ffffff;
-    --syn-surface-hi: #eaf0f8;
-    --syn-text: #15233a;
-    --syn-muted: #4b5d76;
-    --syn-accent: #2458c6;
-    --syn-accent-2: #176b80;
-    --syn-on-accent: #ffffff;
-    --syn-frame: #b8c6d8;
-    --syn-frame-strong: #6685b2;
-    --syn-danger: #ad2637;
-    --syn-success: #17694b;
-    --syn-warning: #92500a;
-    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
-    --syn-radius: .25rem;
-    --syn-cut: .9rem;
-  }
+
 
   /* Opt-in system palette: Studio in light mode, Grid in dark mode.
-     The guard preserves the original dark defaults in older browsers. */
+     Engines without light-dark() fall back to the neutral Studio palette. */
   @supports (color: light-dark(white, black)) {
     :where(.syn-root[data-syn-theme="auto"], .syn-root [data-syn-theme="auto"]) {
       color-scheme: light dark;
@@ -213,9 +216,8 @@
       --syn-cut: .9rem;
     }
   }
-  /* Technical typography only for the fallback and explicit technical themes.
-     Do not force monospace on Studio/Minimal/Corporate roots. */
-  :where(.syn-root:not([data-syn-theme]), .syn-root[data-syn-theme="grid"],
+  /* Technical typography is an explicit choice, not the neutral root default. */
+  :where(.syn-root[data-syn-theme="grid"],
          .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
          .syn-root [data-syn-theme="terminal"]) {
     --syn-font-ui: var(--syn-mono);
@@ -259,7 +261,7 @@
   .syn-nav a:hover, .syn-nav a[aria-current] { color: var(--syn-accent); }
   .syn-stage {
     --syn-stage-pad: clamp(1.25rem, 4vw, 3rem);
-    background: radial-gradient(ellipse at 85% 5%, var(--syn-accent-soft), transparent 50%), var(--syn-bg);
+    background: var(--syn-bg);
     color: var(--syn-text);
     border: 1px solid var(--syn-frame);
     padding: var(--syn-stage-pad);
@@ -267,7 +269,6 @@
     position: relative;
     isolation: isolate;
   }
-  .syn-stage::before { content: ""; position: absolute; top: 0; left: 0; width: 4rem; height: 2px; background: var(--syn-accent); }
   .syn-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
   .syn-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
   .syn-layout { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); align-items: start; }
@@ -276,7 +277,7 @@
   .syn-panel {
     position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
     color: var(--syn-text); border: 1px solid var(--syn-border-subtle);
-    background: linear-gradient(160deg, var(--syn-accent-soft), transparent 40%), var(--syn-surface);
+    background: var(--syn-surface);
     min-width: 0;
   }
   .syn-panel--cut::after {
@@ -291,6 +292,7 @@
   .syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
   .syn-title, .syn-display { font-family: var(--syn-font-display); font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: var(--syn-tracking-display); margin-block: 1rem; max-width: 14ch; }
   .syn-heading { font-family: var(--syn-font-display); font-size: var(--syn-type-heading); line-height: 1.2; margin-block: .5rem 1rem; }
+  .syn-section-heading { font: 650 var(--syn-type-section)/1.16 var(--syn-font-display); letter-spacing: -.03em; margin-block: .5rem 1rem; max-inline-size: 32ch; }
   .syn-body { font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
   .syn-text-support { font: 400 var(--syn-type-sm)/1.5 var(--syn-font-ui); color: var(--syn-text-subtle); }
   /* Opt-in vertical rhythm; does not alter unwrapped host document styles. */
@@ -303,8 +305,9 @@
   .syn-caption { overflow-wrap: anywhere; color: var(--syn-text-subtle); font: 500 var(--syn-type-xs)/1.5 var(--syn-font-ui); letter-spacing: .04em; }
   .syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-font-display); font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
   .syn-rule { border: 0; border-top: 1px solid var(--syn-frame); margin-block: 1.25rem; }
-  .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 var(--syn-type-xs)/1.25 var(--syn-font-ui); letter-spacing: .04em; }
-  .syn-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
+  .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-border-subtle); background: var(--syn-surface-raised); color: var(--syn-text); font: 650 var(--syn-type-xs)/1.25 var(--syn-font-ui); letter-spacing: .04em; }
+  /* Accented badge is explicit; status indicators belong to .syn-status. */
+  .syn-badge--accent { border-color: var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); }
   .syn-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--syn-accent); background: var(--syn-surface); color: var(--syn-text); }
   .syn-alert--danger { border-inline-start-color: var(--syn-danger); }
   .syn-code { font: .85em/1.5 var(--syn-mono); overflow-wrap: anywhere; background: var(--syn-surface-hi); padding: .12em .35em; }
@@ -396,8 +399,12 @@
   .syn-table-wrap { overflow-x: auto; }
   .syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
   .syn-table th, .syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); white-space: nowrap; }
+  /* Allow descriptive cells to wrap without changing compact identifier/numeric cells. */
+  .syn-table .syn-cell--wrap { white-space: normal; overflow-wrap: anywhere; max-inline-size: 38ch; }
   .syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
   .syn-table tr[aria-selected="true"], .syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
+  .syn-table tr[aria-selected="true"] > :first-child,
+  .syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start: 3px solid var(--syn-accent); }
   .syn-table tr:focus-within { outline: 2px solid var(--syn-focus-ring); outline-offset: -2px; }
   .syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
@@ -409,6 +416,8 @@
   .syn-status--warning { color: var(--syn-warning); }
   .syn-status--danger { color: var(--syn-danger); }
   @media (forced-colors: active) {
+    .syn-table tr[aria-selected="true"] > :first-child,
+    .syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start-color: Highlight; }
     .syn-status::before { border: 1px solid currentColor; }
   }
 }

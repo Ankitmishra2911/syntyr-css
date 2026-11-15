@@ -6,6 +6,8 @@ accessible focus styling and semantic element options.
 
 ## 1. Choose a theme
 
+Without a `data-syn-theme` attribute, `.syn-root` now uses Studio. Select Grid or Noir explicitly for technical/cinematic styles. This change is only in the unreleased alpha.5 candidate; version-pinned alpha.4 assets remain unchanged.
+
 Load the published `syntyr.core.css` in your application and use regular HTML:
 
 ```html
@@ -65,7 +67,7 @@ Useful tokens:
 | `--syn-surface-recessed`, `--syn-surface-raised`, `--syn-border-subtle` | Derived surfaces and quiet separators |
 | `--syn-text-subtle`, `--syn-border-default`, `--syn-border-hover`, `--syn-border-focus`, `--syn-focus-ring` | Semantic text, borders, and focus |
 | `--syn-surface-interactive`, `--syn-surface-hover`, `--syn-surface-pressed` | Theme-aware interactive control states |
-| `--syn-type-display`, `--syn-type-heading`, `--syn-type-body`, `--syn-leading-body`, `--syn-tracking-display` | Composable typography roles |
+| `--syn-type-display`, `--syn-type-section`, `--syn-type-heading`, `--syn-type-body`, `--syn-leading-body`, `--syn-tracking-display` | Composable typography roles |
 | `--syn-row-padding-block`, `--syn-card-padding`, `--syn-control-padding-block` | Density-aware spacing |
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
@@ -147,7 +149,7 @@ themes, native form controls, and contrast in both OS preference modes.
 
 Control and navigation text uses `--syn-font-ui`. Display headings use
 `--syn-font-display`, while code and CLI regions retain `--syn-mono`.
-Grid and Terminal choose monospace UI by default; light themes and Noir use
+Grid and Terminal choose monospace UI explicitly; Studio is the implicit default; light themes and Noir use
 system sans-serif controls. Replace the font variables if a product has its
 own typeface, without introducing required external fonts.
 
@@ -174,7 +176,7 @@ Both use local fonts and static CSS without runtime dependencies.
 
 ## Semantic roles, states, and content rhythm
 
-Use `.syn-display` (also available as `.syn-title`), `.syn-heading`,
+Use `.syn-display` (also available as `.syn-title`), `.syn-section-heading` for section titles, `.syn-heading` for card headings,
 `.syn-body`, `.syn-text-support`, and the opt-in `.syn-prose` content
 container. Typography roles inherit theme fonts and allow applications to
 override type scale without rewriting individual component selectors.
