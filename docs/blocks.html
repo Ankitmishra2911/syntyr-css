@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <title>Blocks &amp; Assets — Syntyr CSS</title>
+  <link rel="stylesheet" href="../dist/syntyr.all.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="blocks.css">
+  <link rel="stylesheet" href="blocks-assets.css">
+  <script src="blocks.js" defer></script>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a href="#blocks-main" class="syn-button blocks-skip">Skip to blocks</a>
+  <header class="syn-header syn-shell">
+    <a class="syn-logo" href="index.html">SYNTYR / BLOCKS &amp; ASSETS</a>
+    <nav class="syn-nav" aria-label="Documentation">
+      <a href="index.html">Gallery</a><a href="catalog.html">Components</a>
+      <a href="blocks-guide.md">Integration guide</a>
+    </nav>
+  </header>
+  <main class="syn-shell" id="blocks-main">
+    <section class="docs-section">
+      <p class="syn-eyebrow">COPY-OWNED / FRAMEWORK-INDEPENDENT</p>
+      <h1 class="syn-title">20 production-shaped blocks.</h1>
+      <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
+      Every preview renders without JavaScript. Search, theme switching, and copying
+      are documentation-only enhancements, not dependencies for your application.</p>
+      <p class="syn-caption">These are static illustrative presentations: real authentication,
+      billing, filtering, form validation, persistence and permissions belong to your application.
+      <a href="blocks-guide.md">Read integration and accessibility guidance.</a></p>
+      <div class="blocks-controls" id="blocks-controls" hidden>
+        <div><label class="syn-label" for="blocks-search">Search blocks</label>
+          <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
+        <div><label class="syn-label" for="blocks-category">Category</label>
+          <select class="syn-select" id="blocks-category"><option value="all">All categories</option>
+            <option value="Marketing">Marketing</option><option value="Applications">Applications</option>
+            <option value="Technical">Technical</option></select></div>
+        <div><label class="syn-label" for="blocks-theme">Preview theme</label>
+          <select class="syn-select" id="blocks-theme">
+            <option value="studio">Studio</option><option value="grid">Grid</option>
+            <option value="noir">Noir</option><option value="industrial">Industrial</option>
+            <option value="terminal">Terminal</option><option value="corporate">Corporate</option>
+            <option value="minimal">Minimal</option>
+          </select></div>
+      </div>
+      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
+      <div id="blocks-grid" class="blocks-grid">
+      <article class="blocks-card syn-panel" data-block-id="hero-product"
+               data-block-category="Marketing"
+               data-block-keywords="Product launch hero A concise product introduction with real calls to action. hero landing product"
+               aria-labelledby="block-title-hero-product">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-hero-product">Product launch hero</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A concise product introduction with real calls to action.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-hero-product">
+  <div class="syn-site-hero">
+    <p class="syn-eyebrow">ANALYTICS / WITHOUT FRICTION</p>
+    <h2 id="syn-hero-product" class="syn-site-heading">Understand your product. <strong>Act with confidence.</strong></h2>
+    <p class="syn-lede">One clear workspace for teams tracking what matters.</p>
+    <div class="syn-actions">
+      <a class="syn-button syn-button--primary" href="/start">Start free</a>
+      <a class="syn-button syn-button--outline" href="/demo">Explore demo</a>
+    </div>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Product launch hero</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-hero-product&quot;&gt;
+  &lt;div class=&quot;syn-site-hero&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;ANALYTICS / WITHOUT FRICTION&lt;/p&gt;
+    &lt;h2 id=&quot;syn-hero-product&quot; class=&quot;syn-site-heading&quot;&gt;Understand your product. &lt;strong&gt;Act with confidence.&lt;/strong&gt;&lt;/h2&gt;
+    &lt;p class=&quot;syn-lede&quot;&gt;One clear workspace for teams tracking what matters.&lt;/p&gt;
+    &lt;div class=&quot;syn-actions&quot;&gt;
+      &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/start&quot;&gt;Start free&lt;/a&gt;
+      &lt;a class=&quot;syn-button syn-button--outline&quot; href=&quot;/demo&quot;&gt;Explore demo&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Product launch hero" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="hero-security"
+               data-block-category="Marketing"
+               data-block-keywords="Security-first hero A restrained security product hero with an explicit trust message. security hero saas"
+               aria-labelledby="block-title-hero-security">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-hero-security">Security-first hero</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A restrained security product hero with an explicit trust message.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-hero-security">
+  <div class="syn-site-hero">
+    <span class="syn-badge">SECURITY BY DESIGN</span>
+    <h2 id="syn-hero-security" class="syn-site-heading">Ship fast. <strong>Stay in control.</strong></h2>
+    <p class="syn-lede">Deploy reliable software without trading away visibility or ownership.</p>
+    <div class="syn-actions"><a class="syn-button syn-button--primary" href="/docs">Read the docs</a></div>
+    <p class="syn-caption">Self-hosting and access controls are supplied by your application, not by CSS.</p>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Security-first hero</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-hero-security&quot;&gt;
+  &lt;div class=&quot;syn-site-hero&quot;&gt;
+    &lt;span class=&quot;syn-badge&quot;&gt;SECURITY BY DESIGN&lt;/span&gt;
+    &lt;h2 id=&quot;syn-hero-security&quot; class=&quot;syn-site-heading&quot;&gt;Ship fast. &lt;strong&gt;Stay in control.&lt;/strong&gt;&lt;/h2&gt;
+    &lt;p class=&quot;syn-lede&quot;&gt;Deploy reliable software without trading away visibility or ownership.&lt;/p&gt;
+    &lt;div class=&quot;syn-actions&quot;&gt;&lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/docs&quot;&gt;Read the docs&lt;/a&gt;&lt;/div&gt;
+    &lt;p class=&quot;syn-caption&quot;&gt;Self-hosting and access controls are supplied by your application, not by CSS.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Security-first hero" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="feature-grid"
+               data-block-category="Marketing"
+               data-block-keywords="Three-feature grid Responsive feature cards based on a fluid CSS grid. features cards grid"
+               aria-labelledby="block-title-feature-grid">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-feature-grid">Three-feature grid</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Responsive feature cards based on a fluid CSS grid.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-feature-heading">
+  <h2 id="syn-feature-heading" class="syn-heading">Everything in one place</h2>
+  <div class="syn-feature-grid">
+    <article class="syn-feature-card"><h3>Bring your data</h3><p>Connect the tools your team already uses.</p></article>
+    <article class="syn-feature-card"><h3>See what changed</h3><p>Inspect the activity behind each decision.</p></article>
+    <article class="syn-feature-card"><h3>Keep moving</h3><p>Turn insights into actionable workflows.</p></article>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Three-feature grid</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-feature-heading&quot;&gt;
+  &lt;h2 id=&quot;syn-feature-heading&quot; class=&quot;syn-heading&quot;&gt;Everything in one place&lt;/h2&gt;
+  &lt;div class=&quot;syn-feature-grid&quot;&gt;
+    &lt;article class=&quot;syn-feature-card&quot;&gt;&lt;h3&gt;Bring your data&lt;/h3&gt;&lt;p&gt;Connect the tools your team already uses.&lt;/p&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-feature-card&quot;&gt;&lt;h3&gt;See what changed&lt;/h3&gt;&lt;p&gt;Inspect the activity behind each decision.&lt;/p&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-feature-card&quot;&gt;&lt;h3&gt;Keep moving&lt;/h3&gt;&lt;p&gt;Turn insights into actionable workflows.&lt;/p&gt;&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Three-feature grid" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="feature-checklist"
+               data-block-category="Marketing"
+               data-block-keywords="Benefits checklist A short benefits section with native list semantics. benefits features list"
+               aria-labelledby="block-title-feature-checklist">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-feature-checklist">Benefits checklist</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A short benefits section with native list semantics.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-checklist-heading">
+  <div class="syn-panel">
+    <p class="syn-eyebrow">WHY TEAMS SWITCH</p>
+    <h2 id="syn-checklist-heading" class="syn-heading">A more deliberate workflow</h2>
+    <ul class="syn-feature-list">
+      <li>Centralize critical information.</li>
+      <li>Track work from request through delivery.</li>
+      <li>Export data whenever you need it.</li>
+    </ul>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Benefits checklist</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-checklist-heading&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;WHY TEAMS SWITCH&lt;/p&gt;
+    &lt;h2 id=&quot;syn-checklist-heading&quot; class=&quot;syn-heading&quot;&gt;A more deliberate workflow&lt;/h2&gt;
+    &lt;ul class=&quot;syn-feature-list&quot;&gt;
+      &lt;li&gt;Centralize critical information.&lt;/li&gt;
+      &lt;li&gt;Track work from request through delivery.&lt;/li&gt;
+      &lt;li&gt;Export data whenever you need it.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Benefits checklist" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="pricing-trio"
+               data-block-category="Marketing"
+               data-block-keywords="Three-tier pricing Three responsive pricing cards with a featured plan. pricing plans conversion"
+               aria-labelledby="block-title-pricing-trio">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-pricing-trio">Three-tier pricing</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Three responsive pricing cards with a featured plan.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-pricing-heading">
+  <h2 id="syn-pricing-heading" class="syn-heading">Plans that scale</h2>
+  <div class="syn-pricing">
+    <article class="syn-price-card"><h3>Solo</h3><p class="syn-price-value">$19 <small>/ mo</small></p><ul class="syn-feature-list"><li>One workspace</li><li>Essential reports</li></ul><a class="syn-button" href="/checkout/solo">Choose Solo</a></article>
+    <article class="syn-price-card" data-syn-featured><h3>Team</h3><p class="syn-price-value">$49 <small>/ mo</small></p><ul class="syn-feature-list"><li>Unlimited workspaces</li><li>Team permissions</li></ul><a class="syn-button syn-button--primary" href="/checkout/team">Choose Team</a></article>
+    <article class="syn-price-card"><h3>Scale</h3><p class="syn-price-value">Custom</p><ul class="syn-feature-list"><li>Advanced controls</li><li>Assisted onboarding</li></ul><a class="syn-button" href="/contact">Contact sales</a></article>
+  </div>
+  <p class="syn-caption">Example prices only; replace plan data and checkout routes.</p>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Three-tier pricing</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-pricing-heading&quot;&gt;
+  &lt;h2 id=&quot;syn-pricing-heading&quot; class=&quot;syn-heading&quot;&gt;Plans that scale&lt;/h2&gt;
+  &lt;div class=&quot;syn-pricing&quot;&gt;
+    &lt;article class=&quot;syn-price-card&quot;&gt;&lt;h3&gt;Solo&lt;/h3&gt;&lt;p class=&quot;syn-price-value&quot;&gt;$19 &lt;small&gt;/ mo&lt;/small&gt;&lt;/p&gt;&lt;ul class=&quot;syn-feature-list&quot;&gt;&lt;li&gt;One workspace&lt;/li&gt;&lt;li&gt;Essential reports&lt;/li&gt;&lt;/ul&gt;&lt;a class=&quot;syn-button&quot; href=&quot;/checkout/solo&quot;&gt;Choose Solo&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-price-card&quot; data-syn-featured&gt;&lt;h3&gt;Team&lt;/h3&gt;&lt;p class=&quot;syn-price-value&quot;&gt;$49 &lt;small&gt;/ mo&lt;/small&gt;&lt;/p&gt;&lt;ul class=&quot;syn-feature-list&quot;&gt;&lt;li&gt;Unlimited workspaces&lt;/li&gt;&lt;li&gt;Team permissions&lt;/li&gt;&lt;/ul&gt;&lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/checkout/team&quot;&gt;Choose Team&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-price-card&quot;&gt;&lt;h3&gt;Scale&lt;/h3&gt;&lt;p class=&quot;syn-price-value&quot;&gt;Custom&lt;/p&gt;&lt;ul class=&quot;syn-feature-list&quot;&gt;&lt;li&gt;Advanced controls&lt;/li&gt;&lt;li&gt;Assisted onboarding&lt;/li&gt;&lt;/ul&gt;&lt;a class=&quot;syn-button&quot; href=&quot;/contact&quot;&gt;Contact sales&lt;/a&gt;&lt;/article&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;syn-caption&quot;&gt;Example prices only; replace plan data and checkout routes.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Three-tier pricing" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="testimonial"
+               data-block-category="Marketing"
+               data-block-keywords="Customer testimonial Readable social proof with explicit quotation attribution. testimonial quote trust"
+               aria-labelledby="block-title-testimonial">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-testimonial">Customer testimonial</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Readable social proof with explicit quotation attribution.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-label="Customer testimonial">
+  <figure class="syn-panel">
+    <blockquote><p class="syn-lede">“Our team finally has a shared view of the work that matters.”</p></blockquote>
+    <figcaption class="syn-muted">Illustrative quote — replace with permission-based customer feedback.</figcaption>
+  </figure>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Customer testimonial</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-label=&quot;Customer testimonial&quot;&gt;
+  &lt;figure class=&quot;syn-panel&quot;&gt;
+    &lt;blockquote&gt;&lt;p class=&quot;syn-lede&quot;&gt;“Our team finally has a shared view of the work that matters.”&lt;/p&gt;&lt;/blockquote&gt;
+    &lt;figcaption class=&quot;syn-muted&quot;&gt;Illustrative quote — replace with permission-based customer feedback.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Customer testimonial" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="faq"
+               data-block-category="Marketing"
+               data-block-keywords="Frequently asked questions Keyboard-accessible native disclosures without a script. faq questions disclosure"
+               aria-labelledby="block-title-faq">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-faq">Frequently asked questions</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Keyboard-accessible native disclosures without a script.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-faq-heading">
+  <h2 id="syn-faq-heading" class="syn-heading">Frequently asked questions</h2>
+  <details class="syn-details"><summary>Can I use my own hosting?</summary><p>Yes. This example is plain HTML and CSS.</p></details>
+  <details class="syn-details"><summary>Do I need JavaScript?</summary><p>Not for this native disclosure interface.</p></details>
+  <details class="syn-details"><summary>Can I customize the theme?</summary><p>Override the documented CSS custom properties.</p></details>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Frequently asked questions</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-faq-heading&quot;&gt;
+  &lt;h2 id=&quot;syn-faq-heading&quot; class=&quot;syn-heading&quot;&gt;Frequently asked questions&lt;/h2&gt;
+  &lt;details class=&quot;syn-details&quot;&gt;&lt;summary&gt;Can I use my own hosting?&lt;/summary&gt;&lt;p&gt;Yes. This example is plain HTML and CSS.&lt;/p&gt;&lt;/details&gt;
+  &lt;details class=&quot;syn-details&quot;&gt;&lt;summary&gt;Do I need JavaScript?&lt;/summary&gt;&lt;p&gt;Not for this native disclosure interface.&lt;/p&gt;&lt;/details&gt;
+  &lt;details class=&quot;syn-details&quot;&gt;&lt;summary&gt;Can I customize the theme?&lt;/summary&gt;&lt;p&gt;Override the documented CSS custom properties.&lt;/p&gt;&lt;/details&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Frequently asked questions" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="cta-band"
+               data-block-category="Marketing"
+               data-block-keywords="Call-to-action band A compact conversion section with clear hierarchy. cta conversion contact"
+               aria-labelledby="block-title-cta-band">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-cta-band">Call-to-action band</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A compact conversion section with clear hierarchy.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-cta-heading">
+  <div class="syn-cta-band">
+    <div><h2 id="syn-cta-heading" class="syn-heading">Ready to explore?</h2><p>Start with a workflow that works for your team.</p></div>
+    <a class="syn-button syn-button--primary" href="/contact">Talk to us</a>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Call-to-action band</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-cta-heading&quot;&gt;
+  &lt;div class=&quot;syn-cta-band&quot;&gt;
+    &lt;div&gt;&lt;h2 id=&quot;syn-cta-heading&quot; class=&quot;syn-heading&quot;&gt;Ready to explore?&lt;/h2&gt;&lt;p&gt;Start with a workflow that works for your team.&lt;/p&gt;&lt;/div&gt;
+    &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/contact&quot;&gt;Talk to us&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Call-to-action band" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="metric-overview"
+               data-block-category="Applications"
+               data-block-keywords="KPI overview Container-aware operational metrics with text labels. dashboard kpi metrics"
+               aria-labelledby="block-title-metric-overview">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-metric-overview">KPI overview</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Container-aware operational metrics with text labels.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-kpi-heading">
+  <h2 id="syn-kpi-heading" class="syn-heading">Operations snapshot</h2>
+  <div class="syn-stats">
+    <article class="syn-stat"><p class="syn-stat-label">Active accounts</p><p class="syn-stat-value">1,284</p></article>
+    <article class="syn-stat"><p class="syn-stat-label">Open requests</p><p class="syn-stat-value">38</p></article>
+    <article class="syn-stat"><p class="syn-stat-label">Completion</p><p class="syn-stat-value">94%</p></article>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for KPI overview</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-kpi-heading&quot;&gt;
+  &lt;h2 id=&quot;syn-kpi-heading&quot; class=&quot;syn-heading&quot;&gt;Operations snapshot&lt;/h2&gt;
+  &lt;div class=&quot;syn-stats&quot;&gt;
+    &lt;article class=&quot;syn-stat&quot;&gt;&lt;p class=&quot;syn-stat-label&quot;&gt;Active accounts&lt;/p&gt;&lt;p class=&quot;syn-stat-value&quot;&gt;1,284&lt;/p&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-stat&quot;&gt;&lt;p class=&quot;syn-stat-label&quot;&gt;Open requests&lt;/p&gt;&lt;p class=&quot;syn-stat-value&quot;&gt;38&lt;/p&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-stat&quot;&gt;&lt;p class=&quot;syn-stat-label&quot;&gt;Completion&lt;/p&gt;&lt;p class=&quot;syn-stat-value&quot;&gt;94%&lt;/p&gt;&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for KPI overview" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="activity-feed"
+               data-block-category="Applications"
+               data-block-keywords="Recent activity A compact activity feed in a reusable application card. activity feed application"
+               aria-labelledby="block-title-activity-feed">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-activity-feed">Recent activity</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A compact activity feed in a reusable application card.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-activity-heading">
+  <div class="syn-app-card">
+    <header class="syn-app-card-header"><h2 id="syn-activity-heading" class="syn-heading">Recent activity</h2><span class="syn-badge">Today</span></header>
+    <ol class="syn-activity-list">
+      <li><span>Report prepared</span><time datetime="2026-11-15T10:30:00">10:30</time></li>
+      <li><span>New workspace added</span><time datetime="2026-11-15T09:15:00">09:15</time></li>
+      <li><span>Settings reviewed</span><time datetime="2026-11-15T08:00:00">08:00</time></li>
+    </ol>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Recent activity</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-activity-heading&quot;&gt;
+  &lt;div class=&quot;syn-app-card&quot;&gt;
+    &lt;header class=&quot;syn-app-card-header&quot;&gt;&lt;h2 id=&quot;syn-activity-heading&quot; class=&quot;syn-heading&quot;&gt;Recent activity&lt;/h2&gt;&lt;span class=&quot;syn-badge&quot;&gt;Today&lt;/span&gt;&lt;/header&gt;
+    &lt;ol class=&quot;syn-activity-list&quot;&gt;
+      &lt;li&gt;&lt;span&gt;Report prepared&lt;/span&gt;&lt;time datetime=&quot;2026-11-15T10:30:00&quot;&gt;10:30&lt;/time&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;span&gt;New workspace added&lt;/span&gt;&lt;time datetime=&quot;2026-11-15T09:15:00&quot;&gt;09:15&lt;/time&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;span&gt;Settings reviewed&lt;/span&gt;&lt;time datetime=&quot;2026-11-15T08:00:00&quot;&gt;08:00&lt;/time&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Recent activity" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="data-table"
+               data-block-category="Applications"
+               data-block-keywords="Records table Semantic, scrollable table with caption and column scopes. table records report"
+               aria-labelledby="block-title-data-table">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-data-table">Records table</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Semantic, scrollable table with caption and column scopes.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-table-heading">
+  <h2 id="syn-table-heading" class="syn-heading">Active requests</h2>
+  <div class="syn-table-wrap">
+    <table class="syn-table">
+      <caption>Illustrative requests and their current state</caption>
+      <thead><tr><th scope="col">Request</th><th scope="col">Owner</th><th scope="col">Status</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">REQ-103</th><td>Alex</td><td><span class="syn-status syn-status--success">Ready</span></td></tr>
+        <tr><th scope="row">REQ-104</th><td>Casey</td><td><span class="syn-status syn-status--warning">Review</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Records table</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-table-heading&quot;&gt;
+  &lt;h2 id=&quot;syn-table-heading&quot; class=&quot;syn-heading&quot;&gt;Active requests&lt;/h2&gt;
+  &lt;div class=&quot;syn-table-wrap&quot;&gt;
+    &lt;table class=&quot;syn-table&quot;&gt;
+      &lt;caption&gt;Illustrative requests and their current state&lt;/caption&gt;
+      &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Request&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Owner&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Status&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;REQ-103&lt;/th&gt;&lt;td&gt;Alex&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;syn-status syn-status--success&quot;&gt;Ready&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;REQ-104&lt;/th&gt;&lt;td&gt;Casey&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;syn-status syn-status--warning&quot;&gt;Review&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Records table" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="filter-toolbar"
+               data-block-category="Applications"
+               data-block-keywords="Search and filter form Server-ready GET filters that preserve native form semantics. search filter form"
+               aria-labelledby="block-title-filter-toolbar">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-filter-toolbar">Search and filter form</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Server-ready GET filters that preserve native form semantics.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-filter-heading">
+  <h2 id="syn-filter-heading" class="syn-heading">Find a request</h2>
+  <form class="syn-panel syn-form" method="get" action="/requests">
+    <label class="syn-label" for="syn-block-query">Search by name</label>
+    <input class="syn-input" id="syn-block-query" name="query" type="search" placeholder="Search requests">
+    <label class="syn-label" for="syn-block-status">Status</label>
+    <select class="syn-select" id="syn-block-status" name="status">
+      <option value="">All statuses</option><option value="open">Open</option><option value="closed">Closed</option>
+    </select>
+    <button class="syn-button syn-button--primary" type="submit">Apply filters</button>
+  </form>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Search and filter form</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-filter-heading&quot;&gt;
+  &lt;h2 id=&quot;syn-filter-heading&quot; class=&quot;syn-heading&quot;&gt;Find a request&lt;/h2&gt;
+  &lt;form class=&quot;syn-panel syn-form&quot; method=&quot;get&quot; action=&quot;/requests&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;syn-block-query&quot;&gt;Search by name&lt;/label&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;syn-block-query&quot; name=&quot;query&quot; type=&quot;search&quot; placeholder=&quot;Search requests&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;syn-block-status&quot;&gt;Status&lt;/label&gt;
+    &lt;select class=&quot;syn-select&quot; id=&quot;syn-block-status&quot; name=&quot;status&quot;&gt;
+      &lt;option value=&quot;&quot;&gt;All statuses&lt;/option&gt;&lt;option value=&quot;open&quot;&gt;Open&lt;/option&gt;&lt;option value=&quot;closed&quot;&gt;Closed&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Apply filters&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Search and filter form" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="settings-form"
+               data-block-category="Applications"
+               data-block-keywords="Account settings Labeled settings form for server-backed applications. settings account form"
+               aria-labelledby="block-title-settings-form">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-settings-form">Account settings</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Labeled settings form for server-backed applications.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-settings-heading">
+  <h2 id="syn-settings-heading" class="syn-heading">Workspace settings</h2>
+  <form class="syn-panel syn-form" method="post" action="/settings">
+    <label class="syn-label" for="syn-block-name">Workspace name</label>
+    <input class="syn-input" id="syn-block-name" name="name" autocomplete="organization" value="Northstar Operations" required>
+    <label class="syn-label" for="syn-block-timezone">Timezone</label>
+    <select class="syn-select" id="syn-block-timezone" name="timezone"><option value="UTC">UTC</option><option value="America/Sao_Paulo">Brasília</option></select>
+    <p class="syn-help">Connect your actual validation, CSRF protection and persistence.</p>
+    <button class="syn-button syn-button--primary" type="submit">Save settings</button>
+  </form>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Account settings</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-settings-heading&quot;&gt;
+  &lt;h2 id=&quot;syn-settings-heading&quot; class=&quot;syn-heading&quot;&gt;Workspace settings&lt;/h2&gt;
+  &lt;form class=&quot;syn-panel syn-form&quot; method=&quot;post&quot; action=&quot;/settings&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;syn-block-name&quot;&gt;Workspace name&lt;/label&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;syn-block-name&quot; name=&quot;name&quot; autocomplete=&quot;organization&quot; value=&quot;Northstar Operations&quot; required&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;syn-block-timezone&quot;&gt;Timezone&lt;/label&gt;
+    &lt;select class=&quot;syn-select&quot; id=&quot;syn-block-timezone&quot; name=&quot;timezone&quot;&gt;&lt;option value=&quot;UTC&quot;&gt;UTC&lt;/option&gt;&lt;option value=&quot;America/Sao_Paulo&quot;&gt;Brasília&lt;/option&gt;&lt;/select&gt;
+    &lt;p class=&quot;syn-help&quot;&gt;Connect your actual validation, CSRF protection and persistence.&lt;/p&gt;
+    &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Save settings&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Account settings" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="team-directory"
+               data-block-category="Applications"
+               data-block-keywords="Team directory Simple list of people and roles with descriptive content. team permissions people"
+               aria-labelledby="block-title-team-directory">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-team-directory">Team directory</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Simple list of people and roles with descriptive content.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-team-heading">
+  <div class="syn-app-card">
+    <header class="syn-app-card-header"><h2 id="syn-team-heading" class="syn-heading">Team members</h2><span class="syn-badge">3 members</span></header>
+    <ul class="syn-activity-list">
+      <li><strong>Alex Kim</strong><span class="syn-muted">Owner</span></li>
+      <li><strong>Sam Lee</strong><span class="syn-muted">Editor</span></li>
+      <li><strong>Casey Rivera</strong><span class="syn-muted">Viewer</span></li>
+    </ul>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Team directory</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-team-heading&quot;&gt;
+  &lt;div class=&quot;syn-app-card&quot;&gt;
+    &lt;header class=&quot;syn-app-card-header&quot;&gt;&lt;h2 id=&quot;syn-team-heading&quot; class=&quot;syn-heading&quot;&gt;Team members&lt;/h2&gt;&lt;span class=&quot;syn-badge&quot;&gt;3 members&lt;/span&gt;&lt;/header&gt;
+    &lt;ul class=&quot;syn-activity-list&quot;&gt;
+      &lt;li&gt;&lt;strong&gt;Alex Kim&lt;/strong&gt;&lt;span class=&quot;syn-muted&quot;&gt;Owner&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Sam Lee&lt;/strong&gt;&lt;span class=&quot;syn-muted&quot;&gt;Editor&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Casey Rivera&lt;/strong&gt;&lt;span class=&quot;syn-muted&quot;&gt;Viewer&lt;/span&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Team directory" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="billing-summary"
+               data-block-category="Applications"
+               data-block-keywords="Billing summary A compact, readable subscription overview. billing subscription invoice"
+               aria-labelledby="block-title-billing-summary">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-billing-summary">Billing summary</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A compact, readable subscription overview.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-billing-heading">
+  <article class="syn-app-card">
+    <header class="syn-app-card-header"><h2 id="syn-billing-heading" class="syn-heading">Subscription</h2><span class="syn-status syn-status--success">Active</span></header>
+    <p class="syn-eyebrow">TEAM PLAN</p>
+    <p class="syn-metric">$49 <span class="syn-caption">/ month</span></p>
+    <p class="syn-muted">Next illustrative invoice: December 1, 2026.</p>
+    <a href="/billing" class="syn-button">Manage billing</a>
+  </article>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Billing summary</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-billing-heading&quot;&gt;
+  &lt;article class=&quot;syn-app-card&quot;&gt;
+    &lt;header class=&quot;syn-app-card-header&quot;&gt;&lt;h2 id=&quot;syn-billing-heading&quot; class=&quot;syn-heading&quot;&gt;Subscription&lt;/h2&gt;&lt;span class=&quot;syn-status syn-status--success&quot;&gt;Active&lt;/span&gt;&lt;/header&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;TEAM PLAN&lt;/p&gt;
+    &lt;p class=&quot;syn-metric&quot;&gt;$49 &lt;span class=&quot;syn-caption&quot;&gt;/ month&lt;/span&gt;&lt;/p&gt;
+    &lt;p class=&quot;syn-muted&quot;&gt;Next illustrative invoice: December 1, 2026.&lt;/p&gt;
+    &lt;a href=&quot;/billing&quot; class=&quot;syn-button&quot;&gt;Manage billing&lt;/a&gt;
+  &lt;/article&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Billing summary" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="onboarding-steps"
+               data-block-category="Applications"
+               data-block-keywords="Onboarding checklist A short onboarding progression conveyed without color-only state. onboarding checklist setup"
+               aria-labelledby="block-title-onboarding-steps">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-onboarding-steps">Onboarding checklist</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A short onboarding progression conveyed without color-only state.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-onboarding-heading">
+  <div class="syn-panel">
+    <h2 id="syn-onboarding-heading" class="syn-heading">Complete your setup</h2>
+    <ol class="syn-activity-list">
+      <li><span>1. Create your workspace</span><span class="syn-status syn-status--success">Done</span></li>
+      <li><span>2. Invite teammates</span><span class="syn-status syn-status--warning">Next</span></li>
+      <li><span>3. Connect a data source</span><span class="syn-muted">Not started</span></li>
+    </ol>
+    <a href="/onboarding" class="syn-button syn-button--primary">Continue setup</a>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Onboarding checklist</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-onboarding-heading&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;h2 id=&quot;syn-onboarding-heading&quot; class=&quot;syn-heading&quot;&gt;Complete your setup&lt;/h2&gt;
+    &lt;ol class=&quot;syn-activity-list&quot;&gt;
+      &lt;li&gt;&lt;span&gt;1. Create your workspace&lt;/span&gt;&lt;span class=&quot;syn-status syn-status--success&quot;&gt;Done&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;span&gt;2. Invite teammates&lt;/span&gt;&lt;span class=&quot;syn-status syn-status--warning&quot;&gt;Next&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;span&gt;3. Connect a data source&lt;/span&gt;&lt;span class=&quot;syn-muted&quot;&gt;Not started&lt;/span&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;a href=&quot;/onboarding&quot; class=&quot;syn-button syn-button--primary&quot;&gt;Continue setup&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Onboarding checklist" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="terminal-session"
+               data-block-category="Technical"
+               data-block-keywords="Terminal output A static terminal presentation, not an interactive shell. terminal developer cli"
+               aria-labelledby="block-title-terminal-session">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Technical</p>
+            <h2 class="syn-heading" id="block-title-terminal-session">Terminal output</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A static terminal presentation, not an interactive shell.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-terminal-heading">
+  <h2 id="syn-terminal-heading" class="syn-heading">Deploy preview</h2>
+  <div class="syn-terminal" role="group" aria-label="Illustrative deployment output">
+    <div class="syn-terminal-bar"><span class="syn-terminal-title">deploy.log</span><span>EXIT 0</span></div>
+    <pre class="syn-terminal-body"><code><span class="syn-terminal-prompt">$</span> <span class="syn-terminal-command">deploy --preview</span>
+<span class="syn-terminal-success">✓ Build completed</span>
+<span class="syn-terminal-success">✓ Static assets verified</span>
+<span class="syn-terminal-muted">Preview is ready</span></code></pre>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Terminal output</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-terminal-heading&quot;&gt;
+  &lt;h2 id=&quot;syn-terminal-heading&quot; class=&quot;syn-heading&quot;&gt;Deploy preview&lt;/h2&gt;
+  &lt;div class=&quot;syn-terminal&quot; role=&quot;group&quot; aria-label=&quot;Illustrative deployment output&quot;&gt;
+    &lt;div class=&quot;syn-terminal-bar&quot;&gt;&lt;span class=&quot;syn-terminal-title&quot;&gt;deploy.log&lt;/span&gt;&lt;span&gt;EXIT 0&lt;/span&gt;&lt;/div&gt;
+    &lt;pre class=&quot;syn-terminal-body&quot;&gt;&lt;code&gt;&lt;span class=&quot;syn-terminal-prompt&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;syn-terminal-command&quot;&gt;deploy --preview&lt;/span&gt;
+&lt;span class=&quot;syn-terminal-success&quot;&gt;✓ Build completed&lt;/span&gt;
+&lt;span class=&quot;syn-terminal-success&quot;&gt;✓ Static assets verified&lt;/span&gt;
+&lt;span class=&quot;syn-terminal-muted&quot;&gt;Preview is ready&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Terminal output" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="incident-notice"
+               data-block-category="Technical"
+               data-block-keywords="Service incident notice Status notice with actionable text and honest semantics. incident status alert"
+               aria-labelledby="block-title-incident-notice">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Technical</p>
+            <h2 class="syn-heading" id="block-title-incident-notice">Service incident notice</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Status notice with actionable text and honest semantics.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-incident-heading">
+  <div class="syn-alert syn-alert--danger">
+    <h2 id="syn-incident-heading" class="syn-heading">Degraded API performance</h2>
+    <p>Some requests may be delayed. Engineers are investigating and will post updates.</p>
+    <a href="/status">View status history</a>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Service incident notice</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-incident-heading&quot;&gt;
+  &lt;div class=&quot;syn-alert syn-alert--danger&quot;&gt;
+    &lt;h2 id=&quot;syn-incident-heading&quot; class=&quot;syn-heading&quot;&gt;Degraded API performance&lt;/h2&gt;
+    &lt;p&gt;Some requests may be delayed. Engineers are investigating and will post updates.&lt;/p&gt;
+    &lt;a href=&quot;/status&quot;&gt;View status history&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Service incident notice" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="telemetry-status"
+               data-block-category="Technical"
+               data-block-keywords="Telemetry panel Readable service status with native progress indicators. telemetry health progress"
+               aria-labelledby="block-title-telemetry-status">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Technical</p>
+            <h2 class="syn-heading" id="block-title-telemetry-status">Telemetry panel</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Readable service status with native progress indicators.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-telemetry-heading">
+  <div class="syn-panel">
+    <p class="syn-eyebrow">SYSTEM TELEMETRY</p>
+    <h2 id="syn-telemetry-heading" class="syn-heading">Cluster health</h2>
+    <label class="syn-label" for="syn-block-uptime">Requests completed — 96%</label>
+    <progress class="syn-meter" id="syn-block-uptime" value="96" max="100">96%</progress>
+    <p class="syn-caption">Illustrative values; connect to real monitoring data.</p>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Telemetry panel</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-telemetry-heading&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;SYSTEM TELEMETRY&lt;/p&gt;
+    &lt;h2 id=&quot;syn-telemetry-heading&quot; class=&quot;syn-heading&quot;&gt;Cluster health&lt;/h2&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;syn-block-uptime&quot;&gt;Requests completed — 96%&lt;/label&gt;
+    &lt;progress class=&quot;syn-meter&quot; id=&quot;syn-block-uptime&quot; value=&quot;96&quot; max=&quot;100&quot;&gt;96%&lt;/progress&gt;
+    &lt;p class=&quot;syn-caption&quot;&gt;Illustrative values; connect to real monitoring data.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Telemetry panel" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="release-notes"
+               data-block-category="Technical"
+               data-block-keywords="Release notes Compact changelog entry with a machine-readable date. changelog releases updates"
+               aria-labelledby="block-title-release-notes">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Technical</p>
+            <h2 class="syn-heading" id="block-title-release-notes">Release notes</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Compact changelog entry with a machine-readable date.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-release-heading">
+  <article class="syn-panel">
+    <p class="syn-eyebrow"><time datetime="2026-11-15">NOV 15, 2026</time> / RELEASE</p>
+    <h2 id="syn-release-heading" class="syn-heading">Version 1.4</h2>
+    <p class="syn-muted">A more focused way to review and filter your activity.</p>
+    <ul class="syn-feature-list">
+      <li>Improved record filtering.</li><li>Clearer empty and loading states.</li><li>Keyboard navigation refinements.</li>
+    </ul>
+    <a href="/changelog">View all releases</a>
+  </article>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Release notes</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-release-heading&quot;&gt;
+  &lt;article class=&quot;syn-panel&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;&lt;time datetime=&quot;2026-11-15&quot;&gt;NOV 15, 2026&lt;/time&gt; / RELEASE&lt;/p&gt;
+    &lt;h2 id=&quot;syn-release-heading&quot; class=&quot;syn-heading&quot;&gt;Version 1.4&lt;/h2&gt;
+    &lt;p class=&quot;syn-muted&quot;&gt;A more focused way to review and filter your activity.&lt;/p&gt;
+    &lt;ul class=&quot;syn-feature-list&quot;&gt;
+      &lt;li&gt;Improved record filtering.&lt;/li&gt;&lt;li&gt;Clearer empty and loading states.&lt;/li&gt;&lt;li&gt;Keyboard navigation refinements.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;a href=&quot;/changelog&quot;&gt;View all releases&lt;/a&gt;
+  &lt;/article&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Release notes" hidden>Copy HTML</button>
+      </article>
+      </div>
+    </section>
+    <section class="docs-section" aria-labelledby="blocks-assets-heading">
+      <p class="syn-eyebrow">OPTIONAL / DOCS-ONLY CSS</p>
+      <h2 id="blocks-assets-heading" class="syn-title">12 original visual textures</h2>
+      <p class="syn-muted">Opt into these styles separately; they are not included in the core or all-in-one Syntyr bundles.
+      Copy <a href="blocks-assets.css">the documented asset stylesheet</a> only if needed.
+      Effects are decorative and never convey application state.</p>
+      <div class="blocks-assets-grid">
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--fine-grid">
+          <strong>Fine grid</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--dot-field">
+          <strong>Dot field</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--radar">
+          <strong>Radar rings</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--ambient-glow">
+          <strong>Ambient glow</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--glass">
+          <strong>Frosted surface</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--blueprint">
+          <strong>Blueprint</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--signal-stripes">
+          <strong>Signal stripes</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--diagonal">
+          <strong>Diagonal hatch</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--beam">
+          <strong>Scanning beam</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--corners">
+          <strong>Corner markers</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--horizon">
+          <strong>Horizon</strong><span>Original CSS, no image required</span>
+        </div>
+        <div class="blocks-asset-preview syn-block-asset syn-block-asset--circuit">
+          <strong>Circuit trace</strong><span>Original CSS, no image required</span>
+        </div>
+      </div>
+    </section>
+    <section class="docs-section" aria-labelledby="blocks-icons-heading">
+      <p class="syn-eyebrow">INLINE SVG / NO ICON FONT</p>
+      <h2 id="blocks-icons-heading" class="syn-title">24 original SVG icon examples</h2>
+      <p class="syn-muted">Small, copyable SVGs that inherit theme color and work with the existing
+      Syntyr symbol-sizing contract. These are examples, not a bundled icon dependency.
+      When icons are used alone as controls, add accessible names.</p>
+      <div class="blocks-icons-grid">
+        <div class="blocks-icon-card" data-icon-id="search">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.6" cy="10.6" r="6.6"/><path d="m16 16 4.5 4.5"/></svg><strong>Search</strong></div>
+          <details><summary data-icon-source>SVG source for Search</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;10.6&quot; cy=&quot;10.6&quot; r=&quot;6.6&quot;/&gt;&lt;path d=&quot;m16 16 4.5 4.5&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="close">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5 19 19M19 5 5 19"/></svg><strong>Close</strong></div>
+          <details><summary data-icon-source>SVG source for Close</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M5 5 19 19M19 5 5 19&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="chevron-right">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg><strong>Next</strong></div>
+          <details><summary data-icon-source>SVG source for Next</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;m9 5 7 7-7 7&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="chevron-left">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 5-7 7 7 7"/></svg><strong>Previous</strong></div>
+          <details><summary data-icon-source>SVG source for Previous</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;m15 5-7 7 7 7&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="check">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m4.5 12.5 5 5 10-11"/></svg><strong>Confirm</strong></div>
+          <details><summary data-icon-source>SVG source for Confirm</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;m4.5 12.5 5 5 10-11&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="warning">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3 22 20H2L12 3Z"/><path d="M12 9v5m0 3v.2"/></svg><strong>Warning</strong></div>
+          <details><summary data-icon-source>SVG source for Warning</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 3 22 20H2L12 3Z&quot;/&gt;&lt;path d=&quot;M12 9v5m0 3v.2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="info">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6m0-10v.5"/></svg><strong>Information</strong></div>
+          <details><summary data-icon-source>SVG source for Information</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9.5&quot;/&gt;&lt;path d=&quot;M12 11v6m0-10v.5&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="settings">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M10 2h4l.6 2.4 2 .9 2.1-1.2 2.8 2.8-1.2 2.1.9 2L23 11v3l-2.4.6-.9 2 1.2 2.1-2.8 2.8-2.1-1.2-2 .9L14 23h-4l-.6-2.4-2-.9-2.1 1.2-2.8-2.8 1.2-2.1-.9-2L1 14v-3l2.4-.6.9-2-1.2-2.1 2.8-2.8 2.1 1.2 2-.9L10 2Z"/></svg><strong>Settings</strong></div>
+          <details><summary data-icon-source>SVG source for Settings</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;&lt;path d=&quot;M10 2h4l.6 2.4 2 .9 2.1-1.2 2.8 2.8-1.2 2.1.9 2L23 11v3l-2.4.6-.9 2 1.2 2.1-2.8 2.8-2.1-1.2-2 .9L14 23h-4l-.6-2.4-2-.9-2.1 1.2-2.8-2.8 1.2-2.1-.9-2L1 14v-3l2.4-.6.9-2-1.2-2.1 2.8-2.8 2.1 1.2 2-.9L10 2Z&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="notification">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 17h14l-2-2V10c0-3.2-2-5.5-5-5.5S7 6.8 7 10v5l-2 2Zm5 3h4"/></svg><strong>Notifications</strong></div>
+          <details><summary data-icon-source>SVG source for Notifications</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M5 17h14l-2-2V10c0-3.2-2-5.5-5-5.5S7 6.8 7 10v5l-2 2Zm5 3h4&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="person">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.7"/><path d="M4.5 21v-2.2c0-3 3.4-5 7.5-5s7.5 2 7.5 5V21"/></svg><strong>Account</strong></div>
+          <details><summary data-icon-source>SVG source for Account</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;3.7&quot;/&gt;&lt;path d=&quot;M4.5 21v-2.2c0-3 3.4-5 7.5-5s7.5 2 7.5 5V21&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="team">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M2.5 20v-1c0-3 2.3-5.2 5.5-5.2s5.5 2.2 5.5 5.2v1m1-5.5c3.8-.2 6.6 1.5 6.6 4.5v1"/></svg><strong>Team</strong></div>
+          <details><summary data-icon-source>SVG source for Team</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;8&quot; cy=&quot;9&quot; r=&quot;3&quot;/&gt;&lt;circle cx=&quot;17&quot; cy=&quot;10&quot; r=&quot;2.5&quot;/&gt;&lt;path d=&quot;M2.5 20v-1c0-3 2.3-5.2 5.5-5.2s5.5 2.2 5.5 5.2v1m1-5.5c3.8-.2 6.6 1.5 6.6 4.5v1&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="calendar">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6m10-6v6M3 10h18M8 14h3m2 0h3"/></svg><strong>Calendar</strong></div>
+          <details><summary data-icon-source>SVG source for Calendar</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;16&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M7 2v6m10-6v6M3 10h18M8 14h3m2 0h3&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="clock">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l4.2 2.8"/></svg><strong>Time</strong></div>
+          <details><summary data-icon-source>SVG source for Time</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9.5&quot;/&gt;&lt;path d=&quot;M12 6.5V12l4.2 2.8&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="external-link">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-7"/><path d="M12 12 21 3M15 3h6v6"/></svg><strong>Open external</strong></div>
+          <details><summary data-icon-source>SVG source for Open external</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-7&quot;/&gt;&lt;path d=&quot;M12 12 21 3M15 3h6v6&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="download">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v13m-5-5 5 5 5-5M4 19v2h16v-2"/></svg><strong>Download</strong></div>
+          <details><summary data-icon-source>SVG source for Download</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 3v13m-5-5 5 5 5-5M4 19v2h16v-2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="upload">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16V3m-5 5 5-5 5 5M4 19v2h16v-2"/></svg><strong>Upload</strong></div>
+          <details><summary data-icon-source>SVG source for Upload</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 16V3m-5 5 5-5 5 5M4 19v2h16v-2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="terminal">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="m6 9 4 3-4 3m6 0h6"/></svg><strong>Terminal</strong></div>
+          <details><summary data-icon-source>SVG source for Terminal</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;rect x=&quot;2.5&quot; y=&quot;4&quot; width=&quot;19&quot; height=&quot;16&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;m6 9 4 3-4 3m6 0h6&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="shield">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2.5 20 6v5.5c0 5-3.5 8.4-8 10-4.5-1.6-8-5-8-10V6l8-3.5Z"/><path d="m8 12 2.5 2.5 5-5"/></svg><strong>Protection</strong></div>
+          <details><summary data-icon-source>SVG source for Protection</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 2.5 20 6v5.5c0 5-3.5 8.4-8 10-4.5-1.6-8-5-8-10V6l8-3.5Z&quot;/&gt;&lt;path d=&quot;m8 12 2.5 2.5 5-5&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="lock">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="10.5" width="14" height="11" rx="2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7m-4 5v2"/></svg><strong>Private</strong></div>
+          <details><summary data-icon-source>SVG source for Private</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;rect x=&quot;5&quot; y=&quot;10.5&quot; width=&quot;14&quot; height=&quot;11&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M8 10.5V7.8a4 4 0 0 1 8 0v2.7m-4 5v2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="database">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5" rx="8.5" ry="3"/><path d="M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 12c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3"/></svg><strong>Database</strong></div>
+          <details><summary data-icon-source>SVG source for Database</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8.5&quot; ry=&quot;3&quot;/&gt;&lt;path d=&quot;M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 12c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="bar-chart">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 21h18M5.5 18v-6h3v6m4 0V5h3v13m4 0v-9h3v9"/></svg><strong>Bar chart</strong></div>
+          <details><summary data-icon-source>SVG source for Bar chart</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3 21h18M5.5 18v-6h3v6m4 0V5h3v13m4 0v-9h3v9&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="line-chart">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 21h18M3 21V3m3 13 5-5 4 2 5-8"/></svg><strong>Trend</strong></div>
+          <details><summary data-icon-source>SVG source for Trend</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3 21h18M3 21V3m3 13 5-5 4 2 5-8&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="filter">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4h18l-7 8v7l-4 2v-9L3 4Z"/></svg><strong>Filter</strong></div>
+          <details><summary data-icon-source>SVG source for Filter</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3 4h18l-7 8v7l-4 2v-9L3 4Z&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="spark">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2 14.2 9.8 22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2Z"/></svg><strong>Highlight</strong></div>
+          <details><summary data-icon-source>SVG source for Highlight</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 2 14.2 9.8 22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2Z&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+        </div></div>
+    </section>
+    <section class="docs-section" aria-labelledby="blocks-type-heading">
+      <p class="syn-eyebrow">FONT-AGNOSTIC / NO REMOTE FONTS</p>
+      <h2 id="blocks-type-heading" class="syn-title">Six typography directions</h2>
+      <p class="syn-muted">Reference combinations use system or installed fallback fonts. Customize
+      <code>--syn-font-ui</code>, <code>--syn-font-display</code> and <code>--syn-mono</code>.
+      The examples do not download or bundle typefaces.</p>
+      <div class="blocks-type-grid">
+        <div class="blocks-type blocks-type--studio"><span class="syn-caption">Studio sans</span>
+          <strong>Interface-first typography</strong><small>Aa 0123456789</small></div>
+        <div class="blocks-type blocks-type--editorial"><span class="syn-caption">Editorial serif</span>
+          <strong>Considered storytelling</strong><small>Aa 0123456789</small></div>
+        <div class="blocks-type blocks-type--mono"><span class="syn-caption">Terminal mono</span>
+          <strong>Machine-readable surfaces</strong><small>Aa 0123456789</small></div>
+        <div class="blocks-type blocks-type--technical"><span class="syn-caption">Technical sans</span>
+          <strong>Precise operational labels</strong><small>Aa 0123456789</small></div>
+        <div class="blocks-type blocks-type--reading"><span class="syn-caption">Reading serif</span>
+          <strong>Long-form product narratives</strong><small>Aa 0123456789</small></div>
+        <div class="blocks-type blocks-type--compact"><span class="syn-caption">Compact system</span>
+          <strong>Dense dashboards, still legible</strong><small>Aa 0123456789</small></div></div>
+    </section>
+  </main>
+  <footer class="syn-shell blocks-footer"><p class="syn-caption">MIT-licensed Syntyr source; original block markup and textures.</p>
+    <a href="blocks-guide.md">License, framework setup and accessibility notes</a></footer>
+</body>
+</html>
