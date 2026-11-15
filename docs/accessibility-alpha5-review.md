@@ -270,11 +270,11 @@ and representative-product checks below remain open.
 
 For each flagged element, record selector, theme, browser, viewport/zoom setting, sampled foreground and effective background, measured contrast and screenshot. Test the lowest-contrast part of each gradient. Apply WCAG thresholds of at least 4.5:1 for regular text and 3:1 for large text and applicable essential UI graphics. Check hover, focus, disabled, selected and nested-theme contexts.
 
-Automated browser evidence covers **126 viewport cases** across Chromium/Firefox/WebKit and **168 enlarged-text reflow cases**. The Chromium forced-colors primary-link screenshot and focus tests pass for all seven palettes. None of these substitute for native Windows High Contrast or other OS-level modes, real browser zoom, or a screen reader.
+Earlier automated browser evidence covered **126 viewport cases** across Chromium/Firefox/WebKit and **168 enlarged-text reflow cases** on a historical commit. These figures are not the latest branch coverage. The Chromium forced-colors primary-link screenshot and focus tests passed for all seven palettes in that snapshot. None of these checks substitute for native Windows High Contrast or other OS-level modes, real browser zoom, or a screen reader.
 
 ## Remaining release checklist
 
-- [ ] Measure or adjudicate each of the **345 current** inconclusive text/background cases (the table of 325 above is historical).
+- [ ] Measure or adjudicate each of the **162 unresolved** text/background element entries in the latest 28-page source audit above. The 345-entry and 325-entry figures below describe earlier commits and are historical, not the current review queue.
 - [ ] Test keyboard-only navigation, native dialog/popover focus, table regions, disclosure and form semantics in a representative real app.
 - [ ] Perform real assistive-technology testing with NVDA, JAWS, VoiceOver or Orca and record evidence.
 - [ ] Test true 200% and 400% browser zoom on supported browsers; verify navigation, reflow and target visibility.

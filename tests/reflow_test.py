@@ -36,7 +36,7 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
     try:
         page.goto((ROOT / path).as_uri())
         page.evaluate("(scale) => { document.documentElement.style.fontSize = (16 * scale) + 'px'; }", scale)
-        data = page.evaluate("""() => {
+        inspect_overflow = """() => {
             const root=document.documentElement;
             const clipped = Array.from(document.querySelectorAll('a, button, input, select, textarea, summary'))
               .filter(e => {
@@ -49,12 +49,32 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
                 if(e.closest('.syn-table-wrap')) return false;
                 const pipeline = e.closest('.syn-pipeline');
                 if(pipeline && pipeline.matches('[tabindex="0"][aria-label]') &&
-                   getComputedStyle(pipeline).overflowX === 'auto') return false;
+                   getComputedStyle(pipeline).overflowX === 'auto' &&
+                   pipeline.scrollWidth > pipeline.clientWidth) {
+                  // Horizontal pipeline scrolling can reveal distant controls,
+                  // but cannot reveal content clipped by a nested fixed card.
+                  let obscured = false;
+                  for(let ancestor=e.parentElement; ancestor && ancestor!==pipeline;
+                      ancestor=ancestor.parentElement) {
+                    const overflowX=getComputedStyle(ancestor).overflowX;
+                    if(overflowX!=='hidden' && overflowX!=='clip') continue;
+                    const bounds=ancestor.getBoundingClientRect();
+                    if(r.left < bounds.left - 1 || r.right > bounds.right + 1) {
+                      obscured = true;
+                      break;
+                    }
+                  }
+                  // This is a genuine clipped control even if its bounding
+                  // box happens to remain within the document viewport.
+                  if(obscured) return true;
+                  return false;
+                }
                 return r.left < -1 || r.right > innerWidth + 1;
               }).slice(0,5).map(e=>[e.tagName, e.textContent.trim().slice(0,35),
                  Math.round(e.getBoundingClientRect().left),Math.round(e.getBoundingClientRect().right)]);
             return {scrollWidth:root.scrollWidth, clientWidth:root.clientWidth, clipped};
-        }""")
+        }"""
+        data = page.evaluate(inspect_overflow)
         assert data["scrollWidth"] <= data["clientWidth"] + 1 and not data["clipped"], (
             f"{path}: viewport={width}px, font scale={scale}x: {data}"
         )
@@ -67,6 +87,28 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
             assert pipeline.get_attribute('aria-label')
             assert pipeline.evaluate("e => getComputedStyle(e).overflowX") == 'auto'
             assert pipeline.evaluate('e => e.scrollWidth > e.clientWidth')
+            if width == 320 and scale == 2:
+                # A scrollable pipeline must not exempt a control clipped by
+                # an intermediate, non-scrollable card. This catches a false
+                # negative in the root-overflow inspection logic.
+                pipeline.evaluate("""e => {
+                    const card = document.createElement('div');
+                    card.id = 'syn-clipped-card-fixture';
+                    card.style.cssText = 'position:fixed;left:10px;top:10px;inline-size:40px;overflow-x:hidden;';
+                    const control = document.createElement('button');
+                    control.textContent = 'INTENTIONAL CLIPPED FIXTURE';
+                    // Keep the button wholly inside the viewport. The only
+                    // accessibility defect should be the ancestor's clipping.
+                    control.style.cssText = 'inline-size:120px;min-inline-size:120px;display:block;';
+                    card.append(control);
+                    e.append(card);
+                }""")
+                try:
+                    clipped = page.evaluate(inspect_overflow)['clipped']
+                    assert any('INTENTIONAL CLIPPED FIXTURE' in c[1] for c in clipped), clipped
+                finally:
+                    page.locator('#syn-clipped-card-fixture').evaluate('e => e.remove()')
+
         mobile_menu = page.locator('details.site-mobile-menu')
         if mobile_menu.count() and mobile_menu.is_visible():
             mobile_menu.evaluate('e => e.open = true')

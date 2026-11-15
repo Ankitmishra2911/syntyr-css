@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: SYNTYR alpha.5 — outstanding accessibility review. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="9b854de9f462f5bcee37a958d93577e8eb8c2cc6d8fcf422e7183eb5b164fd17">
+  <meta name="syntyr-source-sha256" content="38094b5f15445d2f2883ba0a2bbec0f95124287439941a80c232f5c507c9885e">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR alpha.5 — outstanding accessibility review — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility-alpha5-review.html">
@@ -521,10 +521,10 @@ interactive states. The actual screen reader, real zoom, high-contrast mode,
 and representative-product checks below remain open.</p>
 <h2 id="manual-verification-protocol">Manual verification protocol</h2>
 <p>For each flagged element, record selector, theme, browser, viewport/zoom setting, sampled foreground and effective background, measured contrast and screenshot. Test the lowest-contrast part of each gradient. Apply WCAG thresholds of at least 4.5:1 for regular text and 3:1 for large text and applicable essential UI graphics. Check hover, focus, disabled, selected and nested-theme contexts.</p>
-<p>Automated browser evidence covers <strong>126 viewport cases</strong> across Chromium/Firefox/WebKit and <strong>168 enlarged-text reflow cases</strong>. The Chromium forced-colors primary-link screenshot and focus tests pass for all seven palettes. None of these substitute for native Windows High Contrast or other OS-level modes, real browser zoom, or a screen reader.</p>
+<p>Earlier automated browser evidence covered <strong>126 viewport cases</strong> across Chromium/Firefox/WebKit and <strong>168 enlarged-text reflow cases</strong> on a historical commit. These figures are not the latest branch coverage. The Chromium forced-colors primary-link screenshot and focus tests passed for all seven palettes in that snapshot. None of these checks substitute for native Windows High Contrast or other OS-level modes, real browser zoom, or a screen reader.</p>
 <h2 id="remaining-release-checklist">Remaining release checklist</h2>
 <ul>
-<li>[ ] Measure or adjudicate each of the <strong>345 current</strong> inconclusive text/background cases (the table of 325 above is historical).</li>
+<li>[ ] Measure or adjudicate each of the <strong>162 unresolved</strong> text/background element entries in the latest 28-page source audit above. The 345-entry and 325-entry figures below describe earlier commits and are historical, not the current review queue.</li>
 <li>[ ] Test keyboard-only navigation, native dialog/popover focus, table regions, disclosure and form semantics in a representative real app.</li>
 <li>[ ] Perform real assistive-technology testing with NVDA, JAWS, VoiceOver or Orca and record evidence.</li>
 <li>[ ] Test true 200% and 400% browser zoom on supported browsers; verify navigation, reflow and target visibility.</li>
