@@ -194,6 +194,34 @@
       "description": "Grid-line accent share; varies by scoped data-syn-intensity."
     },
     {
+      "name": "--syn-grid-edge",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-focus",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-hover",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-muted",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-pad-inline",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-row-block",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-selected",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
       "name": "--syn-horizon-alpha",
       "description": "Horizon line accent share."
     },

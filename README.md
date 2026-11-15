@@ -70,6 +70,7 @@
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md) and [interactive geometry mixer](docs/playground.html#geometry-title)
 - [Quiet / standard / cinematic intensity comparison](examples/intensity-geometry.html) with [composability guide](docs/visual-intensity.md): independent effect controls, composable frame accents, and nested presets without JavaScript
 - [Optional SVG icons, Unicode markers and ASCII/box-drawing demo](examples/symbols.html) with [copy-paste guide](docs/symbols.md)
+- [Opt-in enterprise data-grid CSS module](docs/data-grid.md), with [static styling example](examples/data-grid.html): framework-neutral, no JavaScript, reusable ARIA states, density and aligned column primitives.
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
 - [Three flagship visual compositions](docs/visual-composition.md): [Studio operations](examples/flagship-studio.html), [Noir editorial](examples/flagship-noir.html), and [Grid control](examples/flagship-grid.html); original, static, zero-JavaScript showcases.
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
