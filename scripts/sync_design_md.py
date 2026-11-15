@@ -52,6 +52,23 @@ def _dimension(value: str) -> str:
     return re.sub(r"^\.", "0.", value)
 
 
+def _resolved_dimension(declarations: dict[str, str], name: str) -> str:
+    # DESIGN.md requires a concrete size, but CSS role aliases can point at base tokens.
+    seen: set[str] = set()
+    while True:
+        if name in seen:
+            raise ValueError(f"Circular Syntyr token alias: --syn-{name}")
+        seen.add(name)
+        value = _required(declarations, name)
+        alias = re.fullmatch(r"var\(\s*--syn-([\w-]+)\s*\)", value)
+        if alias:
+            name = alias.group(1)
+            continue
+        if "var(" in value:
+            raise ValueError(f"Unsupported Syntyr token expression: {value}")
+        return _dimension(value)
+
+
 def build_frontmatter(css: str) -> str:
     base = _declarations(css, r":where\(\.syn-root\)")
     studio = _declarations(
@@ -74,7 +91,7 @@ def build_frontmatter(css: str) -> str:
         "typography:",
         "  body:",
         f"    fontFamily: {json.dumps(_required(base, 'font'))}",
-        f"    fontSize: {json.dumps(_dimension(_required(base, 'type-base')))}",
+        f"    fontSize: {json.dumps(_resolved_dimension(base, 'type-body'))}",
         "    fontWeight: 400",
         f"    lineHeight: {_required(base, 'leading-body')}",
         "spacing:",

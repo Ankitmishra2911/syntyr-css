@@ -103,8 +103,8 @@ Use `--syn-font` and `--syn-font-ui` for normal interfaces; reserve `--syn-mono`
 | --- | --- | --- |
 | Scope | `.syn-root` | No unintended styling of siblings outside the root |
 | Theme boundary | `data-syn-theme` | Nested themes recompute semantic tokens locally |
-| Density | `data-syn-density="compact|comfortable|spacious"` | Adjust padding/control sizing, never shrink body text as a shortcut |
-| Visual intensity | `data-syn-intensity="quiet|standard|cinematic"` | Applies to optional effects; do not alter interaction/contrast semantics |
+| Density | `data-syn-density="compact\|comfortable\|spacious"` | Adjust padding/control sizing, never shrink body text as a shortcut |
+| Visual intensity | `data-syn-intensity="quiet\|standard\|cinematic"` | Applies to optional effects; do not alter interaction/contrast semantics |
 | Primary action | `.syn-button.syn-button--primary` | Contrasting `--syn-on-accent` text on `--syn-accent`; predictable hover and focus |
 | Content surface | `.syn-panel` | Background and border follow active theme |
 | Tables | `.syn-table` | Header associations, real data cells, meaningful overflow behavior |

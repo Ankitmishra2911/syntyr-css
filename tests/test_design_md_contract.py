@@ -42,6 +42,27 @@ class DesignMarkdownContract(unittest.TestCase):
         self.assertIn('primary: "#3458c6"', modified)
         self.assertNotEqual(original, modified)
 
+    def test_body_type_role_tracks_override_without_changing_type_base(self):
+        spec = importlib.util.spec_from_file_location("sync_design_md", SCRIPT)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        css = TOKENS.read_text(encoding="utf-8")
+        original = module.build_frontmatter(css)
+        changed = module.build_frontmatter(
+            css.replace("--syn-type-body: var(--syn-type-base);",
+                        "--syn-type-body: 1.125rem;", 1)
+        )
+        self.assertIn('fontSize: "1rem"', original)
+        self.assertIn('fontSize: "1.125rem"', changed)
+        self.assertNotEqual(original, changed)
+
+    def test_markdown_contract_table_uses_literal_attribute_pipes(self):
+        doc = DESIGN.read_text(encoding="utf-8")
+        import re
+        for row in doc.splitlines():
+            if row.startswith("| Density |") or row.startswith("| Visual intensity |"):
+                self.assertEqual(len(re.split(r"(?<!\\)\|", row)), 5, row)
+
     def test_public_discovery_and_release_allowlists(self):
         self.assertIn("[Canonical DESIGN.md contract](DESIGN.md)", (ROOT / "README.md").read_text())
         self.assertIn("https://syntyr-css.pages.dev/DESIGN.md", (ROOT / "llms.txt").read_text())
