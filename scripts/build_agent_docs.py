@@ -30,6 +30,7 @@ SOURCES = (
     "docs/viz.md",
     "docs/accessibility.md",
     "docs/agent-integration.md",
+    "docs/editor-integration.md",
 )
 
 
