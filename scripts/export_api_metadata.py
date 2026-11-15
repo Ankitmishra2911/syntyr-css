@@ -28,6 +28,8 @@ CLASS_DOCS = {
     "syn-root": "Required style scope for Syntyr components and themes.",
     "syn-panel": "General-purpose surface; customize via --syn-panel-* properties.",
     "syn-frame--accent": "Optional 2px accent outline for a selected frame shape.",
+    "syn-frame--step": "Optional square-stepped top-right and bottom-left frame.",
+    "syn-frame--facet": "Optional diagonal top-left and bottom-right facets.",
     "syn-glow": "Opt-in themed shadow; decoration controlled by data-syn-intensity.",
     "syn-button": "Native button or link styling; use semantic HTML.",
     "syn-button--primary": "Primary action appearance.",
@@ -54,6 +56,16 @@ TOKEN_DOCS = {
     "--syn-panel-border-width": "Per-panel border width; defaults to 1px.",
     "--syn-button-padding-inline": "Per-button inline padding; defaults to 1rem.",
     "--syn-button-border-width": "Per-button border width; defaults to 1px.",
+    "--syn-frame-cut": "Shared fallback corner size for optional geometry shapes.",
+    "--syn-frame-cut-tl": "Optional top-left frame cut size.",
+    "--syn-frame-cut-tr": "Optional top-right frame cut size.",
+    "--syn-frame-cut-br": "Optional bottom-right frame cut size.",
+    "--syn-frame-cut-bl": "Optional bottom-left frame cut size.",
+    "--syn-frame-stroke": "Width of the optional shape-following border.",
+    "--syn-frame-fill": "Interior fill paint for optional shaped frames.",
+    "--syn-frame-outline": "Solid border paint fallback for optional frames.",
+    "--syn-frame-border-paint": "Solid or gradient border paint for optional frames.",
+    "--syn-frame-inlay-paint": "Optional translucent overlay on the inner shaped surface.",
 }
 # These overrides have CSS var() fallbacks, and are still valid documented API.
 EXPLICIT_TOKENS = {
@@ -62,6 +74,16 @@ EXPLICIT_TOKENS = {
     "--syn-panel-border-width": "components/layout.css",
     "--syn-button-padding-inline": "components/buttons.css",
     "--syn-button-border-width": "components/buttons.css",
+    "--syn-frame-cut": "geometry.css",
+    "--syn-frame-cut-tl": "geometry.css",
+    "--syn-frame-cut-tr": "geometry.css",
+    "--syn-frame-cut-br": "geometry.css",
+    "--syn-frame-cut-bl": "geometry.css",
+    "--syn-frame-stroke": "geometry.css",
+    "--syn-frame-fill": "geometry.css",
+    "--syn-frame-outline": "geometry.css",
+    "--syn-frame-border-paint": "geometry.css",
+    "--syn-frame-inlay-paint": "geometry.css",
 }
 SNIPPET_CLASSES = (
     "syn-root", "syn-panel", "syn-button", "syn-button--primary",
