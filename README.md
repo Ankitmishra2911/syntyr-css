@@ -8,6 +8,7 @@
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
 - **Neutral Studio palette by default:** opt into Grid, Noir, Industrial, Terminal, Corporate, or Minimal with `data-syn-theme`. Seven palettes are in the unreleased alpha.5 candidate; published alpha.4 provides Grid, Noir, and Studio.
 - **Quiet component surfaces by default:** use `.syn-surface--accent` from optional recipes and `.syn-badge--accent` for deliberate visual emphasis.
+- **Independent visual intensity:** optional `data-syn-intensity="quiet|standard|cinematic"` controls decorative effects without changing the theme, component semantics or runtime JavaScript contract.
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.syn-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
@@ -51,6 +52,7 @@
 - [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
 - [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
+- [Quiet / standard / cinematic intensity comparison](examples/intensity-geometry.html) with [composability guide](docs/visual-intensity.md): independent effect controls, composable frame accents, and nested presets without JavaScript
 - [Optional SVG icons, Unicode markers and ASCII/box-drawing demo](examples/symbols.html) with [copy-paste guide](docs/symbols.md)
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS

@@ -230,6 +230,10 @@
           "description": "Syntyr CSS class (geometry.css)."
         },
         {
+          "name": "syn-frame--accent",
+          "description": "Optional 2px accent outline for a selected frame shape."
+        },
+        {
           "name": "syn-frame--bevel",
           "description": "Syntyr CSS class (geometry.css)."
         },
@@ -263,7 +267,7 @@
         },
         {
           "name": "syn-glow",
-          "description": "Syntyr CSS class (effects.css)."
+          "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity."
         },
         {
           "name": "syn-gradient-wash",
@@ -790,6 +794,21 @@
         },
         {
           "name": "terminal"
+        }
+      ]
+    },
+    {
+      "name": "data-syn-intensity",
+      "description": "Opt-in decorative intensity independent of theme and density.",
+      "values": [
+        {
+          "name": "quiet"
+        },
+        {
+          "name": "standard"
+        },
+        {
+          "name": "cinematic"
         }
       ]
     },
