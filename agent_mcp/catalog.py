@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from html.parser import HTMLParser
 import json
+from scripts.syntyr_check import _is_dynamic, _stylesheet_name, validate_html
 from pathlib import Path
 import re
 
@@ -34,20 +35,27 @@ class CatalogError(ValueError):
 
 
 class ClassExtractor(HTMLParser):
-    def __init__(self):
+    """Collect only literal Syntyr classes and linked known CSS entrypoints."""
+
+    def __init__(self, stylesheet_names: set[str]):
         super().__init__(convert_charrefs=True)
         self.names: set[str] = set()
+        self.linked_stylesheets: set[str] = set()
+        self.stylesheet_names = stylesheet_names
 
     def handle_starttag(self, tag, attrs):
-        self._parse_attrs(attrs)
+        data = dict(attrs)
+        if tag.lower() == "link" and "stylesheet" in (data.get("rel") or "").split():
+            name = _stylesheet_name(data.get("href") or "", self.stylesheet_names)
+            if name:
+                self.linked_stylesheets.add(name)
+        for key in ("class", "classname"):
+            value = data.get(key) or ""
+            if not _is_dynamic(value):
+                self.names.update(name for name in value.split() if name.startswith("syn-"))
 
     def handle_startendtag(self, tag, attrs):
-        self._parse_attrs(attrs)
-
-    def _parse_attrs(self, attrs):
-        for key, val in attrs:
-            if key == "class" and val:
-                self.names.update(name for name in val.split() if name.startswith("syn-"))
+        self.handle_starttag(tag, attrs)
 
 
 class SyntyrCatalog:
@@ -173,25 +181,56 @@ class SyntyrCatalog:
         return {**base, "themes": themes, "tokens": tokens,
                 "note": "Names and stylesheets only, not computed browser values. Results capped at 40."}
 
+    def _validation_contract(self, release: str) -> dict:
+        """Assemble the shared HTML validator contract from this release's CSS.
+
+        The source candidate's HTML states are not silently assumed to be
+        available in the published immutable alpha.4 release.
+        """
+        info = self._catalog(release)
+        classes = [
+            {"name": name, "stylesheets": sorted(
+                file for file, data in info["files"].items() if name in data["classes"]
+            )}
+            for name in sorted(info["classes"])
+        ]
+        if release == PUBLISHED:
+            attributes = {"data-syn-theme": ["grid", "noir", "studio"]}
+        else:
+            source_contract = json.loads((self.root / "metadata/syntyr-contract.json").read_text())
+            if source_contract.get("source_version") != release:
+                raise RuntimeError("Candidate validator metadata version differs from installed CSS")
+            attributes = source_contract["attributes"]
+        return {"classes": classes, "attributes": attributes,
+                "stylesheets": sorted(info["files"])}
+
     def validate_markup(self, html: str, release: str = PUBLISHED,
                         stylesheets: list[str] | None = None):
         base = self._release(release)
         if not isinstance(html, str) or len(html) > MAX_HTML_CHARS:
             raise CatalogError(f"HTML is too long or invalid (limit {MAX_HTML_CHARS} characters)")
-        extractor = ClassExtractor()
-        extractor.feed(html)
-        found = sorted(extractor.names)
         info = self._catalog(release)
         if not isinstance(stylesheets, (list, type(None))) or not all(isinstance(s, str) for s in (stylesheets or [])):
             raise CatalogError("stylesheets must be an array of Syntyr CSS filenames")
-        provided = sorted(set(stylesheets or []))
-        invalid = sorted(set(provided) - set(info["files"]))
+        invalid = sorted(set(stylesheets or []) - set(info["files"]))
         if invalid:
             raise CatalogError(f"Unknown stylesheet(s) in {release}: {', '.join(invalid)}")
+
+        extractor = ClassExtractor(set(info["files"]))
+        extractor.feed(html)
+        extractor.close()
+        provided = sorted(set(stylesheets) if stylesheets is not None else extractor.linked_stylesheets)
+        contract = self._validation_contract(release)
+        diagnostics = validate_html(html, contract,
+                                    stylesheets=set(provided) if stylesheets is not None else None)
+        found = sorted(extractor.names)
         known = [c for c in found if c in info["classes"]]
         missing = [c for c in found if c not in info["classes"]]
         loaded = set().union(*(info["files"][f]["classes"] for f in provided)) if provided else set()
         required = sorted({self._stylesheet(c, "class", release) for c in known if c not in loaded})
         return {**base, "classes_checked": known, "unknown_classes": missing,
                 "missing_stylesheets": required, "installed_stylesheets": provided,
-                "note": "Static class check only. Not a WCAG or runtime behavior audit. Non-syn classes belong to the host app."}
+                "diagnostics": diagnostics,
+                "note": ("Literal HTML class and release-aware state checks, not a WCAG or "
+                         "runtime audit. Missing stylesheet summaries with no linked/explicit "
+                         "CSS are recommendations; module diagnostics require CSS context.")}

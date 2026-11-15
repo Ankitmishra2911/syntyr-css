@@ -27,7 +27,11 @@ use Syntyr CSS, is not installed by the npm package, and does not expose a
 hosted endpoint. See the [MCP adapter source and installation guide](https://github.com/dporkka/syntyr-css/tree/main/agent_mcp)
 for the separate Python SDK installation, version-safe tools, and limits.
 It defaults to the published immutable `0.3.0-alpha.4` CSS rather than
-silently offering source-only `0.3.0-alpha.5` selectors.
+silently offering source-only `0.3.0-alpha.5` selectors. The read-only
+`validate_markup` tool reuses the [static checker](editor-integration.md#optional-static-html-diagnostics)
+for source-located, machine-readable errors, available class suggestions, and
+valid theme/state values. Responses are constrained to the selected release's
+checked-in CSS rather than presenting candidate-only selectors as fixes.
 
 ## Documents and machine-readable inventory
 
