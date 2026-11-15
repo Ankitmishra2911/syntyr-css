@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Install and self-host Syntyr CSS using versioned stylesheets, optional modules, and immutable releases for production websites.">
-  <meta name="syntyr-source-sha256" content="9b44a79d56992df211aaf20a43bcfcb6118245abea5b634fb7dfe5beb5d3a598">
+  <meta name="syntyr-source-sha256" content="d241f9202c86986e5e9aef131dda202668ec38104bf861bfb52995779acdd7e2">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS distribution — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/distribution">
@@ -52,6 +52,19 @@ icons, Sass compiler or CSS framework is required to use the distributed CSS.</p
 The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See <a href="framework-integrations.html">the framework integration guide</a> for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add <code>syn-page</code> to the root only if you want full-page min-height.</p>
+<h2 id="offline-saas-preview-in-the-next-release-zip-unreleased-alpha5">Offline SaaS preview in the next release ZIP (unreleased alpha.5)</h2>
+<p>The alpha.5 source candidate now packages <code>examples/saas.html</code> together with
+<code>dist/syntyr.core.css</code> and <code>dist/syntyr.recipes.css</code>. After building or
+extracting the <strong>alpha.5</strong> ZIP, open <code>examples/saas.html</code> directly in your
+browser. Its relative stylesheets resolve within the extracted archive, so it
+requires <strong>no internet connection, local server, npm, build step or runtime
+JavaScript</strong>. You can edit the HTML and CSS locally to test integration.</p>
+<p>This is a static <strong>illustrative SaaS dashboard</strong>: fictional metrics, no real
+account data, authentication, filtering, API calls, or backend actions. To use
+it in an application, replace sample values with server-rendered data and wire
+navigation and mutations to your own server. The already published <strong>alpha.4</strong>
+release does <em>not</em> contain this packaged example; the next alpha.5 release
+has not been published yet.</p>
 <h2 id="one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</h2>
 <p>For a Pico-like HTML workflow, <code>dist/syntyr.semantic-bundle.css</code> combines core and semantic CSS into a single file. Copy it to your static assets, then opt in on the region you want styled:</p>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.semantic-bundle.css&quot;&gt;
@@ -116,6 +129,7 @@ cross-browser and full accessibility audits are still release gates.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#recommended-self-host-a-versioned-stylesheet">Recommended: self-host a versioned stylesheet</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#offline-saas-preview-in-the-next-release-zip-unreleased-alpha5">Offline SaaS preview in the next release ZIP (unreleased alpha.5)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-themes-and-semantic-html">Optional themes and semantic HTML</a>
