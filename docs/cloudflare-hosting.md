@@ -97,6 +97,12 @@ releases remain byte-for-byte unchanged. Third-party applications should
 still self-host or pin versioned assets, rather than copy the hashed
 documentation-only URLs.
 
+Before adding a new frozen CDN version, follow the [release freeze review
+procedure](release-freeze.md) and run `python3 scripts/freeze_site_release.py
+--check`. The `--apply` freeze operation requires an exact-commit human evidence record
+and a fresh deterministic CSS build; the read-only technical preflight,
+routine CI and candidate ZIP creation do not grant publication approval.
+
 The builder recognizes local linked stylesheet files that are included
 in the public allowlist. It rejects CSS containing unresolved `@import`
 or `url()` dependencies rather than silently moving it to a different
