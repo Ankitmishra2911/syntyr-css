@@ -14,7 +14,7 @@ import sys
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/guides.html", "examples/console.html",
+PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html", "docs/guides.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
@@ -34,8 +34,12 @@ def assert_page(browser, name: str, viewport: int) -> None:
     assert page.url == url, (url, page.url)
     assert response is None or response.ok, (url, response.status)
     if name == "docs/catalog.html":
-        # Catalog-owned progressive enhancement only; the consumer CSS has no JS.
+        # Existing catalog script remains isolated from consumer CSS.
         assert page.locator('script[src="catalog.js"]').count() == 1
+        assert page.locator("script").count() == 1
+    elif name == "docs/blocks.html":
+        # New Blocks gallery script is documentation-only as well.
+        assert page.locator('script[src="blocks.js"]').count() == 1
         assert page.locator("script").count() == 1
     else:
         assert page.locator("script").count() == 0, name
