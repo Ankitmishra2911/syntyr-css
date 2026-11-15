@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="5203874d1a0f9bd9fc3153d775a001af585fc81138d223d57d6e416b40e5afde">
+  <meta name="syntyr-source-sha256" content="c731891b0e1d41b7b32d74e25a34997c14c0351a0d81872ce54c0fca27f54000">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -173,6 +173,7 @@ or use the <a href="editor-integration.html">editor integration instructions</a>
 <h2 id="neutral-first-visual-styling">Neutral-first visual styling</h2>
 <p>The implicit <code>.syn-root</code> palette is Studio (light and sans-serif). Explicit <code>data-syn-theme=&quot;grid&quot;</code> and <code>data-syn-theme=&quot;terminal&quot;</code> retain technical monospace presentation; other themes remain opt-in. <code>.syn-panel</code> and <code>.syn-stage</code> are flat by default; add <code>syn-surface--accent</code> from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. <code>.syn-badge</code> is a neutral label; use <code>.syn-status</code> with readable status text for meaningful state, or <code>.syn-badge--accent</code> to emphasize a badge.</p>
 <p>Use <code>.syn-section-heading</code> between <code>.syn-heading</code> and <code>.syn-display</code>. Table content wraps by default for better readability in narrow regions, including long text. Apply <code>.syn-cell--nowrap</code> to identifiers or short labels that must stay on one line; <code>.syn-cell--numeric</code> also preserves no-wrap numeric alignment. <code>.syn-cell--wrap</code> remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside <code>.syn-table-wrap</code> with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with <code>tabindex=&quot;0&quot;</code>, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.</p>
+<p>For large server-rendered tables, see the <a href="data-tables.html">enterprise tables guide</a> and <a href="../examples/data-tables.html">static example</a>. Sorting and filtering remain application responsibilities.</p>
 <h2 id="theme-tokens">Theme tokens</h2>
 <table>
 <thead>

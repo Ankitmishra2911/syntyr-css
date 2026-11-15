@@ -1962,6 +1962,30 @@
       ]
     },
     {
+      "name": "syn-table--sticky",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table--striped",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-table-emphasis",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css).",
@@ -1974,7 +1998,31 @@
       ]
     },
     {
+      "name": "syn-table-sort",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-table-wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table-wrap--scroll",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
