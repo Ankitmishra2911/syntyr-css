@@ -27,6 +27,9 @@ class AdoptionStarterContract(unittest.TestCase):
         pkg = json.loads((base / "package.json").read_text())
         self.assertEqual(pkg["dependencies"]["@syntyr/css"], "file:../..")
         self.assertIn("astro", pkg["dependencies"])
+        # All 12 dependency advisories for the example are patched by Astro 7.4.5.
+        astro_version = pkg["dependencies"]["astro"].removeprefix("^")
+        self.assertGreaterEqual(tuple(map(int, astro_version.split("."))), (7, 4, 5))
         self.assertIn("build", pkg["scripts"])
         page = (base / "src/pages/index.astro").read_text()
         self.assertIn("@syntyr/css/core.css", page)
