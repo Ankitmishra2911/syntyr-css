@@ -13,7 +13,7 @@ In a React project using Radix Primitives, add a link **after** the core CSS:
 
 Copy [the adapter](../integrations/radix/states.css) into your project, or reference its repository source. Do not load it when you do not use Radix. It is **not** included in `syntyr.all.css`, either.
 
-Wrap the relevant app area in `.syn-root` and opt in to `.syn-radix` either on the same element or on a descendant. If Radix portals content to the document body, set that portal's `container` inside the styled root, or style the portal explicitly. Do not assume portal content inherits Syntyr tokens when it is mounted outside the root.
+Wrap the relevant app area in `.syn-root`. Apply `.syn-radix` on that root, on a container inside it, **or directly on a stateful Syntyr control** to opt in only that control. If Radix portals content to the document body, set that portal's `container` inside the styled root, or style the portal explicitly. Do not assume portal content inherits Syntyr tokens when it is mounted outside the root.
 
 ## Example: controlled behavior, CSS presentation
 

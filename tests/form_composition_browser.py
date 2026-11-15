@@ -51,9 +51,23 @@ def run():
                         arg=baseline,
                     )
                     assert bg() != baseline, (name, "nested adapter failed")
+                    page.evaluate("""() => {
+                        document.querySelector('.syn-radix').classList.remove('syn-radix');
+                    }""")
+                    page.wait_for_function(
+                        "(baseline) => getComputedStyle(document.querySelector('#radix-toggle')).backgroundColor === baseline",
+                        arg=baseline,
+                    )
+                    page.evaluate("document.querySelector('#radix-toggle').classList.add('syn-radix')")
+                    page.wait_for_function(
+                        "(baseline) => getComputedStyle(document.querySelector('#radix-toggle')).backgroundColor !== baseline",
+                        arg=baseline,
+                        timeout=1500,
+                    )
+                    assert bg() != baseline, (name, "same-element adapter failed")
                 page.close()
             browser.close()
-            print("PASS", name, "form layout 320/900, native form GET, root/nested Radix states")
+            print("PASS", name, "form layout 320/900, native form GET, root/nested/same-element Radix states")
 
 
 if __name__ == "__main__":

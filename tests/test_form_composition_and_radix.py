@@ -83,5 +83,13 @@ class FormCompositionAndRadixContract(unittest.TestCase):
         self.assertIn("page.wait_for_function", smoke)
 
 
+    def test_stateful_radix_element_can_opt_in_on_itself(self):
+        css = (ROOT / "integrations/radix/states.css").read_text()
+        self.assertIn(":is(.syn-root.syn-radix, .syn-root .syn-radix):is(", css)
+        self.assertIn("data-disabled", css)
+        forced = css.split("@media (forced-colors: active)", 1)[1]
+        self.assertIn(":is(.syn-root.syn-radix, .syn-root .syn-radix):is(", forced)
+
+
 if __name__ == "__main__":
     unittest.main()
