@@ -30,7 +30,7 @@ class PilotReadinessTests(unittest.TestCase):
 
     def test_design_partner_pilot_includes_qualification_and_outreach_boundaries(self):
         guide = (ROOT / "business/design-partner-pilot.md").read_text()
-        for item in ("Go/templ", "HTMX", "Astro", "10", "$59", "consent", "paid",
+        for item in ("Go/templ", "HTMX", "CRM", "10", "$59", "consent", "paid",
                      "https://github.com/dporkka/syntyr-css/issues"):
             self.assertIn(item, guide)
         self.assertIn("not_contacted", guide)

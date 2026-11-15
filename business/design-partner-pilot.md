@@ -20,6 +20,21 @@ commercial/internal web application and be able to critique *actual code*
 rather than screenshots. Upvotes, GitHub stars, and generic compliments are
 not purchase evidence.
 
+**Niche priority for the ten slots:** five commercial SaaS builders using
+server-rendered HTML, two CRM/ERP or field-operations software builders, two
+small agencies delivering admin software or client portals, and one independent
+founder with a previous paid UI-kit purchase. Focus on people who have a
+*current interface to ship*, not those who merely enjoy a CSS aesthetic. This
+deliberately tests Syntyr's SaaS/operations niche, rather than pretending to
+sample all web developers.
+
+For each interview, establish the buyer's spending authority, the specific
+application screen they need, approximate engineering hours they currently
+spend building it, prior paid template purchases, and whether they can adopt
+the actual HTML/CSS preview. Keep these qualitative findings separate from
+would-buy answers; ten interviews cannot establish a reliable market-wide
+conversion rate.
+
 ## Recruitment scope
 
 Public review issue: https://github.com/dporkka/syntyr-css/issues/3
@@ -37,8 +52,10 @@ Good first channels:
   channel and GitHub Discussions at https://templ.guide/help-and-community/.
 - **HTMX:** the official community page lists Discord and GitHub Discussions:
   https://htmx.org/talk/. Ask moderators before sharing project links.
-- **Astro:** reach an Astro-focused developer already discussing open-source
-  website themes in opt-in spaces; prioritize use case over follower count.
+- **SaaS and operations app builders:** prioritize opt-in discussions where Go,
+  Django, Rails, LiveView or Livewire developers are shipping customer-facing
+  dashboards, CRMs, service portals and internal applications. Ask for feedback
+  on the actual admin screens, not just color palettes.
 - **Independent SaaS developers:** ask for one-to-one critique from existing
   contacts who use server rendering and actively buy design templates.
 
