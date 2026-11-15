@@ -26,8 +26,11 @@
       "billing_model": "one-time-proposed",
       "license_status": "draft-not-operative",
       "deliverable_ready": false,
-      "description": "Separately authored private prototype: eight application screen types across three visual themes, for design-partner evaluation.",
-      "details_url": "../docs/console-kit.html"
+      "description": "Private prototype with 12 original SaaS screen types and 36 static variants. Eight original screenshots are public. Backend actions remain illustrative.",
+      "details_url": "../docs/console-kit.html",
+      "prototype_screen_types": 12,
+      "prototype_theme_variants": 36,
+      "prototype_status": "private-source-candidate"
     },
     {
       "id": "pro",
@@ -38,8 +41,11 @@
       "billing_model": "one-time-proposed",
       "license_status": "draft-not-operative",
       "deliverable_ready": false,
-      "description": "Proposed premium website sections, original themes and application layouts on top of the MIT core.",
-      "details_url": "../docs/products.html"
+      "description": "Private source/preview candidate extending Console Kit to 15 SaaS screen types and 45 static variants, including work orders, dispatch scheduling and revenue intelligence.",
+      "details_url": "../docs/products.html",
+      "prototype_screen_types": 15,
+      "prototype_theme_variants": 45,
+      "prototype_status": "private-source-candidate"
     },
     {
       "id": "studio",
@@ -50,8 +56,11 @@
       "billing_model": "one-time-proposed",
       "license_status": "draft-not-operative",
       "deliverable_ready": false,
-      "description": "Proposed complete website templates, dashboard compositions and deeper design assets. Not a hosted drag-and-drop builder.",
-      "details_url": "../docs/products.html"
+      "description": "Private source/preview candidate extending Pro to 18 screen types and 54 static variants, including original homepage, pricing and case study designs.",
+      "details_url": "../docs/products.html",
+      "prototype_screen_types": 18,
+      "prototype_theme_variants": 54,
+      "prototype_status": "private-source-candidate"
     },
     {
       "id": "agency",

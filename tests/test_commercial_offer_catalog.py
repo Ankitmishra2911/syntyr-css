@@ -36,6 +36,32 @@ class CommercialOfferCatalogTests(unittest.TestCase):
                     self.assertTrue(product['deliverable_ready'])
                     self.assertEqual(product['license_status'], 'MIT')
 
+    def test_private_prototype_inventory_is_consistent_with_product_cards(self):
+        expected = {
+            'console-kit': (12, 36),
+            'pro': (15, 45),
+            'studio': (18, 54),
+        }
+        products = {product['id']: product for product in self.catalog['products']}
+        for slug, (screens, variants) in expected.items():
+            with self.subTest(product=slug):
+                product = products[slug]
+                self.assertEqual(product['prototype_screen_types'], screens)
+                self.assertEqual(product['prototype_theme_variants'], variants)
+                self.assertEqual(product['prototype_status'], 'private-source-candidate')
+                self.assertEqual(product['status'], 'research')
+                self.assertFalse(product['deliverable_ready'])
+                card = re.search(
+                    r'<article\b[^>]*data-product-id="' + slug + r'"[^>]*>(.*?)</article>',
+                    self.html,
+                    re.S,
+                )
+                self.assertIsNotNone(card)
+                self.assertIn(f'{screens} screen types', card.group(1))
+                self.assertIn(f'{variants} static variants', card.group(1))
+        self.assertNotIn('prototype_screen_types', products['agency'])
+        self.assertNotIn('prototype_screen_types', products['core'])
+
     def test_roadmap_is_clearly_not_a_storefront_or_payment_form(self):
         self.assertIn('NOT FOR SALE', self.html)
         self.assertIn('proposed', self.html.lower())
