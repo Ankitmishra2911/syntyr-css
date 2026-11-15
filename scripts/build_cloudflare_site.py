@@ -63,7 +63,7 @@ def source_files() -> dict[str, bytes]:
     public_docs = (
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
         "console-kit.html", "design-research-linear-resend.md",
-        "distribution.md", "docs.css", "framework-integrations.md",
+        "distribution.md", "docs.css", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
         "geometry-terminal.md", "performance-and-polish.md",
         "performance-validation.md", "progressive-enhancement.md",
         "index.html", "recipes.md", "saas-cli-business.md",
