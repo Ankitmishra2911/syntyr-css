@@ -114,6 +114,50 @@ class BrowserTests(unittest.TestCase):
             "e => getComputedStyle(e).getPropertyValue('--syn-surface-recessed').trim()")
         self.assertNotEqual(surface_light, surface_dark)
 
+    def test_selected_table_row_retains_state_on_hover(self):
+        css = (ROOT / "dist/syntyr.core.css").read_text()
+        self.page.set_content(f"""<style>{css}</style>
+        <section class="syn-root" data-syn-theme="studio">
+          <table class="syn-table"><tbody>
+            <tr aria-selected="true" id="selected"><td>Selected</td></tr>
+            <tr id="other"><td>Other</td></tr>
+          </tbody></table>
+        </section>""")
+        row = self.page.locator("#selected")
+        base = row.evaluate("e => getComputedStyle(e).backgroundColor")
+        row.hover()
+        hover = row.evaluate("e => getComputedStyle(e).backgroundColor")
+        self.assertEqual(hover, base, "Selection highlight must survive hover")
+        self.page.locator("#other").hover()
+        non_selected = self.page.locator("#other").evaluate(
+            "e => getComputedStyle(e).backgroundColor")
+        self.assertNotEqual(non_selected, base)
+
+    def test_compact_density_shortens_actual_text_controls(self):
+        css = (ROOT / "dist/syntyr.core.css").read_text()
+        self.page.set_content(f"""<style>{css}</style>
+        <section class="syn-root" data-syn-theme="studio">
+          <label for="normal">Normal</label><input class="syn-input" id="normal">
+          <label for="normal-select">Select</label>
+          <select class="syn-select" id="normal-select"><option>One</option></select>
+          <section data-syn-density="compact">
+            <label for="compact">Compact</label><input class="syn-input" id="compact">
+            <label for="compact-select">Select</label>
+            <select class="syn-select" id="compact-select"><option>One</option></select>
+          </section>
+        </section>""")
+        for normal_id, compact_id in (("normal", "compact"),
+                                       ("normal-select", "compact-select")):
+            with self.subTest(normal=normal_id, compact=compact_id):
+                normal = self.page.locator(f"#{normal_id}").evaluate(
+                    "e => e.getBoundingClientRect().height")
+                compact = self.page.locator(f"#{compact_id}").evaluate(
+                    "e => e.getBoundingClientRect().height")
+                self.assertLess(compact, normal - 4,
+                    "Compact density must affect measured height, not only min-height")
+                self.assertGreaterEqual(compact, 36,
+                    "Compact controls must retain a reasonable interactive target")
+
     def test_embedded_root_does_not_force_viewport_height(self):
         self.page.evaluate("""() => {
           const section = document.createElement('section');

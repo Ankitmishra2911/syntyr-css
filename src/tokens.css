@@ -19,6 +19,7 @@
     --syn-radius: .25rem;
     --syn-line: 1.55;
     --syn-control-height: 2.75rem;
+    --syn-control-padding-block: .7rem;
     --syn-row-padding-block: .7rem;
     --syn-card-padding: var(--syn-space-3);
     --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
@@ -36,6 +37,7 @@
   /* Compact presentation is an opt-in layout control, never a font-size override. */
   :where(.syn-root[data-syn-density="compact"], .syn-root [data-syn-density="compact"]) {
     --syn-control-height: 2.25rem;
+    --syn-control-padding-block: .3rem;
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }

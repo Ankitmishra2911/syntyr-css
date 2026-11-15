@@ -63,7 +63,7 @@ Useful tokens:
 | `--syn-font`, `--syn-mono`, `--syn-font-ui`, `--syn-font-display` | Body, technical, control, and display typography |
 | `--syn-type-xs`, `--syn-type-sm`, `--syn-type-base` | Typography sizes |
 | `--syn-surface-recessed`, `--syn-surface-raised`, `--syn-border-subtle` | Derived surfaces and quiet separators |
-| `--syn-row-padding-block`, `--syn-card-padding` | Density-aware spacing |
+| `--syn-row-padding-block`, `--syn-card-padding`, `--syn-control-padding-block` | Density-aware spacing |
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
 | `--syn-duration-fast`, `--syn-ease` | Optional transitions |
