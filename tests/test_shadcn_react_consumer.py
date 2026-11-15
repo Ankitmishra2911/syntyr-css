@@ -13,6 +13,10 @@ class ShadcnReactConsumer(unittest.TestCase):
         self.assertEqual(package["dependencies"]["@syntyr/css"], "file:../..")
         self.assertIn("react", package["dependencies"])
         self.assertIn("vite", package["devDependencies"])
+        # CLI tooling is for generation, not a shipped app dependency.
+        self.assertNotIn("shadcn", package["dependencies"])
+        self.assertNotIn("eslint", package["devDependencies"])
+        self.assertNotIn('shadcn/tailwind.css', (DEMO / "src/index.css").read_text())
         config = json.loads((DEMO / "components.json").read_text(encoding="utf-8"))
         self.assertTrue(config["tailwind"]["cssVariables"])
         self.assertTrue(config["tsx"])

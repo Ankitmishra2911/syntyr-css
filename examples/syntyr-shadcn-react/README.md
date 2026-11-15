@@ -7,7 +7,11 @@ Generated using the official shadcn CLI's Vite project template with
 including Radix's `Slot.Root` implementation for `asChild`.
 
 This optional fixture intentionally does **not** add React, Radix, Tailwind,
-or Vite to Syntyr's core CSS package.
+or Vite to Syntyr's core CSS package. After generating the real Button source,
+the scaffold was reduced to dependencies required to build and run this example
+(not the shadcn CLI or unused ESLint/animation utilities). The example's
+production/development dependency audit reported **zero vulnerabilities** on
+15 November 2026; recheck before upgrading.
 
 ```sh
 cd examples/syntyr-shadcn-react
