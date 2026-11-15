@@ -7,6 +7,8 @@
   <meta name="description" content="Syntyr CSS: a modern, MIT-licensed interface system for SaaS dashboards, business websites and futuristic consoles. Native HTML, no runtime JavaScript.">
   <title>Syntyr CSS — Modern interfaces, less machinery</title>
   <link rel="icon" href="assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/">
+  <meta property="og:url" content="https://syntyr-css.pages.dev/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Syntyr CSS — Modern interfaces, less machinery">
   <meta property="og:description" content="Build modern SaaS, business and futuristic interfaces with semantic HTML and framework-neutral CSS.">
@@ -114,6 +116,15 @@
     .site-foundation { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1.5rem; }
     .site-foundation h3 { font-size: 1.07rem; margin-block: .65rem; }
     .site-foundation p { color: var(--syn-muted); }
+    .site-quickstart { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
+    .site-quickstart .site-section-title { max-inline-size: 18ch; }
+    .site-quickstart-copy { min-width: 0; }
+    .site-quickstart-example { min-width: 0; display: grid; gap: .65rem; }
+    .site-quickstart-example .site-code { margin-block-end: .8rem; }
+    .site-quickstart-label { display: flex; gap: .6rem; align-items: baseline; margin: 0; font: 700 .72rem/1.5 var(--syn-font-ui); letter-spacing: .07em; text-transform: uppercase; color: var(--syn-muted); }
+    .site-quickstart-label strong { color: var(--syn-accent); }
+    .site-release-note { margin-block: 1.25rem; padding-inline-start: 1rem; border-inline-start: 3px solid var(--syn-accent); color: var(--syn-muted); font-size: .9rem; }
+    .site-release-note strong { color: var(--syn-text); }
     .site-try { margin-block-start: 2rem; padding: clamp(1.1rem, 3vw, 2rem); border: 1px solid var(--syn-border-subtle); border-radius: .75rem; background: var(--syn-surface); display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: 2rem; }
     .site-code code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .site-code { border: 1px solid var(--syn-border-subtle); background: var(--syn-surface-recessed); color: var(--syn-text); padding: 1.2rem; margin: 0; max-inline-size: 100%; overflow-x: auto; font: .8rem/1.9 var(--syn-mono); }
@@ -128,7 +139,7 @@
       .site-theme-comparison { grid-template-columns: minmax(0, 1fr); }
     }
     @media (max-width: 53rem) {
-      .site-hero, .site-try { grid-template-columns: minmax(0, 1fr); }
+      .site-hero, .site-try, .site-quickstart { grid-template-columns: minmax(0, 1fr); }
       .site-hero { padding-block: clamp(2.25rem, 5vw, 3.5rem) 2.5rem; gap: 1.5rem; }
       .site-preview-board { max-inline-size: 38rem; }
     }
@@ -157,7 +168,7 @@
     <header class="site-header">
       <a class="site-brand" href="#top" aria-label="Syntyr CSS home">SYNTYR <span>/ CSS</span></a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="docs/#install">Get started</a>
+        <a href="#quickstart">Get started</a>
         <a href="docs/catalog.html">Components</a>
         <a href="docs/blocks.html">Blocks</a>
         <a href="#themes">Themes</a>
@@ -168,7 +179,7 @@
       <details class="site-mobile-menu">
         <summary>Menu</summary>
         <nav aria-label="Mobile navigation">
-          <a href="docs/#install">Get started</a>
+          <a href="#quickstart">Get started</a>
           <a href="docs/catalog.html">Components</a>
         <a href="docs/blocks.html">Blocks</a>
           <a href="#themes">Themes</a>
@@ -186,8 +197,9 @@
           <h1 id="hero-title">Modern CSS. <em>Less machinery.</em></h1>
           <p class="site-lede">Beautiful, customizable interfaces for SaaS, business sites and futuristic consoles. Use semantic HTML with any framework—or none. No required runtime JavaScript.</p>
           <div class="syn-actions">
-            <a class="syn-button syn-button--primary" href="docs/#install">Get started</a>
+            <a class="syn-button syn-button--primary" href="#quickstart">Get started</a>
             <a class="syn-button syn-button--outline" href="docs/catalog.html">Explore components</a>
+            <a class="site-tertiary-link" href="docs/#install">Installation guide</a>
           </div>
           <ul class="site-trust" aria-label="Library characteristics">
             <li>MIT-licensed core</li>
@@ -239,6 +251,31 @@
 &lt;/section&gt;</code></pre>
             <p class="syn-caption">Uses the actual Syntyr card and grid recipes, with example-specific preview styling. Copy the HTML, then bind your own data.</p>
           </details>
+        </div>
+      </section>
+
+      <section class="site-section site-quickstart" id="quickstart" aria-labelledby="quickstart-title">
+        <div class="site-quickstart-copy">
+          <span class="site-kicker">Install in two steps</span>
+          <h2 class="site-section-title" id="quickstart-title">From plain HTML to polished UI.</h2>
+          <p class="site-section-intro">Download the published, version-pinned core CSS, then add the stylesheet and Syntyr classes to your page. No build tool or component runtime required.</p>
+          <p class="site-release-note"><strong>Release status:</strong> alpha.4 is the published download. This website also previews the unreleased alpha.5 source candidate, so not every showcased style is in alpha.4. Self-host the pinned CSS in production.</p>
+          <div class="syn-actions">
+            <a class="syn-button syn-button--primary" href="https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css" download="syntyr.core.css">Download alpha.4 CSS</a>
+            <a class="syn-button syn-button--outline" href="docs/#install">Full installation guide</a>
+          </div>
+        </div>
+        <div class="site-quickstart-example" role="group" aria-label="Minimal Syntyr installation example">
+          <p class="site-quickstart-label"><strong>01</strong> Download the pinned stylesheet</p>
+          <pre class="site-code"><code>curl -fsSLo syntyr.core.css https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css</code></pre>
+          <p class="site-quickstart-label"><strong>02</strong> Include it alongside your HTML</p>
+          <pre class="site-code"><code>&lt;link rel="stylesheet" href="./syntyr.core.css"&gt;
+&lt;main class="syn-root" data-syn-theme="studio"&gt;
+  &lt;button class="syn-button syn-button--primary"&gt;
+    Continue
+  &lt;/button&gt;
+&lt;/main&gt;</code></pre>
+          <p class="syn-caption">Example assumes the HTML file and downloaded CSS file share a directory. See the guide for other hosting layouts.</p>
         </div>
       </section>
 

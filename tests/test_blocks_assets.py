@@ -97,6 +97,14 @@ class BlocksAssetsTests(unittest.TestCase):
         self.assertNotIn("@font-face", css)
         self.assertIn("prefers-reduced-motion", css)
 
+    def test_radar_asset_caption_uses_high_contrast_theme_text(self):
+        # The decorative radar ring crossed muted caption text at 390px;
+        # don't rely on a narrowly passing background sample.
+        css = (ROOT / "docs/blocks-assets.css").read_text(encoding="utf-8")
+        self.assertRegex(
+            css, r"\.syn-root \.syn-block-asset--radar>span\s*\{\s*color:var\(--syn-text\)"
+        )
+
     def test_twenty_four_original_svg_icon_examples(self):
         icons = json.loads((ROOT / "blocks/icons.json").read_text(encoding="utf-8"))["icons"]
         self.assertEqual(len(icons), 24)

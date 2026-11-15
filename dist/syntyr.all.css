@@ -538,6 +538,17 @@
     &.syn-details[open] summary { color: var(--syn-accent); }
     &.syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
     @media (forced-colors: active) { &.syn-popover, &.syn-dialog, &.syn-details { border-color: CanvasText; } }
+
+    /* Native popovertarget supplies an implicit anchor in supporting browsers. */
+    @supports (position-area: block-end) {
+      &.syn-popover.syn-popover--anchored {
+        position-area: block-end span-inline-end;
+        position-try-fallbacks: flip-block, flip-inline;
+        inset: auto;
+        margin: .5rem 0;
+        max-inline-size: calc(100vw - 2rem);
+      }
+    }
   }
 }
 @layer syn.components {
@@ -1041,6 +1052,108 @@
     }
   }
 }
+/* Optional native HTML recipes: no runtime JavaScript or global selectors.
+   Load after Syntyr core or alongside selective component imports. */
+@layer syn.recipes {
+  :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) {
+    position: relative;
+    display: block;
+    min-inline-size: 0;
+  }
+  :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea) {
+    padding-block-start: 1.35rem;
+    padding-block-end: .4rem;
+    min-block-size: 3.3rem;
+  }
+  :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > .syn-floating-label {
+    position: absolute;
+    inset-block-start: .9rem;
+    inset-inline-start: .8rem;
+    max-inline-size: calc(100% - 1.6rem);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--syn-muted);
+    font: 500 var(--syn-type-sm)/1.4 var(--syn-font-ui);
+    pointer-events: none;
+    transform-origin: left top;
+  }
+  :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)) + .syn-floating-label {
+    transform: translateY(-.62rem) scale(.82);
+    color: var(--syn-text);
+  }
+
+  :where(.syn-root.syn-timeline, .syn-root .syn-timeline) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-inline-size: 0;
+  }
+  :where(.syn-root.syn-timeline, .syn-root .syn-timeline) > li {
+    position: relative;
+    margin-inline-start: .35rem;
+    padding-block: 0 var(--syn-space-3);
+    padding-inline-start: var(--syn-space-3);
+    border-inline-start: 2px solid var(--syn-frame);
+    overflow-wrap: anywhere;
+  }
+  :where(.syn-root.syn-timeline, .syn-root .syn-timeline) > li::before {
+    content: "";
+    position: absolute;
+    inset-block-start: .3rem;
+    inset-inline-start: -.37rem;
+    inline-size: .58rem;
+    block-size: .58rem;
+    border: 2px solid var(--syn-accent);
+    border-radius: 50%;
+    background: var(--syn-surface);
+  }
+  :where(.syn-root.syn-timeline, .syn-root .syn-timeline) > li:last-child {
+    border-inline-start-color: transparent;
+    padding-block-end: 0;
+  }
+  :where(.syn-root.syn-timeline, .syn-root .syn-timeline) time {
+    display: block;
+    font: 500 var(--syn-type-xs)/1.5 var(--syn-mono);
+    color: var(--syn-muted);
+  }
+
+  :where(.syn-root.syn-code-figure, .syn-root .syn-code-figure) {
+    margin: 0;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    border: 1px solid var(--syn-border-default);
+    border-radius: var(--syn-radius);
+    background: var(--syn-surface);
+    color: var(--syn-text);
+    overflow: hidden;
+  }
+  :where(.syn-root.syn-code-figure, .syn-root .syn-code-figure) figcaption {
+    padding: .65rem var(--syn-space-2);
+    border-block-end: 1px solid var(--syn-border-subtle);
+    color: var(--syn-muted);
+    font: 600 var(--syn-type-sm)/1.4 var(--syn-font-ui);
+  }
+  :where(.syn-root.syn-code-figure, .syn-root .syn-code-figure) pre {
+    margin: 0;
+    padding: var(--syn-space-2);
+    max-inline-size: 100%;
+    overflow-x: auto;
+    font: .85rem/1.6 var(--syn-mono);
+    tab-size: 2;
+  }
+  :where(.syn-root.syn-code-figure, .syn-root .syn-code-figure) code {
+    white-space: pre;
+    font: inherit;
+    color: inherit;
+  }
+  @media (forced-colors: active) {
+    :where(.syn-root.syn-timeline, .syn-root .syn-timeline) > li::before,
+    :where(.syn-root.syn-code-figure, .syn-root .syn-code-figure) {
+      border-color: CanvasText;
+    }
+  }
+}
 /* Optional original frame treatments: pure CSS, independently loadable.
    Pair .syn-frame with exactly one shape modifier. No canvas, images or JS.
    The cut shapes paint their own outlines; they do not mask the host's parent. */
@@ -1348,10 +1461,26 @@
           opacity: 1;
           transform: translateY(0);
         }
+        /* A dialog animates only when the host opts in to the motion module
+           and the explicit transition class. Native focus and inertness stay intact. */
+        &.syn-dialog.syn-dialog--transition {
+          opacity: 0;
+          transform: translateY(.4rem);
+          transition: opacity 180ms ease, transform 180ms ease, display 180ms, overlay 180ms;
+          transition-behavior: allow-discrete;
+        }
+        &.syn-dialog.syn-dialog--transition[open] {
+          opacity: 1;
+          transform: translateY(0);
+        }
         @starting-style {
           &.syn-popover.syn-popover--transition:popover-open {
             opacity: 0;
             transform: translateY(-.4rem);
+          }
+          &.syn-dialog.syn-dialog--transition[open] {
+            opacity: 0;
+            transform: translateY(.4rem);
           }
         }
       }

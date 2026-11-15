@@ -24,10 +24,12 @@
 - [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md)
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
+- [Per-component CSS imports and native HTML patterns](docs/native-patterns.md), [static demo](examples/native-recipes.html)
 - [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)
 - [Tagged GitHub releases](https://github.com/dporkka/syntyr-css/releases)
 - [Architecture, API stability and low-entropy maintenance policy](ARCHITECTURE.md)
+- [Contributing guide](https://github.com/dporkka/syntyr-css/blob/main/CONTRIBUTING.md) and [private security reporting policy](https://github.com/dporkka/syntyr-css/blob/main/SECURITY.md)
 - [Public API and prerelease stability policy](docs/api-stability.md)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Migrating from Pico.css: differences and practical steps](docs/from-pico.md)
@@ -39,6 +41,7 @@
 - [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Performance validation protocol and measured CSS size baseline](docs/performance-validation.md)
+- [Optional five-framework browser benchmark: Syntyr, plain CSS, Pure, Tailwind v4 and UnoCSS](docs/framework-performance.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Design research: Linear, Resend, and developer tooling](docs/design-research-linear-resend.md)
 - [Premium CSS-only compositions](docs/premium-compositions.md) and [Studio/Grid/Noir live gallery](examples/premium-compositions.html): layered surfaces, detail inspector, command presentation, timeline, and showcase
@@ -122,6 +125,7 @@ For a smaller two-file installation, add `syntyr.semantic.css` **after** core:
 | File | Description |
 | --- | --- |
 | `dist/syntyr.core.css` | Tokens, scoped base, components (default choice) |
+| `dist/components/*.css` | Individually importable tokens, base and component stylesheets |
 | `dist/syntyr.semantic.css` | Optional semantic HTML styling (load after core) |
 | `dist/syntyr.semantic-bundle.css` | Core + semantic in one file; scoped opt-in, alpha.5 source only |
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
@@ -130,6 +134,7 @@ For a smaller two-file installation, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
 | `dist/syntyr.viz.css` | Optional theme-aware data visualization styles, no chart renderer or JS |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
+| `dist/syntyr.native-recipes.css` | Optional floating labels, timelines and captioned code |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |
 | `dist/syntyr.print.css` | Optional printer-friendly reports and business documents |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
