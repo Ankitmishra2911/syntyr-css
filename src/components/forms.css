@@ -3,11 +3,14 @@
   .syn-label { display: grid; gap: .35rem; font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui); }
   .syn-input, .syn-select, .syn-textarea {
     width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
-    border: 1px solid var(--syn-frame); background: var(--syn-bg);
+    border: 1px solid var(--syn-border-default); background: var(--syn-bg);
     border-radius: var(--syn-radius); color: var(--syn-text);
   }
   .syn-input::placeholder, .syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
-  .syn-input:focus, .syn-select:focus, .syn-textarea:focus { border-color: var(--syn-accent); }
+  .syn-input:where(:not(:disabled):hover), .syn-select:where(:not(:disabled):hover),
+  .syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
+  .syn-input:focus, .syn-select:focus, .syn-textarea:where(:focus) { border-color: var(--syn-border-focus); }
+  .syn-input:disabled, .syn-select:disabled, .syn-textarea:disabled { background: var(--syn-surface-recessed); }
   .syn-input:where(:user-invalid, [aria-invalid="true"]),
   .syn-select:where(:user-invalid, [aria-invalid="true"]),
   .syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }

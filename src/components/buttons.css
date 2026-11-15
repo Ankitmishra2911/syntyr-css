@@ -2,26 +2,27 @@
   .syn-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
   .syn-button {
     display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-    min-height: var(--syn-control-height); padding: .65rem 1rem;
+    min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) 1rem;
     min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
-    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
-    background: var(--syn-surface-hi); color: var(--syn-text);
+    border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+    background: var(--syn-surface-interactive); color: var(--syn-text);
     text-decoration: none; font: 600 var(--syn-type-sm)/1.2 var(--syn-font-ui); letter-spacing: -.005em;
     cursor: pointer; transition: background-color var(--syn-duration-fast) var(--syn-ease), border-color var(--syn-duration-fast) var(--syn-ease), color var(--syn-duration-fast) var(--syn-ease);
   }
-  .syn-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
+  .syn-button:where(:not(:disabled):not([aria-disabled="true"]):hover) { border-color: var(--syn-border-hover); background: var(--syn-surface-hover); }
+  .syn-button:where(:not(:disabled):not([aria-disabled="true"]):active) { box-shadow: inset 0 2px 3px rgb(0 0 0 / 14%); }
   .syn-button--primary { background: var(--syn-accent); border-color: var(--syn-accent); color: var(--syn-on-accent); }
-  .syn-button--primary:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
+  .syn-button--primary:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
   .syn-button--outline { background: transparent; border-color: var(--syn-accent); color: var(--syn-accent); }
-  .syn-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); }
+  .syn-button--outline:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); }
   .syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
-  .syn-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
+  .syn-button--danger:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
   .syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: var(--syn-type-xs); }
   .syn-button--ghost { background: transparent; border-color: transparent; }
-  .syn-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
+  .syn-button--ghost:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
     .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
     border-color: var(--syn-accent);
-    background: var(--syn-accent-soft);
+    background: var(--syn-surface-pressed);
     color: var(--syn-accent);
   }
   .syn-button[aria-busy="true"] { cursor: progress; }

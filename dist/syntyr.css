@@ -10,6 +10,12 @@
     --syn-type-xs: .75rem;
     --syn-type-sm: .875rem;
     --syn-type-base: 1rem;
+    /* Type roles are independent from theme palettes and optional font loading. */
+    --syn-type-body: var(--syn-type-base);
+    --syn-type-heading: clamp(1.15rem, 2.4vw, 1.55rem);
+    --syn-type-display: clamp(2rem, 5.5vw, 4rem);
+    --syn-leading-body: 1.55;
+    --syn-tracking-display: -.045em;
     --syn-space-1: .375rem;
     --syn-space-2: .75rem;
     --syn-space-3: 1.125rem;
@@ -31,6 +37,15 @@
     --syn-surface-recessed: color-mix(in srgb, var(--syn-bg) 88%, var(--syn-surface));
     --syn-surface-raised: color-mix(in srgb, var(--syn-surface) 72%, var(--syn-surface-hi));
     --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
+    /* These aliases recompute in nested themed regions. */
+    --syn-text-subtle: var(--syn-muted);
+    --syn-border-default: var(--syn-frame);
+    --syn-border-hover: var(--syn-frame-strong);
+    --syn-border-focus: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-surface-interactive: var(--syn-surface-hi);
+    --syn-surface-hover: color-mix(in srgb, var(--syn-surface-hi) 83%, var(--syn-accent));
+    --syn-surface-pressed: var(--syn-accent-soft);
     --syn-font-ui: var(--syn-font);
     --syn-font-display: var(--syn-font);
   }
@@ -211,7 +226,7 @@
   :where(.syn-root), :where(.syn-root) *, :where(.syn-root) *::before, :where(.syn-root) *::after { box-sizing: border-box; }
   .syn-root {
     margin: 0;
-    font: 400 1rem/var(--syn-line) var(--syn-font);
+    font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font);
     color: var(--syn-text);
     background: var(--syn-bg);
     -webkit-font-smoothing: antialiased;
@@ -222,7 +237,7 @@
   .syn-root :where(h1,h2,h3,h4) { line-height: 1.12; letter-spacing: -.025em; overflow-wrap: anywhere; }
   .syn-root :where(button,input,select,textarea) { font: inherit; }
   .syn-root :where(a) { color: var(--syn-accent); text-underline-offset: .2em; }
-  .syn-root :where(:focus-visible) { outline: 3px solid var(--syn-accent); outline-offset: 3px; }
+  .syn-root :where(:focus-visible) { outline: 3px solid var(--syn-focus-ring); outline-offset: 3px; }
   .syn-root :where(:disabled, [aria-disabled="true"]) { cursor: not-allowed; opacity: .55; }
   .syn-root :where(::selection) { color: var(--syn-on-accent); background: var(--syn-accent); }
   @media (prefers-reduced-motion: reduce) {
@@ -275,12 +290,18 @@
 @layer syn.components {
   .syn-logo { font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
   .syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
-  .syn-title { font-family: var(--syn-font-display); font-size: clamp(2rem, 5.5vw, 4rem); margin-block: 1rem; max-width: 14ch; }
-  .syn-heading { font-family: var(--syn-font-display); font-size: clamp(1.15rem, 2.4vw, 1.55rem); margin-block: .5rem 1rem; }
+  .syn-title, .syn-display { font-family: var(--syn-font-display); font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: var(--syn-tracking-display); margin-block: 1rem; max-width: 14ch; }
+  .syn-heading { font-family: var(--syn-font-display); font-size: var(--syn-type-heading); line-height: 1.2; margin-block: .5rem 1rem; }
+  .syn-body { font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
+  .syn-text-support { font: 400 var(--syn-type-sm)/1.5 var(--syn-font-ui); color: var(--syn-text-subtle); }
+  /* Opt-in vertical rhythm; does not alter unwrapped host document styles. */
+  .syn-prose { max-width: 65ch; font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
+  .syn-prose > :where(* + *) { margin-block-start: var(--syn-space-2); }
+  .syn-prose > :where(h2, h3, h4) { margin-block-start: var(--syn-space-4); }
   .syn-lede { max-width: 56ch; color: var(--syn-muted); }
-  .syn-muted { color: var(--syn-muted); }
+  .syn-muted { color: var(--syn-text-subtle); }
   .syn-mono { font-family: var(--syn-mono); font-variant-numeric: tabular-nums; }
-  .syn-caption { overflow-wrap: anywhere; color: var(--syn-muted); font: 500 var(--syn-type-xs)/1.5 var(--syn-font-ui); letter-spacing: .04em; }
+  .syn-caption { overflow-wrap: anywhere; color: var(--syn-text-subtle); font: 500 var(--syn-type-xs)/1.5 var(--syn-font-ui); letter-spacing: .04em; }
   .syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-font-display); font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
   .syn-rule { border: 0; border-top: 1px solid var(--syn-frame); margin-block: 1.25rem; }
   .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 var(--syn-type-xs)/1.25 var(--syn-font-ui); letter-spacing: .04em; }
@@ -294,26 +315,27 @@
   .syn-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
   .syn-button {
     display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-    min-height: var(--syn-control-height); padding: .65rem 1rem;
+    min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) 1rem;
     min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
-    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
-    background: var(--syn-surface-hi); color: var(--syn-text);
+    border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+    background: var(--syn-surface-interactive); color: var(--syn-text);
     text-decoration: none; font: 600 var(--syn-type-sm)/1.2 var(--syn-font-ui); letter-spacing: -.005em;
     cursor: pointer; transition: background-color var(--syn-duration-fast) var(--syn-ease), border-color var(--syn-duration-fast) var(--syn-ease), color var(--syn-duration-fast) var(--syn-ease);
   }
-  .syn-button:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
+  .syn-button:where(:not(:disabled):not([aria-disabled="true"]):hover) { border-color: var(--syn-border-hover); background: var(--syn-surface-hover); }
+  .syn-button:where(:not(:disabled):not([aria-disabled="true"]):active) { box-shadow: inset 0 2px 3px rgb(0 0 0 / 14%); }
   .syn-button--primary { background: var(--syn-accent); border-color: var(--syn-accent); color: var(--syn-on-accent); }
-  .syn-button--primary:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
+  .syn-button--primary:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
   .syn-button--outline { background: transparent; border-color: var(--syn-accent); color: var(--syn-accent); }
-  .syn-button--outline:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); }
+  .syn-button--outline:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); }
   .syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
-  .syn-button--danger:not(:disabled):not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
+  .syn-button--danger:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
   .syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: var(--syn-type-xs); }
   .syn-button--ghost { background: transparent; border-color: transparent; }
-  .syn-button--ghost:not(:disabled):not([aria-disabled="true"]):hover { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
+  .syn-button--ghost:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
     .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
     border-color: var(--syn-accent);
-    background: var(--syn-accent-soft);
+    background: var(--syn-surface-pressed);
     color: var(--syn-accent);
   }
   .syn-button[aria-busy="true"] { cursor: progress; }
@@ -329,11 +351,14 @@
   .syn-label { display: grid; gap: .35rem; font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui); }
   .syn-input, .syn-select, .syn-textarea {
     width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
-    border: 1px solid var(--syn-frame); background: var(--syn-bg);
+    border: 1px solid var(--syn-border-default); background: var(--syn-bg);
     border-radius: var(--syn-radius); color: var(--syn-text);
   }
   .syn-input::placeholder, .syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
-  .syn-input:focus, .syn-select:focus, .syn-textarea:focus { border-color: var(--syn-accent); }
+  .syn-input:where(:not(:disabled):hover), .syn-select:where(:not(:disabled):hover),
+  .syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
+  .syn-input:focus, .syn-select:focus, .syn-textarea:where(:focus) { border-color: var(--syn-border-focus); }
+  .syn-input:disabled, .syn-select:disabled, .syn-textarea:disabled { background: var(--syn-surface-recessed); }
   .syn-input:where(:user-invalid, [aria-invalid="true"]),
   .syn-select:where(:user-invalid, [aria-invalid="true"]),
   .syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
@@ -373,8 +398,9 @@
   .syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
   .syn-table th, .syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); white-space: nowrap; }
   .syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
-  .syn-table tr[aria-selected="true"], .syn-table tr[data-syn-state="selected"] { background: var(--syn-accent-soft); }
-  .syn-table th { color: var(--syn-muted); font-weight: 550; }
+  .syn-table tr[aria-selected="true"], .syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
+  .syn-table tr:focus-within { outline: 2px solid var(--syn-focus-ring); outline-offset: -2px; }
+  .syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
   /* No implicit last-column accent: table columns may contain any kind of data. */
   .syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
   .syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }

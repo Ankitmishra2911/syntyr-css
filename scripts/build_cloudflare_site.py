@@ -73,7 +73,7 @@ def source_files() -> dict[str, bytes]:
     )
     public_examples = (
         "business.html", "console.html", "geometry-terminal.html", "landing.html",
-        "minimalist-patterns.html",
+        "minimalist-patterns.html", "design-states.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html",
