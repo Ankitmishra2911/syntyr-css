@@ -22,7 +22,9 @@ class DemoParser(HTMLParser):
         if 'popover' in attrs: self.popovers.add(attrs.get('id'))
         if 'popovertarget' in attrs: self.targets.append(attrs['popovertarget'])
         if 'commandfor' in attrs: self.commands.append((attrs['commandfor'], attrs.get('command')))
-        if tag in ('link', 'img'):
+        # Canonical URLs are search metadata, not fetched runtime resources.
+        if tag == 'img' or (tag == 'link' and attrs.get('rel') in
+                            ('stylesheet', 'icon', 'preload', 'modulepreload')):
             self.resources.append(attrs.get('href', attrs.get('src', '')))
 
 def luminance(color):
