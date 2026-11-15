@@ -3,8 +3,11 @@
 @layer syn.recipes {
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) {
     position: relative;
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     min-inline-size: 0;
+    container-name: syn-floating-field;
+    container-type: inline-size;
   }
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea) {
     padding-block-start: 1.35rem;
@@ -27,6 +30,35 @@
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)) + .syn-floating-label {
     transform: translateY(-.62rem) scale(.82);
     color: var(--syn-text);
+  }
+
+
+  /* At narrow container sizes (including enlarged root text), restore a
+     persistent full-width label above the input. No JS or aria changes.
+     The label follows the input in source for :placeholder-shown support;
+     grid placement makes the visible order match a conventional form. */
+  @container syn-floating-field (max-width: 21rem) {
+    :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea) {
+      grid-row: 2;
+      padding-block: var(--syn-control-padding-block);
+      min-block-size: var(--syn-control-height);
+    }
+    :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > .syn-floating-label,
+    :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)) + .syn-floating-label {
+      position: static;
+      grid-row: 1;
+      inset: auto;
+      max-inline-size: 100%;
+      overflow: visible;
+      overflow-wrap: anywhere;
+      white-space: normal;
+      text-overflow: clip;
+      transform: none;
+      color: var(--syn-text);
+      font-size: var(--syn-type-sm);
+      line-height: 1.4;
+      margin-block-end: .35rem;
+    }
   }
 
   :where(.syn-root.syn-timeline, .syn-root .syn-timeline) {
