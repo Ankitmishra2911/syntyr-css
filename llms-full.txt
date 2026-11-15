@@ -1425,6 +1425,36 @@ Reproducible checks on the follow-up worktree:
 These are QA instructions, not evidence that human assistive-technology or
 browser-UI zoom testing has happened.
 
+## Searchable component catalog coverage (November 15, 2026)
+
+The documentation-only component catalog has been added to the normal browser,
+reflow, and axe-core matrices rather than relying only on static contracts.
+It contains ten rendered component examples. With JavaScript disabled, the
+examples and native HTML source disclosures remain available. Enhanced search,
+empty state, live result count and clipboard/keyboard fallback were checked
+in both Chromium and Firefox.
+
+Exact-branch developer-only verification:
+
+- Chromium and Firefox: **19 pages × 3 viewports** each, including the catalog
+  interactions, passed.
+- Chromium and Firefox: **76 enlarged-root-font reflow cases per engine**
+  passed. This is **not** genuine browser-UI zoom.
+- Local axe-core: **zero confirmed automated violations** across the 19
+  audited pages, with **10 incomplete rule checks** requiring manual review.
+  The catalog contributed one incomplete color-contrast rule with two nodes
+  in the featured pricing demo: axe cannot infer its gradient background.
+- For the catalog Studio palette, a source-token-based conservative calculation
+  gives approximately **13.79:1** for dark #15233a text against the strongest
+  9% blue-accent overlay on white. This is theoretical CSS compositing, not
+  sampled pixels or a conformance certification.
+- WebKit was **not** validated on this exact branch: the Gertrude test host
+  lacks libevent-2.1.so.7.
+
+The remaining release gates are genuine browser 200%/400% zoom, screen readers,
+native high-contrast inspection, and manual resolution of incomplete axe
+targets. Do not present these findings as WCAG conformance certification.
+
 ---
 
 ## Source: docs/agent-integration.md
