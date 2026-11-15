@@ -604,7 +604,7 @@
   /* All component rules match the root itself or a descendant, never a host sibling. */
   :where(.syn-root, .syn-root *) {
     &.syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
-    &.syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
+    &.syn-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); min-width: 0; }
     &.syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
     &.syn-stat { padding: var(--syn-space-3); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
     &.syn-stat-label { color: var(--syn-muted); font: 650 .8125rem/1.4 var(--syn-mono); letter-spacing: .05em; }
@@ -813,7 +813,7 @@
       color: var(--syn-accent); background: var(--syn-accent-soft);
     }
     &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
-    &.syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+    &.syn-workspace { width: 100%; min-width: 0; overflow-wrap: anywhere; padding: clamp(1rem, 3vw, 2.5rem); }
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
     &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
     &.syn-app-card {
@@ -1057,7 +1057,7 @@
     /* An ordered activity stream: markers and lines are decoration, text is truth. */
     &.syn-activity-timeline { margin: 0; padding: 0; list-style: none; }
     &.syn-activity-timeline > li {
-      position: relative; padding: 0 0 var(--syn-space-3) 1.75rem; min-width: 0;
+      position: relative; padding: 0 0 var(--syn-space-3) 1.75rem; min-width: 0; overflow-wrap: anywhere;
     }
     &.syn-activity-timeline > li:last-child { padding-block-end: 0; }
     &.syn-activity-timeline > li::before {
