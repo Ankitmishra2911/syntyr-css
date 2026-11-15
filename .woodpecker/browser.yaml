@@ -13,3 +13,6 @@ steps:
       - python3 tests/browser_matrix.py --browsers chromium firefox webkit
       - python3 tests/reflow_test.py --browsers chromium firefox webkit
       - python3 tests/theme_editor_browser.py
+      - python3 tests/playground_browser.py chromium
+      - python3 tests/playground_browser.py firefox
+      - python3 tests/playground_browser.py webkit

@@ -35,6 +35,8 @@
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Design research: Linear, Resend, and developer tooling](docs/design-research-linear-resend.md)
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
+- [Interactive component playground (sandboxed, documentation-only JavaScript)](docs/playground.html)
+- [Editor metadata and autocomplete setup](docs/editor-integration.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Progressive enhancement, automatic color scheme and print styling](docs/progressive-enhancement.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
@@ -130,6 +132,7 @@ All additions are MIT licensed and do not change the core runtime dependency con
 ```sh
 python3 scripts/build.py
 python3 scripts/build.py --check
+python3 scripts/export_api_metadata.py --check # editor metadata stays in sync
 python3 scripts/asset_report.py # informational raw/gzip sizes, no hard ceiling
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py

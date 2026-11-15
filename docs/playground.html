@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore, edit and preview SYNTYR CSS components in a sandboxed browser frame with no application build step.">
+  <title>Component Playground — SYNTYR CSS</title>
+  <link rel="stylesheet" href="../dist/syntyr.all.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="playground.css">
+  <script src="playground.js" defer></script>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <div class="syn-shell">
+    <header class="syn-header">
+      <a class="syn-logo" href="index.html">SYNTYR <span class="syn-muted">/ COMPONENT LAB</span></a>
+      <nav class="syn-nav" aria-label="Playground navigation">
+        <a href="index.html">GALLERY</a>
+        <a href="theme-editor.html">THEME EDITOR</a>
+        <a href="editor-integration.md">EDITOR SETUP</a>
+      </nav>
+    </header>
+    <main>
+      <section class="syn-stage" aria-labelledby="playground-title">
+        <span class="syn-eyebrow">DEVELOPER EXPERIENCE / BUILD-FREE</span>
+        <h1 id="playground-title" class="syn-title">Component playground</h1>
+        <p class="syn-lede">Edit native HTML, switch palettes, and render Syntyr's real CSS in an isolated preview. No bundler, account, or external service required.</p>
+      </section>
+
+      <div class="playground-layout">
+        <section class="syn-panel playground-editor" aria-labelledby="playground-editor-title">
+          <h2 id="playground-editor-title" class="syn-heading">HTML source</h2>
+          <div class="playground-controls">
+            <label class="syn-label" for="playground-example">EXAMPLE
+              <select class="syn-select" id="playground-example">
+                <option value="metrics">Responsive metrics</option>
+                <option value="actions">Action toolbar</option>
+                <option value="form">Accessible form</option>
+                <option value="cards">Marketing cards</option>
+              </select>
+            </label>
+            <label class="syn-label" for="playground-theme">PREVIEW THEME
+              <select class="syn-select" id="playground-theme">
+                <option value="studio">Studio</option>
+                <option value="grid">Grid</option>
+                <option value="noir">Noir</option>
+                <option value="industrial">Industrial</option>
+                <option value="terminal">Terminal</option>
+                <option value="corporate">Corporate</option>
+                <option value="minimal">Minimal</option>
+                <option value="auto">System preference</option>
+              </select>
+            </label>
+          </div>
+          <label class="syn-label" for="playground-markup">EDITABLE HTML</label>
+          <textarea class="syn-textarea playground-code" id="playground-markup" spellcheck="false" rows="17" aria-describedby="playground-help"></textarea>
+          <p class="syn-muted" id="playground-help">The preview is sandboxed: scripts and form submission cannot run. Changes appear automatically, or press Render.</p>
+          <div class="syn-inline">
+            <button class="syn-button syn-button--primary" id="playground-render" type="button">RENDER PREVIEW</button>
+            <button class="syn-button" id="playground-copy" type="button">COPY HTML</button>
+          </div>
+          <p id="playground-status" role="status" aria-live="polite" class="syn-caption">Ready to preview.</p>
+        </section>
+
+        <section class="syn-panel playground-view" aria-labelledby="playground-view-title">
+          <div class="playground-view-header">
+            <h2 id="playground-view-title" class="syn-heading">Live preview</h2>
+            <span class="syn-badge">ISOLATED</span>
+          </div>
+          <iframe id="playground-preview" title="Sandboxed Syntyr component preview" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe>
+          <p class="syn-caption">Syntyr styling runs with ordinary CSS. Only this documentation page uses JavaScript to update the preview.</p>
+        </section>
+      </div>
+      <section class="syn-panel playground-footer" aria-labelledby="playground-next-title">
+        <h2 id="playground-next-title" class="syn-heading">Build with the same API</h2>
+        <p>Load <code>syntyr.core.css</code> in your application and optionally add <code>syntyr.utilities.css</code> or <code>syntyr.recipes.css</code>. The preview uses the combined CSS file for convenient exploration.</p>
+        <p><a href="components.md">Component reference</a> · <a href="theme-customization.md">Theme and token customization</a> · <a href="editor-integration.md">Editor autocomplete setup</a></p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

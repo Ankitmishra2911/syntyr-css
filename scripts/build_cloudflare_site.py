@@ -60,6 +60,13 @@ def source_files() -> dict[str, bytes]:
         ROOT / "metadata/components.json",
         ROOT / "agents/syntyr/SKILL.md",
         ROOT / "terminal/palettes.json",
+        *(
+            ROOT / "metadata" / name
+            for name in (
+                "syntyr-api.json", "syntyr.html-custom-data.json",
+                "syntyr.css-custom-data.json", "syntyr.code-snippets",
+            )
+        ),
         ROOT / "integrations/vertigo/admin.css",
         ROOT / "examples/ansi_cli.py",
     ]
@@ -71,7 +78,8 @@ def source_files() -> dict[str, bytes]:
         "distribution.md", "package-managers.md", "docs.css", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
         "geometry-terminal.md", "performance-and-polish.md",
         "performance-validation.md", "progressive-enhancement.md",
-        "index.html", "recipes.md", "saas-cli-business.md",
+        "index.html", "playground.html", "playground.css", "playground.js",
+        "editor-integration.md", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
         "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
         "vertigo-integration.md", "viz.md",
