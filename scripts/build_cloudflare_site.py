@@ -126,6 +126,10 @@ HEADERS = """/*
   X-Robots-Tag: noindex
   Content-Type: text/markdown; charset=utf-8
 
+/DESIGN.md
+  X-Robots-Tag: noindex
+  Content-Type: text/markdown; charset=utf-8
+
 /ARCHITECTURE.md
   X-Robots-Tag: noindex
   Content-Type: text/markdown; charset=utf-8
@@ -229,6 +233,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "404.html",
         ROOT / "LICENSE",
         ROOT / "README.md",
+        ROOT / "DESIGN.md",
         ROOT / "ARCHITECTURE.md",
         ROOT / "llms.txt",
         ROOT / "llms-full.txt",
