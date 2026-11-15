@@ -98,10 +98,10 @@ The exported values include thirteen literal SRGB palette colors and
 `radius`/`cut` dimensions. Root `rem` is converted to px using an
 **assumed 16px root size** for editable design coordinates; browser CSS
 continues to use `rem`. Derived `color-mix()` values, `auto` mode and
-component-specific expressions are excluded rather than approximated. A
-genuine Figma **component library** (Auto Layout, variants, responsive
-compositions, design/code parity) is separate work, not delivered by token
-JSON alone.
+component-specific expressions are excluded rather than approximated.
+An [editable Figma component-kit pilot](figma-component-kit.md) now supplies
+four native components and seven separate palette collections; richer variants,
+component state coverage, and full design/code parity remain future work.
 
 Source: https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables
 
