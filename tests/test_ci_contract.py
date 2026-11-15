@@ -1,8 +1,15 @@
 """CI should gate releases without adding a consumer-side dependency."""
 from pathlib import Path
+import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def active_workflow_command_position(source: str, command: str) -> int:
+    """Find a real list entry, excluding commented-out Woodpecker steps."""
+    match = re.search(r"(?m)^[ \t]*-[ \t]+" + re.escape(command) + r"[ \t]*$", source)
+    return match.start() if match else -1
 
 
 class ContinuousIntegrationContract(unittest.TestCase):
@@ -34,13 +41,23 @@ class ContinuousIntegrationContract(unittest.TestCase):
         self.assertIn("git --version", content)
         self.assertLess(content.index(install), content.index("python3 -m unittest discover"))
 
+    def test_commented_blocks_command_is_not_an_active_release_step(self):
+        command = "python3 tests/blocks_browser.py --browsers chromium firefox webkit"
+        self.assertEqual(active_workflow_command_position("#      - " + command, command), -1)
+        self.assertEqual(active_workflow_command_position("      # - " + command, command), -1)
+        self.assertGreaterEqual(active_workflow_command_position("      - " + command, command), 0)
+
     def test_blocks_gallery_is_in_three_engine_release_browser_gate(self):
         workflow = (ROOT / ".woodpecker" / "browser.yaml").read_text(encoding="utf-8")
-        self.assertIn("python3 tests/blocks_browser.py --browsers chromium firefox webkit", workflow)
+        blocks = active_workflow_command_position(
+            workflow, "python3 tests/blocks_browser.py --browsers chromium firefox webkit")
+        matrix = active_workflow_command_position(
+            workflow, "python3 tests/browser_matrix.py --browsers chromium firefox webkit")
+        self.assertGreaterEqual(blocks, 0, "Blocks browser test must be an active workflow step")
+        self.assertGreaterEqual(matrix, 0, "Browser matrix must be an active workflow step")
         self.assertIn("event: manual", workflow)
         self.assertIn("event: tag", workflow)
-        self.assertLess(workflow.index("python3 tests/browser_matrix.py"),
-                        workflow.index("python3 tests/blocks_browser.py"))
+        self.assertLess(matrix, blocks)
 
     def test_release_browser_matrix_is_explicit_and_not_a_runtime_dependency(self):
         workflow = ROOT / ".woodpecker" / "browser.yaml"
