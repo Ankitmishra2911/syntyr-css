@@ -262,6 +262,11 @@
       "description": "Syntyr CSS class (components/forms.css)."
     },
     {
+      "name": "syn-flow",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-fluid-display",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -473,6 +478,11 @@
     },
     {
       "name": "syn-panel--cut",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-panel--raised",
       "module": "components/layout.css",
       "description": "Syntyr CSS class (components/layout.css)."
     },
@@ -1104,7 +1114,17 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-duration-standard",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
       "name": "--syn-ease",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-ease-enter",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
     },
@@ -1254,6 +1274,11 @@
       "description": "Per-panel border radius; defaults to square corners."
     },
     {
+      "name": "--syn-primary-hover-bg",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
       "name": "--syn-radius",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
@@ -1272,6 +1297,16 @@
       "name": "--syn-scanline-alpha",
       "module": "tokens.css",
       "description": "Scanline overlay opacity percentage."
+    },
+    {
+      "name": "--syn-shadow-overlay",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-shadow-raised",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-shadow-sm",

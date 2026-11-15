@@ -98,7 +98,15 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-duration-standard",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
       "name": "--syn-ease",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-ease-enter",
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
@@ -218,6 +226,10 @@
       "description": "Per-panel border radius; defaults to square corners."
     },
     {
+      "name": "--syn-primary-hover-bg",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
       "name": "--syn-radius",
       "description": "Syntyr CSS property (tokens.css)."
     },
@@ -232,6 +244,14 @@
     {
       "name": "--syn-scanline-alpha",
       "description": "Scanline overlay opacity percentage."
+    },
+    {
+      "name": "--syn-shadow-overlay",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-shadow-raised",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-shadow-sm",

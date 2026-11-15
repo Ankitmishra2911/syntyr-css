@@ -5,7 +5,6 @@
     font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font);
     color: var(--syn-text);
     background: var(--syn-bg);
-    -webkit-font-smoothing: antialiased;
   }
   .syn-root :where([data-syn-theme]) { color: var(--syn-text); background-color: var(--syn-bg); }
   .syn-root.syn-page { min-height: 100svh; }

@@ -14,7 +14,7 @@
     &.syn-button:where(:not(:disabled):not([aria-disabled="true"]):hover) { border-color: var(--syn-border-hover); background: var(--syn-surface-hover); }
     &.syn-button:where(:not(:disabled):not([aria-disabled="true"]):active) { box-shadow: inset 0 2px 3px rgb(0 0 0 / 14%); }
     &.syn-button--primary { background: var(--syn-accent); border-color: var(--syn-accent); color: var(--syn-on-accent); }
-    &.syn-button--primary:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
+    &.syn-button--primary:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-primary-hover-bg); border-color: var(--syn-on-accent); color: var(--syn-on-accent); }
     &.syn-button--outline { background: transparent; border-color: var(--syn-accent); color: var(--syn-accent); }
     &.syn-button--outline:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); }
     &.syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
