@@ -1257,7 +1257,7 @@ runtime dependency.
 
 Original: https://syntyr-css.pages.dev/docs/framework-integrations.md
 
-# Syntyr CSS integration guide: HTMX and common frontend stacks
+# Syntyr CSS integration guide: server-rendered HTML and frontend stacks
 
 Syntyr is a **CSS presentation layer**, not a state manager, request client, or component runtime.
 It has no JavaScript initialization, no required build tool, and no runtime dependency.
@@ -1334,6 +1334,131 @@ For best results:
 The demo server intentionally exposes only four static assets and one GET route,
 listens on localhost, and is **not** included in the Cloudflare static-site build.
 A static host cannot serve its dynamic search endpoint without a backend.
+
+
+## Server-driven HTML: optional request-state bridge
+
+**No adapter is necessary to render Syntyr components.** Serve core CSS from
+your application and output the same `syn-` classes in HEEx, Blade, ERB, templ,
+Jinja, Twig or Razor. You only need a second CSS file if you want native
+framework loading classes and attributes to show Syntyr's progress cursor:
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.server.css">
+```
+
+Or, when using a CSS-aware package build system, import
+`@syntyr/css/core.css` followed by `@syntyr/css/server.css`.
+The optional `syntyr.server.css` is included in `syntyr.all.css`, but not core.
+The npm package is an unreleased alpha.5 candidate; self-host prebuilt
+files or a pinned release until that version is actually published.
+
+The bridge is **presentation-only**. It styles the cursor on Syntyr buttons
+during `data-loading`, `.htmx-request`, `.phx-click-loading`,
+`.phx-submit-loading`, `.phx-change-loading`, or
+`[data-syn-state="loading"]`. It also supports `turbo-frame[busy]` and
+request classes on enclosing HTMX/LiveView forms. It never manages
+`aria-busy`, disabled state, network requests, focus, announcements,
+morphing, DOM lifecycle, or retries. Native disabled buttons retain
+their disabled cursor; visual feedback does not block double submissions.
+
+Keep `.syn-root` and `data-syn-theme` on a stable ancestor **outside**
+the element that Turbo/HTMX replaces or that LiveView/Livewire morphs.
+Prefer stable, unique input and form IDs. A server-rendered validation
+message must use an associated `aria-describedby` and `aria-invalid`
+on the input. Do not use `phx-update="ignore"` or `wire:ignore` just to
+make styling survive framework patches.
+
+## Phoenix LiveView (HEEx)
+
+[Copyable HEEx form](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/liveview.heex)
+uses the normal `phx-change` and `phx-submit` handlers. Server assigns
+control the value and validation error:
+
+```heex
+<section class="syn-root" data-syn-theme="studio">
+  <form id="campaign-form" class="syn-form" phx-change="validate" phx-submit="save">
+    <label class="syn-label" for="campaign-name">Campaign</label>
+    <input id="campaign-name" class="syn-input" name="campaign[name]"
+           value={@name} aria-invalid={if @error, do: "true", else: "false"} />
+    <button class="syn-button syn-button--primary" type="submit"
+            phx-disable-with="Saving...">Save</button>
+  </form>
+</section>
+```
+
+LiveView adds `phx-submit-loading`, `phx-click-loading`, and
+`phx-change-loading` to the relevant element or form while awaiting the
+server. Its own `phx-disable-with` and form behavior handle interaction
+locking; Syntyr never duplicates that logic. Include LiveView's ordinary
+JavaScript bootstrap in your Phoenix application, not in Syntyr.
+
+## Laravel Livewire (Blade)
+
+[Copyable Blade form](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/livewire.blade.php)
+uses `wire:submit`, `wire:model.live`, and Blade validation messages:
+
+```blade
+<section class="syn-root" data-syn-theme="studio">
+  <form class="syn-form" wire:submit="save">
+    <label class="syn-label" for="campaign-name">Campaign</label>
+    <input id="campaign-name" class="syn-input" wire:model.live="name"
+           aria-invalid="{{ $errors->has('name') ? 'true' : 'false' }}" />
+    <button class="syn-button syn-button--primary" type="submit">Save</button>
+  </form>
+</section>
+```
+
+**Livewire 4** automatically adds `data-loading` to request-triggering
+elements. Syntyr's optional CSS recognizes it without Tailwind. In
+**Livewire 3**, use `wire:loading`, `wire:loading.attr="disabled"`,
+or your own native `aria-busy`/`data-syn-state` binding where needed;
+do not assume the v4 automatic attribute exists. For loading text,
+prefer Livewire's own `wire:loading` and `wire:target` controls. Its
+client runtime comes from the Laravel application.
+
+## Rails Hotwire / Turbo Frames
+
+[Copyable Turbo form](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/turbo.html)
+uses a normal GET form to update only a matching frame:
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <form action="/campaigns" method="get" data-turbo-frame="campaign-results">
+    <label for="q">Campaign</label>
+    <input id="q" class="syn-input" name="q">
+    <button class="syn-button" type="submit">Search</button>
+  </form>
+  <turbo-frame id="campaign-results"></turbo-frame>
+</section>
+```
+
+The server must return a matching `<turbo-frame id="campaign-results">`
+element. Turbo toggles `turbo-frame[busy]` while it fetches a replacement.
+Turbo Streams and full-page visits must keep the Syntyr root appropriately
+scoped. Forms with mutations still need application-owned authentication,
+CSRF protection and server validation. This recipe does not ship Turbo.
+
+## Go templ and other server template engines
+
+[Copyable Go templ search template](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/search.templ)
+shows a native GET form with escaped templ values. Serve the same CSS
+from Go's static assets. The request handler performs the search and
+renders the next HTML response; Syntyr does not add a Go dependency.
+
+Django/Jinja, Symfony/Twig, ASP.NET Razor, Spring Thymeleaf, Hugo/Zola,
+and other HTML renderers need no special integration: render actual
+`<label>`, `<input>`, `<button>` and `<form>` elements with `syn-`
+classes, apply `aria-invalid` and `aria-describedby` from server
+validation, and keep static assets versioned. Choose framework-native
+partials/components and anti-CSRF mechanisms.
+
+**Verification scope:** the optional bridge and the copyable templates
+are statically tested with Python's standard library; the repository's
+existing HTMX demo has integration coverage. These examples are not a
+claim that Phoenix, Laravel, Rails, or Go runtime tests have run. Add
+framework-owned end-to-end tests when you adopt a template in an app.
 
 ## Lit / Web Components
 

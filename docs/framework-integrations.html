@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: Syntyr CSS integration guide: HTMX and common frontend stacks. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="74c6daac3326008089acbc619f82c56bdc850cf3bab266525eb86575e665cd9b">
+  <meta name="description" content="Syntyr CSS documentation: Syntyr CSS integration guide: server-rendered HTML and frontend stacks. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="4cb867c3568cef25730694080e572a9e3e8120727328a33b8f87bbce8ed23fd0">
   <meta name="theme-color" content="#f5f7fb">
-  <title>Syntyr CSS integration guide: HTMX and common frontend stacks — Syntyr CSS docs</title>
+  <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations.html">
   <link rel="alternate" type="text/markdown" href="framework-integrations.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
@@ -26,15 +26,15 @@
       </nav></details>
     </header>
     <main id="doc-main" class="docs-article-page">
-      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr CSS integration guide: HTMX and common frontend stacks</li></ol></nav>
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr CSS integration guide: server-rendered HTML and frontend stacks</li></ol></nav>
       <header class="docs-article-heading">
         <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
         <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
         <p class="syn-caption">Prefer a machine-readable version? <a href="framework-integrations.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
       </header>
       <div class="docs-article-layout">
-        <article class="docs-prose" aria-label="Syntyr CSS integration guide: HTMX and common frontend stacks">
-<h1 id="syntyr-css-integration-guide-htmx-and-common-frontend-stacks">Syntyr CSS integration guide: HTMX and common frontend stacks</h1>
+        <article class="docs-prose" aria-label="Syntyr CSS integration guide: server-rendered HTML and frontend stacks">
+<h1 id="syntyr-css-integration-guide-server-rendered-html-and-frontend-stacks">Syntyr CSS integration guide: server-rendered HTML and frontend stacks</h1>
 <p>Syntyr is a <strong>CSS presentation layer</strong>, not a state manager, request client, or component runtime.
 It has no JavaScript initialization, no required build tool, and no runtime dependency.
 Every example uses the same <code>syn-</code> classes, CSS tokens and standard HTML.</p>
@@ -98,6 +98,104 @@ failure paths in an actual browser.</li>
 <p>The demo server intentionally exposes only four static assets and one GET route,
 listens on localhost, and is <strong>not</strong> included in the Cloudflare static-site build.
 A static host cannot serve its dynamic search endpoint without a backend.</p>
+<h2 id="server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</h2>
+<p><strong>No adapter is necessary to render Syntyr components.</strong> Serve core CSS from
+your application and output the same <code>syn-</code> classes in HEEx, Blade, ERB, templ,
+Jinja, Twig or Razor. You only need a second CSS file if you want native
+framework loading classes and attributes to show Syntyr's progress cursor:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.server.css&quot;&gt;
+</code></pre>
+<p>Or, when using a CSS-aware package build system, import
+<code>@syntyr/css/core.css</code> followed by <code>@syntyr/css/server.css</code>.
+The optional <code>syntyr.server.css</code> is included in <code>syntyr.all.css</code>, but not core.
+The npm package is an unreleased alpha.5 candidate; self-host prebuilt
+files or a pinned release until that version is actually published.</p>
+<p>The bridge is <strong>presentation-only</strong>. It styles the cursor on Syntyr buttons
+during <code>data-loading</code>, <code>.htmx-request</code>, <code>.phx-click-loading</code>,
+<code>.phx-submit-loading</code>, <code>.phx-change-loading</code>, or
+<code>[data-syn-state=&quot;loading&quot;]</code>. It also supports <code>turbo-frame[busy]</code> and
+request classes on enclosing HTMX/LiveView forms. It never manages
+<code>aria-busy</code>, disabled state, network requests, focus, announcements,
+morphing, DOM lifecycle, or retries. Native disabled buttons retain
+their disabled cursor; visual feedback does not block double submissions.</p>
+<p>Keep <code>.syn-root</code> and <code>data-syn-theme</code> on a stable ancestor <strong>outside</strong>
+the element that Turbo/HTMX replaces or that LiveView/Livewire morphs.
+Prefer stable, unique input and form IDs. A server-rendered validation
+message must use an associated <code>aria-describedby</code> and <code>aria-invalid</code>
+on the input. Do not use <code>phx-update=&quot;ignore&quot;</code> or <code>wire:ignore</code> just to
+make styling survive framework patches.</p>
+<h2 id="phoenix-liveview-heex">Phoenix LiveView (HEEx)</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/liveview.heex">Copyable HEEx form</a>
+uses the normal <code>phx-change</code> and <code>phx-submit</code> handlers. Server assigns
+control the value and validation error:</p>
+<pre><code class="language-heex">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;form id=&quot;campaign-form&quot; class=&quot;syn-form&quot; phx-change=&quot;validate&quot; phx-submit=&quot;save&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;campaign-name&quot;&gt;Campaign&lt;/label&gt;
+    &lt;input id=&quot;campaign-name&quot; class=&quot;syn-input&quot; name=&quot;campaign[name]&quot;
+           value={@name} aria-invalid={if @error, do: &quot;true&quot;, else: &quot;false&quot;} /&gt;
+    &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;
+            phx-disable-with=&quot;Saving...&quot;&gt;Save&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+</code></pre>
+<p>LiveView adds <code>phx-submit-loading</code>, <code>phx-click-loading</code>, and
+<code>phx-change-loading</code> to the relevant element or form while awaiting the
+server. Its own <code>phx-disable-with</code> and form behavior handle interaction
+locking; Syntyr never duplicates that logic. Include LiveView's ordinary
+JavaScript bootstrap in your Phoenix application, not in Syntyr.</p>
+<h2 id="laravel-livewire-blade">Laravel Livewire (Blade)</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/livewire.blade.php">Copyable Blade form</a>
+uses <code>wire:submit</code>, <code>wire:model.live</code>, and Blade validation messages:</p>
+<pre><code class="language-blade">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;form class=&quot;syn-form&quot; wire:submit=&quot;save&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;campaign-name&quot;&gt;Campaign&lt;/label&gt;
+    &lt;input id=&quot;campaign-name&quot; class=&quot;syn-input&quot; wire:model.live=&quot;name&quot;
+           aria-invalid=&quot;{{ $errors-&gt;has('name') ? 'true' : 'false' }}&quot; /&gt;
+    &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Livewire 4</strong> automatically adds <code>data-loading</code> to request-triggering
+elements. Syntyr's optional CSS recognizes it without Tailwind. In
+<strong>Livewire 3</strong>, use <code>wire:loading</code>, <code>wire:loading.attr=&quot;disabled&quot;</code>,
+or your own native <code>aria-busy</code>/<code>data-syn-state</code> binding where needed;
+do not assume the v4 automatic attribute exists. For loading text,
+prefer Livewire's own <code>wire:loading</code> and <code>wire:target</code> controls. Its
+client runtime comes from the Laravel application.</p>
+<h2 id="rails-hotwire-turbo-frames">Rails Hotwire / Turbo Frames</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/turbo.html">Copyable Turbo form</a>
+uses a normal GET form to update only a matching frame:</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;form action=&quot;/campaigns&quot; method=&quot;get&quot; data-turbo-frame=&quot;campaign-results&quot;&gt;
+    &lt;label for=&quot;q&quot;&gt;Campaign&lt;/label&gt;
+    &lt;input id=&quot;q&quot; class=&quot;syn-input&quot; name=&quot;q&quot;&gt;
+    &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
+  &lt;/form&gt;
+  &lt;turbo-frame id=&quot;campaign-results&quot;&gt;&lt;/turbo-frame&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The server must return a matching <code>&lt;turbo-frame id=&quot;campaign-results&quot;&gt;</code>
+element. Turbo toggles <code>turbo-frame[busy]</code> while it fetches a replacement.
+Turbo Streams and full-page visits must keep the Syntyr root appropriately
+scoped. Forms with mutations still need application-owned authentication,
+CSRF protection and server validation. This recipe does not ship Turbo.</p>
+<h2 id="go-templ-and-other-server-template-engines">Go templ and other server template engines</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/search.templ">Copyable Go templ search template</a>
+shows a native GET form with escaped templ values. Serve the same CSS
+from Go's static assets. The request handler performs the search and
+renders the next HTML response; Syntyr does not add a Go dependency.</p>
+<p>Django/Jinja, Symfony/Twig, ASP.NET Razor, Spring Thymeleaf, Hugo/Zola,
+and other HTML renderers need no special integration: render actual
+<code>&lt;label&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code> and <code>&lt;form&gt;</code> elements with <code>syn-</code>
+classes, apply <code>aria-invalid</code> and <code>aria-describedby</code> from server
+validation, and keep static assets versioned. Choose framework-native
+partials/components and anti-CSRF mechanisms.</p>
+<p><strong>Verification scope:</strong> the optional bridge and the copyable templates
+are statically tested with Python's standard library; the repository's
+existing HTMX demo has integration coverage. These examples are not a
+claim that Phoenix, Laravel, Rails, or Go runtime tests have run. Add
+framework-owned end-to-end tests when you adopt a template in an app.</p>
 <h2 id="lit-web-components">Lit / Web Components</h2>
 <p>Syntyr works with Lit but does not depend on it. Lit components using light DOM
 can use ordinary <code>.syn-*</code> classes within a Syntyr root. Components with Shadow
@@ -176,6 +274,11 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#choose-one-styling-mode">Choose one styling mode</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#htmx-progressive-enhancement">HTMX: progressive enhancement</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#phoenix-liveview-heex">Phoenix LiveView (HEEx)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#laravel-livewire-blade">Laravel Livewire (Blade)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#rails-hotwire-turbo-frames">Rails Hotwire / Turbo Frames</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#go-templ-and-other-server-template-engines">Go templ and other server template engines</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#lit-web-components">Lit / Web Components</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#alpinejs">Alpine.js</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#datastar">Datastar</a>
