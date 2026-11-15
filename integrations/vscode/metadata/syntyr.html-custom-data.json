@@ -722,11 +722,27 @@
           "description": "Syntyr CSS class (components/data.css)."
         },
         {
+          "name": "syn-table--sticky",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
+          "name": "syn-table--striped",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
           "name": "syn-table-emphasis",
           "description": "Syntyr CSS class (components/data.css)."
         },
         {
+          "name": "syn-table-sort",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
           "name": "syn-table-wrap",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
+          "name": "syn-table-wrap--scroll",
           "description": "Syntyr CSS class (components/data.css)."
         },
         {

@@ -6,13 +6,35 @@
     &.syn-meter::-webkit-progress-value { background: var(--syn-accent); }
     &.syn-meter::-moz-progress-bar { background: var(--syn-accent); }
     &.syn-table-wrap { overflow-x: auto; }
+    /* Bounded, keyboard-scrollable overflow for large native tables. */
+    &.syn-table-wrap--scroll { max-block-size: var(--syn-table-scroll-height, 24rem); overflow: auto; }
     &.syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
     &.syn-table th, &.syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); overflow-wrap: anywhere; }
     /* Keep identifiers and quantities on one line only when explicitly requested. */
     &.syn-table .syn-cell--nowrap { white-space: nowrap; }
     /* Allow descriptive cells to wrap without changing compact identifier/numeric cells. */
     &.syn-table .syn-cell--wrap { white-space: normal; overflow-wrap: anywhere; max-inline-size: 38ch; }
+    /* Opt-in striping; selected rows take precedence. */
+    &.syn-table--striped tbody tr:nth-child(even):not([aria-selected="true"]):not([data-syn-state="selected"]) { background: var(--syn-surface-recessed); }
     &.syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
+    &.syn-table--sticky thead th {
+      position: sticky;
+      inset-block-start: var(--syn-table-sticky-offset, 0px);
+      z-index: 1;
+      background: var(--syn-surface);
+      box-shadow: inset 0 -1px var(--syn-border-default);
+    }
+    /* aria-sort belongs on th. These arrows only reflect the actual HTML state. */
+    &.syn-table .syn-table-sort { display: inline-flex; align-items: center; gap: .5rem; color: inherit; font: inherit; }
+    &.syn-table :is(a, button).syn-table-sort { text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+    &.syn-table button.syn-table-sort { padding: 0; border: 0; background: transparent; }
+    &.syn-table th[aria-sort="ascending"] .syn-table-sort::after,
+    &.syn-table th[aria-sort="descending"] .syn-table-sort::after {
+      content: ""; display: inline-block; flex: none; inline-size: .4rem; block-size: .4rem;
+      border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor;
+    }
+    &.syn-table th[aria-sort="ascending"] .syn-table-sort::after { transform: rotate(225deg); }
+    &.syn-table th[aria-sort="descending"] .syn-table-sort::after { transform: rotate(45deg); }
     &.syn-table tr[aria-selected="true"], &.syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
     &.syn-table tr[aria-selected="true"] > :first-child,
     &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start: 3px solid var(--syn-accent); }
@@ -30,6 +52,7 @@
       &.syn-table tr[aria-selected="true"] > :first-child,
       &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start-color: Highlight; }
       &.syn-status::before { border: 1px solid currentColor; }
+      &.syn-table--sticky thead th { background: Canvas; box-shadow: inset 0 -1px CanvasText; }
     }
   }
 }
