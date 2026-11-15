@@ -3,14 +3,19 @@
 Run with the test-only Playwright environment:
     python3 tests/security_headers_browser.py --browsers chromium firefox webkit
 
-Serves the exact publish directory with the same global _headers policy;
+Serves the exact publish directory over ephemeral HTTPS with the same global
+_headers policy (requires the test host's openssl executable);
 this is NOT a replacement for post-deploy verification at the public origin.
 """
 from argparse import ArgumentParser
 from contextlib import contextmanager
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+import os
 from pathlib import Path
+import ssl
+import subprocess
+from tempfile import TemporaryDirectory
 from threading import Thread
 
 from playwright.sync_api import sync_playwright
@@ -40,19 +45,35 @@ class SecurityHeaderHandler(SimpleHTTPRequestHandler):
 @contextmanager
 def local_site():
     SecurityHeaderHandler.security_headers = global_headers()
-    server = ThreadingHTTPServer(("127.0.0.1", 0), partial(SecurityHeaderHandler, directory=str(PUBLIC)))
-    worker = Thread(target=server.serve_forever, daemon=True)
-    worker.start()
-    try:
-        yield f"http://127.0.0.1:{server.server_port}"
-    finally:
-        server.shutdown()
-        worker.join(timeout=3)
-        server.server_close()
+    # Test the production HTTPS CSP as written: WebKit upgrades loopback HTTP
+    # subresources under upgrade-insecure-requests, which breaks HTTP-only tests.
+    with TemporaryDirectory(prefix="syntyr-csp-tls-") as temp:
+        cert = Path(temp) / "cert.pem"
+        key = Path(temp) / "key.pem"
+        subprocess.run(
+            ["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+             "-sha256", "-days", "1", "-subj", "/CN=localhost",
+             "-addext", "subjectAltName=IP:127.0.0.1,DNS:localhost",
+             "-keyout", str(key), "-out", str(cert)],
+            check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            timeout=20,
+        )
+        server = ThreadingHTTPServer(("127.0.0.1", 0), partial(SecurityHeaderHandler, directory=str(PUBLIC)))
+        tls = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+        tls.load_cert_chain(certfile=str(cert), keyfile=str(key))
+        server.socket = tls.wrap_socket(server.socket, server_side=True)
+        worker = Thread(target=server.serve_forever, daemon=True)
+        worker.start()
+        try:
+            yield f"https://127.0.0.1:{server.server_port}"
+        finally:
+            server.shutdown()
+            worker.join(timeout=3)
+            server.server_close()
 
 
 def verify(browser, origin):
-    context = browser.new_context()
+    context = browser.new_context(ignore_https_errors=True)
     try:
         page = context.new_page()
         errors = []
@@ -92,7 +113,11 @@ def main():
     assert (PUBLIC / "_headers").is_file(), "Build Cloudflare site first"
     with local_site() as origin, sync_playwright() as playwright:
         for name in args.browsers:
-            browser = getattr(playwright, name).launch(headless=True)
+            options = {"headless": True}
+            if name == "webkit" and os.getenv("SYNTYR_WEBKIT_EXECUTABLE"):
+                # Optional test-only executable for hosts with locally supplied WPE libraries.
+                options["executable_path"] = os.environ["SYNTYR_WEBKIT_EXECUTABLE"]
+            browser = getattr(playwright, name).launch(**options)
             try:
                 verify(browser, origin)
                 print(f"PASS {name}: enforced CSP, CSS, playground, sandbox, docs scripts")

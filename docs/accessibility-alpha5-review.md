@@ -3,6 +3,54 @@
 This report distinguishes the most recent automated findings from older
 pixel-sampling evidence. It is **not** a WCAG certification.
 
+## Follow-up audit: `9f7f22b` (November 15, 2026)
+
+This is a **newer source-only candidate audit**, not a published
+release or an accessibility certification. It incorporates the enlarged-text
+WebKit reflow fixes and the restored `examples/native-apis.html` audit coverage.
+
+- Chromium headless, Playwright 1.58.0 and the pinned axe-core **4.10.3**:
+  **28 pages audited, zero confirmed automated WCAG-tagged violations**,
+  **14 incomplete color-contrast rule results involving 162 distinct
+  element entries**. The axe payload SHA-256 was
+  `880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb`.
+- Source CSS includes targeted min-content grid sizing, text wrapping,
+  and long-label reflow improvements. The original 320px / 2× WebKit
+  reproducible overflow failures on six pages were resolved in focused tests.
+- WebKit **26.0** was launched with user-local native libraries and
+  Playwright 1.58.0 on Ubuntu 24.04; neither the operating-system packages
+  nor Syntyr consumer JavaScript dependencies were changed. This is useful
+  browser evidence but does **not** substitute for the pinned Playwright
+  1.65.2 release-image gate, genuine browser 200%/400% zoom,
+  OS-native high-contrast, or screen-reader testing.
+
+| Page | Incomplete contrast element entries |
+| --- | ---: |
+| `docs/blocks.html` | 37 |
+| `examples/geometry-terminal.html` | 30 |
+| `docs/index.html` | 17 |
+| `examples/flagship-grid.html` | 16 |
+| `examples/flagship-noir.html` | 14 |
+| `examples/operations-console.html` | 11 |
+| `examples/pricing.html` | 7 |
+| `examples/saas-workflows.html` | 7 |
+| `examples/business.html` | 6 |
+| `examples/console.html` | 5 |
+| `examples/symbols.html` | 5 |
+| `examples/terminal.html` | 4 |
+| `docs/catalog.html` | 2 |
+| `examples/native-apis.html` | 1 |
+| Other audited pages | 0 |
+| **Total** | **162** |
+
+The audit's incomplete results may reflect gradients, pseudo-elements or
+complex backgrounds; they are **unresolved** rather than passed or failed
+contrast measurements. Prioritize the Blocks, geometry, documentation and
+flagship hero surfaces for a real painted-background assessment. Manual
+accessibility review, actual browser zoom and assistive-technology evidence,
+naming clearance and authenticated distribution ownership all remain open.
+**Do not freeze, tag or publish alpha.5 solely based on this evidence.**
+
 ## Verified source snapshot: `038a24d` (November 15, 2026)
 
 This **point-in-time source audit** includes PR #68 (the native CSS
@@ -222,11 +270,11 @@ and representative-product checks below remain open.
 
 For each flagged element, record selector, theme, browser, viewport/zoom setting, sampled foreground and effective background, measured contrast and screenshot. Test the lowest-contrast part of each gradient. Apply WCAG thresholds of at least 4.5:1 for regular text and 3:1 for large text and applicable essential UI graphics. Check hover, focus, disabled, selected and nested-theme contexts.
 
-Automated browser evidence covers **126 viewport cases** across Chromium/Firefox/WebKit and **168 enlarged-text reflow cases**. The Chromium forced-colors primary-link screenshot and focus tests pass for all seven palettes. None of these substitute for native Windows High Contrast or other OS-level modes, real browser zoom, or a screen reader.
+Earlier automated browser evidence covered **126 viewport cases** across Chromium/Firefox/WebKit and **168 enlarged-text reflow cases** on a historical commit. These figures are not the latest branch coverage. The Chromium forced-colors primary-link screenshot and focus tests passed for all seven palettes in that snapshot. None of these checks substitute for native Windows High Contrast or other OS-level modes, real browser zoom, or a screen reader.
 
 ## Remaining release checklist
 
-- [ ] Measure or adjudicate each of the **345 current** inconclusive text/background cases (the table of 325 above is historical).
+- [ ] Measure or adjudicate each of the **162 unresolved** text/background element entries in the latest 28-page source audit above. The 345-entry and 325-entry figures below describe earlier commits and are historical, not the current review queue.
 - [ ] Test keyboard-only navigation, native dialog/popover focus, table regions, disclosure and form semantics in a representative real app.
 - [ ] Perform real assistive-technology testing with NVDA, JAWS, VoiceOver or Orca and record evidence.
 - [ ] Test true 200% and 400% browser zoom on supported browsers; verify navigation, reflow and target visibility.

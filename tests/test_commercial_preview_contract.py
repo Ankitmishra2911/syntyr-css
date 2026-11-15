@@ -9,6 +9,11 @@ PREVIEWS = (
     ("studio-overview.webp", "Studio dashboard"),
     ("grid-resources.webp", "Grid resource index"),
     ("noir-billing.webp", "Noir billing overview"),
+    ("studio-editor.webp", "Studio create/edit form"),
+    ("studio-settings.webp", "Studio settings"),
+    ("grid-detail.webp", "Grid resource detail"),
+    ("noir-team.webp", "Noir team management"),
+    ("grid-sign-in.webp", "Grid sign-in"),
 )
 
 
@@ -26,7 +31,7 @@ class CommercialPreviewTests(unittest.TestCase):
         self.assertIn('loading="lazy"', page)
         self.assertIn("STATIC / SAMPLE DATA", page)
 
-    def test_only_three_approved_public_previews_are_distributed(self):
+    def test_only_eight_approved_public_previews_are_distributed(self):
         site = source_files()
         published = sorted(p for p in site if p.startswith("docs/previews/"))
         expected = sorted("docs/previews/" + filename for filename, _ in PREVIEWS)

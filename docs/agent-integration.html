@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: Using Syntyr with coding agents. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="d2a75aedf8de3230d00aeaad456afcb7fe7e0c743ed5d3751027097c4a4b1a33">
+  <meta name="description" content="Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that generate HTML or framework markup. No Syntyr-specific service, account, MCP…">
+  <meta name="syntyr-source-sha256" content="a4d919d5cb43d497a6a6dbba1b810ea98d925247ff27fb4267d0e19af13dfa56">
   <meta name="theme-color" content="#f5f7fb">
   <title>Using Syntyr with coding agents — Syntyr CSS docs</title>
-  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-integration.html">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-integration">
   <link rel="alternate" type="text/markdown" href="agent-integration.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -55,6 +55,7 @@
 <li><a href="../llms.txt"><code>llms.txt</code></a>: small navigation file following the community <code>llms.txt</code> convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.</li>
 <li><a href="../llms-full.txt"><code>llms-full.txt</code></a>: generated, version-stamped concatenation of selected public technical docs, for tools that benefit from one context file.</li>
 <li><a href="../metadata/components.json"><code>metadata/components.json</code></a>: small <strong>curated, non-exhaustive</strong> inventory with the CSS modules required by the included classes. Do not infer that a class is unavailable solely because this catalog omits it.</li>
+<li><a href="../metadata/syntyr-contract.json"><code>metadata/syntyr-contract.json</code></a>: full source-discovered Syntyr classes, tokens, known stylesheet distributions, themes, literal state values and curated component recipes. This candidate-version manifest is suitable for LLM tooling and optional <a href="editor-integration.html#optional-static-html-diagnostics">static HTML checks</a>; it is not a compiler or an accessibility certification.</li>
 </ul>
 <p>Documentation follows the current source candidate; always check <a href="api-stability.html">release boundaries</a> and the <a href="distribution.html">distribution guide</a> before using candidate-only features.</p>
 <h2 id="documentation-formats-html-for-people-markdown-for-agents">Documentation formats: HTML for people, Markdown for agents</h2>
