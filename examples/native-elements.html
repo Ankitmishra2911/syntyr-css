@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Native HTML, CSS-first styling for Syntyr semantic mode.">
+  <title>Syntyr / Native HTML elements</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.semantic.css">
+</head>
+<body class="syn-root syn-page syn-semantic" data-syn-theme="studio">
+  <a href="#main">Skip to main content</a>
+  <header class="syn-header">
+    <a href="../docs/index.html">SYNTYR / Gallery</a>
+    <span class="syn-caption">Native HTML / opt-in semantic styling</span>
+  </header>
+  <main class="syn-shell" id="main">
+    <h1>Semantic HTML reference</h1>
+    <p>Practical HTML with a simple visual layer. No JavaScript, no build dependency, and no custom widgets.</p>
+
+    <section aria-labelledby="search-title">
+      <h2 id="search-title">Search landmark and associated input</h2>
+      <p>This is a static example. Submitting reloads the same page with a query string; no search backend exists.</p>
+      <search aria-label="Search examples">
+        <form action="native-elements.html" method="get">
+          <label for="native-q">Search examples</label>
+          <input id="native-q" name="q" type="search" required placeholder="Search native elements">
+          <button type="submit">Search</button>
+        </form>
+      </search>
+    </section>
+
+    <section aria-labelledby="states-title">
+      <h2 id="states-title">Inline native content</h2>
+      <p>Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to try an application shortcut if your application implements one.</p>
+      <p><mark>Highlighted text</mark> uses the theme's contrast-tested accent/foreground pairing.</p>
+      <p>Static example: <output for="native-q">No server search results</output>.</p>
+    </section>
+
+    <section aria-labelledby="measure-title">
+      <h2 id="measure-title">Measurement and caption</h2>
+      <figure>
+        <div class="syn-panel">
+          <label for="native-meter">Storage utilization</label>
+          <meter id="native-meter" min="0" max="100" value="65" low="25" high="80" optimum="10">65%</meter>
+          <p>65% of storage used</p>
+        </div>
+        <figcaption>Native meter conveys a bounded measurement; visible text provides its exact value.</figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="code-title">
+      <h2 id="code-title">Long code and overflow</h2>
+      <pre><code>SELECT status, count(*) FROM resources GROUP BY status ORDER BY count(*) DESC;</code></pre>
+      <p>Code blocks can scroll horizontally inside narrow widgets without clipping the page.</p>
+    </section>
+  </main>
+</body>
+</html>

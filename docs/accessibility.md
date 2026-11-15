@@ -143,3 +143,24 @@ native checkbox/radio label layout, keyboard focus and mobile wrapping.
 These automated checks do **not** replace manual audits at actual 200% and
 400% browser zoom, assistive-technology operation, or customized palette
 contrast validation. Record browser engine and OS when testing these paths.
+
+## Experimental native-HTML semantic coverage (unreleased branch)
+
+The optional `syntyr.semantic.css` now also presents native `search`, `figure`, `figcaption`,
+`mark`, `kbd`, `output`, `meter` and scrollable `pre` regions. These styles apply
+only inside an opted-in `.syn-semantic` subtree and do not implement
+application behavior.
+
+The development-only `tests/native_semantic_browser.py` checks Chromium,
+Firefox and WebKit at 320px and 900px: the `mark` foreground/background pair
+has at least 4.5:1 computed contrast in seven named palettes and automatic
+light/dark mode; forced-colors emulation keeps it distinguishable; the native
+GET form works without JavaScript; removing `.syn-root` removes the styling.
+At 320px it checks horizontal document overflow with 200% and 400% *root
+font-size enlargement*, including a scrollable code block.
+
+These tests are **not** actual browser 200%/400% zoom, manual OS high-contrast
+inspection, NVDA/VoiceOver validation, or a WCAG conformance audit. The
+pre-existing inconclusive axe contrast cases and manual release gates remain
+open. Use the separate [native example](../examples/native-elements.html)
+for representative manual checks after publishing.

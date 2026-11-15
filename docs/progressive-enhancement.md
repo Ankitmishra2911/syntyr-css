@@ -4,6 +4,8 @@ Syntyr's default contract is **HTML first**. Core CSS doesn't include JavaScript
 network requests, icons, fonts or a client-side build step. Progressive enhancement
 should add polish and optional interactions to working baseline workflows.
 
+For a static showcase of `search`, `figure`, `mark`, `kbd`, `output`, `meter` and safe code overflow with zero scripts, see [native-elements.html](../examples/native-elements.html). The example is presentational, not a working search service.
+
 ## Native actions and server responses come first
 
 Always use anchors for navigation, buttons for actions, associated labels for
