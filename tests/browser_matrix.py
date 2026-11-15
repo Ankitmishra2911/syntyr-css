@@ -20,8 +20,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
-         "examples/native-apis.html", "examples/semantic-starter.html")
-
+         "examples/native-apis.html", "examples/semantic-starter.html", "examples/premium-compositions.html")
 
 def assert_page(browser, name: str, viewport: int) -> None:
     context = browser.new_context(viewport={"width": viewport, "height": 820},

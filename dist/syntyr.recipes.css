@@ -255,6 +255,17 @@
         var(--syn-surface-recessed);
     }
     &.syn-showcase-visual > * { position: relative; z-index: 1; }
+    /* Protect readable space at narrow widths, including browser/text zoom. */
+    @media (max-width: 40rem) {
+      &.syn-showcase { padding: min(12px, var(--syn-space-2)); overflow-wrap: anywhere; }
+      &.syn-showcase-copy, &.syn-showcase-visual { min-width: 0; overflow-wrap: anywhere; }
+      &.syn-showcase-visual { padding: min(12px, var(--syn-space-2)); }
+      &.syn-command-row { flex-wrap: wrap; overflow-wrap: anywhere; }
+      &.syn-command-row > :first-child { flex: 1 1 100%; overflow-wrap: anywhere; }
+      &.syn-command-group-label { overflow-wrap: anywhere; }
+      &.syn-command-panel .syn-input-group { flex-wrap: wrap; }
+      &.syn-command-panel .syn-input-group > * { flex: 1 1 100%; min-width: 0; }
+    }
     @media (prefers-reduced-motion: reduce) {
       &.syn-command-row { transition: none; }
     }

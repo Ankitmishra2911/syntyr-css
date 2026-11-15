@@ -23,8 +23,7 @@ PAGES = (
     "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/native-apis.html", "examples/semantic-starter.html",
-)
+    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/native-apis.html", "examples/semantic-starter.html", "examples/premium-compositions.html",)
 
 
 def check_page(browser, path: str, width: int, scale: float) -> None:
