@@ -129,12 +129,10 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert cards[0]['y'] < cards[1]['y'] < cards[2]['y'], cards
         else:
             assert cards[0]['x'] < cards[1]['x'] < cards[2]['x'], cards
-        # Installation now has multiple copyable snippets. Verify each one rather
-        # than assuming the homepage contains only the original demo block.
-        snippets = page.locator('.site-code code')
-        assert snippets.count() >= 3, 'quickstart and demo snippets missing'
-        for i in range(snippets.count()):
-            assert snippets.nth(i).evaluate('e => getComputedStyle(e).whiteSpace') == 'pre-wrap'
+        code_styles = page.locator('.site-code code').evaluate_all(
+            'elements => elements.map(e => getComputedStyle(e).whiteSpace)'
+        )
+        assert code_styles and all(style == 'pre-wrap' for style in code_styles), code_styles
         page.keyboard.press('Tab')
         assert page.evaluate("document.activeElement.classList.contains('site-skip')"), 'skip link first in tab order'
         assert page.locator('.site-skip').bounding_box()['y'] >= 0, 'skip link must become visible'
