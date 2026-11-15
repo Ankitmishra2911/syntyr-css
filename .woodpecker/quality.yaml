@@ -10,6 +10,10 @@ steps:
   - name: css-site-release-contract
     image: python:3.14-slim
     commands:
+      # Python slim omits Git, but source/release contracts verify tracked paths.
+      # The CI-only Git CLI is not a library runtime dependency.
+      - apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+      - git --version
       - python3 scripts/build.py --check
       - python3 -m unittest discover -s tests -v
       - python3 scripts/build_cloudflare_site.py

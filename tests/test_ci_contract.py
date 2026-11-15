@@ -24,6 +24,16 @@ class ContinuousIntegrationContract(unittest.TestCase):
             with self.subTest(contract=contract):
                 self.assertIn(contract, content)
 
+    def test_quality_runner_installs_git_before_git_tracking_tests(self):
+        # Python slim has no Git CLI. Several brand/distribution tests use
+        # git ls-files, so the CI image must supply Git before running them.
+        content = (ROOT / ".woodpecker" / "quality.yaml").read_text()
+        install = "apt-get install -y --no-install-recommends git"
+        self.assertIn("apt-get update", content)
+        self.assertIn(install, content)
+        self.assertIn("git --version", content)
+        self.assertLess(content.index(install), content.index("python3 -m unittest discover"))
+
     def test_release_browser_matrix_is_explicit_and_not_a_runtime_dependency(self):
         workflow = ROOT / ".woodpecker" / "browser.yaml"
         self.assertTrue(workflow.is_file(), "Require a reproducible release browser workflow")
