@@ -183,6 +183,11 @@ def source_files() -> dict[str, bytes]:
         "studio-overview.webp",
         "grid-resources.webp",
         "noir-billing.webp",
+        "studio-editor.webp",
+        "studio-settings.webp",
+        "grid-detail.webp",
+        "noir-team.webp",
+        "grid-sign-in.webp",
     )
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
