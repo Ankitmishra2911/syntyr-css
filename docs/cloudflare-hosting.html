@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SYNTYR is a static website and CSS library. It does not need a server, database, JavaScript runtime, Node install, NPM install, or a CDN SDK.">
-  <meta name="syntyr-source-sha256" content="1b9bc9401156c8d7636e68a437c191c71c719b09e5889de863b03ee70932939f">
+  <meta name="syntyr-source-sha256" content="2591e95df92d7c9b049f4778475c75bfa55b1320df67a915a79b091555904058">
   <meta name="theme-color" content="#f5f7fb">
   <title>Hosting SYNTYR on Cloudflare — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/cloudflare-hosting">
@@ -69,6 +69,34 @@ verified with HTTP 200 responses for public pages/assets and HTTP 404 for
 non-public paths. Cloudflare builds run the Python test suite as a release gate.</p>
 <p>Configure a custom domain only after DNS and trademark/name clearance.
 Keep the existing GitHub Pages site as a rollback until production checks pass.</p>
+<h2 id="browser-security-policy">Browser security policy</h2>
+<p>The generated <code>_headers</code> file applies a site-wide enforced
+<code>Content-Security-Policy</code>, <code>Strict-Transport-Security</code>, <code>Permissions-Policy</code>,
+<code>X-Frame-Options: DENY</code>, <code>X-Content-Type-Options: nosniff</code>, and the
+<code>Referrer-Policy</code>. It disallows inline scripts, script evaluation, third-party
+script sources, object embedding, and cross-origin framing. <code>frame-src 'self'</code>
+is needed for the docs-only sandboxed <code>about:srcdoc</code> component playground.
+<code>img-src 'self' data:</code> and <code>connect-src 'self'</code> prevent unsolicited remote
+asset loads or fetches from compromised page code.</p>
+<p><strong>Known tradeoff:</strong> <code>style-src 'self' 'unsafe-inline'</code> remains necessary because
+existing human-facing documentation uses inline style attributes and a few
+inline <code>&lt;style&gt;</code> elements. This does <em>not</em> permit inline JavaScript. To tighten
+it, migrate presentational attributes to classes/external stylesheets, remove
+inline style elements, exercise the playground and all published pages in
+Chromium/Firefox/WebKit, then evaluate <code>style-src 'self'</code> in a report-only
+policy before enforcing. Do not simply drop <code>unsafe-inline</code> and break the
+live documentation.</p>
+<p>These headers secure the <em>Syntyr website</em>, not software using <code>@syntyr/css</code>.
+Applications embedding the stylesheet must configure their own CSP and
+server-side authentication, authorization, CSRF, and billing protections.
+The CSP also does not make user-controlled HTML safe; applications still
+need contextual escaping and safe DOM APIs.</p>
+<p>Validate the deployed origin after every production publish:</p>
+<pre><code class="language-sh">curl -fsSI https://syntyr-css.pages.dev/docs/playground | grep -iE 'content-security-policy|strict-transport-security|permissions-policy|x-frame-options'
+</code></pre>
+<p>An HTTP header check must inspect the <strong>deployed</strong> site, not just <code>_headers</code>
+in the built artifact. Avoid making security claims based only on configuration
+or a GitHub check. HSTS affects the Syntyr origin, not third-party consumers.</p>
 <h2 id="immutable-stylesheets-for-the-live-documentation-site">Immutable stylesheets for the live documentation site</h2>
 <p>The Cloudflare publish builder rewrites its <strong>own HTML stylesheet links</strong>
 to content-addressed <code>/_assets/css/&lt;sha256&gt;.css</code> copies. Cloudflare serves
@@ -121,8 +149,16 @@ Cloudflare output and deterministic release packaging. The existing Cloudflare
 build command independently runs the same Python tests.</p>
 <p><code>.woodpecker/browser.yaml</code> is a manual/tag release gate using Playwright's
 pinned browser image (Chromium, Firefox and WebKit), enlarged-text reflow and
-the theme editor. Configuring the pipeline is <strong>not</strong> proof that the Woodpecker
-repository is activated or a pipeline executed. Require a real successful
+the theme editor. The CI images are pinned to registry manifest digests; update
+them deliberately after reviewing upstream security patches.</p>
+<p><code>.woodpecker/security.yaml</code> audits the committed npm lockfiles of the optional
+Lit example and framework benchmark against high/critical advisories on PRs,
+main pushes and manual runs. This is <strong>not</strong> a claim that all optional examples
+are covered: the Astro, Tailwind, and React adapters must gain committed locks
+or be audited separately before they become release artifacts. The CSS library
+itself ships no npm runtime dependencies.</p>
+<p>Configuring a pipeline is <strong>not</strong> proof that the Woodpecker repository is
+activated or a pipeline executed. Require a real successful
 run on the exact proposed commit before declaring CI green.</p>
 <h2 id="performance-validation">Performance validation</h2>
 <p>Measure WebPageTest/Lighthouse in several regions and on mobile.
@@ -153,6 +189,7 @@ asset or locally packaged ZIP does not establish npm publication.</p>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reproducible-allowlisted-output">Reproducible, allowlisted output</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#cloudflare-hosting">Cloudflare hosting</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#browser-security-policy">Browser security policy</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#immutable-stylesheets-for-the-live-documentation-site">Immutable stylesheets for the live documentation site</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#css-cdn-urls">CSS CDN URLs</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#http-validation-after-deploy">HTTP validation after deploy</a>

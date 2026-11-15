@@ -105,7 +105,17 @@ def add_seo_metadata(files: dict[str, bytes]) -> None:
 
 
 
+# Enforced CSP blocks third-party/inline scripts. Some published docs use
+# inline presentation styles, so style-src retains unsafe-inline until those
+# styles are migrated and validated across the browser matrix. Keep the
+# sandboxed playground's about:srcdoc preview working with frame-src 'self'.
+# These headers protect the static docs; they are NOT application security
+# middleware and do not follow the distributed CSS into consumer applications.
 HEADERS = """/*
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=()
+  X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
