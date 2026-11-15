@@ -1,6 +1,6 @@
 # Syntyr agent commerce — isolated, disabled-by-default pilot
 
-**Not deployed or approved for real-money use.** Syntyr's current CSS, documentation,
+**Privately deployed to Cloudflare staging, but not publicly routed or approved for real-money use.** Syntyr's current CSS, documentation,
 themes, and examples remain MIT-licensed and free. There is no premium asset
 available for purchase. The sole demonstration product is a *service*: generation
 of original, machine-readable accessible theme token suggestions.
@@ -38,19 +38,21 @@ buyer **before** visiting the Checkout URL. There is no customer-account
 recovery, dashboard, team license, or production identity flow yet. The API
 stores only SHA-256 hashes of buyer tokens, not the tokens themselves.
 
-## Deploy only to an isolated staging Worker
+## Isolated staging deployment
 
-1. Create a separate Cloudflare D1 database, then apply `schema.sql` with
-   `wrangler d1 execute syntyr-agent-commerce-staging --remote --file=./schema.sql`
-   from this directory. Verify the chosen database name and deployment target
-   before applying migrations. Do **not** connect production Syntyr data.
-   As of November 15, 2026, a dedicated database named
-   `syntyr-agent-commerce-staging` has already been created and the initial
-   tables verified in the linked Cloudflare account. Check its schema before
-   applying migrations again; do not create a replacement database by default.
-2. Copy `wrangler.toml.example` to `wrangler.toml` and set its actual D1
-   database ID. Deploy only to a specifically approved staging route; the
-   template leaves `workers_dev = false` and does not define a route.
+1. The dedicated Cloudflare D1 database `syntyr-agent-commerce-staging`
+   already exists, and its credit and revocation schema has been applied and
+   verified. **Do not create a replacement database or reapply migrations
+   without checking the current schema.** No production customer data is used.
+2. The separate Worker `syntyr-agent-commerce-staging` is already
+   deployed, with version `1820f02a-c60d-4559-a37b-0ae463159362` active
+   at 100%. **Both `workers.dev` and preview URLs are disabled**, as are
+   both payment rails. This version contains the tested Syntyr implementation,
+   not an HTTP placeholder. The remote version has D1 and safe plain-text
+   flags, but not the Cloudflare rate-limit bindings; do not enable payment
+   flags on it. For the next release, use `wrangler.toml.example`, whose
+   rate-limit bindings are complete, and deploy only after exact-head CI and
+   configuration review.
 3. Supply an explicitly designated **Base Sepolia** receiving address with
    `X402_PAY_TO`; set `X402_TESTNET_ENABLED=true` for a supervised x402
    sandbox test. Network is hardcoded to `eip155:84532`, and the fee is
@@ -133,14 +135,19 @@ npm run smoke -- https://YOUR-ISOLATED-STAGING-ORIGIN testnet
 ```
 
 This smoke performs only safe public requests, malformed-color requests,
-and a Stripe-disabled checkout attempt. It **never signs, submits or
+and a Stripe-disabled checkout attempt. On November 15, 2026, the
+`disabled` mode ran successfully against the hosted Worker: health 200,
+catalog 200, invalid input 400, gated theme 503 and checkout 503.
+The public `workers.dev` route was disabled immediately afterward and
+verified disabled. It **never signs, submits or
 settles** a testnet payment. A real funded test-wallet settlement and
 Stripe sandbox webhook round-trip still require separate E2E testing.
 
-Before real deployment, use a reviewed, restricted Cloudflare API token
+Before any future Worker redeployment, use a reviewed, restricted Cloudflare API token
 in the maintainer's local secret store or CI secret vault and configure
 `wrangler.toml` as an ignored local file. The template is deliberately
 inert: no public Worker URL, paid route or wallet is enabled by default.
-The Cloudflare account connection used to provision D1 does not itself
-authenticate the Wrangler CLI on Gertrude. Do not deploy by copying
-unrelated application tokens or production credentials from other repos.
+The existing staging deployment was created using the authorized Cloudflare
+connection; the Wrangler CLI on Gertrude remains unauthenticated. Do not
+deploy by copying unrelated application tokens or production credentials
+from other repos.

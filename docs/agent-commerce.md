@@ -64,10 +64,15 @@ enabled simply by configuring a wallet address.
 
 ## Staging verification
 
-The isolated D1 staging database has been provisioned and its credit and
-revocation tables verified; **the Worker has not been deployed**. Local
-Cloudflare workerd testing confirmed an unpaid x402 v2 challenge and
-rate-limit enforcement. Use `npm run smoke -- <staging-origin> disabled`
+The isolated D1 staging database and its credit/revocation tables have
+been verified. The complete commerce Worker is **deployed privately** with
+both payment rails disabled. Its public `workers.dev` and preview URLs are
+disabled; this is not a public checkout service. A temporary hosted smoke
+check confirmed health and catalog access, invalid-input rejection,
+and fail-closed disabled payment endpoints. Local Cloudflare workerd testing
+confirmed the x402 v2 challenge and rate-limit enforcement. The hosted
+version does not yet include the mandatory paid-route rate-limit bindings,
+so payment modes must remain disabled. Use `npm run smoke -- <staging-origin> disabled`
 from the optional `commerce/` package to verify a disabled staging
 deployment and `npm run smoke -- <staging-origin> testnet` to verify a
 Base Sepolia unpaid challenge. Neither command transfers funds. See the

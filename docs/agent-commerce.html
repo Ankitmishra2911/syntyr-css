@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Agent commerce: x402 and Stripe pilot. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="94095181537276b91158f7175605e254b428866aab28f417440b22c0c3beefb1">
+  <meta name="syntyr-source-sha256" content="a275b9c53698004e0f7a6b0f6e3c252d321efd12a8b41e703239bfbad5d78d37">
   <meta name="theme-color" content="#f5f7fb">
   <title>Agent commerce: x402 and Stripe pilot — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-commerce.html">
@@ -108,10 +108,15 @@ monitoring, refund and chargeback policies, a licensed commercial product,
 and tests with real settlement providers. A production payment rail is not
 enabled simply by configuring a wallet address.</p>
 <h2 id="staging-verification">Staging verification</h2>
-<p>The isolated D1 staging database has been provisioned and its credit and
-revocation tables verified; <strong>the Worker has not been deployed</strong>. Local
-Cloudflare workerd testing confirmed an unpaid x402 v2 challenge and
-rate-limit enforcement. Use <code>npm run smoke -- &lt;staging-origin&gt; disabled</code>
+<p>The isolated D1 staging database and its credit/revocation tables have
+been verified. The complete commerce Worker is <strong>deployed privately</strong> with
+both payment rails disabled. Its public <code>workers.dev</code> and preview URLs are
+disabled; this is not a public checkout service. A temporary hosted smoke
+check confirmed health and catalog access, invalid-input rejection,
+and fail-closed disabled payment endpoints. Local Cloudflare workerd testing
+confirmed the x402 v2 challenge and rate-limit enforcement. The hosted
+version does not yet include the mandatory paid-route rate-limit bindings,
+so payment modes must remain disabled. Use <code>npm run smoke -- &lt;staging-origin&gt; disabled</code>
 from the optional <code>commerce/</code> package to verify a disabled staging
 deployment and <code>npm run smoke -- &lt;staging-origin&gt; testnet</code> to verify a
 Base Sepolia unpaid challenge. Neither command transfers funds. See the
