@@ -198,6 +198,18 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-field",
+          "description": "Syntyr CSS class (components/form-composition.css)."
+        },
+        {
+          "name": "syn-field-body",
+          "description": "Syntyr CSS class (components/form-composition.css)."
+        },
+        {
+          "name": "syn-field-row",
+          "description": "Syntyr CSS class (components/form-composition.css)."
+        },
+        {
           "name": "syn-fieldset",
           "description": "Syntyr CSS class (components/forms.css)."
         },
@@ -292,6 +304,14 @@
         {
           "name": "syn-input",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-input-addon",
+          "description": "Syntyr CSS class (components/form-composition.css)."
+        },
+        {
+          "name": "syn-input-group",
+          "description": "Syntyr CSS class (components/form-composition.css)."
         },
         {
           "name": "syn-kpi-grid",
