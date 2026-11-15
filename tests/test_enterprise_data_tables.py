@@ -28,6 +28,19 @@ class TableParser(HTMLParser):
             self.region = a
 
 class EnterpriseDataTables(unittest.TestCase):
+    def test_a11y_audit_includes_this_public_example(self):
+        import ast
+        tree = ast.parse((ROOT / "tests/axe_audit.py").read_text())
+        pages = next(
+            ast.literal_eval(node.value)
+            for node in tree.body
+            if isinstance(node, ast.Assign) and any(
+                isinstance(target, ast.Name) and target.id == "PAGES"
+                for target in node.targets
+            )
+        )
+        self.assertIn("examples/data-tables.html", pages)
+
     def test_opt_in_native_table_styles_are_scoped(self):
         css = (ROOT / "src/components/data.css").read_text()
         for name in (".syn-table-wrap--scroll", ".syn-table--sticky", ".syn-table--striped", ".syn-table-sort"):
