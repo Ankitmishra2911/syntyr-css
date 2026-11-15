@@ -6,46 +6,76 @@
   <meta name="description" content="Syntyr CSS: MIT-licensed, zero-JavaScript modern SaaS and futuristic components. Three published palettes and seven experimental alpha.5 palettes.">
   <meta name="theme-color" content="#080f19">
   <title>Syntyr CSS — Component Gallery</title>
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
 </head>
 <body class="syn-root syn-page" data-syn-theme="grid">
+  <a href="#docs-main" class="syn-button docs-skip">Skip to documentation</a>
   <div class="syn-shell" id="top">
-    <header class="syn-header">
-      <a class="syn-logo" href="#top">// SYNTYR<span class="docs-visually-hidden"> home</span></a>
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">// SYNTYR<span class="docs-visually-hidden"> home</span></a>
       <nav class="syn-nav" aria-label="Main navigation">
-        <a href="#install">GET STARTED</a>
-        <a href="framework-integrations.md">INTEGRATIONS</a>
-        <a href="ai-quickstart.md">AI / AGENTS</a>
-        <a href="performance-and-polish.md">PERFORMANCE</a>
-        <a href="#themes">THEMES</a>
-        <a href="#components">COMPONENTS</a><a href="catalog.html">SEARCH + COPY</a>
-        <a href="#recipes">RECIPES</a>
-        <a href="../examples/native-elements.html">NATIVE HTML</a>
-        <a href="console-kit.html">CONSOLE KIT CONCEPT</a>
-        <a href="#semantic">SEMANTIC MODE</a>
-        <a href="#accessibility">PRINCIPLES</a>
-        <a href="#feedback">FEEDBACK</a><a href="#examples">EXAMPLES</a>
+        <a href="#install">Get started</a>
+        <a href="catalog.html">Components</a>
+        <a href="#themes">Themes</a>
+        <a href="guides.html">Guides</a>
+        <a href="#examples">Examples</a>
       </nav>
+      <details class="site-mobile-menu">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="#install">Get started</a>
+          <a href="catalog.html">Components</a>
+          <a href="#themes">Themes</a>
+          <a href="guides.html">Guides</a>
+          <a href="#examples">Examples</a>
+        </nav>
+      </details>
     </header>
-    <main>
+    <main id="docs-main">
       <section class="docs-hero docs-ambient" aria-labelledby="hero-title">
         <div class="docs-hero-bar"><span class="syn-eyebrow">INTERFACE SYSTEM / CSS-FIRST</span><span class="syn-badge">PROTOCOL ACTIVE</span></div>
-        <h1 id="hero-title" class="docs-title">The future is <em>semantic.</em></h1>
-        <p class="syn-lede">A futuristic visual system built on real HTML. Three published palettes and seven in the unreleased alpha.5 source, with composable primitives and zero required JavaScript.</p>
+        <h1 id="hero-title" class="docs-title">Real HTML. <em>Beautiful by design.</em></h1>
+        <p class="syn-lede">Get from a stylesheet to a useful interface without a component runtime. Syntyr combines semantic HTML, reusable CSS primitives and distinctive themes. Published alpha.4 includes three palettes; the unreleased alpha.5 source explores seven.</p>
         <div class="syn-actions">
-          <a class="syn-button syn-button--primary" href="#components">EXPLORE COMPONENTS</a>
-          <a class="syn-button" href="#semantic">VIEW SEMANTIC MODE</a>
+          <a class="syn-button syn-button--primary" href="#install">Get started</a>
+          <a class="syn-button" href="catalog.html">Search components</a>
+          <a class="syn-button syn-button--outline" href="guides.html">Read guides</a>
         </div>
-        <div class="docs-kpis">
-          <div><span class="syn-caption">RUNTIME DEPENDENCIES</span><strong>0</strong></div>
-          <div><span class="syn-caption">CORE JAVASCRIPT</span><strong>0 KB</strong></div>
-          <div><span class="syn-caption">VISUAL SYSTEMS</span><strong>03</strong></div>
+        <p class="syn-caption docs-ai-note">Using an AI coding agent? <a href="ai-quickstart.md">Read the agent quickstart</a> and <a href="agent-integration.md">integration reference</a>.</p>
+
+      </section>
+
+      <section class="docs-section" id="install" aria-labelledby="install-title">
+        <div class="docs-section-head"><h2 id="install-title">01 / Get started</h2><span class="syn-caption">COPY CSS / ZERO NPM / MIT</span></div>
+        <div class="docs-two">
+          <div>
+            <p class="syn-eyebrow">PUBLISHED ALPHA.4 / SOURCE ALPHA.5</p>
+            <h3 class="syn-heading">Use native HTML. Ship nothing extra.</h3>
+            <p class="syn-muted">The published v0.3.0-alpha.4 release includes Grid, Noir and Studio themes. This download serves the unreleased alpha.5 source candidate with seven palettes. Pin a tagged release for reproducible experiments, self-host the CSS with your application, and load semantic styling, recipes and effects only when needed.</p>
+            <div class="syn-actions">
+              <a class="syn-button syn-button--primary" href="../dist/syntyr.core.css" download>DOWNLOAD CORE CSS</a>
+              <a class="syn-button" href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4">RELEASE &amp; SOURCE</a>
+              <a class="syn-button syn-button--outline" href="../LICENSE">MIT LICENSE</a>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;link rel="stylesheet"
+      href="/css/syntyr.core.css"&gt;
+
+&lt;section class="syn-root"
+         data-syn-theme="grid"&gt;
+  &lt;button class="syn-button
+           syn-button--primary"&gt;
+    Initialize
+  &lt;/button&gt;
+&lt;/section&gt;</code></pre>
         </div>
+        <p class="syn-caption">Host the CSS at your own path. For tokens, nested themes, and styling examples, read <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/theme-customization.md">the customization guide</a>. For optional modules, version pinning and CDN guidance, see <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/distribution.md">the distribution guide</a>.</p>
       </section>
 
       <section class="docs-section" id="themes" aria-labelledby="themes-title">
-        <div class="docs-section-head"><h2 id="themes-title">01 / Published visual systems</h2><span class="syn-caption">ONE MARKUP CONTRACT / TWO MODES</span></div>
+        <div class="docs-section-head"><h2 id="themes-title">02 / Published visual systems</h2><span class="syn-caption">ONE MARKUP CONTRACT / TWO MODES</span></div>
         <p class="syn-caption">Create a custom palette with the <a href="theme-editor.html">interactive theme editor</a> (optional docs-only JavaScript, no build step).</p>
         <div class="docs-grid">
           <article class="syn-panel syn-panel--cut docs-vertical" data-syn-theme="grid">
@@ -74,7 +104,7 @@
       </section>
 
       <section class="docs-section" id="components" aria-labelledby="components-title">
-        <div class="docs-section-head"><h2 id="components-title">02 / Component laboratory</h2><span class="syn-caption">NO COMPONENT JAVASCRIPT</span></div>
+        <div class="docs-section-head"><h2 id="components-title">03 / Component laboratory</h2><span class="syn-caption">NO COMPONENT JAVASCRIPT</span></div>
         <div class="docs-grid">
           <article class="syn-panel syn-panel--cut docs-vertical">
             <div class="docs-panel-title"><span class="syn-eyebrow">01 / CONTROLS</span><span class="syn-caption">BUTTONS</span></div>
@@ -145,7 +175,7 @@
       </section>
 
       <section class="docs-section" id="semantic" aria-labelledby="semantic-title">
-        <div class="docs-section-head"><h2 id="semantic-title">03 / Optional semantic styling</h2><span class="syn-caption">PICO-LIKE MARKUP / OPT-IN</span></div>
+        <div class="docs-section-head"><h2 id="semantic-title">04 / Optional semantic styling</h2><span class="syn-caption">PICO-LIKE MARKUP / OPT-IN</span></div>
         <div class="docs-two">
           <div class="docs-vertical">
             <span class="syn-eyebrow">NO COMPONENT CLASSES REQUIRED</span>
@@ -175,7 +205,7 @@
       </section>
 
       <section class="docs-section" id="recipes" aria-labelledby="recipes-title">
-        <div class="docs-section-head"><h2 id="recipes-title">04 / Composable UI recipes</h2><span class="syn-caption">CONTAINER QUERIES / MIT / NO RUNTIME JS</span></div>
+        <div class="docs-section-head"><h2 id="recipes-title">05 / Composable UI recipes</h2><span class="syn-caption">CONTAINER QUERIES / MIT / NO RUNTIME JS</span></div>
         <p class="syn-lede">Like Tailwind's composable building blocks, these original patterns assemble into working HTML without requiring a CSS compiler or a JavaScript runtime. Resize the window or embed them in a narrower region to see how they adapt.</p>
         <div class="syn-region">
           <div class="syn-stats" role="group" aria-label="Illustrative status metrics">
@@ -202,7 +232,7 @@
       </section>
 
       <section class="docs-section" id="examples" aria-labelledby="examples-title">
-        <div class="docs-section-head"><h2 id="examples-title">05 / Free production-shaped examples</h2><span class="syn-caption">MIT / REUSABLE / NO JAVASCRIPT</span></div>
+        <div class="docs-section-head"><h2 id="examples-title">06 / Free production-shaped examples</h2><span class="syn-caption">MIT / REUSABLE / NO JAVASCRIPT</span></div>
         <div class="docs-grid">
           <article class="syn-panel syn-panel--cut"><span class="syn-eyebrow">GRID / CONTROL CONSOLE</span><h3>Free dashboard page</h3><p class="syn-muted">Native popovers, dialogs, responsive navigation, metrics and a data table in plain HTML.</p><a class="syn-button syn-button--primary" href="../examples/console.html">OPEN CONSOLE DEMO</a></article>
           <article class="syn-panel syn-panel--cut" data-syn-theme="noir"><span class="syn-eyebrow">NOIR / LAUNCH PAGE</span><h3>Free landing page</h3><p class="syn-muted">Atmospheric marketing layout with native HTML, semantic sections and a distinctive amber palette.</p><a class="syn-button syn-button--outline" href="../examples/landing.html">OPEN NOIR DEMO</a></article>
@@ -216,6 +246,7 @@
           <article class="syn-panel syn-frame--bracket"><span class="syn-eyebrow">SYNTYR / OPERATIONS SHOWCASE</span><h3>Complete operations console</h3><p class="syn-muted">Responsive SaaS sidebar, KPI dashboard, deployment table, capacity readouts, activity timeline and diagnostics—all with sample data and zero runtime JS.</p><a class="syn-button syn-button--primary" href="../examples/operations-console.html">OPEN OPERATIONS DEMO</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">SYSTEM / MINIMALIST</span><h3>Intrinsic layouts + classless forms</h3><p class="syn-muted">Responsive sidebar and switcher, fluid type, native form controls, and OS-following light/dark styling with no JavaScript.</p><a class="syn-button syn-button--primary" href="../examples/minimalist-patterns.html">OPEN MINIMALIST EXAMPLE</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">DESIGN SYSTEM / STATES</span><h3>Semantic roles and interactions</h3><p class="syn-muted">Typography, keyboard focus, validation, density and nested themes. Class-based and native semantic modes.</p><a class="syn-button syn-button--outline" href="../examples/design-states.html">OPEN DESIGN-STATE EXAMPLE</a></article>
+          <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">NATIVE / HTML PRIMITIVES</span><h3>Real browser controls</h3><p class="syn-muted">Native form fields and disclosures, progressive CSS styling and accessible markup.</p><a class="syn-button syn-button--outline" href="../examples/native-elements.html">OPEN NATIVE HTML DEMO</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">STUDIO / WORKFLOWS</span><h3>Search, filters and settings</h3><p class="syn-muted">A complete static SaaS UI example with search form, data table, native settings and pagination. Server-ready markup; no live backend or JavaScript.</p><a class="syn-button syn-button--primary" href="../examples/saas-workflows.html">OPEN WORKFLOW EXAMPLE</a></article>
           <article class="syn-panel" data-syn-theme="studio"><span class="syn-eyebrow">VERTIGO / OPTIONAL ADMIN SKIN</span><h3>Go admin styling demo</h3><p class="syn-muted">Optional MIT CSS adapter for Vertigo-style server-rendered admin pages. No runtime dependency or live backend.</p><a class="syn-button syn-button--outline" href="../examples/vertigo-admin.html">OPEN VERTIGO SKIN DEMO</a></article>
         </div>
@@ -228,33 +259,6 @@
         </div>
         <p><a class="syn-button syn-button--outline" href="saas-cli-business.md">READ SAAS, BUSINESS AND CLI GUIDE</a> <a class="syn-button" href="geometry-terminal.md">READ FRAME GEOMETRY GUIDE</a> <a class="syn-button" href="viz.md">READ VIZ GUIDE</a> <a class="syn-button" href="symbols.md">READ ICON &amp; ASCII GUIDE</a></p>
         <p class="syn-caption">These examples are MIT-licensed. Future premium kits would be separate, complete page packs—not paywalls on essential UI components.</p>
-      </section>
-
-      <section class="docs-section" id="install" aria-labelledby="install-title">
-        <div class="docs-section-head"><h2 id="install-title">06 / Get started</h2><span class="syn-caption">COPY CSS / ZERO NPM / MIT</span></div>
-        <div class="docs-two">
-          <div>
-            <p class="syn-eyebrow">V0.3.0-ALPHA.2 / DISTRIBUTION</p>
-            <h3 class="syn-heading">Use native HTML. Ship nothing extra.</h3>
-            <p class="syn-muted">Download the compiled stylesheet and host it with your application. The v0.3.0-alpha.4 release includes Grid, Noir and Studio themes, with separate CSS recipes for SaaS, business and terminal layouts. Semantic styling and decorative effects remain optional.</p>
-            <div class="syn-actions">
-              <a class="syn-button syn-button--primary" href="../dist/syntyr.core.css" download>DOWNLOAD CORE CSS</a>
-              <a class="syn-button" href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4">RELEASE &amp; SOURCE</a>
-              <a class="syn-button syn-button--outline" href="../LICENSE">MIT LICENSE</a>
-            </div>
-          </div>
-          <pre class="docs-code"><code>&lt;link rel="stylesheet"
-      href="/css/syntyr.core.css"&gt;
-
-&lt;section class="syn-root"
-         data-syn-theme="grid"&gt;
-  &lt;button class="syn-button
-           syn-button--primary"&gt;
-    Initialize
-  &lt;/button&gt;
-&lt;/section&gt;</code></pre>
-        </div>
-        <p class="syn-caption">Host the CSS at your own path. For tokens, nested themes, and styling examples, read <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/theme-customization.md">the customization guide</a>. For optional modules, version pinning and CDN guidance, see <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/distribution.md">the distribution guide</a>.</p>
       </section>
 
       <section class="docs-section" id="feedback" aria-labelledby="feedback-title">

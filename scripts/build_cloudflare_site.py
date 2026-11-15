@@ -51,6 +51,8 @@ def source_files() -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     paths = [
         ROOT / "index.html",
+        ROOT / "assets/syntyr-mark.svg",
+        ROOT / "assets/og-syntyr.png",
         ROOT / "404.html",
         ROOT / "LICENSE",
         ROOT / "README.md",
@@ -68,7 +70,7 @@ def source_files() -> dict[str, bytes]:
         "ai-quickstart.md", "agent-integration.md",
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
         "console-kit.html", "design-research-linear-resend.md",
-        "distribution.md", "package-managers.md", "docs.css", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
+        "distribution.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
         "geometry-terminal.md", "performance-and-polish.md",
         "performance-validation.md", "progressive-enhancement.md",
         "index.html", "recipes.md", "saas-cli-business.md",

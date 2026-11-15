@@ -6,6 +6,15 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="Syntyr CSS: a modern, MIT-licensed interface system for SaaS dashboards, business websites and futuristic consoles. Native HTML, no runtime JavaScript.">
   <title>Syntyr CSS — Modern interfaces, less machinery</title>
+  <link rel="icon" href="assets/syntyr-mark.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Syntyr CSS — Modern interfaces, less machinery">
+  <meta property="og:description" content="Build modern SaaS, business and futuristic interfaces with semantic HTML and framework-neutral CSS.">
+  <meta property="og:image" content="https://syntyr-css.pages.dev/assets/og-syntyr.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Syntyr CSS with a sample SaaS dashboard in a cyan technical visual system">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="dist/syntyr.core.css">
   <link rel="stylesheet" href="dist/syntyr.recipes.css">
   <link rel="stylesheet" href="dist/syntyr.effects.css">
@@ -20,6 +29,15 @@
     .site-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm)/1.4 var(--syn-font-ui); }
     .site-nav a:hover, .site-nav a:focus-visible { color: var(--syn-text); }
     .site-nav a:last-child { color: var(--syn-accent); }
+    .site-tertiary-link { align-self: center; color: var(--syn-muted); text-underline-offset: .2em; font-size: .9rem; }
+    .site-mobile-menu { display: none; position: relative; }
+    .site-mobile-menu summary { cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 44px; min-width: 5rem; padding: .55rem .85rem; border: 1px solid var(--syn-border-subtle); border-radius: .4rem; background: var(--syn-surface); list-style: none; color: var(--syn-text); font-weight: 650; }
+    .site-mobile-menu summary::-webkit-details-marker { display: none; }
+    .site-mobile-menu summary::after { content: "⌄"; margin-inline-start: .65rem; }
+    .site-mobile-menu[open] summary::after { content: "⌃"; }
+    .site-mobile-menu nav { position: absolute; inset-block-start: calc(100% + .45rem); inset-inline-end: 0; z-index: 10; min-width: min(17rem, 84vw); display: grid; gap: .15rem; padding: .55rem; border: 1px solid var(--syn-border-subtle); border-radius: .55rem; background: var(--syn-surface); box-shadow: 0 20px 50px rgb(0 0 0 / 16%); }
+    .site-mobile-menu nav a { display: flex; align-items: center; min-height: 44px; padding: .55rem .75rem; border-radius: .25rem; text-decoration: none; color: var(--syn-text); }
+    .site-mobile-menu nav a:hover, .site-mobile-menu nav a:focus-visible { background: var(--syn-surface-hi); }
     .site-hero { padding-block: clamp(3.5rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: clamp(2rem, 6vw, 5rem); }
     .site-kicker { display: inline-flex; align-items: center; gap: .65rem; color: var(--syn-accent); font: 700 .78rem/1.5 var(--syn-font-ui); letter-spacing: .11em; text-transform: uppercase; }
     .site-kicker::before { content: ""; display: inline-block; inline-size: 1.25rem; block-size: 2px; background: currentColor; }
@@ -67,6 +85,15 @@
     .site-preview-rule { inline-size: 2.8rem; block-size: 3px; background: var(--syn-accent); }
     .site-console-line { font: .78rem/1.8 var(--syn-mono); white-space: nowrap; }
     .site-console-line strong { color: var(--syn-accent); font-weight: 700; }
+    .site-theme-comparison { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-block: 1.7rem 1.25rem; }
+    .site-compare-card { min-width: 0; padding: 1rem; border: 1px solid var(--syn-frame); border-radius: .7rem; background: var(--syn-bg); color: var(--syn-text); }
+    .site-compare-card h3 { font: 650 1rem/1.25 var(--syn-font-ui); margin: 0; }
+    .site-compare-card header { display: flex; justify-content: space-between; gap: .5rem; align-items: center; margin-block-end: .85rem; }
+    .site-compare-main { padding: 1rem; border: 1px solid var(--syn-frame); border-radius: .45rem; background: var(--syn-surface); }
+    .site-compare-main small { color: var(--syn-muted); }
+    .site-compare-main strong { display: block; font: 690 1.75rem/1.4 var(--syn-font-display); margin-block: .15rem .8rem; }
+    .site-compare-bars { display: flex; align-items: end; gap: .35rem; height: 2.4rem; }
+    .site-compare-bars i { flex: 1; height: var(--bar); background: var(--syn-accent); border-radius: .15rem .15rem 0 0; }
     .site-theme-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: .65rem; }
     .site-theme-swatch { display: grid; gap: .7rem; padding: .8rem; border: 1px solid var(--syn-frame); background: var(--syn-bg); color: var(--syn-text); border-radius: .45rem; font: 650 .85rem/1.3 var(--syn-font-ui); }
     .site-theme-swatch::before { content: ""; display: block; block-size: 2.4rem; border-radius: .2rem; background: linear-gradient(110deg, var(--syn-surface) 0 60%, var(--syn-accent) 60%); border: 1px solid var(--syn-frame); }
@@ -81,6 +108,11 @@
     .site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-block: 2rem 3rem; border-block-start: 1px solid var(--syn-border-subtle); }
     .site-footer nav { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; }
     .site-footer a { color: var(--syn-muted); font-size: var(--syn-type-sm); }
+    @media (max-width: 45rem) {
+      .site-nav { display: none; }
+      .site-mobile-menu { display: block; }
+      .site-theme-comparison { grid-template-columns: minmax(0, 1fr); }
+    }
     @media (max-width: 53rem) {
       .site-hero, .site-try { grid-template-columns: minmax(0, 1fr); }
       .site-preview-board { max-inline-size: 38rem; }
@@ -95,8 +127,8 @@
     @media (prefers-reduced-motion: reduce) { .site-skip { scroll-behavior: auto; } }
     @media (forced-colors: active) {
       .site-kicker::before, .site-trust li::before, .site-preview-rule { background: CanvasText; }
-      .site-preview-board, .site-showcase-card, .site-preview, .site-mini-metric, .site-theme-swatch, .site-try, .site-code { border-color: CanvasText; }
-      .site-chart span, .site-preview-bars span, .site-theme-swatch::before { background: Highlight; }
+      .site-preview-board, .site-showcase-card, .site-preview, .site-mini-metric, .site-theme-swatch, .site-compare-card, .site-compare-main, .site-try, .site-code, .site-mobile-menu nav { border-color: CanvasText; }
+      .site-chart span, .site-preview-bars span, .site-compare-bars i, .site-theme-swatch::before { background: Highlight; }
     }
   </style>
 </head>
@@ -106,23 +138,34 @@
     <header class="site-header">
       <a class="site-brand" href="#top" aria-label="Syntyr CSS home">SYNTYR <span>/ CSS</span></a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="#showcase">Examples</a>
+        <a href="docs/#install">Get started</a>
+        <a href="docs/catalog.html">Components</a>
         <a href="#themes">Themes</a>
-        <a href="#components">HTML primitives</a>
-        <a href="docs/">Documentation</a>
-        <a href="https://github.com/dporkka/syntyr-css/issues/3">Give feedback</a>
+        <a href="#showcase">Examples</a>
+        <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
       </nav>
+      <details class="site-mobile-menu">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="docs/#install">Get started</a>
+          <a href="docs/catalog.html">Components</a>
+          <a href="#themes">Themes</a>
+          <a href="#showcase">Examples</a>
+          <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
+        </nav>
+      </details>
     </header>
 
     <main id="main">
       <section class="site-hero" aria-labelledby="hero-title">
         <div>
           <span class="site-kicker">Native HTML. Intentional design.</span>
-          <h1 id="hero-title">Make the browser <em>do more.</em></h1>
-          <p class="site-lede">An independent CSS design system for professional SaaS dashboards, business websites and futuristic interfaces. Build with real HTML and bring your own framework—or none.</p>
+          <h1 id="hero-title">Modern CSS. <em>Less machinery.</em></h1>
+          <p class="site-lede">Beautiful, customizable interfaces for SaaS, business sites and futuristic consoles. Use semantic HTML with any framework—or none. No required runtime JavaScript.</p>
           <div class="syn-actions">
-            <a class="syn-button syn-button--primary" href="#showcase">Explore real examples</a>
-            <a class="syn-button syn-button--outline" href="docs/">Browse components</a>
+            <a class="syn-button syn-button--primary" href="docs/#install">Get started</a>
+            <a class="syn-button syn-button--outline" href="docs/catalog.html">Explore components</a>
+            <a class="site-tertiary-link" href="#theme-comparison">Compare themes</a>
           </div>
           <ul class="site-trust" aria-label="Library characteristics">
             <li>MIT-licensed core</li>
@@ -202,6 +245,20 @@
           <p class="site-section-intro">Studio, Grid and Noir are in the published alpha.4 release. All seven palettes shown below belong to the unreleased alpha.5 source candidate. Select themes explicitly for different sections.</p></div>
           <a href="examples/themes.html">Explore the theme gallery</a>
         </div>
+        <div id="theme-comparison" class="site-theme-comparison" role="group" aria-label="The same sample dashboard in three themes">
+          <article class="site-compare-card" data-syn-theme="studio">
+            <header><h3>Studio</h3><span class="syn-badge">Professional</span></header>
+            <div class="site-compare-main"><small>Monthly revenue · Sample</small><strong>$24,680</strong><div class="site-compare-bars" aria-hidden="true"><i style="--bar:45%"></i><i style="--bar:70%"></i><i style="--bar:58%"></i><i style="--bar:88%"></i><i style="--bar:100%"></i></div></div>
+          </article>
+          <article class="site-compare-card" data-syn-theme="grid">
+            <header><h3>Grid</h3><span class="syn-badge">Futuristic</span></header>
+            <div class="site-compare-main"><small>Monthly revenue · Sample</small><strong>$24,680</strong><div class="site-compare-bars" aria-hidden="true"><i style="--bar:45%"></i><i style="--bar:70%"></i><i style="--bar:58%"></i><i style="--bar:88%"></i><i style="--bar:100%"></i></div></div>
+          </article>
+          <article class="site-compare-card" data-syn-theme="noir">
+            <header><h3>Noir</h3><span class="syn-badge">Cinematic</span></header>
+            <div class="site-compare-main"><small>Monthly revenue · Sample</small><strong>$24,680</strong><div class="site-compare-bars" aria-hidden="true"><i style="--bar:45%"></i><i style="--bar:70%"></i><i style="--bar:58%"></i><i style="--bar:88%"></i><i style="--bar:100%"></i></div></div>
+          </article>
+        </div>
         <div class="site-theme-grid" role="group" aria-label="Seven visual palettes">
           <div class="site-theme-swatch" data-syn-theme="studio">Studio</div>
           <div class="site-theme-swatch" data-syn-theme="minimal">Minimal</div>
@@ -240,7 +297,7 @@
             <button class="syn-button" type="button" commandfor="grid-dialog" command="show-modal">Try native dialog</button>
             <button class="syn-button syn-button--outline" type="button" popovertarget="grid-popover">Try native popover</button>
             <details class="syn-details"><summary>What works without JavaScript?</summary><p>Native disclosures, links, buttons, HTML form submission, and supported popover/dialog commands. Advanced application widgets remain the application's responsibility.</p></details>
-            <p class="syn-caption">Dialog invoker commands require supporting browsers. The <a href="docs/progressive-enhancement.md">progressive-enhancement guide</a> describes fallbacks.</p>
+            <p class="syn-caption">Dialog invoker commands require supporting browsers. The <a href="docs/guides.html#progressive-enhancement">progressive-enhancement guide</a> describes fallbacks.</p>
             <dialog id="grid-dialog" class="syn-dialog" aria-labelledby="dialog-title">
               <h3 id="dialog-title" class="syn-heading">A native dialog</h3>
               <p>No Syntyr JavaScript is needed for this native interaction in browsers supporting dialog invoker commands.</p>
@@ -260,7 +317,7 @@
       <span class="syn-caption">SYNTYR CSS · MIT-LICENSED · NO REQUIRED RUNTIME JAVASCRIPT</span>
       <nav aria-label="Footer navigation">
         <a href="docs/">Documentation</a>
-        <a href="docs/distribution.md">Installation</a>
+        <a href="docs/#install">Installation</a>
         <a href="https://github.com/dporkka/syntyr-css">Source</a>
         <a href="https://github.com/dporkka/syntyr-css/issues/3">Developer feedback</a>
         <a href="#top">Back to top</a>
