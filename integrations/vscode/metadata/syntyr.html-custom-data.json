@@ -82,6 +82,10 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-bulk-actions",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-button",
           "description": "Native button or link styling; use semantic HTML."
         },
@@ -164,6 +168,14 @@
         {
           "name": "syn-code-figure",
           "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
+          "name": "syn-collection-actions",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-collection-toolbar",
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-command-description",
@@ -288,6 +300,10 @@
         {
           "name": "syn-error",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-error-summary",
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-eyebrow",
@@ -602,6 +618,10 @@
           "description": "Container query boundary for responsive compositions."
         },
         {
+          "name": "syn-result-state",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-root",
           "description": "Required style scope for Syntyr components and themes."
         },
@@ -774,11 +794,31 @@
           "description": "Syntyr CSS class (components/data.css)."
         },
         {
+          "name": "syn-table--compact",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-table--sticky",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
+          "name": "syn-table--striped",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
           "name": "syn-table-emphasis",
           "description": "Syntyr CSS class (components/data.css)."
         },
         {
+          "name": "syn-table-sort",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
           "name": "syn-table-wrap",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
+          "name": "syn-table-wrap--scroll",
           "description": "Syntyr CSS class (components/data.css)."
         },
         {

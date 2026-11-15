@@ -226,6 +226,15 @@
       ]
     },
     {
+      "name": "syn-bulk-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-button",
       "module": "components/buttons.css",
       "description": "Native button or link styling; use semantic HTML.",
@@ -448,6 +457,24 @@
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.native-recipes.css"
+      ]
+    },
+    {
+      "name": "syn-collection-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-collection-toolbar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -742,6 +769,15 @@
         "syntyr.core.css",
         "syntyr.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-error-summary",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -1562,6 +1598,15 @@
       ]
     },
     {
+      "name": "syn-result-state",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-root",
       "module": "base.css",
       "description": "Required style scope for Syntyr components and themes.",
@@ -2026,6 +2071,39 @@
       ]
     },
     {
+      "name": "syn-table--compact",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-table--sticky",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table--striped",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-table-emphasis",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css).",
@@ -2038,7 +2116,31 @@
       ]
     },
     {
+      "name": "syn-table-sort",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-table-wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table-wrap--scroll",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [

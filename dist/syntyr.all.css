@@ -580,13 +580,35 @@
     &.syn-meter::-webkit-progress-value { background: var(--syn-accent); }
     &.syn-meter::-moz-progress-bar { background: var(--syn-accent); }
     &.syn-table-wrap { overflow-x: auto; }
+    /* Bounded, keyboard-scrollable overflow for large native tables. */
+    &.syn-table-wrap--scroll { max-block-size: var(--syn-table-scroll-height, 24rem); overflow: auto; }
     &.syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
     &.syn-table th, &.syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); overflow-wrap: anywhere; }
     /* Keep identifiers and quantities on one line only when explicitly requested. */
     &.syn-table .syn-cell--nowrap { white-space: nowrap; }
     /* Allow descriptive cells to wrap without changing compact identifier/numeric cells. */
     &.syn-table .syn-cell--wrap { white-space: normal; overflow-wrap: anywhere; max-inline-size: 38ch; }
+    /* Opt-in striping; selected rows take precedence. */
+    &.syn-table--striped tbody tr:nth-child(even):not([aria-selected="true"]):not([data-syn-state="selected"]) { background: var(--syn-surface-recessed); }
     &.syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
+    &.syn-table--sticky thead th {
+      position: sticky;
+      inset-block-start: var(--syn-table-sticky-offset, 0px);
+      z-index: 1;
+      background: var(--syn-surface);
+      box-shadow: inset 0 -1px var(--syn-border-default);
+    }
+    /* aria-sort belongs on th. These arrows only reflect the actual HTML state. */
+    &.syn-table .syn-table-sort { display: inline-flex; align-items: center; gap: .5rem; color: inherit; font: inherit; }
+    &.syn-table :is(a, button).syn-table-sort { text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+    &.syn-table button.syn-table-sort { padding: 0; border: 0; background: transparent; }
+    &.syn-table th[aria-sort="ascending"] .syn-table-sort::after,
+    &.syn-table th[aria-sort="descending"] .syn-table-sort::after {
+      content: ""; display: inline-block; flex: none; inline-size: .4rem; block-size: .4rem;
+      border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    }
+    &.syn-table th[aria-sort="ascending"] .syn-table-sort::after { transform: rotate(225deg); }
+    &.syn-table th[aria-sort="descending"] .syn-table-sort::after { transform: rotate(45deg); }
     &.syn-table tr[aria-selected="true"], &.syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
     &.syn-table tr[aria-selected="true"] > :first-child,
     &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start: 3px solid var(--syn-accent); }
@@ -604,6 +626,7 @@
       &.syn-table tr[aria-selected="true"] > :first-child,
       &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start-color: Highlight; }
       &.syn-status::before { border: 1px solid currentColor; }
+      &.syn-table--sticky thead th { background: Canvas; box-shadow: inset 0 -1px CanvasText; }
     }
   }
 }
@@ -655,7 +678,9 @@
       display: grid;
       grid-template-columns: 2.75rem minmax(0, 1fr);
       gap: var(--syn-space-2);
-      align-items: center;
+      /* Connectors start at the marker bottom, so tall translated text must
+         never vertically center the numbered marker into the connector. */
+      align-items: start;
       color: var(--syn-muted);
       overflow-wrap: anywhere;
       min-width: 0;
@@ -944,6 +969,57 @@
     &.syn-filter-actions {
       display: flex; align-items: center; flex-wrap: wrap;
       gap: var(--syn-space-1); min-inline-size: 0;
+    }
+
+    /* Collection workspaces: combine with existing syn-filter-bar and syn-detail-layout.
+       No simulated selection, filtering or persistence behavior is implied. */
+    &.syn-collection-toolbar {
+      display: flex; flex-wrap: wrap; align-items: end;
+      justify-content: space-between; gap: var(--syn-space-2);
+      min-inline-size: 0; margin-block-end: var(--syn-space-2);
+    }
+    &.syn-collection-toolbar > :where(form, .syn-filter-bar) {
+      flex: 1 1 20rem; min-inline-size: min(100%, 20rem);
+    }
+    &.syn-collection-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: var(--syn-space-1); min-inline-size: 0;
+    }
+    &.syn-bulk-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--syn-space-2);
+      padding: var(--syn-space-2); min-inline-size: 0;
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+    }
+    /* Opt-in row density, never a global table override. */
+    &.syn-table--compact :where(th, td) { padding-block: .375rem; padding-inline: .5rem; }
+    &.syn-result-state {
+      padding: clamp(1rem, 3vw, 2rem); min-inline-size: 0;
+      border: 1px dashed var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-result-state > :first-child { margin-block-start: 0; }
+    &.syn-result-state > :last-child { margin-block-end: 0; }
+    /* Link each summary item to a field id; the server supplies actual errors
+       and must manage focus after a failed POST. */
+    &.syn-error-summary {
+      padding: var(--syn-space-3); margin-block-end: var(--syn-space-3);
+      border: 1px solid var(--syn-danger);
+      border-inline-start: 4px solid var(--syn-danger);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-error-summary > :first-child { margin-block-start: 0; }
+    &.syn-error-summary > :last-child { margin-block-end: 0; }
+    &.syn-error-summary a { color: var(--syn-text); text-decoration: underline; text-decoration-color: var(--syn-danger); text-underline-offset: .2em; }
+    &.syn-error-summary:focus-visible { outline: 3px solid var(--syn-focus-ring); outline-offset: 2px; }
+    @media (forced-colors: active) {
+      &.syn-error-summary, &.syn-result-state, &.syn-bulk-actions { border-color: CanvasText; }
     }
 
     /* Native pipeline view: horizontal scroll only on the board, not the page.
@@ -2160,7 +2236,7 @@
     .syn-root { background: #fff; color: #111; }
     .syn-root :is(.syn-app-shell, .syn-layout) { display: block; }
     .syn-root :is(.syn-app-rail, .syn-app-nav, .syn-pagination, .syn-print-hide) { display: none; }
-    .syn-root :is(.syn-table-wrap, .syn-terminal-body) { overflow: visible; }
+    .syn-root :is(.syn-table-wrap, .syn-terminal-body) { overflow: visible; max-block-size: none; }
     .syn-root :is(.syn-grid-effect, .syn-horizon, .syn-atmosphere, .syn-glow, .syn-site-hero, .syn-stage, .syn-panel) {
       background-image: none; box-shadow: none;
     }

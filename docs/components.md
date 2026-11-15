@@ -102,6 +102,8 @@ The implicit `.syn-root` palette is Studio (light and sans-serif). Explicit `dat
 
 Use `.syn-section-heading` between `.syn-heading` and `.syn-display`. Table content wraps by default for better readability in narrow regions, including long text. Apply `.syn-cell--nowrap` to identifiers or short labels that must stay on one line; `.syn-cell--numeric` also preserves no-wrap numeric alignment. `.syn-cell--wrap` remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside `.syn-table-wrap` with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with `tabindex="0"`, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.
 
+For large server-rendered tables, see the [enterprise tables guide](data-tables.html) and [static example](../examples/data-tables.html). Sorting and filtering remain application responsibilities.
+
 ## Theme tokens
 
 | Token | Purpose |
@@ -265,6 +267,8 @@ decorative; the real ordered list and labels convey order and meaning. Preserve
 `role="list"` for list semantics in Safari when CSS removes list markers.
 Never use colors alone to communicate completion or failure. CSS cannot
 implement step navigation, eligibility checks or server-side transitions.
+Long step descriptions and translated text keep numbered markers aligned at the
+block start so vertical connectors do not cross the marker or its numeral.
 
 See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
 are not included in the published immutable alpha.4 release.

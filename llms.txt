@@ -23,13 +23,16 @@ For browser readers, use the [human-readable HTML documentation directory](https
 
 - [Distribution and pinned CSS](https://syntyr-css.pages.dev/docs/distribution.md): Self-hosting, pinned asset URLs, and a downloadable offline SaaS demo in the **unreleased alpha.5** ZIP candidate (not in published alpha.4).
 - [Cloudflare hosting and cache contract](https://syntyr-css.pages.dev/docs/cloudflare-hosting.md): Content-addressed website CSS, mutable preview URLs and immutable consumer releases.
+- [Release freeze and exact-commit approval procedure](https://syntyr-css.pages.dev/docs/release-freeze.md): Maintainer-only human approval and evidence gates before freezing the unreleased alpha.5 candidate; technical preflight is not release authorization.
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary.
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
 - [Opt-in data-grid presentation](https://syntyr-css.pages.dev/docs/data-grid.md): Styling for host-owned data-grid behavior, ARIA states, and density (unreleased alpha.5 candidate).
+- [Collection workspace and form-recovery example](https://syntyr-css.pages.dev/examples/resource-workspace.html): Native GET filtering, tabular records and linked field errors; server actions and validation require integration (alpha.5 candidate).
 - [Vertigo-inspired resource workflow HTML example](https://syntyr-css.pages.dev/examples/vertigo-resource-workflow.html): Copyable index, detail, editor, and settings UI with fictional data and no runtime JavaScript.
 - [Premium CSS-only compositions and browser validation](https://syntyr-css.pages.dev/docs/premium-compositions.md): SaaS surfaces, native command presentation, responsive layouts, and maintainer-only Chromium/Firefox/WebKit reflow, keyboard and axe verification (alpha.5 source candidate).
 - [Copyable form recipes](https://syntyr-css.pages.dev/docs/component-recipes.md): Candidate-only native form groups and accessible markup.
 - [Native patterns and component imports](https://syntyr-css.pages.dev/docs/native-patterns.md): Candidate-only native browser recipes and individual CSS entrypoints (not in alpha.4).
+- [Enterprise native data tables](https://syntyr-css.pages.dev/docs/data-tables.md): Optional sticky headers, zebra rows, keyboard scroll regions and aria-sort indicators; server owns sorting and filtering (alpha.5 candidate).
 - [Pico.css migration and semantic starter](https://syntyr-css.pages.dev/docs/from-pico.md): Candidate-only one-file semantic bundle and migration cautions (not in alpha.4).
 - [Optional Radix adapter](https://syntyr-css.pages.dev/docs/radix-integration.md): State-only styling for projects that already use Radix Primitives.
 - [Framework integrations](https://syntyr-css.pages.dev/docs/framework-integrations.md): HTMX, server templates, React and other stacks.
