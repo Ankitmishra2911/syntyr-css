@@ -99,6 +99,14 @@ def source_files() -> dict[str, bytes]:
     # a second list that can silently omit new CSS entrypoints.
     public_css = tuple(distributions())
     paths.extend(ROOT / "docs" / name for name in public_docs)
+    # Only approved raster captures from the privately authored Console Kit.
+    # Never publish premium HTML, CSS, build output, or other private assets.
+    public_preview_images = (
+        "studio-overview.webp",
+        "grid-resources.webp",
+        "noir-billing.webp",
+    )
+    paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
     paths.extend(ROOT / "dist" / name for name in public_css)
     for path in paths:

@@ -206,5 +206,6 @@ See [LICENSE](LICENSE).
 - [Proposed premium Console Kit scope (not on sale)](business/console-kit-spec.md)
 - [Draft license boundary for *future* premium assets](business/premium-license-draft.md) — **not an operative contract**
 - [Validation and go/no-go plan](business/validation-plan.md)
+- [Console Kit buyer validation, pre-sale release gates and measured metrics](business/commercial-launch-gates.md)
 
 No paid kit has been shipped or put up for sale in this repository. No billing or license-key code is included. The Grid and Noir visual themes are original, not officially affiliated with any entertainment franchise. **SYNTYR is the selected but not trademark-cleared name**, pending documented brand clearance. The preliminary risk screen is not authorization for paid branding.
