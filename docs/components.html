@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="c731891b0e1d41b7b32d74e25a34997c14c0351a0d81872ce54c0fca27f54000">
+  <meta name="syntyr-source-sha256" content="71b0c36e596000d9eaf8f1a1c42ff5ced8f72e09e54602c73144ed9cd4bd243b">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -36,7 +36,7 @@
         <article class="docs-prose" aria-label="Syntyr CSS component and token contract">
 <h1 id="syntyr-css-component-and-token-contract">Syntyr CSS component and token contract</h1>
 <p>Status: <strong>experimental v0.3-alpha</strong>, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.</p>
-<p>Native elements such as <code>search</code>, <code>figure</code>, <code>figcaption</code>, <code>kbd</code>, <code>mark</code>, <code>output</code>, <code>meter</code>, and <code>pre</code> are styled only in the optional semantic mode. See <a href="../examples/native-elements.html">the no-JS native example</a>. The regular component-class API and HTML outside <code>.syn-root</code> are unchanged.</p>
+<p>Native elements such as <code>search</code>, <code>figure</code>, <code>figcaption</code>, <code>kbd</code>, <code>mark</code>, <code>output</code>, <code>meter</code>, and <code>pre</code> are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real <code>caption</code> elements, and disclosure summaries retain browser markers and comfortable pointer targets. See <a href="../examples/native-elements.html">the no-JS native example</a>. The regular component-class API and HTML outside <code>.syn-root</code> are unchanged.</p>
 <h2 id="loading-and-scoping">Loading and scoping</h2>
 <p>For the explicitly classed API (no automatic unclassed element styles):</p>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
@@ -54,6 +54,13 @@
   &lt;/article&gt;
 &lt;/section&gt;
 </code></pre>
+<p>Use <code>article</code> only for genuinely self-contained content; to draw a visual
+card around a generic region use <code>.syn-panel</code> on the appropriate native
+element. Use <code>fieldset</code> + <code>legend</code> to name control groups. In semantic mode
+the default form layout applies to <em>unclassed</em> <code>form</code> (or explicit
+<code>data-syn-semantic</code>), while <code>.syn-form</code> and application-owned classes retain
+their separate styling contract. Use <code>label</code> rather than placeholders to name
+inputs, and always give buttons a deliberate <code>type</code>.</p>
 <p>Class-based components, recipes, effects, and geometry apply only to elements
 inside a Syntyr root, including classes attached directly to the root itself.
 A bare Syntyr class on an unrelated host element is deliberately ignored, so

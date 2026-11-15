@@ -88,6 +88,16 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert button.is_visible()
         assert button.evaluate('e => getComputedStyle(e).display') in ('flex', 'inline-flex')
         assert page.locator('script').count() == 0
+        assert page.locator('form:not([class])').evaluate(
+            "e => getComputedStyle(e).display") == "grid"
+        assert page.locator('fieldset:not([class])').evaluate(
+            "e => getComputedStyle(e).display") == "grid"
+        assert page.locator('table caption').inner_text() == "Example project inventory"
+        assert page.get_by_role("navigation", name="Page sections").is_visible()
+        summary = page.locator('details > summary').first
+        assert summary.evaluate("e => e.getBoundingClientRect().height") >= 44
+        summary.click()
+        assert page.locator("details").first.get_attribute("open") is not None
     if name == "docs/catalog.html":
         cards = page.locator(".catalog-card")
         total = cards.count()

@@ -139,7 +139,7 @@ Original: https://syntyr-css.pages.dev/docs/components.md
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
-Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
+Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
 
 ## Loading and scoping
 
@@ -164,6 +164,14 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
   </article>
 </section>
 ```
+
+Use `article` only for genuinely self-contained content; to draw a visual
+card around a generic region use `.syn-panel` on the appropriate native
+element. Use `fieldset` + `legend` to name control groups. In semantic mode
+the default form layout applies to *unclassed* `form` (or explicit
+`data-syn-semantic`), while `.syn-form` and application-owned classes retain
+their separate styling contract. Use `label` rather than placeholders to name
+inputs, and always give buttons a deliberate `type`.
 
 Class-based components, recipes, effects, and geometry apply only to elements
 inside a Syntyr root, including classes attached directly to the root itself.
@@ -1346,7 +1354,9 @@ Do not combine either of those with the new one-file bundle: this duplicates CSS
 2. Load the pinned Syntyr stylesheet and opt into `.syn-root.syn-semantic`.
    Without these classes, no Syntyr semantic styling is applied.
 3. Keep real form labels, methods, actions, buttons, table headers, `details`
-   and other native elements. Add `.syn-shell` or `.syn-form` where useful.
+   and other native elements. Classless `form` and `fieldset` gain useful
+   vertical layout in semantic mode; use `.syn-form` for the explicit class API.
+   Add `.syn-shell` where a page-width constraint is useful.
 4. Translate existing `--pico-*` customizations **by design role**, not by
    search-and-replace. Syntyr's `--syn-*` tokens are not one-to-one aliases.
 5. If HTMX or another library adds temporary classes to formerly unclassed
@@ -1354,7 +1364,10 @@ Do not combine either of those with the new one-file bundle: this duplicates CSS
    The `data-syn-semantic` marker is an **alpha.5-only** selector enhancement
    for retaining semantic styling through transient class changes; do not use
    it as an alpha.4 compatibility guarantee.
-6. Test keyboard navigation, light/dark behavior, small screens, 200%/400%
+6. Run the optional `python3 scripts/syntyr_check.py --semantic your-page.html`
+   checker on literal HTML to catch labeling, reference and table-state mistakes.
+   Dynamic templates still need rendered-page checks.
+7. Test keyboard navigation, light/dark behavior, small screens, 200%/400%
    browser zoom, forced colors, and screen readers in the actual application.
 
 ## When not to migrate
@@ -1418,6 +1431,21 @@ experimental and are not in immutable alpha.4. Core adds explicit
 `data-syn-density="comfortable"` and `"spacious"` profiles alongside the
 existing `"compact"` profile, allowing nested density overrides.
 No application behaviors or JavaScript are shipped with these compositions.
+
+### Alpha.5 semantic HTML authoring changes
+
+The unreleased semantic CSS candidate gives native classless `form` and
+`fieldset` a composed vertical layout, a comfortable native `summary`
+target, and readable table `caption` styling. Classed forms continue using
+their explicit component API. For ordinary `.syn-table` rows,
+`data-syn-state="selected"` remains the visual state; the
+`aria-selected="true"` row selector now applies only to a real ARIA grid or
+treegrid. Consumers styling ordinary table rows with `aria-selected` should
+switch to the visual data attribute rather than inventing widget semantics.
+The published immutable alpha.4 assets are unchanged.
+
+The optional validator `--semantic` mode adds conservative native HTML
+diagnostics, with no change to default validation or consumer runtime.
 
 ### Alpha.5 data-table wrapping migration
 
@@ -3068,6 +3096,8 @@ To validate static HTML during development (Python 3.10+, standard library only)
 ```sh
 python3 scripts/syntyr_check.py index.html examples/saas.html
 python3 scripts/syntyr_check.py --format json index.html
+# Opt-in, conservative native HTML checks (warnings do not fail the CLI):
+python3 scripts/syntyr_check.py --semantic --format json examples/semantic-starter.html
 python3 scripts/syntyr_check.py --stylesheets syntyr.core.css,syntyr.recipes.css partial.html
 # Pipe generated markup into the same deterministic checker without a temporary file:
 printf '<button class="syn-buttn">Save</button>' | python3 scripts/syntyr_check.py --format json -
@@ -3110,6 +3140,22 @@ selectors are scoped, those classes would otherwise silently render without
 Syntyr styles. Plain HTML fragments are exempt because the embedding app may
 supply the root; dynamic ancestor classes and inert `<template>` contents are
 also exempt because their rendered scope is unknown.
+
+With `--semantic`, a second standard-library pass checks literal HTML for
+duplicate static IDs, missing form labels, unmatched `label for` and
+`aria-labelledby`/`aria-describedby` ID references (the latter two only in
+complete documents). It advises when an ordinary table row uses
+`aria-selected` instead of `data-syn-state`, or when a headed data table
+lacks a caption or other accessible name. Errors produce exit code 1; advisory
+warnings are included in text/JSON output but do not fail the command.
+The mode is **off by default** to preserve existing integrations.
+
+This is not an HTML conformance parser, a WCAG audit, or a template renderer.
+It deliberately skips inert template content and avoids guessing what dynamic
+attributes resolve to. Validate rendered server/framework templates and actual
+screen-reader behavior separately. Static fragments may reference IDs supplied
+by their embedding document, so cross-document references are checked only
+when a full `<html>` document is supplied.
 
 The checker recognizes local and version-pinned stylesheet paths (including
 query parameters). Without a known Syntyr stylesheet, module-presence checks

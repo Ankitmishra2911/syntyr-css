@@ -1,5 +1,8 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Improve opt-in semantic HTML: classless native form composition, accessible disclosure targets and captioned tables; restrict `aria-selected` row styling to real grid/treegrid roles, with `data-syn-state` for static visual selection.
+- Add an optional stdlib `syntyr_check.py --semantic` lint pass, and extend the one-file zero-JS semantic starter with navigation and a named data table. Default lint behavior and published alpha.4 remain unchanged.
+
 - Change classed data table cells to wrap prose by default; apply `.syn-cell--nowrap` for codes and identifiers, while `.syn-cell--numeric` remains non-wrapping. **Prerelease layout change:** update existing tables that depend on implicit no-wrap.
 - Support `--syn-panel-cut-fill` for cut-corner panels on nested or tinted surfaces. Add browser and palette-contrast regression checks.
 - Ensure `.syn-flow` stacks inline siblings and fully suppress the horizon fade under increased-contrast preferences.
