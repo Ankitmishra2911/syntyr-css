@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "source_version": "0.3.0-alpha.5",
+  "completeness": "curated-subset",
+  "note": "Validated examples, not a complete inventory. Check the installed release; candidate-only classes may not exist in alpha.4.",
+  "components": [
+    {
+      "name": "Button",
+      "module": "syntyr.core.css",
+      "elements": [
+        "button",
+        "a"
+      ],
+      "classes": [
+        "syn-button",
+        "syn-button--primary",
+        "syn-button--outline",
+        "syn-button--danger",
+        "syn-button--ghost"
+      ],
+      "notes": "Use button for actions and a for navigation. ARIA states describe real application state."
+    },
+    {
+      "name": "Panel",
+      "module": "syntyr.core.css",
+      "elements": [
+        "article",
+        "section",
+        "div"
+      ],
+      "classes": [
+        "syn-panel",
+        "syn-panel--cut"
+      ],
+      "notes": "Choose native headings and accessible labels."
+    },
+    {
+      "name": "Form fields",
+      "module": "syntyr.core.css",
+      "elements": [
+        "form",
+        "label",
+        "input",
+        "p"
+      ],
+      "classes": [
+        "syn-form",
+        "syn-label",
+        "syn-input",
+        "syn-error"
+      ],
+      "notes": "Real handlers and field validation belong to the application."
+    },
+    {
+      "name": "Tables",
+      "module": "syntyr.core.css",
+      "elements": [
+        "div",
+        "table"
+      ],
+      "classes": [
+        "syn-table-wrap",
+        "syn-table",
+        "syn-cell--numeric"
+      ],
+      "notes": "Use proper headers, captions and scroll containers."
+    },
+    {
+      "name": "Stats",
+      "module": "syntyr.core.css",
+      "elements": [
+        "section",
+        "article",
+        "p"
+      ],
+      "classes": [
+        "syn-region",
+        "syn-stats",
+        "syn-stat",
+        "syn-stat-label",
+        "syn-stat-value"
+      ],
+      "notes": "Named container must be an ancestor of responsive children."
+    },
+    {
+      "name": "Navigation",
+      "module": "syntyr.core.css",
+      "elements": [
+        "nav",
+        "ol",
+        "li",
+        "a"
+      ],
+      "classes": [
+        "syn-breadcrumbs",
+        "syn-pagination",
+        "syn-page-link"
+      ],
+      "notes": "Real links and aria-current only for the actual current page."
+    },
+    {
+      "name": "Application shell",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "div",
+        "aside",
+        "main"
+      ],
+      "classes": [
+        "syn-app-shell",
+        "syn-app-rail",
+        "syn-app-nav",
+        "syn-workspace"
+      ],
+      "notes": "Load optional recipes CSS after core."
+    },
+    {
+      "name": "Marketing hero",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "section",
+        "h1"
+      ],
+      "classes": [
+        "syn-site-hero",
+        "syn-site-heading"
+      ],
+      "notes": "Load optional recipes CSS after core."
+    },
+    {
+      "name": "Charts",
+      "module": "syntyr.viz.css",
+      "elements": [
+        "figure",
+        "figcaption"
+      ],
+      "classes": [
+        "syn-chart",
+        "syn-chart-title"
+      ],
+      "notes": "Only styling hooks. Generate chart values and SVG geometry yourself."
+    },
+    {
+      "name": "Heatmap",
+      "module": "syntyr.viz.css",
+      "elements": [
+        "div",
+        "span"
+      ],
+      "classes": [
+        "syn-viz-heatmap",
+        "syn-viz-cell"
+      ],
+      "notes": "Supply textual cell labels, data-syn-level and real data."
+    }
+  ]
+}

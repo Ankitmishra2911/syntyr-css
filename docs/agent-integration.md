@@ -1,0 +1,45 @@
+# Using Syntyr with coding agents
+
+Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that generate HTML or framework markup. No Syntyr-specific service, account, MCP server or runtime JavaScript is required.
+
+## Recommended context to supply an agent
+
+1. Specify **the exact Syntyr release and CSS modules installed** (published `0.3.0-alpha.4` versus unreleased source `0.3.0-alpha.5`).
+2. Link to [AI quickstart](ai-quickstart.md) and the relevant [component reference](components.md). If the agent can fetch websites, include [`/llms.txt`](../llms.txt).
+3. For complex UI, supply [recipes](recipes.md), [framework integrations](framework-integrations.md) and the [component manifest](../metadata/components.json).
+4. Ask it to state which stylesheets it used, avoid undocumented classes and verify keyboard/form semantics.
+
+Suggested prompt for an existing application:
+
+> Use Syntyr CSS to build a responsive, accessible account dashboard. My app uses the published v0.3.0-alpha.4 core and recipes CSS, with Studio as the theme. Read the Syntyr AI quickstart and relevant component docs. Generate semantic HTML compatible with my framework. Use only classes present in those stylesheets; if a needed component is unavailable, compose native HTML with application CSS instead. Keep data, auth and actions in the host app. Return the necessary markup, CSS links and a list of any custom styles.
+
+## Project-level integration
+
+A consumer may copy [`agents/syntyr/SKILL.md`](../agents/syntyr/SKILL.md) as an optional local skill in agent tooling that supports Skills. It is a portable instruction document, **not a published package, automatic installation, or guaranteed discovery mechanism**.
+
+The repository's root `AGENTS.md` guides agents contributing to Syntyr itself. It does **not** automatically become instructions in a separate application repository.
+
+## Documents and machine-readable inventory
+
+- [`llms.txt`](../llms.txt): small navigation file following the community `llms.txt` convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.
+- [`llms-full.txt`](../llms-full.txt): generated, version-stamped concatenation of selected public technical docs, for tools that benefit from one context file.
+- [`metadata/components.json`](../metadata/components.json): small **curated, non-exhaustive** inventory with the CSS modules required by the included classes. Do not infer that a class is unavailable solely because this catalog omits it.
+
+Documentation follows the current source candidate; always check [release boundaries](api-stability.md) and the [distribution guide](distribution.md) before using candidate-only features.
+
+## Validation and maintenance
+
+The repository uses Python standard-library scripts:
+
+```sh
+python3 scripts/build_agent_docs.py --check
+python3 scripts/build.py --check
+python3 -m unittest discover -s tests -v
+python3 scripts/build_cloudflare_site.py --check
+```
+
+The consolidated reference is deterministic and checked in CI through the Python test suite. The Cloudflare publisher uses a strict allowlist, so exposing new documentation does not expose internal files or business planning documents.
+
+## What Syntyr does not do
+
+Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission, remote data access or an MCP server. Use your existing application technology for those responsibilities.
