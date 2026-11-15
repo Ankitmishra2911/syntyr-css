@@ -15,19 +15,24 @@
     "./semantic.css": "./dist/syntyr.semantic.css",
     "./recipes.css": "./dist/syntyr.recipes.css",
     "./effects.css": "./dist/syntyr.effects.css",
+    "./motion.css": "./dist/syntyr.motion.css",
     "./geometry.css": "./dist/syntyr.geometry.css",
     "./symbols.css": "./dist/syntyr.symbols.css",
     "./utilities.css": "./dist/syntyr.utilities.css",
     "./print.css": "./dist/syntyr.print.css",
     "./syntyr.css": "./dist/syntyr.css",
     "./all.css": "./dist/syntyr.all.css",
-    "./viz.css": "./dist/syntyr.viz.css"
+    "./viz.css": "./dist/syntyr.viz.css",
+    "./tailwind.css": "./integrations/tailwind/syntyr.theme.css",
+    "./shadcn.css": "./integrations/shadcn/syntyr.tokens.css"
   },
   "sideEffects": [
     "**/*.css"
   ],
   "files": [
     "dist/",
+    "integrations/tailwind/",
+    "integrations/shadcn/",
     "README.md",
     "LICENSE"
   ],

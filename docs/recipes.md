@@ -4,6 +4,29 @@ For copyable input groups, labeled fields, container-responsive settings forms a
 
 These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see [the gallery](index.html), the [Grid console](../examples/console.html), and the [Noir pricing layout](../examples/pricing.html).
 
+## Optional vertical flow
+
+Use `.syn-flow` from `syntyr.recipes.css` on a content group to add
+consistent gaps between adjacent **direct children**. The flex-column
+composition stacks both inline and block elements, without overriding a
+child component's own display. It does not globally reset margins or modify
+unwrapped host markup. When children already have vertical margins, adjust
+them at the application level to avoid unexpectedly large combined spacing.
+For prose with heading rhythm, prefer the existing `.syn-prose` class.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <div class="syn-flow" style="--syn-flow-gap: 1.5rem">
+    <h2 class="syn-section-heading">A native-first design system</h2>
+    <p>Readable content with consistent configurable vertical rhythm.</p>
+    <a href="/documentation">Read the documentation</a>
+  </div>
+</section>
+```
+
+`.syn-flow` is an opt-in composition, not part of the minimal core.
+All spacing remains controlled by ordinary CSS custom properties.
+
 ## 1. Responsive telemetry cards
 
 The `.syn-region` element establishes a **named inline-size container**. Unlike media queries, the cards respond to the width of the enclosing widget/sidebar. This is a native browser feature; no JavaScript observer is needed.

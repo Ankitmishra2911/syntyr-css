@@ -14,12 +14,13 @@ import sys
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "examples/console.html",
+PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/guides.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
+         "examples/native-apis.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -145,6 +146,49 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert skeleton.get_attribute("aria-hidden") == "true"
         assert skeleton.evaluate("e => getComputedStyle(e).animationName") == "none"
         assert skeleton.evaluate("e => getComputedStyle(e).backgroundColor") != "rgba(0, 0, 0, 0)"
+    if name == "examples/native-apis.html":
+        assert page.locator("script").count() == 0
+        progress = page.locator(".syn-reading-progress")
+        assert progress.get_attribute("aria-hidden") == "true"
+        # Browser matrix defaults to reduced motion; visual-only effects are hidden.
+        assert progress.evaluate("e => getComputedStyle(e).display") == "none"
+        if viewport == 1280:
+            notes = page.locator("#native-notes")
+            original_height = notes.evaluate("e => e.getBoundingClientRect().height")
+            notes.fill("\n".join("Line of content" for _ in range(18)))
+            grown_height = notes.evaluate("e => e.getBoundingClientRect().height")
+            supports_field_sizing = page.evaluate("CSS.supports('field-sizing', 'content')")
+            if supports_field_sizing:
+                assert grown_height > original_height, (original_height, grown_height)
+            else:
+                assert grown_height >= original_height
+            popup_button = page.get_by_role("button", name="OPEN POPOVER")
+            popup_button.click()
+            popup = page.locator("#native-popover")
+            assert popup.evaluate('e => e.matches(":popover-open")'), "popover did not open"
+            supports_anchor = page.evaluate("CSS.supports('position-area', 'bottom')")
+            if supports_anchor:
+                placement_before_close = popup.evaluate("e => getComputedStyle(e).positionArea")
+                assert placement_before_close not in ("normal", "none", ""), placement_before_close
+            page.keyboard.press("Escape")
+            assert not popup.evaluate('e => e.matches(":popover-open")')
+            # Position-area must remain configured after :popover-open stops matching.
+            # Engines can recompute a flipped position when the element is hidden;
+            # comparing exact before/after positions would reject valid behavior.
+            if supports_anchor:
+                placement_after_close = popup.evaluate("e => getComputedStyle(e).positionArea")
+                assert placement_after_close not in ("normal", "none", ""), (
+                    placement_before_close, placement_after_close)
+            dialog_opener = page.get_by_role("button", name="OPEN MODAL")
+            dialog_opener.click()
+            modal = page.locator("#native-dialog")
+            supports_commands = page.evaluate("'commandForElement' in HTMLButtonElement.prototype")
+            if supports_commands:
+                assert modal.evaluate("e => e.open"), "dialog command did not open modal"
+                modal.get_by_role("button", name="ACKNOWLEDGE").click()
+                assert not modal.evaluate("e => e.open"), "dialog form failed to close modal"
+            else:
+                assert page.locator("details").count() >= 1, "legacy command fallback missing"
     if name == "examples/resources.html":
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1
@@ -236,7 +280,10 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert details.evaluate("e => e.open"), "native disclosure should work without JS"
     if name == "examples/geometry-terminal.html":
         frames = page.locator(".syn-frame")
-        assert frames.count() == 5, "all five frame profiles must render"
+        # The geometry gallery now includes bevel/notch/step/facet/bracket/inset/circuit.
+        assert frames.count() == 7, "all seven frame profiles must render"
+        assert page.locator(".syn-frame--step").count() == 1
+        assert page.locator(".syn-frame--facet").count() == 1
         bevel = frames.first
         clip = bevel.evaluate("e => getComputedStyle(e, '::before').clipPath")
         assert clip.startswith("polygon("), (name, viewport, clip)

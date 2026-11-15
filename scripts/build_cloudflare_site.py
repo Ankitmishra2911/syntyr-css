@@ -51,6 +51,8 @@ def source_files() -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     paths = [
         ROOT / "index.html",
+        ROOT / "assets/syntyr-mark.svg",
+        ROOT / "assets/og-syntyr.png",
         ROOT / "404.html",
         ROOT / "LICENSE",
         ROOT / "README.md",
@@ -74,12 +76,12 @@ def source_files() -> dict[str, bytes]:
     # Explicit per-file allowlist: new repo files are private until reviewed.
     public_docs = (
         "ai-quickstart.md", "agent-integration.md",
-        "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
+        "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "component-authoring.md", "components.md",
         "console-kit.html", "component-recipes.md", "design-research-linear-resend.md",
-        "distribution.md", "package-managers.md", "docs.css", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
-        "geometry-terminal.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
-        "performance-validation.md", "progressive-enhancement.md",
-        "index.html", "playground.html", "playground.css", "playground.js",
+        "distribution.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
+        "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
+        "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md",
+        "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
         "editor-integration.md", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
         "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
@@ -87,7 +89,7 @@ def source_files() -> dict[str, bytes]:
     )
     public_examples = (
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html",
-        "minimalist-patterns.html", "design-states.html", "native-elements.html",
+        "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
@@ -97,6 +99,14 @@ def source_files() -> dict[str, bytes]:
     # a second list that can silently omit new CSS entrypoints.
     public_css = tuple(distributions())
     paths.extend(ROOT / "docs" / name for name in public_docs)
+    # Only approved raster captures from the privately authored Console Kit.
+    # Never publish premium HTML, CSS, build output, or other private assets.
+    public_preview_images = (
+        "studio-overview.webp",
+        "grid-resources.webp",
+        "noir-billing.webp",
+    )
+    paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
     paths.extend(ROOT / "dist" / name for name in public_css)
     for path in paths:

@@ -28,6 +28,7 @@
       background: var(--syn-surface);
       min-width: 0;
     }
+    &.syn-panel--raised { box-shadow: var(--syn-shadow-raised); }
     &.syn-panel--cut::after {
       content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
       width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-panel-cut-fill, var(--syn-bg));

@@ -13,12 +13,13 @@ At the November 14, 2026 unreleased validation candidate, run:
 python3 scripts/build.py --check
 ```
 
-The deterministic build reports **4,590 bytes gzip** for
-`dist/syntyr.core.css` (20,767 raw bytes), and **7,649 bytes gzip** for
-`dist/syntyr.all.css` (38,637 raw bytes). Both remain within the checked
-5 KiB and 8 KiB budgets. These are Python gzip measurements, **not**
-HTTP transfer sizes, Brotli sizes, browser stylesheet parse times, or
-comparisons to other frameworks.
+The November 14 snapshot reported **4,590 bytes gzip** for
+`dist/syntyr.core.css` (20,767 raw bytes) and **7,649 bytes gzip** for
+`dist/syntyr.all.css` (38,637 raw bytes). Values can change as the
+source evolves. These are Python gzip measurements, **not** HTTP transfer
+sizes, Brotli sizes, browser stylesheet parse times, or comparisons to
+other frameworks. There are **no arbitrary CSS size release gates**;
+inspect deltas and actual page rendering instead.
 
 ## Fair comparative benchmark
 
