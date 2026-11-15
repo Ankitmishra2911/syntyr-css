@@ -45,6 +45,16 @@ class SiteOnboardingTests(unittest.TestCase):
         self.assertIn('href="guides.html"', docs)
         self.assertNotIn("V0.3.0-ALPHA.2 / DISTRIBUTION", docs)
 
+    def test_install_page_defaults_to_published_version_and_labels_source_preview(self):
+        docs = (ROOT / "docs/index.html").read_text(encoding="utf-8")
+        install = docs.split('id="install"', 1)[1].split('id="themes"', 1)[0]
+        published = 'https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css'
+        self.assertIn(f'class="syn-button syn-button--primary" href="{published}"', install)
+        self.assertIn(f'href="{published}"&gt;', install, "copyable CDN sample must match the published release")
+        self.assertIn('href="../dist/syntyr.core.css"', install, "experimental source must remain available")
+        self.assertIn("UNRELEASED ALPHA.5 PREVIEW", install)
+        self.assertNotIn('class="syn-button syn-button--primary" href="../dist/syntyr.core.css"', install)
+
     def test_responsive_navigation_uses_native_details_without_javascript(self):
         home = (ROOT / "index.html").read_text(encoding="utf-8")
         docs = (ROOT / "docs/index.html").read_text(encoding="utf-8")
