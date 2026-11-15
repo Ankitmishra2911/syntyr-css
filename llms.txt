@@ -15,6 +15,7 @@ The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The 
 ## Reference
 
 - [Distribution and pinned CSS](https://syntyr-css.pages.dev/docs/distribution.md): Self-hosting and stable asset URLs.
+- [Cloudflare hosting and cache contract](https://syntyr-css.pages.dev/docs/cloudflare-hosting.md): Content-addressed website CSS, mutable preview URLs and immutable consumer releases.
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary.
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
 - [Copyable form recipes](https://syntyr-css.pages.dev/docs/component-recipes.md): Candidate-only native form groups and accessible markup.

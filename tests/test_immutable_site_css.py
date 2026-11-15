@@ -43,6 +43,10 @@ class ImmutableSiteCssTests(unittest.TestCase):
         self.assertIn("/_assets/css/*", files["_headers"].decode())
         self.assertIn("max-age=31536000, immutable", files["_headers"].decode())
 
+    def test_hosting_guidance_is_indexed_for_agents(self):
+        index = (ROOT / "llms.txt").read_text()
+        self.assertIn("https://syntyr-css.pages.dev/docs/cloudflare-hosting.md", index)
+
     def test_source_html_and_external_links_remain_unchanged(self):
         b = load_site()
         files = b.source_files()
