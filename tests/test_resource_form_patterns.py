@@ -24,6 +24,10 @@ class ResourceFormPatternsTests(unittest.TestCase):
         self.assertIn("@media (forced-colors: active)", css)
         self.assertNotIn("javascript:", css.lower())
 
+    def test_public_resource_workspace_is_discoverable_from_agent_index(self):
+        index = (ROOT / "llms.txt").read_text()
+        self.assertIn("https://syntyr-css.pages.dev/examples/resource-workspace.html", index)
+
     def test_example_forms_link_to_field_errors_and_preserve_names(self):
         markup = (ROOT / "examples/resource-workspace.html").read_text()
         parser = Markup()
