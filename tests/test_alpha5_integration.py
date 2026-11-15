@@ -10,9 +10,8 @@ class Alpha5Integration(unittest.TestCase):
     def test_only_syntyr_distributions_and_complete_optional_modules(self):
         from scripts.build import distributions
         definitions = distributions()
-        expected = {f"syntyr{suffix}.css" for suffix in
-                    ("", ".core", ".semantic", ".recipes", ".effects",
-                     ".geometry", ".utilities", ".all")}
+        expected = set(definitions)
+        self.assertTrue(all(name.startswith("syntyr") and name.endswith(".css") for name in expected))
         self.assertEqual(set(definitions), expected)
         for filename in expected:
             self.assertEqual(

@@ -407,5 +407,84 @@ class BrowserTests(unittest.TestCase):
                         'e => getComputedStyle(e).backgroundColor'), 'rgb(255, 255, 255)')
 
 
+
+    def test_progressive_semantic_styles_do_not_escape_syn_root(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        semantic = (ROOT / 'dist/syntyr.semantic.css').read_text()
+        self.page.set_content(f"""<style>{core}</style><style>{semantic}</style>
+          <section class="syn-semantic" style="--syn-control-height:2.75rem">
+            <button id="outside" data-syn-semantic>Outside</button>
+          </section>
+          <section class="syn-root syn-semantic" data-syn-theme="grid">
+            <button id="inside" data-syn-semantic>Inside</button>
+          </section>""")
+        get_height = lambda selector: self.page.locator(selector).evaluate(
+            "e => getComputedStyle(e).minHeight")
+        self.assertEqual(get_height('#inside'), '44px')
+        self.assertNotEqual(get_height('#outside'), '44px')
+
+    def test_progressive_auto_theme_honors_system_and_nested_explicit_palettes(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        self.page.set_content(f"""<style>{core}</style>
+          <main class="syn-root" id="auto-root" data-syn-theme="auto">
+            <section id="explicit-noir" data-syn-theme="noir">
+              <article id="nested-auto" data-syn-theme="auto">Nested</article>
+            </section>
+          </main>""")
+        accent = lambda ident: self.page.locator(ident).evaluate("""e => {
+            const probe = document.createElement('span');
+            probe.style.color = 'var(--syn-accent)';
+            e.append(probe);
+            const resolved = getComputedStyle(probe).color;
+            probe.remove();
+            return resolved;
+        }""")
+        self.page.emulate_media(color_scheme='light')
+        self.assertEqual(accent('#auto-root'), 'rgb(36, 88, 198)')
+        self.assertEqual(accent('#explicit-noir'), 'rgb(241, 181, 116)')
+        self.assertEqual(accent('#nested-auto'), 'rgb(36, 88, 198)')
+        self.page.emulate_media(color_scheme='dark')
+        self.assertEqual(accent('#auto-root'), 'rgb(118, 231, 247)')
+        self.assertEqual(accent('#explicit-noir'), 'rgb(241, 181, 116)')
+        self.assertEqual(accent('#nested-auto'), 'rgb(118, 231, 247)')
+
+    def test_progressive_intrinsic_layout_follows_embedding_width(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        self.page.set_content(f"""<style>{core}</style>
+          <main class="syn-root" data-syn-theme="studio">
+            <section id="host" style="width: 310px; max-width: 100%">
+              <div class="syn-layout">
+                <article id="first">First region</article>
+                <article id="second">Second region</article>
+              </div>
+            </section>
+          </main>""")
+        coord = lambda selector: self.page.locator(selector).bounding_box()
+        self.assertGreater(coord('#second')['y'], coord('#first')['y'])
+        self.page.locator('#host').evaluate("e => e.style.width = '900px'")
+        self.assertAlmostEqual(coord('#second')['y'], coord('#first')['y'], delta=1)
+        self.assertGreater(coord('#second')['x'], coord('#first')['x'])
+
+    def test_progressive_print_styles_keep_data_readable(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        print_css = (ROOT / 'dist/syntyr.print.css').read_text()
+        self.page.set_content(f"""<style>{core}</style><style>{print_css}</style>
+          <main class="syn-root" id="page" data-syn-theme="noir">
+            <nav class="syn-app-nav" id="nav"><a href="#">Navigation</a></nav>
+            <section class="syn-table-wrap" id="table">
+              <table><tr><td id="data">Invoice row</td></tr></table>
+            </section>
+            <button id="action" class="syn-button syn-button--primary">Export</button>
+          </main>""")
+        self.page.emulate_media(media='print')
+        css = lambda selector, prop: self.page.locator(selector).evaluate(
+            "(e, p) => getComputedStyle(e).getPropertyValue(p).trim()", prop)
+        self.assertEqual(css('#page', 'background-color'), 'rgb(255, 255, 255)')
+        self.assertEqual(css('#page', 'color'), 'rgb(17, 17, 17)')
+        self.assertEqual(css('#nav', 'display'), 'none')
+        self.assertEqual(css('#table', 'overflow-x'), 'visible')
+        self.assertEqual(css('#data', 'visibility'), 'visible')
+        self.assertEqual(css('#action', 'color'), 'rgb(17, 17, 17)')
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

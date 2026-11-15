@@ -33,7 +33,11 @@ Load `syntyr.semantic.css` after core **only** if you want automatic semantic
 element styles within `.syn-semantic`. For static glows and decorative grid
 effects, load `syntyr.effects.css` after core. SaaS, business and terminal layouts
 are opt-in via `syntyr.recipes.css`. Optional frame geometry is in `syntyr.geometry.css`.
-The alpha.5 candidate additionally provides `syntyr.utilities.css` for opt-in layout, spacing and visually-hidden helpers.
+The alpha.5 working tree additionally provides `syntyr.utilities.css` for finite
+layout helpers and `syntyr.print.css` for print-friendly reports. System-aware
+Grid/Studio `data-syn-theme="auto"` is already included in core CSS, with
+no additional stylesheet or runtime JavaScript. See the
+[progressive-enhancement guide](progressive-enhancement.md) for examples.
 
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.syn-semantic` to opt into semantic element styles.
@@ -56,9 +60,9 @@ usually avoids an additional hostname connection.
 ## Release artifacts and guarantees
 
 The published alpha.4 release contains seven SYNTYR CSS distributions. The
-unreleased alpha.5 candidate contains eight SYNTYR distributions, including
-the optional utilities stylesheet, plus the terminal ANSI palette JSON, this
-guide, the MIT license, and README. No retired compatibility aliases are shipped. The ZIP is created deterministically using only
+unreleased alpha.5 working tree currently contains nine SYNTYR distributions,
+including the optional utilities and print stylesheets, plus
+the terminal ANSI palette JSON, this guide, MIT license, and README. No retired compatibility aliases are shipped. The ZIP is created deterministically using only
 Python's standard library:
 
 ```sh
