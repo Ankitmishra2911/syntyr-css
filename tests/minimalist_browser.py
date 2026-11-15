@@ -1,5 +1,7 @@
 """Optional runtime verification of native auto palette and intrinsic layouts."""
 import argparse
+import os
+import shutil
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
@@ -45,7 +47,7 @@ def assert_minimalist(browser, engine):
                 "(node) => getComputedStyle(node).display")
             text_label = page.locator('label[for="email"]').evaluate(
                 "(node) => getComputedStyle(node).display")
-            assert checkbox_label == "flex" and text_label == "grid", (engine, checkbox_label, text_label)
+            assert checkbox_label == "block" and text_label == "grid", (engine, checkbox_label, text_label)
 
             for choice in page.locator('input[type="checkbox"], input[type="radio"]').all():
                 target = choice.bounding_box()
@@ -70,6 +72,18 @@ def assert_minimalist(browser, engine):
             left, right, cards = positions()
             assert left["y"] + left["height"] <= right["y"] + 2, (engine, "sidebar not stacked", left, right)
             assert cards[0]["y"] < cards[1]["y"] < cards[2]["y"], (engine, "switcher not stacked", cards)
+            # Small root text and mixed emphasized inline content must not shrink
+            # the native control below 24 CSS px or prevent normal text wrapping.
+            page.evaluate("""() => {
+              document.documentElement.style.fontSize = '12px';
+              const label = document.querySelector('label:has(> input[type="checkbox"])');
+              label.insertAdjacentHTML('beforeend',
+                ' Receive <strong>important</strong> account <strong>notifications</strong> from our service, including several long-form messages.');
+            }""")
+            for target in page.locator('input[type="checkbox"], input[type="radio"]').all():
+                choice = target.bounding_box()
+                assert choice["width"] >= 24 and choice["height"] >= 24, (
+                    engine, color_scheme, choice)
             assert page.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth") <= 1
 
             submit = page.get_by_role("button", name="Preview native submission")
@@ -90,7 +104,13 @@ def main():
     with sync_playwright() as playwright:
         for engine in args.browsers:
             try:
-                browser = getattr(playwright, engine).launch(headless=True)
+                kwargs = {"headless": True}
+                if engine == "chromium":
+                    executable = (os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
+                                  or shutil.which("chromium") or shutil.which("chromium-browser"))
+                    if executable:
+                        kwargs.update(executable_path=executable, args=["--no-sandbox"])
+                browser = getattr(playwright, engine).launch(**kwargs)
             except Exception as exc:
                 failures += 1
                 print(f"BLOCKED {engine}: {str(exc).splitlines()[0]}", flush=True)

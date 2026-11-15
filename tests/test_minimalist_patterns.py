@@ -62,7 +62,7 @@ class MinimalistPatternsContract(unittest.TestCase):
         self.assertIn('> input[type="checkbox"]', css)
         self.assertIn('> input[type="radio"]', css)
         self.assertIn('align-items: center;', css)
-        self.assertIn('display: flex;', css)
+        self.assertIn('display: block; cursor: pointer;', css)
 
     def test_source_and_dist_have_no_merge_conflict_markers(self):
         source_files = list((ROOT / "src").rglob("*.css"))
@@ -75,10 +75,22 @@ class MinimalistPatternsContract(unittest.TestCase):
 
     def test_semantic_choice_controls_have_24px_hit_targets(self):
         css = (ROOT / "src/semantic.css").read_text()
-        self.assertIn("min-inline-size: 1.5rem;", css)
-        self.assertIn("min-block-size: 1.5rem;", css)
+        self.assertIn("min-inline-size: max(1.5rem, 24px);", css)
+        self.assertIn("min-block-size: max(1.5rem, 24px);", css)
         self.assertIn('input[type="checkbox"][data-syn-semantic]', css)
         self.assertIn('input[type="radio"][data-syn-semantic]', css)
+
+    def test_choice_targets_remain_24px_at_reduced_root_font_size_and_labels_wrap(self):
+        css = (ROOT / "src/semantic.css").read_text()
+        self.assertIn("min-inline-size: max(1.5rem, 24px)", css)
+        self.assertIn("min-block-size: max(1.5rem, 24px)", css)
+        self.assertIn("display: block; cursor: pointer;", css)
+        self.assertIn("vertical-align: middle", css)
+
+    def test_optional_browser_uses_documented_chromium_executable(self):
+        source = (ROOT / "tests/minimalist_browser.py").read_text()
+        self.assertIn("PLAYWRIGHT_CHROMIUM_EXECUTABLE", source)
+        self.assertIn("executable_path", source)
 
     def test_real_html_example_uses_opt_in_css_and_accessible_controls(self):
         html = (ROOT / "examples/minimalist-patterns.html").read_text()
