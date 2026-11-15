@@ -173,6 +173,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Typography | `.syn-logo`, `.syn-eyebrow`, `.syn-title`, `.syn-section-heading`, `.syn-heading`, `.syn-lede`, `.syn-mono`, `.syn-caption`, `.syn-muted` | native heading/text |
 | Status | `.syn-badge`, `.syn-badge--accent`, `.syn-status` and semantic variants, `.syn-alert`, `.syn-alert--danger`, `.syn-meter` on `progress` | native `progress` |
 | Forms | `.syn-form`, `.syn-label`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-check`, `.syn-fieldset`, `.syn-help`, `.syn-error` | unclassed form controls |
+| Form compositions | `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` | native `form`, `label`, `input`, `button` |
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
 | Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--numeric` | unclassed `table` |
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
@@ -327,6 +328,8 @@ System-aware `data-syn-theme="auto"` is built into core CSS. Use optional
 Original: https://syntyr-css.pages.dev/docs/recipes.md
 
 # MIT-licensed composition recipes
+
+For copyable input groups, labeled fields, container-responsive settings forms and optional headless UI styling, see [form composition recipes](component-recipes.md) and the [Radix adapter](radix-integration.md).
 
 These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see [the gallery](index.html), the [Grid console](../examples/console.html), and the [Noir pricing layout](../examples/pricing.html).
 
@@ -505,6 +508,163 @@ See [the working minimalist demo](../examples/minimalist-patterns.html).
 
 ---
 
+## Source: docs/component-recipes.md
+
+Original: https://syntyr-css.pages.dev/docs/component-recipes.md
+
+# Copy-owned form recipes
+
+These are **MIT-licensed, plain-HTML examples**. Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime. Syntyr provides presentation; your browser and application provide behavior.
+
+Load `dist/syntyr.core.css` and apply `.syn-root` on a stable ancestor. Input groups and fields are included in core. The examples below also work in Go/templ, Askama, Django templates, Astro, React, and HTMX.
+
+## 1. Labeled field with assistance and server-side validation
+
+```html
+<div class="syn-root" data-syn-theme="studio">
+  <div class="syn-field">
+    <label class="syn-label" for="email">Work email</label>
+    <input class="syn-input" id="email" name="email" type="email"
+           autocomplete="email" aria-invalid="true"
+           aria-describedby="email-help email-error" required>
+    <p class="syn-help" id="email-help">Use your company email address.</p>
+    <p class="syn-error" id="email-error">Enter a valid work email.</p>
+  </div>
+</div>
+```
+
+Only render `aria-invalid="true"` and the error message when the form is actually invalid. Do not use CSS as a substitute for server-side validation. The field class groups presentation; the native `label for` association supplies the accessible name.
+
+## 2. Search field with a connected button
+
+```html
+<search class="syn-root" data-syn-theme="studio" aria-label="Search accounts">
+  <form method="get" action="/accounts">
+    <div class="syn-field">
+      <label class="syn-label" for="account-query">Account name</label>
+      <div class="syn-input-group">
+        <input class="syn-input" id="account-query" name="q"
+               type="search" placeholder="Search accounts">
+        <button class="syn-button syn-button--primary" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+</search>
+```
+
+This is **progressive enhancement**: the GET form submits with **No JavaScript**. An HTMX application may add `hx-get` and `hx-target` while preserving `action`, `method`, and a server-rendered fallback. The application must implement the endpoint and return actual search results.
+
+## 3. Input addon (currency and unit)
+
+```html
+<div class="syn-root" data-syn-theme="studio">
+  <div class="syn-field">
+    <label class="syn-label" for="monthly-budget">Monthly budget (USD)</label>
+    <div class="syn-input-group">
+      <span class="syn-input-addon" aria-hidden="true">$</span>
+      <input class="syn-input" id="monthly-budget" name="budget"
+             type="number" min="0" step="0.01" inputmode="decimal">
+      <span class="syn-input-addon" aria-hidden="true">USD</span>
+    </div>
+  </div>
+</div>
+```
+
+The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input.
+
+## 4. Container-responsive horizontal form
+
+```html
+<form class="syn-root syn-region syn-form" action="/settings" method="post"
+      data-syn-theme="corporate">
+  <div class="syn-field-row">
+    <label class="syn-label" for="org-name">Organization</label>
+    <div class="syn-field-body">
+      <input class="syn-input" id="org-name" name="organization"
+             aria-describedby="org-help" required>
+      <p class="syn-help" id="org-help">Visible to members of your team.</p>
+    </div>
+  </div>
+  <button class="syn-button syn-button--primary" type="submit">Save</button>
+</form>
+```
+
+The `syn-region` container determines whether rows become horizontal at 42rem. Without that ancestor they remain safely stacked. This is intentionally not a full grid/breakpoint framework. The help text is associated with its input via `aria-describedby`. A production POST endpoint must handle authorization, validation and CSRF.
+
+## Optional companion styles
+
+- [Radix Primitives state styling](radix-integration.md) provides an opt-in adapter for React applications while keeping Radix responsible for keyboard behavior.
+- shadcn/ui components can adopt Syntyr tokens in application-owned CSS. Modern color variables can use values such as `--background: var(--syn-bg)` and `--foreground: var(--syn-text)`, **only when** the shadcn component expects complete CSS color values. Older `hsl(var(--background))` consumers require an HSL-channel bridge instead; do not apply the mappings blindly.
+- `syntyr.semantic.css` remains a separate opt-in style for unclassed native HTML. Do not apply it indiscriminately around other component libraries.
+
+See [the static form showcase](../examples/form-composition.html) and the [main component contract](components.md).
+
+---
+
+## Source: docs/radix-integration.md
+
+Original: https://syntyr-css.pages.dev/docs/radix-integration.md
+
+# Optional Radix Primitives visual adapter
+
+Syntyr core remains plain CSS with zero runtime JavaScript and zero React dependencies. Radix is a **separate application choice**. Its components own the accessible name, **ARIA** attributes, focus management, keyboard controls and state updates. Syntyr only adds styling.
+
+## Install and opt in
+
+In a React project using Radix Primitives, add a link **after** the core CSS:
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/radix/states.css">
+```
+
+Copy [the adapter](../integrations/radix/states.css) into your project, or reference its repository source. Do not load it when you do not use Radix. It is **not** included in `syntyr.all.css`, either.
+
+Wrap the relevant app area in `.syn-root`. Apply `.syn-radix` on that root, on a container inside it, **or directly on a stateful Syntyr control** to opt in only that control. If Radix portals content to the document body, set that portal's `container` inside the styled root, or style the portal explicitly. Do not assume portal content inherits Syntyr tokens when it is mounted outside the root.
+
+## Example: controlled behavior, CSS presentation
+
+```jsx
+import * as Accordion from "@radix-ui/react-accordion";
+import * as Toggle from "@radix-ui/react-toggle";
+
+export function Controls() {
+  return (
+    <section className="syn-root syn-radix" data-syn-theme="studio">
+      <Toggle.Root className="syn-button" aria-label="Pin dashboard">
+        Pin dashboard
+      </Toggle.Root>
+      <Accordion.Root type="single" collapsible>
+        <Accordion.Item value="filters">
+          <Accordion.Header>
+            <Accordion.Trigger className="syn-button syn-accordion-trigger">
+              Advanced filters
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content className="syn-accordion-content">
+            <p>Additional filters belong here.</p>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
+    </section>
+  );
+}
+```
+
+Radix supplies `data-state="on"`, `data-state="open"`, `data-state="closed"`, and `data-disabled` where applicable. The adapter consumes only those documented state hooks on **explicit Syntyr component classes**. It does not create a generic `data-state` styling API, and it does not replace Radix behavior.
+
+## Accessibility and compatibility boundaries
+
+- Test with keyboard only (Enter, Space, Arrow keys where appropriate, Escape) and screen readers; CSS passing a contract test is **not** an accessibility certification.
+- Use a native button or Radix trigger for actions. Visual `[data-disabled]` states do not prevent click handlers from running; Radix/application logic must enforce disabled behavior.
+- Preserve the focus-visible indication from Syntyr core and verify contrasts for all themes and custom token overrides.
+- Avoid CSS-only emulations of focus traps, listbox navigation, complex comboboxes or dialogs.
+- The adapter does not guarantee complete styling for every Radix primitive. Extend it with component-specific classes only when real use cases justify maintenance.
+
+Related: [copy-owned component recipes](component-recipes.md), [framework integrations](framework-integrations.md).
+
+---
+
 ## Source: docs/distribution.md
 
 Original: https://syntyr-css.pages.dev/docs/distribution.md
@@ -611,6 +771,7 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Surface | Current policy | Intent for v1 |
 | --- | --- | --- |
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
+| New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
 | `data-syn-theme` and documented `data-syn-*` state hooks | Public prerelease API | Stable names and meanings |
 | `syntyr.semantic.css` and `.syn-semantic` | Opt-in prerelease API | Stable scoped semantics after audit |
@@ -1439,7 +1600,7 @@ Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that gene
 
 1. Specify **the exact Syntyr release and CSS modules installed** (published `0.3.0-alpha.4` versus unreleased source `0.3.0-alpha.5`).
 2. Link to [AI quickstart](ai-quickstart.md) and the relevant [component reference](components.md). If the agent can fetch websites, include [`/llms.txt`](../llms.txt).
-3. For complex UI, supply [recipes](recipes.md), [framework integrations](framework-integrations.md) and the [component manifest](../metadata/components.json).
+3. For complex UI, supply [recipes](recipes.md), [framework integrations](framework-integrations.md) and the [component manifest](../metadata/components.json). For unreleased alpha.5 source-only form patterns, use [copy-owned form recipes](component-recipes.md) and the optional [Radix styling adapter](radix-integration.md); do not attribute these to published alpha.4.
 4. Ask it to state which stylesheets it used, avoid undocumented classes and verify keyboard/form semantics.
 
 Suggested prompt for an existing application:

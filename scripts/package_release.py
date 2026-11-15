@@ -26,6 +26,8 @@ FILES = (
     "docs/agent-integration.md",
     "docs/components.md",
     "docs/recipes.md",
+    "docs/component-recipes.md",
+    "docs/radix-integration.md",
     "docs/framework-integrations.md",
     "docs/theme-customization.md",
     "docs/accessibility.md",

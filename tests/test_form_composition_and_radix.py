@@ -91,5 +91,23 @@ class FormCompositionAndRadixContract(unittest.TestCase):
         self.assertIn(":is(.syn-root.syn-radix, .syn-root .syn-radix):is(", forced)
 
 
+    def test_ai_agents_can_discover_form_compositions_in_source_candidate(self):
+        import json
+        from scripts.build_agent_docs import SOURCES
+        manifest = json.loads((ROOT / "metadata/components.json").read_text())
+        components = {item["name"]: item for item in manifest["components"]}
+        self.assertIn("Form compositions", components)
+        self.assertEqual(components["Form compositions"]["module"], "syntyr.core.css")
+        for name in ("syn-field", "syn-field-row", "syn-field-body", "syn-input-group", "syn-input-addon"):
+            self.assertIn(name, components["Form compositions"]["classes"])
+        for path in ("docs/component-recipes.md", "docs/radix-integration.md"):
+            self.assertIn(path, SOURCES)
+            self.assertIn(path, (ROOT / "llms-full.txt").read_text())
+        self.assertIn("docs/component-recipes.md", (ROOT / "llms.txt").read_text())
+        from scripts.package_release import FILES
+        self.assertIn("docs/component-recipes.md", FILES)
+        self.assertIn("docs/radix-integration.md", FILES)
+
+
 if __name__ == "__main__":
     unittest.main()

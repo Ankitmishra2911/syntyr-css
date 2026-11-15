@@ -14,6 +14,8 @@ SOURCES = (
     "docs/ai-quickstart.md",
     "docs/components.md",
     "docs/recipes.md",
+    "docs/component-recipes.md",
+    "docs/radix-integration.md",
     "docs/distribution.md",
     "docs/api-stability.md",
     "docs/framework-integrations.md",
