@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import sys
 import unittest
+from tempfile import TemporaryDirectory
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -69,10 +70,16 @@ class CatalogTests(unittest.TestCase):
             self.assertIn('"' + asset + '"', script)
 
     def test_cloudflare_build_includes_catalog(self):
-        p = subprocess.run([sys.executable, 'scripts/build_cloudflare_site.py',
-                            '--output', '/tmp/syntyr-catalog-contract-publish'],
-                           cwd=ROOT, capture_output=True, text=True)
-        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        # Each invocation needs its own output. A fixed shared /tmp path can
+        # collide with concurrent CI or local test runs during site cleanup.
+        with TemporaryDirectory(prefix='syntyr-catalog-contract-') as temp:
+            output = Path(temp) / 'publish'
+            p = subprocess.run([sys.executable, 'scripts/build_cloudflare_site.py',
+                                '--output', str(output)],
+                               cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+            for asset in ('catalog.html', 'catalog.css', 'catalog.js'):
+                self.assertTrue((output / 'docs' / asset).is_file())
 
 
 if __name__ == '__main__':
