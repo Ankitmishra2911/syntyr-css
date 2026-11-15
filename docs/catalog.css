@@ -1,0 +1,18 @@
+/* Documentation-only presentation. Not shipped with the CSS library. */
+@layer docs {
+  .catalog-controls { max-width: 31rem; margin-block: 1.5rem 1rem; }
+  .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 27rem), 1fr)); align-items: start; gap: 1rem; }
+  .catalog-card { display: grid; gap: .875rem; min-width: 0; }
+  .catalog-card[hidden], #catalog-empty[hidden], #catalog-controls[hidden], .catalog-copy[hidden] { display: none; }
+  .catalog-card-top { display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: .6rem; }
+  .catalog-card-top h2 { margin: 0; }
+  .catalog-preview { min-width: 0; padding: 1rem; border: 1px solid var(--syn-border-subtle); background: var(--syn-surface-recessed); overflow: auto; }
+  .catalog-preview :where(.syn-panel, .syn-price-card, .syn-stat) { margin: 0; }
+  .catalog-preview .syn-pricing { max-width: 100%; }
+  .catalog-code-details { min-width: 0; }
+  .catalog-code-details summary { cursor: pointer; font-weight: 650; }
+  .catalog-source { max-width: 100%; margin-block: .75rem 0; padding: .875rem; border: 1px solid var(--syn-border-subtle); color: var(--syn-text); background: var(--syn-bg); overflow: auto; font: .82rem/1.55 var(--syn-mono); }
+  .catalog-source code { white-space: pre; }
+  .catalog-copy { justify-self: start; }
+  @media (forced-colors: active) { .catalog-preview, .catalog-source { border-color: CanvasText; } }
+}
