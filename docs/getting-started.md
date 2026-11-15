@@ -38,7 +38,7 @@ Save this as `index.html` in a site that serves the copied stylesheet at
   <main class="syn-shell" id="main">
     <article class="syn-panel">
       <h1 class="syn-heading">Project overview</h1>
-      <p class="syn-text">A page built with HTML and one CSS file.</p>
+      <p>A page built with HTML and one CSS file.</p>
       <a class="syn-button syn-button--primary" href="/projects">
         View projects
       </a>

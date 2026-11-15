@@ -14,7 +14,17 @@ from scripts.build_cloudflare_site import source_files
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def css_has_class(css, cls):
+    return re.search(rf"\.{re.escape(cls)}(?![\w\\-])", css) is not None
+
+
 class ReleaseDeveloperExperienceTests(unittest.TestCase):
+    def test_css_class_lookup_requires_complete_class_names(self):
+        css = ".syn-textarea {} .syn-text-support {} .syn-text_foo {} .syn-text2 {}"
+        self.assertFalse(css_has_class(css, "syn-text"))
+        self.assertTrue(css_has_class(css, "syn-textarea"))
+        self.assertTrue(css_has_class(".syn-text:hover {}", "syn-text"))
+
     def test_release_contains_version_matched_optional_html_checker(self):
         for path in ("scripts/syntyr_check.py", "metadata/syntyr-contract.json"):
             self.assertIn(path, FILES)
@@ -68,7 +78,7 @@ class ReleaseDeveloperExperienceTests(unittest.TestCase):
         classes = [c for attr in re.findall(r'class="([^"]+)"', example) for c in attr.split()]
         for cls in classes:
             with self.subTest(cls=cls):
-                self.assertIn("." + cls, released_css, f"{cls} is not shipped in alpha.4")
+                self.assertTrue(css_has_class(released_css, cls), f"{cls} is not shipped in alpha.4")
         self.assertIn("docs/getting-started.md", (ROOT / "README.md").read_text())
         self.assertIn('href="getting-started.html"', (ROOT / "docs/guides.html").read_text())
 
