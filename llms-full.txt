@@ -340,6 +340,7 @@ Load `syntyr.core.css` first and `syntyr.recipes.css` second. The core remains s
 | Context | Optional classes |
 | --- | --- |
 | SaaS | `.syn-app-shell`, `.syn-app-rail`, `.syn-app-nav`, `.syn-workspace`, `.syn-app-topbar`, `.syn-kpi-grid`, `.syn-app-card`, `.syn-activity-list` |
+| CRM / vertical SaaS | `.syn-filter-bar`, `.syn-filter-field`, `.syn-filter-actions`, `.syn-pipeline`, `.syn-pipeline-lane`, `.syn-pipeline-list`, `.syn-pipeline-card`, `.syn-record-fields` |
 | Business website | `.syn-site-hero`, `.syn-site-heading`, `.syn-feature-grid`, `.syn-feature-card`, `.syn-cta-band` |
 | Browser terminal | `.syn-terminal`, `.syn-terminal-bar`, `.syn-terminal-body`, `.syn-terminal-line`, `.syn-terminal-prompt` |
 | Surface design | `.syn-frame--precision`, `.syn-frame--industrial`, `.syn-frame--soft` |
@@ -485,6 +486,44 @@ This is a *visual composition*, not a live queue implementation. Preserve real l
 ```
 
 For custom themes, test *every* textual token pairing and important state for WCAG contrast. The example overrides only a subset of the available color tokens and is not an accessibility certification.
+
+## CRM and vertical SaaS patterns (alpha.5 source candidate)
+
+Load `syntyr.core.css` and then optional `syntyr.recipes.css`. See the [complete CRM example](../examples/crm.html), which uses ordinary HTML and requires no JavaScript.
+
+- **Filter bar:** `.syn-filter-bar` arranges labelled `.syn-filter-field` controls and a wrapping `.syn-filter-actions` group. Use `.syn-filter-field--query` for a wider search field. A `method="get"` form remains usable without JavaScript; the application must apply filters and preserve query values.
+- **Pipeline:** `.syn-pipeline` contains named `section.syn-pipeline-lane` columns; each lane contains a semantic `ul.syn-pipeline-list` of `li.syn-pipeline-card`. Set `tabindex="0"` and an accessible name on the scrollable board so keyboard users can reach overflow. Links inside cards remain ordinary links. Drag-and-drop, permissions, saved filters, counts, and stage transitions must be implemented by the host application.
+- **Record metadata:** `dl.syn-record-fields` groups each `dt` and `dd` in a direct child `div` for readable, responsive key/value pairs. Use a real `time` element for dates.
+- **Density:** `data-syn-density="compact"` compresses control, row and card spacing without shrinking type. `data-syn-density="comfortable"` restores default metrics inside compact ancestors. `data-syn-density="spacious"` provides larger controls and rows for review-heavy screens. These attributes may be on `.syn-root` or nested elements. `comfortable` is the default when density is unspecified.
+
+```html
+<section class="syn-root" data-syn-theme="studio" data-syn-density="compact">
+  <form class="syn-filter-bar" method="get" action="/opportunities">
+    <label class="syn-label syn-filter-field syn-filter-field--query" for="crm-query">
+      Search
+      <input class="syn-input" id="crm-query" name="query" type="search">
+    </label>
+    <div class="syn-filter-actions">
+      <button class="syn-button syn-button--primary" type="submit">Search</button>
+    </div>
+  </form>
+  <div class="syn-pipeline" tabindex="0" aria-label="Opportunity stages">
+    <section class="syn-pipeline-lane" aria-labelledby="crm-stage">
+      <h2 id="crm-stage">Qualified</h2>
+      <ul class="syn-pipeline-list">
+        <li class="syn-pipeline-card"><a href="/opportunities/123">Example account</a></li>
+      </ul>
+    </section>
+  </div>
+  <section data-syn-density="spacious" aria-label="Opportunity details">
+    <dl class="syn-record-fields">
+      <div><dt>Owner</dt><dd>Account team</dd></div>
+    </dl>
+  </section>
+</section>
+```
+
+The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.
 
 ## Reusing recipes across stacks
 
@@ -1160,6 +1199,15 @@ Themes set design tokens; component selectors should not fork per theme. The
 finite utilities are explicit overrides in their own final `syn.utilities`
 cascade layer. Do not load a convenience bundle and its component modules
 simultaneously.
+
+### Alpha.5 opt-in CRM compositions and density profiles
+
+The source-only `syntyr.recipes.css` adds optional `.syn-filter-bar`,
+`.syn-pipeline` and `.syn-record-fields` compositions. These selectors are
+experimental and are not in immutable alpha.4. Core adds explicit
+`data-syn-density="comfortable"` and `"spacious"` profiles alongside the
+existing `"compact"` profile, allowing nested density overrides.
+No application behaviors or JavaScript are shipped with these compositions.
 
 ### Alpha.5 data-table wrapping migration
 

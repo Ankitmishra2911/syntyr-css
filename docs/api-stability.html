@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: SYNTYR CSS public API and prerelease stability. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="4b9e62c511ebe902eab4ba89d590dc9ded0ec3ee95fd141a0a77ef4bb4575e58">
+  <meta name="syntyr-source-sha256" content="4f5ddaf9617d1ba1e3fdf8b5e4bed01fb32f54f31e391b10362bf7ef8e38e002">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability.html">
@@ -110,6 +110,13 @@ Themes set design tokens; component selectors should not fork per theme. The
 finite utilities are explicit overrides in their own final <code>syn.utilities</code>
 cascade layer. Do not load a convenience bundle and its component modules
 simultaneously.</p>
+<h3 id="alpha5-opt-in-crm-compositions-and-density-profiles">Alpha.5 opt-in CRM compositions and density profiles</h3>
+<p>The source-only <code>syntyr.recipes.css</code> adds optional <code>.syn-filter-bar</code>,
+<code>.syn-pipeline</code> and <code>.syn-record-fields</code> compositions. These selectors are
+experimental and are not in immutable alpha.4. Core adds explicit
+<code>data-syn-density=&quot;comfortable&quot;</code> and <code>&quot;spacious&quot;</code> profiles alongside the
+existing <code>&quot;compact&quot;</code> profile, allowing nested density overrides.
+No application behaviors or JavaScript are shipped with these compositions.</p>
 <h3 id="alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</h3>
 <p>The unreleased alpha.5 candidate changes classed <code>.syn-table</code> cells to wrap
 descriptive text by default, including when a table is placed in a narrow
@@ -152,6 +159,7 @@ runtime dependency.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#public-surface-and-intended-v1-boundaries">Public surface and intended v1 boundaries</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-opt-in-crm-compositions-and-density-profiles">Alpha.5 opt-in CRM compositions and density profiles</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#compatibility-and-version-policy">Compatibility and version policy</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#pre-10-release-checklist">Pre-1.0 release checklist</a>

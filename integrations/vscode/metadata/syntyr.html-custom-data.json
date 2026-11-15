@@ -274,6 +274,22 @@
           "description": "Syntyr CSS class (components/forms.css)."
         },
         {
+          "name": "syn-filter-actions",
+          "description": "Wrapping submit and reset action group for CRM filters."
+        },
+        {
+          "name": "syn-filter-bar",
+          "description": "Optional wrapping CRM GET filter form; host applies query parameters."
+        },
+        {
+          "name": "syn-filter-field",
+          "description": "Label and control group in an optional CRM filter bar."
+        },
+        {
+          "name": "syn-filter-field--query",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-floating-label",
           "description": "Syntyr CSS class (native-recipes.css)."
         },
@@ -470,6 +486,22 @@
           "description": "Syntyr CSS class (components/layout.css)."
         },
         {
+          "name": "syn-pipeline",
+          "description": "Keyboard-focusable scrollable CRM stage layout; host manages state."
+        },
+        {
+          "name": "syn-pipeline-card",
+          "description": "Opt-in CRM record presentation, not a drag-drop widget."
+        },
+        {
+          "name": "syn-pipeline-lane",
+          "description": "Named stage column with semantic list of records."
+        },
+        {
+          "name": "syn-pipeline-list",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-popover",
           "description": "Syntyr CSS class (components/overlays.css)."
         },
@@ -508,6 +540,10 @@
         {
           "name": "syn-reading-progress",
           "description": "Syntyr CSS class (motion.css)."
+        },
+        {
+          "name": "syn-record-fields",
+          "description": "Responsive definition-list layout for key/value record details."
         },
         {
           "name": "syn-region",
@@ -954,6 +990,12 @@
       "values": [
         {
           "name": "compact"
+        },
+        {
+          "name": "comfortable"
+        },
+        {
+          "name": "spacious"
         }
       ]
     },

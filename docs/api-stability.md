@@ -31,6 +31,15 @@ finite utilities are explicit overrides in their own final `syn.utilities`
 cascade layer. Do not load a convenience bundle and its component modules
 simultaneously.
 
+### Alpha.5 opt-in CRM compositions and density profiles
+
+The source-only `syntyr.recipes.css` adds optional `.syn-filter-bar`,
+`.syn-pipeline` and `.syn-record-fields` compositions. These selectors are
+experimental and are not in immutable alpha.4. Core adds explicit
+`data-syn-density="comfortable"` and `"spacious"` profiles alongside the
+existing `"compact"` profile, allowing nested density overrides.
+No application behaviors or JavaScript are shipped with these compositions.
+
 ### Alpha.5 data-table wrapping migration
 
 The unreleased alpha.5 candidate changes classed `.syn-table` cells to wrap

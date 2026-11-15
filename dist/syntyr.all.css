@@ -66,6 +66,20 @@
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }
+  /* Explicit default restores regular spacing inside a compact ancestor. */
+  :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
+    --syn-control-height: 2.75rem;
+    --syn-control-padding-block: .7rem;
+    --syn-row-padding-block: .7rem;
+    --syn-card-padding: var(--syn-space-3);
+  }
+  /* Spacious is for form-heavy or review contexts, without scaling typography. */
+  :where(.syn-root[data-syn-density="spacious"], .syn-root [data-syn-density="spacious"]) {
+    --syn-control-height: 3.25rem;
+    --syn-control-padding-block: .95rem;
+    --syn-row-padding-block: 1rem;
+    --syn-card-padding: var(--syn-space-4);
+  }
   /* Visual richness is independent of palette, geometry and density.
      Explicit values on descendants reset the inherited presentation profile. */
   :where(.syn-root, .syn-root [data-syn-intensity="standard"]) {
@@ -815,6 +829,69 @@
     &.syn-activity-list { list-style: none; margin: 0; padding: 0; }
     &.syn-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--syn-border-subtle); }
     &.syn-activity-list li:last-child { border-block-end: 0; }
+    /* CRM filters: wrapping, label-friendly controls and real GET forms. */
+    &.syn-filter-bar {
+      display: flex; align-items: end; flex-wrap: wrap;
+      gap: var(--syn-space-2); min-width: 0;
+    }
+    &.syn-filter-field {
+      display: grid; gap: .35rem;
+      flex: 1 1 11rem; min-inline-size: min(100%, 11rem);
+    }
+    &.syn-filter-field--query { flex: 2 1 18rem; }
+    &.syn-filter-actions {
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: var(--syn-space-1); min-inline-size: 0;
+    }
+
+    /* Native pipeline view: horizontal scroll only on the board, not the page.
+       A tabindex=0 and accessible name make overflow keyboard reachable. */
+    &.syn-pipeline {
+      display: grid; grid-auto-flow: column;
+      grid-auto-columns: minmax(min(100%, var(--syn-pipeline-column-width, 17rem)), 1fr);
+      align-items: start; gap: var(--syn-space-2);
+      max-inline-size: 100%; min-inline-size: 0;
+      overflow-x: auto; overscroll-behavior-inline: contain;
+      padding: .25rem .125rem var(--syn-space-2);
+    }
+    &.syn-pipeline:focus-visible {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: -2px;
+    }
+    &.syn-pipeline-lane {
+      display: grid; align-content: start; gap: var(--syn-space-2);
+      min-inline-size: 0; padding: var(--syn-space-2);
+      background: var(--syn-surface-recessed);
+      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+    }
+    &.syn-pipeline-lane > :first-child { margin-block: 0; }
+    &.syn-pipeline-list {
+      display: grid; gap: var(--syn-space-2);
+      margin: 0; padding: 0; list-style: none;
+    }
+    &.syn-pipeline-card {
+      min-inline-size: 0; padding: var(--syn-card-padding);
+      background: var(--syn-surface);
+      border: 1px solid var(--syn-border-subtle);
+      border-radius: var(--syn-radius);
+      overflow-wrap: anywhere;
+    }
+    &.syn-pipeline-card:focus-within {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    &.syn-pipeline-card > :first-child { margin-block-start: 0; }
+    &.syn-pipeline-card > :last-child { margin-block-end: 0; }
+
+    /* Definition-list fields for account, asset and deal detail panels. */
+    &.syn-record-fields { display: grid; gap: 0; margin: 0; }
+    &.syn-record-fields > div {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+      gap: .25rem var(--syn-space-2); padding-block: var(--syn-row-padding-block);
+      border-block-end: 1px solid var(--syn-border-subtle);
+    }
+    &.syn-record-fields > div:last-child { border-block-end: 0; }
+    &.syn-record-fields dt { color: var(--syn-muted); }
+    &.syn-record-fields dd { min-inline-size: 0; margin: 0; overflow-wrap: anywhere; }
+
     /* Business/marketing: typography and hierarchy without forcing a dark look. */
     &.syn-site-hero {
       position: relative; isolation: isolate; overflow: hidden;

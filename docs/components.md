@@ -203,6 +203,7 @@ Load `syntyr.core.css` first and `syntyr.recipes.css` second. The core remains s
 | Context | Optional classes |
 | --- | --- |
 | SaaS | `.syn-app-shell`, `.syn-app-rail`, `.syn-app-nav`, `.syn-workspace`, `.syn-app-topbar`, `.syn-kpi-grid`, `.syn-app-card`, `.syn-activity-list` |
+| CRM / vertical SaaS | `.syn-filter-bar`, `.syn-filter-field`, `.syn-filter-actions`, `.syn-pipeline`, `.syn-pipeline-lane`, `.syn-pipeline-list`, `.syn-pipeline-card`, `.syn-record-fields` |
 | Business website | `.syn-site-hero`, `.syn-site-heading`, `.syn-feature-grid`, `.syn-feature-card`, `.syn-cta-band` |
 | Browser terminal | `.syn-terminal`, `.syn-terminal-bar`, `.syn-terminal-body`, `.syn-terminal-line`, `.syn-terminal-prompt` |
 | Surface design | `.syn-frame--precision`, `.syn-frame--industrial`, `.syn-frame--soft` |

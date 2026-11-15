@@ -66,6 +66,20 @@
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }
+  /* Explicit default restores regular spacing inside a compact ancestor. */
+  :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
+    --syn-control-height: 2.75rem;
+    --syn-control-padding-block: .7rem;
+    --syn-row-padding-block: .7rem;
+    --syn-card-padding: var(--syn-space-3);
+  }
+  /* Spacious is for form-heavy or review contexts, without scaling typography. */
+  :where(.syn-root[data-syn-density="spacious"], .syn-root [data-syn-density="spacious"]) {
+    --syn-control-height: 3.25rem;
+    --syn-control-padding-block: .95rem;
+    --syn-row-padding-block: 1rem;
+    --syn-card-padding: var(--syn-space-4);
+  }
   /* Visual richness is independent of palette, geometry and density.
      Explicit values on descendants reset the inherited presentation profile. */
   :where(.syn-root, .syn-root [data-syn-intensity="standard"]) {

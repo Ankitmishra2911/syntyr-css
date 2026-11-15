@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: MIT-licensed composition recipes. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="d1ff2c75d9278757c0151445f610c34142d1a5c45925afa595d4d4b12cef33e9">
+  <meta name="syntyr-source-sha256" content="90b655daafc020f700c02c25641872086376cfa58cf6c91beacc144321ac8c25">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes.html">
@@ -116,6 +116,40 @@ All spacing remains controlled by ordinary CSS custom properties.</p>
 }
 </code></pre>
 <p>For custom themes, test <em>every</em> textual token pairing and important state for WCAG contrast. The example overrides only a subset of the available color tokens and is not an accessibility certification.</p>
+<h2 id="crm-and-vertical-saas-patterns-alpha5-source-candidate">CRM and vertical SaaS patterns (alpha.5 source candidate)</h2>
+<p>Load <code>syntyr.core.css</code> and then optional <code>syntyr.recipes.css</code>. See the <a href="../examples/crm.html">complete CRM example</a>, which uses ordinary HTML and requires no JavaScript.</p>
+<ul>
+<li><strong>Filter bar:</strong> <code>.syn-filter-bar</code> arranges labelled <code>.syn-filter-field</code> controls and a wrapping <code>.syn-filter-actions</code> group. Use <code>.syn-filter-field--query</code> for a wider search field. A <code>method=&quot;get&quot;</code> form remains usable without JavaScript; the application must apply filters and preserve query values.</li>
+<li><strong>Pipeline:</strong> <code>.syn-pipeline</code> contains named <code>section.syn-pipeline-lane</code> columns; each lane contains a semantic <code>ul.syn-pipeline-list</code> of <code>li.syn-pipeline-card</code>. Set <code>tabindex=&quot;0&quot;</code> and an accessible name on the scrollable board so keyboard users can reach overflow. Links inside cards remain ordinary links. Drag-and-drop, permissions, saved filters, counts, and stage transitions must be implemented by the host application.</li>
+<li><strong>Record metadata:</strong> <code>dl.syn-record-fields</code> groups each <code>dt</code> and <code>dd</code> in a direct child <code>div</code> for readable, responsive key/value pairs. Use a real <code>time</code> element for dates.</li>
+<li><strong>Density:</strong> <code>data-syn-density=&quot;compact&quot;</code> compresses control, row and card spacing without shrinking type. <code>data-syn-density=&quot;comfortable&quot;</code> restores default metrics inside compact ancestors. <code>data-syn-density=&quot;spacious&quot;</code> provides larger controls and rows for review-heavy screens. These attributes may be on <code>.syn-root</code> or nested elements. <code>comfortable</code> is the default when density is unspecified.</li>
+</ul>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; data-syn-density=&quot;compact&quot;&gt;
+  &lt;form class=&quot;syn-filter-bar&quot; method=&quot;get&quot; action=&quot;/opportunities&quot;&gt;
+    &lt;label class=&quot;syn-label syn-filter-field syn-filter-field--query&quot; for=&quot;crm-query&quot;&gt;
+      Search
+      &lt;input class=&quot;syn-input&quot; id=&quot;crm-query&quot; name=&quot;query&quot; type=&quot;search&quot;&gt;
+    &lt;/label&gt;
+    &lt;div class=&quot;syn-filter-actions&quot;&gt;
+      &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+  &lt;div class=&quot;syn-pipeline&quot; tabindex=&quot;0&quot; aria-label=&quot;Opportunity stages&quot;&gt;
+    &lt;section class=&quot;syn-pipeline-lane&quot; aria-labelledby=&quot;crm-stage&quot;&gt;
+      &lt;h2 id=&quot;crm-stage&quot;&gt;Qualified&lt;/h2&gt;
+      &lt;ul class=&quot;syn-pipeline-list&quot;&gt;
+        &lt;li class=&quot;syn-pipeline-card&quot;&gt;&lt;a href=&quot;/opportunities/123&quot;&gt;Example account&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+  &lt;section data-syn-density=&quot;spacious&quot; aria-label=&quot;Opportunity details&quot;&gt;
+    &lt;dl class=&quot;syn-record-fields&quot;&gt;
+      &lt;div&gt;&lt;dt&gt;Owner&lt;/dt&gt;&lt;dd&gt;Account team&lt;/dd&gt;&lt;/div&gt;
+    &lt;/dl&gt;
+  &lt;/section&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.</p>
 <h2 id="reusing-recipes-across-stacks">Reusing recipes across stacks</h2>
 <ul>
 <li><strong>Go / templ, PHP, Django, Rust templates:</strong> Make recipes server-rendered partials and pass content as arguments.</li>
@@ -194,6 +228,7 @@ application CSS. Keep real document headings and reading order.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#3-three-card-pricing-display">3. Three-card pricing display</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-stateful-native-button-host-controlled">4. Stateful native button (host controlled)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#token-only-custom-theme">Token-only custom theme</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#crm-and-vertical-saas-patterns-alpha5-source-candidate">CRM and vertical SaaS patterns (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reusing-recipes-across-stacks">Reusing recipes across stacks</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>

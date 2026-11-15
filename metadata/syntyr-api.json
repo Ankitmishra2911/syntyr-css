@@ -337,6 +337,26 @@
       "description": "Syntyr CSS class (components/forms.css)."
     },
     {
+      "name": "syn-filter-actions",
+      "module": "recipes.css",
+      "description": "Wrapping submit and reset action group for CRM filters."
+    },
+    {
+      "name": "syn-filter-bar",
+      "module": "recipes.css",
+      "description": "Optional wrapping CRM GET filter form; host applies query parameters."
+    },
+    {
+      "name": "syn-filter-field",
+      "module": "recipes.css",
+      "description": "Label and control group in an optional CRM filter bar."
+    },
+    {
+      "name": "syn-filter-field--query",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-floating-label",
       "module": "native-recipes.css",
       "description": "Syntyr CSS class (native-recipes.css)."
@@ -582,6 +602,26 @@
       "description": "Syntyr CSS class (components/layout.css)."
     },
     {
+      "name": "syn-pipeline",
+      "module": "recipes.css",
+      "description": "Keyboard-focusable scrollable CRM stage layout; host manages state."
+    },
+    {
+      "name": "syn-pipeline-card",
+      "module": "recipes.css",
+      "description": "Opt-in CRM record presentation, not a drag-drop widget."
+    },
+    {
+      "name": "syn-pipeline-lane",
+      "module": "recipes.css",
+      "description": "Named stage column with semantic list of records."
+    },
+    {
+      "name": "syn-pipeline-list",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-popover",
       "module": "components/overlays.css",
       "description": "Syntyr CSS class (components/overlays.css)."
@@ -630,6 +670,11 @@
       "name": "syn-reading-progress",
       "module": "motion.css",
       "description": "Syntyr CSS class (motion.css)."
+    },
+    {
+      "name": "syn-record-fields",
+      "module": "recipes.css",
+      "description": "Responsive definition-list layout for key/value record details."
     },
     {
       "name": "syn-region",
