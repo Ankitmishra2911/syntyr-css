@@ -38,6 +38,8 @@ class CloudflareSiteTests(unittest.TestCase):
             self.assertTrue((out / "404.html").is_file())
             self.assertTrue((out / "docs/index.html").is_file())
             self.assertTrue((out / "docs/framework-integrations.md").is_file())
+            self.assertTrue((out / "docs/performance-validation.md").is_file())
+            self.assertTrue((out / "docs/performance-and-polish.md").is_file())
             self.assertTrue((out / "dist/syntyr.core.css").is_file())
             self.assertTrue((out / "examples/operations-console.html").is_file())
             self.assertTrue((out / "examples/themes.html").is_file())

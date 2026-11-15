@@ -32,7 +32,7 @@
     --syn-danger: #ffaaa4;
     --syn-success: #8ce6bb;
     --syn-warning: #ffd08b;
-    --syn-accent-soft: rgb(118 231 247 / 11%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: .25rem;
     --syn-cut: .9rem;
   }
@@ -51,7 +51,7 @@
     --syn-danger: #ffc1ac;
     --syn-success: #a5e4bc;
     --syn-warning: #fbd18c;
-    --syn-accent-soft: rgb(241 181 116 / 10%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 10%, transparent);
     --syn-radius: .25rem;
     --syn-cut: .9rem;
   }
@@ -70,7 +70,7 @@
     --syn-danger: #ffb2a7;
     --syn-success: #8dedb0;
     --syn-warning: #ffd08f;
-    --syn-accent-soft: rgb(255 179 107 / 11%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: .15rem;
     --syn-cut: .45rem;
   }
@@ -89,7 +89,7 @@
     --syn-danger: #f6a8a8;
     --syn-success: #74e7a7;
     --syn-warning: #eccd86;
-    --syn-accent-soft: rgb(101 232 160 / 11%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: 0;
     --syn-cut: 0;
   }
@@ -108,7 +108,7 @@
     --syn-danger: #b42331;
     --syn-success: #147446;
     --syn-warning: #9a5600;
-    --syn-accent-soft: rgb(21 90 200 / 9%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
     --syn-radius: .5rem;
     --syn-cut: 0;
   }
@@ -127,7 +127,7 @@
     --syn-danger: #aa2f3c;
     --syn-success: #1f6c45;
     --syn-warning: #8d5200;
-    --syn-accent-soft: rgb(49 58 69 / 7%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 7%, transparent);
     --syn-radius: .375rem;
     --syn-cut: 0;
   }
@@ -146,7 +146,7 @@
     --syn-danger: #ad2637;
     --syn-success: #17694b;
     --syn-warning: #92500a;
-    --syn-accent-soft: rgb(36 88 198 / 9%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
     --syn-radius: .25rem;
     --syn-cut: .9rem;
   }
@@ -169,7 +169,7 @@
       --syn-danger: light-dark(#ad2637, #ffaaa4);
       --syn-success: light-dark(#17694b, #8ce6bb);
       --syn-warning: light-dark(#92500a, #ffd08b);
-      --syn-accent-soft: light-dark(rgb(36 88 198 / 9%), rgb(118 231 247 / 11%));
+      --syn-accent-soft: light-dark(color-mix(in srgb, var(--syn-accent) 9%, transparent), color-mix(in srgb, var(--syn-accent) 11%, transparent));
       --syn-radius: .25rem;
       --syn-cut: .9rem;
     }

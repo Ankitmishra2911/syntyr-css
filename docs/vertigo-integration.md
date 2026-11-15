@@ -81,3 +81,12 @@ site does not need a Vertigo process to use this CSS.
 
 These are presentation-level checks of a standalone HTML example, not
 end-to-end verification of Vertigo's authenticated resource CRUD screens.
+
+## Current Vertigo shared-shell integration (separate opt-in branch)
+
+Syntyr additionally provides `integrations/vertigo/shell.css`, a token bridge
+for Vertigo's newer `kit/ui` `.vg-*` components. The `feat/optional-syntyr-skin`
+branch in `dporkka/vertigo` vendors the **published alpha.4 core** plus this
+bridge and the legacy `admin.css` adapter, and enables it only with
+`VERTIGO_UI_SKIN=syntyr`. CSS is served locally from a versioned path. Its
+Go regression tests do not establish end-to-end database-backed UI approval.

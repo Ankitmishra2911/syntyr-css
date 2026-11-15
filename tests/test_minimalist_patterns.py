@@ -24,7 +24,7 @@ class MinimalistPatternsContract(unittest.TestCase):
         grid = theme_rules(css, "grid")
         tokens = ("bg", "surface", "surface-hi", "text", "muted", "accent",
                   "accent-2", "on-accent", "frame", "frame-strong",
-                  "danger", "success", "warning", "accent-soft")
+                  "danger", "success", "warning")
         for short in tokens:
             name = "--syn-" + short
             with self.subTest(token=name):
@@ -32,6 +32,11 @@ class MinimalistPatternsContract(unittest.TestCase):
                 self.assertIsNotNone(match)
                 self.assertEqual(match.group(1), studio[name])
                 self.assertEqual(match.group(2), grid[name])
+        # The alpha is theme-specific and the tint tracks CSS token overrides.
+        self.assertIn(
+            '--syn-accent-soft: light-dark(' + studio['--syn-accent-soft']
+            + ', ' + grid['--syn-accent-soft'] + ');', auto,
+        )
 
     def test_intrinsic_layouts_and_fluid_tokens_are_recipes_only(self):
         css = (ROOT / "src/recipes.css").read_text()

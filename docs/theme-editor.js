@@ -27,7 +27,7 @@
     const passes = ratio >= 4.5;
     contrastResult.dataset.result = passes ? 'pass' : 'fail';
     contrastResult.textContent = `Primary button text contrast: ${ratio.toFixed(2)}:1 — ${passes ? 'meets' : 'below'} the WCAG AA normal-text 4.5:1 threshold.`;
-    generated.textContent = `.syn-root[data-syn-theme="${theme.value}"] {\n  --syn-accent: ${accent.value};\n  --syn-on-accent: ${onAccent.value};\n}`;
+    generated.textContent = `.syn-root[data-syn-theme="${theme.value}"],\n.syn-root [data-syn-theme="${theme.value}"] {\n  --syn-accent: ${accent.value};\n  --syn-on-accent: ${onAccent.value};\n}`;
   }
 
   function loadThemeDefaults() {

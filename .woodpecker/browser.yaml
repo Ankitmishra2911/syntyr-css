@@ -1,0 +1,15 @@
+# Run manually before a candidate release or when a version tag is pushed.
+# Browser tooling is development-only and is not shipped to consumers.
+when:
+  - event: manual
+  - event: tag
+
+steps:
+  - name: three-engine-browser-and-reflow-matrix
+    image: mcr.microsoft.com/playwright/python:v1.65.2-noble
+    commands:
+      - python3 -m pip install --disable-pip-version-check playwright==1.65.2
+      - python3 tests/browser_test.py
+      - python3 tests/browser_matrix.py --browsers chromium firefox webkit
+      - python3 tests/reflow_test.py --browsers chromium firefox webkit
+      - python3 tests/theme_editor_browser.py
