@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "id": "hero-product",
+      "category": "Marketing",
+      "title": "Product launch hero",
+      "description": "A concise product introduction with real calls to action.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "hero",
+        "landing",
+        "product"
+      ]
+    },
+    {
+      "id": "hero-security",
+      "category": "Marketing",
+      "title": "Security-first hero",
+      "description": "A restrained security product hero with an explicit trust message.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "security",
+        "hero",
+        "saas"
+      ]
+    },
+    {
+      "id": "feature-grid",
+      "category": "Marketing",
+      "title": "Three-feature grid",
+      "description": "Responsive feature cards based on a fluid CSS grid.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "features",
+        "cards",
+        "grid"
+      ]
+    },
+    {
+      "id": "feature-checklist",
+      "category": "Marketing",
+      "title": "Benefits checklist",
+      "description": "A short benefits section with native list semantics.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "benefits",
+        "features",
+        "list"
+      ]
+    },
+    {
+      "id": "pricing-trio",
+      "category": "Marketing",
+      "title": "Three-tier pricing",
+      "description": "Three responsive pricing cards with a featured plan.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "pricing",
+        "plans",
+        "conversion"
+      ]
+    },
+    {
+      "id": "testimonial",
+      "category": "Marketing",
+      "title": "Customer testimonial",
+      "description": "Readable social proof with explicit quotation attribution.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "testimonial",
+        "quote",
+        "trust"
+      ]
+    },
+    {
+      "id": "faq",
+      "category": "Marketing",
+      "title": "Frequently asked questions",
+      "description": "Keyboard-accessible native disclosures without a script.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "faq",
+        "questions",
+        "disclosure"
+      ]
+    },
+    {
+      "id": "cta-band",
+      "category": "Marketing",
+      "title": "Call-to-action band",
+      "description": "A compact conversion section with clear hierarchy.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "cta",
+        "conversion",
+        "contact"
+      ]
+    },
+    {
+      "id": "metric-overview",
+      "category": "Applications",
+      "title": "KPI overview",
+      "description": "Container-aware operational metrics with text labels.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "dashboard",
+        "kpi",
+        "metrics"
+      ]
+    },
+    {
+      "id": "activity-feed",
+      "category": "Applications",
+      "title": "Recent activity",
+      "description": "A compact activity feed in a reusable application card.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "activity",
+        "feed",
+        "application"
+      ]
+    },
+    {
+      "id": "data-table",
+      "category": "Applications",
+      "title": "Records table",
+      "description": "Semantic, scrollable table with caption and column scopes.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "table",
+        "records",
+        "report"
+      ]
+    },
+    {
+      "id": "filter-toolbar",
+      "category": "Applications",
+      "title": "Search and filter form",
+      "description": "Server-ready GET filters that preserve native form semantics.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "search",
+        "filter",
+        "form"
+      ]
+    },
+    {
+      "id": "settings-form",
+      "category": "Applications",
+      "title": "Account settings",
+      "description": "Labeled settings form for server-backed applications.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "settings",
+        "account",
+        "form"
+      ]
+    },
+    {
+      "id": "team-directory",
+      "category": "Applications",
+      "title": "Team directory",
+      "description": "Simple list of people and roles with descriptive content.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "team",
+        "permissions",
+        "people"
+      ]
+    },
+    {
+      "id": "billing-summary",
+      "category": "Applications",
+      "title": "Billing summary",
+      "description": "A compact, readable subscription overview.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "billing",
+        "subscription",
+        "invoice"
+      ]
+    },
+    {
+      "id": "onboarding-steps",
+      "category": "Applications",
+      "title": "Onboarding checklist",
+      "description": "A short onboarding progression conveyed without color-only state.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "onboarding",
+        "checklist",
+        "setup"
+      ]
+    },
+    {
+      "id": "terminal-session",
+      "category": "Technical",
+      "title": "Terminal output",
+      "description": "A static terminal presentation, not an interactive shell.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "terminal",
+        "developer",
+        "cli"
+      ]
+    },
+    {
+      "id": "incident-notice",
+      "category": "Technical",
+      "title": "Service incident notice",
+      "description": "Status notice with actionable text and honest semantics.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "incident",
+        "status",
+        "alert"
+      ]
+    },
+    {
+      "id": "telemetry-status",
+      "category": "Technical",
+      "title": "Telemetry panel",
+      "description": "Readable service status with native progress indicators.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "telemetry",
+        "health",
+        "progress"
+      ]
+    },
+    {
+      "id": "release-notes",
+      "category": "Technical",
+      "title": "Release notes",
+      "description": "Compact changelog entry with a machine-readable date.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "changelog",
+        "releases",
+        "updates"
+      ]
+    }
+  ]
+}

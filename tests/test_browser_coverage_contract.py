@@ -19,6 +19,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class BrowserCoverageContract(unittest.TestCase):
+    def test_blocks_gallery_is_in_browser_reflow_and_axe_inventories(self):
+        for name in ("browser_matrix.py", "reflow_test.py", "axe_audit.py"):
+            with self.subTest(script=name):
+                source = (ROOT / "tests" / name).read_text(encoding="utf-8")
+                self.assertIn('"docs/blocks.html"', source)
+
     def test_new_theme_gallery_is_in_cross_engine_and_axe_audits(self):
         for script in ("browser_matrix.py", "axe_audit.py"):
             with self.subTest(script=script):
