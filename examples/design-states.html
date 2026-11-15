@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SYNTYR semantic typography, accessible interaction states, compact density and nested themes.">
+  <title>SYNTYR — Semantic design and states</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.semantic.css">
+  <style>
+    .sample-section { margin-block: 2rem; }
+    .sample-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: var(--syn-space-3); }
+    .sample-surface { padding: var(--syn-space-3); border: 1px solid var(--syn-border-default); background: var(--syn-surface); }
+    .skip-link { position: absolute; inset-block-start: -10rem; inset-inline-start: 1rem; z-index: 1; }
+    .skip-link:focus-visible { inset-block-start: 1rem; }
+  </style>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a href="#main" class="syn-button skip-link">Skip to content</a>
+  <header class="syn-shell syn-header">
+    <a href="../index.html" class="syn-logo">SYNTYR</a>
+    <nav class="syn-nav" aria-label="Demo navigation"><a href="../docs/index.html">Components</a><a href="../index.html">Home</a></nav>
+  </header>
+  <main id="main" class="syn-shell">
+    <section aria-labelledby="overview" class="sample-section syn-prose">
+      <p class="syn-eyebrow">SYSTEM / DESIGN FOUNDATION</p>
+      <h1 id="overview" class="syn-display">Clarity in every state.</h1>
+      <p class="syn-body">Semantic roles create consistent typography, borders, focus rings and interaction surfaces.</p>
+      <p class="syn-text-support">All examples are HTML and CSS only. Forms do not submit or save information.</p>
+    </section>
+    <section aria-labelledby="controls" class="sample-section">
+      <h2 id="controls" class="syn-heading">Controls and validation</h2>
+      <div class="sample-grid">
+        <div class="sample-surface syn-stack">
+          <div class="syn-inline">
+            <button type="button" class="syn-button syn-button--primary">Primary</button>
+            <button type="button" class="syn-button syn-button--outline">Secondary</button>
+            <button type="button" class="syn-button syn-button--ghost" aria-pressed="true">Selected</button>
+          </div>
+          <div class="syn-inline">
+            <button type="button" class="syn-button" disabled>Unavailable</button>
+            <button type="button" class="syn-button" aria-busy="true">Working (illustrative)</button>
+          </div>
+          <p class="syn-text-support">Use Tab to inspect visible focus. The busy example is visual only; it does not run a task.</p>
+        </div>
+        <div class="sample-surface">
+          <div class="syn-form">
+            <label class="syn-label" for="name">Display name
+              <input id="name" name="name" class="syn-input" placeholder="Example name">
+            </label>
+            <label class="syn-label" for="email">Email address
+              <input id="email" type="email" name="email" class="syn-input" value="not-an-email" aria-invalid="true" aria-describedby="email-error">
+            </label>
+            <p class="syn-error" id="email-error">Enter a valid email address. This error is illustrative.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="classless" class="sample-section">
+      <h2 id="classless" class="syn-heading">Optional semantic mode</h2>
+      <div class="sample-surface syn-semantic syn-stack">
+        <label for="classless-name">Classless control
+          <input id="classless-name" name="classless-name" type="text" placeholder="Styles without component classes">
+        </label>
+        <div class="syn-inline">
+          <button type="button">Native button</button>
+          <button type="button" disabled>Disabled native button</button>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="nested" class="sample-section">
+      <h2 id="nested" class="syn-heading">Independent themes and density</h2>
+      <div class="sample-grid">
+        <article class="sample-surface syn-stack" data-syn-theme="grid" aria-labelledby="grid-heading">
+          <h3 class="syn-heading" id="grid-heading">Grid / standard</h3>
+          <p class="syn-text-support">Theme-scoped surface and interaction roles.</p>
+          <button class="syn-button syn-button--primary" type="button">Execute</button>
+        </article>
+        <article class="sample-surface syn-stack" data-syn-theme="studio" data-syn-density="compact" aria-labelledby="compact-heading">
+          <h3 class="syn-heading" id="compact-heading">Studio / compact</h3>
+          <p class="syn-text-support">Compact density changes padding and control height, not text scaling.</p>
+          <button class="syn-button syn-button--primary" type="button">Review</button>
+        </article>
+      </div>
+    </section>
+    <footer class="syn-caption sample-section">MIT example · No required JavaScript, remote fonts, or runtime dependencies.</footer>
+  </main>
+</body>
+</html>

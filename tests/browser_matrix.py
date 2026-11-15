@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -197,6 +197,37 @@ def assert_page(browser, name: str, viewport: int) -> None:
             page.emulate_media(forced_colors="active")
             assert bevel.evaluate("e => getComputedStyle(e).borderTopStyle") == "solid"
             assert bevel.evaluate("e => getComputedStyle(e, '::before').display") == "none"
+    if name == "examples/design-states.html":
+        assert page.get_by_role("heading", name="Clarity in every state.").count() == 1
+        assert page.get_by_role("button", name="Disabled native button").is_disabled()
+        if viewport == 1280:
+            field_bottom = page.locator("#classless-name").evaluate("e => e.getBoundingClientRect().bottom")
+            button_top = page.get_by_role("button", name="Native button", exact=True).evaluate("e => e.getBoundingClientRect().top")
+            assert button_top - field_bottom >= 8, "semantic example controls need vertical rhythm"
+            grid = page.locator('[data-syn-theme="grid"]')
+            studio = page.locator("body")
+            token = "e => getComputedStyle(e).getPropertyValue('--syn-focus-ring').trim()"
+            assert grid.evaluate(token) != studio.evaluate(token), "nested focus color failed"
+            regular = page.get_by_role("button", name="Execute")
+            compact = page.get_by_role("button", name="Review")
+            measure = "e => e.getBoundingClientRect().height"
+            assert compact.evaluate(measure) < regular.evaluate(measure), "compact control height failed"
+            selected = page.get_by_role("button", name="Selected")
+            background = "e => getComputedStyle(e).backgroundColor"
+            selected_color = selected.evaluate(background)
+            selected.hover()
+            assert selected.evaluate(background) == selected_color, "pressed state lost on hover"
+            invalid = page.locator("#email")
+            border = "e => getComputedStyle(e).borderTopColor"
+            invalid.hover()
+            invalid_color = invalid.evaluate(border)
+            invalid.focus()
+            assert invalid.evaluate(border) == invalid_color, "invalid state lost on focus"
+            page.keyboard.press("Tab")
+            selected.focus()
+            assert selected.evaluate("e => getComputedStyle(e).outlineStyle") != "none"
+            page.emulate_media(forced_colors="active")
+            assert selected.evaluate("e => getComputedStyle(e).outlineStyle") != "none"
     if name == "examples/saas-workflows.html":
         assert page.get_by_role("search").count() == 1, name
         assert page.get_by_role("table").count() == 1, name

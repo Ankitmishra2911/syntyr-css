@@ -63,6 +63,9 @@ Useful tokens:
 | `--syn-font`, `--syn-mono`, `--syn-font-ui`, `--syn-font-display` | Body, technical, control, and display typography |
 | `--syn-type-xs`, `--syn-type-sm`, `--syn-type-base` | Typography sizes |
 | `--syn-surface-recessed`, `--syn-surface-raised`, `--syn-border-subtle` | Derived surfaces and quiet separators |
+| `--syn-text-subtle`, `--syn-border-default`, `--syn-border-hover`, `--syn-border-focus`, `--syn-focus-ring` | Semantic text, borders, and focus |
+| `--syn-surface-interactive`, `--syn-surface-hover`, `--syn-surface-pressed` | Theme-aware interactive control states |
+| `--syn-type-display`, `--syn-type-heading`, `--syn-type-body`, `--syn-leading-body`, `--syn-tracking-display` | Composable typography roles |
 | `--syn-row-padding-block`, `--syn-card-padding`, `--syn-control-padding-block` | Density-aware spacing |
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
@@ -167,3 +170,27 @@ Use the default density for content-heavy business pages or touch-first forms.
 For an optional editorial hero, combine `syn-site-heading--editorial` from
 `syntyr.recipes.css` with `syn-gradient-wash` from `syntyr.effects.css`.
 Both use local fonts and static CSS without runtime dependencies.
+
+
+## Semantic roles, states, and content rhythm
+
+Use `.syn-display` (also available as `.syn-title`), `.syn-heading`,
+`.syn-body`, `.syn-text-support`, and the opt-in `.syn-prose` content
+container. Typography roles inherit theme fonts and allow applications to
+override type scale without rewriting individual component selectors.
+
+Semantic aliases are derived separately in each nested `data-syn-theme`
+scope, so a Grid panel inside a Studio page retains Grid's own contrast and
+control appearance. To override theme colors, prefer changing the primitive
+palette (`--syn-accent`, `--syn-frame`, `--syn-surface`, etc.). Override a
+semantic role only when the change is intentional and contrast has been checked.
+
+Native `disabled`, `aria-invalid`, `aria-pressed`, `aria-busy`,
+`:focus-visible`, and `:active` styles are presentation only. `aria-busy`
+does not stop clicks or run a task. Use actual `disabled` for disabled form
+controls; `aria-disabled` requires the application to suppress activation.
+For errors, pair `aria-invalid="true"` with an associated error message
+(`aria-describedby`); never rely on border color alone.
+
+See [the live design-state example](../examples/design-states.html) for
+semantic typography, nested themes, compact layout and form states.

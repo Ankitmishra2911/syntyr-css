@@ -56,7 +56,7 @@ class GeometryTerminalContract(unittest.TestCase):
         css = (ROOT / "src/components/buttons.css").read_text()
         for variant in (".syn-button", ".syn-button--primary", ".syn-button--outline",
                         ".syn-button--danger", ".syn-button--ghost"):
-            self.assertIn(variant + ":not(:disabled):not([aria-disabled=\"true\"]):hover", css)
+            self.assertIn(variant + ":where(:not(:disabled):not([aria-disabled=\"true\"]):hover)", css)
         self.assertIn("cursor: not-allowed", css)
 
     def test_aria_disabled_is_not_functionally_disabled_by_css(self):

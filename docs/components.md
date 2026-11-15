@@ -160,3 +160,7 @@ and `.syn-reading`. These are not part of `syntyr.core.css`.
 Classless checkbox and radio labels align their controls inline when
 `syntyr.semantic.css` and `.syn-semantic` are enabled. See
 [the recipe guide](recipes.md) and [live example](../examples/minimalist-patterns.html).
+
+## Visual role examples
+
+The optional [design-state example](../examples/design-states.html) exercises active, selected, disabled, and invalid presentation across nested light/dark themes. It contains no application state machine, backend operation, or runtime JavaScript.

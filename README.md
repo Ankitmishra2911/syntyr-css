@@ -36,6 +36,7 @@
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 - [Seven-theme comparison gallery (unreleased)](examples/themes.html)
+- [Design-system states and typography example](examples/design-states.html): semantic tokens, accessible control states, nested themes and compact density
 - [Minimalist patterns demo (system palette, fluid type, intrinsic layouts and classless form)](examples/minimalist-patterns.html)
 - [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
 - [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)

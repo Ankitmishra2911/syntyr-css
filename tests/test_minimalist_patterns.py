@@ -44,13 +44,15 @@ class MinimalistPatternsContract(unittest.TestCase):
             '.syn-sidebar', '.syn-switcher',
             '--syn-sidebar-width', '--syn-sidebar-content-min',
             '--syn-switcher-threshold',
-            '--syn-type-display', '--syn-type-lede', '--syn-reading-width',
+            '--syn-fluid-display-size', '--syn-type-lede', '--syn-reading-width',
             '.syn-fluid-display', '.syn-fluid-lede', '.syn-reading',
         ):
             with self.subTest(fragment=fragment):
                 self.assertIn(fragment, css)
                 self.assertIn(fragment, (ROOT / "dist/syntyr.recipes.css").read_text())
                 self.assertNotIn(fragment, (ROOT / "dist/syntyr.core.css").read_text())
+        self.assertIn('--syn-type-display:', (ROOT / 'src/tokens.css').read_text())
+        self.assertNotIn('--syn-type-display:', css, 'optional recipes must not shadow core typography')
         self.assertIn('flex-wrap: wrap', css)
         self.assertIn('clamp(', css)
         self.assertIn('min(100%', css)
