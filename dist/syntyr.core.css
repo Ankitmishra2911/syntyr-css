@@ -538,7 +538,7 @@
 
     /* Native popovertarget supplies an implicit anchor in supporting browsers. */
     @supports (position-area: block-end) {
-      &.syn-popover--anchored {
+      &.syn-popover.syn-popover--anchored {
         position-area: block-end span-inline-end;
         position-try-fallbacks: flip-block, flip-inline;
         inset: auto;

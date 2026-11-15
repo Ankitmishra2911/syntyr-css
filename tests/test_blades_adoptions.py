@@ -65,6 +65,13 @@ class BladesAdoptionContract(unittest.TestCase):
         self.assertNotIn("@import", css)
         self.assertNotIn("url(", css)
 
+    def test_logical_anchor_position_rule_matches_fallback_specificity(self):
+        css = (ROOT / "src/components/overlays.css").read_text()
+        selector = "&.syn-popover.syn-popover--anchored"
+        self.assertEqual(css.count(selector), 2, "Both anchor rules need equal specificity")
+        logical = css.split("@supports (position-area: block-end)", 1)[1]
+        self.assertIn("position-area: block-end span-inline-end", logical)
+
     def test_optional_recipes_keep_persistent_labels_and_semantic_markups(self):
         css = (ROOT / "src/native-recipes.css").read_text()
         html = (ROOT / "examples/native-recipes.html").read_text()
