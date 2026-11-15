@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "examples/console
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/mature-patterns.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -145,6 +145,21 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert skeleton.get_attribute("aria-hidden") == "true"
         assert skeleton.evaluate("e => getComputedStyle(e).animationName") == "none"
         assert skeleton.evaluate("e => getComputedStyle(e).backgroundColor") != "rgba(0, 0, 0, 0)"
+    if name == "examples/mature-patterns.html":
+        summary = page.get_by_role("alert")
+        assert summary.count() == 1
+        assert summary.locator('a[href="#name"]').count() == 1
+        assert page.locator('#name[aria-invalid="true"][aria-describedby~="name-error"]').count() == 1
+        assert summary.evaluate("e => parseFloat(getComputedStyle(e).borderInlineStartWidth)") >= 3
+        assert page.locator('dl.syn-description-list').count() == 2
+        sorted_head = page.locator('th[aria-sort="ascending"]')
+        assert sorted_head.get_by_role("button", name="Account").count() == 1
+        assert "↑" in sorted_head.locator("button").evaluate("e => getComputedStyle(e, '::after').content")
+        rtl_table = page.locator('[dir="rtl"] .syn-table')
+        assert rtl_table.evaluate("e => getComputedStyle(e).direction") == "rtl"
+        assert rtl_table.evaluate("e => getComputedStyle(e).textAlign") == "start"
+        assert rtl_table.locator(".syn-cell--numeric").evaluate(
+            "e => getComputedStyle(e).textAlign") == "end"
     if name == "examples/resources.html":
         assert page.get_by_role("search").count() == 1
         assert page.get_by_role("table").count() == 1
