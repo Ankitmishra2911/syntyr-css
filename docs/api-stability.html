@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
-  <meta name="syntyr-source-sha256" content="4f5ddaf9617d1ba1e3fdf8b5e4bed01fb32f54f31e391b10362bf7ef8e38e002">
+  <meta name="syntyr-source-sha256" content="f3f43f3465b7d07ea975e66166f5b3420c2222a0c953b87bb826eb443191e898">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
@@ -72,6 +72,16 @@ reviewed consistently before <code>1.0.0</code>. It is not a new compatibility g
 <td><code>syntyr.semantic.css</code> and <code>.syn-semantic</code></td>
 <td>Opt-in prerelease API</td>
 <td>Stable scoped semantics after audit</td>
+</tr>
+<tr>
+<td><code>dist/presets/{minimal,saas,cinematic}.css</code></td>
+<td>Experimental single-file entrypoints</td>
+<td>Stabilize names and inclusion contract only after explicit review</td>
+</tr>
+<tr>
+<td><code>metadata/css-contract.v1.json</code></td>
+<td>Build artifact-manifest schema v1</td>
+<td>Version schema independently of public CSS API</td>
 </tr>
 <tr>
 <td><code>syntyr.recipes.css</code>, <code>syntyr.geometry.css</code></td>

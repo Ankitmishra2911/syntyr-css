@@ -29,6 +29,7 @@ FILES = (
     "docs/recipes.md",
     "docs/component-recipes.md",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
+    "examples/preset-preview.html",  # One local CSS file per named preset.
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
@@ -40,6 +41,7 @@ FILES = (
     "llms.txt",
     "llms-full.txt",
     "metadata/components.json",
+    "metadata/css-contract.v1.json",
     "agents/syntyr/SKILL.md",
     "docs/editor-integration.md",
     "metadata/syntyr-api.json",

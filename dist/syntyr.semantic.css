@@ -111,11 +111,36 @@
     font-family: var(--syn-mono);
     font-size: var(--syn-type-sm);
   }
+  /* Native modal/non-modal dialogs and popovers: style only, never force
+     display or emulate top-layer, focus or dismissal behavior. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(dialog:not([class]), dialog[data-syn-semantic], [popover]:not([class]), [popover][data-syn-semantic])) {
+    box-sizing: border-box;
+    min-inline-size: 0;
+    max-inline-size: min(90vw, 36rem);
+    max-block-size: min(80dvh, 40rem);
+    overflow: auto;
+    padding: var(--syn-space-3);
+    border: 1px solid var(--syn-frame-strong);
+    border-radius: var(--syn-radius);
+    background: var(--syn-surface-raised);
+    color: var(--syn-text);
+    box-shadow: var(--syn-shadow-overlay);
+  }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(dialog:not([class]), dialog[data-syn-semantic]))::backdrop {
+    background: rgb(0 0 0 / 60%);
+  }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(progress:not([class]), progress[data-syn-semantic])) {
+    inline-size: min(100%, 18rem);
+    max-inline-size: 100%;
+    block-size: 1rem;
+    accent-color: var(--syn-accent);
+    vertical-align: middle;
+  }
   @media (forced-colors: active) {
     :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(mark:not([class]), mark[data-syn-semantic])) {
       background: Highlight; color: HighlightText;
     }
-    :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(kbd:not([class]), kbd[data-syn-semantic]), :is(pre:not([class]), pre[data-syn-semantic])) {
+    :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(kbd:not([class]), kbd[data-syn-semantic]), :is(pre:not([class]), pre[data-syn-semantic]), :is(dialog:not([class]), dialog[data-syn-semantic]), :is([popover]:not([class]), [popover][data-syn-semantic])) {
       border-color: CanvasText;
     }
     :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(button:not([class]), button[data-syn-semantic]), :is(input:not([class]), input[data-syn-semantic]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic]), :is(article:not([class]), article[data-syn-semantic]), :is(fieldset:not([class]), fieldset[data-syn-semantic])) { border-color: CanvasText; }

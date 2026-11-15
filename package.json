@@ -38,7 +38,11 @@
     "./components/patterns.css": "./dist/components/patterns.css",
     "./native-recipes.css": "./dist/syntyr.native-recipes.css",
     "./tailwind.css": "./integrations/tailwind/syntyr.theme.css",
-    "./shadcn.css": "./integrations/shadcn/syntyr.tokens.css"
+    "./shadcn.css": "./integrations/shadcn/syntyr.tokens.css",
+    "./presets/minimal.css": "./dist/presets/minimal.css",
+    "./presets/saas.css": "./dist/presets/saas.css",
+    "./presets/cinematic.css": "./dist/presets/cinematic.css",
+    "./contract.json": "./metadata/css-contract.v1.json"
   },
   "sideEffects": [
     "**/*.css"
@@ -47,6 +51,7 @@
     "dist/",
     "integrations/tailwind/",
     "integrations/shadcn/",
+    "metadata/css-contract.v1.json",
     "README.md",
     "LICENSE"
   ],
