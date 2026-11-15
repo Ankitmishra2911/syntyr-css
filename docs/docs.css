@@ -17,7 +17,7 @@
   .docs-hero-preview .docs-code { margin-block: 1rem .5rem; background: var(--syn-surface-recessed); color: var(--syn-text); border-color: var(--syn-border-subtle); font-size: .73rem; }
   .docs-hero-preview .syn-caption { margin-block: .5rem 0; }
   .docs-flagship-links { display: flex; flex-wrap: wrap; gap: .65rem 1.5rem; margin-block: 1.3rem; }
-  .docs-flagship-links a { font: 650 .9rem/1.5 var(--syn-font-ui); text-underline-offset: .2em; }
+  .docs-flagship-links a { display: inline-flex; align-items: center; min-block-size: 2rem; font: 650 .9rem/1.5 var(--syn-font-ui); text-underline-offset: .2em; }
   .docs-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
   .docs-kpis > div { border-left: 1px solid var(--syn-frame); padding-left: 1rem; }
   .docs-kpis strong { display: block; font: 650 clamp(1.4rem, 3vw, 2.4rem)/1.2 var(--syn-mono); }
@@ -44,7 +44,7 @@
   .docs-header .syn-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.2rem; }
   .docs-header .syn-nav a { min-height: 44px; display: inline-flex; align-items: center; }
   .docs-header .syn-nav a, .docs-header .site-mobile-menu nav a { text-transform: none; }
-  .docs-header .syn-logo { letter-spacing: -.045em; }
+  .docs-header .syn-logo { display: inline-flex; align-items: center; min-block-size: 2rem; letter-spacing: -.045em; }
   .site-mobile-menu { display: none; position: relative; margin-inline-start: auto; }
   .site-mobile-menu summary { cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 44px; min-width: 5rem; padding: .55rem .85rem; border: 1px solid var(--syn-frame); border-radius: .4rem; background: var(--syn-surface); list-style: none; color: var(--syn-text); font-weight: 650; }
   .site-mobile-menu summary::-webkit-details-marker { display: none; }
@@ -53,6 +53,7 @@
   .site-mobile-menu nav { position: absolute; inset-block-start: calc(100% + .45rem); inset-inline-end: 0; z-index: 15; width: min(18rem, 85vw); display: grid; gap: .15rem; padding: .55rem; border: 1px solid var(--syn-frame); border-radius: .5rem; background: var(--syn-surface); box-shadow: 0 20px 45px rgb(0 0 0 / 20%); }
   .site-mobile-menu nav a { min-height: 44px; display: flex; align-items: center; padding: .6rem .75rem; text-decoration: none; color: var(--syn-text); border-radius: .25rem; }
   .site-mobile-menu nav a:hover, .site-mobile-menu nav a:focus-visible { background: var(--syn-surface-hi); }
+  footer.syn-header a { display: inline-flex; align-items: center; min-block-size: 2rem; }
   .docs-title { font-size: clamp(2.75rem, 7vw, 5.3rem); letter-spacing: -.06em; max-width: 14ch; overflow-wrap: anywhere; }
   .docs-hero { padding-block: clamp(2rem, 4vw, 4rem) 2rem; }
   .docs-hero .syn-lede { max-width: 62ch; }
@@ -63,6 +64,9 @@
   .docs-guide-links a { min-height: 44px; display: inline-flex; align-items: center; padding: .55rem .85rem; border: 1px solid var(--syn-frame); border-radius: .4rem; background: var(--syn-surface); }
   .docs-guide-links a:hover, .docs-guide-links a:focus-visible { border-color: var(--syn-accent); }
   .docs-section > p { max-width: 75ch; }
+  /* Long inline code identifiers must wrap under text enlargement without
+     changing the preformatted code blocks' internal scroll behavior. */
+  .docs-section :where(p, li, dd, dt) > code { overflow-wrap: anywhere; }
   @media (max-width: 45rem) {
     .docs-header .syn-nav { display: none; }
     .docs-header .site-mobile-menu { display: block; }

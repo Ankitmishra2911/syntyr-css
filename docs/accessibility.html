@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Syntyr CSS accessibility validation. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="d01262e636f8b766aa8d652e84ced1688d5e2c53c4f03589f204da5201c6d8c4">
+  <meta name="syntyr-source-sha256" content="c1439df8057b914497de4f0a2dd56257745b34abb17e0c9ab9c78007fa13481b">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS accessibility validation — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility.html">
@@ -89,12 +89,22 @@ python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit
 python3 tests/minimalist_browser.py --browsers chromium firefox webkit
+# Opt-in: seven-theme enlarged-label, scroll keyboard, and link-target checks.
+python3 tests/accessibility_regression_browser.py --browsers chromium firefox webkit
 </code></pre>
 <p>For a pinned axe-core 4.10.3 audit, provide the checker at test time. No
 JavaScript file is shipped to application consumers:</p>
 <pre><code class="language-sh">curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
-python3 tests/axe_audit.py --axe-file /tmp/axe.min.js
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe-manual-review.json
 </code></pre>
+<p>The JSON now includes a <code>summary</code> that distinguishes incomplete rule results
+from <strong>inconclusive individual element targets</strong>, with counts by page and rule.
+Prioritize the highest-count pages for composited-gradient and pseudo-element
+contrast inspection. These targets are unresolved, not automatically passing
+or failing; record measured contrast, viewport, state, and reviewer decision
+before approving a release. The enlarged-label tests change root font size,
+not genuine browser zoom; human zoom and screen-reader gates remain open.</p>
 <p>For reproducible WebKit on an isolated testing host with Podman or Docker, clone
 the repository to a directory that the container can read and run:</p>
 <pre><code class="language-sh">podman run --rm --shm-size=1g -v &quot;$PWD&quot;:/work:ro,Z -w /work \

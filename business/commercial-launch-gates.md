@@ -14,7 +14,7 @@
 
 - Public MIT v0.3.0-alpha.4 released; alpha.5 is experimental and unreleased.
 - Private Console Kit has eight source screen types, 24 static variants, deterministic builds, and automated browser checks with unresolved manual accessibility findings.
-- Three original **static screenshots** are published in the public concept page; public site never distributes private kit HTML, CSS, or build products.
+- Eight original **static screenshots** are prepared for the public concept page; public site never distributes private kit HTML, CSS, or build products.
 - A public issue-form feedback route and a 10-developer interview tracker exist. As last recorded, no real interviews or paid commitments have been verified.
 - The product is not commercially launch-ready. Do **not** count page views, issue form responses or verbal interest as completed sales.
 
@@ -75,6 +75,15 @@ Do not infer visitors, conversion rate or revenue from GitHub stars. Never claim
 
 ## Reproducible preview provenance
 
-The images under `docs/previews/` were captured from the independently authored private Console Kit prototype using an installed Chromium headless browser (1360×850 viewport), then resized to 1120×700 WebP. Source compositions remain private. Images intentionally show **synthetic** application data and no actual payment or authentication operations. The public site allowlists exactly these three images and no private CSS, HTML or package archives.
+The eight images under `docs/previews/` were captured from the independently authored private Console Kit prototype using an installed Chromium headless browser (1360×850 viewport), then resized to 1120×700 WebP. The five additional marketing captures use private repository `dporkka/syntyr-console-kit` commit `35a3b4c`; no private HTML, CSS or build artifacts are in the public-site allowlist. Source compositions remain private. Images intentionally show **synthetic** application data and no actual payment or authentication operations. The public site allowlists exactly these three images and no private CSS, HTML or package archives.
 
 Existing free HTML examples are MIT and usable immediately. Publishing promotional screenshots under the public repository's MIT license does **not** convert the separately maintained private source layouts into a free source package.
+
+## Commercial funnel implementation (November 15, 2026)
+
+- The public homepage now links to a Console Kit product-research preview and shows an authentic screenshot. The source kit stays private.
+- Qualified prospects can initiate a **private email** request with prefilled research questions; this is a mailto link, not a hosted web form or a claimed submitted lead. It requires the visitor to have a working mail client.
+- GitHub issue-form feedback remains available and is explicitly **public**. Never ask respondents to put private contact details or proprietary project information in public issues.
+- A bespoke implementation quote route is distinct from the $59 research offer. No prices for bespoke services are binding without a written quote.
+- No event analytics, delivery rate, qualified conversion, user count, or email response rate is verified by this source change. Replace mailto with a reviewed, consent-aware form and spam controls only after demand warrants an operated backend.
+- Do not present the prototype screenshots as shipping functional authentication, billing, filtering, or backends. No production checkout exists.
