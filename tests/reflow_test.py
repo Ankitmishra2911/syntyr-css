@@ -44,8 +44,9 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
                 if(s.display==='none'||s.visibility==='hidden'||r.width===0||r.height===0) return false;
                 // Closed native details conceal their content even if a child computes a display value.
                 if(e.closest('details:not([open])') && !e.closest('summary')) return false;
-                // Controls inside intentionally scrollable tables are exempt.
-                if(e.closest('.syn-table-wrap')) return false;
+                // Controls inside intentionally scrollable tables and CRM boards
+                // may be off-screen until the user scrolls their named region.
+                if(e.closest('.syn-table-wrap, .syn-pipeline')) return false;
                 return r.left < -1 || r.right > innerWidth + 1;
               }).slice(0,5).map(e=>[e.tagName, e.textContent.trim().slice(0,35),
                  Math.round(e.getBoundingClientRect().left),Math.round(e.getBoundingClientRect().right)]);
