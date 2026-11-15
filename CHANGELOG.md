@@ -1,5 +1,8 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Change classed data table cells to wrap prose by default; apply `.syn-cell--nowrap` for codes and identifiers, while `.syn-cell--numeric` remains non-wrapping. **Prerelease layout change:** update existing tables that depend on implicit no-wrap.
+- Support `--syn-panel-cut-fill` for cut-corner panels on nested or tinted surfaces. Add browser and palette-contrast regression checks.
+
 - Add opt-in system light/dark palette selection, composed from the existing Studio and Grid tokens without JavaScript.
 - Add opt-in intrinsic Sidebar/Switcher layouts and fluid typography in recipes; improve native checkbox/radio label alignment in semantic mode.
 - Publish a standalone minimalist HTML example and source/browser regression checks. No new CSS distribution or runtime dependency.
