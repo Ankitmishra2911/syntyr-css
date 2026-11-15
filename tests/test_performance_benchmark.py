@@ -62,6 +62,14 @@ class PerformanceBenchmarkContract(unittest.TestCase):
         self.assertIn("scroll_reveal_ms", report["results"]["standard"])
         self.assertIn("scroll_cls", report["results"]["standard"])
 
+    def test_pending_observer_entries_are_flushed_at_every_snapshot(self):
+        tool = load_script()
+        from inspect import getsource
+        source = getsource(tool.sample)
+        self.assertIn("takeRecords()", tool.INIT_JS)
+        self.assertIn("state.flush = () =>", tool.INIT_JS)
+        self.assertGreaterEqual(source.count("flush?.()"), 3)
+
     def test_unsupported_layout_shift_is_not_reported_as_zero(self):
         tool = load_script()
         self.assertIn("cls: null", tool.INIT_JS)

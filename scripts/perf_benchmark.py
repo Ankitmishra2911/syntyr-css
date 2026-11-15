@@ -138,23 +138,28 @@ def summarize(samples: dict, *, browser: str, viewport: str, fixture: str,
 
 
 INIT_JS = """(() => {
-  const state = {lcp: null, cls: null};
+  const state = {lcp: null, cls: null, observers: {}};
   window.__syntyrPerf = state;
   if (!('PerformanceObserver' in window)) return;
   const supported = PerformanceObserver.supportedEntryTypes || [];
-  for (const [type, callback] of [
-    ['largest-contentful-paint', (list) => {
-      for (const e of list.getEntries()) state.lcp = e.startTime;
-    }],
-    ['layout-shift', (list) => {
-      for (const e of list.getEntries()) {
-        if (!e.hadRecentInput) state.cls += e.value;
-      }
-    }],
-  ]) {
+  const collect = (type, entries) => {
+    for (const entry of entries) {
+      if (type === 'largest-contentful-paint') state.lcp = entry.startTime;
+      if (type === 'layout-shift' && !entry.hadRecentInput) state.cls += entry.value;
+    }
+  };
+  state.flush = () => {
+    // Observer callbacks can lag behind the next measurement snapshot.
+    for (const [type, observer] of Object.entries(state.observers)) {
+      collect(type, observer.takeRecords());
+    }
+  };
+  for (const type of ['largest-contentful-paint', 'layout-shift']) {
     if (!supported.includes(type)) continue;
     try {
-      new PerformanceObserver(callback).observe({type, buffered: true});
+      const observer = new PerformanceObserver(list => collect(type, list.getEntries()));
+      observer.observe({type, buffered: true});
+      state.observers[type] = observer;
       if (type === 'layout-shift') state.cls = 0;
     } catch (_) { /* browser does not support this metric */ }
   }
@@ -202,6 +207,7 @@ def sample(browser, browser_name: str, path: Path, viewport_name: str) -> dict:
           const nav = performance.getEntriesByType('navigation')[0] || {};
           const paint = performance.getEntriesByType('paint').find(e => e.name === 'first-contentful-paint');
           const state = window.__syntyrPerf || {};
+          state.flush?.();
           return {
             fcp: paint ? paint.startTime : null,
             lcp: state.lcp ?? null,
@@ -215,7 +221,10 @@ def sample(browser, browser_name: str, path: Path, viewport_name: str) -> dict:
 
         # The initial load is not the whole story: reveal a late section and
         # record the price paid when the user reaches previously skipped content.
-        scroll_cls_before = page.evaluate("() => window.__syntyrPerf?.cls ?? null")
+        scroll_cls_before = page.evaluate("""() => {
+          window.__syntyrPerf?.flush?.();
+          return window.__syntyrPerf?.cls ?? null;
+        }""")
         scroll_reveal = page.evaluate("""async () => {
           const sections = document.querySelectorAll('[id^="segment-"]');
           if (!sections.length) return null;
@@ -227,7 +236,10 @@ def sample(browser, browser_name: str, path: Path, viewport_name: str) -> dict:
           void last.getBoundingClientRect().height;
           return performance.now() - started;
         }""")
-        scroll_cls_after = page.evaluate("() => window.__syntyrPerf?.cls ?? null")
+        scroll_cls_after = page.evaluate("""() => {
+          window.__syntyrPerf?.flush?.();
+          return window.__syntyrPerf?.cls ?? null;
+        }""")
         scroll_cls = (
             max(0, scroll_cls_after - scroll_cls_before)
             if scroll_cls_before is not None and scroll_cls_after is not None

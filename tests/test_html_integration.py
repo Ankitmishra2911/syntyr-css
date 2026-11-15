@@ -28,6 +28,15 @@ class HtmlIntegrationTests(unittest.TestCase):
         self.assertIn("select:not([class])", css)
         self.assertNotIn(".htmx-request", css, "the semantic API must not depend on a framework")
 
+    def test_browser_pending_state_uses_a_controlled_response_gate(self):
+        source = (ROOT / "tests/htmx_browser.py").read_text()
+        self.assertNotIn("time.sleep(0.3)", source)
+        self.assertIn("threading", source)
+        self.assertIn("search_response_gate", source)
+        self.assertIn("search_response_gate.clear()", source)
+        self.assertIn("search_response_gate.set()", source)
+        self.assertIn("finally:", source)
+
     def test_htmx_example_has_native_form_fallback_and_is_opt_in(self):
         html = (ROOT / "examples/htmx.html").read_text(encoding="utf-8")
         parser = FormParser()

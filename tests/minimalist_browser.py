@@ -24,6 +24,20 @@ def assert_minimalist(browser, engine):
             background = page.locator("body").evaluate("(node) => getComputedStyle(node).backgroundColor")
             assert background == expected_bg, (engine, color_scheme, "auto background", background)
 
+            tints = page.evaluate("""() => {
+              const swatch = document.createElement('span');
+              swatch.style.backgroundColor = 'var(--syn-accent-soft)';
+              document.body.appendChild(swatch);
+              const original = getComputedStyle(swatch).backgroundColor;
+              document.body.style.setProperty('--syn-accent', '#ff0000');
+              const overridden = getComputedStyle(swatch).backgroundColor;
+              document.body.style.removeProperty('--syn-accent');
+              swatch.remove();
+              return [original, overridden];
+            }""")
+            assert tints[0] != tints[1] and '0, 0, 0, 0)' not in tints[0], (
+                engine, color_scheme, 'soft accent does not track token override', tints)
+
             noir = page.locator('[data-syn-theme="noir"]').evaluate("(node) => getComputedStyle(node).getPropertyValue('--syn-bg').trim()")
             assert noir == "#0e0e12", (engine, color_scheme, "explicit nested theme", noir)
 
