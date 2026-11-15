@@ -142,6 +142,35 @@ For a smaller two-file installation, add `syntyr.semantic.css` **after** core:
 
 `syn-semantic` styles unclassed semantic elements inside that subtree. Add `data-syn-semantic` to an element that will receive transient framework classes (for example, HTMX's `htmx-request`) so its appearance survives updates. Elements outside the subtree are unaffected. Core component classes do not rely on semantic mode. Switch `data-syn-theme` among all seven palettes in the unreleased alpha.5 candidate, including nested themed areas.
 
+## Standalone, low-maintenance CSS presets (alpha.5 source candidate)
+
+Every preset is **one complete CSS file**: no `@import`, required JavaScript,
+Sass, Node, remote fonts or package manager. Copy the CSS into static assets
+and use semantic HTML in a scoped `.syn-root.syn-semantic` region. Themes stay
+runtime-switchable through existing `data-syn-theme` tokens; there is no
+per-theme stylesheet fork.
+
+| Preset | File | Includes |
+| --- | --- | --- |
+| Minimal | `dist/presets/minimal.css` | Core + opt-in semantic HTML |
+| SaaS | `dist/presets/saas.css` | Minimal + business/SaaS layouts, native recipes, server states, finite opt-in utilities |
+| Cinematic | `dist/presets/cinematic.css` | Minimal + layouts, frames, symbols, optional visual effects and native motion |
+
+```html
+<link rel="stylesheet" href="/css/saas.css">
+<main class="syn-root syn-semantic" data-syn-theme="studio">
+  <article><h1>Account</h1><label for="email">Email</label><input id="email" type="email"></article>
+</main>
+```
+
+Use **one** preset, not multiple presets or a preset plus its included
+modules. The named presets are not in the published alpha.4 release. See
+[distribution and optional selective optimization](docs/distribution.md),
+[offline preset preview](examples/preset-preview.html), and the
+[versioned CSS artifact contract](metadata/css-contract.v1.json). The
+manifest schema version (`1`) does **not** imply Syntyr's CSS API has reached v1.
+Development-only screenshots live in `tests/visual-baselines/presets/`.
+
 ## Build outputs
 
 | File | Description |
