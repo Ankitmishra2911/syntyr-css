@@ -79,8 +79,8 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
                 tokens = theme_rules(source, name)
                 self.assertEqual(tokens.get("color-scheme"),
                                  "light" if name in ("studio", "corporate", "minimal") else "dark")
-                self.assertEqual(tokens.get("--syn-radius"), geometry[name][0])
-                self.assertEqual(tokens.get("--syn-cut"), geometry[name][1])
+                self.assertEqual(tokens.get("--syn-radius"), f"var(--syn-geometry-radius, {geometry[name][0]})")
+                self.assertEqual(tokens.get("--syn-cut"), f"var(--syn-geometry-cut, {geometry[name][1]})")
 
     def test_utilities_are_opt_in_and_built_deterministically(self):
         utilities = (ROOT / "src/utilities.css").read_text()
@@ -95,7 +95,8 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
                 self.assertNotIn("." + cls, (ROOT / "dist/syntyr.core.css").read_text())
         self.assertNotIn("@import", utilities)
         self.assertNotIn("javascript", utilities.lower())
-        self.assertIn("'syntyr.utilities.css'", (ROOT / "scripts/build.py").read_text())
+        from scripts.build import distributions
+        self.assertIn("syntyr.utilities.css", distributions())
         self.assertLess(utilities.index(".syn-u-center"), utilities.index(".syn-u-between"),
                         "between must win over centered justification when both are present")
 

@@ -36,7 +36,7 @@ src/tokens.css + src/base.css + src/components/*.css
               syntyr.core.css
                        |
             optional CSS modules
-   semantic | recipes | geometry | effects | utilities
+   semantic | recipes | geometry | effects | application | presets | utilities
                        |
        examples, integrations, templates, docs
                        |
@@ -50,13 +50,19 @@ files they already contain. `scripts/build.py:distributions()` is the one
 canonical distribution registry; the ZIP packager and Cloudflare site builder
 consume it instead of maintaining separate CSS entrypoint inventories.
 
+## Native scoping and selective distribution
+
+Source component layers use native CSS nesting inside `:where(.syn-root)` so component styles do not escape the documented root scope. The root boundary itself is styled through the base layer. No runtime script is necessary. For consumers requiring older engines, document and test a suitable CSS nesting transform as an optional application build step.
+
+`scripts/build.py` can generate application-specific output by explicit components/modules/themes or by conservative source scanning. This removes entire unused files and named theme rules, not individual selectors. Static scanning requires explicit safelisting for dynamically generated classes. Selector-level purging, if used, must remain an optional application-owned and browser-tested postprocess; do not replace the stdlib build with a mandatory CSS parser.
+
 ## Cascade policy
 
 Layers have an explicit normal-declaration priority, earliest to latest:
 
 ```css
 @layer syn.tokens, syn.base, syn.components, syn.semantic,
-       syn.recipes, syn.geometry, syn.effects, syn.utilities;
+       syn.recipes, syn.geometry, syn.effects, syn.application, syn.utilities;
 ```
 
 Component styles belong in `syn.components`. Optional finite utilities belong
@@ -111,10 +117,7 @@ Avoid accumulating near-identical version-labelled tests: retain valuable
 regressions, but consolidate them into enduring behavior/contract tests when
 refactoring those areas.
 
-Maintain the existing compressed size budgets: core <= 5 KiB and full bundle
-<= 8 KiB, with zero runtime JavaScript. These are guardrails, not permission
-to compromise readability, functionality or accessibility for a smaller gzip
-number. Nonessential features should live in optional modules.
+No fixed CSS bundle-size ceilings are enforced. Track raw and compressed sizes in reproducible build reports, but prioritize correct rendering, accessibility, maintainability and low runtime overhead over arbitrary byte limits. Nonessential features should still live in optional modules. Runtime JavaScript remains unnecessary.
 
 Before any 1.0 release, settle the supported browser matrix, close the open
 manual accessibility findings, and document precisely which selectors and

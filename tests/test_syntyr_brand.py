@@ -21,7 +21,7 @@ class SyntyrBrandTests(unittest.TestCase):
         tracked = subprocess.check_output(
             ['git','ls-files','--','dist/'], cwd=ROOT, text=True).splitlines()
         expected = {f'dist/syntyr{suffix}.css'
-                    for suffix in ('','.core','.semantic','.effects','.recipes','.geometry','.utilities','.all')}
+                    for suffix in ('','.core','.semantic','.effects','.recipes','.geometry','.utilities','.application','.presets','.all')}
         self.assertTrue(expected <= set(tracked), f'Git is missing {expected-set(tracked)}')
         self.assertEqual({p.as_posix().split('/')[-1]
                           for p in (ROOT/'dist').glob('*.css')},
@@ -43,7 +43,7 @@ class SyntyrBrandTests(unittest.TestCase):
                 self.assertEqual(set(names), {prefix + path for path in FILES})
                 self.assertIn(prefix+'README.md',names)
                 self.assertIn(prefix+'ARCHITECTURE.md',names)
-                for suffix in ('','.core','.semantic','.effects','.recipes','.geometry','.utilities','.all'):
+                for suffix in ('','.core','.semantic','.effects','.recipes','.geometry','.utilities','.application','.presets','.all'):
                     self.assertIn(prefix+f'dist/syntyr{suffix}.css',names)
 
     def test_readme_explains_syn_namespace(self):

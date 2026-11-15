@@ -1,6 +1,8 @@
 /* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
    These classes are separate from the small, stable core API. */
 @layer syn.recipes {
+  /* Native CSS nesting: no component selector escapes the Syntyr root. */
+  :where(.syn-root) {
   /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
   .syn-app-shell {
     display: grid; grid-template-columns: minmax(0, 1fr);
@@ -101,5 +103,6 @@
     .syn-app-card, .syn-site-hero, .syn-feature-card, .syn-terminal, .syn-frame--precision, .syn-frame--industrial { border-color: CanvasText; }
     .syn-frame--precision::before, .syn-site-hero::before { display: none; }
     .syn-terminal { forced-color-adjust: auto; }
+  }
   }
 }

@@ -61,21 +61,20 @@ def source_files() -> dict[str, bytes]:
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
     public_docs = (
-        "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
+        "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "composable-application.md", "cloudflare-hosting.md", "components.md",
         "console-kit.html", "distribution.md", "docs.css", "geometry-terminal.md",
         "index.html", "recipes.md", "saas-cli-business.md",
-        "site-generator-decision.md", "tailwind-research.md",
+        "site-generator-decision.md", "selective-builds.md", "tailwind-research.md",
         "theme-customization.md", "theme-editor.html", "theme-editor.js",
         "vertigo-integration.md",
     )
     public_examples = (
         "business.html", "console.html", "geometry-terminal.html", "landing.html",
-        "operations-console.css", "operations-console.html", "pricing.html",
+        "operations-console.css", "operations-console.html", "application-patterns.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html",
     )
-    # Import the canonical distribution registry rather than maintaining
-    # a second list that can silently omit new CSS entrypoints.
+    # Consume the canonical distribution registry; no duplicate public CSS lists.
     public_css = tuple(distributions())
     paths.extend(ROOT / "docs" / name for name in public_docs)
     paths.extend(ROOT / "examples" / name for name in public_examples)

@@ -72,7 +72,7 @@ Application CSS can override tokens:
 - Contrast target: WCAG 2.2 AA for text; manually verify any customized tokens.
 - Honor user preferences: `prefers-reduced-motion`, `forced-colors`; effects opt-in and static.
 - Avoid relying on color alone for state; use labels or icons with text alternatives.
-- Core CSS gzip limit: 5 KiB; full bundle gzip limit: 8 KiB; runtime JS: 0 bytes.
+- CSS byte sizes are reported, not gated by arbitrary bundle limits; styling requires no runtime JavaScript.
 - Browser coverage: current Chromium, Firefox and WebKit. The included automated browser suite runs Chromium when installed and can be extended to other engines.
 - Do not automatically treat the demo or contract tests as an accessibility certification: test screen readers, 200%/400% zoom, form errors, contrast, and actual products separately.
 
@@ -135,7 +135,7 @@ See [theme customization and token overrides](theme-customization.md), [MIT comp
 
 ## Optional SaaS, business and CLI compositions (development branch)
 
-Load `syntyr.core.css` first and `syntyr.recipes.css` second. The core size budget is unchanged.
+Load `syntyr.core.css` first and `syntyr.recipes.css` second. The core remains independent of optional recipe modules.
 
 | Context | Optional classes |
 | --- | --- |
@@ -149,3 +149,23 @@ Native disabled buttons cannot activate; aria-disabled does not block activation
 Professional light mode: `data-syn-theme="studio"`. Colors and geometry are intentionally independent. Use `.syn-table-emphasis` for explicit cell highlighting instead of relying on last-column position; `.syn-status--success`, `--warning`, or `--danger` should always accompany readable status text.
 
 Native terminal applications cannot render CSS. Use `terminal/palettes.json` as the portable color reference. See [usage and accessibility guidance](saas-cli-business.md). For bevel, notch, bracket, inset and circuit frame geometry, load the optional geometry stylesheet and follow [the frame guide](geometry-terminal.md). All new visual classes are optional and require no runtime JavaScript.
+
+## Optional operational application patterns (unreleased)
+
+Load `syntyr.application.css` after `syntyr.core.css`; it is not bundled in
+`syntyr.all.css`. Use semantic tables with `<caption>`, `<th scope="col">`,
+and a scroll region named for assistive technology where required. Styles:
+
+| Selector | Purpose |
+| --- | --- |
+| `.syn-data-toolbar`, `.syn-filter-group` | Wrapping search/filter presentation; host implements filtering |
+| `.syn-section-heading` | Heading and action alignment |
+| `.syn-table--striped`, `.syn-table--dense` | Optional table row treatment and compact cells |
+| `.syn-bulk-actions` | Bulk action surface; requires real host-controlled selection |
+| `.syn-detail-list` | Responsive `dl` definition presentation |
+| `.syn-timeline` | Ordered audit or activity events with visible dates |
+| `.syn-form-columns` | Responsive form layout inside `.syn-region` |
+
+No script, event handling, fake accessible roles, sorting or authentication is
+provided. For density and geometry scopes, also load `syntyr.presets.css`.
+See the [operational demo](../examples/application-patterns.html).

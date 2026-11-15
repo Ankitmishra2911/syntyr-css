@@ -1,0 +1,48 @@
+/* Optional orthogonal density and geometry presets. Load after core. */
+@layer syn.tokens {
+  /* Opt in per subtree. Theme changes never silently change density. */
+  :where(.syn-root[data-syn-density="compact"], .syn-root [data-syn-density="compact"]) {
+    --syn-space-1: .25rem;
+    --syn-space-2: .5rem;
+    --syn-space-3: .75rem;
+    --syn-space-4: 1.25rem;
+    --syn-space-5: 1.875rem;
+    --syn-control-height: 2.5rem;
+    --syn-button-padding-block: .45rem;
+    --syn-button-padding-inline: .625rem;
+    --syn-control-padding-block: .45rem;
+    --syn-control-padding-inline: .625rem;
+    --syn-table-padding-block: .45rem;
+    --syn-table-padding-inline: .5rem;
+  }
+  :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
+    --syn-space-1: .5rem;
+    --syn-space-2: 1rem;
+    --syn-space-3: 1.5rem;
+    --syn-space-4: 2rem;
+    --syn-space-5: 3rem;
+    --syn-control-height: 3rem;
+    --syn-button-padding-block: .85rem;
+    --syn-button-padding-inline: 1rem;
+    --syn-control-padding-block: .85rem;
+    --syn-control-padding-inline: 1rem;
+    --syn-table-padding-block: .85rem;
+    --syn-table-padding-inline: .85rem;
+  }
+  /* Geometry is inherited independently of the selected palette. */
+  :where(.syn-root[data-syn-geometry="precision"], .syn-root [data-syn-geometry="precision"]) {
+    --syn-geometry-radius: .125rem;
+    --syn-geometry-cut: .8rem;
+    --syn-frame-cut: .8rem;
+  }
+  :where(.syn-root[data-syn-geometry="industrial"], .syn-root [data-syn-geometry="industrial"]) {
+    --syn-geometry-radius: 0;
+    --syn-geometry-cut: .35rem;
+    --syn-frame-cut: .35rem;
+  }
+  :where(.syn-root[data-syn-geometry="soft"], .syn-root [data-syn-geometry="soft"]) {
+    --syn-geometry-radius: .75rem;
+    --syn-geometry-cut: 0;
+    --syn-frame-cut: 0;
+  }
+}

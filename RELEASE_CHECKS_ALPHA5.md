@@ -15,9 +15,9 @@ Validation date: November 14, 2026. Results below were verified on the candidate
 | axe-core 4.10.3 A/AA-tagged audit | **Zero confirmed automated violations** across 13 pages; 11 inconclusive contrast rule results covering 310 elements |
 | CSS generation | Deterministic, Python standard library only |
 | CSS distributions | 8 current SYNTYR files, no retired files or namespace |
-| SYNTYR core | **4,656 bytes gzip** (budget 5,120) |
-| Core + optional effects | **4,978 bytes gzip** (budget 5,120) |
-| Full bundle | **7,746 bytes gzip** (budget 8,192) |
+| SYNTYR core | **4,656 bytes gzip** |
+| Core + optional effects | **4,978 bytes gzip** |
+| Full bundle | **7,746 bytes gzip** |
 | Geometry module | 992 bytes gzip, opt-in |
 | Utilities module | 465 bytes gzip, opt-in |
 | Runtime JavaScript / npm dependencies | **0 / 0** |
@@ -30,7 +30,7 @@ Browser matrix and reflow checks were run in the official test-only Playwright v
 2. Chromium painted all seven theme-gallery primary action labels as opaque rectangles under simulated forced colors. Using native `ButtonFace`/`ButtonText` restored readable labels; regression screenshots now pass.
 3. An existing Vertigo summaries container lacked a grouping role despite having an accessible label; it now has `role="group"`.
 4. The package and browser lists were reconciled for the eighth utilities distribution and unique coverage of all thirteen pages.
-5. Source-comment compaction preserved the legacy 5 KiB core-plus-effects size target without a runtime toolchain or CSS declaration changes.
+5. Source-comment compaction reduced stylesheet bytes without a runtime toolchain or CSS declaration changes.
 
 ## Cloudflare publishing integrity
 

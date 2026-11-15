@@ -2,6 +2,8 @@
    Pair .syn-frame with exactly one shape modifier. No canvas, images or JS.
    The cut shapes paint their own outlines; they do not mask the host's parent. */
 @layer syn.geometry {
+  /* Native CSS nesting: no component selector escapes the Syntyr root. */
+  :where(.syn-root) {
   .syn-frame {
     position: relative;
     z-index: 0;
@@ -90,5 +92,6 @@
       color: CanvasText;
     }
     .syn-frame::before, .syn-frame::after { display: none; }
+  }
   }
 }

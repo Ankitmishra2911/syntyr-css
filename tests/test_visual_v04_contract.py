@@ -12,8 +12,8 @@ class GeometryTerminalContract(unittest.TestCase):
         geometry = (ROOT / "src/geometry.css").read_text()
         build = (ROOT / "scripts/build.py").read_text()
         self.assertIn("syn.geometry", geometry)
-        self.assertIn("'syntyr.geometry.css': ('geometry.css',)", build)
-        self.assertIn("'geometry.css'", build)
+        from scripts.build import distributions
+        self.assertEqual(distributions()["syntyr.geometry.css"], ("geometry.css",))
         self.assertIn(".syn-frame--bevel", geometry)
         self.assertIn(".syn-frame--notch", geometry)
         self.assertIn(".syn-frame--bracket", geometry)

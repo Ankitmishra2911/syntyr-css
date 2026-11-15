@@ -1,8 +1,10 @@
 @layer syn.components {
+  /* Native CSS nesting: no component selector escapes the Syntyr root. */
+  :where(.syn-root) {
   .syn-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
   .syn-button {
     display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-    min-height: var(--syn-control-height); padding: .65rem 1rem;
+    min-height: var(--syn-control-height); padding: var(--syn-button-padding-block) var(--syn-button-padding-inline);
     min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
     border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
     background: var(--syn-surface-hi); color: var(--syn-text);
@@ -30,5 +32,6 @@
     .syn-button { border-color: ButtonText; }
     .syn-button--primary { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
     .syn-button--danger, .syn-button--outline { border-color: ButtonText; color: ButtonText; }
+  }
   }
 }

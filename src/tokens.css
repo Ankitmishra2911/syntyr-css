@@ -1,4 +1,4 @@
-@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects, syn.utilities;
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects, syn.application, syn.utilities;
 
 @layer syn.tokens {
   :where(.syn-root) {
@@ -10,10 +10,20 @@
     --syn-space-3: 1.125rem;
     --syn-space-4: 1.75rem;
     --syn-space-5: 2.5rem;
-    --syn-cut: .9rem;
-    --syn-radius: .25rem;
+    --syn-cut: var(--syn-geometry-cut, .9rem);
+    --syn-radius: var(--syn-geometry-radius, .25rem);
     --syn-line: 1.55;
     --syn-control-height: 2.75rem;
+    --syn-button-padding-block: .65rem;
+    --syn-button-padding-inline: 1rem;
+    --syn-panel-padding: clamp(1rem, 2.8vw, 1.75rem);
+    --syn-control-padding-block: .7rem;
+    --syn-control-padding-inline: .8rem;
+    --syn-table-padding-block: .7rem;
+    --syn-table-padding-inline: .6rem;
+    --syn-focus-ring: var(--syn-accent);
+    --syn-link: var(--syn-accent);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
     --syn-duration-fast: 150ms;
   }
@@ -32,9 +42,12 @@
     --syn-danger: #ffaaa4;
     --syn-success: #8ce6bb;
     --syn-warning: #ffd08b;
-    --syn-accent-soft: rgb(118 231 247 / 11%);
-    --syn-radius: .25rem;
-    --syn-cut: .9rem;
+    --syn-link: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
+    --syn-radius: var(--syn-geometry-radius, .25rem);
+    --syn-cut: var(--syn-geometry-cut, .9rem);
   }
   :where(.syn-root[data-syn-theme="noir"], .syn-root [data-syn-theme="noir"]) {
     color-scheme: dark;
@@ -51,9 +64,12 @@
     --syn-danger: #ffc1ac;
     --syn-success: #a5e4bc;
     --syn-warning: #fbd18c;
-    --syn-accent-soft: rgb(241 181 116 / 10%);
-    --syn-radius: .25rem;
-    --syn-cut: .9rem;
+    --syn-link: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 10%, transparent);
+    --syn-radius: var(--syn-geometry-radius, .25rem);
+    --syn-cut: var(--syn-geometry-cut, .9rem);
   }
   :where(.syn-root[data-syn-theme="industrial"], .syn-root [data-syn-theme="industrial"]) {
     color-scheme: dark;
@@ -70,9 +86,12 @@
     --syn-danger: #ffb2a7;
     --syn-success: #8dedb0;
     --syn-warning: #ffd08f;
-    --syn-accent-soft: rgb(255 179 107 / 11%);
-    --syn-radius: .15rem;
-    --syn-cut: .45rem;
+    --syn-link: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
+    --syn-radius: var(--syn-geometry-radius, .15rem);
+    --syn-cut: var(--syn-geometry-cut, .45rem);
   }
   :where(.syn-root[data-syn-theme="terminal"], .syn-root [data-syn-theme="terminal"]) {
     color-scheme: dark;
@@ -89,9 +108,12 @@
     --syn-danger: #f6a8a8;
     --syn-success: #74e7a7;
     --syn-warning: #eccd86;
-    --syn-accent-soft: rgb(101 232 160 / 11%);
-    --syn-radius: 0;
-    --syn-cut: 0;
+    --syn-link: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
+    --syn-radius: var(--syn-geometry-radius, 0);
+    --syn-cut: var(--syn-geometry-cut, 0);
   }
   :where(.syn-root[data-syn-theme="corporate"], .syn-root [data-syn-theme="corporate"]) {
     color-scheme: light;
@@ -108,9 +130,12 @@
     --syn-danger: #b42331;
     --syn-success: #147446;
     --syn-warning: #9a5600;
-    --syn-accent-soft: rgb(21 90 200 / 9%);
-    --syn-radius: .5rem;
-    --syn-cut: 0;
+    --syn-link: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
+    --syn-radius: var(--syn-geometry-radius, .5rem);
+    --syn-cut: var(--syn-geometry-cut, 0);
   }
   :where(.syn-root[data-syn-theme="minimal"], .syn-root [data-syn-theme="minimal"]) {
     color-scheme: light;
@@ -127,9 +152,12 @@
     --syn-danger: #aa2f3c;
     --syn-success: #1f6c45;
     --syn-warning: #8d5200;
-    --syn-accent-soft: rgb(49 58 69 / 7%);
-    --syn-radius: .375rem;
-    --syn-cut: 0;
+    --syn-link: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 7%, transparent);
+    --syn-radius: var(--syn-geometry-radius, .375rem);
+    --syn-cut: var(--syn-geometry-cut, 0);
   }
     :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
     color-scheme: light;
@@ -146,8 +174,11 @@
     --syn-danger: #ad2637;
     --syn-success: #17694b;
     --syn-warning: #92500a;
-    --syn-accent-soft: rgb(36 88 198 / 9%);
-    --syn-radius: .25rem;
-    --syn-cut: .9rem;
+    --syn-link: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame), transparent 35%);
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
+    --syn-radius: var(--syn-geometry-radius, .25rem);
+    --syn-cut: var(--syn-geometry-cut, .9rem);
   }
 }

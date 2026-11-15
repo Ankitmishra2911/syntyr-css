@@ -6,6 +6,7 @@
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
+- **Composable visual presets:** opt-in compact/comfortable density and precision/industrial/soft geometry, independent of color palettes.
 - **Seven themes in the alpha.5 candidate:** Grid, Noir, Studio, Industrial, Terminal, Corporate and Minimal. The published alpha.4 release contains the original three.
 - **Two modes:** explicit component classes, and a Pico-like *optional* `.syn-semantic` mode.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
@@ -34,12 +35,13 @@
 - [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
 - [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
+- [SaaS application patterns demo (static, unreleased)](examples/application-patterns.html): data toolbar, detail list, audit timeline, scoped density/geometry
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
 - [Search, filtering, settings and pagination SaaS workflow demonstration](examples/saas-workflows.html): server-ready semantic HTML, static illustrative data, zero JavaScript
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
 
-The linked alpha.4 release is already published; it does not include the four additional palettes or the optional utilities module. These are in the unreleased alpha.5 source candidate.
+The linked v0.3.0-alpha.4 release is already published; it does not include the four additional palettes or the optional utilities module. These are in the unreleased alpha.5 source candidate.
 
 Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application.
 
@@ -83,13 +85,21 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |
+| `dist/syntyr.presets.css` | Optional scoped density and geometry presets |
+| `dist/syntyr.application.css` | Optional operational UI presentation patterns |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |
 | `dist/syntyr.css` | Backwards-compatible core + effects bundle |
-| `dist/syntyr.all.css` | All modules (semantic still opt-in by class) |
+| `dist/syntyr.all.css` | Original modules only; new presets/application files remain optional |
 
-Geometry and utilities are opt-in; neither the core bundle nor ordinary component selectors require them.
+Geometry, utilities, density presets and application patterns are opt-in. The optional presets and application files are separate from `syntyr.all.css`; load them separately.
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css`, `src/utilities.css`, `src/presets.css` and `src/application.css`. Utilities use the final `syn.utilities` cascade layer, and `scripts/build.py` is the canonical distribution manifest. See the [architecture policy](ARCHITECTURE.md) and [component contract](docs/components.md).
+
+## Scoped density, geometry and operational CSS (unreleased)
+
+Load `syntyr.presets.css` after `syntyr.core.css` for independently configurable `data-syn-density="compact|comfortable"` and `data-syn-geometry="precision|industrial|soft"` scopes. Themes do not implicitly change density.
+
+Load `syntyr.application.css` after core for optional data toolbars, detail lists, audit timelines, bulk-action surfaces, form columns and striped tables. These are presentation patterns; behavior belongs to the host application. See [the static demo](examples/application-patterns.html) and [composition guide](docs/composable-application.md). Compact controls may be smaller than recommended touch targets, so choose comfortable/default density for touch-first interfaces.
 
 ## Modern SaaS, CLI and business websites
 
@@ -99,7 +109,24 @@ For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipe
 
 **Native CLI apps cannot consume CSS.** Instead, use `terminal/palettes.json` with Go, Rust, Python or another CLI implementation to define ANSI 16-color palettes and foreground/background preferences. See the [stdlib Python demonstration](examples/ansi_cli.py) and [integration guide](docs/saas-cli-business.md). Respect `NO_COLOR`, TTY detection and user terminal preferences.
 
-All additions are MIT licensed and do not change the core runtime dependency contract. The Studio theme, recipes and CLI palettes are included in the v0.3.0-alpha.4 release.
+All additions are MIT licensed and do not change the core runtime dependency contract. Studio, recipes and CLI palettes shipped in alpha.4; the new composable presets and application pack are unreleased candidate work.
+
+## Optional selective CSS builds (no imposed size limits)
+
+The default CSS files need no build tooling in a consumer app. For smaller
+application-specific output, select components, themes and optional modules:
+
+```sh
+python3 scripts/build.py --components buttons,forms --themes corporate \
+  --output public/css/application.css --report public/css/application.report.json
+```
+
+For conservative module-level unused CSS removal, use `--scan app/templates`
+and `--scan app/components`, plus explicit `--safelist` or `--components`
+for dynamically generated/HTMX classes. Nothing is removed from an included
+module's interactive selectors. There are **no CSS bundle size ceilings**;
+raw/gzip sizes are reported for visibility only. See
+[selective builds and scanning](docs/selective-builds.md).
 
 ## Development and verification
 
@@ -132,7 +159,7 @@ The browser scripts require `playwright` and a Chromium browser to be present; i
 
 ## Roadmap
 
-v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. Budgets: core CSS <= 5 KiB gzip, all modules <= 8 KiB gzip, runtime JS 0 bytes. These budgets are verified by tests rather than marketing claims.
+v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. CSS payloads are measured and reported, without arbitrary bundle-size ceilings. Runtime JavaScript remains unnecessary.
 
 ## Provenance and license
 

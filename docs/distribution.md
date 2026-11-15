@@ -34,9 +34,11 @@ effects, load `syntyr.effects.css` after core. SaaS, business and terminal layou
 are opt-in via `syntyr.recipes.css`. Optional frame geometry is in `syntyr.geometry.css`.
 The alpha.5 candidate additionally provides `syntyr.utilities.css` for opt-in layout, spacing and visually-hidden helpers.
 
-`syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
-while still requiring `.syn-semantic` to opt into semantic element styles.
-Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final `syn.utilities` cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see [the architecture policy](../ARCHITECTURE.md).
+`syntyr.css` bundles core and effects. `syntyr.all.css` bundles the original optional modules and keeps semantic styling opt-in. `syntyr.presets.css` and `syntyr.application.css` are additional optional modules. Utilities occupy the final `syn.utilities` cascade layer. Avoid loading a bundle alongside any component files it already contains; see [the architecture policy](../ARCHITECTURE.md).
+
+## Custom builds and unused CSS
+
+Use `scripts/build.py --components`, `--modules`, `--themes` and `--scan` to generate a deterministic application-specific stylesheet. See [selective builds](selective-builds.md). CSS sizes are diagnostic only; Syntyr enforces no arbitrary gzip limits.
 
 ## Pinned CDN for prototyping
 
@@ -55,8 +57,8 @@ usually avoids an additional hostname connection.
 ## Release artifacts and guarantees
 
 The published alpha.4 release contains seven SYNTYR CSS distributions. The
-unreleased alpha.5 candidate contains eight SYNTYR distributions, including
-the optional utilities stylesheet, plus the terminal ANSI palette JSON, this
+unreleased alpha.5 candidate contains ten SYNTYR distributions, including
+optional utilities, presets and application stylesheets, plus the terminal ANSI palette JSON, this
 guide, the MIT license, and README. No retired compatibility aliases are shipped. The ZIP is created deterministically using only
 Python's standard library:
 

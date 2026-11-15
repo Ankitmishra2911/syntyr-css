@@ -1,0 +1,57 @@
+/* Optional application patterns; compose with syntyr.core.css and syntyr.recipes.css.
+   No event handlers, simulated data behaviors, or JavaScript. */
+@layer syn.application {
+  /* Native CSS nesting: no component selector escapes the Syntyr root. */
+  :where(.syn-root) {
+  .syn-data-toolbar {
+    display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between;
+    gap: var(--syn-space-2); margin-block-end: var(--syn-space-2);
+  }
+  .syn-data-toolbar > :where(form, .syn-filter-group) {
+    display: flex; flex-wrap: wrap; align-items: end; gap: var(--syn-space-2); min-width: 0;
+  }
+  .syn-filter-group { display: flex; flex-wrap: wrap; gap: var(--syn-space-2); align-items: end; }
+  .syn-section-heading {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: var(--syn-space-2); margin-block-end: var(--syn-space-2);
+  }
+  .syn-section-heading > :where(h2, h3) { margin: 0; }
+  .syn-table--striped tbody tr:nth-child(even) { background: var(--syn-accent-soft); }
+  .syn-table--dense { --syn-table-padding-block: .375rem; --syn-table-padding-inline: .5rem; }
+  .syn-bulk-actions {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: var(--syn-space-2); padding: var(--syn-space-2);
+    border: 1px solid var(--syn-frame-strong); background: var(--syn-surface-hi);
+  }
+  .syn-detail-list { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; gap: 0; }
+  .syn-detail-list > div {
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: .15rem;
+    padding-block: var(--syn-space-2); border-block-end: 1px solid var(--syn-border-subtle);
+    overflow-wrap: anywhere;
+  }
+  .syn-detail-list dt { color: var(--syn-muted); font-size: .75rem; }
+  .syn-detail-list dd { margin: 0; font-weight: 600; }
+  .syn-timeline { list-style: none; margin: 0; padding: 0; }
+  .syn-timeline > li {
+    position: relative; margin-inline-start: .35rem; padding: 0 0 var(--syn-space-3) var(--syn-space-3);
+    border-inline-start: 1px solid var(--syn-frame-strong); overflow-wrap: anywhere;
+  }
+  .syn-timeline > li::before {
+    content: ""; position: absolute; inline-size: .55rem; block-size: .55rem;
+    inset-inline-start: -.31rem; inset-block-start: .45rem;
+    border: 1px solid var(--syn-frame-strong); border-radius: 50%; background: var(--syn-accent);
+  }
+  .syn-timeline > li:last-child { border-inline-start-color: transparent; padding-block-end: 0; }
+  .syn-timeline time { color: var(--syn-muted); display: block; font-size: .78rem; }
+  .syn-form-columns { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-2); }
+  @container syn-region (min-width: 35rem) {
+    .syn-detail-list > div { grid-template-columns: minmax(8rem, .7fr) minmax(0, 1.3fr); }
+    .syn-form-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (forced-colors: active) {
+    .syn-bulk-actions { border-color: CanvasText; }
+    .syn-timeline > li::before { background: Highlight; border-color: CanvasText; }
+    .syn-table--striped tbody tr:nth-child(even) { outline: 1px solid CanvasText; outline-offset: -1px; }
+  }
+  }
+}

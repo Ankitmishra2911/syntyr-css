@@ -118,3 +118,34 @@ The published alpha.4 tag offers Grid, Noir and Studio. This candidate adds Indu
 - `data-syn-theme="minimal"`
 
 To use finite opt-in layout utilities, load `syntyr.utilities.css` after `syntyr.core.css` (or use the all bundle). Utilities include `.syn-u-flex`, `.syn-u-grid`, `.syn-u-between`, spacing helpers and a visually hidden helper. No compiler or runtime JavaScript is required.
+
+## Independent density and geometry presets (unreleased)
+
+Load `syntyr.presets.css` after core. Palette, density and geometry are
+independent scoped attributes, and a nested palette inherits its nearest
+geometry and density overrides unless that scope overrides them again:
+
+```html
+<link rel="stylesheet" href="syntyr.core.css">
+<link rel="stylesheet" href="syntyr.presets.css">
+<section class="syn-root" data-syn-theme="corporate"
+         data-syn-density="compact" data-syn-geometry="precision">
+  <div class="syn-panel" data-syn-theme="noir">Nested Noir, same geometry</div>
+  <div class="syn-panel" data-syn-density="comfortable"
+       data-syn-geometry="soft">Comfortable, soft panel</div>
+</section>
+```
+
+Only the two non-default density presets are provided. Without a density
+attribute the original Syntyr spacing remains unchanged. Geometry presets
+influence `--syn-radius`, `--syn-cut` and optional frame cut sizing while
+preserving existing per-theme defaults when omitted. You can still directly
+override public tokens in application CSS.
+
+Note: compact controls are 40 CSS pixels tall and can fall short of the
+44 CSS pixel touch-target recommendation. Prefer default/comfortable density
+for touch-first screens, or ensure equivalent target spacing.
+
+## Derived accents and component-level overrides
+
+Each built-in palette derives `--syn-accent-soft` from `--syn-accent` with `color-mix()` using that palette's opacity. Override both on a nested subtree if you change the accent there: inherited custom properties can already be resolved at the ancestor theme boundary. You can independently customize `--syn-button-padding-block`, `--syn-button-padding-inline` and `--syn-panel-padding`. The optional presets file changes button padding with density without coupling it to palette selection.

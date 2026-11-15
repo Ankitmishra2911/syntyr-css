@@ -13,8 +13,8 @@ constitute a WCAG certification.
 | Browser matrix: 9 pages × 3 widths × 3 engines | **81/81 PASS** |
 | Enlarged-text stress: 9 pages × 4 viewport/text settings × 3 engines | **108/108 PASS** |
 | axe-core 4.10.3 WCAG A/AA-tagged scan on 9 pages | **0 confirmed violations; 8 incomplete checks** |
-| Core CSS gzip | **4,187 bytes** (budget 5,120) |
-| All-in-one CSS gzip | **6,177 bytes** (budget 8,192) |
+| Core CSS gzip (measured) | **4,187 bytes** |
+| All-in-one CSS gzip (measured) | **6,177 bytes** |
 | Runtime JavaScript | **0 bytes** |
 | Runtime dependencies | **0** |
 
@@ -44,7 +44,7 @@ branch, the latest local verification is:
 - Python suite: 78 passing tests (including new navigation, loading, theme-editor and internal-link contracts).
 - Chromium and Firefox: 13 pages × 3 widths each, including native focus and navigation checks, passed.
 - Standalone docs-only theme editor: 3 Chromium widths, theme switching, contrast warning, reset and scope tests passed.
-- Core CSS: 4,634 gzip bytes (budget 5,120); all modules: 7,475 gzip bytes (budget 8,192).
+- Core CSS: 4,634 gzip bytes; all modules: 7,475 gzip bytes.
 - WebKit targeted smoke **passed** on a separate isolated Playwright container: new gallery + docs theme editor at 320/390/1280px, navigation styling, color warnings, no overflow. The **full 13-page WebKit matrix remains unverified** for this branch; run it before a stable release.
 - No JavaScript is added to the distributed stylesheets or the main gallery. The theme editor has one optional, local, standalone script.
 

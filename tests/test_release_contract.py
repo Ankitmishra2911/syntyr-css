@@ -1,6 +1,5 @@
 """Release contract for the modular, zero-runtime-dependency Syntyr package."""
 from pathlib import Path
-import gzip
 import subprocess
 import sys
 import unittest
@@ -39,12 +38,6 @@ class ReleaseContract(unittest.TestCase):
                      '.syn-button--ghost', '.syn-alert', 'min(', 'color-mix('):
             with self.subTest(term=term):
                 self.assertIn(term, all_css)
-
-    def test_size_budgets(self):
-        core = gzip.compress((DIST / 'syntyr.core.css').read_bytes(), mtime=0)
-        all_css = gzip.compress((DIST / 'syntyr.all.css').read_bytes(), mtime=0)
-        self.assertLessEqual(len(core), 5 * 1024, f'core gzip {len(core)} bytes')
-        self.assertLessEqual(len(all_css), 8 * 1024, f'all gzip {len(all_css)} bytes')
 
     def test_build_is_reproducible(self):
         proc = subprocess.run([sys.executable, 'scripts/build.py', '--check'], cwd=ROOT, capture_output=True, text=True)

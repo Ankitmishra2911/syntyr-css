@@ -1,8 +1,10 @@
 @layer syn.components {
+  /* Native CSS nesting: no component selector escapes the Syntyr root. */
+  :where(.syn-root) {
   .syn-form { display: grid; gap: 1rem; }
   .syn-label { display: grid; gap: .35rem; font: 600 .75rem/1.35 var(--syn-mono); }
   .syn-input, .syn-select, .syn-textarea {
-    width: 100%; min-height: var(--syn-control-height); padding: .7rem .8rem;
+    width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) var(--syn-control-padding-inline);
     border: 1px solid var(--syn-frame); background: var(--syn-bg);
     border-radius: var(--syn-radius); color: var(--syn-text);
   }
@@ -14,11 +16,16 @@
   .syn-help { color: var(--syn-muted); font-size: .8rem; }
   .syn-error { color: var(--syn-danger); font-size: .8rem; }
   .syn-textarea { min-height: 6rem; resize: vertical; }
+  /* Opt-in auto-growth; fixed-height behavior remains the fallback. */
+  @supports (field-sizing: content) {
+    .syn-textarea--auto { field-sizing: content; }
+  }
   .syn-input[type="checkbox"], .syn-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
   .syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
   .syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
   .syn-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--syn-mono); }
   @media (forced-colors: active) {
     .syn-input, .syn-select, .syn-textarea, .syn-fieldset { border-color: CanvasText; }
+  }
   }
 }

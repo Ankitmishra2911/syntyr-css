@@ -21,6 +21,7 @@ FILES = (
     "README.md",
     "ARCHITECTURE.md",
     "docs/distribution.md",
+    "docs/selective-builds.md",
     "docs/api-stability.md",
 ) + tuple(f"dist/{name}" for name in distributions()) + (
     "terminal/palettes.json",

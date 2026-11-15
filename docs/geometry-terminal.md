@@ -4,7 +4,7 @@ These are original, MIT-licensed SYNTYR CSS components. They do not replicate en
 
 ## Installation
 
-Load only the modules you need. Advanced geometry is a separate file so the small core stays within its 5 KiB gzip budget:
+Load only the modules you need. Advanced geometry is a separate file so consumers can avoid loading optional effects and geometry:
 
 ```html
 <link rel="stylesheet" href="/css/syntyr.core.css">

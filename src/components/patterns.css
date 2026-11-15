@@ -1,4 +1,6 @@
 @layer syn.components {
+  /* Native CSS nesting: no component selector escapes the Syntyr root. */
+  :where(.syn-root) {
   .syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
   .syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
   .syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
@@ -39,5 +41,6 @@
   }
   @media (forced-colors: active) {
     .syn-stat, .syn-empty, .syn-price-card, .syn-price-card[data-syn-featured] { border-color: CanvasText; }
+  }
   }
 }

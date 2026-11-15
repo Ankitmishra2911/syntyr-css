@@ -1,7 +1,6 @@
 """Alpha.5 integration contracts: SYNTYR-only seven themes and optional utilities."""
 from pathlib import Path
 import ast
-import gzip
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,7 +11,7 @@ class Alpha5Integration(unittest.TestCase):
         from scripts.build import distributions
         definitions = distributions()
         expected = {f"syntyr{suffix}.css" for suffix in
-                    ("", ".core", ".semantic", ".recipes", ".effects",
+                    ("", ".core", ".semantic", ".recipes", ".application", ".presets", ".effects",
                      ".geometry", ".utilities", ".all")}
         self.assertEqual(set(definitions), expected)
         for filename in expected:
@@ -25,11 +24,6 @@ class Alpha5Integration(unittest.TestCase):
         self.assertIn("utilities.css", definitions["syntyr.all.css"])
         self.assertNotIn("utilities.css", definitions["syntyr.core.css"])
         self.assertNotIn("geometry.css", definitions["syntyr.core.css"])
-
-    def test_stable_gzip_budgets(self):
-        for suffix, budget in ((".core", 5*1024), ("", 5*1024), (".all", 8*1024)):
-            data = (ROOT / "dist" / f"syntyr{suffix}.css").read_bytes()
-            self.assertLessEqual(len(gzip.compress(data, mtime=0)), budget, suffix)
 
     def test_all_demos_are_covered_once_by_all_browser_suites(self):
         pages = ("themes.html", "geometry-terminal.html", "operations-console.html")

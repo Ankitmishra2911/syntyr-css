@@ -25,7 +25,7 @@
 - Add a complete, static MIT SaaS workflow demonstration with search and filter form, responsive record table, linked pagination, preferences disclosures, skeletons and empty states. All backend actions are explicitly illustrative; core CSS and runtime JS remain unchanged.
 - Publish the workflow demo and scoped example stylesheet in the Cloudflare site allowlist and gallery, with source and browser test contracts.
 
-- Add original MIT-licensed semantic breadcrumbs, touch-sized pagination links and static skeleton loading placeholders to the core; preserve the CSS size budgets.
+- Add original MIT-licensed semantic breadcrumbs, touch-sized pagination links and static skeleton loading placeholders to the core; retain deterministic CSS output.
 - Expand the component gallery and copy-paste recipes with real navigation, keyboard focus and accessible loading-state guidance.
 - Add an optional, standalone JavaScript theme editor **for documentation only**: nested preview themes, color token overrides, contrast diagnostics and pasteable CSS; distributed CSS remains JavaScript-free.
 - Add tests for new component contracts, internal documentation links and an isolated editor browser smoke suite; verify Chromium/Firefox gallery matrices and targeted WebKit gallery/editor smoke.
@@ -36,7 +36,7 @@
 - Extend browser terminal recipes with static window chrome, command anatomy, output/readout colors and a non-blinking cursor.
 - Remove CSS pointer-event suppression from ARIA-disabled buttons; applications enforce ARIA-disabled activation themselves.
 - Add right-aligned tabular numeric cells and a free HTML geometry/terminal demo plus multi-browser regression checks.
-- Preserve the existing explicit table emphasis API, core gzip budget and deterministic ZIP distribution.
+- Preserve the existing explicit table emphasis API, measured gzip reporting and deterministic ZIP distribution.
 - Address review findings: disabled hover/cursor semantics, inherited geometry tokens and the tracked standalone CSS release artifact.
 - Fix 320px/2x text reflow by making stack tracks shrinkable and allowing long technical captions to wrap.
 - Verify the frame-and-terminal gallery across Chromium, Firefox and WebKit; maintain a CSS-first implementation without requiring runtime JavaScript.
@@ -66,7 +66,7 @@
 - Fix nested Studio foreground inheritance, CLI ANSI contrast and Windows VT detection; expand browser and axe page coverage.
 - Enlarge the documentation guide link target following an axe-core WCAG 2.2 automated finding.
 - Give labeled telemetry and dashboard-preview groups explicit ARIA group semantics.
-- Retain zero runtime JavaScript, CSS bundle budgets and semantic HTML contracts.
+- Retain zero runtime JavaScript, CSS size reporting and semantic HTML contracts.
 
 ## v0.3.0-alpha.1 (2026-11-14)
 
