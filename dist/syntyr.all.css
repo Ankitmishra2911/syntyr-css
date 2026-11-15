@@ -1933,13 +1933,13 @@
   }
   :where(.syn-root[data-syn-density="compact"] .syn-data-grid,
          .syn-root [data-syn-density="compact"] .syn-data-grid,
-         .syn-root .syn-data-grid[data-syn-density="compact"]) {
+         .syn-root .syn-data-grid[data-syn-density="compact"]).syn-data-grid {
     --syn-grid-row-block: 2rem;
     --syn-grid-pad-inline: .5rem;
   }
   :where(.syn-root[data-syn-density="spacious"] .syn-data-grid,
          .syn-root [data-syn-density="spacious"] .syn-data-grid,
-         .syn-root .syn-data-grid[data-syn-density="spacious"]) {
+         .syn-root .syn-data-grid[data-syn-density="spacious"]).syn-data-grid {
     --syn-grid-row-block: 3rem;
     --syn-grid-pad-inline: .9rem;
   }
@@ -2094,6 +2094,11 @@
     :where(.syn-root .syn-data-grid__cell[data-syn-dirty="true"]) {
       border-block-end: 2px solid Mark;
       box-shadow: none;
+    }
+    /* Selection remains highlighted while the keyboard focus is clearly distinct. */
+    :where(.syn-root .syn-data-grid__cell:focus-visible) {
+      outline: 3px double CanvasText;
+      outline-offset: -3px;
     }
   }
 }

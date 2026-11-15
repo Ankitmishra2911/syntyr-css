@@ -27,6 +27,37 @@ class DataGridContract(unittest.TestCase):
         self.assertIn("font-variant-numeric: tabular-nums", css)
         self.assertIn(".syn-data-grid__header-row", css)
 
+    def test_density_overrides_can_win_over_grid_defaults(self):
+        css = (ROOT / "src/data-grid.css").read_text()
+        for density in ("compact", "spacious"):
+            with self.subTest(density=density):
+                self.assertIn(
+                    f'.syn-data-grid[data-syn-density="{density}"]).syn-data-grid',
+                    css,
+                    "Density must retain at least the base grid selector specificity",
+                )
+
+    def test_keyboard_focus_is_distinct_from_selection_in_forced_colors(self):
+        css = (ROOT / "src/data-grid.css").read_text()
+        forced = css.split("@media (forced-colors: active)", 1)[-1]
+        self.assertIn(".syn-data-grid__cell:focus-visible", forced)
+        self.assertIn("3px double CanvasText", forced)
+
+    def test_public_guide_and_example_are_both_allowlisted_and_indexed(self):
+        from scripts.build_cloudflare_site import PUBLIC_DOCS, source_files
+        self.assertIn("data-grid.md", PUBLIC_DOCS)
+        files = source_files()
+        self.assertIn("docs/data-grid.html", files)
+        self.assertIn("examples/data-grid.html", files)
+        self.assertIn(
+            "https://syntyr-css.pages.dev/docs/data-grid.md",
+            (ROOT / "llms.txt").read_text(),
+        )
+        self.assertIn(
+            "## Source: docs/data-grid.md",
+            (ROOT / "llms-full.txt").read_text(),
+        )
+
     def test_static_html_example_is_self_contained(self):
         example = (ROOT / "examples/data-grid.html").read_text()
         self.assertIn("syntyr.data-grid.css", example)

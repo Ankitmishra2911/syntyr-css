@@ -13,6 +13,7 @@ OUTPUT = ROOT / "llms-full.txt"
 SOURCES = (
     "docs/ai-quickstart.md",
     "docs/components.md",
+    "docs/data-grid.md",
     "docs/recipes.md",
     "docs/component-recipes.md",
     "docs/native-patterns.md",
