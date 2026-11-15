@@ -25,13 +25,13 @@
     .site-skip { position: absolute; inset-block-start: -10rem; inset-inline-start: 1rem; z-index: 20; }
     .site-skip:focus-visible { inset-block-start: 1rem; }
     .site-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.5rem; border-block-end: 1px solid var(--syn-border-subtle); }
-    .site-brand { font: 750 1.15rem/1 var(--syn-font); letter-spacing: -.055em; }
+    .site-brand { display: inline-flex; align-items: center; min-block-size: 2rem; font: 750 1.15rem/1 var(--syn-font); letter-spacing: -.055em; }
     .site-brand span { color: var(--syn-muted); font-weight: 500; font-size: .8em; letter-spacing: 0; }
     .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; }
-    .site-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm)/1.4 var(--syn-font-ui); }
+    .site-nav a { display: inline-flex; align-items: center; min-block-size: 2rem; color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm)/1.4 var(--syn-font-ui); }
     .site-nav a:hover, .site-nav a:focus-visible { color: var(--syn-text); }
     .site-nav a:last-child { color: var(--syn-accent); }
-    .site-tertiary-link { align-self: center; color: var(--syn-muted); text-underline-offset: .2em; font-size: .9rem; }
+    .site-tertiary-link { display: inline-flex; align-items: center; min-block-size: 2rem; align-self: center; color: var(--syn-muted); text-underline-offset: .2em; font-size: .9rem; }
     .site-mobile-menu { display: none; position: relative; margin-inline-start: auto; }
     .site-mobile-menu summary { cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 44px; min-width: 5rem; padding: .55rem .85rem; border: 1px solid var(--syn-border-subtle); border-radius: .4rem; background: var(--syn-surface); list-style: none; color: var(--syn-text); font-weight: 650; }
     .site-mobile-menu summary::-webkit-details-marker { display: none; }
@@ -84,12 +84,21 @@
     .site-section-head { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: .75rem 2rem; margin-block-end: 2rem; }
     .site-section-title { margin: .5rem 0 0; font: 660 clamp(1.9rem, 1.35rem + 2.5vw, 3rem)/1.14 var(--syn-font-display); letter-spacing: -.055em; }
     .site-section-intro { margin: .65rem 0 0; max-inline-size: 55ch; color: var(--syn-muted); }
+    .site-kit-grid { display:grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items:center; gap: clamp(1.4rem, 4vw, 3.5rem); }
+    .site-kit-figure { margin:0; min-width:0; border:1px solid var(--syn-frame); border-radius:.75rem; background:var(--syn-surface); overflow:hidden; }
+    .site-kit-figure img { display:block; max-width:100%; width:100%; height:auto; aspect-ratio:8/5; object-fit:cover; }
+    .site-kit-figure figcaption { padding:.8rem 1rem; font-size:.8rem; color:var(--syn-muted); }
+    .site-kit-copy { display:grid; gap:.9rem; justify-items:start; }
+    .site-kit-copy p { margin:0; }
+    .site-kit-copy .site-section-title { margin:.25rem 0; }
+    .site-kit-meta { color:var(--syn-muted); font:600 .8rem/1.5 var(--syn-font-ui); }
+    @media (max-width: 50rem) { .site-kit-grid { grid-template-columns:minmax(0,1fr); } }
     .site-showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1rem; align-items: stretch; }
     .site-showcase-card { display: flex; flex-direction: column; gap: .75rem; min-width: 0; border-radius: .65rem; padding: 1.25rem; }
     .site-showcase-card h3 { margin: 0; font: 650 1.3rem/1.22 var(--syn-font-display); letter-spacing: -.025em; }
     .site-showcase-card p { margin: 0; color: var(--syn-muted); }
     .site-showcase-card > .syn-button { align-self: flex-start; margin-block-start: auto; }
-    .site-showcase-card > .site-secondary-link { align-self: flex-start; color: var(--syn-accent); font: 600 .83rem/1.5 var(--syn-font-ui); text-underline-offset: .2em; }
+    .site-showcase-card > .site-secondary-link { display: inline-flex; align-items: center; min-block-size: 2rem; align-self: flex-start; color: var(--syn-accent); font: 600 .83rem/1.5 var(--syn-font-ui); text-underline-offset: .2em; }
     .site-section-links { display: flex; align-items: center; flex-wrap: wrap; gap: .7rem 1.2rem; }
     .site-preview { margin-block: .5rem 1rem; border: 1px solid var(--syn-border-subtle); border-radius: .45rem; min-width: 0; min-height: 10rem; padding: 1.1rem; background: var(--syn-bg); display: grid; align-content: center; gap: .6rem; overflow: hidden; }
     .site-preview-title { font-size: .8rem; color: var(--syn-muted); }
@@ -132,7 +141,7 @@
     .site-native .syn-details { flex-basis: 100%; }
     .site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-block: 2rem 3rem; border-block-start: 1px solid var(--syn-border-subtle); }
     .site-footer nav { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; }
-    .site-footer a { color: var(--syn-muted); font-size: var(--syn-type-sm); }
+    .site-footer a { display: inline-flex; align-items: center; min-block-size: 2rem; color: var(--syn-muted); font-size: var(--syn-type-sm); }
     @media (max-width: 45rem) {
       .site-nav { display: none; }
       .site-mobile-menu { display: block; }
@@ -173,6 +182,7 @@
         <a href="docs/blocks.html">Blocks</a>
         <a href="#themes">Themes</a>
         <a href="#showcase">Examples</a>
+        <a href="docs/console-kit.html">Console Kit</a>
         <a href="examples/semantic-starter.html">Semantic starter</a>
         <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
       </nav>
@@ -184,6 +194,7 @@
         <a href="docs/blocks.html">Blocks</a>
           <a href="#themes">Themes</a>
           <a href="#showcase">Examples</a>
+          <a href="docs/console-kit.html">Console Kit</a>
           <a href="examples/semantic-starter.html">Semantic starter</a>
           <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
         </nav>
@@ -199,6 +210,7 @@
           <div class="syn-actions">
             <a class="syn-button syn-button--primary" href="#quickstart">Get started</a>
             <a class="syn-button syn-button--outline" href="docs/catalog.html">Explore components</a>
+            <a class="syn-button" href="docs/console-kit.html">Preview Console Kit</a>
             <a class="site-tertiary-link" href="docs/#install">Installation guide</a>
           </div>
           <ul class="site-trust" aria-label="Library characteristics">
@@ -276,6 +288,25 @@
   &lt;/button&gt;
 &lt;/main&gt;</code></pre>
           <p class="syn-caption">Example assumes the HTML file and downloaded CSS file share a directory. See the guide for other hosting layouts.</p>
+        </div>
+      </section>
+
+      <section class="site-section" id="console-kit" aria-labelledby="console-kit-title">
+        <div class="site-kit-grid">
+          <figure class="site-kit-figure">
+            <a href="docs/console-kit.html" aria-label="See original Syntyr Console Kit prototype previews">
+              <img src="docs/previews/studio-overview.webp" loading="lazy" decoding="async" width="1120" height="700" alt="Studio dashboard prototype screenshot with fictional operational metrics and navigation">
+            </a>
+            <figcaption>Studio dashboard / genuine screenshot / fictional data</figcaption>
+          </figure>
+          <div class="site-kit-copy">
+            <span class="site-kicker">Separate commercial product research</span>
+            <h2 class="site-section-title" id="console-kit-title">A complete console, not just components.</h2>
+            <p class="site-section-intro">Syntyr Console Kit is a PRIVATE PROTOTYPE: eight original static SaaS screen layouts in Studio, Grid and Noir. Built for developers integrating server-rendered HTML, Go templates, HTMX, Astro or other backends.</p>
+            <p class="site-kit-meta">NOT FOR SALE · $59 introductory price hypothesis · no checkout or preorder</p>
+            <a class="syn-button syn-button--primary" href="docs/console-kit.html">See the Console Kit concept</a>
+            <p class="syn-caption">All current Syntyr CSS, free themes, components and examples remain MIT licensed. The proposed kit is separately authored and not available for purchase.</p>
+          </div>
         </div>
       </section>
 
@@ -405,6 +436,7 @@
       <nav aria-label="Footer navigation">
         <a href="docs/">Documentation</a>
         <a href="docs/catalog.html">Component catalog</a>
+        <a href="docs/console-kit.html">Console Kit concept</a>
         <a href="docs/#install">Installation</a>
         <a href="https://github.com/dporkka/syntyr-css">Source</a>
         <a href="https://github.com/dporkka/syntyr-css/issues/3">Developer feedback</a>

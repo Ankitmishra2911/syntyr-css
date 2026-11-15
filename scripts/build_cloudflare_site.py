@@ -238,7 +238,8 @@ def source_files() -> dict[str, bytes]:
         *(
             ROOT / "metadata" / name
             for name in (
-                "syntyr-api.json", "syntyr.html-custom-data.json",
+                "syntyr-api.json", "syntyr-contract.json",
+                "syntyr.html-custom-data.json",
                 "syntyr.css-custom-data.json", "syntyr.code-snippets",
             )
         ),
@@ -254,7 +255,7 @@ def source_files() -> dict[str, bytes]:
         "operations-console.css", "operations-console.html", "pricing.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "saas.html", "saas-workflows.html", "crm.html", "saas-workflows.css", "premium-compositions.html",
-        "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
+        "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
         "viz.html",
     )
     # Import the canonical distribution registry rather than maintaining
@@ -270,6 +271,11 @@ def source_files() -> dict[str, bytes]:
         "studio-overview.webp",
         "grid-resources.webp",
         "noir-billing.webp",
+        "studio-editor.webp",
+        "studio-settings.webp",
+        "grid-detail.webp",
+        "noir-team.webp",
+        "grid-sign-in.webp",
     )
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)

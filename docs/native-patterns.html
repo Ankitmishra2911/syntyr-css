@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="e7ae644db7df23aa30eee53f7676155ef3fba2f0cdb834a24483707f2026235e">
+  <meta name="syntyr-source-sha256" content="f52abf8dcd9060f37919f50bf93934b4f568de059475d0aa3cff0f2403682edb">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -92,8 +92,14 @@ does not implement a custom ARIA menu.</p>
 &lt;/div&gt;
 </code></pre>
 <p>Keep a persistent programmatic label with for/id. The one-space placeholder
-is a deliberate :placeholder-shown state hook, <strong>not</strong> the accessible label.
-Use only for text-like controls that implement placeholder-shown. Avoid for
+is a deliberate :placeholder-shown state hook, <strong>not</strong> the accessible label.</p>
+<p>The field becomes a <strong>stacked, wrapping label above the input</strong> when its own
+container is narrow (21rem or less). This protects visible field identification
+when users enlarge text, including long translated labels. At wider sizes the
+floating presentation remains. The label is always a real <code>&lt;label for&gt;</code>; the
+CSS never substitutes placeholders for an accessible name. Test real browser
+zoom and translations in consuming applications.</p>
+<p>Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast
 and long translated labels in the actual application.</p>
 <h2 id="semantic-timelines-and-captioned-code">Semantic timelines and captioned code</h2>
