@@ -1,0 +1,1382 @@
+{
+  "version": 1,
+  "classes": [
+    {
+      "name": "syn-actions",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
+      "name": "syn-activity-list",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-alert",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-alert--danger",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-app-card",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-app-card-header",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-app-nav",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-app-rail",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-app-shell",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-app-topbar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-ascii",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css)."
+    },
+    {
+      "name": "syn-ascii--accent",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css)."
+    },
+    {
+      "name": "syn-ascii--muted",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css)."
+    },
+    {
+      "name": "syn-atmosphere",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css)."
+    },
+    {
+      "name": "syn-badge",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-badge--accent",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-body",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-breadcrumbs",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-button",
+      "module": "components/buttons.css",
+      "description": "Native button or link styling; use semantic HTML."
+    },
+    {
+      "name": "syn-button--danger",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
+      "name": "syn-button--ghost",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
+      "name": "syn-button--outline",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
+      "name": "syn-button--primary",
+      "module": "components/buttons.css",
+      "description": "Primary action appearance."
+    },
+    {
+      "name": "syn-button--small",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
+      "name": "syn-caption",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-cell--numeric",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-cell--wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-chart",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-axis",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-grid",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-key",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-legend",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-legend-item",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-title",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-tooltip",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-check",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-code",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-cta-band",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-defer-section",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-details",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-dialog",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-display",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-empty",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-error",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-eyebrow",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-feature-card",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-feature-grid",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-feature-list",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-field",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css)."
+    },
+    {
+      "name": "syn-field-body",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css)."
+    },
+    {
+      "name": "syn-field-row",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css)."
+    },
+    {
+      "name": "syn-fieldset",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-fluid-display",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-fluid-lede",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-form",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-frame",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css)."
+    },
+    {
+      "name": "syn-frame--accent",
+      "module": "geometry.css",
+      "description": "Optional 2px accent outline for a selected frame shape."
+    },
+    {
+      "name": "syn-frame--bevel",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css)."
+    },
+    {
+      "name": "syn-frame--bracket",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css)."
+    },
+    {
+      "name": "syn-frame--circuit",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css)."
+    },
+    {
+      "name": "syn-frame--industrial",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-frame--inset",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css)."
+    },
+    {
+      "name": "syn-frame--notch",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css)."
+    },
+    {
+      "name": "syn-frame--precision",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-frame--soft",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-glow",
+      "module": "effects.css",
+      "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity."
+    },
+    {
+      "name": "syn-gradient-wash",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css)."
+    },
+    {
+      "name": "syn-grid",
+      "module": "components/layout.css",
+      "description": "Responsive grid composition."
+    },
+    {
+      "name": "syn-grid-effect",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css)."
+    },
+    {
+      "name": "syn-header",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-heading",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-help",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-horizon",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css)."
+    },
+    {
+      "name": "syn-icon",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css)."
+    },
+    {
+      "name": "syn-inline",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-input",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-input-addon",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css)."
+    },
+    {
+      "name": "syn-input-group",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css)."
+    },
+    {
+      "name": "syn-kpi-grid",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-label",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-layout",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-lede",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-logo",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-meter",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-metric",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-mono",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-muted",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-nav",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-page",
+      "module": "base.css",
+      "description": "Syntyr CSS class (base.css)."
+    },
+    {
+      "name": "syn-page-link",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-pagination",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-panel",
+      "module": "components/layout.css",
+      "description": "General-purpose surface; customize via --syn-panel-* properties."
+    },
+    {
+      "name": "syn-panel--cut",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-popover",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-price-card",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-price-value",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-pricing",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-print-hide",
+      "module": "print.css",
+      "description": "Syntyr CSS class (print.css)."
+    },
+    {
+      "name": "syn-prose",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-reading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-region",
+      "module": "components/patterns.css",
+      "description": "Container query boundary for responsive compositions."
+    },
+    {
+      "name": "syn-root",
+      "module": "base.css",
+      "description": "Required style scope for Syntyr components and themes."
+    },
+    {
+      "name": "syn-rule",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-scanlines",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css)."
+    },
+    {
+      "name": "syn-section-heading",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-select",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-semantic",
+      "module": "semantic.css",
+      "description": "Opt-in styling of native HTML elements."
+    },
+    {
+      "name": "syn-shell",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-sidebar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-site-heading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-site-heading--editorial",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-site-hero",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-skeleton",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-skeleton--short",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-split",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-stack",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-stage",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-stage-header",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-stat",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-stat-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-stat-value",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-stats",
+      "module": "components/patterns.css",
+      "description": "Container-responsive metric composition."
+    },
+    {
+      "name": "syn-status",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-status--danger",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-status--success",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-status--warning",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-surface--accent",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-surface--lift",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-switcher",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-symbol",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css)."
+    },
+    {
+      "name": "syn-symbol--accent",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css)."
+    },
+    {
+      "name": "syn-symbol--muted",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css)."
+    },
+    {
+      "name": "syn-table",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-table-emphasis",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-table-wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-terminal",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-bar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-body",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-command",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-cursor",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-dots",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-error",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-line",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-meta",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-muted",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-output",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-path",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-prompt",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-success",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-title",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-terminal-warning",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-text-support",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-textarea",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-title",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-toolbar",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-u-between",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-center",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-flex",
+      "module": "utilities.css",
+      "description": "Opt-in flexbox layout utility."
+    },
+    {
+      "name": "syn-u-gap-1",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-gap-2",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-gap-3",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-grid",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-inline",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-max-reading",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-min-w-0",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-mt-1",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-mt-2",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-mt-3",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-overflow-auto",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-p-1",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-p-2",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-p-3",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-sr-only",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-stack",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-text-center",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-u-w-full",
+      "module": "utilities.css",
+      "description": "Opt-in full-width utility."
+    },
+    {
+      "name": "syn-u-wrap",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-viz-bar",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-bar-fill",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-bar-label",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-bar-track",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-bars",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-cell",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-heatmap",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-sparkline",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-sparkline-area",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-sparkline-path",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-sr-only",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-tracker",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-workspace",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    }
+  ],
+  "tokens": [
+    {
+      "name": "--syn-accent",
+      "module": "tokens.css",
+      "description": "Theme accent color; also check --syn-on-accent contrast."
+    },
+    {
+      "name": "--syn-accent-2",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-accent-soft",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-bg",
+      "module": "tokens.css",
+      "description": "Theme background."
+    },
+    {
+      "name": "--syn-border-default",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-border-focus",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-border-hover",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-border-subtle",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-bracket-size",
+      "module": "geometry.css",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-button-border-width",
+      "module": "components/buttons.css",
+      "description": "Per-button border width; defaults to 1px."
+    },
+    {
+      "name": "--syn-button-padding-inline",
+      "module": "components/buttons.css",
+      "description": "Per-button inline padding; defaults to 1rem."
+    },
+    {
+      "name": "--syn-card-padding",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-chart-1",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-2",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-3",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-4",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-axis",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-grid",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-tooltip-bg",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-control-height",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-control-padding-block",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-cut",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-danger",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-duration-fast",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-ease",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-fluid-display-size",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-focus-ring",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-font",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-font-display",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-font-ui",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-frame",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-frame-outline",
+      "module": "geometry.css",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-frame-shape",
+      "module": "geometry.css",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-frame-stroke",
+      "module": "geometry.css",
+      "description": "Syntyr CSS property (geometry.css)."
+    },
+    {
+      "name": "--syn-frame-strong",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-glow-alpha",
+      "module": "tokens.css",
+      "description": "Glow accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-grid-alpha",
+      "module": "tokens.css",
+      "description": "Grid-line accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-horizon-alpha",
+      "module": "tokens.css",
+      "description": "Horizon line accent share."
+    },
+    {
+      "name": "--syn-leading-body",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-line",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-mono",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-muted",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-on-accent",
+      "module": "tokens.css",
+      "description": "Foreground color for the primary accent."
+    },
+    {
+      "name": "--syn-panel-border-width",
+      "module": "components/layout.css",
+      "description": "Per-panel border width; defaults to 1px."
+    },
+    {
+      "name": "--syn-panel-padding",
+      "module": "components/layout.css",
+      "description": "Per-panel padding; defaults to the existing fluid panel padding."
+    },
+    {
+      "name": "--syn-panel-radius",
+      "module": "components/layout.css",
+      "description": "Per-panel border radius; defaults to square corners."
+    },
+    {
+      "name": "--syn-radius",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-reading-width",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-row-padding-block",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-scanline-alpha",
+      "module": "tokens.css",
+      "description": "Scanline overlay opacity percentage."
+    },
+    {
+      "name": "--syn-shadow-sm",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-1",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-2",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-3",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-4",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-space-5",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-stage-pad",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS property (components/layout.css)."
+    },
+    {
+      "name": "--syn-success",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-hi",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-hover",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-interactive",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-pressed",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-raised",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-recessed",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-terminal-bg",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-terminal-fg",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-terminal-muted",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-terminal-prompt",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-text",
+      "module": "tokens.css",
+      "description": "Default text color."
+    },
+    {
+      "name": "--syn-text-subtle",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-tracking-display",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-base",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-body",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-display",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-heading",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-lede",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-type-section",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-sm",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-type-xs",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-warning",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-wash-alpha",
+      "module": "tokens.css",
+      "description": "Primary atmospheric wash share."
+    },
+    {
+      "name": "--syn-wash-secondary-alpha",
+      "module": "tokens.css",
+      "description": "Secondary atmospheric wash share."
+    }
+  ],
+  "themes": [
+    "auto",
+    "corporate",
+    "grid",
+    "industrial",
+    "minimal",
+    "noir",
+    "studio",
+    "terminal"
+  ]
+}

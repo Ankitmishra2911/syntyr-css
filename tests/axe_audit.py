@@ -17,12 +17,12 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "docs/index.html", "examples/console.html",
+PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "examples/console.html",
           "examples/resources.html", "examples/pricing.html", "docs/console-kit.html",
          "examples/saas.html", "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html")
 
 
 def normalize_findings(page_path: str, result: dict) -> dict:

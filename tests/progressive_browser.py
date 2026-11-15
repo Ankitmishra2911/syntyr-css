@@ -26,7 +26,11 @@ def check(browser, name):
         <section class="syn-semantic" id="external" style="--syn-control-height:2.75rem">
           <button id="external-control" data-syn-semantic>Outside</button>
         </section>
+        <button id="outside-button" class="syn-button">Host button</button>
+        <article id="outside-panel" class="syn-panel">Host panel</article>
         <main class="syn-root" data-syn-theme="auto" id="root">
+          <article id="root-panel" class="syn-root syn-panel">Same-root panel</article>
+          <label class="syn-check"><input class="syn-input" id="scope-checkbox" type="checkbox"> Checkbox</label>
           <section id="noir" data-syn-theme="noir">
             <div id="nested" data-syn-theme="auto">Nested automatic theme</div>
           </section>
@@ -58,6 +62,11 @@ def check(browser, name):
         "(e, p) => getComputedStyle(e).getPropertyValue(p).trim()", prop)
     bounds = lambda selector: page.locator(selector).bounding_box()
 
+    assert cssprop("#outside-button", "display") != "inline-flex", (name, "button escaped root")
+    assert cssprop("#outside-panel", "position") != "relative", (name, "panel escaped root")
+    assert cssprop("#root-panel", "position") == "relative", (name, "same-root panel")
+    checkbox=bounds("#scope-checkbox")
+    assert checkbox["width"] >= 24 and checkbox["height"] >= 24, (name, "checkbox target", checkbox)
     assert cssprop("#styled", "min-height") == "44px", (name, "semantic opt-in")
     assert cssprop("#external-control", "min-height") != "44px", (name, "scope escape")
     for mode, expected in (("light", "rgb(36, 88, 198)"), ("dark", "rgb(118, 231, 247)")):

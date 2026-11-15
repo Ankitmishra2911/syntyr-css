@@ -43,6 +43,8 @@ def run():
                     )
                     ratio = contrast(foreground, background)
                     assert ratio >= 4.5, (engine, width, palette, ratio, foreground, background)
+                    nested_fg = page.locator("mark code").evaluate("(e) => getComputedStyle(e).color")
+                    assert contrast(nested_fg, background) >= 4.5, (engine, width, palette, "nested code", nested_fg, background)
                 for scheme in ("light", "dark"):
                     page.emulate_media(color_scheme=scheme)
                     page.locator("body").evaluate("(e) => e.setAttribute('data-syn-theme', 'auto')")
@@ -57,13 +59,21 @@ def run():
                     )
                     assert overflow <= 1, (engine, width, "unexpected page overflow", overflow)
                     pre = page.locator("pre")
-                    assert pre.evaluate("(e) => e.scrollWidth >= e.clientWidth")
+                    assert pre.evaluate("(e) => e.scrollWidth > e.clientWidth"), (engine, width, "code must overflow its own box")
+                    assert pre.evaluate("(e) => ['auto', 'scroll'].includes(getComputedStyle(e).overflowX)")
+                    pre.focus()
+                    assert pre.evaluate("(e) => document.activeElement === e"), (engine, width, "code region keyboard focus")
+                    pre.press("ArrowRight")
+                    page.wait_for_function("() => document.querySelector('pre').scrollLeft > 0", timeout=2000)
                     for size in ("200%", "400%"):
                         page.evaluate("(size) => document.documentElement.style.fontSize = size", size)
                         overflow = page.evaluate(
                             "() => document.documentElement.scrollWidth - document.documentElement.clientWidth"
                         )
                         assert overflow <= 1, (engine, width, size, "enlarged-font overflow", overflow)
+                        kbd = page.get_by_text("Control+Alt+Shift+ArrowRight", exact=True)
+                        rect = kbd.bounding_box()
+                        assert rect is not None and rect["width"] <= width - 2, (engine, size, "long kbd overflow", rect)
                     page.evaluate("() => document.documentElement.style.fontSize = ''")
                 page.emulate_media(forced_colors="active")
                 foreground, background = page.locator("mark").first.evaluate(

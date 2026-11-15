@@ -21,6 +21,13 @@ Every example uses the same `syn-` classes, CSS tokens and standard HTML.
 </section>
 ```
 
+**Host isolation:** Loading the CSS alone does not style a `.syn-button`,
+`.syn-panel`, or other Syntyr class outside `.syn-root`. Existing host UI
+components and CSS retain their presentation. Put `.syn-root` on the actual
+Syntyr subtree (or on the component itself); do not assume a globally
+scoped component class creates its own theme root. Syntyr uses native CSS
+nesting for this boundary, so test embedding in each target browser.
+
 The marker is only considered **inside** `.syn-semantic`, so it does not style
 elements elsewhere. Do not put it on elements styled by a separate component
 library unless you explicitly want Syntyr semantic styling there. Prefer

@@ -1,6 +1,7 @@
 """Dependency-free contract checks for the Syntyr starter."""
 from pathlib import Path
 from html.parser import HTMLParser
+import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -72,8 +73,14 @@ class ContractTests(unittest.TestCase):
                 with self.subTest(theme=name, label=label):
                     self.assertGreaterEqual(contrast(front, back),4.5)
 
-    def test_no_package_manager_or_remote_assets(self):
-        self.assertFalse((ROOT/'package.json').exists())
-        self.assertFalse((ROOT/'node_modules').exists())
+    def test_no_tracked_package_manager_installation_state(self):
+        # Cloudflare Pages runs npm install when it finds package.json even
+        # though Syntyr has no JS dependencies. That creates an *untracked*
+        # package-lock.json during CI, which must not fail CSS contract tests.
+        tracked = subprocess.run(
+            ['git', 'ls-files', '--', 'node_modules/', 'package-lock.json',
+             'pnpm-lock.yaml', 'yarn.lock'],
+            cwd=ROOT, capture_output=True, text=True, check=True)
+        self.assertEqual(tracked.stdout.strip(), '', 'Do not commit package-manager installation artifacts')
 
 if __name__ == '__main__': unittest.main()

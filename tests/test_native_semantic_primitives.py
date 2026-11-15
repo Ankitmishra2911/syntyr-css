@@ -57,5 +57,42 @@ class NativeSemanticPrimitives(unittest.TestCase):
         self.assertIn(css, (ROOT / "dist/syntyr.all.css").read_text())
 
 
+    def test_keyboard_scrollable_code_example_is_focusable(self):
+        import re
+        html = (ROOT / "examples/native-elements.html").read_text()
+        open_tag = re.search(r"<pre\b[^>]*>", html)
+        self.assertIsNotNone(open_tag)
+        self.assertIn('tabindex="0"', open_tag.group())
+        self.assertIn('aria-label="SQL query example"', open_tag.group())
+
+    def test_long_kbd_chords_wrap_at_large_text_sizes(self):
+        css = (ROOT / "src/semantic.css").read_text()
+        block = css[css.index("kbd:not([class])") : css.index("mark:not([class])")]
+        self.assertIn("max-inline-size: 100%", block)
+        self.assertIn("white-space: normal", block)
+        self.assertIn("overflow-wrap: anywhere", block)
+        self.assertNotIn("white-space: nowrap", block)
+
+    def test_nested_code_preserves_mark_text_contrast(self):
+        css = (ROOT / "src/semantic.css").read_text()
+        mark = css[css.index("mark:not([class])"):]
+        self.assertIn("code:not([class])", mark)
+        self.assertIn("color: inherit", mark)
+        self.assertIn("<mark><code>status</code></mark>", (ROOT / "examples/native-elements.html").read_text())
+
+    def test_browser_regression_requires_scrollable_focus_and_nested_contrast(self):
+        browser = (ROOT / "tests/native_semantic_browser.py").read_text()
+        self.assertIn("scrollWidth > e.clientWidth", browser)
+        self.assertIn("getComputedStyle(e).overflowX", browser)
+        self.assertIn("scrollLeft", browser)
+        self.assertIn("mark code", browser)
+
+
+    def test_native_example_is_covered_by_shared_browser_audits(self):
+        for script in ("tests/axe_audit.py", "tests/browser_matrix.py", "tests/reflow_test.py"):
+            with self.subTest(script=script):
+                self.assertIn('"examples/native-elements.html"', (ROOT / script).read_text())
+
+
 if __name__ == "__main__":
     unittest.main()

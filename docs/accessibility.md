@@ -164,3 +164,79 @@ inspection, NVDA/VoiceOver validation, or a WCAG conformance audit. The
 pre-existing inconclusive axe contrast cases and manual release gates remain
 open. Use the separate [native example](../examples/native-elements.html)
 for representative manual checks after publishing.
+
+## Post-merge native-element review follow-up (November 15, 2026)
+
+The native HTML example received four confirmed actionable review findings after
+PR #38 merged. The follow-up fixes make its horizontally scrollable `pre`
+region keyboard-focusable with an accessible name/region role, allow long `kbd`
+chords to wrap, preserve readable foreground color for `mark > code`, and
+strengthen the browser regression to verify actual internal scrolling and
+keyboard focus instead of merely checking `scrollWidth >= clientWidth`.
+
+Reproducible checks on the follow-up worktree:
+
+- New unit contracts: 11 native-element tests pass; the full stdlib suite
+  passed 189 tests before final documentation/rebase.
+- Developer-only Playwright smoke: Chromium, Firefox, WebKit each passed
+  across seven themes, light/dark auto, 320px/900px widths, forced-colors
+  emulation, 200%/400% root-font enlargement and keyboard access to the
+  scrollable SQL example.
+- Shared browser matrix: all three engines passed 18 pages at three viewports.
+- Shared reflow matrix: all three engines completed 72 checks each (216 total).
+- Pinned axe-core 4.10.3 audit: **0 confirmed automated violations**, with
+  **10 incomplete rule checks** across the 18 included pages. The new
+  `examples/native-elements.html` page reported 0 violations and 0
+  incomplete checks. Other pages' inconclusive findings remain manual-review
+  items; these results are not blanket color-contrast certification.
+
+### Outstanding human validation (not yet performed)
+
+1. With **VoiceOver + Safari** and **NVDA + Firefox/Chrome** (Orca + Firefox
+   can be supplementary on Linux), navigate to
+   [the native HTML example](../examples/native-elements.html); verify the
+   "SQL query example" region is named, focusable with Tab, and responds to
+   horizontal scroll keys, without trapping focus.
+2. In a real browser, set **200% and 400% browser zoom**, not only the root
+   font-size test harness. At a 320 CSS-pixel effective viewport, verify
+   readable captions, long keyboard shortcuts, full access to the code
+   example, visible focus and no clipped form action.
+3. With an actual OS high-contrast/forced-colors mode, distinguish highlights,
+   focus rings, and selected controls. Also examine all axe inconclusive
+   contrast targets from the main release accessibility report.
+4. Record device, assistive technology version, browser version, observed
+   behavior, any defects, and reviewer sign-off before claiming WCAG
+   conformance or closing the manual release gate.
+
+These are QA instructions, not evidence that human assistive-technology or
+browser-UI zoom testing has happened.
+
+## Searchable component catalog coverage (November 15, 2026)
+
+The documentation-only component catalog has been added to the normal browser,
+reflow, and axe-core matrices rather than relying only on static contracts.
+It contains ten rendered component examples. With JavaScript disabled, the
+examples and native HTML source disclosures remain available. Enhanced search,
+empty state, live result count and clipboard/keyboard fallback were checked
+in both Chromium and Firefox.
+
+Exact-branch developer-only verification:
+
+- Chromium and Firefox: **19 pages × 3 viewports** each, including the catalog
+  interactions, passed.
+- Chromium and Firefox: **76 enlarged-root-font reflow cases per engine**
+  passed. This is **not** genuine browser-UI zoom.
+- Local axe-core: **zero confirmed automated violations** across the 19
+  audited pages, with **10 incomplete rule checks** requiring manual review.
+  The catalog contributed one incomplete color-contrast rule with two nodes
+  in the featured pricing demo: axe cannot infer its gradient background.
+- For the catalog Studio palette, a source-token-based conservative calculation
+  gives approximately **13.79:1** for dark #15233a text against the strongest
+  9% blue-accent overlay on white. This is theoretical CSS compositing, not
+  sampled pixels or a conformance certification.
+- WebKit was **not** validated on this exact branch: the Gertrude test host
+  lacks libevent-2.1.so.7.
+
+The remaining release gates are genuine browser 200%/400% zoom, screen readers,
+native high-contrast inspection, and manual resolution of incomplete axe
+targets. Do not present these findings as WCAG conformance certification.

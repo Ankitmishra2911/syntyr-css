@@ -21,6 +21,10 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Optional npm/package-manager distribution
+
+A CSS-only `@syntyr/css` manifest is available in the alpha.5 repository candidate, but **it has not been published to npm**. See [package-manager installation and local tarball testing](package-managers.md) for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.
+
 ## Optional themes and semantic HTML
 
 Grid, Noir and Studio ship in the **same** core stylesheet; set
@@ -43,6 +47,13 @@ The optional `syntyr.symbols.css` adds BYO-SVG icon sizing, literal Unicode styl
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.syn-semantic` to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final `syn.utilities` cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see [the architecture policy](../ARCHITECTURE.md).
+
+## Optional explicit selective build
+
+Applications needing fewer core components can assemble a custom CSS file with
+the Python standard-library-only `scripts/build_selective.py`. It does not scan
+templates or purge individual selectors, and does not alter published assets.
+See [selective builds and their limits](selective-builds.md).
 
 ## Pinned CDN for prototyping
 

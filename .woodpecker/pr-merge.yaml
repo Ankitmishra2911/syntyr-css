@@ -1,0 +1,14 @@
+# PR-only integration gate: test PR HEAD merged with the latest main before review.
+# This requires Git in CI, but never adds a consumer-side package dependency.
+when:
+  - event: pull_request
+
+steps:
+  - name: composed-main-contract
+    image: python:3.14-slim
+    commands:
+      - apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+      - git --version
+      - if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then git fetch --unshallow origin; fi
+      - git fetch --no-tags origin main
+      - python3 scripts/check_merge_candidate.py --base FETCH_HEAD
