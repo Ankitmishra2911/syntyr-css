@@ -95,7 +95,8 @@ class EnterpriseDataTables(unittest.TestCase):
 
     def test_sticky_header_only_pins_first_header_row(self):
         css = (ROOT / "src/components/data.css").read_text()
-        self.assertIn("thead > tr:first-child > th", css)
+        self.assertIn("thead > tr:first-of-type > th", css)
+        self.assertNotIn("thead > tr:first-child > th", css)
         self.assertNotIn(".syn-table--sticky thead th", css)
 
     def test_generated_core_contains_opt_in_styles(self):
