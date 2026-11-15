@@ -632,6 +632,75 @@
           "target": "~/syntyr/LICENSE"
         }
       ]
+    },
+    {
+      "name": "resource-workspace",
+      "type": "registry:item",
+      "title": "Resource management workspace",
+      "description": "Server-ready resource search, record table, pagination and empty state.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/resource-workspace.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/resource-workspace.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "crm-workspace",
+      "type": "registry:item",
+      "title": "CRM pipeline workspace",
+      "description": "Accessible native deal stages, filters and links with no drag runtime.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/crm-workspace.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/crm-workspace.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "billing-workspace",
+      "type": "registry:item",
+      "title": "Billing and settings workspace",
+      "description": "Subscription details, invoice history and a server-owned billing contact form.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/billing-workspace.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/billing-workspace.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
     }
   ]
 }
