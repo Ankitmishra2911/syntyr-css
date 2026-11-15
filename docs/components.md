@@ -65,6 +65,14 @@ Application CSS can override tokens:
 .my-surface { --syn-accent: #a9f890; }
 ```
 
+## Optional charts and microvisualizations
+
+Load `syntyr.viz.css` after core for seven-theme chart colors, figure/legend
+styling, inline SVG sparklines, bar lists, status trackers and heatmap cells.
+Syntyr only styles supplied HTML/SVG; it does not create chart geometry,
+fetch data or require a renderer. Read [Syntyr Viz](viz.md) and open the
+[static seven-theme gallery](../examples/viz.html).
+
 ## Accessibility and performance contracts
 
 - Actual semantic HTML and associated labels; use `button` for actions and `a` for navigation.

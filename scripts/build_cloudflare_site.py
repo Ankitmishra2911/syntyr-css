@@ -69,7 +69,7 @@ def source_files() -> dict[str, bytes]:
         "index.html", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
         "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
-        "vertigo-integration.md",
+        "vertigo-integration.md", "viz.md",
     )
     public_examples = (
         "business.html", "console.html", "geometry-terminal.html", "landing.html",
@@ -77,6 +77,7 @@ def source_files() -> dict[str, bytes]:
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
+        "viz.html",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.
