@@ -252,207 +252,221 @@
   }
 }
 @layer syn.components {
-  .syn-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
-  .syn-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
-  .syn-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  .syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm) var(--syn-font-ui); }
-  .syn-nav a:hover, .syn-nav a[aria-current] { color: var(--syn-accent); }
-  .syn-stage {
-    --syn-stage-pad: clamp(1.25rem, 4vw, 3rem);
-    background: radial-gradient(ellipse at 85% 5%, var(--syn-accent-soft), transparent 50%), var(--syn-bg);
-    color: var(--syn-text);
-    border: 1px solid var(--syn-frame);
-    padding: var(--syn-stage-pad);
-    margin-block: 1.5rem;
-    position: relative;
-    isolation: isolate;
-  }
-  .syn-stage::before { content: ""; position: absolute; top: 0; left: 0; width: 4rem; height: 2px; background: var(--syn-accent); }
-  .syn-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
-  .syn-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
-  .syn-layout { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); align-items: start; }
-  .syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); }
-  .syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-2); }
-  .syn-panel {
-    position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
-    color: var(--syn-text); border: 1px solid var(--syn-border-subtle);
-    background: linear-gradient(160deg, var(--syn-accent-soft), transparent 40%), var(--syn-surface);
-    min-width: 0;
-  }
-  .syn-panel--cut::after {
-    content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
-    width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-bg);
-    clip-path: polygon(100% 0, 0 100%, 100% 100%);
-  }
-  @media (forced-colors: active) { .syn-stage, .syn-panel { border-color: CanvasText; } }
-}
-@layer syn.components {
-  .syn-logo { font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
-  .syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
-  .syn-title, .syn-display { font-family: var(--syn-font-display); font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: var(--syn-tracking-display); margin-block: 1rem; max-width: 14ch; }
-  .syn-heading { font-family: var(--syn-font-display); font-size: var(--syn-type-heading); line-height: 1.2; margin-block: .5rem 1rem; }
-  .syn-body { font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
-  .syn-text-support { font: 400 var(--syn-type-sm)/1.5 var(--syn-font-ui); color: var(--syn-text-subtle); }
-  /* Opt-in vertical rhythm; does not alter unwrapped host document styles. */
-  .syn-prose { max-width: 65ch; font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
-  .syn-prose > :where(* + *) { margin-block-start: var(--syn-space-2); }
-  .syn-prose > :where(h2, h3, h4) { margin-block-start: var(--syn-space-4); }
-  .syn-lede { max-width: 56ch; color: var(--syn-muted); }
-  .syn-muted { color: var(--syn-text-subtle); }
-  .syn-mono { font-family: var(--syn-mono); font-variant-numeric: tabular-nums; }
-  .syn-caption { overflow-wrap: anywhere; color: var(--syn-text-subtle); font: 500 var(--syn-type-xs)/1.5 var(--syn-font-ui); letter-spacing: .04em; }
-  .syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-font-display); font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
-  .syn-rule { border: 0; border-top: 1px solid var(--syn-frame); margin-block: 1.25rem; }
-  .syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 var(--syn-type-xs)/1.25 var(--syn-font-ui); letter-spacing: .04em; }
-  .syn-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
-  .syn-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--syn-accent); background: var(--syn-surface); color: var(--syn-text); }
-  .syn-alert--danger { border-inline-start-color: var(--syn-danger); }
-  .syn-code { font: .85em/1.5 var(--syn-mono); overflow-wrap: anywhere; background: var(--syn-surface-hi); padding: .12em .35em; }
-  @media (forced-colors: active) { .syn-badge, .syn-alert { border-color: CanvasText; } }
-}
-@layer syn.components {
-  .syn-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
-  .syn-button {
-    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-    min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) 1rem;
-    min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
-    border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
-    background: var(--syn-surface-interactive); color: var(--syn-text);
-    text-decoration: none; font: 600 var(--syn-type-sm)/1.2 var(--syn-font-ui); letter-spacing: -.005em;
-    cursor: pointer; transition: background-color var(--syn-duration-fast) var(--syn-ease), border-color var(--syn-duration-fast) var(--syn-ease), color var(--syn-duration-fast) var(--syn-ease);
-  }
-  .syn-button:where(:not(:disabled):not([aria-disabled="true"]):hover) { border-color: var(--syn-border-hover); background: var(--syn-surface-hover); }
-  .syn-button:where(:not(:disabled):not([aria-disabled="true"]):active) { box-shadow: inset 0 2px 3px rgb(0 0 0 / 14%); }
-  .syn-button--primary { background: var(--syn-accent); border-color: var(--syn-accent); color: var(--syn-on-accent); }
-  .syn-button--primary:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
-  .syn-button--outline { background: transparent; border-color: var(--syn-accent); color: var(--syn-accent); }
-  .syn-button--outline:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); }
-  .syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
-  .syn-button--danger:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
-  .syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: var(--syn-type-xs); }
-  .syn-button--ghost { background: transparent; border-color: transparent; }
-  .syn-button--ghost:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
-    .syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
-    border-color: var(--syn-accent);
-    background: var(--syn-surface-pressed);
-    color: var(--syn-accent);
-  }
-  .syn-button[aria-busy="true"] { cursor: progress; }
-    .syn-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
-  @media (forced-colors: active) {
-    .syn-button { border-color: ButtonText; }
-    .syn-button--primary { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
-    .syn-button--danger, .syn-button--outline { border-color: ButtonText; color: ButtonText; }
+  :where(.syn-root, .syn-root *) {
+    &.syn-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+    &.syn-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
+    &.syn-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    &.syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm) var(--syn-font-ui); }
+    &.syn-nav a:hover, &.syn-nav a[aria-current] { color: var(--syn-accent); }
+    &.syn-stage {
+      --syn-stage-pad: clamp(1.25rem, 4vw, 3rem);
+      background: radial-gradient(ellipse at 85% 5%, var(--syn-accent-soft), transparent 50%), var(--syn-bg);
+      color: var(--syn-text);
+      border: 1px solid var(--syn-frame);
+      padding: var(--syn-stage-pad);
+      margin-block: 1.5rem;
+      position: relative;
+      isolation: isolate;
+    }
+    &.syn-stage::before { content: ""; position: absolute; top: 0; left: 0; width: 4rem; height: 2px; background: var(--syn-accent); }
+    &.syn-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
+    &.syn-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+    &.syn-layout { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); align-items: start; }
+    &.syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); }
+    &.syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-2); }
+    &.syn-panel {
+      position: relative; padding: clamp(1rem, 2.8vw, 1.75rem); overflow-wrap: anywhere;
+      color: var(--syn-text); border: 1px solid var(--syn-border-subtle);
+      background: linear-gradient(160deg, var(--syn-accent-soft), transparent 40%), var(--syn-surface);
+      min-width: 0;
+    }
+    &.syn-panel--cut::after {
+      content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
+      width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-bg);
+      clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    }
+    @media (forced-colors: active) { .syn-stage, &.syn-panel { border-color: CanvasText; } }
   }
 }
 @layer syn.components {
-  .syn-form { display: grid; gap: 1rem; }
-  .syn-label { display: grid; gap: .35rem; font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui); }
-  .syn-input, .syn-select, .syn-textarea {
-    width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
-    border: 1px solid var(--syn-border-default); background: var(--syn-bg);
-    border-radius: var(--syn-radius); color: var(--syn-text);
-  }
-  .syn-input::placeholder, .syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
-  .syn-input:where(:not(:disabled):hover), .syn-select:where(:not(:disabled):hover),
-  .syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
-  .syn-input:where(:focus), .syn-select:where(:focus), .syn-textarea:where(:focus) { border-color: var(--syn-border-focus); }
-  .syn-input:disabled, .syn-select:disabled, .syn-textarea:disabled { background: var(--syn-surface-recessed); }
-  .syn-input:where(:user-invalid, [aria-invalid="true"]),
-  .syn-select:where(:user-invalid, [aria-invalid="true"]),
-  .syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
-  .syn-help { color: var(--syn-muted); font-size: .8rem; }
-  .syn-error { color: var(--syn-danger); font-size: .8rem; }
-  .syn-textarea { min-height: 6rem; resize: vertical; }
-  .syn-input[type="checkbox"], .syn-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
-  .syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
-  .syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
-  .syn-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--syn-mono); }
-  @media (forced-colors: active) {
-    .syn-input, .syn-select, .syn-textarea, .syn-fieldset { border-color: CanvasText; }
-  }
-}
-@layer syn.components {
-  .syn-popover, .syn-dialog {
-    width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
-    border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
-    background: var(--syn-surface); color: var(--syn-text);
-    box-shadow: 0 20px 70px rgb(0 0 0 / 45%);
-  }
-  .syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
-  .syn-dialog { margin: auto; }
-  .syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
-  .syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
-  .syn-details summary { cursor: pointer; color: var(--syn-text); font-weight: 650; }
-  .syn-details[open] summary { color: var(--syn-accent); }
-  .syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
-  @media (forced-colors: active) { .syn-popover, .syn-dialog, .syn-details { border-color: CanvasText; } }
-}
-@layer syn.components {
-  .syn-meter { width: 100%; height: .45rem; overflow: hidden; border: none; border-radius: 0; accent-color: var(--syn-accent); }
-  .syn-meter::-webkit-progress-bar { background: var(--syn-bg); }
-  .syn-meter::-webkit-progress-value { background: var(--syn-accent); }
-  .syn-meter::-moz-progress-bar { background: var(--syn-accent); }
-  .syn-table-wrap { overflow-x: auto; }
-  .syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
-  .syn-table th, .syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); white-space: nowrap; }
-  .syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
-  .syn-table tr[aria-selected="true"], .syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
-  .syn-table tr:focus-within { outline: 2px solid var(--syn-focus-ring); outline-offset: -2px; }
-  .syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
-  /* No implicit last-column accent: table columns may contain any kind of data. */
-  .syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
-  .syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
-  .syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 var(--syn-type-xs)/1.5 var(--syn-font-ui); }
-  .syn-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
-  .syn-status--success { color: var(--syn-success); }
-  .syn-status--warning { color: var(--syn-warning); }
-  .syn-status--danger { color: var(--syn-danger); }
-  @media (forced-colors: active) {
-    .syn-status::before { border: 1px solid currentColor; }
+  :where(.syn-root, .syn-root *) {
+    &.syn-logo { font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
+    &.syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
+    &.syn-title, &.syn-display { font-family: var(--syn-font-display); font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: var(--syn-tracking-display); margin-block: 1rem; max-width: 14ch; }
+    &.syn-heading { font-family: var(--syn-font-display); font-size: var(--syn-type-heading); line-height: 1.2; margin-block: .5rem 1rem; }
+    &.syn-body { font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
+    &.syn-text-support { font: 400 var(--syn-type-sm)/1.5 var(--syn-font-ui); color: var(--syn-text-subtle); }
+    /* Opt-in vertical rhythm; does not alter unwrapped host document styles. */
+    &.syn-prose { max-width: 65ch; font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
+    &.syn-prose > :where(* + *) { margin-block-start: var(--syn-space-2); }
+    &.syn-prose > :where(h2, h3, h4) { margin-block-start: var(--syn-space-4); }
+    &.syn-lede { max-width: 56ch; color: var(--syn-muted); }
+    &.syn-muted { color: var(--syn-text-subtle); }
+    &.syn-mono { font-family: var(--syn-mono); font-variant-numeric: tabular-nums; }
+    &.syn-caption { overflow-wrap: anywhere; color: var(--syn-text-subtle); font: 500 var(--syn-type-xs)/1.5 var(--syn-font-ui); letter-spacing: .04em; }
+    &.syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-font-display); font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
+    &.syn-rule { border: 0; border-top: 1px solid var(--syn-frame); margin-block: 1.25rem; }
+    &.syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); font: 650 var(--syn-type-xs)/1.25 var(--syn-font-ui); letter-spacing: .04em; }
+    &.syn-badge::before { content: ""; width: .35rem; height: .35rem; border-radius: 50%; background: currentColor; }
+    &.syn-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--syn-accent); background: var(--syn-surface); color: var(--syn-text); }
+    &.syn-alert--danger { border-inline-start-color: var(--syn-danger); }
+    &.syn-code { font: .85em/1.5 var(--syn-mono); overflow-wrap: anywhere; background: var(--syn-surface-hi); padding: .12em .35em; }
+    @media (forced-colors: active) { .syn-badge, &.syn-alert { border-color: CanvasText; } }
   }
 }
 @layer syn.components {
-  .syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
-  .syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
-  .syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
-  .syn-stat { padding: var(--syn-space-3); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
-  .syn-stat-label { color: var(--syn-muted); font: 650 .8125rem/1.4 var(--syn-mono); letter-spacing: .05em; }
-  .syn-stat-value { margin: .5rem 0 0; color: var(--syn-text); font: 650 clamp(1.7rem, 4vw, 2.4rem)/1.1 var(--syn-mono); font-variant-numeric: tabular-nums; }
-  .syn-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--syn-space-2); }
-  .syn-empty { display: grid; justify-items: center; align-content: center; text-align: center; gap: var(--syn-space-2); min-height: 12rem; padding: var(--syn-space-4); border: 1px dashed var(--syn-frame); background: var(--syn-surface); }
-  .syn-empty > :where(h2, h3, p) { margin-block: 0; }
-  .syn-pricing { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
-  .syn-price-card { display: flex; flex-direction: column; gap: var(--syn-space-3); min-width: 0; border: 1px solid var(--syn-frame); padding: var(--syn-space-4); background: var(--syn-surface); }
-  .syn-price-card[data-syn-featured] { border-color: var(--syn-accent); background: linear-gradient(155deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); }
-  .syn-price-card > .syn-button { margin-block-start: auto; }
-  .syn-price-value { margin: 0; color: var(--syn-text); font: 650 clamp(2rem, 5vw, 3rem)/1.1 var(--syn-mono); font-variant-numeric: tabular-nums; }
-  .syn-price-value small { color: var(--syn-muted); font: 400 .9rem var(--syn-font); }
-  .syn-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--syn-space-3); color: var(--syn-muted); }
-  .syn-feature-list li::marker { color: var(--syn-accent); }
-    .syn-breadcrumbs ol { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
-  .syn-breadcrumbs li { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
-  .syn-breadcrumbs li + li::before { content: ""; height: .85em; border-inline-start: 1px solid var(--syn-frame-strong); transform: skew(-22deg); }
-  .syn-breadcrumbs a { color: var(--syn-muted); }
-  .syn-breadcrumbs [aria-current="page"] { color: var(--syn-text); font-weight: 650; }
-  .syn-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; }
-  .syn-page-link { display: inline-grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; padding: .4rem; border: 1px solid var(--syn-frame); color: var(--syn-text); text-decoration: none; border-radius: var(--syn-radius); }
-  .syn-page-link:hover, .syn-page-link[aria-current="page"] { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
-  .syn-page-link[aria-current="page"] { font-weight: 700; }
-    .syn-skeleton { display: block; width: 100%; min-height: 1em; background: var(--syn-surface-hi); border: 1px solid var(--syn-frame); border-radius: var(--syn-radius); }
-  .syn-skeleton--short { max-width: 55%; }
-  @container syn-region (min-width: 31rem) {
-    .syn-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  :where(.syn-root, .syn-root *) {
+    &.syn-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
+    &.syn-button {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) 1rem;
+      min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
+      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+      background: var(--syn-surface-interactive); color: var(--syn-text);
+      text-decoration: none; font: 600 var(--syn-type-sm)/1.2 var(--syn-font-ui); letter-spacing: -.005em;
+      cursor: pointer; transition: background-color var(--syn-duration-fast) var(--syn-ease), border-color var(--syn-duration-fast) var(--syn-ease), color var(--syn-duration-fast) var(--syn-ease);
+    }
+    &.syn-button:where(:not(:disabled):not([aria-disabled="true"]):hover) { border-color: var(--syn-border-hover); background: var(--syn-surface-hover); }
+    &.syn-button:where(:not(:disabled):not([aria-disabled="true"]):active) { box-shadow: inset 0 2px 3px rgb(0 0 0 / 14%); }
+    &.syn-button--primary { background: var(--syn-accent); border-color: var(--syn-accent); color: var(--syn-on-accent); }
+    &.syn-button--primary:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-accent), white 10%); color: var(--syn-on-accent); }
+    &.syn-button--outline { background: transparent; border-color: var(--syn-accent); color: var(--syn-accent); }
+    &.syn-button--outline:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); }
+    &.syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
+    &.syn-button--danger:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
+    &.syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: var(--syn-type-xs); }
+    &.syn-button--ghost { background: transparent; border-color: transparent; }
+    &.syn-button--ghost:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
+      &.syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
+      border-color: var(--syn-accent);
+      background: var(--syn-surface-pressed);
+      color: var(--syn-accent);
+    }
+    &.syn-button[aria-busy="true"] { cursor: progress; }
+      &.syn-button:is(:disabled, [aria-disabled="true"]) { cursor: not-allowed; }
+    @media (forced-colors: active) {
+      &.syn-button { border-color: ButtonText; }
+      &.syn-button--primary { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
+      &.syn-button--danger, &.syn-button--outline { border-color: ButtonText; color: ButtonText; }
+    }
   }
-  @container syn-region (min-width: 43rem) {
-    .syn-split { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
-    .syn-pricing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@layer syn.components {
+  :where(.syn-root, .syn-root *) {
+    &.syn-form { display: grid; gap: 1rem; }
+    &.syn-label { display: grid; gap: .35rem; font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui); }
+    &.syn-input, &.syn-select, &.syn-textarea {
+      width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
+      border: 1px solid var(--syn-border-default); background: var(--syn-bg);
+      border-radius: var(--syn-radius); color: var(--syn-text);
+    }
+    &.syn-input::placeholder, &.syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
+    &.syn-input:where(:not(:disabled):hover), &.syn-select:where(:not(:disabled):hover),
+    &.syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
+    &.syn-input:where(:focus), &.syn-select:where(:focus), &.syn-textarea:where(:focus) { border-color: var(--syn-border-focus); }
+    &.syn-input:disabled, &.syn-select:disabled, &.syn-textarea:disabled { background: var(--syn-surface-recessed); }
+    &.syn-input:where(:user-invalid, [aria-invalid="true"]),
+    &.syn-select:where(:user-invalid, [aria-invalid="true"]),
+    &.syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
+    &.syn-help { color: var(--syn-muted); font-size: .8rem; }
+    &.syn-error { color: var(--syn-danger); font-size: .8rem; }
+    &.syn-textarea { min-height: 6rem; resize: vertical; }
+    &.syn-input[type="checkbox"], &.syn-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
+    &.syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
+    &.syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
+    &.syn-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--syn-mono); }
+    @media (forced-colors: active) {
+      &.syn-input, &.syn-select, &.syn-textarea, &.syn-fieldset { border-color: CanvasText; }
+    }
   }
-  @container syn-region (min-width: 55rem) {
-    .syn-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@layer syn.components {
+  :where(.syn-root, .syn-root *) {
+    &.syn-popover, &.syn-dialog {
+      width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
+      border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      box-shadow: 0 20px 70px rgb(0 0 0 / 45%);
+    }
+    &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    &.syn-dialog { margin: auto; }
+    &.syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
+    &.syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
+    &.syn-details summary { cursor: pointer; color: var(--syn-text); font-weight: 650; }
+    &.syn-details[open] summary { color: var(--syn-accent); }
+    &.syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
+    @media (forced-colors: active) { .syn-popover, &.syn-dialog, &.syn-details { border-color: CanvasText; } }
   }
-  @media (forced-colors: active) {
-    .syn-stat, .syn-empty, .syn-price-card, .syn-price-card[data-syn-featured] { border-color: CanvasText; }
+}
+@layer syn.components {
+  :where(.syn-root, .syn-root *) {
+    &.syn-meter { width: 100%; height: .45rem; overflow: hidden; border: none; border-radius: 0; accent-color: var(--syn-accent); }
+    &.syn-meter::-webkit-progress-bar { background: var(--syn-bg); }
+    &.syn-meter::-webkit-progress-value { background: var(--syn-accent); }
+    &.syn-meter::-moz-progress-bar { background: var(--syn-accent); }
+    &.syn-table-wrap { overflow-x: auto; }
+    &.syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
+    &.syn-table th, &.syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); white-space: nowrap; }
+    &.syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
+    &.syn-table tr[aria-selected="true"], &.syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
+    &.syn-table tr:focus-within { outline: 2px solid var(--syn-focus-ring); outline-offset: -2px; }
+    &.syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
+    /* No implicit last-column accent: table columns may contain any kind of data. */
+    &.syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
+    &.syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
+    &.syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 var(--syn-type-xs)/1.5 var(--syn-font-ui); }
+    &.syn-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
+    &.syn-status--success { color: var(--syn-success); }
+    &.syn-status--warning { color: var(--syn-warning); }
+    &.syn-status--danger { color: var(--syn-danger); }
+    @media (forced-colors: active) {
+      &.syn-status::before { border: 1px solid currentColor; }
+    }
+  }
+}
+@layer syn.components {
+  :where(.syn-root, .syn-root *) {
+    &.syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
+    &.syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
+    &.syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
+    &.syn-stat { padding: var(--syn-space-3); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
+    &.syn-stat-label { color: var(--syn-muted); font: 650 .8125rem/1.4 var(--syn-mono); letter-spacing: .05em; }
+    &.syn-stat-value { margin: .5rem 0 0; color: var(--syn-text); font: 650 clamp(1.7rem, 4vw, 2.4rem)/1.1 var(--syn-mono); font-variant-numeric: tabular-nums; }
+    &.syn-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--syn-space-2); }
+    &.syn-empty { display: grid; justify-items: center; align-content: center; text-align: center; gap: var(--syn-space-2); min-height: 12rem; padding: var(--syn-space-4); border: 1px dashed var(--syn-frame); background: var(--syn-surface); }
+    &.syn-empty > :where(h2, h3, p) { margin-block: 0; }
+    &.syn-pricing { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
+    &.syn-price-card { display: flex; flex-direction: column; gap: var(--syn-space-3); min-width: 0; border: 1px solid var(--syn-frame); padding: var(--syn-space-4); background: var(--syn-surface); }
+    &.syn-price-card[data-syn-featured] { border-color: var(--syn-accent); background: linear-gradient(155deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); }
+    &.syn-price-card > .syn-button { margin-block-start: auto; }
+    &.syn-price-value { margin: 0; color: var(--syn-text); font: 650 clamp(2rem, 5vw, 3rem)/1.1 var(--syn-mono); font-variant-numeric: tabular-nums; }
+    &.syn-price-value small { color: var(--syn-muted); font: 400 .9rem var(--syn-font); }
+    &.syn-feature-list { display: grid; gap: .6rem; padding-inline-start: 1.2rem; margin: 0 0 var(--syn-space-3); color: var(--syn-muted); }
+    &.syn-feature-list li::marker { color: var(--syn-accent); }
+      &.syn-breadcrumbs ol { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
+    &.syn-breadcrumbs li { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
+    &.syn-breadcrumbs li + li::before { content: ""; height: .85em; border-inline-start: 1px solid var(--syn-frame-strong); transform: skew(-22deg); }
+    &.syn-breadcrumbs a { color: var(--syn-muted); }
+    &.syn-breadcrumbs [aria-current="page"] { color: var(--syn-text); font-weight: 650; }
+    &.syn-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; }
+    &.syn-page-link { display: inline-grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; padding: .4rem; border: 1px solid var(--syn-frame); color: var(--syn-text); text-decoration: none; border-radius: var(--syn-radius); }
+    &.syn-page-link:hover, &.syn-page-link[aria-current="page"] { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
+    &.syn-page-link[aria-current="page"] { font-weight: 700; }
+      &.syn-skeleton { display: block; width: 100%; min-height: 1em; background: var(--syn-surface-hi); border: 1px solid var(--syn-frame); border-radius: var(--syn-radius); }
+    &.syn-skeleton--short { max-width: 55%; }
+    @container syn-region (min-width: 31rem) {
+      &.syn-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @container syn-region (min-width: 43rem) {
+      &.syn-split { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+      &.syn-pricing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @container syn-region (min-width: 55rem) {
+      &.syn-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (forced-colors: active) {
+      &.syn-stat, &.syn-empty, &.syn-price-card, &.syn-price-card[data-syn-featured] { border-color: CanvasText; }
+    }
   }
 }
 /* Optional semantic mode. Class-free elements auto-style; data-syn-semantic opts in
@@ -523,239 +537,243 @@
   .syn-root .syn-switcher { display: flex; flex-wrap: wrap; gap: var(--syn-space-3); min-width: 0; }
   .syn-root .syn-switcher > * { flex-grow: 1; flex-basis: max(0px, calc((var(--syn-switcher-threshold, 40rem) - 100%) * 999)); min-width: 0; }
 
-  /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
-  .syn-app-shell {
-    display: grid; grid-template-columns: minmax(0, 1fr);
-    min-height: 100svh; min-width: 0;
-  }
-  .syn-app-rail {
-    display: flex; flex-direction: column; gap: var(--syn-space-2);
-    padding: var(--syn-space-3); border-block-end: 1px solid var(--syn-frame);
-    background: var(--syn-surface-recessed); color: var(--syn-text);
-  }
-  .syn-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
-  .syn-app-nav a {
-    display: block; padding: .55rem .75rem; border-radius: var(--syn-radius);
-    color: var(--syn-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
-  }
-  .syn-app-nav a:where(:hover, [aria-current="page"]) {
-    color: var(--syn-accent); background: var(--syn-accent-soft);
-  }
-  .syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
-  .syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
-  .syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
-  .syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
-  .syn-app-card {
-    min-width: 0; padding: var(--syn-card-padding);
-    border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius);
-    background: var(--syn-surface); color: var(--syn-text);
-    box-shadow: var(--syn-shadow-sm);
-  }
-  .syn-app-card > :first-child { margin-block-start: 0; }
-  .syn-app-card > :last-child { margin-block-end: 0; }
-  .syn-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
-  .syn-app-card-header > :first-child { margin: 0; }
-  .syn-activity-list { list-style: none; margin: 0; padding: 0; }
-  .syn-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--syn-frame); }
-  .syn-activity-list li:last-child { border-block-end: 0; }
-  /* Business/marketing: typography and hierarchy without forcing a dark look. */
-  .syn-site-hero {
-    position: relative; isolation: isolate; overflow: hidden;
-    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
-    background: radial-gradient(ellipse at 80% 20%, var(--syn-accent-soft), transparent 56%), var(--syn-surface);
-    color: var(--syn-text);
-    padding: clamp(2rem, 6vw, 5rem);
-  }
-  .syn-site-hero::before {
-    content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
-    width: min(9rem, 40%); height: 3px; background: var(--syn-accent); pointer-events: none;
-  }
-  .syn-site-heading { font-family: var(--syn-font-display); font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
-  /* Optional editorial voice inspired by premium developer tooling; local serif only. */
-  .syn-site-heading--editorial { font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif; font-weight: 500; letter-spacing: -.045em; }
-  .syn-site-heading strong { color: var(--syn-accent); }
-  .syn-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--syn-space-2); }
-  .syn-feature-card { min-width: 0; padding: var(--syn-space-4); background: var(--syn-surface); color: var(--syn-text); border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius); }
-  .syn-feature-card > :first-child { margin-block-start: 0; }
-  .syn-feature-card > :last-child { margin-block-end: 0; }
-  .syn-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--syn-space-3); padding: var(--syn-space-4); background: var(--syn-accent-soft); color: var(--syn-text); border-inline-start: 3px solid var(--syn-accent); }
-  /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
-  .syn-terminal {
-    --syn-terminal-bg: #0b1625;
-    --syn-terminal-fg: #e6f4fa;
-    --syn-terminal-muted: #b6c8d8;
-    --syn-terminal-prompt: #85e7cf;
-    border: 1px solid var(--syn-frame-strong); border-radius: var(--syn-radius);
-    background: var(--syn-terminal-bg); color: var(--syn-terminal-fg);
-    font: 400 .85rem/1.65 var(--syn-mono); min-width: 0; overflow: hidden;
-  }
-  .syn-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--syn-terminal-muted); font-size: .8125rem; }
-  .syn-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
-  .syn-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
-  .syn-terminal-prompt { color: var(--syn-terminal-prompt); }
-  .syn-terminal-muted { color: var(--syn-terminal-muted); }
-  .syn-terminal-command { color: #f9dfad; }
-  .syn-terminal-success { color: #a1f1bf; }
-  .syn-terminal-error { color: #ffb6b2; }
-  .syn-terminal-warning { color: #ffe0a3; }
-  .syn-terminal-path { color: #b2dcff; }
-  .syn-terminal-meta { color: var(--syn-terminal-muted); font-size: .75em; letter-spacing: .06em; }
-  .syn-terminal-title { font-weight: 650; color: var(--syn-terminal-fg); overflow-wrap: anywhere; }
-  .syn-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
-  .syn-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
-  .syn-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
-  .syn-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
-  .syn-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
-  /* A static, non-blinking caret; it never suggests fake live input. */
-  .syn-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
+  :where(.syn-root, .syn-root *) {
+    /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
+    &.syn-app-shell {
+      display: grid; grid-template-columns: minmax(0, 1fr);
+      min-height: 100svh; min-width: 0;
+    }
+    &.syn-app-rail {
+      display: flex; flex-direction: column; gap: var(--syn-space-2);
+      padding: var(--syn-space-3); border-block-end: 1px solid var(--syn-frame);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+    }
+    &.syn-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+    &.syn-app-nav a {
+      display: block; padding: .55rem .75rem; border-radius: var(--syn-radius);
+      color: var(--syn-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
+    }
+    &.syn-app-nav a:where(:hover, [aria-current="page"]) {
+      color: var(--syn-accent); background: var(--syn-accent-soft);
+    }
+    &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
+    &.syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+    &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
+    &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
+    &.syn-app-card {
+      min-width: 0; padding: var(--syn-card-padding);
+      border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      box-shadow: var(--syn-shadow-sm);
+    }
+    &.syn-app-card > :first-child { margin-block-start: 0; }
+    &.syn-app-card > :last-child { margin-block-end: 0; }
+    &.syn-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
+    &.syn-app-card-header > :first-child { margin: 0; }
+    &.syn-activity-list { list-style: none; margin: 0; padding: 0; }
+    &.syn-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--syn-frame); }
+    &.syn-activity-list li:last-child { border-block-end: 0; }
+    /* Business/marketing: typography and hierarchy without forcing a dark look. */
+    &.syn-site-hero {
+      position: relative; isolation: isolate; overflow: hidden;
+      border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+      background: radial-gradient(ellipse at 80% 20%, var(--syn-accent-soft), transparent 56%), var(--syn-surface);
+      color: var(--syn-text);
+      padding: clamp(2rem, 6vw, 5rem);
+    }
+    &.syn-site-hero::before {
+      content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
+      width: min(9rem, 40%); height: 3px; background: var(--syn-accent); pointer-events: none;
+    }
+    &.syn-site-heading { font-family: var(--syn-font-display); font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
+    /* Optional editorial voice inspired by premium developer tooling; local serif only. */
+    &.syn-site-heading--editorial { font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif; font-weight: 500; letter-spacing: -.045em; }
+    &.syn-site-heading strong { color: var(--syn-accent); }
+    &.syn-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--syn-space-2); }
+    &.syn-feature-card { min-width: 0; padding: var(--syn-space-4); background: var(--syn-surface); color: var(--syn-text); border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius); }
+    &.syn-feature-card > :first-child { margin-block-start: 0; }
+    &.syn-feature-card > :last-child { margin-block-end: 0; }
+    &.syn-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--syn-space-3); padding: var(--syn-space-4); background: var(--syn-accent-soft); color: var(--syn-text); border-inline-start: 3px solid var(--syn-accent); }
+    /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
+    &.syn-terminal {
+      --syn-terminal-bg: #0b1625;
+      --syn-terminal-fg: #e6f4fa;
+      --syn-terminal-muted: #b6c8d8;
+      --syn-terminal-prompt: #85e7cf;
+      border: 1px solid var(--syn-frame-strong); border-radius: var(--syn-radius);
+      background: var(--syn-terminal-bg); color: var(--syn-terminal-fg);
+      font: 400 .85rem/1.65 var(--syn-mono); min-width: 0; overflow: hidden;
+    }
+    &.syn-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--syn-terminal-muted); font-size: .8125rem; }
+    &.syn-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
+    &.syn-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+    &.syn-terminal-prompt { color: var(--syn-terminal-prompt); }
+    &.syn-terminal-muted { color: var(--syn-terminal-muted); }
+    &.syn-terminal-command { color: #f9dfad; }
+    &.syn-terminal-success { color: #a1f1bf; }
+    &.syn-terminal-error { color: #ffb6b2; }
+    &.syn-terminal-warning { color: #ffe0a3; }
+    &.syn-terminal-path { color: #b2dcff; }
+    &.syn-terminal-meta { color: var(--syn-terminal-muted); font-size: .75em; letter-spacing: .06em; }
+    &.syn-terminal-title { font-weight: 650; color: var(--syn-terminal-fg); overflow-wrap: anywhere; }
+    &.syn-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
+    &.syn-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
+    &.syn-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
+    &.syn-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
+    &.syn-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+    /* A static, non-blinking caret; it never suggests fake live input. */
+    &.syn-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
 
-  /* Composable surface geometry; themes control colors, modifiers control shape. */
-  .syn-frame--precision { position: relative; border: 1px solid var(--syn-frame-strong); }
-  .syn-frame--precision::before {
-    content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
-    width: 3.5rem; height: 2px; background: var(--syn-accent); pointer-events: none;
-  }
-  .syn-frame--industrial { border-inline-start: 3px solid var(--syn-accent); background: linear-gradient(110deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); color: var(--syn-text); }
-  .syn-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+    /* Composable surface geometry; themes control colors, modifiers control shape. */
+    &.syn-frame--precision { position: relative; border: 1px solid var(--syn-frame-strong); }
+    &.syn-frame--precision::before {
+      content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
+      width: 3.5rem; height: 2px; background: var(--syn-accent); pointer-events: none;
+    }
+    &.syn-frame--industrial { border-inline-start: 3px solid var(--syn-accent); background: linear-gradient(110deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); color: var(--syn-text); }
+    &.syn-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
 
-  /* Optional emphasis: a theme-colored accent line without extra markup or JS. */
-  .syn-surface--accent {
-    border-color: var(--syn-frame-strong);
-    box-shadow: inset 0 3px var(--syn-accent);
-    background: linear-gradient(160deg, var(--syn-accent-soft), transparent 45%), var(--syn-surface);
-  }
-  /* Use on small, interactive surfaces. No persistent will-change or transforms. */
-  .syn-surface--lift {
-    transition: border-color var(--syn-duration-fast) var(--syn-ease),
-                box-shadow var(--syn-duration-fast) var(--syn-ease);
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .syn-surface--lift:where(:hover, :focus-within) {
+    /* Optional emphasis: a theme-colored accent line without extra markup or JS. */
+    &.syn-surface--accent {
       border-color: var(--syn-frame-strong);
-      box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+      box-shadow: inset 0 3px var(--syn-accent);
+      background: linear-gradient(160deg, var(--syn-accent-soft), transparent 45%), var(--syn-surface);
     }
-    .syn-surface--accent.syn-surface--lift:where(:hover, :focus-within) {
-      box-shadow: inset 0 3px var(--syn-accent), 0 8px 24px rgb(0 0 0 / 12%);
+    /* Use on small, interactive surfaces. No persistent will-change or transforms. */
+    &.syn-surface--lift {
+      transition: border-color var(--syn-duration-fast) var(--syn-ease),
+                  box-shadow var(--syn-duration-fast) var(--syn-ease);
     }
-  }
-  .syn-surface--lift:focus-within { border-color: var(--syn-accent); }
+    @media (hover: hover) and (pointer: fine) {
+      &.syn-surface--lift:where(:hover, :focus-within) {
+        border-color: var(--syn-frame-strong);
+        box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+      }
+      &.syn-surface--accent.syn-surface--lift:where(:hover, :focus-within) {
+        box-shadow: inset 0 3px var(--syn-accent), 0 8px 24px rgb(0 0 0 / 12%);
+      }
+    }
+    &.syn-surface--lift:focus-within { border-color: var(--syn-accent); }
 
-  /* Opt in only on long, below-fold sections. A placeholder height avoids jumps. */
-  .syn-defer-section {
-    content-visibility: auto;
-    contain-intrinsic-size: auto var(--syn-defer-size, 36rem);
-  }
-  @media print {
-    .syn-defer-section { content-visibility: visible; contain-intrinsic-size: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .syn-surface--lift { transition: none; }
-  }
-  @media (min-width: 53rem) {
-    .syn-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
-    .syn-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--syn-frame); }
-    .syn-app-nav { display: grid; }
-  }
-  @media (forced-colors: active) {
-    .syn-app-card, .syn-site-hero, .syn-feature-card, .syn-terminal, .syn-frame--precision, .syn-frame--industrial { border-color: CanvasText; }
-    .syn-frame--precision::before, .syn-site-hero::before { display: none; }
-    .syn-surface--accent { box-shadow: none; border-block-start: 3px solid Highlight; background: Canvas; }
-    .syn-surface--lift:where(:hover, :focus-within) { box-shadow: none; }
-    .syn-terminal { forced-color-adjust: auto; }
+    /* Opt in only on long, below-fold sections. A placeholder height avoids jumps. */
+    &.syn-defer-section {
+      content-visibility: auto;
+      contain-intrinsic-size: auto var(--syn-defer-size, 36rem);
+    }
+    @media print {
+      &.syn-defer-section { content-visibility: visible; contain-intrinsic-size: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      &.syn-surface--lift { transition: none; }
+    }
+    @media (min-width: 53rem) {
+      &.syn-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
+      &.syn-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--syn-frame); }
+      &.syn-app-nav { display: grid; }
+    }
+    @media (forced-colors: active) {
+      &.syn-app-card, &.syn-site-hero, &.syn-feature-card, &.syn-terminal, &.syn-frame--precision, &.syn-frame--industrial { border-color: CanvasText; }
+      &.syn-frame--precision::before, &.syn-site-hero::before { display: none; }
+      &.syn-surface--accent { box-shadow: none; border-block-start: 3px solid Highlight; background: Canvas; }
+      &.syn-surface--lift:where(:hover, :focus-within) { box-shadow: none; }
+      &.syn-terminal { forced-color-adjust: auto; }
+    }
   }
 }
 /* Optional original frame treatments: pure CSS, independently loadable.
    Pair .syn-frame with exactly one shape modifier. No canvas, images or JS.
    The cut shapes paint their own outlines; they do not mask the host's parent. */
 @layer syn.geometry {
-  .syn-frame {
-    position: relative;
-    z-index: 0;
-    isolation: isolate;
-    min-width: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    color: var(--syn-text);
-  }
-  .syn-frame::before,
-  .syn-frame::after {
-    content: "";
-    position: absolute;
-    pointer-events: none;
-    z-index: -1;
-    inset: 0;
-  }
-  /* Two clipped nested surfaces form a border along the diagonal edges;
-     no parent-background-colored triangle is needed. */
-  .syn-frame--bevel {
-    --syn-frame-shape: polygon(
-      var(--syn-frame-cut, 1rem) 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
-      100% var(--syn-frame-cut, 1rem), 100% calc(100% - var(--syn-frame-cut, 1rem)),
-      calc(100% - var(--syn-frame-cut, 1rem)) 100%, var(--syn-frame-cut, 1rem) 100%,
-      0 calc(100% - var(--syn-frame-cut, 1rem)), 0 var(--syn-frame-cut, 1rem));
-  }
-  .syn-frame--notch {
-    --syn-frame-shape: polygon(
-      0 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
-      100% var(--syn-frame-cut, 1rem), 100% 100%,
-      var(--syn-frame-cut, 1rem) 100%, 0 calc(100% - var(--syn-frame-cut, 1rem)));
-  }
-  .syn-frame--bevel::before,
-  .syn-frame--notch::before {
-    clip-path: var(--syn-frame-shape);
-    background: var(--syn-frame-outline, var(--syn-frame-strong));
-  }
-  .syn-frame--bevel::after,
-  .syn-frame--notch::after {
-    inset: var(--syn-frame-stroke, 1px);
-    clip-path: var(--syn-frame-shape);
-    background: var(--syn-frame-fill, var(--syn-surface));
-  }
-  /* Brackets don't obscure the content or assume an enclosing background. */
-  .syn-frame--bracket::before {
-    background: var(--syn-frame-fill, var(--syn-surface));
-  }
-  .syn-frame--bracket::after {
-    --syn-bracket-size: clamp(.75rem, var(--syn-frame-cut, 1rem), 1.5rem);
-    background:
-      linear-gradient(var(--syn-accent), var(--syn-accent)) top left / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--syn-accent), var(--syn-accent)) top left / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
-      linear-gradient(var(--syn-accent), var(--syn-accent)) top right / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--syn-accent), var(--syn-accent)) top right / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
-      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom left / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom left / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
-      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom right / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
-      linear-gradient(var(--syn-accent), var(--syn-accent)) bottom right / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat;
-  }
-  /* Inner technical framing with no additional DOM elements. */
-  .syn-frame--inset::before {
-    border: var(--syn-frame-stroke, 1px) solid var(--syn-frame-outline, var(--syn-frame-strong));
-    background: var(--syn-frame-fill, var(--syn-surface));
-  }
-  .syn-frame--inset::after {
-    inset: .45rem;
-    border: var(--syn-frame-stroke, 1px) solid var(--syn-accent);
-    opacity: .55;
-  }
-  .syn-frame--circuit::before {
-    border: var(--syn-frame-stroke, 1px) solid var(--syn-frame-outline, var(--syn-frame-strong));
-    background: var(--syn-frame-fill, var(--syn-surface));
-  }
-  .syn-frame--circuit::after {
-    background:
-      linear-gradient(var(--syn-accent),var(--syn-accent)) top left / 38% 2px no-repeat,
-      linear-gradient(var(--syn-accent),var(--syn-accent)) top left / 2px 28% no-repeat,
-      linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 28% 2px no-repeat,
-      linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 2px 38% no-repeat;
-  }
-  @media (forced-colors: active) {
-    .syn-frame {
-      border: 1px solid CanvasText;
-      background: Canvas;
-      color: CanvasText;
+  :where(.syn-root, .syn-root *) {
+    &.syn-frame {
+      position: relative;
+      z-index: 0;
+      isolation: isolate;
+      min-width: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--syn-text);
     }
-    .syn-frame::before, .syn-frame::after { display: none; }
+    &.syn-frame::before,
+    &.syn-frame::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+      inset: 0;
+    }
+    /* Two clipped nested surfaces form a border along the diagonal edges;
+       no parent-background-colored triangle is needed. */
+    &.syn-frame--bevel {
+      --syn-frame-shape: polygon(
+        var(--syn-frame-cut, 1rem) 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
+        100% var(--syn-frame-cut, 1rem), 100% calc(100% - var(--syn-frame-cut, 1rem)),
+        calc(100% - var(--syn-frame-cut, 1rem)) 100%, var(--syn-frame-cut, 1rem) 100%,
+        0 calc(100% - var(--syn-frame-cut, 1rem)), 0 var(--syn-frame-cut, 1rem));
+    }
+    &.syn-frame--notch {
+      --syn-frame-shape: polygon(
+        0 0, calc(100% - var(--syn-frame-cut, 1rem)) 0,
+        100% var(--syn-frame-cut, 1rem), 100% 100%,
+        var(--syn-frame-cut, 1rem) 100%, 0 calc(100% - var(--syn-frame-cut, 1rem)));
+    }
+    &.syn-frame--bevel::before,
+    &.syn-frame--notch::before {
+      clip-path: var(--syn-frame-shape);
+      background: var(--syn-frame-outline, var(--syn-frame-strong));
+    }
+    &.syn-frame--bevel::after,
+    &.syn-frame--notch::after {
+      inset: var(--syn-frame-stroke, 1px);
+      clip-path: var(--syn-frame-shape);
+      background: var(--syn-frame-fill, var(--syn-surface));
+    }
+    /* Brackets don't obscure the content or assume an enclosing background. */
+    &.syn-frame--bracket::before {
+      background: var(--syn-frame-fill, var(--syn-surface));
+    }
+    &.syn-frame--bracket::after {
+      --syn-bracket-size: clamp(.75rem, var(--syn-frame-cut, 1rem), 1.5rem);
+      background:
+        linear-gradient(var(--syn-accent), var(--syn-accent)) top left / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+        linear-gradient(var(--syn-accent), var(--syn-accent)) top left / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+        linear-gradient(var(--syn-accent), var(--syn-accent)) top right / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+        linear-gradient(var(--syn-accent), var(--syn-accent)) top right / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+        linear-gradient(var(--syn-accent), var(--syn-accent)) bottom left / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+        linear-gradient(var(--syn-accent), var(--syn-accent)) bottom left / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat,
+        linear-gradient(var(--syn-accent), var(--syn-accent)) bottom right / var(--syn-bracket-size) var(--syn-frame-stroke, 1px) no-repeat,
+        linear-gradient(var(--syn-accent), var(--syn-accent)) bottom right / var(--syn-frame-stroke, 1px) var(--syn-bracket-size) no-repeat;
+    }
+    /* Inner technical framing with no additional DOM elements. */
+    &.syn-frame--inset::before {
+      border: var(--syn-frame-stroke, 1px) solid var(--syn-frame-outline, var(--syn-frame-strong));
+      background: var(--syn-frame-fill, var(--syn-surface));
+    }
+    &.syn-frame--inset::after {
+      inset: .45rem;
+      border: var(--syn-frame-stroke, 1px) solid var(--syn-accent);
+      opacity: .55;
+    }
+    &.syn-frame--circuit::before {
+      border: var(--syn-frame-stroke, 1px) solid var(--syn-frame-outline, var(--syn-frame-strong));
+      background: var(--syn-frame-fill, var(--syn-surface));
+    }
+    &.syn-frame--circuit::after {
+      background:
+        linear-gradient(var(--syn-accent),var(--syn-accent)) top left / 38% 2px no-repeat,
+        linear-gradient(var(--syn-accent),var(--syn-accent)) top left / 2px 28% no-repeat,
+        linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 28% 2px no-repeat,
+        linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 2px 38% no-repeat;
+    }
+    @media (forced-colors: active) {
+      &.syn-frame {
+        border: 1px solid CanvasText;
+        background: Canvas;
+        color: CanvasText;
+      }
+      &.syn-frame::before, &.syn-frame::after { display: none; }
+    }
   }
 }
 /* Optional icon, Unicode and text-art presentations.
@@ -806,42 +824,44 @@
 }
 /* Optional static effects. */
 @layer syn.effects {
-  .syn-grid-effect {
-    background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px);
-    background-size: 2rem 2rem;
-  }
-  .syn-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--syn-accent), transparent 88%); }
-  /* Static atmospheric wash. This is decoration, not an interactive state. */
-  .syn-gradient-wash {
-    background-image:
-      radial-gradient(ellipse at 15% 10%, color-mix(in srgb, var(--syn-accent), transparent 85%), transparent 55%),
-      radial-gradient(ellipse at 90% 80%, color-mix(in srgb, var(--syn-accent-2), transparent 90%), transparent 60%);
-  }
-  /* Gradient horizon. */
-  .syn-horizon {
-    background-image:
-      linear-gradient(to bottom, transparent 45%, var(--syn-bg) 100%),
-      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
-      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
-      radial-gradient(ellipse at 70% 20%, var(--syn-accent-soft), transparent 55%);
-  }
-  /* Gradient atmosphere. */
-  .syn-atmosphere {
-    background-image:
-      radial-gradient(ellipse at 85% 10%, var(--syn-accent-soft), transparent 55%),
-      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--syn-accent-2), transparent 94%), transparent 60%);
-    background-color: var(--syn-bg);
-  }
-  .syn-scanlines { position: relative; isolation: isolate; }
-  .syn-scanlines::after {
-    content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
-    background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
-  }
-  @media (forced-colors: active) {
-    .syn-scanlines::after { display: none; }
-    .syn-horizon, .syn-atmosphere, .syn-gradient-wash { background-image: none; }
+  :where(.syn-root, .syn-root *) {
+    &.syn-grid-effect {
+      background-image:
+        linear-gradient(to right, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px),
+        linear-gradient(to bottom, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px);
+      background-size: 2rem 2rem;
+    }
+    &.syn-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--syn-accent), transparent 88%); }
+    /* Static atmospheric wash. This is decoration, not an interactive state. */
+    &.syn-gradient-wash {
+      background-image:
+        radial-gradient(ellipse at 15% 10%, color-mix(in srgb, var(--syn-accent), transparent 85%), transparent 55%),
+        radial-gradient(ellipse at 90% 80%, color-mix(in srgb, var(--syn-accent-2), transparent 90%), transparent 60%);
+    }
+    /* Gradient horizon. */
+    &.syn-horizon {
+      background-image:
+        linear-gradient(to bottom, transparent 45%, var(--syn-bg) 100%),
+        repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
+        repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
+        radial-gradient(ellipse at 70% 20%, var(--syn-accent-soft), transparent 55%);
+    }
+    /* Gradient atmosphere. */
+    &.syn-atmosphere {
+      background-image:
+        radial-gradient(ellipse at 85% 10%, var(--syn-accent-soft), transparent 55%),
+        radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--syn-accent-2), transparent 94%), transparent 60%);
+      background-color: var(--syn-bg);
+    }
+    &.syn-scanlines { position: relative; isolation: isolate; }
+    &.syn-scanlines::after {
+      content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
+      background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
+    }
+    @media (forced-colors: active) {
+      &.syn-scanlines::after { display: none; }
+      &.syn-horizon, &.syn-atmosphere, &.syn-gradient-wash { background-image: none; }
+    }
   }
 }
 /* Optional, finite utilities: no generator, JS runtime, resets or network assets.

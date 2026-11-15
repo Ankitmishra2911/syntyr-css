@@ -13,7 +13,8 @@ smallest working application must need only a local stylesheet and HTML.
    native HTML states where appropriate). Avoid competing ways to express the
    same styling concern.
 3. **Scoped by default:** Syntyr styles must not affect HTML outside
-   `.syn-root`. Semantic element styling requires explicit `.syn-semantic`.
+   `.syn-root`. Explicit component classes work both on the root itself and
+   on descendants. Semantic element styling requires explicit `.syn-semantic`.
 4. **Composable themes:** a theme changes tokens, not component implementations.
    Theme-specific component forks and cascade-specificity escalation are
    architectural defects to fix, not patterns to repeat.

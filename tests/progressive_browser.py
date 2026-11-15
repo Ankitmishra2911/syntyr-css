@@ -26,6 +26,9 @@ def check(browser, name):
         <section class="syn-semantic" id="external" style="--syn-control-height:2.75rem">
           <button id="external-control" data-syn-semantic>Outside</button>
         </section>
+        <button class="syn-button" id="outside-explicit">Outside explicit</button>
+        <article class="syn-panel" id="outside-panel">Outside panel</article>
+        <article class="syn-root syn-panel" id="combined-root">Panel root</article>
         <main class="syn-root" data-syn-theme="auto" id="root">
           <section id="noir" data-syn-theme="noir">
             <div id="nested" data-syn-theme="auto">Nested automatic theme</div>
@@ -58,6 +61,10 @@ def check(browser, name):
         "(e, p) => getComputedStyle(e).getPropertyValue(p).trim()", prop)
     bounds = lambda selector: page.locator(selector).bounding_box()
 
+    assert cssprop("#outside-explicit", "display") != "inline-flex", (name, "explicit component escaped root")
+    assert cssprop("#outside-panel", "position") != "relative", (name, "panel escaped root")
+    assert cssprop("#combined-root", "position") == "relative", (name, "combined root-panel")
+    assert cssprop("#print-action", "display") == "inline-flex", (name, "nested explicit component")
     assert cssprop("#styled", "min-height") == "44px", (name, "semantic opt-in")
     assert cssprop("#external-control", "min-height") != "44px", (name, "scope escape")
     for mode, expected in (("light", "rgb(36, 88, 198)"), ("dark", "rgb(118, 231, 247)")):

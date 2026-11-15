@@ -47,6 +47,54 @@ class BrowserTests(unittest.TestCase):
         self.assertFalse(self.errors, self.errors)
         self.context.close()
 
+    def test_explicit_components_require_a_syntyr_root_and_support_combined_root(self):
+        """Explicit classes must not leak into host markup or lose root-level styling."""
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{core}</style>
+          <button class="syn-button" id="outside-button">Outside</button>
+          <article class="syn-panel" id="outside-panel">Outside panel</article>
+          <section class="syn-root" data-syn-theme="grid">
+            <button class="syn-button" id="inside-button">Inside</button>
+            <input class="syn-input" id="inside-input" value="Inside">
+            <article class="syn-panel" id="inside-panel">Inside panel</article>
+          </section>
+          <article class="syn-root syn-panel" id="combined-root">Root is panel</article>""")
+        def css(selector, property_name):
+            return self.page.locator(selector).evaluate(
+                "(el, prop) => getComputedStyle(el).getPropertyValue(prop).trim()",
+                property_name)
+        self.assertEqual(css('#inside-button', 'min-height'), '44px')
+        self.assertNotEqual(css('#outside-button', 'display'), 'inline-flex')
+        self.assertEqual(css('#inside-input', 'min-height'), '44px')
+        self.assertEqual(css('#inside-panel', 'border-top-style'), 'solid')
+        self.assertNotEqual(css('#outside-panel', 'position'), 'relative')
+        self.assertEqual(css('#combined-root', 'border-top-style'), 'solid')
+
+    def test_optional_effect_geometry_and_recipe_classes_stay_inside_root(self):
+        """Opt-in modules must not style unrelated host classes."""
+        all_css = (ROOT / 'dist/syntyr.all.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{all_css}</style>
+          <div class="syn-app-shell" id="external-shell">Outside</div>
+          <div class="syn-frame" id="external-frame">Outside</div>
+          <div class="syn-scanlines" id="external-effect">Outside</div>
+          <section class="syn-root" data-syn-theme="grid">
+            <div class="syn-app-shell" id="internal-shell">Inside</div>
+            <div class="syn-frame" id="internal-frame">Inside</div>
+            <div class="syn-scanlines" id="internal-effect">Inside</div>
+          </section>
+          <section class="syn-root syn-frame" id="root-frame">Root geometry</section>""")
+        def css(selector, name):
+            return self.page.locator(selector).evaluate(
+                "(el, prop) => getComputedStyle(el).getPropertyValue(prop).trim()",
+                name)
+        self.assertNotEqual(css('#external-shell', 'display'), 'grid')
+        self.assertEqual(css('#internal-shell', 'display'), 'grid')
+        self.assertNotEqual(css('#external-frame', 'position'), 'relative')
+        self.assertEqual(css('#internal-frame', 'position'), 'relative')
+        self.assertEqual(css('#root-frame', 'position'), 'relative')
+        self.assertNotEqual(css('#external-effect', 'position'), 'relative')
+        self.assertEqual(css('#internal-effect', 'position'), 'relative')
+
     def test_theme_tokens_are_applied_and_nested(self):
         root = self.page.locator('body')
         grid = self.page.locator('#themes [data-syn-theme="grid"]')
