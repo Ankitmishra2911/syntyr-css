@@ -126,8 +126,40 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-frame-border-paint",
+      "description": "Solid or gradient border paint for optional frames."
+    },
+    {
+      "name": "--syn-frame-cut",
+      "description": "Shared fallback corner size for optional geometry shapes."
+    },
+    {
+      "name": "--syn-frame-cut-bl",
+      "description": "Optional bottom-left frame cut size."
+    },
+    {
+      "name": "--syn-frame-cut-br",
+      "description": "Optional bottom-right frame cut size."
+    },
+    {
+      "name": "--syn-frame-cut-tl",
+      "description": "Optional top-left frame cut size."
+    },
+    {
+      "name": "--syn-frame-cut-tr",
+      "description": "Optional top-right frame cut size."
+    },
+    {
+      "name": "--syn-frame-fill",
+      "description": "Interior fill paint for optional shaped frames."
+    },
+    {
+      "name": "--syn-frame-inlay-paint",
+      "description": "Optional translucent overlay on the inner shaped surface."
+    },
+    {
       "name": "--syn-frame-outline",
-      "description": "Syntyr CSS property (geometry.css)."
+      "description": "Solid border paint fallback for optional frames."
     },
     {
       "name": "--syn-frame-shape",
@@ -135,7 +167,7 @@
     },
     {
       "name": "--syn-frame-stroke",
-      "description": "Syntyr CSS property (geometry.css)."
+      "description": "Width of the optional shape-following border."
     },
     {
       "name": "--syn-frame-strong",

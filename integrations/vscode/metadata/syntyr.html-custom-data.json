@@ -246,6 +246,10 @@
           "description": "Syntyr CSS class (geometry.css)."
         },
         {
+          "name": "syn-frame--facet",
+          "description": "Optional diagonal top-left and bottom-right facets."
+        },
+        {
           "name": "syn-frame--industrial",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -264,6 +268,10 @@
         {
           "name": "syn-frame--soft",
           "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-frame--step",
+          "description": "Optional square-stepped top-right and bottom-left frame."
         },
         {
           "name": "syn-glow",
