@@ -97,6 +97,13 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 
 Geometry and utilities are opt-in; neither the core bundle nor ordinary component selectors require them.
 
+Syntyr component classes only apply **inside** a `.syn-root` boundary, so
+a host application's unrelated `.syn-button` or `.syn-panel` markup is
+not restyled. Put the boundary on a stable wrapper; `.syn-root.syn-region`
+is supported for responsive container-query sections. Semantic mode also
+requires the `.syn-root` boundary, and `data-syn-semantic` preserves styling
+when HTMX or another framework adds transient classes to an opted-in control.
+
 The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites

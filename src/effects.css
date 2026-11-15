@@ -1,40 +1,43 @@
 /* Optional static effects. */
 @layer syn.effects {
-  .syn-grid-effect {
-    background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px);
-    background-size: 2rem 2rem;
-  }
-  .syn-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--syn-accent), transparent 88%); }
-  /* Static atmospheric wash. This is decoration, not an interactive state. */
-  .syn-gradient-wash {
-    background-image:
-      radial-gradient(ellipse at 15% 10%, color-mix(in srgb, var(--syn-accent), transparent 85%), transparent 55%),
-      radial-gradient(ellipse at 90% 80%, color-mix(in srgb, var(--syn-accent-2), transparent 90%), transparent 60%);
-  }
-  /* Gradient horizon. */
-  .syn-horizon {
-    background-image:
-      linear-gradient(to bottom, transparent 45%, var(--syn-bg) 100%),
-      repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
-      repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
-      radial-gradient(ellipse at 70% 20%, var(--syn-accent-soft), transparent 55%);
-  }
-  /* Gradient atmosphere. */
-  .syn-atmosphere {
-    background-image:
-      radial-gradient(ellipse at 85% 10%, var(--syn-accent-soft), transparent 55%),
-      radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--syn-accent-2), transparent 94%), transparent 60%);
-    background-color: var(--syn-bg);
-  }
-  .syn-scanlines { position: relative; isolation: isolate; }
-  .syn-scanlines::after {
-    content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
-    background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
-  }
-  @media (forced-colors: active) {
-    .syn-scanlines::after { display: none; }
-    .syn-horizon, .syn-atmosphere, .syn-gradient-wash { background-image: none; }
+  /* Optional decorations cannot style host markup outside the Syntyr root. */
+  :where(.syn-root) {
+    .syn-grid-effect {
+      background-image:
+        linear-gradient(to right, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px),
+        linear-gradient(to bottom, color-mix(in srgb, var(--syn-accent), transparent 95%) 1px, transparent 1px);
+      background-size: 2rem 2rem;
+    }
+    .syn-glow { box-shadow: 0 0 22px color-mix(in srgb, var(--syn-accent), transparent 88%); }
+    /* Static atmospheric wash. This is decoration, not an interactive state. */
+    .syn-gradient-wash {
+      background-image:
+        radial-gradient(ellipse at 15% 10%, color-mix(in srgb, var(--syn-accent), transparent 85%), transparent 55%),
+        radial-gradient(ellipse at 90% 80%, color-mix(in srgb, var(--syn-accent-2), transparent 90%), transparent 60%);
+    }
+    /* Gradient horizon. */
+    .syn-horizon {
+      background-image:
+        linear-gradient(to bottom, transparent 45%, var(--syn-bg) 100%),
+        repeating-linear-gradient(to right, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
+        repeating-linear-gradient(to bottom, transparent 0 calc(3rem - 1px), color-mix(in srgb, var(--syn-accent), transparent 90%) calc(3rem - 1px) 3rem),
+        radial-gradient(ellipse at 70% 20%, var(--syn-accent-soft), transparent 55%);
+    }
+    /* Gradient atmosphere. */
+    .syn-atmosphere {
+      background-image:
+        radial-gradient(ellipse at 85% 10%, var(--syn-accent-soft), transparent 55%),
+        radial-gradient(ellipse at 15% 90%, color-mix(in srgb, var(--syn-accent-2), transparent 94%), transparent 60%);
+      background-color: var(--syn-bg);
+    }
+    .syn-scanlines { position: relative; isolation: isolate; }
+    .syn-scanlines::after {
+      content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 2;
+      background: repeating-linear-gradient(to bottom, transparent 0 3px, rgb(0 0 0 / 10%) 3px 4px);
+    }
+    @media (forced-colors: active) {
+      .syn-scanlines::after { display: none; }
+      .syn-horizon, .syn-atmosphere, .syn-gradient-wash { background-image: none; }
+    }
   }
 }

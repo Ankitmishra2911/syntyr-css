@@ -1,27 +1,30 @@
 @layer syn.components {
-  .syn-form { display: grid; gap: 1rem; }
-  .syn-label { display: grid; gap: .35rem; font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui); }
-  .syn-input, .syn-select, .syn-textarea {
-    width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
-    border: 1px solid var(--syn-border-default); background: var(--syn-bg);
-    border-radius: var(--syn-radius); color: var(--syn-text);
-  }
-  .syn-input::placeholder, .syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
-  .syn-input:where(:not(:disabled):hover), .syn-select:where(:not(:disabled):hover),
-  .syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
-  .syn-input:where(:focus), .syn-select:where(:focus), .syn-textarea:where(:focus) { border-color: var(--syn-border-focus); }
-  .syn-input:disabled, .syn-select:disabled, .syn-textarea:disabled { background: var(--syn-surface-recessed); }
-  .syn-input:where(:user-invalid, [aria-invalid="true"]),
-  .syn-select:where(:user-invalid, [aria-invalid="true"]),
-  .syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
-  .syn-help { color: var(--syn-muted); font-size: .8rem; }
-  .syn-error { color: var(--syn-danger); font-size: .8rem; }
-  .syn-textarea { min-height: 6rem; resize: vertical; }
-  .syn-input[type="checkbox"], .syn-input[type="radio"] { width: 1.1rem; min-height: auto; height: 1.1rem; padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
-  .syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
-  .syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
-  .syn-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--syn-mono); }
-  @media (forced-colors: active) {
-    .syn-input, .syn-select, .syn-textarea, .syn-fieldset { border-color: CanvasText; }
+  /* Native CSS nesting keeps component classes inside the opt-in root. */
+  :where(.syn-root) {
+    .syn-form { display: grid; gap: 1rem; }
+    .syn-label { display: grid; gap: .35rem; font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui); }
+    .syn-input, .syn-select, .syn-textarea {
+      width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
+      border: 1px solid var(--syn-border-default); background: var(--syn-bg);
+      border-radius: var(--syn-radius); color: var(--syn-text);
+    }
+    .syn-input::placeholder, .syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
+    .syn-input:where(:not(:disabled):hover), .syn-select:where(:not(:disabled):hover),
+    .syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
+    .syn-input:where(:focus), .syn-select:where(:focus), .syn-textarea:where(:focus) { border-color: var(--syn-border-focus); }
+    .syn-input:disabled, .syn-select:disabled, .syn-textarea:disabled { background: var(--syn-surface-recessed); }
+    .syn-input:where(:user-invalid, [aria-invalid="true"]),
+    .syn-select:where(:user-invalid, [aria-invalid="true"]),
+    .syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
+    .syn-help { color: var(--syn-muted); font-size: .8rem; }
+    .syn-error { color: var(--syn-danger); font-size: .8rem; }
+    .syn-textarea { min-height: 6rem; resize: vertical; }
+    .syn-input[type="checkbox"], .syn-input[type="radio"] { width: max(1.5rem, 24px); min-height: 24px; height: max(1.5rem, 24px); padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
+    .syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
+    .syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
+    .syn-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--syn-mono); }
+    @media (forced-colors: active) {
+      .syn-input, .syn-select, .syn-textarea, .syn-fieldset { border-color: CanvasText; }
+    }
   }
 }

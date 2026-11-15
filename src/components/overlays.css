@@ -1,16 +1,19 @@
 @layer syn.components {
-  .syn-popover, .syn-dialog {
-    width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
-    border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
-    background: var(--syn-surface); color: var(--syn-text);
-    box-shadow: 0 20px 70px rgb(0 0 0 / 45%);
+  /* Native CSS nesting keeps component classes inside the opt-in root. */
+  :where(.syn-root) {
+    .syn-popover, .syn-dialog {
+      width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
+      border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      box-shadow: 0 20px 70px rgb(0 0 0 / 45%);
+    }
+    .syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    .syn-dialog { margin: auto; }
+    .syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
+    .syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
+    .syn-details summary { cursor: pointer; color: var(--syn-text); font-weight: 650; }
+    .syn-details[open] summary { color: var(--syn-accent); }
+    .syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
+    @media (forced-colors: active) { .syn-popover, .syn-dialog, .syn-details { border-color: CanvasText; } }
   }
-  .syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
-  .syn-dialog { margin: auto; }
-  .syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
-  .syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
-  .syn-details summary { cursor: pointer; color: var(--syn-text); font-weight: 650; }
-  .syn-details[open] summary { color: var(--syn-accent); }
-  .syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
-  @media (forced-colors: active) { .syn-popover, .syn-dialog, .syn-details { border-color: CanvasText; } }
 }

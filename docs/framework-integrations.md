@@ -13,6 +13,8 @@ Every example uses the same `syn-` classes, CSS tokens and standard HTML.
    For an element that an interaction framework will add classes to, opt it in once
    with `data-syn-semantic`. This preserves semantic styling while host-managed
    classes such as `htmx-request` are added and removed.
+   Neither component classes nor semantic mode apply outside a `.syn-root`
+   boundary. This requires native CSS nesting in the current alpha.5 CSS.
 
 ```html
 <section class="syn-root syn-semantic" data-syn-theme="studio">

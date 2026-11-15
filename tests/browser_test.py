@@ -407,5 +407,68 @@ class BrowserTests(unittest.TestCase):
                         'e => getComputedStyle(e).backgroundColor'), 'rgb(255, 255, 255)')
 
 
+    def test_component_and_semantic_styles_do_not_escape_root(self):
+        all_css = (ROOT / 'dist/syntyr.all.css').read_text()
+        self.page.set_content(f"""<style>{all_css}</style>
+          <section class="syn-root syn-region" data-syn-theme="grid" id="boundary">
+            <button class="syn-button" id="inside">Inside</button>
+            <div class="syn-semantic">
+              <button id="host-managed" class="htmx-request"
+                      data-syn-semantic>Check</button>
+            </div>
+          </section>
+          <button class="syn-button" id="outside">Outside</button>
+          <div class="syn-semantic"><button id="semantic-outside">Other</button></div>""")
+        display = lambda name: self.page.locator('#' + name).evaluate(
+            'e => getComputedStyle(e).display')
+        self.assertEqual(display('inside'), 'inline-flex')
+        self.assertEqual(display('host-managed'), 'inline-flex')
+        self.assertNotEqual(display('outside'), 'inline-flex')
+        self.assertNotEqual(display('semantic-outside'), 'inline-flex')
+        self.assertEqual(self.page.locator('#boundary').evaluate(
+            'e => getComputedStyle(e).containerType'), 'inline-size')
+
+    def test_intrinsic_layout_adapts_to_embedded_width_and_checkbox_target(self):
+        all_css = (ROOT / 'dist/syntyr.all.css').read_text()
+        self.page.set_content(f"""<style>{all_css}</style>
+          <section class="syn-root" data-syn-theme="studio" id="embed"
+                   style="width: 380px">
+            <input class="syn-input" type="checkbox" id="opt-in">
+            <div class="syn-layout">
+              <article id="first">First</article>
+              <article id="second">Second</article>
+            </div>
+          </section>""")
+        rect = lambda name: self.page.locator('#' + name).bounding_box()
+        self.assertGreaterEqual(rect('opt-in')['width'], 24)
+        self.assertGreaterEqual(rect('opt-in')['height'], 24)
+        self.assertAlmostEqual(rect('first')['x'], rect('second')['x'], delta=1)
+        self.assertGreater(rect('second')['y'], rect('first')['y'])
+        self.page.locator('#embed').evaluate('e => e.style.width = "900px"')
+        self.assertGreater(rect('second')['x'], rect('first')['x'])
+        self.assertAlmostEqual(rect('first')['y'], rect('second')['y'], delta=1)
+
+
+    def test_optional_recipes_effects_and_geometry_are_root_scoped(self):
+        all_css = (ROOT / 'dist/syntyr.all.css').read_text()
+        self.page.set_content(f"""<style>{all_css}</style>
+          <section class="syn-root" data-syn-theme="grid">
+            <div id="in-app" class="syn-app-shell">App</div>
+            <div id="in-glow" class="syn-glow">Glow</div>
+            <div id="in-frame" class="syn-frame">Frame</div>
+          </section>
+          <div id="out-app" class="syn-app-shell">Other</div>
+          <div id="out-glow" class="syn-glow">Other</div>
+          <div id="out-frame" class="syn-frame">Other</div>""")
+        style = lambda name, prop: self.page.locator('#' + name).evaluate(
+            '(e, prop) => getComputedStyle(e)[prop]', prop)
+        self.assertEqual(style('in-app', 'display'), 'grid')
+        self.assertNotEqual(style('out-app', 'display'), 'grid')
+        self.assertNotEqual(style('in-glow', 'boxShadow'), 'none')
+        self.assertEqual(style('out-glow', 'boxShadow'), 'none')
+        self.assertEqual(style('in-frame', 'position'), 'relative')
+        self.assertEqual(style('out-frame', 'position'), 'static')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
