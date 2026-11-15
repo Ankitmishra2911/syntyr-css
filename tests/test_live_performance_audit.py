@@ -58,6 +58,8 @@ class LivePerfTests(unittest.TestCase):
                       (ROOT / "scripts/build_cloudflare_site.py").read_text())
         self.assertIn("live-performance-audit.md",
                       (ROOT / "docs/guides.html").read_text())
+        self.assertIn("https://syntyr-css.pages.dev/docs/live-performance-audit.md",
+                      (ROOT / "llms.txt").read_text())
 
     def test_two_deployed_business_and_saas_targets_are_constant(self):
         x = tool()

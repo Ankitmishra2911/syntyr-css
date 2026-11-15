@@ -77,6 +77,12 @@ The developer-injected axe-core WCAG 2/2.1/2.2 tag audit reported:
 | Business | 0 | 1: `color-contrast` |
 | SaaS dashboard | 0 | 0 |
 
+The business page's inconclusive contrast cases are caused by gradients or
+pseudo-elements that axe cannot resolve automatically. The targets include
+`.business-kicker`, `#hero-heading`, the hero lede, the outline button,
+and a status label. Inspect actual contrasting foreground/background colors
+across the gradient at multiple viewport widths and zoom levels.
+
 **0 automated violations is not a WCAG compliance certification.**
 Business contrast remains a manual review item; keyboard,
 screen-reader, native zoom, forced-colors and WebKit behaviors
