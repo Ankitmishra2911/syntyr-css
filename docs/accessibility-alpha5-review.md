@@ -3,9 +3,70 @@
 This report distinguishes the most recent automated findings from older
 pixel-sampling evidence. It is **not** a WCAG certification.
 
-## Post-merge snapshot: `b19c331` (November 14, 2026, Brasília)
+## Verified source snapshot: `038a24d` (November 15, 2026)
 
-This is the latest **executed** audit snapshot, after the merges of
+This **point-in-time source audit** includes PR #68 (the native CSS
+flow/high-contrast corrections) and the Blocks/Assets gallery changes through
+`038a24dd626c3299a10abd0de8ff6890adc7ea3d`. It is not a verdict on commits
+merged afterward, the published alpha.4 assets, or the future alpha.5 release.
+
+- Reproducible CSS, API metadata, generated LLM reference and optional
+  ecosystem adapters: **PASS** with `--check`. Full Python stdlib suite:
+  **311 passed**. A public-only Cloudflare site build included **114 allowlisted
+  files**; the 39-file alpha.5 candidate ZIP packaged successfully **without
+  publishing, freezing, or tagging a release**.
+- The developer-only Linux Playwright **1.65.2** matrix covered
+  **22 pages × 3 viewport widths × 3 engines = 198 passing browser cases**
+  in Chromium, Firefox and WebKit, including gallery-specific keyboard/popover
+  assertions. The accompanying **88 enlarged-root-font reflow cases per engine
+  (264 total)**, **two Chromium forced-colors-emulation tests**, and focused
+  seven-theme native CSS tests in all three engines also passed. This stress
+  testing is not actual browser zoom or OS-native high contrast. Tests changed
+  no consumer runtime dependencies.
+- A separate pinned **axe-core 4.10.3** audit of **21 pages** found
+  **zero confirmed automated WCAG-tagged violations**, with **11 incomplete
+  color-contrast rule results containing 129 unresolved nodes**. Source
+  checksum of the audit script: SHA-256
+  `880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb`.
+  Incompletes are not passing contrast measurements or proven defects.
+- GitHub showed Cloudflare Pages, build, deploy, and build-status checks
+  successful for the audited commit. **A real exact-head Woodpecker pipeline
+  is still unverified.** PR #68's CodeRabbit check was cancelled after the PR
+  closed; this was not an independently completed CodeRabbit approval.
+
+| Page | Unresolved axe color-contrast nodes |
+| --- | ---: |
+| `docs/blocks.html` | 38 |
+| `examples/geometry-terminal.html` | 30 |
+| `docs/index.html` | 14 |
+| `examples/operations-console.html` | 11 |
+| `examples/pricing.html` | 7 |
+| `examples/saas-workflows.html` | 7 |
+| `examples/business.html` | 6 |
+| `examples/console.html` | 5 |
+| `examples/symbols.html` | 5 |
+| `examples/terminal.html` | 4 |
+| `docs/catalog.html` | 2 |
+| Remaining 10 audited pages | 0 |
+| **Total** | **129** |
+
+**Manual prioritization:** inspect the Blocks hero and featured content,
+each shaped geometry surface, the documentation hero and the operations
+console first. These four pages account for **93/129** unresolved targets.
+Record the effective painted background including gradients and pseudo-elements,
+foreground color, theme, viewport, interaction state, a screenshot and measured
+contrast; do not automatically dismiss an axe incomplete because a CSS token pair
+is accessible in isolation.
+
+**Release gates that this evidence does not close:** true 200% and 400% browser
+zoom, NVDA/VoiceOver screen-reader operation, native OS high-contrast mode,
+manual review of the 129 inconclusive nodes, and trademark/name clearance.
+Root-font reflow stress and forced-colors *emulation* are useful but are not
+substitutes. Do **not** tag/freeze/publish alpha.5 from these results alone.
+
+## Historical post-merge snapshot: `b19c331` (November 14, 2026, Brasília)
+
+This was the latest **executed** audit snapshot at that time, after the merges of
 [PR #14](https://github.com/dporkka/syntyr-css/pull/14) and
 [PR #22](https://github.com/dporkka/syntyr-css/pull/22).
 The published alpha.4 CSS remains immutable; alpha.5 is not yet published.
