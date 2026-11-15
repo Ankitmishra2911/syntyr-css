@@ -93,7 +93,34 @@ def check(browser, engine):
                     assert height >= 24, f"{engine}: undersized {path} {selector} [{idx}]: {height}px"
         finally:
             page.close()
-    print(f"{engine}: floating labels, keyboard-scrollable table, and site link targets passed")
+    # Browser forced-colors *emulation* is useful regression coverage, but it
+    # does not stand in for a native OS high-contrast screen-reader review.
+    for path, selector in (
+        ('docs/blocks.html', '.syn-block-asset--dot-field > span'),
+        ('docs/blocks.html', '.syn-block-asset--diagonal > span'),
+        ('examples/flagship-grid.html', '.flagship-lede'),
+    ):
+        page = browser.new_page(viewport={"width": 390, "height": 820},
+                                forced_colors='active', reduced_motion='reduce')
+        try:
+            page.goto((ROOT / path).as_uri())
+            assert page.evaluate("matchMedia('(forced-colors: active)').matches"), (
+                f"{engine}: forced-colors emulation not applied")
+            assert page.get_by_role('main').count() == 1, path
+            target = page.locator(selector)
+            assert target.is_visible(), f"{engine}: forced-colors target hidden: {path} {selector}"
+            colors = target.evaluate('''e => ({foreground: getComputedStyle(e).color,
+                background: getComputedStyle(e).backgroundColor})''')
+            assert colors['foreground'] != colors['background'], (
+                f"{engine}: forced-colors collapsed text and background: {path} {colors}")
+            if path == 'docs/blocks.html':
+                beam = page.locator('.syn-block-asset--beam')
+                assert beam.evaluate("e => getComputedStyle(e).animationDuration") == '0s', (
+                    f"{engine}: reduced-motion beam animation still active")
+        finally:
+            page.close()
+
+    print(f"{engine}: floating labels, keyboard-scrollable table, and site link targets, forced-color emulation passed")
 
 
 def main():

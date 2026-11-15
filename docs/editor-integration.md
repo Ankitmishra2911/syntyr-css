@@ -71,6 +71,10 @@ To validate static HTML during development (Python 3.10+, standard library only)
 python3 scripts/syntyr_check.py index.html examples/saas.html
 python3 scripts/syntyr_check.py --format json index.html
 python3 scripts/syntyr_check.py --stylesheets syntyr.core.css,syntyr.recipes.css partial.html
+# Pipe generated markup into the same deterministic checker without a temporary file:
+printf '<button class="syn-buttn">Save</button>' | python3 scripts/syntyr_check.py --format json -
+# For fragments, supply the CSS modules actually installed in the consumer app:
+cat fragment.html | python3 scripts/syntyr_check.py --format json --stylesheets syntyr.core.css -
 ```
 
 The checker reports source positions, unknown literal `syn-*` classes, invalid
@@ -82,7 +86,14 @@ skipped. Explicit `--stylesheets` overrides stylesheet-link discovery.
 
 Exit code 0 means no diagnostics, 1 means findings, and 2 means invalid
 arguments or unreadable files. JSON diagnostics contain `file`, `line`,
-`column`, `severity`, `code` and `message` fields.
+`column`, `severity`, `code` and `message` fields. Input `-` reads HTML
+from standard input and identifies findings with `file: "<stdin>"`; JSON stays
+a top-level diagnostics array for backward compatibility. Agent-friendly
+optional fields include `suggestions` (up to three real source-contract class
+names with available stylesheet distributions), `attribute` and
+`allowed_values` (invalid theme or state), and `required_stylesheets` and
+`loaded_stylesheets` (missing CSS modules). Suggestions are hints, **not**
+automatic edits; confirm the target class exists in the **installed** release.
 
 **Boundaries:** This is a static HTML checker, not a full HTML accessibility
 auditor, runtime type checker, or an HTML/CSS build requirement. Dynamic

@@ -18,8 +18,10 @@ import tempfile
 
 if __package__:
     from .build import all_distributions
+    from .build_shadcn_registry import generate as universal_registry_files
 else:
     from build import all_distributions
+    from build_shadcn_registry import generate as universal_registry_files
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -105,7 +107,17 @@ def add_seo_metadata(files: dict[str, bytes]) -> None:
 
 
 
+# Enforced CSP blocks third-party/inline scripts. Some published docs use
+# inline presentation styles, so style-src retains unsafe-inline until those
+# styles are migrated and validated across the browser matrix. Keep the
+# sandboxed playground's about:srcdoc preview working with frame-src 'self'.
+# These headers protect the static docs; they are NOT application security
+# middleware and do not follow the distributed CSS into consumer applications.
 HEADERS = """/*
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=()
+  X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
@@ -123,6 +135,10 @@ HEADERS = """/*
   Content-Type: text/markdown; charset=utf-8
 
 /README.md
+  X-Robots-Tag: noindex
+  Content-Type: text/markdown; charset=utf-8
+
+/DESIGN.md
   X-Robots-Tag: noindex
   Content-Type: text/markdown; charset=utf-8
 
@@ -144,6 +160,10 @@ HEADERS = """/*
   Cache-Control: public, max-age=0, must-revalidate
 
 /dist/*
+  Cache-Control: public, max-age=0, must-revalidate
+  Access-Control-Allow-Origin: *
+
+/registry/*
   Cache-Control: public, max-age=0, must-revalidate
   Access-Control-Allow-Origin: *
 
@@ -229,6 +249,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "404.html",
         ROOT / "LICENSE",
         ROOT / "README.md",
+        ROOT / "DESIGN.md",
         ROOT / "ARCHITECTURE.md",
         ROOT / "llms.txt",
         ROOT / "llms-full.txt",
@@ -253,7 +274,7 @@ def source_files() -> dict[str, bytes]:
     public_examples = (
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
-        "operations-console.css", "operations-console.html", "pricing.html",
+        "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "saas.html", "saas-workflows.html", "crm.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
@@ -281,10 +302,19 @@ def source_files() -> dict[str, bytes]:
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
     paths.extend(ROOT / "dist" / name for name in public_css)
+    # Only known generated MIT universal-item JSON; never scan private products.
+    registry_expected = universal_registry_files()
+    paths.extend(ROOT / "registry" / name for name in registry_expected)
     for path in paths:
         if path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(ROOT):
             raise ValueError(f"Not a regular repo file: {path}")
-        files[path.relative_to(ROOT).as_posix()] = path.read_bytes()
+        data = path.read_bytes()
+        relative = path.relative_to(ROOT).as_posix()
+        if relative.startswith("registry/"):
+            expected = registry_expected.get(relative.removeprefix("registry/"))
+            if data != expected:
+                raise ValueError(f"Out-of-date generated registry item: {relative}")
+        files[relative] = data
 
     releases = ROOT / "site-releases"
     manifest = json.loads((releases / "manifest.json").read_text(encoding="utf-8"))

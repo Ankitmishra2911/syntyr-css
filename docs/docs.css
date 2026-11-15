@@ -25,6 +25,8 @@
   .docs-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; flex-wrap: wrap; border-bottom: 1px solid var(--syn-frame); padding-bottom: .8rem; margin-bottom: 1.5rem; }
   .docs-section-head h2 { margin: 0; font: 600 clamp(1.5rem, 3vw, 2.35rem) var(--syn-font); }
   .docs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  /* Shrink the large empty-state inset at 200% text zoom without clipping content. */
+  .syn-split > .syn-empty { box-sizing: border-box; min-inline-size: 0; max-inline-size: 100%; }
   .docs-panel-title { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding-bottom: .8rem; border-bottom: 1px solid var(--syn-frame); margin-bottom: 1.25rem; }
   .docs-swatch { display: flex; gap: .35rem; margin-top: 1rem; }
   .docs-swatch span { display: block; width: 2.5rem; height: 2.5rem; border: 1px solid var(--syn-frame); }
@@ -33,6 +35,8 @@
   .docs-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 2rem; align-items: center; }
   .docs-code { padding: 1rem; border: 1px solid var(--syn-frame); background: #050a10; color: #dbf1e8; font: .8rem/1.8 var(--syn-mono); overflow-x: auto; }
   .docs-code code { white-space: pre; }
+  /* Inline filenames may be wider than a 320px viewport at 200% text sizing. */
+  .docs-section p code { overflow-wrap: anywhere; }
   .docs-ambient { background-image: radial-gradient(circle at 80% 5%, var(--syn-accent-soft), transparent 45%); }
   .docs-stamp { font: 700 .75rem var(--syn-mono); letter-spacing: .15em; color: var(--syn-accent); }
   .docs-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
@@ -109,6 +113,7 @@
   .docs-reference-group h2 { margin-block: .5rem 1rem; font-size: 1.4rem; }
   .docs-reference-group ul { padding-inline-start: 1.25rem; line-height: 1.7; }
   .docs-reference-group li { padding-block: .22rem; }
+  .docs-reference-group a { overflow-wrap: anywhere; }
   @media (max-width: 52rem) {
     .docs-article-layout { grid-template-columns: 1fr; }
     .docs-article-sidebar { position: static; grid-row: 1; max-height: none; overflow: visible; border-inline-start: 0; border-bottom: 1px solid var(--syn-frame); padding: 0 0 1rem; }

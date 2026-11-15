@@ -19,6 +19,20 @@ A consumer may copy [`agents/syntyr/SKILL.md`](../agents/syntyr/SKILL.md) as an 
 
 The repository's root `AGENTS.md` guides agents contributing to Syntyr itself. It does **not** automatically become instructions in a separate application repository.
 
+## Optional local MCP adapter
+
+An optional **read-only local MCP server** can now expose the checked-in
+component catalog and CSS API to supported coding agents. It is not needed to
+use Syntyr CSS, is not installed by the npm package, and does not expose a
+hosted endpoint. See the [MCP adapter source and installation guide](https://github.com/dporkka/syntyr-css/tree/main/agent_mcp)
+for the separate Python SDK installation, version-safe tools, and limits.
+It defaults to the published immutable `0.3.0-alpha.4` CSS rather than
+silently offering source-only `0.3.0-alpha.5` selectors. The read-only
+`validate_markup` tool reuses the [static checker](editor-integration.md#optional-static-html-diagnostics)
+for source-located, machine-readable errors, available class suggestions, and
+valid theme/state values. Responses are constrained to the selected release's
+checked-in CSS rather than presenting candidate-only selectors as fixes.
+
 ## Documents and machine-readable inventory
 
 - [`llms.txt`](../llms.txt): small navigation file following the community `llms.txt` convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.
@@ -51,4 +65,4 @@ The consolidated reference is deterministic and checked in CI through the Python
 
 ## What Syntyr does not do
 
-Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission, remote data access or an MCP server. Use your existing application technology for those responsibilities.
+Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission or remote data access. The optional local read-only MCP adapter is a separate developer tool, never a CSS runtime dependency. Use your existing application technology for those responsibilities.

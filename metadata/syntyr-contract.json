@@ -1755,6 +1755,66 @@
       ]
     },
     {
+      "name": "syn-step",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-step-detail",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-step-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-steps",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-steps--vertical",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-surface--accent",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
@@ -3532,7 +3592,15 @@
       "spacious"
     ],
     "data-syn-state": [
-      "active"
+      "active",
+      "complete",
+      "degraded",
+      "down",
+      "error",
+      "healthy",
+      "loading",
+      "selected",
+      "unknown"
     ]
   },
   "components": [

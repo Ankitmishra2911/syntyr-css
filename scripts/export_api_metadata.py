@@ -92,6 +92,18 @@ EXPLICIT_TOKENS = {
     "--syn-frame-border-paint": "geometry.css",
     "--syn-frame-inlay-paint": "geometry.css",
 }
+# Only permit literal, CSS-implemented presentation states. Curated choices
+# must not omit states used by optional server or visualization stylesheets.
+CSS_STATE = re.compile(r'\[\s*data-syn-state\s*=\s*["\']([^"\']+)["\']\s*\]')
+
+
+def source_state_values() -> list[str]:
+    values = set()
+    for path in SOURCE.rglob("*.css"):
+        values.update(CSS_STATE.findall(CSS_COMMENT.sub("", path.read_text(encoding="utf-8"))))
+    return sorted(values)
+
+
 SNIPPET_CLASSES = (
     "syn-root", "syn-panel", "syn-button", "syn-button--primary",
     "syn-region", "syn-grid", "syn-stats", "syn-form",
@@ -198,7 +210,7 @@ def outputs():
             {"name": "data-syn-density", "description": "Opt-in presentation density.",
              "values": [{"name": name} for name in ("compact", "comfortable", "spacious")]},
             {"name": "data-syn-state", "description": "Host-managed decorative state, not an ARIA substitute.",
-             "values": [{"name": "active"}]},
+             "values": [{"name": name} for name in source_state_values()]},
             {"name": "data-syn-featured", "description": "Decorative featured pricing card state."},
         ],
     }

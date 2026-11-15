@@ -14,5 +14,6 @@ Use when a user asks you to build, redesign, or maintain an interface **using Sy
 5. Generate real, semantic HTML. Preserve labels, focus, responsive layout and native interaction. Syntyr has no required runtime JS, and it does not implement API calls, state changes, chart geometry or form handlers.
 6. For React use `className` and `htmlFor`; for HTMX/server templates preserve real routes/forms. Do not invent component exports or `syn-*` classes.
 7. Check proposed classes against the CSS/module for the **installed version**. Document extra application CSS explicitly rather than pretending a Syntyr class exists.
+8. When working with the current source checkout, validate static HTML with `python3 scripts/syntyr_check.py --format json path/to/page.html` or pipe a fragment through `python3 scripts/syntyr_check.py --format json --stylesheets syntyr.core.css -`. Use diagnostic `suggestions`, `allowed_values` and `required_stylesheets` as **hints**, not automatic fixes. The contract describes the unreleased source candidate, not the published alpha.4 CSS. For JSX and dynamic template expressions, use framework-aware tests and browser checks instead.
 
 If the source tree is not available, the published navigation entry point is https://syntyr-css.pages.dev/llms.txt. This skill is manually distributed; do not claim it is auto-installed or universally supported.

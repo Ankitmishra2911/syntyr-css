@@ -548,7 +548,14 @@
     &.syn-dialog { margin: auto; }
     &.syn-dialog::backdrop { background: rgb(0 0 0 / 70%); }
     &.syn-details { padding: 1rem 0; border-block-start: 1px solid var(--syn-frame); }
-    &.syn-details summary { cursor: pointer; color: var(--syn-text); font-weight: 650; }
+    &.syn-details summary {
+      cursor: pointer;
+      color: var(--syn-text);
+      font-weight: 650;
+      min-block-size: 2.75rem;
+      padding-block: .5rem;
+      align-content: center;
+    }
     &.syn-details[open] summary { color: var(--syn-accent); }
     &.syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
     @media (forced-colors: active) { &.syn-popover, &.syn-dialog, &.syn-details { border-color: CanvasText; } }
@@ -604,7 +611,7 @@
   /* All component rules match the root itself or a descendant, never a host sibling. */
   :where(.syn-root, .syn-root *) {
     &.syn-region { container-name: syn-region; container-type: inline-size; min-width: 0; }
-    &.syn-split { display: grid; gap: var(--syn-space-3); min-width: 0; }
+    &.syn-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); min-width: 0; }
     &.syn-stats { display: grid; gap: var(--syn-space-2); grid-template-columns: minmax(0, 1fr); }
     &.syn-stat { padding: var(--syn-space-3); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
     &.syn-stat-label { color: var(--syn-muted); font: 650 .8125rem/1.4 var(--syn-mono); letter-spacing: .05em; }
@@ -631,10 +638,94 @@
     &.syn-page-link[aria-current="page"] { font-weight: 700; }
       &.syn-skeleton { display: block; width: 100%; min-height: 1em; background: var(--syn-surface-hi); border: 1px solid var(--syn-frame); border-radius: var(--syn-radius); }
     &.syn-skeleton--short { max-width: 55%; }
+    /* Ordered workflow progression; the host application owns the actual state.
+       The region must be an ancestor for horizontal container layout. */
+    &.syn-steps {
+      display: grid;
+      gap: var(--syn-space-2);
+      counter-reset: syn-step;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 0;
+    }
+    &.syn-step {
+      counter-increment: syn-step;
+      position: relative;
+      display: grid;
+      grid-template-columns: 2.75rem minmax(0, 1fr);
+      gap: var(--syn-space-2);
+      align-items: center;
+      color: var(--syn-muted);
+      overflow-wrap: anywhere;
+      min-width: 0;
+    }
+    &.syn-step::before {
+      content: counter(syn-step);
+      display: grid;
+      place-items: center;
+      box-sizing: border-box;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 2px solid var(--syn-frame-strong);
+      border-radius: 999px;
+      color: var(--syn-text);
+      background: var(--syn-surface);
+      font: 650 .9rem/1 var(--syn-mono);
+    }
+    &.syn-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      inset-inline-start: calc(1.375rem - 1px);
+      top: 2.75rem;
+      bottom: calc(-1 * var(--syn-space-2));
+      border-inline-start: 2px solid var(--syn-frame-strong);
+      pointer-events: none;
+    }
+    &.syn-step-label { font-weight: 650; color: var(--syn-text); }
+    &.syn-step-detail { margin: .25rem 0 0; font-size: .875rem; color: var(--syn-muted); }
+    &.syn-step[data-syn-state="complete"]::before {
+      border-color: var(--syn-accent);
+      background: var(--syn-accent-soft);
+      color: var(--syn-text);
+    }
+    &.syn-step[data-syn-state="complete"]::after { border-color: var(--syn-accent); }
+    &.syn-step[aria-current="step"]::before {
+      border-color: var(--syn-accent);
+      outline: 2px solid var(--syn-accent);
+      outline-offset: 2px;
+    }
+    &.syn-step[data-syn-state="error"]::before { border-color: var(--syn-danger); }
+
     @container syn-region (min-width: 31rem) {
       &.syn-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @container syn-region (min-width: 43rem) {
+      &.syn-steps:not(.syn-steps--vertical) {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+        align-items: start;
+      }
+      &.syn-steps:not(.syn-steps--vertical) > .syn-step {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        align-content: start;
+        text-align: center;
+        gap: .6rem;
+      }
+      &.syn-steps:not(.syn-steps--vertical) > .syn-step:not(:last-child)::after {
+        inset-inline-start: calc(50% + 1.375rem);
+        inset-inline-end: calc(-50% + 1.375rem);
+        top: 1.375rem;
+        bottom: auto;
+        border-inline-start: 0;
+        border-block-start: 2px solid var(--syn-frame-strong);
+      }
+      &.syn-steps:not(.syn-steps--vertical) > .syn-step[data-syn-state="complete"]:not(:last-child)::after {
+        border-block-color: var(--syn-accent);
+      }
+
       &.syn-split { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
       &.syn-pricing { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
@@ -642,6 +733,17 @@
       &.syn-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
     @media (forced-colors: active) {
+      &.syn-step::before, &.syn-step[data-syn-state="complete"]::before {
+        color: CanvasText;
+        background: Canvas;
+        border-color: CanvasText;
+      }
+      &.syn-step[aria-current="step"]::before {
+        border-color: Highlight;
+        outline-color: Highlight;
+      }
+      &.syn-step[data-syn-state="error"]::before { border-style: dashed; }
+
       &.syn-stat, &.syn-empty, &.syn-price-card, &.syn-price-card[data-syn-featured] { border-color: CanvasText; }
     }
   }

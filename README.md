@@ -13,6 +13,7 @@
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
+- **Opt-in universal registry (alpha.5 source):** 20 free copy-owned HTML blocks plus 8 CSS modules in shadcn-compatible static JSON; no consumer runtime dependency. See [blocks guide](docs/blocks-guide.md).
 
 ## Live gallery and installation
 
@@ -21,8 +22,10 @@
 - [20 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
 - [Practical installation, integration and performance guides](https://syntyr-css.pages.dev/docs/guides.html)
 - [Searchable, copyable component catalog](docs/catalog.html)
+- [Canonical DESIGN.md contract](DESIGN.md): Google-compatible Studio tokens generated from CSS, component states, accessibility rules, and AI implementation guidance ([sync/check tool](scripts/sync_design_md.py)).
 - [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md)
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
+- [Optional local read-only MCP server](agent_mcp/README.md) (separate Python SDK, no CSS runtime dependency)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
 - [Per-component CSS imports and native HTML patterns](docs/native-patterns.md), [static demo](examples/native-recipes.html)
 - [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
@@ -78,7 +81,7 @@
 
 The linked alpha.4 release is already published; it does not include the four additional palettes or the optional utilities module. These are in the unreleased alpha.5 source candidate.
 
-Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application. For package-manager projects, an optional CSS-only `@syntyr/css` manifest is now prepared for an **unpublished** alpha.5 candidate; [test it locally](docs/package-managers.md) until registry ownership and release approval are confirmed. No package installation is required by Syntyr itself.
+Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. The **unreleased alpha.5** ZIP candidate also includes `examples/saas.html`, a self-contained offline SaaS demo with relative CSS references (not included in the published alpha.4 archive). No NPM, JS or build step is needed in an application. For package-manager projects, an optional CSS-only `@syntyr/css` manifest is now prepared for an **unpublished** alpha.5 candidate; [test it locally](docs/package-managers.md) until registry ownership and release approval are confirmed. No package installation is required by Syntyr itself.
 
 ## Documentation for humans and AI agents
 

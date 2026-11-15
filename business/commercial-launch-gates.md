@@ -5,7 +5,7 @@
 ## The offer to test
 
 - **Audience:** developers and small agencies building SaaS, internal tools and operations consoles with server-side HTML, Go/templ + HTMX, Django, Rails or Astro.
-- **Promise:** eight original, responsive, static application-screen compositions with Grid, Noir and Studio variations. The real private prototype contains 24 generated screen/theme combinations.
+- **Promise:** eight original, responsive, static application-screen compositions with Grid, Noir and Studio variations. The current private prototype has expanded to 12 screen types and 36 generated screen/theme combinations; the eight-screen pilot offer remains a research hypothesis, not a final deliverable.
 - **Core:** the existing Syntyr library, themes, essential CSS and free demos remain MIT. Only separately authored premium screen compositions could receive a future commercial license.
 - **Pilot price hypothesis:** **$59 one time** per developer; **$99 standard** is a later experiment, not an advertised available price. Team licenses require validated demand. No subscription, licensing server, hosted designer, or Studio bundle for the first product.
 - **Upsell hypothesis:** scoped customization or server-side integration, quoted case by case (potentially $1,500+ depending on deliverables). Do not promise functional backend behavior in a static kit.
@@ -13,8 +13,8 @@
 ## Current observable evidence
 
 - Public MIT v0.3.0-alpha.4 released; alpha.5 is experimental and unreleased.
-- Private Console Kit has eight source screen types, 24 static variants, deterministic builds, and automated browser checks with unresolved manual accessibility findings.
-- Eight original **static screenshots** are prepared for the public concept page; public site never distributes private kit HTML, CSS, or build products.
+- Private Console Kit has twelve source screen types, 36 static variants, deterministic builds, passing Chromium/Firefox automated checks, and unresolved manual accessibility and combined WebKit verification gaps.
+- Eight original **static screenshots** are published on the public concept page; public site never distributes private kit HTML, CSS, or build products.
 - A public issue-form feedback route and a 10-developer interview tracker exist. As last recorded, no real interviews or paid commitments have been verified.
 - The product is not commercially launch-ready. Do **not** count page views, issue form responses or verbal interest as completed sales.
 

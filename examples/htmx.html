@@ -9,8 +9,10 @@
   <link rel="stylesheet" href="/dist/syntyr.core.css">
   <link rel="stylesheet" href="/dist/syntyr.semantic.css">
   <link rel="stylesheet" href="/examples/htmx.css">
-  <!-- Demo-only HTMX dependency. Production apps should self-host a pinned copy. -->
-  <script defer src="https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js"></script>
+  <!-- Optional example dependency; pin exact bytes to reject CDN tampering. -->
+  <script defer src="https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js"
+          integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+          crossorigin="anonymous"></script>
 </head>
 <body class="syn-root syn-page syn-semantic" data-syn-theme="studio">
   <main class="syn-shell">

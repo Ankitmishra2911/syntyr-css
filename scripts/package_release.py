@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FILES = (
     "LICENSE",
     "README.md",
+    "DESIGN.md",
     "ARCHITECTURE.md",
     "docs/distribution.md",
     "docs/api-stability.md",
@@ -27,6 +28,7 @@ FILES = (
     "docs/components.md",
     "docs/recipes.md",
     "docs/component-recipes.md",
+    "examples/saas.html",  # Offline-openable, no external assets or scripts.
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
@@ -57,6 +59,8 @@ def package(output: Path) -> None:
     subprocess.run([sys.executable, str(ROOT / "scripts/build.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/build_agent_docs.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/sync_design_md.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/export_api_metadata.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
