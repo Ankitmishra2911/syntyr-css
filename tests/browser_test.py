@@ -431,16 +431,22 @@ class BrowserTests(unittest.TestCase):
               <article id="nested-auto" data-syn-theme="auto">Nested</article>
             </section>
           </main>""")
-        accent = lambda ident: self.page.locator(ident).evaluate(
-            "e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()")
+        accent = lambda ident: self.page.locator(ident).evaluate("""e => {
+            const probe = document.createElement('span');
+            probe.style.color = 'var(--syn-accent)';
+            e.append(probe);
+            const resolved = getComputedStyle(probe).color;
+            probe.remove();
+            return resolved;
+        }""")
         self.page.emulate_media(color_scheme='light')
-        self.assertEqual(accent('#auto-root'), '#2458c6')
-        self.assertEqual(accent('#explicit-noir'), '#f1b574')
-        self.assertEqual(accent('#nested-auto'), '#2458c6')
+        self.assertEqual(accent('#auto-root'), 'rgb(36, 88, 198)')
+        self.assertEqual(accent('#explicit-noir'), 'rgb(241, 181, 116)')
+        self.assertEqual(accent('#nested-auto'), 'rgb(36, 88, 198)')
         self.page.emulate_media(color_scheme='dark')
-        self.assertEqual(accent('#auto-root'), '#76e7f7')
-        self.assertEqual(accent('#explicit-noir'), '#f1b574')
-        self.assertEqual(accent('#nested-auto'), '#76e7f7')
+        self.assertEqual(accent('#auto-root'), 'rgb(118, 231, 247)')
+        self.assertEqual(accent('#explicit-noir'), 'rgb(241, 181, 116)')
+        self.assertEqual(accent('#nested-auto'), 'rgb(118, 231, 247)')
 
     def test_progressive_intrinsic_layout_follows_embedding_width(self):
         core = (ROOT / 'dist/syntyr.core.css').read_text()

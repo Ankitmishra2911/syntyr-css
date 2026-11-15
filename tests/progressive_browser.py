@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def check(browser, name):
     css = "\n".join((ROOT / f"dist/syntyr.{module}.css").read_text()
-                    for module in ("core", "semantic", "auto", "print"))
+                    for module in ("core", "semantic", "print"))
     context = browser.new_context(viewport={"width": 1280, "height": 850},
                                   reduced_motion="reduce")
     page = context.new_page()
@@ -46,19 +46,25 @@ def check(browser, name):
           </div>
           <button id="print-action" class="syn-button syn-button--primary">Print</button>
         </main>""", wait_until="load")
-    accent = lambda target: page.locator(target).evaluate(
-        "e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()")
+    accent = lambda target: page.locator(target).evaluate("""e => {
+        const probe = document.createElement('span');
+        probe.style.color = 'var(--syn-accent)';
+        e.append(probe);
+        const resolved = getComputedStyle(probe).color;
+        probe.remove();
+        return resolved;
+    }""")
     cssprop = lambda selector, prop: page.locator(selector).evaluate(
         "(e, p) => getComputedStyle(e).getPropertyValue(p).trim()", prop)
     bounds = lambda selector: page.locator(selector).bounding_box()
 
     assert cssprop("#styled", "min-height") == "44px", (name, "semantic opt-in")
     assert cssprop("#external-control", "min-height") != "44px", (name, "scope escape")
-    for mode, expected in (("light", "#2458c6"), ("dark", "#76e7f7")):
+    for mode, expected in (("light", "rgb(36, 88, 198)"), ("dark", "rgb(118, 231, 247)")):
         page.emulate_media(color_scheme=mode)
         assert accent("#root") == expected, (name, mode, "root")
         assert accent("#nested") == expected, (name, mode, "nested")
-        assert accent("#noir") == "#f1b574", (name, mode, "explicit theme")
+        assert accent("#noir") == "rgb(241, 181, 116)", (name, mode, "explicit theme")
 
     assert bounds("#right")["y"] > bounds("#left")["y"], (name, "narrow layout")
     page.locator("#host").evaluate("e => e.style.width = '900px'")
