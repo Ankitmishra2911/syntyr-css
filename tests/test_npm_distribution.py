@@ -30,13 +30,14 @@ class NpmDistributionContract(unittest.TestCase):
             ('./syntyr.css' if name == 'syntyr.css' else './' + name.removeprefix('syntyr.')): './dist/' + name
             for name in distributions()
         }
+        expected['./tailwind.css'] = './integrations/tailwind/syntyr.theme.css'
         self.assertEqual({key: value for key, value in self.package['exports'].items() if key != '.'}, expected)
         for relative in expected.values():
             with self.subTest(relative=relative):
                 self.assertTrue((ROOT / relative.removeprefix('./')).is_file())
 
     def test_allowlisted_release_files_are_css_and_docs_only(self):
-        self.assertEqual(set(self.package['files']), {'dist/', 'README.md', 'LICENSE'})
+        self.assertEqual(set(self.package['files']), {'dist/', 'integrations/tailwind/', 'README.md', 'LICENSE'})
         self.assertIn('publishConfig', self.package)
         self.assertEqual(self.package['publishConfig']['access'], 'public')
         self.assertTrue((ROOT / 'docs/package-managers.md').is_file())

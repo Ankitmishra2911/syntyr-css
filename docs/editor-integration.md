@@ -5,6 +5,8 @@ prebuilt CSS, HTML, and custom properties without Node, JavaScript, or a build s
 
 ## VS Code and compatible editors
 
+For an opt-in local extension package that bundles these files without an extension runtime, see [ecosystem interoperability](ecosystem-integrations.md). The extension is not yet published to the VS Code Marketplace; the manual workspace integration below remains supported.
+
 Copy these four generated files from the Syntyr release or repository into
 your project, e.g. `./vendor/syntyr/metadata/`:
 
