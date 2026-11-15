@@ -72,6 +72,8 @@ Useful tokens:
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
 | `--syn-duration-fast`, `--syn-ease` | Optional transitions |
+| `--syn-panel-padding`, `--syn-panel-radius`, `--syn-panel-border-width` | Local panel customization |
+| `--syn-button-padding-inline`, `--syn-button-border-width` | Local button customization |
 
 ## 3. CSS component mode versus native semantic mode
 

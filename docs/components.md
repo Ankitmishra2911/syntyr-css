@@ -56,6 +56,34 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
 
+### Optional composition utilities and component overrides
+
+Load `syntyr.utilities.css` in addition to core to use finite helpers:
+`syn-u-w-full`, `syn-u-max-reading`, `syn-u-overflow-auto`,
+`syn-u-text-center`, `syn-u-min-w-0` and `syn-u-wrap`. These classes
+work only inside `.syn-root` and do not require a class generator.
+The existing flex/grid/spacing helpers are unchanged. Load the optional
+module only when it is needed.
+
+Customize individual components with custom properties rather than a new
+set of modifiers:
+
+```html
+<article class="syn-panel"
+         style="--syn-panel-padding:1.5rem; --syn-panel-radius:.75rem;
+                --syn-panel-border-width:2px">
+  <button class="syn-button"
+          style="--syn-button-padding-inline:1.25rem;
+                 --syn-button-border-width:2px">Open</button>
+</article>
+```
+
+Defaults preserve the previous appearance: fluid panel padding, square
+panel corners, and 1px borders; button inline padding defaults to 1rem.
+These values are local CSS custom properties, not compile-time settings.
+Inspect `metadata/syntyr-api.json` for the machine-readable API index,
+or use the [editor integration instructions](editor-integration.md).
+
 Use native button `popovertarget="id"` to control a popover and `commandfor="id" command="show-modal"` to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.
 
 ## Neutral-first visual styling

@@ -4,9 +4,9 @@
     &.syn-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.5rem; }
     &.syn-button {
       display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-      min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) 1rem;
+      min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) var(--syn-button-padding-inline, 1rem);
       min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere;
-      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+      border: var(--syn-button-border-width, 1px) solid var(--syn-border-default); border-radius: var(--syn-radius);
       background: var(--syn-surface-interactive); color: var(--syn-text);
       text-decoration: none; font: 600 var(--syn-type-sm)/1.2 var(--syn-font-ui); letter-spacing: -.005em;
       cursor: pointer; transition: background-color var(--syn-duration-fast) var(--syn-ease), border-color var(--syn-duration-fast) var(--syn-ease), color var(--syn-duration-fast) var(--syn-ease);
