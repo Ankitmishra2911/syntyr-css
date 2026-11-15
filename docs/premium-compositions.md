@@ -62,6 +62,34 @@ If the application implements a custom keyboard-controlled command list, choose 
 - Try `data-syn-intensity="quiet"` for production dashboards and reserve cinematic decoration for small promotional areas.
 - Use `syn-*` namespaced classes and the existing tokens; avoid adding brand-specific lookalike themes or required external assets.
 
+## Browser validation (developer-only)
+
+Syntyr consumers do not need browsers, a JavaScript runtime, or an axe-core
+dependency. Maintainers can run the optional Playwright regression test after
+installing the browser engines in a separate development environment:
+
+```sh
+python3 tests/premium_compositions_browser.py \
+  --browsers chromium firefox webkit \
+  --axe-file /path/to/local/axe.min.js
+```
+
+The test covers the 320px, 390px and 1280px viewports, 200% text-size stress
+at narrow widths, keyboard focus and skip-link navigation, focus outlines,
+forced colors, reduced motion, and automated WCAG-tagged axe rules. At a
+1280px desktop baseline, a 320px CSS viewport also tests the content width
+available at 400% browser zoom (a reflow approximation, not a claim that a
+browser zoom control was exercised). The repository's regular
+`tests/reflow_test.py`, `tests/browser_matrix.py`, and
+`tests/axe_audit.py` include this page as well.
+
+**Manual checks remain essential:** use a real screen reader (such as NVDA,
+VoiceOver or Orca), verify reading order and form labels, inspect actual
+browser zoom and touch interaction, and confirm real data/permissions in the
+consuming application. Axe-core cannot certify WCAG conformance on its own.
+WebKit tests need its native system dependencies; a missing browser is
+reported as blocked, never silently passed.
+
 ## Implementation provenance
 
 The refinements borrow general ideas: precise information hierarchy (Linear), keyboard discoverability (Raycast), layered material roles (Vercel), useful operational metadata (Sentry), and restrained editorial presentation (Stripe and Resend). They do **not** reproduce any company's branded UI or assets.

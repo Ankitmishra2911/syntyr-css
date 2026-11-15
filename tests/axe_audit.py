@@ -22,8 +22,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/saas.html", "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/semantic-starter.html")
-
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/semantic-starter.html", "examples/premium-compositions.html")
 
 def normalize_findings(page_path: str, result: dict) -> dict:
     """Keep actionable axe targets for manual review without shipping a browser tool."""
