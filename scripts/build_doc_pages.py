@@ -51,12 +51,43 @@ def renderer() -> MarkdownIt:
     return md
 
 
+DESCRIPTION_OVERRIDES = {
+    "ai-quickstart.md": "Install Syntyr CSS with AI coding agents using semantic HTML, real component classes, and version-aware, framework-neutral examples.",
+    "components.md": "Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.",
+    "framework-integrations.md": "Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.",
+    "from-pico.md": "Migrate from Pico CSS to Syntyr with semantic HTML, explicit component styling, theme tokens, and minimal runtime dependencies.",
+    "distribution.md": "Install and self-host Syntyr CSS using versioned stylesheets, optional modules, and immutable releases for production websites.",
+    "theme-customization.md": "Customize Syntyr CSS themes and design tokens for SaaS dashboards, accessible business applications, and futuristic interfaces.",
+}
+
+
+def description_of(name: str, tokens: list) -> str:
+    if name in DESCRIPTION_OVERRIDES:
+        return DESCRIPTION_OVERRIDES[name]
+    for index, token in enumerate(tokens[:-1]):
+        if token.type != "paragraph_open" or tokens[index + 1].type != "inline":
+            continue
+        inline = tokens[index + 1]
+        summary = " ".join(
+            child.content for child in inline.children or []
+            if child.type in {"text", "code_inline"} and child.content.strip()
+        )
+        summary = re.sub(r"\s+", " ", summary).strip()
+        if len(summary) >= 70:
+            if len(summary) > 158:
+                summary = summary[:158].rsplit(" ", 1)[0].rstrip(" .,;:") + "."
+            return summary
+    title = title_of((ROOT / "docs" / name).read_text(encoding="utf-8"))
+    return f"Explore {title} in Syntyr CSS with practical guidance, semantic HTML examples, and integration notes for developers."
+
+
 def render_guide(name: str, allowed: set[str]) -> str:
     source = (ROOT / "docs" / name).read_text(encoding="utf-8")
     title = title_of(source)
     slug = name.removesuffix(".md")
     digest = sha256(source.encode("utf-8")).hexdigest()
     tokens = renderer().parse(source)
+    description = description_of(name, tokens)
     used: set[str] = set()
     headings: list[tuple[int, str, str]] = []
     for index, token in enumerate(tokens):
@@ -103,11 +134,11 @@ def render_guide(name: str, allowed: set[str]) -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: {escape(title, quote=True)}. Read the complete illustrated HTML reference.">
+  <meta name="description" content="{escape(description, quote=True)}">
   <meta name="syntyr-source-sha256" content="{digest}">
   <meta name="theme-color" content="#f5f7fb">
   <title>{escape(title)} — Syntyr CSS docs</title>
-  <link rel="canonical" href="{SITE}/docs/{slug}.html">
+  <link rel="canonical" href="{SITE}/docs/{slug}">
   <link rel="alternate" type="text/markdown" href="{name}" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -172,7 +203,7 @@ def render_directory(guides: dict[str, str]) -> str:
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Browse all Syntyr CSS guides in readable HTML, from installation and components to integrations, design tokens, accessibility, and performance.">
   <meta name="theme-color" content="#f5f7fb"><title>All documentation — Syntyr CSS</title>
-  <link rel="canonical" href="{SITE}/docs/reference.html">
+  <link rel="canonical" href="{SITE}/docs/reference">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css"><link rel="stylesheet" href="docs.css">
 </head>

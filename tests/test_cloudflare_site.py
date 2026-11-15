@@ -4,6 +4,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from urllib.parse import unquote, urlsplit
 import json
+import re
 import subprocess
 import sys
 import unittest
@@ -68,9 +69,18 @@ class CloudflareSiteTests(unittest.TestCase):
                     resolved = target / 'index.html' if target.is_dir() else target
                     self.assertTrue(resolved.is_file(), (page, url))
             self.assertTrue((out / "docs/theme-editor.js").is_file())
-            self.assertFalse(any("<script" in page.read_text().lower()
-                                 for page in out.rglob("*.html")
-                                 if page.relative_to(out).as_posix() not in {"docs/theme-editor.html", "docs/catalog.html", "docs/playground.html", "docs/blocks.html"}))
+            # JSON-LD is inert data, not browser-executed JavaScript.
+            self.assertFalse(any(
+                "<script" in re.sub(
+                    r'<script type="application/ld\+json">.*?</script>', "",
+                    page.read_text(encoding="utf-8"), flags=re.I | re.S
+                ).lower()
+                for page in out.rglob("*.html")
+                if page.relative_to(out).as_posix() not in {
+                    "docs/theme-editor.html", "docs/catalog.html",
+                    "docs/playground.html", "docs/blocks.html"
+                }
+            ))
 
     def test_cache_contract_and_version_snapshot(self):
         with TemporaryDirectory() as temp:
