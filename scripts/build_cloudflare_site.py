@@ -5,6 +5,7 @@ Pure stdlib, no Node dependencies, no browser JavaScript, no repo-root publishin
 from __future__ import annotations
 
 import argparse
+from html import unescape as unescape_html
 import hashlib
 import json
 import posixpath
@@ -23,6 +24,86 @@ else:
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
 MARKER = ".syntyr-site-manifest.json"
+SITE_URL = "https://syntyr-css.pages.dev"
+# These pages are illustrative applications or an error response, not search
+# landing pages. Their HTML remains publicly available and linkable.
+NOINDEX_HTML = frozenset({
+    "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html",
+})
+CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
+ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
+
+
+def canonical_path(name: str) -> str:
+    """Match Cloudflare Pages' 200-status clean URLs (not .html redirect URLs)."""
+    if name == "index.html":
+        return "/"
+    if name.endswith("/index.html"):
+        return "/" + name.removesuffix("index.html")
+    return "/" + name.removesuffix(".html")
+
+
+def add_seo_metadata(files: dict[str, bytes]) -> None:
+    """Build-time-only SEO: preserve readable sources and avoid browser JS."""
+    for name, data in tuple(files.items()):
+        if not name.endswith(".html"):
+            continue
+        html = data.decode("utf-8")
+        if name in NOINDEX_HTML:
+            if not ROBOTS_META.search(html):
+                html = html.replace("</head>", '  <meta name="robots" content="noindex,follow">\n</head>', 1)
+            # Excluded pages should not claim canonical index URLs.
+            html = CANONICAL_LINK.sub("", html)
+        else:
+            url = SITE_URL + canonical_path(name)
+            tag = f'<link rel="canonical" href="{url}">'
+            if CANONICAL_LINK.search(html):
+                html = CANONICAL_LINK.sub(tag, html, count=1)
+            else:
+                html = html.replace("</head>", f"  {tag}\n</head>", 1)
+            # Author pages can include Open Graph data already; don't duplicate it.
+            if 'property="og:url"' not in html:
+                html = html.replace("</head>", f'  <meta property="og:url" content="{url}">\n</head>', 1)
+            if 'property="og:title"' not in html:
+                title = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
+                if title:
+                    from html import escape
+                    html = html.replace("</head>",
+                                        f'  <meta property="og:title" content="{escape(unescape_html(title.group(1)), quote=True)}">\n</head>', 1)
+            if 'property="og:description"' not in html:
+                description = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', html, re.IGNORECASE)
+                if description:
+                    html = html.replace("</head>",
+                                        f'  <meta property="og:description" content="{description.group(1)}">\n</head>', 1)
+            schema = None
+            if name == "index.html":
+                schema = {
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareSourceCode",
+                    "name": "Syntyr CSS",
+                    "description": "MIT-licensed CSS-first interface system for SaaS dashboards and semantic HTML.",
+                    "url": url,
+                    "codeRepository": "https://github.com/dporkka/syntyr-css",
+                    "license": "https://opensource.org/licenses/MIT",
+                    "programmingLanguage": "CSS",
+                }
+            elif name.startswith("docs/"):
+                title = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
+                label = unescape_html(title.group(1)).removesuffix(" — Syntyr CSS docs") if title else "Documentation"
+                items = [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
+                    {"@type": "ListItem", "position": 2, "name": "Documentation", "item": SITE_URL + "/docs/"},
+                ]
+                if name not in {"docs/index.html"}:
+                    items.append({"@type": "ListItem", "position": 3, "name": label, "item": url})
+                schema = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}
+            if schema and 'type="application/ld+json"' not in html:
+                # Escape markup sentinels even though data originates in checked-in source.
+                json_text = json.dumps(schema, ensure_ascii=True, separators=(",", ":")).replace("<", r"\u003c")
+                html = html.replace("</head>", f'  <script type="application/ld+json">{json_text}</script>\n</head>', 1)
+        files[name] = html.encode("utf-8")
+
+
 
 HEADERS = """/*
   X-Content-Type-Options: nosniff
@@ -45,6 +126,10 @@ HEADERS = """/*
   X-Robots-Tag: noindex
   Content-Type: text/markdown; charset=utf-8
 
+/DESIGN.md
+  X-Robots-Tag: noindex
+  Content-Type: text/markdown; charset=utf-8
+
 /ARCHITECTURE.md
   X-Robots-Tag: noindex
   Content-Type: text/markdown; charset=utf-8
@@ -52,6 +137,12 @@ HEADERS = """/*
 /agents/syntyr/SKILL.md
   X-Robots-Tag: noindex
   Content-Type: text/markdown; charset=utf-8
+
+/llms.txt
+  X-Robots-Tag: noindex
+
+/llms-full.txt
+  X-Robots-Tag: noindex
 
 /examples/*
   Cache-Control: public, max-age=0, must-revalidate
@@ -142,6 +233,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "404.html",
         ROOT / "LICENSE",
         ROOT / "README.md",
+        ROOT / "DESIGN.md",
         ROOT / "ARCHITECTURE.md",
         ROOT / "llms.txt",
         ROOT / "llms-full.txt",
@@ -219,17 +311,20 @@ def source_files() -> dict[str, bytes]:
                 raise ValueError(f"Modified immutable release asset: {path}")
             files[f"v/{version}/{filename}"] = data
 
-    # Index HTML for people. Keep public Markdown fetchable by agents but
-    # exclude it from human-facing search results and the HTML sitemap.
+    # Keep the sitemap confined to HTML that is useful as a search result.
+    # Cloudflare Pages redirects *.html -> clean paths, so only list final 200 URLs.
     from xml.sax.saxutils import escape as escape_xml
-    pages = sorted(name for name in files if name.endswith(".html"))
-    addresses = ["/"] + ["/" + name for name in pages if name != "index.html"]
-    files["sitemap.xml"] = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    add_seo_metadata(files)
+    indexable = sorted(
+        SITE_URL + canonical_path(name)
+        for name in files if name.endswith(".html") and name not in NOINDEX_HTML
+    )
+    files["sitemap.xml"] = ('<?xml version="1.0" encoding="UTF-8"?>\n'
                             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-                            + "".join(f"  <url><loc>{escape_xml('https://syntyr-css.pages.dev' + url)}</loc></url>\n"
-                                      for url in addresses)
+                            + "".join(f"  <url><loc>{escape_xml(url)}</loc></url>\n"
+                                      for url in indexable)
                             + "</urlset>\n").encode("utf-8")
-    files["robots.txt"] = b"User-agent: *\nAllow: /\n\nSitemap: https://syntyr-css.pages.dev/sitemap.xml\n"
+    files["robots.txt"] = (f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n").encode("utf-8")
     immutable_site_css(files)
     files["_headers"] = HEADERS.encode("utf-8")
     return files
