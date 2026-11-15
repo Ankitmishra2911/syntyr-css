@@ -24,3 +24,8 @@ node_modules/
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Benchmark output and optional dev-only dependencies.
+benchmarks/frameworks/generated/
+# Nested benchmark lockfile is intentional; root package-lock stays ignored.
+!benchmarks/frameworks/package-lock.json
