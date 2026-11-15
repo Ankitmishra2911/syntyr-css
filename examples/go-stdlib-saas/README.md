@@ -20,6 +20,22 @@ go test ./...
 go vet ./...
 ```
 
+Optional real-browser smoke testing requires the example running on localhost in
+another terminal. The test-only Python dependency does **not** enter the Go
+binary or Syntyr CSS runtime:
+
+```sh
+uv run --no-project --with 'playwright==1.65.2' python3 browser_smoke.py --browsers chromium firefox
+# Include webkit when the matching browser and its native libraries are available.
+```
+
+The smoke test exercises native GET search/status filtering, theme continuity,
+customer navigation, filtered CSV responses, script-free markup, and 320px
+root-page reflow including a 2× root-font stress case. It is **not** evidence
+of actual browser zoom or manual screen-reader accessibility approval.
+Chrome/Firefox/WebKit versions and platform dependencies should be recorded
+when reviewing a release.
+
 ## Try these flows
 
 1. Open **Overview** to see metrics calculated from the in-memory dataset (active accounts alone contribute to illustrative MRR).
@@ -35,6 +51,7 @@ The data is immutable and intentionally synthetic. Contact addresses use `exampl
 - `templates/*.html` — three ordinary `html/template` views and a shared responsive Syntyr shell.
 - `assets/syntyr.core.css` — **unaltered published v0.3.0-alpha.4 release CSS**, self-hosted within the binary.
 - `main_test.go` — HTTP-level tests for UI, filtering, safe HTML, filter errors, theme continuity, route behavior and CSV export.
+- `browser_smoke.py` — opt-in Playwright browser journey for navigation, CSV, filters, themes and narrow text reflow.
 
 Bundled CSS SHA-256: `8d6458bf1f2ae25098a733e7fb88a84260e54b8b285bf05ff07432cccfbdaa6e`.
 
