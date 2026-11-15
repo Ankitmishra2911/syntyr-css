@@ -498,7 +498,7 @@
     &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
     /* The ordinary corner popover remains the fallback if anchors are unsupported. */
     @supports (position-area: bottom) {
-      &.syn-popover.syn-popover--anchored:popover-open {
+      &.syn-popover.syn-popover--anchored {
         inset: auto;
         margin: .5rem 0 0;
         position-anchor: auto;
