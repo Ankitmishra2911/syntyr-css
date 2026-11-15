@@ -56,9 +56,10 @@ Layers have an explicit normal-declaration priority, earliest to latest:
 
 ```css
 @layer syn.tokens, syn.base, syn.components, syn.semantic,
-       syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.utilities;
+       syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.viz, syn.utilities;
 ```
 
+Optional chart presentation lives in `syn.viz`, ahead of final utilities.
 Component styles belong in `syn.components`. Optional finite utilities belong
 in `syn.utilities` so explicitly applied utility classes can win over ordinary
 component declarations without new specificity tricks, regardless of the
