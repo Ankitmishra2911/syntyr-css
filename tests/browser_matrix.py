@@ -21,7 +21,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
-         "examples/semantic-starter.html", "examples/premium-compositions.html",
+         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
 )
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -68,6 +68,16 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert comfortable > compact, (compact, comfortable)
         if viewport == 320:
             assert board.evaluate("e => e.scrollWidth > e.clientWidth")
+    if name == "examples/workflow-steps.html":
+        assert page.get_by_role("list", name="Workspace setup progress").count() == 1
+        assert page.locator(".syn-steps").count() == 2
+        assert page.locator('.syn-steps:not(.syn-steps--vertical) > [aria-current="step"]').count() == 1
+        assert page.locator(".syn-steps--vertical > .syn-step").count() == 3
+        flow = page.locator(".syn-steps").first.evaluate("e => getComputedStyle(e).gridAutoFlow")
+        forced_flow = page.locator(".syn-steps--vertical").evaluate("e => getComputedStyle(e).gridAutoFlow")
+        assert flow == ("column" if viewport >= 1280 else "row"), (viewport, flow)
+        assert forced_flow == "row", (viewport, forced_flow)
+        assert page.locator(".syn-step").first.evaluate("e => getComputedStyle(e, '::before').content") != "none"
     if name == "examples/semantic-starter.html":
         assert page.locator('link[rel="stylesheet"]').count() == 1
         assert page.locator('body.syn-root.syn-semantic').count() == 1

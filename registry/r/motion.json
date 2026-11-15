@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "motion",
+  "type": "registry:item",
+  "title": "Syntyr motion CSS",
+  "description": "MIT Syntyr motion stylesheet. No runtime JavaScript.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "dist/syntyr.motion.css",
+      "type": "registry:file",
+      "target": "~/syntyr/css/syntyr.motion.css",
+      "content": "/* Deliberately separate from static effects; no selectors activate without opt-in classes. */\n@layer syn.effects {\n  @keyframes syn-reading-progress {\n    from { transform: scaleX(0); }\n    to { transform: scaleX(1); }\n  }\n  /* All UI selectors are bounded by a Syntyr root. */\n  :where(.syn-root, .syn-root *) {\n    /* Opt-in, decorative scroll progress. Unsupported engines and reduced motion hide it. */\n    &.syn-reading-progress { display: none; }\n    @media (prefers-reduced-motion: no-preference) {\n      @supports (animation-timeline: scroll(root block)) {\n        &.syn-reading-progress {\n          display: block;\n          position: fixed;\n          inset-block-start: 0;\n          inset-inline-start: 0;\n          inline-size: 100%;\n          block-size: .2rem;\n          background: var(--syn-accent);\n          pointer-events: none;\n          z-index: 50;\n          transform-origin: left center;\n          animation: syn-reading-progress linear both;\n          animation-timeline: scroll(root block);\n        }\n      }\n      /* Native top-layer entry/exit animation without a JavaScript animation engine. */\n      @supports (transition-behavior: allow-discrete) {\n        &.syn-popover.syn-popover--transition {\n          opacity: 0;\n          transform: translateY(-.4rem);\n          transition: opacity 180ms ease, transform 180ms ease, display 180ms, overlay 180ms;\n          transition-behavior: allow-discrete;\n        }\n        &.syn-popover.syn-popover--transition:popover-open {\n          opacity: 1;\n          transform: translateY(0);\n        }\n        /* A dialog animates only when the host opts in to the motion module\n           and the explicit transition class. Native focus and inertness stay intact. */\n        &.syn-dialog.syn-dialog--transition {\n          opacity: 0;\n          transform: translateY(.4rem);\n          transition: opacity 180ms ease, transform 180ms ease, display 180ms, overlay 180ms;\n          transition-behavior: allow-discrete;\n        }\n        &.syn-dialog.syn-dialog--transition[open] {\n          opacity: 1;\n          transform: translateY(0);\n        }\n        @starting-style {\n          &.syn-popover.syn-popover--transition:popover-open {\n            opacity: 0;\n            transform: translateY(-.4rem);\n          }\n          &.syn-dialog.syn-dialog--transition[open] {\n            opacity: 0;\n            transform: translateY(.4rem);\n          }\n        }\n      }\n    }\n  }\n}\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

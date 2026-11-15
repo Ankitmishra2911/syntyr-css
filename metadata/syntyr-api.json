@@ -822,6 +822,31 @@
       "description": "Syntyr CSS class (components/data.css)."
     },
     {
+      "name": "syn-step",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-step-detail",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-step-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-steps",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-steps--vertical",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-surface--accent",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."

@@ -103,3 +103,36 @@ state or retain fabricated customer endorsements in production.
 All new snippets, original CSS assets and documentation are MIT licensed.
 No premium Tailwind, commercial UI kit or third-party icon artwork has been
 copied into the public project. The separate private Console Kit is unaffected.
+
+## Experimental shadcn universal-item registry
+
+The source candidate can generate a **copy-owned, framework-independent**
+shadcn-compatible universal-item registry from the same 20 MIT blocks and
+checked-in CSS distributions. It neither replaces nor duplicates the native
+block installer from PR #104. Universal files use explicit project-relative
+targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.
+
+```sh
+python3 scripts/build.py --check
+python3 scripts/build_shadcn_registry.py       # generate registry/registry.json and registry/r/*
+python3 scripts/build_shadcn_registry.py --check
+# Optional, developer-only shadcn 4.23.0 integration smoke (requires npm):
+python3 tests/shadcn_registry_cli_smoke.py --package shadcn@4.23.0
+```
+
+Each `registry/r/<block-id>.json` contains the source HTML at
+`~/syntyr/blocks/<block-id>.html` and absolute same-origin registry dependencies for
+the required stylesheets at `~/syntyr/css/`. Each registry item also installs
+the original MIT `LICENSE` at `~/syntyr/LICENSE`. Install in an existing project
+only after reviewing the exact files, license and project configuration. For
+example, **after publishing the reviewed candidate site**, a shadcn CLI may
+consume `https://syntyr-css.pages.dev/registry/r/faq.json`. This is a
+candidate endpoint, not a claim that it is currently deployed. The independent
+local-mirror smoke verifies that CLI 4.23.0 can install both core-only and
+core-plus-recipes blocks without a consumer package.json or runtime dependencies.
+
+The generated index is intended for editor/agent inspection. The generator
+never reads private Console Kit assets or executes downloaded code. No dynamic
+service, telemetry, npm dependency, or customer license is introduced.
+Published alpha.4 assets remain immutable; registry payloads declare their
+source-candidate Syntyr version and must not be confused with a tagged release.

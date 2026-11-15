@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="075e3d33a5dbcfbe01be9b5aa3ee87f5a6d1f1567f0dce456999c3160590dd4a">
+  <meta name="syntyr-source-sha256" content="a210808cd900117be96e49e4073e2bb0deca2a0881e4e76ea53f0a2bac6a7f44">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -122,6 +122,11 @@ the surrounding label should provide additional activation area.</p>
 <td>Navigation</td>
 <td><code>.syn-breadcrumbs</code>, <code>.syn-pagination</code>, <code>.syn-page-link</code></td>
 <td>native <code>&lt;nav&gt;</code>, <code>&lt;ol&gt;</code>, links and <code>aria-current</code></td>
+</tr>
+<tr>
+<td>Workflow (unreleased)</td>
+<td><code>.syn-steps</code>, <code>.syn-step</code>, <code>.syn-steps--vertical</code></td>
+<td>ordered <code>&lt;ol&gt;</code> and <code>aria-current=&quot;step&quot;</code></td>
 </tr>
 <tr>
 <td>Loading</td>
@@ -348,6 +353,33 @@ Classless checkbox and radio labels align their controls inline when
 <p>System-aware <code>data-syn-theme=&quot;auto&quot;</code> is built into core CSS. Use optional
 <code>syntyr.print.css</code> for printable reports and the
 <a href="progressive-enhancement.html">progressive-enhancement guide</a> for fallbacks.</p>
+<h3 id="workflow-steps-source-candidate-only">Workflow steps (source candidate only)</h3>
+<p>Use the core CSS module with native ordered-list semantics. Wrap the list in a
+<code>.syn-region</code> <strong>ancestor</strong> for a horizontal layout at wide <em>container</em> widths;
+the narrow presentation is vertical. Use <code>.syn-steps--vertical</code> to keep a
+vertical layout at every width.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;h2&gt;Workspace setup&lt;/h2&gt;
+  &lt;ol class=&quot;syn-steps&quot; role=&quot;list&quot; aria-label=&quot;Workspace setup progress&quot;&gt;
+    &lt;li class=&quot;syn-step&quot; data-syn-state=&quot;complete&quot;&gt;
+      &lt;span class=&quot;syn-step-label&quot;&gt;Account created (complete)&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;syn-step&quot; aria-current=&quot;step&quot;&gt;
+      &lt;span class=&quot;syn-step-label&quot;&gt;Configure workspace (current step)&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;syn-step&quot;&gt;&lt;span class=&quot;syn-step-label&quot;&gt;Invite team (not started)&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Use <code>aria-current=&quot;step&quot;</code> on exactly the current step. The application must
+supply completed/error state text; <code>data-syn-state=&quot;complete|error&quot;</code> is only a
+presentation hook, not an ARIA state. Numbered circles and connectors are
+decorative; the real ordered list and labels convey order and meaning. Preserve
+<code>role=&quot;list&quot;</code> for list semantics in Safari when CSS removes list markers.
+Never use colors alone to communicate completion or failure. CSS cannot
+implement step navigation, eligibility checks or server-side transitions.</p>
+<p>See <a href="../examples/workflow-steps.html">the zero-JavaScript example</a>. These classes
+are not included in the published immutable alpha.4 release.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#loading-and-scoping">Loading and scoping</a>
@@ -365,6 +397,7 @@ Classless checkbox and radio labels align their controls inline when
 <a class="docs-article-toc-link docs-article-toc-2" href="#minimalist-compositions-experimental">Minimalist compositions (experimental)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#visual-role-examples">Visual role examples</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#progressive-rendering-extensions">Progressive rendering extensions</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#workflow-steps-source-candidate-only">Workflow steps (source candidate only)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="components.md">Markdown source</a></nav>
