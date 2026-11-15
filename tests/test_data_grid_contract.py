@@ -27,15 +27,12 @@ class DataGridContract(unittest.TestCase):
         self.assertIn("font-variant-numeric: tabular-nums", css)
         self.assertIn(".syn-data-grid__header-row", css)
 
-    def test_density_overrides_can_win_over_grid_defaults(self):
+    def test_density_overrides_have_distinct_inherited_scopes(self):
         css = (ROOT / "src/data-grid.css").read_text()
-        for density in ("compact", "spacious"):
-            with self.subTest(density=density):
-                self.assertIn(
-                    f'.syn-data-grid[data-syn-density="{density}"]).syn-data-grid',
-                    css,
-                    "Density must retain at least the base grid selector specificity",
-                )
+        for value in ("2rem", "2.5rem", "3rem"):
+            with self.subTest(value=value):
+                self.assertIn(f"--syn-grid-density-row-block: {value}", css)
+        self.assertIn("--syn-grid-row-block: var(--syn-grid-density-row-block, 2.5rem)", css)
 
     def test_keyboard_focus_is_distinct_from_selection_in_forced_colors(self):
         css = (ROOT / "src/data-grid.css").read_text()
@@ -57,6 +54,23 @@ class DataGridContract(unittest.TestCase):
             "## Source: docs/data-grid.md",
             (ROOT / "llms-full.txt").read_text(),
         )
+
+    def test_nearest_density_scope_wins_and_comfortable_resets(self):
+        css = (ROOT / "src/data-grid.css").read_text()
+        for density in ("compact", "comfortable", "spacious"):
+            with self.subTest(density=density):
+                self.assertIn(f'.syn-root [data-syn-density="{density}"]', css)
+        self.assertIn("--syn-grid-row-block: var(--syn-grid-density-row-block, 2.5rem)", css)
+        self.assertIn("--syn-grid-pad-inline: var(--syn-grid-density-pad-inline, .65rem)", css)
+        self.assertNotIn('.syn-root[data-syn-density="compact"] .syn-data-grid', css)
+
+    def test_text_clipping_uses_shrinkable_element_not_anonymous_flex_item(self):
+        css = (ROOT / "src/data-grid.css").read_text()
+        self.assertIn(".syn-data-grid__cell-text", css)
+        self.assertIn("flex: 0 1 auto", css)
+        self.assertIn("text-overflow: ellipsis", css)
+        self.assertIn('class="syn-data-grid__cell-text"', (ROOT / "examples/data-grid.html").read_text())
+        self.assertIn("syn-data-grid__cell-text", (ROOT / "docs/data-grid.md").read_text())
 
     def test_static_html_example_is_self_contained(self):
         example = (ROOT / "examples/data-grid.html").read_text()

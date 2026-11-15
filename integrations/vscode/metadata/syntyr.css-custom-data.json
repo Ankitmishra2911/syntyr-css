@@ -194,6 +194,14 @@
       "description": "Grid-line accent share; varies by scoped data-syn-intensity."
     },
     {
+      "name": "--syn-grid-density-pad-inline",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-density-row-block",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
       "name": "--syn-grid-edge",
       "description": "Syntyr CSS property (data-grid.css)."
     },

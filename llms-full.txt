@@ -448,7 +448,7 @@ The all-in-one demo bundle includes it. There is **no JavaScript** dependency.
            style="position:relative;height:2.5rem">
         <div role="gridcell" class="syn-data-grid__cell"
              style="width:14rem" tabindex="0" aria-readonly="true">
-          Face 102
+          <span class="syn-data-grid__cell-text">Face 102</span>
         </div>
       </div>
     </div>
@@ -465,6 +465,15 @@ The host supplies these classes on the appropriate existing elements:
 `syn-data-grid__cell--numeric`, `syn-data-grid__editor`,
 `syn-data-grid__toolbar`, `syn-data-grid__status`,
 `syn-data-grid__loading` and `syn-data-grid__footer`.
+
+For ellipsis on long text, wrap cell text in a
+`<span class="syn-data-grid__cell-text">`; ellipsis cannot reliably apply to
+anonymous flex items. Keep the wrapper shrinkable. Editors and other interactive
+controls remain application-owned and need their own layout/focus handling.
+
+Nearest density scope wins: `compact`, `comfortable` (including resets), or
+`spacious` on the grid itself or an ancestor. Match any virtualizer's row
+measurement to the resulting computed `--syn-grid-row-block`.
 
 The host also supplies true state through standard ARIA attributes
 (`aria-selected`, `aria-invalid`, `aria-readonly`) and exposes

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr styles the presentation of an existing data grid . It does not implement virtualization, sorting, query execution, clipboard parsing, selection…">
-  <meta name="syntyr-source-sha256" content="fc122a370fe2885cc3ce9d96954640af06e565beffbf3c32fcf6cab0cd5e80a5">
+  <meta name="syntyr-source-sha256" content="236d144154ab967552c6db1e2cfe986671504ce36298bc21dd8bc6c7e9ef1602">
   <meta name="theme-color" content="#f5f7fb">
   <title>Data-grid presentation (opt-in, CSS-only) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/data-grid">
@@ -60,7 +60,7 @@ The all-in-one demo bundle includes it. There is <strong>no JavaScript</strong> 
            style=&quot;position:relative;height:2.5rem&quot;&gt;
         &lt;div role=&quot;gridcell&quot; class=&quot;syn-data-grid__cell&quot;
              style=&quot;width:14rem&quot; tabindex=&quot;0&quot; aria-readonly=&quot;true&quot;&gt;
-          Face 102
+          &lt;span class=&quot;syn-data-grid__cell-text&quot;&gt;Face 102&lt;/span&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -75,6 +75,13 @@ The all-in-one demo bundle includes it. There is <strong>no JavaScript</strong> 
 <code>syn-data-grid__cell--numeric</code>, <code>syn-data-grid__editor</code>,
 <code>syn-data-grid__toolbar</code>, <code>syn-data-grid__status</code>,
 <code>syn-data-grid__loading</code> and <code>syn-data-grid__footer</code>.</p>
+<p>For ellipsis on long text, wrap cell text in a
+<code>&lt;span class=&quot;syn-data-grid__cell-text&quot;&gt;</code>; ellipsis cannot reliably apply to
+anonymous flex items. Keep the wrapper shrinkable. Editors and other interactive
+controls remain application-owned and need their own layout/focus handling.</p>
+<p>Nearest density scope wins: <code>compact</code>, <code>comfortable</code> (including resets), or
+<code>spacious</code> on the grid itself or an ancestor. Match any virtualizer's row
+measurement to the resulting computed <code>--syn-grid-row-block</code>.</p>
 <p>The host also supplies true state through standard ARIA attributes
 (<code>aria-selected</code>, <code>aria-invalid</code>, <code>aria-readonly</code>) and exposes
 <code>data-syn-dirty=&quot;true&quot;</code> and <code>data-syn-focused=&quot;true&quot;</code> when applicable.

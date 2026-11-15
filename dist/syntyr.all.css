@@ -1989,8 +1989,8 @@
 @layer syn.components {
   :where(.syn-root, .syn-root *) {
     &.syn-data-grid {
-      --syn-grid-row-block: 2.5rem;
-      --syn-grid-pad-inline: .65rem;
+      --syn-grid-row-block: var(--syn-grid-density-row-block, 2.5rem);
+      --syn-grid-pad-inline: var(--syn-grid-density-pad-inline, .65rem);
       --syn-grid-focus: var(--syn-focus-ring, var(--syn-accent));
       --syn-grid-hover: var(--syn-surface-raised, var(--syn-surface-hi));
       --syn-grid-selected: var(--syn-surface-pressed, var(--syn-accent-soft));
@@ -2007,17 +2007,22 @@
       font: var(--syn-type-sm)/1.4 var(--syn-font-ui);
     }
   }
-  :where(.syn-root[data-syn-density="compact"] .syn-data-grid,
-         .syn-root [data-syn-density="compact"] .syn-data-grid,
-         .syn-root .syn-data-grid[data-syn-density="compact"]).syn-data-grid {
-    --syn-grid-row-block: 2rem;
-    --syn-grid-pad-inline: .5rem;
+  /* Inherited density values follow the nearest scope, including comfortable resets.
+     The grid may supply its own data-syn-density; no ancestor selector wins over it. */
+  :where(.syn-root[data-syn-density="compact"],
+         .syn-root [data-syn-density="compact"]) {
+    --syn-grid-density-row-block: 2rem;
+    --syn-grid-density-pad-inline: .5rem;
   }
-  :where(.syn-root[data-syn-density="spacious"] .syn-data-grid,
-         .syn-root [data-syn-density="spacious"] .syn-data-grid,
-         .syn-root .syn-data-grid[data-syn-density="spacious"]).syn-data-grid {
-    --syn-grid-row-block: 3rem;
-    --syn-grid-pad-inline: .9rem;
+  :where(.syn-root[data-syn-density="comfortable"],
+         .syn-root [data-syn-density="comfortable"]) {
+    --syn-grid-density-row-block: 2.5rem;
+    --syn-grid-density-pad-inline: .65rem;
+  }
+  :where(.syn-root[data-syn-density="spacious"],
+         .syn-root [data-syn-density="spacious"]) {
+    --syn-grid-density-row-block: 3rem;
+    --syn-grid-density-pad-inline: .9rem;
   }
   :where(.syn-root .syn-data-grid__viewport) {
     min-inline-size: 0;
@@ -2087,10 +2092,17 @@
     min-block-size: var(--syn-grid-row-block);
     padding-inline: var(--syn-grid-pad-inline);
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--syn-text);
     outline: none;
+  }
+  /* Text inside a flex cell needs a real shrinkable container for ellipsis. */
+  :where(.syn-root .syn-data-grid__cell-text) {
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   :where(.syn-root .syn-data-grid__cell[aria-selected="true"]) {
     background: var(--syn-grid-selected);
