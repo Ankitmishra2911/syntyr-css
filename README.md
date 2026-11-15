@@ -30,6 +30,7 @@
 - [Architecture, API stability and low-entropy maintenance policy](ARCHITECTURE.md)
 - [Public API and prerelease stability policy](docs/api-stability.md)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
+- [Migrating from Pico.css: differences and practical steps](docs/from-pico.md)
 - [Optional CSS-only npm package (unpublished alpha.5 candidate)](docs/package-managers.md)
 - [Performance and design polish guide (no size gate)](docs/performance-and-polish.md)
 - [Progressive loading and critical CSS decision guide](docs/progressive-loading.md) and [zero-JS performance-first example](examples/performance-first.html)
@@ -57,6 +58,7 @@
 - [Seven-theme comparison gallery (unreleased)](examples/themes.html)
 - [Design-system states and typography example](examples/design-states.html): semantic tokens, accessible control states, nested themes and compact density
 - [Minimalist patterns demo (system palette, fluid type, intrinsic layouts and classless form)](examples/minimalist-patterns.html)
+- [Single-file, Pico-style semantic starter (unreleased alpha.5)](examples/semantic-starter.html)
 - [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
 - [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md) and [interactive geometry mixer](docs/playground.html#geometry-title)
@@ -88,7 +90,18 @@ Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](e
 </section>
 ```
 
-For semantic mode, add `syntyr.semantic.css` **after** core:
+For a **one-file Pico-style setup** in the unreleased alpha.5 source candidate, copy `dist/syntyr.semantic-bundle.css` and [open the live-source starter](examples/semantic-starter.html):
+
+```html
+<link rel="stylesheet" href="syntyr.semantic-bundle.css">
+<main class="syn-root syn-semantic" data-syn-theme="studio">
+  <article><h1>Project settings</h1><button type="button">Continue</button></article>
+</main>
+```
+
+This is intentionally scoped: the `syn-root syn-semantic` opt-in is still required, unlike Pico's global classless default. This new bundle is **not** present in the published alpha.4 release. It includes the core and semantic styles; do not also load those separate files alongside it.
+
+For a smaller two-file installation, add `syntyr.semantic.css` **after** core:
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
@@ -109,6 +122,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | --- | --- |
 | `dist/syntyr.core.css` | Tokens, scoped base, components (default choice) |
 | `dist/syntyr.semantic.css` | Optional semantic HTML styling (load after core) |
+| `dist/syntyr.semantic-bundle.css` | Core + semantic in one file; scoped opt-in, alpha.5 source only |
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
 | `dist/syntyr.motion.css` | Optional browser-native scroll progress and discrete popover transitions |
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |

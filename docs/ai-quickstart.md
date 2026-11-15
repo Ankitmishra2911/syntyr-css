@@ -24,6 +24,19 @@ For page-level recipes, load the same **version** of the optional module after c
 
 Do not combine `syntyr.all.css` with individual CSS modules; that loads duplicates. A stylesheet is not automatically installed by adding a `syn-*` class to markup.
 
+### One-file semantic HTML (unreleased source only)
+
+If testing alpha.5 from a local source checkout, `syntyr.semantic-bundle.css` includes both core and optional semantic rules. Do **not** point a production page at a nonexistent alpha.5 CDN release URL.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.semantic-bundle.css">
+<main class="syn-root syn-semantic" data-syn-theme="studio">
+  <article><h1>Settings</h1><button type="button">Save</button></article>
+</main>
+```
+
+Use `.syn-root` and `.syn-semantic` together; the bundle does not globally restyle arbitrary host HTML. Never load it alongside `core.css` or `semantic.css`, which would duplicate CSS. [Complete source demo](../examples/semantic-starter.html).
+
 ## 2. Generate valid HTML
 
 ```html
