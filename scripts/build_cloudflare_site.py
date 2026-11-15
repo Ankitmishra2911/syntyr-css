@@ -18,8 +18,10 @@ import tempfile
 
 if __package__:
     from .build import all_distributions
+    from .build_shadcn_registry import generate as universal_registry_files
 else:
     from build import all_distributions
+    from build_shadcn_registry import generate as universal_registry_files
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -161,6 +163,10 @@ HEADERS = """/*
   Cache-Control: public, max-age=0, must-revalidate
   Access-Control-Allow-Origin: *
 
+/registry/*
+  Cache-Control: public, max-age=0, must-revalidate
+  Access-Control-Allow-Origin: *
+
 /v/*
   Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
@@ -267,7 +273,7 @@ def source_files() -> dict[str, bytes]:
     public_examples = (
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
-        "operations-console.css", "operations-console.html", "pricing.html",
+        "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "saas.html", "saas-workflows.html", "crm.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
@@ -295,10 +301,19 @@ def source_files() -> dict[str, bytes]:
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
     paths.extend(ROOT / "dist" / name for name in public_css)
+    # Only known generated MIT universal-item JSON; never scan private products.
+    registry_expected = universal_registry_files()
+    paths.extend(ROOT / "registry" / name for name in registry_expected)
     for path in paths:
         if path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(ROOT):
             raise ValueError(f"Not a regular repo file: {path}")
-        files[path.relative_to(ROOT).as_posix()] = path.read_bytes()
+        data = path.read_bytes()
+        relative = path.relative_to(ROOT).as_posix()
+        if relative.startswith("registry/"):
+            expected = registry_expected.get(relative.removeprefix("registry/"))
+            if data != expected:
+                raise ValueError(f"Out-of-date generated registry item: {relative}")
+        files[relative] = data
 
     releases = ROOT / "site-releases"
     manifest = json.loads((releases / "manifest.json").read_text(encoding="utf-8"))

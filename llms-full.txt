@@ -190,6 +190,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
 | Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--nowrap`, `.syn-cell--numeric` | unclassed `table` |
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
+| Workflow (unreleased) | `.syn-steps`, `.syn-step`, `.syn-steps--vertical` | ordered `<ol>` and `aria-current="step"` |
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
 
@@ -371,6 +372,39 @@ The optional [design-state example](../examples/design-states.html) exercises ac
 System-aware `data-syn-theme="auto"` is built into core CSS. Use optional
 `syntyr.print.css` for printable reports and the
 [progressive-enhancement guide](progressive-enhancement.md) for fallbacks.
+
+### Workflow steps (source candidate only)
+
+Use the core CSS module with native ordered-list semantics. Wrap the list in a
+`.syn-region` **ancestor** for a horizontal layout at wide *container* widths;
+the narrow presentation is vertical. Use `.syn-steps--vertical` to keep a
+vertical layout at every width.
+
+```html
+<section class="syn-root syn-region" data-syn-theme="studio">
+  <h2>Workspace setup</h2>
+  <ol class="syn-steps" role="list" aria-label="Workspace setup progress">
+    <li class="syn-step" data-syn-state="complete">
+      <span class="syn-step-label">Account created (complete)</span>
+    </li>
+    <li class="syn-step" aria-current="step">
+      <span class="syn-step-label">Configure workspace (current step)</span>
+    </li>
+    <li class="syn-step"><span class="syn-step-label">Invite team (not started)</span></li>
+  </ol>
+</section>
+```
+
+Use `aria-current="step"` on exactly the current step. The application must
+supply completed/error state text; `data-syn-state="complete|error"` is only a
+presentation hook, not an ARIA state. Numbered circles and connectors are
+decorative; the real ordered list and labels convey order and meaning. Preserve
+`role="list"` for list semantics in Safari when CSS removes list markers.
+Never use colors alone to communicate completion or failure. CSS cannot
+implement step navigation, eligibility checks or server-side transitions.
+
+See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
+are not included in the published immutable alpha.4 release.
 
 ---
 

@@ -662,6 +662,26 @@
           "description": "Syntyr CSS class (components/data.css)."
         },
         {
+          "name": "syn-step",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-step-detail",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-step-label",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-steps",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-steps--vertical",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
           "name": "syn-surface--accent",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -1007,10 +1027,16 @@
           "name": "active"
         },
         {
+          "name": "complete"
+        },
+        {
           "name": "degraded"
         },
         {
           "name": "down"
+        },
+        {
+          "name": "error"
         },
         {
           "name": "healthy"

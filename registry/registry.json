@@ -1,0 +1,617 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "syntyr",
+  "homepage": "https://github.com/dporkka/syntyr-css",
+  "items": [
+    {
+      "name": "core",
+      "type": "registry:item",
+      "title": "Syntyr core CSS",
+      "description": "MIT Syntyr core stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.core.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.core.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "recipes",
+      "type": "registry:item",
+      "title": "Syntyr recipes CSS",
+      "description": "MIT Syntyr recipes stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.recipes.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.recipes.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "geometry",
+      "type": "registry:item",
+      "title": "Syntyr geometry CSS",
+      "description": "MIT Syntyr geometry stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.geometry.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.geometry.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "symbols",
+      "type": "registry:item",
+      "title": "Syntyr symbols CSS",
+      "description": "MIT Syntyr symbols stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.symbols.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.symbols.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "viz",
+      "type": "registry:item",
+      "title": "Syntyr viz CSS",
+      "description": "MIT Syntyr viz stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.viz.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.viz.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "motion",
+      "type": "registry:item",
+      "title": "Syntyr motion CSS",
+      "description": "MIT Syntyr motion stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.motion.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.motion.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "effects",
+      "type": "registry:item",
+      "title": "Syntyr effects CSS",
+      "description": "MIT Syntyr effects stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.effects.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.effects.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "utilities",
+      "type": "registry:item",
+      "title": "Syntyr utilities CSS",
+      "description": "MIT Syntyr utilities stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.utilities.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.utilities.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "hero-product",
+      "type": "registry:item",
+      "title": "Product launch hero",
+      "description": "A concise product introduction with real calls to action.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/hero-product.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/hero-product.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "hero-security",
+      "type": "registry:item",
+      "title": "Security-first hero",
+      "description": "A restrained security product hero with an explicit trust message.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/hero-security.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/hero-security.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "feature-grid",
+      "type": "registry:item",
+      "title": "Three-feature grid",
+      "description": "Responsive feature cards based on a fluid CSS grid.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/feature-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/feature-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "feature-checklist",
+      "type": "registry:item",
+      "title": "Benefits checklist",
+      "description": "A short benefits section with native list semantics.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/feature-checklist.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/feature-checklist.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "pricing-trio",
+      "type": "registry:item",
+      "title": "Three-tier pricing",
+      "description": "Three responsive pricing cards with a featured plan.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/pricing-trio.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/pricing-trio.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "testimonial",
+      "type": "registry:item",
+      "title": "Customer testimonial",
+      "description": "Readable social proof with explicit quotation attribution.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/testimonial.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/testimonial.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "faq",
+      "type": "registry:item",
+      "title": "Frequently asked questions",
+      "description": "Keyboard-accessible native disclosures without a script.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/faq.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/faq.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "cta-band",
+      "type": "registry:item",
+      "title": "Call-to-action band",
+      "description": "A compact conversion section with clear hierarchy.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/cta-band.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/cta-band.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "metric-overview",
+      "type": "registry:item",
+      "title": "KPI overview",
+      "description": "Container-aware operational metrics with text labels.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/metric-overview.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/metric-overview.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "activity-feed",
+      "type": "registry:item",
+      "title": "Recent activity",
+      "description": "A compact activity feed in a reusable application card.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/activity-feed.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/activity-feed.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:item",
+      "title": "Records table",
+      "description": "Semantic, scrollable table with caption and column scopes.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/data-table.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/data-table.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "filter-toolbar",
+      "type": "registry:item",
+      "title": "Search and filter form",
+      "description": "Server-ready GET filters that preserve native form semantics.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/filter-toolbar.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/filter-toolbar.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "settings-form",
+      "type": "registry:item",
+      "title": "Account settings",
+      "description": "Labeled settings form for server-backed applications.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/settings-form.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/settings-form.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "team-directory",
+      "type": "registry:item",
+      "title": "Team directory",
+      "description": "Simple list of people and roles with descriptive content.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/team-directory.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/team-directory.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "billing-summary",
+      "type": "registry:item",
+      "title": "Billing summary",
+      "description": "A compact, readable subscription overview.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/billing-summary.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/billing-summary.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "onboarding-steps",
+      "type": "registry:item",
+      "title": "Onboarding checklist",
+      "description": "A short onboarding progression conveyed without color-only state.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/onboarding-steps.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/onboarding-steps.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "terminal-session",
+      "type": "registry:item",
+      "title": "Terminal output",
+      "description": "A static terminal presentation, not an interactive shell.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/terminal-session.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/terminal-session.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "incident-notice",
+      "type": "registry:item",
+      "title": "Service incident notice",
+      "description": "Status notice with actionable text and honest semantics.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/incident-notice.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/incident-notice.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "telemetry-status",
+      "type": "registry:item",
+      "title": "Telemetry panel",
+      "description": "Readable service status with native progress indicators.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/telemetry-status.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/telemetry-status.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "release-notes",
+      "type": "registry:item",
+      "title": "Release notes",
+      "description": "Compact changelog entry with a machine-readable date.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/release-notes.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/release-notes.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    }
+  ]
+}
