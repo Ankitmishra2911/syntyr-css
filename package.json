@@ -21,7 +21,18 @@
     "./print.css": "./dist/syntyr.print.css",
     "./syntyr.css": "./dist/syntyr.css",
     "./all.css": "./dist/syntyr.all.css",
-    "./viz.css": "./dist/syntyr.viz.css"
+    "./viz.css": "./dist/syntyr.viz.css",
+    "./components/tokens.css": "./dist/components/tokens.css",
+    "./components/base.css": "./dist/components/base.css",
+    "./components/layout.css": "./dist/components/layout.css",
+    "./components/typography.css": "./dist/components/typography.css",
+    "./components/buttons.css": "./dist/components/buttons.css",
+    "./components/forms.css": "./dist/components/forms.css",
+    "./components/form-composition.css": "./dist/components/form-composition.css",
+    "./components/overlays.css": "./dist/components/overlays.css",
+    "./components/data.css": "./dist/components/data.css",
+    "./components/patterns.css": "./dist/components/patterns.css",
+    "./native-recipes.css": "./dist/syntyr.native-recipes.css"
   },
   "sideEffects": [
     "**/*.css"

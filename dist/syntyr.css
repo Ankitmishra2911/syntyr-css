@@ -496,6 +496,39 @@
     &.syn-details[open] summary { color: var(--syn-accent); }
     &.syn-details p { color: var(--syn-muted); margin: .6rem 0 0; }
     @media (forced-colors: active) { &.syn-popover, &.syn-dialog, &.syn-details { border-color: CanvasText; } }
+
+    /* Native popovertarget supplies an implicit anchor in supporting browsers. */
+    @supports (position-area: block-end) {
+      &.syn-popover--anchored {
+        position-area: block-end span-inline-end;
+        position-try-fallbacks: flip-block, flip-inline;
+        inset: auto;
+        margin: .5rem 0;
+        max-inline-size: calc(100vw - 2rem);
+      }
+    }
+    /* Transitions are enhancement only; native focus, inertness and Esc
+       are managed by the browser with or without animation support. */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (transition-behavior: allow-discrete) {
+        &.syn-dialog, &.syn-popover {
+          opacity: 0;
+          transform: translateY(.4rem);
+          transition: opacity 180ms ease, transform 180ms ease,
+                      display 180ms allow-discrete, overlay 180ms allow-discrete;
+        }
+        &.syn-dialog[open], &.syn-popover:popover-open {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        @starting-style {
+          &.syn-dialog[open], &.syn-popover:popover-open {
+            opacity: 0;
+            transform: translateY(.4rem);
+          }
+        }
+      }
+    }
   }
 }
 @layer syn.components {

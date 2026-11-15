@@ -187,6 +187,11 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-code-figure",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
+    },
+    {
       "name": "syn-cta-band",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -247,6 +252,11 @@
       "description": "Syntyr CSS class (components/form-composition.css)."
     },
     {
+      "name": "syn-field--floating",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
+    },
+    {
       "name": "syn-field-body",
       "module": "components/form-composition.css",
       "description": "Syntyr CSS class (components/form-composition.css)."
@@ -260,6 +270,11 @@
       "name": "syn-fieldset",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-floating-label",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
     },
     {
       "name": "syn-fluid-display",
@@ -468,6 +483,11 @@
     },
     {
       "name": "syn-popover",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css)."
+    },
+    {
+      "name": "syn-popover--anchored",
       "module": "components/overlays.css",
       "description": "Syntyr CSS class (components/overlays.css)."
     },
@@ -765,6 +785,11 @@
       "name": "syn-textarea",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-timeline",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
     },
     {
       "name": "syn-title",

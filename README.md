@@ -23,6 +23,7 @@
 - [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md)
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
+- [Per-component CSS imports and native HTML patterns](docs/native-patterns.md), [static demo](examples/native-recipes.html)
 - [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)
 - [Tagged GitHub releases](https://github.com/dporkka/syntyr-css/releases)
@@ -101,12 +102,14 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | File | Description |
 | --- | --- |
 | `dist/syntyr.core.css` | Tokens, scoped base, components (default choice) |
+| `dist/components/*.css` | Individually importable tokens, base and component stylesheets |
 | `dist/syntyr.semantic.css` | Optional semantic HTML styling (load after core) |
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
 | `dist/syntyr.viz.css` | Optional theme-aware data visualization styles, no chart renderer or JS |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
+| `dist/syntyr.native-recipes.css` | Optional floating labels, timelines and captioned code |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |
 | `dist/syntyr.print.css` | Optional printer-friendly reports and business documents |
 | `terminal/palettes.json` | Color palettes for native ANSI terminal applications (not CSS) |

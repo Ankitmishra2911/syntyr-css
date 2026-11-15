@@ -240,3 +240,5 @@ Exact-branch developer-only verification:
 The remaining release gates are genuine browser 200%/400% zoom, screen readers,
 native high-contrast inspection, and manual resolution of incomplete axe
 targets. Do not present these findings as WCAG conformance certification.
+
+Optional native recipe smoke test: run `node tests/native_recipes_browser.js` with developer-installed Playwright and its browser engines. It exercises form label state, popover escape/dismissal, modal commands where supported, reduced-motion transitions, and narrow viewport reflow. No Playwright package is shipped to consumers.

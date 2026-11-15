@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import unittest
 
-from scripts.build import distributions
+from scripts.build import distributions, component_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -30,6 +30,7 @@ class NpmDistributionContract(unittest.TestCase):
             ('./syntyr.css' if name == 'syntyr.css' else './' + name.removeprefix('syntyr.')): './dist/' + name
             for name in distributions()
         }
+        expected.update({'./' + name: './dist/' + name for name in component_distributions()})
         self.assertEqual({key: value for key, value in self.package['exports'].items() if key != '.'}, expected)
         for relative in expected.values():
             with self.subTest(relative=relative):

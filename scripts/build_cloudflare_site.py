@@ -13,9 +13,9 @@ import sys
 import tempfile
 
 if __package__:
-    from .build import distributions
+    from .build import all_distributions
 else:
-    from build import distributions
+    from build import all_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -78,7 +78,7 @@ def source_files() -> dict[str, bytes]:
         "ai-quickstart.md", "agent-integration.md",
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
         "console-kit.html", "component-recipes.md", "design-research-linear-resend.md",
-        "distribution.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
+        "distribution.md", "native-patterns.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
         "geometry-terminal.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
         "performance-validation.md", "progressive-enhancement.md",
         "index.html", "playground.html", "playground.css", "playground.js",
@@ -89,7 +89,7 @@ def source_files() -> dict[str, bytes]:
     )
     public_examples = (
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html",
-        "minimalist-patterns.html", "design-states.html", "native-elements.html",
+        "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
@@ -97,7 +97,7 @@ def source_files() -> dict[str, bytes]:
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.
-    public_css = tuple(distributions())
+    public_css = tuple(all_distributions())
     paths.extend(ROOT / "docs" / name for name in public_docs)
     # Only approved raster captures from the privately authored Console Kit.
     # Never publish premium HTML, CSS, build output, or other private assets.

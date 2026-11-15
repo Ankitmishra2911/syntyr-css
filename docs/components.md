@@ -86,6 +86,9 @@ or use the [editor integration instructions](editor-integration.md).
 
 Use native button `popovertarget="id"` to control a popover and `commandfor="id" command="show-modal"` to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.
 
+For component-level package imports and optional native UI recipes, see
+[native patterns](native-patterns.md).
+
 ## Neutral-first visual styling
 
 The implicit `.syn-root` palette is Studio (light and sans-serif). Explicit `data-syn-theme="grid"` and `data-syn-theme="terminal"` retain technical monospace presentation; other themes remain opt-in. `.syn-panel` and `.syn-stage` are flat by default; add `syn-surface--accent` from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. `.syn-badge` is a neutral label; use `.syn-status` with readable status text for meaningful state, or `.syn-badge--accent` to emphasize a badge.

@@ -1,0 +1,177 @@
+# Native platform patterns and component imports
+
+This prerelease Syntyr example uses original CSS, not upstream Blades source.
+All patterns retain native HTML semantics and need **no runtime JavaScript**.
+For a live static preview, see [the native recipe example](../examples/native-recipes.html).
+
+## Individually importable CSS
+
+Use the following **source-tree alpha.5 candidate** entrypoints after this PR
+is merged and released; they are not available in the published alpha.4 package:
+
+~~~css
+@import "@syntyr/css/components/tokens.css";
+@import "@syntyr/css/components/base.css";
+@import "@syntyr/css/components/buttons.css";
+@import "@syntyr/css/components/forms.css";
+@import "@syntyr/css/components/form-composition.css";
+@import "@syntyr/css/components/overlays.css";
+@import "@syntyr/css/native-recipes.css";
+~~~
+
+Every component CSS file is directly generated from its original source, using
+the same order and cascade layers as core. Tokens, then base, then components,
+then optional recipes is the supported loading order. Form-composition requires
+forms. Do **not** load core and component entrypoints together, or styles will be
+duplicated. Runtime CSS dependencies, imports and JavaScript are not included in
+these distributables. In plain HTML, link the equivalent checked-in files under
+the dist directory. Use version-pinned self-hosted assets in production.
+
+If no selective loading is needed, use core plus the optional recipe sheet:
+
+~~~html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.native-recipes.css">
+~~~
+
+## Native anchored popovers and modal commands
+
+~~~html
+<button type="button" class="syn-button" popovertarget="actions">Actions</button>
+<div id="actions" popover class="syn-popover syn-popover--anchored">
+  <a href="/settings">Settings</a>
+</div>
+<button type="button" class="syn-button" commandfor="report" command="show-modal">Report</button>
+<dialog id="report" class="syn-dialog" aria-labelledby="report-title">
+  <h2 id="report-title">Report</h2>
+  <form method="dialog"><button type="submit">Close</button></form>
+</dialog>
+~~~
+
+Native popover invokers provide an implicit CSS anchor in supporting browsers.
+The anchored variant uses position-area plus block/inline flip candidates; in
+other browsers it falls back to Syntyr's existing fixed corner positioning.
+For vital actions, links remain real links. Modal invoker commands are not
+universally available in older browsers, so provide a navigable fallback for
+critical content or use a small explicit progressive enhancement in the host.
+Transition support is optional and disabled by reduced-motion preferences.
+Native browsers own focus management, Escape and dialog inertness; the stylesheet
+does not implement a custom ARIA menu.
+
+## Floating labels
+
+~~~html
+<div class="syn-field syn-field--floating">
+  <input id="name" name="name" class="syn-input" placeholder=" " required>
+  <label for="name" class="syn-floating-label">Full name</label>
+</div>
+~~~
+
+Keep a persistent programmatic label with for/id. The one-space placeholder
+is a deliberate :placeholder-shown state hook, **not** the accessible label.
+Use only for text-like controls that implement placeholder-shown. Avoid for
+date, color, select, checkbox, radio and unsupported types. Validate contrast
+and long translated labels in the actual application.
+
+## Semantic timelines and captioned code
+
+~~~html
+<ol class="syn-timeline">
+  <li><time datetime="2026-11-15">15 November</time>Published</li>
+</ol>
+
+<figure class="syn-code-figure">
+  <figcaption id="example-caption">example.go</figcaption>
+  <pre tabindex="0" aria-labelledby="example-caption"><code>package main</code></pre>
+</figure>
+~~~
+
+An ordered list communicates sequence; date/time labels are optional.
+The figure gives code an authentic, accessible caption, and the focusable pre
+supports keyboard scrolling of wide code samples.
+
+## Server-rendering and framework use
+
+- **Go templates and templ:** Emit the same native HTML; escape dynamic label,
+  body and code text with the renderer and ensure stable unique id/for pairs.
+- **Rust Askama:** Render this markup in a regular Askama template. Escape
+  dynamic content; let forms submit to real routes.
+- **Astro:** Import selected CSS files through its CSS pipeline, render standard
+  HTML, and use Astro islands only for behaviors that require application state.
+- **HTMX:** Keep popovertarget and commandfor on native controls; for actions
+  that mutate data, use real forms/links and HTMX only as progressive enhancement.
+
+### Go html/template
+
+~~~html
+<form class="syn-root" data-syn-theme="studio" action="/profile" method="post">
+  <div class="syn-field syn-field--floating">
+    <input class="syn-input" id="profile-email" name="email"
+           type="email" value="{{ .Email }}" placeholder=" " required>
+    <label class="syn-floating-label" for="profile-email">Email address</label>
+  </div>
+  <button class="syn-button" type="submit">Save</button>
+</form>
+~~~
+
+The standard Go html/template engine escapes the Email value by context.
+
+### Rust Askama
+
+~~~html
+<form class="syn-root" data-syn-theme="studio" action="/profile" method="post">
+  <div class="syn-field syn-field--floating">
+    <input class="syn-input" id="profile-email" name="email"
+           type="email" value="{{ email }}" placeholder=" " required>
+    <label class="syn-floating-label" for="profile-email">Email address</label>
+  </div>
+  <button class="syn-button" type="submit">Save</button>
+</form>
+~~~
+
+Use Askama's HTML autoescaping, unique IDs when rendering multiple forms, and
+normal server-side validation.
+
+### Astro
+
+~~~astro
+---
+import "@syntyr/css/components/tokens.css";
+import "@syntyr/css/components/base.css";
+import "@syntyr/css/components/buttons.css";
+import "@syntyr/css/components/forms.css";
+import "@syntyr/css/native-recipes.css";
+---
+<form class="syn-root" data-syn-theme="studio" action="/profile" method="post">
+  <div class="syn-root syn-field syn-field--floating">
+    <input class="syn-input" id="astro-email" name="email"
+           type="email" placeholder=" " required />
+    <label class="syn-floating-label" for="astro-email">Email address</label>
+  </div>
+  <button class="syn-button" type="submit">Save</button>
+</form>
+~~~
+
+In a real Astro page place the syn-root scope around the entire page region,
+as in this form. Package imports
+are source candidate features until a corresponding npm release is published.
+
+### HTMX (optional enhancement)
+
+~~~html
+<form class="syn-root" data-syn-theme="studio" action="/profile" method="post"
+      hx-post="/profile" hx-target="#profile-result" hx-swap="outerHTML">
+  <label for="profile-email">Email address</label>
+  <input class="syn-input" id="profile-email" name="email" type="email" required>
+  <button class="syn-button" type="submit">Save</button>
+</form>
+<p id="profile-result" role="status" aria-live="polite"></p>
+~~~
+
+The action/method pair remains functional without HTMX. Host applications must
+provide their own HTMX script and server response semantics.
+
+This guide intentionally avoids wrappers and framework-specific JavaScript.
+Refer to [framework integrations](framework-integrations.md) and the
+[progressive enhancement guide](progressive-enhancement.md) for host behavior
+and fallbacks.
