@@ -416,6 +416,10 @@
   .syn-semantic :where(:is(input[type="range"]:not([class]), input[type="range"][data-syn-semantic])) { width: 100%; }
   .syn-semantic :where(:is(input:not([class]), input[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic]))::placeholder { color: var(--syn-muted); opacity: 1; }
   .syn-semantic :where(:is(input[type="checkbox"]:not([class]), input[type="checkbox"][data-syn-semantic]), :is(input[type="radio"]:not([class]), input[type="radio"][data-syn-semantic]), :is(input[type="range"]:not([class]), input[type="range"][data-syn-semantic])) { accent-color: var(--syn-accent); }
+  /* WCAG 2.2 AA target-size minimum; native controls remain keyboard-operable. */
+  .syn-semantic :where(:is(input[type="checkbox"]:not([class]), input[type="checkbox"][data-syn-semantic]), :is(input[type="radio"]:not([class]), input[type="radio"][data-syn-semantic])) {
+    min-inline-size: 1.5rem; min-block-size: 1.5rem; flex-shrink: 0; margin: 0;
+  }
   .syn-semantic :where(:is(label:not([class]), label[data-syn-semantic])) { display: grid; gap: .35rem; font-weight: 600; font-size: .9rem; }
   /* Native checkbox/radio labels stay inline, even when HTMX adds classes. */
   .syn-semantic :where(label:not([class]):has(> input[type="checkbox"], > input[type="radio"]), label[data-syn-semantic]:has(> input[type="checkbox"], > input[type="radio"])) { display: flex; align-items: center; gap: .65rem; cursor: pointer; }
@@ -430,7 +434,6 @@
   .syn-semantic :where(:is(blockquote:not([class]), blockquote[data-syn-semantic])) { margin-inline: 0; padding: .5rem 1rem; border-inline-start: 2px solid var(--syn-accent); color: var(--syn-muted); }
   .syn-semantic :where(:is(hr:not([class]), hr[data-syn-semantic])) { border: 0; border-top: 1px solid var(--syn-frame); }
   .syn-semantic :where(:is(code:not([class]), code[data-syn-semantic])) { font-family: var(--syn-mono); color: var(--syn-accent); }
->>>>>>> eae0d12 (feat: add minimalist CSS composition and system palette patterns)
   @media (forced-colors: active) {
     .syn-semantic :where(:is(button:not([class]), button[data-syn-semantic]), :is(input:not([class]), input[data-syn-semantic]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic]), :is(article:not([class]), article[data-syn-semantic]), :is(fieldset:not([class]), fieldset[data-syn-semantic])) { border-color: CanvasText; }
   }

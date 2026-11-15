@@ -59,6 +59,22 @@ class MinimalistPatternsContract(unittest.TestCase):
         self.assertIn('align-items: center;', css)
         self.assertIn('display: flex;', css)
 
+    def test_source_and_dist_have_no_merge_conflict_markers(self):
+        source_files = list((ROOT / "src").rglob("*.css"))
+        source_files += list((ROOT / "dist").glob("*.css"))
+        for path in source_files:
+            with self.subTest(path=path):
+                css = path.read_text()
+                for marker in ("<<<<<<<", "|||||||", "=======", ">>>>>>>"):
+                    self.assertNotIn(marker, css)
+
+    def test_semantic_choice_controls_have_24px_hit_targets(self):
+        css = (ROOT / "src/semantic.css").read_text()
+        self.assertIn("min-inline-size: 1.5rem;", css)
+        self.assertIn("min-block-size: 1.5rem;", css)
+        self.assertIn('input[type="checkbox"][data-syn-semantic]', css)
+        self.assertIn('input[type="radio"][data-syn-semantic]', css)
+
     def test_real_html_example_uses_opt_in_css_and_accessible_controls(self):
         html = (ROOT / "examples/minimalist-patterns.html").read_text()
         for fragment in (

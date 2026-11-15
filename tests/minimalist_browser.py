@@ -33,6 +33,11 @@ def assert_minimalist(browser, engine):
                 "(node) => getComputedStyle(node).display")
             assert checkbox_label == "flex" and text_label == "grid", (engine, checkbox_label, text_label)
 
+            for choice in page.locator('input[type="checkbox"], input[type="radio"]').all():
+                target = choice.bounding_box()
+                assert target["width"] >= 24 and target["height"] >= 24, (
+                    engine, "WCAG 2.2 target size", target)
+
             heading_size = page.locator(".syn-fluid-display").evaluate(
                 "(node) => parseFloat(getComputedStyle(node).fontSize)")
             assert 32 <= heading_size <= 68, (engine, heading_size)
