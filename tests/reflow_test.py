@@ -23,7 +23,7 @@ PAGES = (
     "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-    "examples/vertigo-admin.html", "examples/saas-workflows.html",
+    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html",
 )
 
 

@@ -2,6 +2,8 @@
 
 # Syntyr CSS v0.3.0-alpha.4 — release verification
 
+> Historical record. Size targets listed below applied to that release candidate; they are no longer enforced in the current source. Current raw/gzip diagnostics: `python3 scripts/asset_report.py`.
+
 **Checked November 14, 2026.** Integrated candidate: `integrate/reflow-alpha2`,
 including Studio/CLI/business layouts from `main` and the narrow-text reflow
 fix from `4e6e8bc`. This report describes executed checks; it does not

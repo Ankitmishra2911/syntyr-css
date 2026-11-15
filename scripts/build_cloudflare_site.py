@@ -62,7 +62,9 @@ def source_files() -> dict[str, bytes]:
     # Explicit per-file allowlist: new repo files are private until reviewed.
     public_docs = (
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
-        "console-kit.html", "design-research-linear-resend.md", "distribution.md", "docs.css", "geometry-terminal.md",
+        "console-kit.html", "design-research-linear-resend.md",
+        "distribution.md", "docs.css", "framework-integrations.md",
+        "geometry-terminal.md", "performance-and-polish.md",
         "performance-validation.md",
         "index.html", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
@@ -71,6 +73,7 @@ def source_files() -> dict[str, bytes]:
     )
     public_examples = (
         "business.html", "console.html", "geometry-terminal.html", "landing.html",
+        "minimalist-patterns.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html",

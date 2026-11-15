@@ -25,10 +25,13 @@ class Alpha5Integration(unittest.TestCase):
         self.assertNotIn("utilities.css", definitions["syntyr.core.css"])
         self.assertNotIn("geometry.css", definitions["syntyr.core.css"])
 
-    def test_core_and_optional_artifacts_are_nonempty(self):
+    def test_transfer_sizes_are_measured_without_hard_ceiling(self):
+        from scripts.asset_report import measure_distributions
+        measured = measure_distributions(ROOT / "dist")
         for suffix in (".core", "", ".all"):
-            with self.subTest(suffix=suffix):
-                self.assertGreater((ROOT / "dist" / f"syntyr{suffix}.css").stat().st_size, 0)
+            filename = f"syntyr{suffix}.css"
+            self.assertGreater(measured[filename]["gzip_bytes"], 0)
+            self.assertGreater(measured[filename]["raw_bytes"], measured[filename]["gzip_bytes"])
 
     def test_all_demos_are_covered_once_by_all_browser_suites(self):
         pages = ("themes.html", "geometry-terminal.html", "operations-console.html")

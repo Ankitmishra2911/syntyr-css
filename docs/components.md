@@ -13,7 +13,7 @@ For the explicitly classed API (no automatic unclassed element styles):
 </body>
 ```
 
-For Pico-like semantic markup, add the optional file **after** core and mark the subtree:
+For Pico-like semantic markup, add the optional file **after** core and mark the subtree. Unclassed elements style automatically; opt in class-changing elements with `data-syn-semantic`:
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
@@ -21,7 +21,7 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
 <section class="syn-semantic">
   <article>
     <label for="id">Operator <input id="id" name="id" required></label>
-    <button>Continue</button>
+    <button data-syn-semantic>Continue</button>
   </article>
 </section>
 ```
@@ -72,7 +72,7 @@ Application CSS can override tokens:
 - Contrast target: WCAG 2.2 AA for text; manually verify any customized tokens.
 - Honor user preferences: `prefers-reduced-motion`, `forced-colors`; effects opt-in and static.
 - Avoid relying on color alone for state; use labels or icons with text alternatives.
-- Raw/gzip CSS sizes are diagnostic, not enforced budgets; runtime JS: 0 bytes.
+- Raw/gzip bundle sizes are reported by `python3 scripts/asset_report.py`, with no hard size ceilings; runtime JS: 0 bytes.
 - Browser coverage: current Chromium, Firefox and WebKit. The included automated browser suite runs Chromium when installed and can be extended to other engines.
 - Do not automatically treat the demo or contract tests as an accessibility certification: test screen readers, 200%/400% zoom, form errors, contrast, and actual products separately.
 
@@ -135,7 +135,7 @@ See [theme customization and token overrides](theme-customization.md), [MIT comp
 
 ## Optional SaaS, business and CLI compositions (development branch)
 
-Load `syntyr.core.css` first and `syntyr.recipes.css` second. Recipes remain optional and separate from the core.
+Load `syntyr.core.css` first and `syntyr.recipes.css` second. The core remains separate from optional recipes; measure each bundle instead of enforcing a fixed byte cap.
 
 | Context | Optional classes |
 | --- | --- |
@@ -149,3 +149,14 @@ Native disabled buttons cannot activate; aria-disabled does not block activation
 Professional light mode: `data-syn-theme="studio"`. Colors and geometry are intentionally independent. Use `.syn-table-emphasis` for explicit cell highlighting instead of relying on last-column position; `.syn-status--success`, `--warning`, or `--danger` should always accompany readable status text.
 
 Native terminal applications cannot render CSS. Use `terminal/palettes.json` as the portable color reference. See [usage and accessibility guidance](saas-cli-business.md). For bevel, notch, bracket, inset and circuit frame geometry, load the optional geometry stylesheet and follow [the frame guide](geometry-terminal.md). All new visual classes are optional and require no runtime JavaScript.
+
+
+## Minimalist compositions (experimental)
+
+`syntyr.recipes.css` also includes `.syn-sidebar` (two-column intrinsic
+sidebar/content), `.syn-switcher` (all-or-nothing responsive card row),
+fluid typography utilities `.syn-fluid-display` / `.syn-fluid-lede`,
+and `.syn-reading`. These are not part of `syntyr.core.css`.
+Classless checkbox and radio labels align their controls inline when
+`syntyr.semantic.css` and `.syn-semantic` are enabled. See
+[the recipe guide](recipes.md) and [live example](../examples/minimalist-patterns.html).

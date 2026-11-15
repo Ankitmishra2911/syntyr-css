@@ -54,9 +54,10 @@ class ThemeEditorContract(unittest.TestCase):
         # A user-supplied primary color must not retain the original palette's hover tint.
         # Every shipped theme must provide a tint derived from its active accent.
         themes = set(re.findall(r'data-syn-theme="([^"]+)"', tokens))
+        named_themes = themes - {"auto"}  # auto derives its tint through light-dark()
         self.assertEqual(
             tokens.count('--syn-accent-soft: color-mix(in srgb, var(--syn-accent)'),
-            len(themes),
+            len(named_themes),
         )
         self.assertGreaterEqual(len(themes), 7)
         self.assertNotIn('--syn-accent-soft: rgb(', tokens)

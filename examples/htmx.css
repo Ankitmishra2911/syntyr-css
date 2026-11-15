@@ -1,0 +1,12 @@
+/* Demo-only HTMX loading indicator; external CSS also works with strict style-src CSP.
+   This is application CSS, not part of the Syntyr core or semantic bundles. */
+.htmx-indicator { display: none; }
+.htmx-request .htmx-indicator,
+.htmx-request.htmx-indicator { display: inline; }
+
+@media (prefers-reduced-motion: reduce) {
+  .htmx-indicator { transition: none; }
+}
+
+#results { padding-block: 1rem; }
+#results > .syn-stack { max-width: 65rem; }

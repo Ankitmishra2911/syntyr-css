@@ -18,7 +18,8 @@ icons, Sass compiler or CSS framework is required to use the distributed CSS.
 
 The stylesheet's path is *your* path; mount or copy the file there.
 The above works with Go templates, plain HTML, Astro, HTMX, React and other
-renderers. Add `syn-page` to the root only if you want full-page min-height.
+renderers. See [the framework integration guide](framework-integrations.md) for
+HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
 ## Optional themes and semantic HTML
 

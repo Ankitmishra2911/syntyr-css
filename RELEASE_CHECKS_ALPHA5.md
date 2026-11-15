@@ -1,4 +1,4 @@
-> Historical prerelease measurements only: the listed size targets are no longer enforced.
+> Historical release-readiness record: the 5 KiB/8 KiB thresholds listed below were used for these measurements, but are no longer enforced. See `docs/performance-and-polish.md`.
 
 # SYNTYR v0.3.0-alpha.5 — integrated release candidate
 

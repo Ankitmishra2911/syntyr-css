@@ -21,6 +21,9 @@
 - [Architecture, API stability and low-entropy maintenance policy](ARCHITECTURE.md)
 - [Public API and prerelease stability policy](docs/api-stability.md)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
+- [Performance and design polish guide (no size gate)](docs/performance-and-polish.md)
+- [Framework integrations: HTMX, Alpine, Datastar, React, Vue, Svelte and server templates](docs/framework-integrations.md)
+- [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Performance validation protocol and measured CSS size baseline](docs/performance-validation.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
@@ -33,6 +36,7 @@
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 - [Seven-theme comparison gallery (unreleased)](examples/themes.html)
+- [Minimalist patterns demo (system palette, fluid type, intrinsic layouts and classless form)](examples/minimalist-patterns.html)
 - [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
 - [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
@@ -74,7 +78,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 </div>
 ```
 
-`syn-semantic` only styles unclassed semantic elements inside that subtree; elements elsewhere are unaffected. Core component classes do not rely on semantic mode. Switch `data-syn-theme` among all seven palettes in the unreleased alpha.5 candidate, including nested themed areas.
+`syn-semantic` styles unclassed semantic elements inside that subtree. Add `data-syn-semantic` to an element that will receive transient framework classes (for example, HTMX's `htmx-request`) so its appearance survives updates. Elements outside the subtree are unaffected. Core component classes do not rely on semantic mode. Switch `data-syn-theme` among all seven palettes in the unreleased alpha.5 candidate, including nested themed areas.
 
 ## Build outputs
 
@@ -108,12 +112,13 @@ All additions are MIT licensed and do not change the core runtime dependency con
 
 ```sh
 python3 scripts/build.py
-python3 scripts/build.py --check # reports raw/gzip bytes; does not gate on size
+python3 scripts/build.py --check
+python3 scripts/asset_report.py # informational raw/gzip sizes, no hard ceiling
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
 ```
 
-Chromium browser tests use Playwright (a **dev-only optional tool**) and run with:
+Browser checks and the synthetic performance benchmark use Playwright (a **dev-only optional tool**) and run with:
 
 ```sh
 python3 tests/browser_test.py
@@ -121,9 +126,10 @@ python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit # enlarged-text reflow stress check
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js # dev-only checker; see docs/accessibility.md
 python3 tests/theme_editor_browser.py # optional docs-only editor browser checks
+python3 scripts/perf_benchmark.py --browsers chromium,firefox,webkit --runs 3 --rows 1200 --sections 12 # local synthetic performance
 ```
 
-The browser scripts require `playwright` and a Chromium browser to be present; it autodetects `chromium` or `chromium-browser`, or accepts `PLAYWRIGHT_CHROMIUM_EXECUTABLE`; consumers of the CSS do **not** require either. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
+The browser scripts require developer-installed `playwright` and the browser engines selected for testing; Chromium is autodetected from `chromium` or `chromium-browser`, or may be set with `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. The benchmark records unavailable browsers as blocked. Consumers of the CSS do **not** require Playwright or browser automation. This project intentionally avoids adding a package manager or dependency manager to the runtime/library.
 
 ## Important boundaries
 
@@ -135,7 +141,7 @@ The browser scripts require `playwright` and a Chromium browser to be present; i
 
 ## Roadmap
 
-v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. CSS raw/gzip sizes are reported without arbitrary limits; runtime JavaScript remains unnecessary.
+v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. Performance: raw/gzip sizes are reported per distributable, not bounded by arbitrary byte ceilings; runtime JS remains 0 bytes. Browser behavior and modular loading matter more than a fixed compressed-size target.
 
 ## Provenance and license
 

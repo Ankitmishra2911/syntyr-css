@@ -1,6 +1,23 @@
 /* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
    These classes are separate from the small, stable core API. */
 @layer syn.recipes {
+  /* Small fluid type scale and intrinsic layouts (all opt-in). */
+  .syn-root {
+    --syn-type-display: clamp(2rem, 1.3rem + 2.8vw, 4.25rem);
+    --syn-type-lede: clamp(1.0625rem, 1rem + .4vw, 1.375rem);
+    --syn-reading-width: 65ch;
+  }
+  .syn-root .syn-fluid-display { font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: -.035em; overflow-wrap: anywhere; }
+  .syn-root .syn-fluid-lede { font-size: var(--syn-type-lede); }
+  .syn-root .syn-reading { max-inline-size: var(--syn-reading-width); }
+  /* First child is sidebar; second child is the flexible content region. */
+  .syn-root .syn-sidebar { display: flex; flex-wrap: wrap; align-items: start; gap: var(--syn-space-3); min-width: 0; }
+  .syn-root .syn-sidebar > :first-child { flex: 1 1 var(--syn-sidebar-width, 16rem); min-width: min(100%, var(--syn-sidebar-width, 16rem)); }
+  .syn-root .syn-sidebar > :last-child { flex: 999 1 0; min-width: min(100%, var(--syn-sidebar-content-min, 28rem)); }
+  /* All children switch together from stacked to inline as space permits. */
+  .syn-root .syn-switcher { display: flex; flex-wrap: wrap; gap: var(--syn-space-3); min-width: 0; }
+  .syn-root .syn-switcher > * { flex-grow: 1; flex-basis: max(0px, calc((var(--syn-switcher-threshold, 40rem) - 100%) * 999)); min-width: 0; }
+
   /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
   .syn-app-shell {
     display: grid; grid-template-columns: minmax(0, 1fr);
@@ -95,6 +112,40 @@
   }
   .syn-frame--industrial { border-inline-start: 3px solid var(--syn-accent); background: linear-gradient(110deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); color: var(--syn-text); }
   .syn-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+
+  /* Optional emphasis: a theme-colored accent line without extra markup or JS. */
+  .syn-surface--accent {
+    border-color: var(--syn-frame-strong);
+    box-shadow: inset 0 3px var(--syn-accent);
+    background: linear-gradient(160deg, var(--syn-accent-soft), transparent 45%), var(--syn-surface);
+  }
+  /* Use on small, interactive surfaces. No persistent will-change or transforms. */
+  .syn-surface--lift {
+    transition: border-color var(--syn-duration-fast) var(--syn-ease),
+                box-shadow var(--syn-duration-fast) var(--syn-ease);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .syn-surface--lift:where(:hover, :focus-within) {
+      border-color: var(--syn-frame-strong);
+      box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+    }
+    .syn-surface--accent.syn-surface--lift:where(:hover, :focus-within) {
+      box-shadow: inset 0 3px var(--syn-accent), 0 8px 24px rgb(0 0 0 / 12%);
+    }
+  }
+  .syn-surface--lift:focus-within { border-color: var(--syn-accent); }
+
+  /* Opt in only on long, below-fold sections. A placeholder height avoids jumps. */
+  .syn-defer-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto var(--syn-defer-size, 36rem);
+  }
+  @media print {
+    .syn-defer-section { content-visibility: visible; contain-intrinsic-size: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .syn-surface--lift { transition: none; }
+  }
   @media (min-width: 53rem) {
     .syn-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
     .syn-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--syn-frame); }
@@ -103,6 +154,8 @@
   @media (forced-colors: active) {
     .syn-app-card, .syn-site-hero, .syn-feature-card, .syn-terminal, .syn-frame--precision, .syn-frame--industrial { border-color: CanvasText; }
     .syn-frame--precision::before, .syn-site-hero::before { display: none; }
+    .syn-surface--accent { box-shadow: none; border-block-start: 3px solid Highlight; background: Canvas; }
+    .syn-surface--lift:where(:hover, :focus-within) { box-shadow: none; }
     .syn-terminal { forced-color-adjust: auto; }
   }
 }

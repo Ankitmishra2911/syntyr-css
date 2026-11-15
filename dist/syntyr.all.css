@@ -174,6 +174,30 @@
     --syn-radius: .25rem;
     --syn-cut: .9rem;
   }
+
+  /* Opt-in system palette: Studio in light mode, Grid in dark mode.
+     The guard preserves the original dark defaults in older browsers. */
+  @supports (color: light-dark(white, black)) {
+    :where(.syn-root[data-syn-theme="auto"], .syn-root [data-syn-theme="auto"]) {
+      color-scheme: light dark;
+      --syn-bg: light-dark(#f5f7fb, #080f19);
+      --syn-surface: light-dark(#ffffff, #111f2c);
+      --syn-surface-hi: light-dark(#eaf0f8, #172a3b);
+      --syn-text: light-dark(#15233a, #edf9ff);
+      --syn-muted: light-dark(#4b5d76, #adbfca);
+      --syn-accent: light-dark(#2458c6, #76e7f7);
+      --syn-accent-2: light-dark(#176b80, #f7b06c);
+      --syn-on-accent: light-dark(#ffffff, #07121a);
+      --syn-frame: light-dark(#b8c6d8, #345569);
+      --syn-frame-strong: light-dark(#6685b2, #5086a0);
+      --syn-danger: light-dark(#ad2637, #ffaaa4);
+      --syn-success: light-dark(#17694b, #8ce6bb);
+      --syn-warning: light-dark(#92500a, #ffd08b);
+      --syn-accent-soft: light-dark(color-mix(in srgb, var(--syn-accent) 9%, transparent), color-mix(in srgb, var(--syn-accent) 11%, transparent));
+      --syn-radius: .25rem;
+      --syn-cut: .9rem;
+    }
+  }
   /* Technical typography only for the fallback and explicit technical themes.
      Do not force monospace on Studio/Minimal/Corporate roots. */
   :where(.syn-root:not([data-syn-theme]), .syn-root[data-syn-theme="grid"],
@@ -406,43 +430,69 @@
     .syn-stat, .syn-empty, .syn-price-card, .syn-price-card[data-syn-featured] { border-color: CanvasText; }
   }
 }
-/* Optional semantic mode. Requires core.css and .syn-root ancestor. */
+/* Optional semantic mode. Class-free elements auto-style; data-syn-semantic opts in
+   controls whose host framework adds ephemeral classes (HTMX, Alpine, etc.).
+   Requires core.css and a scoped .syn-semantic ancestor. */
 @layer syn.semantic {
-  .syn-semantic :where(button:not([class]), input[type="submit"]:not([class]), input[type="button"]:not([class]), input[type="reset"]:not([class])) {
+  .syn-semantic :where(:is(button:not([class]), button[data-syn-semantic]), :is(input[type="submit"]:not([class]), input[type="submit"][data-syn-semantic]), :is(input[type="button"]:not([class]), input[type="button"][data-syn-semantic]), :is(input[type="reset"]:not([class]), input[type="reset"][data-syn-semantic])) {
     display: inline-flex; justify-content: center; align-items: center; gap: .5rem;
     min-height: var(--syn-control-height); padding: .65rem 1rem;
     border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
     background: var(--syn-surface-hi); color: var(--syn-text);
     cursor: pointer; font: 650 .81rem/1.2 var(--syn-mono);
   }
-  .syn-semantic :where(button:not([class]), input[type="submit"]:not([class])):hover { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
-  .syn-semantic :where(input:not([class]):is(:not([type]), [type="text"], [type="email"], [type="search"], [type="password"], [type="url"], [type="tel"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]), select:not([class]), textarea:not([class])) {
+  .syn-semantic :where(:is(button:not([class]), button[data-syn-semantic]), :is(input[type="submit"]:not([class]), input[type="submit"][data-syn-semantic])):hover { border-color: var(--syn-accent); background: var(--syn-accent-soft); }
+  .syn-semantic :where(:is(input:not([class]), input[data-syn-semantic]):is(:not([type]), [type="text"], [type="email"], [type="search"], [type="password"], [type="url"], [type="tel"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic])) {
     width: 100%; min-height: var(--syn-control-height); padding: .7rem .8rem;
     border: 1px solid var(--syn-frame); background: var(--syn-bg); border-radius: var(--syn-radius); color: var(--syn-text);
   }
-  .syn-semantic :where(input:not([class]), select:not([class]), textarea:not([class])):where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
-  .syn-semantic :where(input[type="range"]:not([class])) { width: 100%; }
-  .syn-semantic :where(input:not([class]), textarea:not([class]))::placeholder { color: var(--syn-muted); opacity: 1; }
-  .syn-semantic :where(input[type="checkbox"]:not([class]), input[type="radio"]:not([class]), input[type="range"]:not([class])) { accent-color: var(--syn-accent); }
-  .syn-semantic :where(label:not([class])) { display: grid; gap: .35rem; font-weight: 600; font-size: .9rem; }
-  .syn-semantic :where(fieldset:not([class])) { border: 1px solid var(--syn-frame); min-width: 0; padding: 1rem; }
-  .syn-semantic :where(legend:not([class])) { padding-inline: .4rem; }
-  .syn-semantic :where(article:not([class])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
-  .syn-semantic :where(table:not([class])) { width: 100%; border-collapse: collapse; text-align: left; }
-  .syn-semantic :where(th:not([class]), td:not([class])) { padding: .65rem; border-bottom: 1px solid var(--syn-frame); }
-  .syn-semantic :where(th:not([class])) { color: var(--syn-muted); }
-  .syn-semantic :where(details:not([class])) { padding-block: .75rem; border-block-start: 1px solid var(--syn-frame); }
-  .syn-semantic :where(summary:not([class])) { cursor: pointer; font-weight: 600; }
-  .syn-semantic :where(blockquote:not([class])) { margin-inline: 0; padding: .5rem 1rem; border-inline-start: 2px solid var(--syn-accent); color: var(--syn-muted); }
-  .syn-semantic :where(hr:not([class])) { border: 0; border-top: 1px solid var(--syn-frame); }
-  .syn-semantic :where(code:not([class])) { font-family: var(--syn-mono); color: var(--syn-accent); }
+  .syn-semantic :where(:is(input:not([class]), input[data-syn-semantic]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic])):where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
+  .syn-semantic :where(:is(input[type="range"]:not([class]), input[type="range"][data-syn-semantic])) { width: 100%; }
+  .syn-semantic :where(:is(input:not([class]), input[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic]))::placeholder { color: var(--syn-muted); opacity: 1; }
+  .syn-semantic :where(:is(input[type="checkbox"]:not([class]), input[type="checkbox"][data-syn-semantic]), :is(input[type="radio"]:not([class]), input[type="radio"][data-syn-semantic]), :is(input[type="range"]:not([class]), input[type="range"][data-syn-semantic])) { accent-color: var(--syn-accent); }
+  /* WCAG 2.2 AA target-size minimum; native controls remain keyboard-operable. */
+  .syn-semantic :where(:is(input[type="checkbox"]:not([class]), input[type="checkbox"][data-syn-semantic]), :is(input[type="radio"]:not([class]), input[type="radio"][data-syn-semantic])) {
+    min-inline-size: max(1.5rem, 24px); min-block-size: max(1.5rem, 24px);
+    vertical-align: middle; margin: 0; margin-inline-end: .65rem;
+  }
+  .syn-semantic :where(:is(label:not([class]), label[data-syn-semantic])) { display: grid; gap: .35rem; font-weight: 600; font-size: .9rem; }
+  /* Native checkbox/radio labels stay inline, even when HTMX adds classes. */
+  .syn-semantic :where(label:not([class]):has(> input[type="checkbox"], > input[type="radio"]), label[data-syn-semantic]:has(> input[type="checkbox"], > input[type="radio"])) { display: block; cursor: pointer; }
+  .syn-semantic :where(:is(fieldset:not([class]), fieldset[data-syn-semantic])) { border: 1px solid var(--syn-frame); min-width: 0; padding: 1rem; }
+  .syn-semantic :where(:is(legend:not([class]), legend[data-syn-semantic])) { padding-inline: .4rem; }
+  .syn-semantic :where(:is(article:not([class]), article[data-syn-semantic])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
+  .syn-semantic :where(:is(table:not([class]), table[data-syn-semantic])) { width: 100%; border-collapse: collapse; text-align: left; }
+  .syn-semantic :where(:is(th:not([class]), th[data-syn-semantic]), :is(td:not([class]), td[data-syn-semantic])) { padding: .65rem; border-bottom: 1px solid var(--syn-frame); }
+  .syn-semantic :where(:is(th:not([class]), th[data-syn-semantic])) { color: var(--syn-muted); }
+  .syn-semantic :where(:is(details:not([class]), details[data-syn-semantic])) { padding-block: .75rem; border-block-start: 1px solid var(--syn-frame); }
+  .syn-semantic :where(:is(summary:not([class]), summary[data-syn-semantic])) { cursor: pointer; font-weight: 600; }
+  .syn-semantic :where(:is(blockquote:not([class]), blockquote[data-syn-semantic])) { margin-inline: 0; padding: .5rem 1rem; border-inline-start: 2px solid var(--syn-accent); color: var(--syn-muted); }
+  .syn-semantic :where(:is(hr:not([class]), hr[data-syn-semantic])) { border: 0; border-top: 1px solid var(--syn-frame); }
+  .syn-semantic :where(:is(code:not([class]), code[data-syn-semantic])) { font-family: var(--syn-mono); color: var(--syn-accent); }
   @media (forced-colors: active) {
-    .syn-semantic :where(button:not([class]), input:not([class]), select:not([class]), textarea:not([class]), article:not([class]), fieldset:not([class])) { border-color: CanvasText; }
+    .syn-semantic :where(:is(button:not([class]), button[data-syn-semantic]), :is(input:not([class]), input[data-syn-semantic]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic]), :is(article:not([class]), article[data-syn-semantic]), :is(fieldset:not([class]), fieldset[data-syn-semantic])) { border-color: CanvasText; }
   }
 }
 /* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
    These classes are separate from the small, stable core API. */
 @layer syn.recipes {
+  /* Small fluid type scale and intrinsic layouts (all opt-in). */
+  .syn-root {
+    --syn-type-display: clamp(2rem, 1.3rem + 2.8vw, 4.25rem);
+    --syn-type-lede: clamp(1.0625rem, 1rem + .4vw, 1.375rem);
+    --syn-reading-width: 65ch;
+  }
+  .syn-root .syn-fluid-display { font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: -.035em; overflow-wrap: anywhere; }
+  .syn-root .syn-fluid-lede { font-size: var(--syn-type-lede); }
+  .syn-root .syn-reading { max-inline-size: var(--syn-reading-width); }
+  /* First child is sidebar; second child is the flexible content region. */
+  .syn-root .syn-sidebar { display: flex; flex-wrap: wrap; align-items: start; gap: var(--syn-space-3); min-width: 0; }
+  .syn-root .syn-sidebar > :first-child { flex: 1 1 var(--syn-sidebar-width, 16rem); min-width: min(100%, var(--syn-sidebar-width, 16rem)); }
+  .syn-root .syn-sidebar > :last-child { flex: 999 1 0; min-width: min(100%, var(--syn-sidebar-content-min, 28rem)); }
+  /* All children switch together from stacked to inline as space permits. */
+  .syn-root .syn-switcher { display: flex; flex-wrap: wrap; gap: var(--syn-space-3); min-width: 0; }
+  .syn-root .syn-switcher > * { flex-grow: 1; flex-basis: max(0px, calc((var(--syn-switcher-threshold, 40rem) - 100%) * 999)); min-width: 0; }
+
   /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
   .syn-app-shell {
     display: grid; grid-template-columns: minmax(0, 1fr);
@@ -537,6 +587,40 @@
   }
   .syn-frame--industrial { border-inline-start: 3px solid var(--syn-accent); background: linear-gradient(110deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); color: var(--syn-text); }
   .syn-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+
+  /* Optional emphasis: a theme-colored accent line without extra markup or JS. */
+  .syn-surface--accent {
+    border-color: var(--syn-frame-strong);
+    box-shadow: inset 0 3px var(--syn-accent);
+    background: linear-gradient(160deg, var(--syn-accent-soft), transparent 45%), var(--syn-surface);
+  }
+  /* Use on small, interactive surfaces. No persistent will-change or transforms. */
+  .syn-surface--lift {
+    transition: border-color var(--syn-duration-fast) var(--syn-ease),
+                box-shadow var(--syn-duration-fast) var(--syn-ease);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .syn-surface--lift:where(:hover, :focus-within) {
+      border-color: var(--syn-frame-strong);
+      box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+    }
+    .syn-surface--accent.syn-surface--lift:where(:hover, :focus-within) {
+      box-shadow: inset 0 3px var(--syn-accent), 0 8px 24px rgb(0 0 0 / 12%);
+    }
+  }
+  .syn-surface--lift:focus-within { border-color: var(--syn-accent); }
+
+  /* Opt in only on long, below-fold sections. A placeholder height avoids jumps. */
+  .syn-defer-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto var(--syn-defer-size, 36rem);
+  }
+  @media print {
+    .syn-defer-section { content-visibility: visible; contain-intrinsic-size: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .syn-surface--lift { transition: none; }
+  }
   @media (min-width: 53rem) {
     .syn-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
     .syn-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--syn-frame); }
@@ -545,6 +629,8 @@
   @media (forced-colors: active) {
     .syn-app-card, .syn-site-hero, .syn-feature-card, .syn-terminal, .syn-frame--precision, .syn-frame--industrial { border-color: CanvasText; }
     .syn-frame--precision::before, .syn-site-hero::before { display: none; }
+    .syn-surface--accent { box-shadow: none; border-block-start: 3px solid Highlight; background: Canvas; }
+    .syn-surface--lift:where(:hover, :focus-within) { box-shadow: none; }
     .syn-terminal { forced-color-adjust: auto; }
   }
 }

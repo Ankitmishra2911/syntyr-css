@@ -43,5 +43,9 @@ class V03Contract(unittest.TestCase):
         self.assertIn('MIT License', (ROOT / 'LICENSE').read_text())
         self.assertNotIn('tailwindcss', (ROOT / 'dist/syntyr.core.css').read_text().lower())
         self.assertFalse((ROOT / 'node_modules').exists())
+        from scripts.asset_report import measure_distributions
+        sizes = measure_distributions(ROOT / 'dist')
+        self.assertIn('syntyr.core.css', sizes)
+        self.assertIn('syntyr.all.css', sizes)
 
 if __name__ == '__main__': unittest.main()

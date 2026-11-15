@@ -27,7 +27,8 @@ class ReleaseContract(unittest.TestCase):
         self.assertNotIn('syn-semantic', core)
         for tag in ('button', 'input', 'select', 'textarea', 'table', 'article', 'details'):
             with self.subTest(tag=tag):
-                self.assertIn(f'{tag}:not([class])' if tag in ('select', 'textarea') else f':where({tag}', semantic)
+                self.assertIn(f'{tag}:not([class])', semantic)
+                self.assertIn(f'{tag}[data-syn-semantic]', semantic)
         self.assertIn('.syn-semantic', semantic)
         self.assertIn('@layer syn.semantic', semantic)
 
@@ -39,10 +40,13 @@ class ReleaseContract(unittest.TestCase):
             with self.subTest(term=term):
                 self.assertIn(term, all_css)
 
-    def test_css_distributions_are_present_and_nonempty(self):
-        for name in ("syntyr.core.css", "syntyr.all.css"):
-            with self.subTest(name=name):
-                self.assertGreater((DIST / name).stat().st_size, 0)
+    def test_size_reporting_replaces_fixed_byte_limits(self):
+        from scripts.asset_report import measure_distributions
+        metrics = measure_distributions(DIST)
+        self.assertIn('syntyr.core.css', metrics)
+        self.assertIn('syntyr.all.css', metrics)
+        self.assertEqual(metrics['syntyr.core.css']['raw_bytes'],
+                         (DIST / 'syntyr.core.css').stat().st_size)
 
     def test_build_is_reproducible(self):
         proc = subprocess.run([sys.executable, 'scripts/build.py', '--check'], cwd=ROOT, capture_output=True, text=True)
