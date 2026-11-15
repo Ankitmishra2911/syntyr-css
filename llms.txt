@@ -11,6 +11,8 @@ The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The 
 - [Component reference](https://syntyr-css.pages.dev/docs/components.md): Real classes, tokens, scopes, semantic modes and candidate-only table wrapping migration (use .syn-cell--nowrap for identifiers).
 - [Component manifest](https://syntyr-css.pages.dev/metadata/components.json): Curated, validated selectors with their required CSS modules.
 - [Consumer agent skill](https://syntyr-css.pages.dev/agents/syntyr/SKILL.md): Portable, opt-in instructions.
+- [Contribution policy](https://github.com/dporkka/syntyr-css/blob/main/CONTRIBUTING.md): Public repository development, test, release and documentation rules.
+- [Private security reporting](https://github.com/dporkka/syntyr-css/blob/main/SECURITY.md): Report vulnerabilities privately through GitHub; never include exploits in public issues.
 
 ## Reference
 
