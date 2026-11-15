@@ -168,7 +168,15 @@ Automated browser evidence covers **126 viewport cases** across Chromium/Firefox
 - [ ] Perform real assistive-technology testing with NVDA, JAWS, VoiceOver or Orca and record evidence.
 - [ ] Test true 200% and 400% browser zoom on supported browsers; verify navigation, reflow and target visibility.
 - [ ] Check actual OS forced-colors/high-contrast and reduced-motion settings.
-- [x] Record the browser engines and versions used for automated testing (not a permanent support guarantee): Chromium 159.0.8154.6, Firefox 159.0, WebKit 27.2 in the Linux Playwright 1.65.2 test container.
+- [x] Record browser versions used for automated testing (not a permanent
+  support guarantee). The **current** 16-page matrix and 64-case/engine
+  reflow run used Linux `mcr.microsoft.com/playwright/python:v1.64.1-noble`
+  with Playwright Python 1.64.1: Chromium **156.0.8078.4**, Firefox
+  **157.0**, and WebKit **27.2**. Versions were read directly using
+  `browser.version` from the same pinned image.
+- [x] Preserve the **historical** 14-page baseline's separate browser
+  versions: Chromium 159.0.8154.6, Firefox 159.0, WebKit 27.2 in the
+  Playwright 1.65.2 image. These do not describe the newer 1.64.1 run.
 - [ ] Establish browser support versions and unresolved exceptions before a stable release.
 
 A passing axe-core run alone is **not** sufficient to claim WCAG conformance.

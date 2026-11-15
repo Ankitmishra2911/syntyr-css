@@ -6,8 +6,9 @@
 
 On `main` commit `b19c331` (after PRs #14 and #22), the Python suite
 passed **155 tests**. The 16-page, three-viewport gallery matrix and 64
-reflow cases per engine passed in Chromium, Firefox and WebKit using the
-Playwright 1.64.1 developer container. Twenty-three Chromium interaction
+reflow cases per engine passed in Chromium **156.0.8078.4**, Firefox
+**157.0**, and WebKit **27.2** using the pinned Playwright 1.64.1
+Linux developer container. Twenty-three Chromium interaction
 tests and the documentation theme-editor checks also passed.
 
 axe-core 4.10.3 reported **zero confirmed automated violations** but
