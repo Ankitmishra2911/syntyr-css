@@ -7,6 +7,7 @@ language-aware integration; false claims about rendered state are avoided.
 from __future__ import annotations
 
 import argparse
+from difflib import get_close_matches
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -40,10 +41,11 @@ class _SyntyrParser(HTMLParser):
         self.used_classes: list[tuple[int, int, str]] = []
         self.diagnostics: list[dict] = []
 
-    def _error(self, code: str, message: str, line: int, column: int):
+    def _error(self, code: str, message: str, line: int, column: int, **details):
         self.diagnostics.append({
             "line": line, "column": column + 1,
             "severity": "error", "code": code, "message": message,
+            **details,
         })
 
     def handle_starttag(self, tag, attrs):
@@ -61,8 +63,13 @@ class _SyntyrParser(HTMLParser):
                 if not name.startswith("syn-"):
                     continue
                 if name not in self.classes:
+                    matches = get_close_matches(name, self.classes, n=3, cutoff=0.75)
+                    suggestions = [
+                        {"name": match, "stylesheets": sorted(self.classes[match]["stylesheets"])}
+                        for match in matches
+                    ]
                     self._error("unknown-class", f"Unknown Syntyr class '{name}'.",
-                                line, col)
+                                line, col, suggestions=suggestions)
                 else:
                     self.used_classes.append((line, col, name))
         for name, allowed in self.attribute_values.items():
@@ -70,7 +77,7 @@ class _SyntyrParser(HTMLParser):
             if value is not None and not _is_dynamic(value) and allowed and value not in allowed:
                 self._error("invalid-attribute-value",
                             f"Invalid {name}='{value}'; expected one of: {', '.join(allowed)}.",
-                            line, col)
+                            line, col, attribute=name, allowed_values=list(allowed))
 
     def handle_startendtag(self, tag, attrs):
         self.handle_starttag(tag, attrs)
@@ -93,14 +100,16 @@ def validate_html(html: str, contract: dict, *, stylesheets: set[str] | None = N
                 hint = ", ".join(sorted(expected, key=lambda n: (n.count("/"), len(n)))[:3])
                 parser._error("missing-stylesheet",
                               f"'{name}' is not in the loaded Syntyr CSS; add {hint}.",
-                              line, col)
+                              line, col, required_stylesheets=sorted(expected),
+                              loaded_stylesheets=sorted(loaded))
     return sorted(parser.diagnostics, key=lambda d: (d["line"], d["column"],
                                                     d["code"] == "missing-stylesheet"))
 
 
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description="Validate literal Syntyr classes and states in HTML.")
-    p.add_argument("files", nargs="+", type=Path, help="Static HTML files to check.")
+    p.add_argument("files", nargs="+", type=Path,
+                   help="Static HTML files to check; use - to read HTML from stdin.")
     p.add_argument("--format", choices=("text", "json"), default="text")
     p.add_argument("--stylesheets", action="append", default=None,
                    help="Known loaded Syntyr stylesheets, comma-separated; overrides HTML links.")
@@ -119,9 +128,10 @@ def main(argv=None) -> int:
                     configured.add(found)
         results = []
         for file in args.files:
-            diagnostics = validate_html(file.read_text(encoding="utf-8"), contract,
-                                        stylesheets=configured)
-            results += [{"file": str(file), **diag} for diag in diagnostics]
+            source = sys.stdin.read() if str(file) == "-" else file.read_text(encoding="utf-8")
+            diagnostics = validate_html(source, contract, stylesheets=configured)
+            label = "<stdin>" if str(file) == "-" else str(file)
+            results += [{"file": label, **diag} for diag in diagnostics]
     except (OSError, UnicodeError, ValueError, KeyError) as exc:
         print(f"syntyr check: {exc}", file=sys.stderr)
         return 2
