@@ -1,0 +1,85 @@
+"""Verify the actual npm archive, not only package.json declarations."""
+from __future__ import annotations
+
+import io
+from pathlib import Path
+import tarfile
+import tempfile
+import unittest
+
+from scripts.audit_npm_package import audit_archive, expected_files
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def archive_with(changes=None, extra=None, *, duplicate=None, symlink=None):
+    payloads = {name: source.read_bytes() for name, source in expected_files(ROOT).items()}
+    for name, value in (changes or {}).items():
+        if value is None:
+            payloads.pop(name, None)
+        else:
+            payloads[name] = value
+    if extra:
+        payloads.update(extra)
+    out = io.BytesIO()
+    with tarfile.open(fileobj=out, mode="w:gz") as tar:
+        for name, data in payloads.items():
+            info = tarfile.TarInfo(name)
+            info.size = len(data)
+            tar.addfile(info, io.BytesIO(data))
+        if duplicate:
+            data = payloads[duplicate]
+            info = tarfile.TarInfo(duplicate)
+            info.size = len(data)
+            tar.addfile(info, io.BytesIO(data))
+        if symlink:
+            info = tarfile.TarInfo(symlink)
+            info.type = tarfile.SYMTYPE
+            info.linkname = "package/package.json"
+            tar.addfile(info)
+    return out.getvalue()
+
+
+class NpmTarballAuditTests(unittest.TestCase):
+    def check(self, contents):
+        with tempfile.TemporaryDirectory() as tmp:
+            archive = Path(tmp) / "test.tgz"
+            archive.write_bytes(contents)
+            return audit_archive(archive, ROOT)
+
+    def test_clean_archive_is_complete(self):
+        self.assertEqual(self.check(archive_with()), [])
+
+    def test_missing_exported_stylesheet_fails(self):
+        errors = self.check(archive_with(changes={"package/dist/syntyr.core.css": None}))
+        self.assertTrue(any("missing" in err.lower() and "syntyr.core.css" in err for err in errors), errors)
+
+    def test_rejects_hidden_implementation_or_secret_file(self):
+        errors = self.check(archive_with(extra={"package/.env": b"not-a-real-secret"}))
+        self.assertTrue(any("unexpected" in err.lower() and ".env" in err for err in errors), errors)
+
+    def test_rejects_modified_source_bytes(self):
+        errors = self.check(archive_with(changes={"package/dist/syntyr.core.css": b"altered"}))
+        self.assertTrue(any("mismatch" in err.lower() and "syntyr.core.css" in err for err in errors), errors)
+
+    def test_rejects_duplicate_member(self):
+        errors = self.check(archive_with(duplicate="package/package.json"))
+        self.assertTrue(any("duplicate" in err.lower() for err in errors), errors)
+
+    def test_rejects_symlink_and_traversal(self):
+        errors = self.check(archive_with(extra={"package/../private.txt": b"unsafe"}, symlink="package/dist/evil.css"))
+        self.assertTrue(any("unsafe" in err.lower() or "symlink" in err.lower() for err in errors), errors)
+
+    def test_rejects_non_object_export_map_without_crashing(self):
+        errors = self.check(archive_with(changes={
+            "package/package.json": b'{"name":"@syntyr/css","exports":[]}',
+        }))
+        self.assertTrue(any("metadata" in err.lower() for err in errors), errors)
+
+    def test_rejects_bad_package_metadata_in_tarball(self):
+        errors = self.check(archive_with(changes={"package/package.json": b'{"name": "something-else"}'}))
+        self.assertTrue(any("mismatch" in err.lower() or "metadata" in err.lower() for err in errors), errors)
+
+
+if __name__ == "__main__":
+    unittest.main()
