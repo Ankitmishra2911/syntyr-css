@@ -1,0 +1,65 @@
+/* Composable native forms using Syntyr's shared root-only module boundary.
+   The browser/application owns form behavior, labels, validation and submission. */
+@layer syn.components {
+  :where(.syn-root, .syn-root *) {
+    &.syn-field {
+      display: grid;
+      gap: .375rem;
+      min-inline-size: 0;
+    }
+    &.syn-field > :where(.syn-help, .syn-error) { margin-block: 0; }
+    &.syn-field-row {
+      display: grid;
+      gap: var(--syn-space-2);
+      min-inline-size: 0;
+    }
+    &.syn-field-row > :where(.syn-label, .syn-field-body) { min-inline-size: 0; }
+    &.syn-field-body { display: grid; gap: var(--syn-space-2); }
+    /* Layout responds to the nearest named container, never the viewport alone. */
+    @container syn-region (min-width: 42rem) {
+      &.syn-field-row {
+        grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr);
+        align-items: start;
+      }
+    }
+    &.syn-input-group {
+      display: flex;
+      align-items: stretch;
+      inline-size: 100%;
+      min-inline-size: 0;
+    }
+    &.syn-input-group > :where(.syn-input, .syn-select) {
+      flex: 1 1 0%;
+      inline-size: 0;
+      min-inline-size: 0;
+      border-radius: 0;
+    }
+    &.syn-input-group > .syn-button {
+      flex: 0 0 auto;
+      border-radius: 0;
+    }
+    &.syn-input-addon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      padding-inline: var(--syn-space-2);
+      border: 1px solid var(--syn-border-default);
+      background: var(--syn-surface-raised);
+      color: var(--syn-text);
+      font: 500 var(--syn-type-sm)/1.3 var(--syn-font-ui);
+    }
+    &.syn-input-group > :first-child {
+      border-start-start-radius: var(--syn-radius);
+      border-end-start-radius: var(--syn-radius);
+    }
+    &.syn-input-group > :last-child {
+      border-start-end-radius: var(--syn-radius);
+      border-end-end-radius: var(--syn-radius);
+    }
+    &.syn-input-group > :not(:first-child) { border-inline-start: 0; }
+    @media (forced-colors: active) {
+      &.syn-input-addon { border-color: CanvasText; }
+    }
+  }
+}

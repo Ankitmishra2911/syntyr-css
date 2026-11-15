@@ -52,6 +52,26 @@
       "notes": "Real handlers and field validation belong to the application."
     },
     {
+      "name": "Form compositions",
+      "module": "syntyr.core.css",
+      "elements": [
+        "form",
+        "label",
+        "input",
+        "button",
+        "span",
+        "div"
+      ],
+      "classes": [
+        "syn-field",
+        "syn-field-row",
+        "syn-field-body",
+        "syn-input-group",
+        "syn-input-addon"
+      ],
+      "notes": "Unreleased alpha.5 candidate only. Native form behavior, associated labels, server validation; use syn-region for container-responsive rows. The Radix adapter is separately optional."
+    },
+    {
       "name": "Tables",
       "module": "syntyr.core.css",
       "elements": [
