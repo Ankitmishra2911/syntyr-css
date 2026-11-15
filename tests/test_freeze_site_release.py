@@ -136,6 +136,53 @@ class ReleaseFreezeTests(unittest.TestCase):
         self.assertIn("Tracked source differs", result.stderr)
         self.assertFalse((self.root / "site-releases/0.3.0-alpha.5").exists())
 
+    def run_direct(self, python_code):
+        return subprocess.run([sys.executable, "-c", python_code],
+                              cwd=self.root, capture_output=True, text=True)
+
+    def test_direct_api_rejects_commit_that_is_not_head(self):
+        path = self.root / "release/release-approval.json"
+        evidence = json.loads(path.read_text())
+        evidence["commit"] = "f" * 40
+        path.write_text(json.dumps(evidence))
+        code = """
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path.cwd() / "scripts"))
+from freeze_site_release import freeze
+freeze(Path.cwd(), apply=True, commit="f" * 40)
+"""
+        result = self.run_direct(code)
+        self.assertNotEqual(result.returncode, 0, result.stdout)
+        self.assertFalse((self.root / "site-releases/0.3.0-alpha.5").exists())
+
+    def test_checkout_change_during_preflight_blocks_snapshot(self):
+        code = """
+from pathlib import Path
+import json
+import subprocess
+import sys
+sys.path.insert(0, str(Path.cwd() / "scripts"))
+import freeze_site_release as f
+original = f.preflight
+def switch_head(root):
+    result = original(root)
+    subprocess.run(["git", "-c", "user.name=Test", "-c",
+        "user.email=test@example.invalid", "commit", "-q", "--allow-empty",
+        "-m", "mid-flight checkout"], cwd=root, check=True)
+    approved = root / "release/release-approval.json"
+    record = json.loads(approved.read_text())
+    record["commit"] = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    approved.write_text(json.dumps(record))
+    return result
+f.preflight = switch_head
+f.freeze(Path.cwd(), apply=True)
+"""
+        result = self.run_direct(code)
+        self.assertNotEqual(result.returncode, 0, result.stdout)
+        self.assertFalse((self.root / "site-releases/0.3.0-alpha.5").exists())
+
 
 if __name__ == "__main__":
     unittest.main()
