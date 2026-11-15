@@ -51,6 +51,16 @@ def layout_check(browser, engine, width, scale):
                 f"{engine} {width}px {scale}x: overflow {metrics}")
         require(not metrics["clipped"],
                 f"{engine} {width}px {scale}x: controls clipped {metrics}")
+        if width == 390 and scale == 1:
+            # Small text must not inherit the muted token against decorative radar rings.
+            radar = page.locator(".syn-block-asset--radar")
+            require(radar.count() == 1, f"{engine}: radar preview missing")
+            for theme in ("studio", "grid", "noir", "industrial", "terminal", "corporate", "minimal"):
+                page.locator("body.syn-root").set_attribute("data-syn-theme", theme)
+                fg = radar.locator("span").evaluate("e => getComputedStyle(e).color")
+                label = radar.locator("strong").evaluate("e => getComputedStyle(e).color")
+                require(fg == label, f"{engine} {theme}: small radar caption is less legible than its label: {fg} / {label}")
+
     finally:
         context.close()
 
