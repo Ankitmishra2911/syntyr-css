@@ -73,7 +73,9 @@
     font-family: var(--syn-mono);
     font-size: .875em;
     line-height: 1.4;
-    white-space: nowrap;
+    max-inline-size: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(mark:not([class]), mark[data-syn-semantic])) {
     background: var(--syn-accent);
@@ -81,6 +83,10 @@
     padding-inline: .125em;
     box-decoration-break: clone;
     overflow-wrap: anywhere;
+  }
+  /* Nested code must not inherit the accent foreground on an accent highlight. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(mark:not([class]), mark[data-syn-semantic]) :is(code:not([class]), code[data-syn-semantic])) {
+    color: inherit;
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(output:not([class]), output[data-syn-semantic])) {
     color: var(--syn-text);

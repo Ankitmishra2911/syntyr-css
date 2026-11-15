@@ -32,8 +32,8 @@
 
     <section aria-labelledby="states-title">
       <h2 id="states-title">Inline native content</h2>
-      <p>Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to try an application shortcut if your application implements one.</p>
-      <p><mark>Highlighted text</mark> uses the theme's contrast-tested accent/foreground pairing.</p>
+      <p>Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to try an application shortcut if your application implements one. Long chords such as <kbd>Control+Alt+Shift+ArrowRight</kbd> wrap when text is enlarged.</p>
+      <p><mark>Highlighted text</mark> uses the theme's contrast-tested accent/foreground pairing. <mark><code>status</code></mark> remains readable when code is nested inside the highlight.</p>
       <p>Static example: <output for="native-q">No server search results</output>.</p>
     </section>
 
@@ -51,7 +51,7 @@
 
     <section aria-labelledby="code-title">
       <h2 id="code-title">Long code and overflow</h2>
-      <pre><code>SELECT status, count(*) FROM resources GROUP BY status ORDER BY count(*) DESC;</code></pre>
+      <pre role="region" aria-label="SQL query example" tabindex="0"><code>SELECT status, count(*) FROM resources GROUP BY status ORDER BY count(*) DESC;</code></pre>
       <p>Code blocks can scroll horizontally inside narrow widgets without clipping the page.</p>
     </section>
   </main>
