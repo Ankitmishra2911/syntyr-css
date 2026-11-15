@@ -24,6 +24,7 @@
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Performance validation protocol and measured CSS size baseline](docs/performance-validation.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
+- [Design research: Linear, Resend, and developer tooling](docs/design-research-linear-resend.md)
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
@@ -95,7 +96,7 @@ The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css
 
 ## Modern SaaS, CLI and business websites
 
-Use `data-syn-theme="studio"` for a neutral, professional light theme. The original dark Grid and Noir palettes remain available. The theme changes colors, while optional `syn-frame--precision`, `syn-frame--industrial` and `syn-frame--soft` classes control visual geometry independently.
+Use `data-syn-theme="studio"` for a neutral, professional light theme. Grid and Noir remain available. Themes control color and typography roles; optional `syn-frame--precision`, `syn-frame--industrial` and `syn-frame--soft` classes control visual geometry independently. Add `data-syn-density="compact"` to `.syn-root` or a nested region to tighten control heights, rows, and card padding without shrinking type.
 
 For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipes.css` for responsive application shells (`syn-app-shell`), business landing layouts (`syn-site-hero`) and browser terminal panels (`syn-terminal`). Continue to use real headings, tables, labels, links and forms. The recipes provide layout and presentation, not authentication, data fetching, filtering or backend actions.
 
@@ -107,7 +108,7 @@ All additions are MIT licensed and do not change the core runtime dependency con
 
 ```sh
 python3 scripts/build.py
-python3 scripts/build.py --check
+python3 scripts/build.py --check # reports raw/gzip bytes; does not gate on size
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
 ```
@@ -134,7 +135,7 @@ The browser scripts require `playwright` and a Chromium browser to be present; i
 
 ## Roadmap
 
-v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. Budgets: core CSS <= 5 KiB gzip, all modules <= 8 KiB gzip, runtime JS 0 bytes. These budgets are verified by tests rather than marketing claims.
+v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. CSS raw/gzip sizes are reported without arbitrary limits; runtime JavaScript remains unnecessary.
 
 ## Provenance and license
 

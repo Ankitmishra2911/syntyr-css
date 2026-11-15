@@ -81,6 +81,39 @@ class BrowserTests(unittest.TestCase):
         range_border = self.page.locator('#range-audit').evaluate('e => getComputedStyle(e).borderTopWidth')
         self.assertEqual(range_border, '0px')
 
+    def test_nested_themes_and_compact_density_render_independently(self):
+        self.page.evaluate("""() => {
+            const region = document.createElement('section');
+            region.className = 'syn-root';
+            region.setAttribute('data-syn-theme', 'studio');
+            region.innerHTML = `
+                <button id="comfortable" class="syn-button">Comfortable</button>
+                <div id="compact" data-syn-density="compact">
+                  <button id="compact-button" class="syn-button">Compact</button>
+                </div>
+                <section id="grid-nested" data-syn-theme="grid">
+                  <button id="grid-button" class="syn-button">Telemetry</button>
+                </section>`;
+            document.body.appendChild(region);
+        }""")
+        normal_height = self.page.locator("#comfortable").evaluate(
+            "e => getComputedStyle(e).minHeight")
+        compact_height = self.page.locator("#compact-button").evaluate(
+            "e => getComputedStyle(e).minHeight")
+        self.assertEqual(normal_height, "44px")
+        self.assertEqual(compact_height, "36px")
+        studio_font = self.page.locator("#comfortable").evaluate(
+            "e => getComputedStyle(e).fontFamily")
+        grid_font = self.page.locator("#grid-button").evaluate(
+            "e => getComputedStyle(e).fontFamily")
+        self.assertNotEqual(studio_font, grid_font)
+        self.assertIn("mono", grid_font.lower())
+        surface_light = self.page.locator("#comfortable").evaluate(
+            "e => getComputedStyle(e.parentElement).getPropertyValue('--syn-surface-recessed').trim()")
+        surface_dark = self.page.locator("#grid-nested").evaluate(
+            "e => getComputedStyle(e).getPropertyValue('--syn-surface-recessed').trim()")
+        self.assertNotEqual(surface_light, surface_dark)
+
     def test_embedded_root_does_not_force_viewport_height(self):
         self.page.evaluate("""() => {
           const section = document.createElement('section');
@@ -209,7 +242,12 @@ class BrowserTests(unittest.TestCase):
                 computed = self.page.locator(selector).evaluate(
                     "e => ({fg: getComputedStyle(e).color, bg: getComputedStyle(e).backgroundColor})")
                 self.assertEqual(computed["fg"], "rgb(21, 35, 58)")
-                self.assertEqual(computed["bg"], "rgb(255, 255, 255)")
+                if selector == "#nested-rail":
+                    # Navigation recedes from the pure-white working surface.
+                    self.assertNotEqual(computed["bg"], "rgb(255, 255, 255)")
+                    self.assertNotEqual(computed["bg"], "rgba(0, 0, 0, 0)")
+                else:
+                    self.assertEqual(computed["bg"], "rgb(255, 255, 255)")
 
     def test_new_recipes_have_no_mobile_overflow_and_work_at_desktop_width(self):
         core = (ROOT / 'dist/syntyr.core.css').read_text()

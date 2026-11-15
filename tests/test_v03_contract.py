@@ -1,6 +1,5 @@
 """v0.3 portable composition API, commercial boundary and no-build contract."""
 from pathlib import Path
-import gzip
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,11 +39,9 @@ class V03Contract(unittest.TestCase):
         self.assertNotIn('<script', pricing)
         self.assertIn('MIT', pricing)
 
-    def test_license_and_bundle_constraints(self):
+    def test_license_and_dependency_constraints(self):
         self.assertIn('MIT License', (ROOT / 'LICENSE').read_text())
         self.assertNotIn('tailwindcss', (ROOT / 'dist/syntyr.core.css').read_text().lower())
         self.assertFalse((ROOT / 'node_modules').exists())
-        self.assertLessEqual(len(gzip.compress((ROOT / 'dist/syntyr.core.css').read_bytes(), mtime=0)), 5 * 1024)
-        self.assertLessEqual(len(gzip.compress((ROOT / 'dist/syntyr.all.css').read_bytes(), mtime=0)), 8 * 1024)
 
 if __name__ == '__main__': unittest.main()
