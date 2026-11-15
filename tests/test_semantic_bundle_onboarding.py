@@ -58,6 +58,15 @@ class SemanticStarterTests(unittest.TestCase):
         self.assertIn('action="?"', source)
         self.assertNotIn('onclick=', source)
 
+    def test_semantic_starter_link_is_reachable_in_desktop_and_mobile_nav(self):
+        html = (ROOT / "index.html").read_text()
+        import re
+        for label in ('Main navigation', 'Mobile navigation'):
+            match = re.search(r'<nav\b[^>]*aria-label="' + label + r'"[^>]*>(.*?)</nav>', html, re.S)
+            self.assertIsNotNone(match, f"Missing {label}")
+            self.assertIn('href="examples/semantic-starter.html"', match.group(1),
+                          f"Starter missing from {label}")
+
     def test_agent_documentation_exposes_pico_migration_only_for_alpha5(self):
         index = (ROOT / "llms.txt").read_text()
         sources = (ROOT / "scripts/build_agent_docs.py").read_text()
