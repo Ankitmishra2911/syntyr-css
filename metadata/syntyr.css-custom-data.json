@@ -50,6 +50,34 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-chart-1",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-2",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-3",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-4",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-axis",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-grid",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-tooltip-bg",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
       "name": "--syn-control-height",
       "description": "Syntyr CSS property (tokens.css)."
     },
@@ -256,6 +284,10 @@
     {
       "name": "--syn-type-lede",
       "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-type-section",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-type-sm",

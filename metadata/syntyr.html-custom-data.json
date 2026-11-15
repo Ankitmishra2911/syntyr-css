@@ -66,6 +66,10 @@
           "description": "Syntyr CSS class (components/typography.css)."
         },
         {
+          "name": "syn-badge--accent",
+          "description": "Syntyr CSS class (components/typography.css)."
+        },
+        {
           "name": "syn-body",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -104,6 +108,42 @@
         {
           "name": "syn-cell--numeric",
           "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
+          "name": "syn-cell--wrap",
+          "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
+          "name": "syn-chart",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-chart-axis",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-chart-grid",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-chart-key",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-chart-legend",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-chart-legend-item",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-chart-title",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-chart-tooltip",
+          "description": "Syntyr CSS class (viz.css)."
         },
         {
           "name": "syn-check",
@@ -356,6 +396,10 @@
         {
           "name": "syn-scanlines",
           "description": "Syntyr CSS class (effects.css)."
+        },
+        {
+          "name": "syn-section-heading",
+          "description": "Syntyr CSS class (components/typography.css)."
         },
         {
           "name": "syn-select",
@@ -644,6 +688,54 @@
         {
           "name": "syn-u-wrap",
           "description": "Syntyr CSS class (utilities.css)."
+        },
+        {
+          "name": "syn-viz-bar",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-bar-fill",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-bar-label",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-bar-track",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-bars",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-cell",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-heatmap",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-sparkline",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-sparkline-area",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-sparkline-path",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-sr-only",
+          "description": "Syntyr CSS class (viz.css)."
+        },
+        {
+          "name": "syn-viz-tracker",
+          "description": "Syntyr CSS class (viz.css)."
         },
         {
           "name": "syn-workspace",

@@ -77,6 +77,11 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-badge--accent",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
       "name": "syn-body",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -125,6 +130,51 @@
       "name": "syn-cell--numeric",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-cell--wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-chart",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-axis",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-grid",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-key",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-legend",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-legend-item",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-title",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-chart-tooltip",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
     },
     {
       "name": "syn-check",
@@ -440,6 +490,11 @@
       "name": "syn-scanlines",
       "module": "effects.css",
       "description": "Syntyr CSS class (effects.css)."
+    },
+    {
+      "name": "syn-section-heading",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
     },
     {
       "name": "syn-select",
@@ -802,6 +857,66 @@
       "description": "Syntyr CSS class (utilities.css)."
     },
     {
+      "name": "syn-viz-bar",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-bar-fill",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-bar-label",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-bar-track",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-bars",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-cell",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-heatmap",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-sparkline",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-sparkline-area",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-sparkline-path",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-sr-only",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
+      "name": "syn-viz-tracker",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css)."
+    },
+    {
       "name": "syn-workspace",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -867,6 +982,41 @@
       "name": "--syn-card-padding",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-chart-1",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-2",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-3",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-4",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-axis",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-grid",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-chart-tooltip-bg",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css)."
     },
     {
       "name": "--syn-control-height",
@@ -1127,6 +1277,11 @@
       "name": "--syn-type-lede",
       "module": "recipes.css",
       "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-type-section",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
     },
     {
       "name": "--syn-type-sm",
