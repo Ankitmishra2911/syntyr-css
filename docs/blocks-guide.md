@@ -37,6 +37,11 @@ This creates `my-app/syntyr/blocks/*.html`, only the required prebuilt
 `LICENSE-MIT` copy and `installed.json` with the pinned source version
 and SHA-256 checksums for every copied file. No data is sent to a server.
 
+A [runnable Go standard-library consumer](https://github.com/dporkka/syntyr-css/tree/main/examples/blocks-go)
+shows one copied block adapted into a server-rendered `html/template` page,
+with a real HTTP handler and HTML escaping tests. Go is optional; no Go
+toolchain is required to use the core CSS or the block installer.
+
 This is intentionally a **one-shot, non-destructive copy operation**: it
 refuses to overwrite an existing file, even on a repeat invocation.
 To select additional blocks, use a new output folder or copy them manually;

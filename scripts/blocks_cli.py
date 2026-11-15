@@ -123,7 +123,7 @@ def install(document: dict, identifiers: list[str], output: Path, dry_run: bool)
     files = {root / name: contents for name, contents in assets.items()}
     # Validate all outputs before creating any files. Don't follow a pre-existing
     # symlink within the destination tree, even if no file exists at the end.
-    for path in (root.parent, root, root / "blocks", root / "css"):
+    for path in (*reversed(root.parents), root, root / "blocks", root / "css"):
         if path.is_symlink():
             raise BlockInstallError(f"Refusing to write through symlink: {path}")
         if path.exists() and not path.is_dir():

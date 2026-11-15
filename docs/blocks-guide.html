@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Syntyr Blocks &amp; Assets — integration guide. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="68731d232405ff0e65b222532fcb4e16add07cd17a055beb8833dcb61cf4ed82">
+  <meta name="syntyr-source-sha256" content="a50f23b0632b877cabad80223519eaf4d56a31137b9f6976608a6b50596899bf">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide.html">
@@ -62,6 +62,10 @@ python3 scripts/blocks_cli.py install metric-overview team-directory --output ./
 <code>syntyr/css/syntyr.&lt;module&gt;.css</code> files, an integration README, a
 <code>LICENSE-MIT</code> copy and <code>installed.json</code> with the pinned source version
 and SHA-256 checksums for every copied file. No data is sent to a server.</p>
+<p>A <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/blocks-go">runnable Go standard-library consumer</a>
+shows one copied block adapted into a server-rendered <code>html/template</code> page,
+with a real HTTP handler and HTML escaping tests. Go is optional; no Go
+toolchain is required to use the core CSS or the block installer.</p>
 <p>This is intentionally a <strong>one-shot, non-destructive copy operation</strong>: it
 refuses to overwrite an existing file, even on a repeat invocation.
 To select additional blocks, use a new output folder or copy them manually;

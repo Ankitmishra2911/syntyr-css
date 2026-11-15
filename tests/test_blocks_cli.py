@@ -115,6 +115,20 @@ class BlocksCliTests(unittest.TestCase):
             self.assertIn("syntyr/blocks/metric-overview.html", result.stdout)
             self.assertFalse(destination.exists())
 
+    def test_symlink_in_an_ancestor_of_output_is_rejected(self):
+        with tempfile.TemporaryDirectory() as root:
+            root = Path(root)
+            real_directory = root / "real"
+            real_directory.mkdir()
+            (root / "alias").symlink_to(real_directory, target_is_directory=True)
+            result = invoke(
+                "install", "metric-overview",
+                "--output", str(root / "alias/project"),
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("symlink", result.stderr.lower())
+            self.assertFalse((real_directory / "project").exists())
+
     def test_symlinked_output_tree_is_rejected(self):
         with tempfile.TemporaryDirectory() as root:
             root = Path(root)
