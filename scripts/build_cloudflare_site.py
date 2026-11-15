@@ -151,7 +151,8 @@ def source_files() -> dict[str, bytes]:
         *(
             ROOT / "metadata" / name
             for name in (
-                "syntyr-api.json", "syntyr.html-custom-data.json",
+                "syntyr-api.json", "syntyr-contract.json",
+                "syntyr.html-custom-data.json",
                 "syntyr.css-custom-data.json", "syntyr.code-snippets",
             )
         ),

@@ -12,9 +12,9 @@ import re
 import sys
 
 if __package__:
-    from .build import distributions
+    from .build import all_distributions, distributions
 else:
-    from build import distributions
+    from build import all_distributions, distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src"
@@ -138,6 +138,50 @@ def collect():
     }
 
 
+def component_contract(api, html_data):
+    """Full source-discovered inventory plus curated semantic component recipes.
+
+    This is tooling metadata, not a second, separately maintained CSS API.
+    The curated component list describes compositions, not class-by-class
+    allowed elements; those must not be treated as strict static rules.
+    """
+    distributions_by_name = all_distributions()
+    curated = json.loads((OUTPUT / "components.json").read_text(encoding="utf-8"))
+    known_classes = {item["name"] for item in api["classes"]}
+    for component in curated["components"]:
+        unknown = sorted(set(component["classes"]) - known_classes)
+        if unknown:
+            raise ValueError(f"Curated {component['name']} uses unknown classes: {unknown}")
+        if component["module"] not in distributions_by_name:
+            raise ValueError(f"Unknown component distribution: {component['module']}")
+
+    def with_stylesheets(items):
+        return [
+            {**item, "stylesheets": sorted(
+                name for name, modules in distributions_by_name.items()
+                if item["module"] in modules
+            )}
+            for item in items
+        ]
+
+    return {
+        "schema_version": 1,
+        "source_version": (ROOT / "VERSION").read_text(encoding="utf-8").strip(),
+        "completeness": "all-source-discovered-classes-and-tokens; curated-components",
+        "note": "Curated component elements are guidance, not per-class tag restrictions.",
+        "stylesheets": sorted(distributions_by_name),
+        "classes": with_stylesheets(api["classes"]),
+        "tokens": with_stylesheets(api["tokens"]),
+        "themes": api["themes"],
+        "attributes": {
+            attribute["name"]: [value["name"] for value in attribute["values"]]
+            for attribute in html_data["globalAttributes"]
+            if attribute["name"].startswith("data-syn-") and "values" in attribute
+        },
+        "components": curated["components"],
+    }
+
+
 def outputs():
     api = collect()
     classes = api["classes"]
@@ -172,6 +216,7 @@ def outputs():
         for name in SNIPPET_CLASSES
     }
     payloads = {
+        "syntyr-contract.json": component_contract(api, html),
         "syntyr-api.json": api,
         "syntyr.html-custom-data.json": html,
         "syntyr.css-custom-data.json": css,
