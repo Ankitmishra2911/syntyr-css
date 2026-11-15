@@ -68,6 +68,18 @@ class EnterpriseDataTables(unittest.TestCase):
         self.assertIn("data-tables.html", (ROOT / "README.md").read_text())
         self.assertIn('"data-tables"', (ROOT / "scripts/build_doc_pages.py").read_text())
 
+    def test_public_guide_is_indexed_for_agents(self):
+        self.assertIn("https://syntyr-css.pages.dev/docs/data-tables.md",
+                      (ROOT / "llms.txt").read_text())
+
+    def test_print_scroll_cap_resets_and_sort_arrows_remain_vertical_in_rtl(self):
+        print_css = (ROOT / "src/print.css").read_text()
+        self.assertIn("max-block-size: none", print_css)
+        css = (ROOT / "src/components/data.css").read_text()
+        self.assertIn("border-right: 2px solid currentColor", css)
+        self.assertIn("border-bottom: 2px solid currentColor", css)
+        self.assertNotIn("border-inline-end: 2px solid currentColor", css)
+
     def test_generated_core_contains_opt_in_styles(self):
         css = (ROOT / "dist/syntyr.core.css").read_text()
         self.assertIn(".syn-table-wrap--scroll", css)

@@ -31,7 +31,7 @@
     &.syn-table th[aria-sort="ascending"] .syn-table-sort::after,
     &.syn-table th[aria-sort="descending"] .syn-table-sort::after {
       content: ""; display: inline-block; flex: none; inline-size: .4rem; block-size: .4rem;
-      border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor;
+      border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
     }
     &.syn-table th[aria-sort="ascending"] .syn-table-sort::after { transform: rotate(225deg); }
     &.syn-table th[aria-sort="descending"] .syn-table-sort::after { transform: rotate(45deg); }
