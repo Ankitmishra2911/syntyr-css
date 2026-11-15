@@ -93,7 +93,9 @@ def validate_html(html: str, contract: dict, *, stylesheets: set[str] | None = N
     parser.feed(html)
     parser.close()
     loaded = parser.linked_stylesheets if stylesheets is None else stylesheets
-    if loaded:
+    # An explicit empty set means the caller knows no Syntyr CSS is loaded;
+    # None with no recognized <link> means an unverifiable HTML fragment.
+    if loaded or stylesheets is not None:
         for line, col, name in parser.used_classes:
             expected = set(parser.classes[name]["stylesheets"])
             if not expected.intersection(loaded):

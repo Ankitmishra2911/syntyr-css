@@ -53,6 +53,31 @@ class AgentMcpValidatorBridgeTests(unittest.TestCase):
         self.assertEqual(result['installed_stylesheets'], ['syntyr.core.css'])
         self.assertEqual(result['diagnostics'], [])
 
+    def test_candidate_accepts_css_defined_loading_selected_and_viz_states(self):
+        for name in ('active', 'loading', 'selected', 'healthy', 'degraded', 'down', 'unknown'):
+            result = self.catalog.validate_markup(
+                f'<main data-syn-state="{name}" class="syn-root"></main>',
+                '0.3.0-alpha.5', ['syntyr.all.css'])
+            self.assertFalse(any(d['code'] == 'invalid-attribute-value'
+                                 for d in result['diagnostics']), name)
+        invalid = self.catalog.validate_markup('<main data-syn-state="imaginary"></main>',
+                                               '0.3.0-alpha.5')
+        self.assertIn('invalid-attribute-value', [d['code'] for d in invalid['diagnostics']])
+
+    def test_candidate_semantic_bundle_is_recognized_as_css_provider(self):
+        html = ('''<link rel="stylesheet" href="/dist/syntyr.semantic-bundle.css">'''
+                '<main class="syn-root syn-semantic"><button>Save</button></main>')
+        result = self.catalog.validate_markup(html, '0.3.0-alpha.5')
+        self.assertEqual(result['installed_stylesheets'], ['syntyr.semantic-bundle.css'])
+        self.assertEqual([d['code'] for d in result['diagnostics']], [])
+
+    def test_explicit_empty_stylesheets_has_diagnostics_but_omission_does_not(self):
+        html = '<button class="syn-button">Go</button>'
+        explicitly_empty = self.catalog.validate_markup(html, '0.3.0-alpha.4', [])
+        self.assertIn('missing-stylesheet', [d['code'] for d in explicitly_empty['diagnostics']])
+        unknown = self.catalog.validate_markup(html, '0.3.0-alpha.4')
+        self.assertEqual(unknown['diagnostics'], [])
+
     def test_explicit_sheet_overrides_links_and_rejects_unpublished_modules(self):
         result = self.catalog.validate_markup('''<link rel="stylesheet" href="syntyr.recipes.css">
              <button class="syn-button"></button>''', '0.3.0-alpha.4', ['syntyr.core.css'])

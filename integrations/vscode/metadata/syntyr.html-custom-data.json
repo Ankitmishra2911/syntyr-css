@@ -1005,6 +1005,24 @@
       "values": [
         {
           "name": "active"
+        },
+        {
+          "name": "degraded"
+        },
+        {
+          "name": "down"
+        },
+        {
+          "name": "healthy"
+        },
+        {
+          "name": "loading"
+        },
+        {
+          "name": "selected"
+        },
+        {
+          "name": "unknown"
         }
       ]
     },

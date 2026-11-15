@@ -23,6 +23,7 @@ TOKEN = re.compile(r"(?<![\w-])(--syn-[a-zA-Z0-9_-]+)\s*:")
 CSS_COMMENT = re.compile(r"/\*.*?\*/", re.S)
 PREFER = (
     "syntyr.core.css", "syntyr.recipes.css", "syntyr.semantic.css",
+    "syntyr.semantic-bundle.css",
     "syntyr.geometry.css", "syntyr.effects.css", "syntyr.viz.css",
     "syntyr.utilities.css", "syntyr.motion.css", "syntyr.symbols.css",
     "syntyr.native-recipes.css", "syntyr.server.css", "syntyr.print.css",

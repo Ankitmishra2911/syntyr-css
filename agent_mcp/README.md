@@ -51,7 +51,9 @@ array with 1-based source positions, errors, class-name `suggestions` limited
 to the selected release, `allowed_values` for known states, and
 `required_stylesheets` / `loaded_stylesheets` when a CSS module is missing.
 Recognized `<link rel="stylesheet">` paths are used if `stylesheets` is
-omitted; explicit values override detected links. When neither is provided,
+omitted; explicit values override detected links. An explicitly empty array
+means **no Syntyr CSS is loaded** and produces missing-module diagnostics.
+When the field is omitted and no stylesheet link is found,
 `missing_stylesheets` lists recommended CSS entrypoints, but the validator
 cannot assert what the application already loads. Dynamic template expressions
 are skipped conservatively. The MCP tool never edits files or installs CSS.
