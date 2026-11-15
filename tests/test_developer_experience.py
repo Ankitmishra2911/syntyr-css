@@ -72,6 +72,8 @@ class DeveloperExperienceTests(unittest.TestCase):
         self.assertIn("textContent", js)
         self.assertIn("playground.html", (ROOT / "docs/index.html").read_text())
         self.assertIn("playground.html", (ROOT / "README.md").read_text())
+        self.assertIn("https://syntyr-css.pages.dev/docs/playground.html",
+                      (ROOT / "README.md").read_text())
         # The public source list is tested by the existing Cloudflare integration suite.
         self.assertIn('"playground.html"', (ROOT / "scripts/build_cloudflare_site.py").read_text())
         self.assertIn('"playground.js"', (ROOT / "scripts/build_cloudflare_site.py").read_text())
