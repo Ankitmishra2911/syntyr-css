@@ -23,7 +23,7 @@
         },
         {
           "name": "syn-app-card",
-          "description": "Syntyr CSS class (print.css)."
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-app-card-header",
@@ -31,15 +31,15 @@
         },
         {
           "name": "syn-app-nav",
-          "description": "Syntyr CSS class (print.css)."
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-app-rail",
-          "description": "Syntyr CSS class (print.css)."
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-app-shell",
-          "description": "Syntyr CSS class (print.css)."
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-app-topbar",
@@ -147,7 +147,7 @@
         },
         {
           "name": "syn-feature-card",
-          "description": "Syntyr CSS class (print.css)."
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-feature-grid",
@@ -294,6 +294,10 @@
           "description": "Syntyr CSS class (components/layout.css)."
         },
         {
+          "name": "syn-page",
+          "description": "Syntyr CSS class (base.css)."
+        },
+        {
           "name": "syn-page-link",
           "description": "Syntyr CSS class (components/patterns.css)."
         },
@@ -379,7 +383,7 @@
         },
         {
           "name": "syn-site-hero",
-          "description": "Syntyr CSS class (print.css)."
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-skeleton",
@@ -475,7 +479,7 @@
         },
         {
           "name": "syn-terminal",
-          "description": "Syntyr CSS class (print.css)."
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-terminal-bar",
@@ -483,7 +487,7 @@
         },
         {
           "name": "syn-terminal-body",
-          "description": "Syntyr CSS class (print.css)."
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-terminal-command",

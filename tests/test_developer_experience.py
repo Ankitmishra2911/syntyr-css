@@ -31,6 +31,16 @@ class DeveloperExperienceTests(unittest.TestCase):
         snippets = json.loads((ROOT / "metadata/syntyr.code-snippets").read_text())
         self.assertTrue(any("syn-button" in k for k in snippets))
 
+    def test_editor_metadata_attributes_defining_source_modules(self):
+        from scripts.export_api_metadata import collect
+        classes = {entry["name"]: entry["module"] for entry in collect()["classes"]}
+        self.assertEqual(classes["syn-app-shell"], "recipes.css")
+        self.assertEqual(classes["syn-terminal"], "recipes.css")
+        self.assertEqual(classes["syn-page"], "base.css")
+        self.assertEqual(classes["syn-root"], "base.css")
+        self.assertEqual(classes["syn-button"], "components/buttons.css")
+        self.assertNotIn("print.css", {classes["syn-app-shell"], classes["syn-terminal"]})
+
     def test_compositional_utilities_are_optional_and_scoped(self):
         utilities = (ROOT / "src/utilities.css").read_text()
         for cls in ("syn-u-w-full", "syn-u-max-reading", "syn-u-overflow-auto",

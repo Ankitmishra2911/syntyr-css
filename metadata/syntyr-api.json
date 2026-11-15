@@ -23,8 +23,8 @@
     },
     {
       "name": "syn-app-card",
-      "module": "print.css",
-      "description": "Syntyr CSS class (print.css)."
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-app-card-header",
@@ -33,18 +33,18 @@
     },
     {
       "name": "syn-app-nav",
-      "module": "print.css",
-      "description": "Syntyr CSS class (print.css)."
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-app-rail",
-      "module": "print.css",
-      "description": "Syntyr CSS class (print.css)."
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-app-shell",
-      "module": "print.css",
-      "description": "Syntyr CSS class (print.css)."
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-app-topbar",
@@ -178,8 +178,8 @@
     },
     {
       "name": "syn-feature-card",
-      "module": "print.css",
-      "description": "Syntyr CSS class (print.css)."
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-feature-grid",
@@ -362,6 +362,11 @@
       "description": "Syntyr CSS class (components/layout.css)."
     },
     {
+      "name": "syn-page",
+      "module": "base.css",
+      "description": "Syntyr CSS class (base.css)."
+    },
+    {
       "name": "syn-page-link",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
@@ -468,8 +473,8 @@
     },
     {
       "name": "syn-site-hero",
-      "module": "print.css",
-      "description": "Syntyr CSS class (print.css)."
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-skeleton",
@@ -588,8 +593,8 @@
     },
     {
       "name": "syn-terminal",
-      "module": "print.css",
-      "description": "Syntyr CSS class (print.css)."
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-terminal-bar",
@@ -598,8 +603,8 @@
     },
     {
       "name": "syn-terminal-body",
-      "module": "print.css",
-      "description": "Syntyr CSS class (print.css)."
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-terminal-command",

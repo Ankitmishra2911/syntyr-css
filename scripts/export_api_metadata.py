@@ -11,11 +11,16 @@ from pathlib import Path
 import re
 import sys
 
+if __package__:
+    from .build import distributions
+else:
+    from build import distributions
+
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src"
 OUTPUT = ROOT / "metadata"
 CSS_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
-CLASS = re.compile(r"(?<![\w-])\.(syn-[a-zA-Z0-9_-]+)\b")
+CLASS = re.compile(r"(?<!-)\.(syn-[a-zA-Z0-9_-]+)\b")
 TOKEN = re.compile(r"(?<![\w-])(--syn-[a-zA-Z0-9_-]+)\s*:")
 THEME = re.compile(r'data-syn-theme="([^"]+)"')
 
@@ -60,8 +65,12 @@ SNIPPET_CLASSES = (
 def collect():
     classes = {}
     tokens = {}
-    for file in sorted(SOURCE.rglob("*.css")):
-        path = file.relative_to(SOURCE).as_posix()
+    # Match the public build manifest, not filename sorting: print and token
+    # stylesheets *reference* component classes without defining their UI.
+    sources = list(dict.fromkeys(path for modules in distributions().values() for path in modules))
+    sources.sort(key=lambda path: (path == "tokens.css", path == "print.css"))
+    for path in sources:
+        file = SOURCE / path
         css = CSS_COMMENT.sub("", file.read_text(encoding="utf-8"))
         for name in CLASS.findall(css):
             classes.setdefault(name, path)
