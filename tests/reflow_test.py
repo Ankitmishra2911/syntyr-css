@@ -108,6 +108,15 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
                     assert any('INTENTIONAL CLIPPED FIXTURE' in c[1] for c in clipped), clipped
                 finally:
                     page.locator('#syn-clipped-card-fixture').evaluate('e => e.remove()')
+                # A named, horizontally scrolling board must also be operable
+                # from the keyboard, not merely discoverable by screen readers.
+                pipeline.evaluate('e => e.scrollLeft = 0')
+                pipeline.focus()
+                page.keyboard.press('ArrowRight')
+                page.wait_for_function(
+                    "document.querySelector('.syn-pipeline').scrollLeft > 0",
+                    timeout=3000,
+                )
 
         mobile_menu = page.locator('details.site-mobile-menu')
         if mobile_menu.count() and mobile_menu.is_visible():
