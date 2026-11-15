@@ -55,12 +55,17 @@ def source_files() -> dict[str, bytes]:
         ROOT / "LICENSE",
         ROOT / "README.md",
         ROOT / "ARCHITECTURE.md",
+        ROOT / "llms.txt",
+        ROOT / "llms-full.txt",
+        ROOT / "metadata/components.json",
+        ROOT / "agents/syntyr/SKILL.md",
         ROOT / "terminal/palettes.json",
         ROOT / "integrations/vertigo/admin.css",
         ROOT / "examples/ansi_cli.py",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
     public_docs = (
+        "ai-quickstart.md", "agent-integration.md",
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "components.md",
         "console-kit.html", "design-research-linear-resend.md",
         "distribution.md", "docs.css", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",

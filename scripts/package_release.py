@@ -22,6 +22,18 @@ FILES = (
     "ARCHITECTURE.md",
     "docs/distribution.md",
     "docs/api-stability.md",
+    "docs/ai-quickstart.md",
+    "docs/agent-integration.md",
+    "docs/components.md",
+    "docs/recipes.md",
+    "docs/framework-integrations.md",
+    "docs/theme-customization.md",
+    "docs/accessibility.md",
+    "docs/viz.md",
+    "llms.txt",
+    "llms-full.txt",
+    "metadata/components.json",
+    "agents/syntyr/SKILL.md",
 ) + tuple(f"dist/{name}" for name in distributions()) + (
     "terminal/palettes.json",
 )
@@ -32,6 +44,8 @@ def package(output: Path) -> None:
     if not version or "/" in version or "\\" in version:
         raise ValueError("Invalid VERSION")
     subprocess.run([sys.executable, str(ROOT / "scripts/build.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_agent_docs.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     output.parent.mkdir(parents=True, exist_ok=True)
     with ZipFile(output, mode="w", compression=ZIP_DEFLATED, compresslevel=9) as archive:
