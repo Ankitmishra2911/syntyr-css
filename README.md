@@ -80,7 +80,7 @@
 
 The linked alpha.4 release is already published; it does not include the four additional palettes or the optional utilities module. These are in the unreleased alpha.5 source candidate.
 
-Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. No NPM, JS or build step is needed in an application. For package-manager projects, an optional CSS-only `@syntyr/css` manifest is now prepared for an **unpublished** alpha.5 candidate; [test it locally](docs/package-managers.md) until registry ownership and release approval are confirmed. No package installation is required by Syntyr itself.
+Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and load it with a normal stylesheet link. The **unreleased alpha.5** ZIP candidate also includes `examples/saas.html`, a self-contained offline SaaS demo with relative CSS references (not included in the published alpha.4 archive). No NPM, JS or build step is needed in an application. For package-manager projects, an optional CSS-only `@syntyr/css` manifest is now prepared for an **unpublished** alpha.5 candidate; [test it locally](docs/package-managers.md) until registry ownership and release approval are confirmed. No package installation is required by Syntyr itself.
 
 ## Documentation for humans and AI agents
 

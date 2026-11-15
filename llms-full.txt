@@ -1001,6 +1001,22 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Offline SaaS preview in the next release ZIP (unreleased alpha.5)
+
+The alpha.5 source candidate now packages `examples/saas.html` together with
+`dist/syntyr.core.css` and `dist/syntyr.recipes.css`. After building or
+extracting the **alpha.5** ZIP, open `examples/saas.html` directly in your
+browser. Its relative stylesheets resolve within the extracted archive, so it
+requires **no internet connection, local server, npm, build step or runtime
+JavaScript**. You can edit the HTML and CSS locally to test integration.
+
+This is a static **illustrative SaaS dashboard**: fictional metrics, no real
+account data, authentication, filtering, API calls, or backend actions. To use
+it in an application, replace sample values with server-rendered data and wire
+navigation and mutations to your own server. The already published **alpha.4**
+release does *not* contain this packaged example; the next alpha.5 release
+has not been published yet.
+
 ## One-file semantic starter (unreleased alpha.5 source)
 
 For a Pico-like HTML workflow, `dist/syntyr.semantic-bundle.css` combines core and semantic CSS into a single file. Copy it to your static assets, then opt in on the region you want styled:
