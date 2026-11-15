@@ -21,6 +21,10 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Optional npm/package-manager distribution
+
+A CSS-only `@syntyr/css` manifest is available in the alpha.5 repository candidate, but **it has not been published to npm**. See [package-manager installation and local tarball testing](package-managers.md) for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.
+
 ## Optional themes and semantic HTML
 
 Grid, Noir and Studio ship in the **same** core stylesheet; set

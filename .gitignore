@@ -17,3 +17,10 @@ experiments/hugo/.hugo_build.lock
 # Ship compiled CSS with the source; override developer-global dist/ ignores.
 !dist/
 !dist/*.css
+
+# Optional npm packaging causes Cloudflare Pages to run npm install.
+# These generated artifacts must not be committed or treated as runtime needs.
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
