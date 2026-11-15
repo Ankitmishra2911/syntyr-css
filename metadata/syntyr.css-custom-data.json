@@ -186,6 +186,42 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-geo-floating",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-land",
+      "description": "Decorative map fallback surface, not a real basemap."
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-point",
+      "description": "Map-marker accent; derived from theme. Does not establish a GIS layer category."
+    },
+    {
+      "name": "--syn-geo-road",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-route",
+      "description": "Map route/line color; host supplies geometry and semantics."
+    },
+    {
+      "name": "--syn-geo-water",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-zone",
+      "description": "Map zone color; host supplies meaningful labels and boundaries."
+    },
+    {
       "name": "--syn-glow-alpha",
       "description": "Glow accent share; varies by scoped data-syn-intensity."
     },

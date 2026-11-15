@@ -30,8 +30,8 @@ SITE_URL = "https://syntyr-css.pages.dev"
 # These pages are illustrative applications or an error response, not search
 # landing pages. Their HTML remains publicly available and linkable.
 NOINDEX_HTML = frozenset({
-    "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html",
-    "examples/resource-workspace.html",
+    "404.html", "examples/geo.html", "examples/crm.html", "examples/saas.html",
+    "examples/pricing.html", "examples/resource-workspace.html",
 })
 CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
 ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
@@ -237,7 +237,7 @@ PUBLIC_DOCS = (
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
     "site-generator-decision.md", "tailwind-research.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
-    "vertigo-integration.md", "viz.md",
+    "vertigo-integration.md", "viz.md", "geo.md",
 )
 
 
@@ -279,7 +279,7 @@ def source_files() -> dict[str, bytes]:
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "saas.html", "saas-workflows.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
-        "viz.html",
+        "viz.html", "geo.html",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.

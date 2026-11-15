@@ -13,7 +13,7 @@
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
-- **Opt-in universal registry (alpha.5 source):** 20 free copy-owned HTML blocks plus 8 CSS modules in shadcn-compatible static JSON; no consumer runtime dependency. See [blocks guide](docs/blocks-guide.md).
+- **Opt-in universal registry (alpha.5 source):** 20 free copy-owned HTML blocks plus 9 CSS modules in shadcn-compatible static JSON; no consumer runtime dependency. See [blocks guide](docs/blocks-guide.md).
 
 ## Live gallery and installation
 
@@ -70,6 +70,7 @@
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md) and [interactive geometry mixer](docs/playground.html#geometry-title)
 - [Quiet / standard / cinematic intensity comparison](examples/intensity-geometry.html) with [composability guide](docs/visual-intensity.md): independent effect controls, composable frame accents, and nested presets without JavaScript
 - [Optional SVG icons, Unicode markers and ASCII/box-drawing demo](examples/symbols.html) with [copy-paste guide](docs/symbols.md)
+- [CSS-only geospatial schematic demo](examples/geo.html) and [Geo renderer integration guide](docs/geo.md): map workspace, accessible markers, legends, controls, attribution and responsive GIS panels without bundling a map engine
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
 - [Three flagship visual compositions](docs/visual-composition.md): [Studio operations](examples/flagship-studio.html), [Noir editorial](examples/flagship-noir.html), and [Grid control](examples/flagship-grid.html); original, static, zero-JavaScript showcases.
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
@@ -153,6 +154,7 @@ For a smaller two-file installation, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
 | `dist/syntyr.viz.css` | Optional theme-aware data visualization styles, no chart renderer or JS |
+| `dist/syntyr.geo.css` | Optional renderer-neutral geospatial UI: map panels, markers, legends, controls, no map SDK |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
 | `dist/syntyr.native-recipes.css` | Optional floating labels, timelines and captioned code |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |

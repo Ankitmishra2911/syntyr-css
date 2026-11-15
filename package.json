@@ -25,6 +25,7 @@
     "./syntyr.css": "./dist/syntyr.css",
     "./all.css": "./dist/syntyr.all.css",
     "./viz.css": "./dist/syntyr.viz.css",
+    "./geo.css": "./dist/syntyr.geo.css",
     "./components/tokens.css": "./dist/components/tokens.css",
     "./components/base.css": "./dist/components/base.css",
     "./components/layout.css": "./dist/components/layout.css",
