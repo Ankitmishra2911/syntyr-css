@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -228,6 +228,75 @@ def assert_page(browser, name: str, viewport: int) -> None:
             assert selected.evaluate("e => getComputedStyle(e).outlineStyle") != "none"
             page.emulate_media(forced_colors="active")
             assert selected.evaluate("e => getComputedStyle(e).outlineStyle") != "none"
+    if name == "examples/symbols.html":
+        icons = page.locator(".syn-icon")
+        assert icons.count() == 2
+        for icon in icons.all():
+            values = icon.evaluate("""e => ({
+                width: e.getBoundingClientRect().width,
+                height: e.getBoundingClientRect().height,
+                color: getComputedStyle(e).color,
+            })""")
+            assert values["width"] >= 12 and abs(values["width"] - values["height"]) <= 1, values
+        ascii = page.locator(".syn-ascii").first
+        styles = ascii.evaluate("""e => ({
+            whiteSpace: getComputedStyle(e).whiteSpace,
+            overflowX: getComputedStyle(e).overflowX,
+            fontVariantLigatures: getComputedStyle(e).fontVariantLigatures,
+        })""")
+        assert styles == {"whiteSpace": "pre", "overflowX": "auto",
+                          "fontVariantLigatures": "none"}, styles
+        # The long line must scroll *inside* the pre, not expand the document.
+        ascii.evaluate("e => e.style.inlineSize = '10ch'")
+        assert ascii.evaluate("e => e.scrollWidth > e.clientWidth")
+        assert page.evaluate("document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1")
+        assert page.locator(".syn-symbol[aria-hidden='true']").count() >= 5
+        if viewport == 1280:
+            accessible = page.locator('main').aria_snapshot()
+            # Decorative glyphs and text-art disappear from the accessibility
+            # tree; visible equivalents remain.
+            for phrase in ('API online and jobs online',
+                           'Gateway healthy and queue connected',
+                           'Search example (disabled)', 'Network healthy'):
+                assert phrase in accessible, (phrase, accessible)
+            for hidden in ('JOBS [OK]', 'Queue: connected', 'SYNTYR / CONTROLLER'):
+                assert hidden not in accessible, (hidden, accessible)
+            # Check actual cascade scoping, not only the CSS source strings:
+            # unrelated pages using the same class names must remain untouched.
+            result = page.evaluate("""() => {
+                document.body.classList.remove('syn-root');
+                document.body.innerHTML = [
+                  '<div id="outside"><span class="syn-icon"></span>',
+                  '<pre class="syn-ascii">xy</pre>',
+                  '<span class="syn-symbol">◇</span></div>',
+                  '<div id="inside" class="syn-root">',
+                  '<span class="syn-icon"></span><pre class="syn-ascii">xy</pre>',
+                  '<span class="syn-symbol">◇</span></div>',
+                  '<pre id="self" class="syn-root syn-ascii">xy</pre>'
+                ].join('');
+                function measure(selector) {
+                  const el = document.querySelector(selector);
+                  const cs = getComputedStyle(el);
+                  return {display: cs.display, whitespace: cs.whiteSpace,
+                    ligatures: cs.fontVariantLigatures, lineHeight: cs.lineHeight};
+                }
+                return {
+                  outsideIcon: measure('#outside .syn-icon'),
+                  insideIcon: measure('#inside .syn-icon'),
+                  outsideText: measure('#outside .syn-ascii'),
+                  insideText: measure('#inside .syn-ascii'),
+                  rootSelf: measure('#self'),
+                  outsideSymbol: measure('#outside .syn-symbol'),
+                  insideSymbol: measure('#inside .syn-symbol')
+                };
+            }""")
+            assert result['outsideIcon']['display'] == 'inline', result
+            assert result['insideIcon']['display'] == 'inline-block', result
+            assert result['outsideText']['ligatures'] != 'none', result
+            assert result['insideText']['ligatures'] == 'none', result
+            assert result['rootSelf']['ligatures'] == 'none', result
+            assert result['outsideSymbol']['display'] == 'inline', result
+            assert result['insideSymbol']['display'] == 'inline-block', result
     if name == "examples/saas-workflows.html":
         assert page.get_by_role("search").count() == 1, name
         assert page.get_by_role("table").count() == 1, name
