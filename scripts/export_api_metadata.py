@@ -203,8 +203,14 @@ def validate_recipes(recipes, class_stylesheets, attributes):
                     raise ValueError(f"{ident}: unknown class: {name}")
                 if not class_stylesheets[name].intersection(stylesheets):
                     raise ValueError(f"{ident}: class {name} not loaded by {sorted(stylesheets)}")
-        for attribute, values in recipe.get("variants", {}).items():
-            if attribute not in attributes or not values or not set(values).issubset(attributes[attribute]):
+        variants = recipe.get("variants", {})
+        if not isinstance(variants, dict):
+            raise ValueError(f"{ident}: variants must be an object")
+        for attribute, values in variants.items():
+            if (not isinstance(values, list) or not values
+                    or any(not isinstance(value, str) for value in values)):
+                raise ValueError(f"{ident}: variant {attribute} requires a nonempty list of strings")
+            if attribute not in attributes or not set(values).issubset(attributes[attribute]):
                 raise ValueError(f"{ident}: unsupported variant {attribute}: {values}")
 
 

@@ -81,6 +81,17 @@ class RecipeContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "duplicate recipe id"):
             validate_recipes(broken, classes, self.contract["attributes"])
 
+    def test_rejects_non_array_or_non_string_variant_values(self):
+        original = self.curated["recipes"]
+        classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
+        for bad in ({"compact": True}, [], ["compact", 3], "compact"):
+            broken = copy.deepcopy(original)
+            broken[0]["variants"]["data-syn-density"] = bad
+            with self.subTest(bad=bad), self.assertRaisesRegex(
+                ValueError, "nonempty list of strings"
+            ):
+                validate_recipes(broken, classes, self.contract["attributes"])
+
     def test_rejects_invalid_variants_and_duplicate_slots(self):
         original = self.curated["recipes"]
         classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
