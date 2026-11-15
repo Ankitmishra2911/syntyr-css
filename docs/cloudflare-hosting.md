@@ -45,6 +45,28 @@ non-public paths. Cloudflare builds run the Python test suite as a release gate.
 Configure a custom domain only after DNS and trademark/name clearance.
 Keep the existing GitHub Pages site as a rollback until production checks pass.
 
+## Immutable stylesheets for the live documentation site
+
+The Cloudflare publish builder rewrites its **own HTML stylesheet links**
+to content-addressed `/_assets/css/<sha256>.css` copies. Cloudflare serves
+these with `Cache-Control: public, max-age=31536000, immutable`, so
+repeat visits avoid unnecessary stylesheet revalidation. A change to any
+CSS asset changes the hash and the generated HTML reference in the same
+deployment. The original source HTML files are **not** edited.
+
+The regular `/dist/*` preview and download URLs remain available,
+mutable and revalidated (`max-age=0, must-revalidate`); never mark
+unversioned preview CSS immutable. Frozen public `/v/<version>/*`
+releases remain byte-for-byte unchanged. Third-party applications should
+still self-host or pin versioned assets, rather than copy the hashed
+documentation-only URLs.
+
+The builder recognizes local linked stylesheet files that are included
+in the public allowlist. It rejects CSS containing unresolved `@import`
+or `url()` dependencies rather than silently moving it to a different
+relative path. If a new CSS file needs relative assets, explicitly add
+and test a relocation strategy before publishing.
+
 ## CSS CDN URLs
 
 Unversioned CSS: `/dist/syntyr.core.css` for previews and quick starts.

@@ -12,6 +12,11 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-activity-timeline",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-alert",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -127,6 +132,11 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-cell--nowrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
       "name": "syn-cell--numeric",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
@@ -187,12 +197,62 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-command-description",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-command-group",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-command-group-label",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-command-key",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-command-panel",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-command-row",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-command-search",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-cta-band",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-defer-section",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-detail-aside",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-detail-layout",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-detail-main",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
     },
@@ -462,6 +522,21 @@
       "description": "Syntyr CSS class (base.css)."
     },
     {
+      "name": "syn-page-header",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-page-header__actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-page-header__meta",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-page-link",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
@@ -577,6 +652,21 @@
       "description": "Syntyr CSS class (components/layout.css)."
     },
     {
+      "name": "syn-showcase",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-showcase-copy",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-showcase-visual",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-sidebar",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -672,7 +762,22 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-surface--floating",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-surface--lift",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-surface--raised",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-surface--recessed",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
     },
@@ -1019,6 +1124,11 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-border-floating",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
       "name": "--syn-border-focus",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
@@ -1350,6 +1460,11 @@
     },
     {
       "name": "--syn-surface",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-surface-floating",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
     },

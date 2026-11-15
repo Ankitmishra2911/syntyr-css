@@ -507,6 +507,16 @@ def assert_visual_refinement(browser) -> None:
             <tr id="chosen" aria-selected="true"><td>Chosen</td></tr>
             <tr id="available"><td>Available</td></tr>
           </tbody></table>
+          <div class="syn-table-wrap" style="width:280px" role="region"
+               aria-label="Responsive table demo" tabindex="0">
+            <table class="syn-table" style="table-layout:fixed"><tbody>
+              <tr><td id="prose">A longer descriptive message with several words must wrap in a compact cell.</td>
+                  <td id="identifier" class="syn-cell--nowrap">NODE-ABC-129</td>
+                  <td id="quantity" class="syn-cell--numeric">12,450</td></tr>
+            </tbody></table>
+          </div>
+          <article id="custom-cut" class="syn-panel syn-panel--cut"
+                   style="--syn-panel-cut-fill: #123456">Cut panel</article>
         </main>""")
         for ordinary, compact in (("ordinary", "compact"),
                                   ("ordinary-choice", "compact-choice")):
@@ -526,6 +536,21 @@ def assert_visual_refinement(browser) -> None:
         other.hover()
         assert other.evaluate("e => getComputedStyle(e).backgroundColor") != selected_background, (
             "nonselected hover must not look selected")
+        prose = page.locator("#prose")
+        quantity = page.locator("#quantity")
+        assert prose.evaluate("e => getComputedStyle(e).whiteSpace") == "normal"
+        for cell in ("#identifier", "#quantity"):
+            assert page.locator(cell).evaluate("e => getComputedStyle(e).whiteSpace") == "nowrap", cell
+        line_rects = """e => {
+            const range = document.createRange();
+            range.selectNodeContents(e);
+            return range.getClientRects().length;
+        }"""
+        assert prose.evaluate(line_rects) > quantity.evaluate(line_rects), (
+            "prose must actually wrap in the narrow table")
+        assert page.locator("#custom-cut").evaluate(
+            "e => getComputedStyle(e, '::after').backgroundColor") == "rgb(18, 52, 86)", (
+                "corner cut must use the underlying surface override")
     finally:
         context.close()
 
