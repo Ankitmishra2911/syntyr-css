@@ -100,7 +100,16 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert page.get_by_role('heading', level=1).count() == 1
         assert page.locator('.site-showcase-card').count() == 3
         assert page.locator('.site-theme-swatch').count() == 7
-        assert page.get_by_role('img', name='Illustrative Studio SaaS dashboard with navigation, key metrics and a chart. No live data.').count() == 1
+        preview = page.get_by_role('img', name='Illustrative Grid-themed SaaS dashboard with navigation, key metrics and a chart. No live data.')
+        assert preview.count() == 1
+        assert preview.evaluate('e => getComputedStyle(e).colorScheme') == 'dark'
+        palette_nav = page.get_by_role('navigation', name='Explore published themes')
+        assert palette_nav.count() == 1
+        for theme, expected_scheme in (('studio', 'light'), ('grid', 'dark'), ('noir', 'dark')):
+            link = palette_nav.locator(f'.site-palette-link[data-syn-theme="{theme}"]')
+            assert link.get_attribute('href') == '#theme-comparison'
+            assert link.evaluate('e => getComputedStyle(e).colorScheme') == expected_scheme
+            assert link.is_visible()
         assert page.locator('#grid').evaluate('e => getComputedStyle(e).colorScheme') == 'dark'
         assert page.locator('#business').evaluate('e => getComputedStyle(e).colorScheme') == 'light'
         for path in ('examples/saas-workflows.html', 'examples/business.html',
