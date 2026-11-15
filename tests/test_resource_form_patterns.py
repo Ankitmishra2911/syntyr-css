@@ -15,6 +15,19 @@ class Markup(HTMLParser):
 
 
 class ResourceFormPatternsTests(unittest.TestCase):
+    def test_a11y_audit_includes_this_public_example(self):
+        import ast
+        tree = ast.parse((ROOT / "tests/axe_audit.py").read_text())
+        pages = next(
+            ast.literal_eval(node.value)
+            for node in tree.body
+            if isinstance(node, ast.Assign) and any(
+                isinstance(target, ast.Name) and target.id == "PAGES"
+                for target in node.targets
+            )
+        )
+        self.assertIn("examples/resource-workspace.html", pages)
+
     def test_recipes_extend_opt_in_root_without_runtime(self):
         css = (ROOT / "src/recipes.css").read_text()
         for selector in ("&.syn-collection-toolbar", "&.syn-collection-actions",
