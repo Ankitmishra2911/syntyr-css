@@ -123,3 +123,30 @@ Track LCP, CLS, INP, transfer bytes, and first-load connection overhead.
 Cloudflare reduces distance to content but does not fix CSS render costs.
 
 For comparative measurement rules, see [performance validation](performance-validation.md).
+
+## Safe immutable-release preflight
+
+An unfrozen source candidate is **not** a published CDN release.
+Run these read-only checks before preparing a release:
+
+```sh
+python3 scripts/build.py --check
+python3 -m unittest discover -s tests -q
+python3 scripts/freeze_site_release.py --check
+python3 scripts/package_release.py /tmp/syntyr-release-candidate.zip
+```
+
+The freeze script defaults to **read-only preflight**. It verifies the
+SHA-256 manifest of every previously published release, checks that generated
+CSS matches the current source, and previews the exact public CSS distributions.
+Non-allowlisted files in dist/ are excluded. It never tags or publishes.
+
+**Only after manual release approval** (including accessibility evidence,
+real browser and assistive-technology testing, naming clearance, and exact-head
+CI), run `python3 scripts/freeze_site_release.py --apply`. This adds a
+new immutable snapshot and manifest entry without replacing existing versions.
+Then update installation links and version-specific tests, rebuild the static
+site, and verify the new `/v/<version>/` URLs before announcing the release.
+
+npm publication remains a **separate authenticated operation**; a frozen CDN
+asset or locally packaged ZIP does not establish npm publication.
