@@ -34,6 +34,7 @@
 - [Design-partner interview pilot (not yet recruited)](business/design-partner-pilot.md)
 - [Free original Noir resource archive demo](examples/resources.html)
 - [Seven-theme comparison gallery (unreleased)](examples/themes.html)
+- [Minimalist patterns demo (system palette, fluid type, intrinsic layouts and classless form)](examples/minimalist-patterns.html)
 - [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
 - [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)

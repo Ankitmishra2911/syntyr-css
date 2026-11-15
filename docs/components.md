@@ -149,3 +149,14 @@ Native disabled buttons cannot activate; aria-disabled does not block activation
 Professional light mode: `data-syn-theme="studio"`. Colors and geometry are intentionally independent. Use `.syn-table-emphasis` for explicit cell highlighting instead of relying on last-column position; `.syn-status--success`, `--warning`, or `--danger` should always accompany readable status text.
 
 Native terminal applications cannot render CSS. Use `terminal/palettes.json` as the portable color reference. See [usage and accessibility guidance](saas-cli-business.md). For bevel, notch, bracket, inset and circuit frame geometry, load the optional geometry stylesheet and follow [the frame guide](geometry-terminal.md). All new visual classes are optional and require no runtime JavaScript.
+
+
+## Minimalist compositions (experimental)
+
+`syntyr.recipes.css` also includes `.syn-sidebar` (two-column intrinsic
+sidebar/content), `.syn-switcher` (all-or-nothing responsive card row),
+fluid typography utilities `.syn-fluid-display` / `.syn-fluid-lede`,
+and `.syn-reading`. These are not part of `syntyr.core.css`.
+Classless checkbox and radio labels align their controls inline when
+`syntyr.semantic.css` and `.syn-semantic` are enabled. See
+[the recipe guide](recipes.md) and [live example](../examples/minimalist-patterns.html).
