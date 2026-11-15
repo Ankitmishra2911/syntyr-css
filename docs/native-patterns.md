@@ -76,7 +76,7 @@ and long translated labels in the actual application.
 ## Semantic timelines and captioned code
 
 ~~~html
-<ol class="syn-timeline">
+<ol class="syn-timeline" role="list">
   <li><time datetime="2026-11-15">15 November</time>Published</li>
 </ol>
 

@@ -83,6 +83,21 @@ class BladesAdoptionContract(unittest.TestCase):
         self.assertTrue(any(tag == "figcaption" for tag, _ in parser.elements))
         self.assertIn('tabindex="0"', html)
 
+    def test_timeline_supports_rtl_and_keeps_list_semantics(self):
+        css = (ROOT / "src/native-recipes.css").read_text()
+        li_rule = css.split(".syn-timeline) > li {", 1)[1].split("}", 1)[0]
+        self.assertIn("padding-inline-start: var(--syn-space-3)", li_rule)
+        self.assertIn("padding-block: 0 var(--syn-space-3)", li_rule)
+        self.assertNotIn("padding: 0 0 ", li_rule)
+
+        html = (ROOT / "examples/native-recipes.html").read_text()
+        docs = (ROOT / "docs/native-patterns.md").read_text()
+        self.assertIn('<ol class="syn-timeline" role="list"', html)
+        self.assertIn('<ol class="syn-timeline" role="list"', docs)
+
+    def test_native_patterns_are_discoverable_in_agent_index(self):
+        self.assertIn("docs/native-patterns.md", (ROOT / "llms.txt").read_text())
+
     def test_docs_and_gallery_are_explicitly_allowlisted(self):
         self.assertIn("native-recipes.html", (ROOT / "docs/index.html").read_text())
         self.assertIn("native-recipes.html", (ROOT / "scripts/build_cloudflare_site.py").read_text())
