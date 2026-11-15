@@ -20,7 +20,8 @@
     "./utilities.css": "./dist/syntyr.utilities.css",
     "./print.css": "./dist/syntyr.print.css",
     "./syntyr.css": "./dist/syntyr.css",
-    "./all.css": "./dist/syntyr.all.css"
+    "./all.css": "./dist/syntyr.all.css",
+    "./viz.css": "./dist/syntyr.viz.css"
   },
   "sideEffects": [
     "**/*.css"

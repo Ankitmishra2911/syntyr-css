@@ -19,6 +19,7 @@ class NpmDistributionContract(unittest.TestCase):
         self.assertFalse(self.package.get('private', False))
         self.assertEqual(self.package['style'], './dist/syntyr.core.css')
         self.assertEqual(self.package['exports']['.'], './dist/syntyr.core.css')
+        self.assertEqual(self.package['exports']['./viz.css'], './dist/syntyr.viz.css')
         self.assertIn('**/*.css', self.package['sideEffects'])
         self.assertNotIn('main', self.package)
         for field in ('dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies', 'bin'):
