@@ -22,6 +22,7 @@ SOURCES = (
     "docs/native-browser-apis.md",
     "docs/theme-customization.md",
     "docs/visual-intensity.md",
+    "docs/visual-composition.md",
     "docs/geometry-terminal.md",
     "docs/viz.md",
     "docs/accessibility.md",

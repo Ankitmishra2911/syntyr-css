@@ -80,6 +80,10 @@ def main() -> int:
                 binary = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE") or shutil.which("chromium") or shutil.which("chromium-browser")
                 if binary:
                     opts.update(executable_path=binary, args=["--no-sandbox"])
+            if engine == "webkit":
+                custom_webkit = os.getenv("SYNTYR_WEBKIT_EXECUTABLE")
+                if custom_webkit:
+                    opts["executable_path"] = custom_webkit
             try:
                 browser = getattr(p, engine).launch(**opts)
             except Exception as e:

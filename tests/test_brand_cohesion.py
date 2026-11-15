@@ -88,6 +88,35 @@ class BrandCohesionContract(unittest.TestCase):
         # Stronger essential input/control boundaries are not weakened.
         self.assertIn("var(--syn-frame)", (ROOT / "src/components/forms.css").read_text())
 
+    def test_flagship_terminal_has_keyboard_accessible_scroll_region(self):
+        html = (ROOT / "examples/flagship-grid.html").read_text()
+        self.assertIn(
+            '<pre class="flagship-terminal" tabindex="0" role="region" '
+            'aria-label="Simulated command output">',
+            html,
+        )
+        css = (ROOT / "examples/flagship.css").read_text()
+        self.assertIn(".flagship .flagship-terminal:focus-visible", css)
+
+    def test_forced_color_pillars_preserve_canvas_foreground_contrast(self):
+        css = (ROOT / "examples/flagship.css").read_text()
+        self.assertIn(
+            ".flagship .flagship-pillar { border-color: CanvasText; background: Canvas; }",
+            css,
+        )
+        self.assertNotIn(
+            ".flagship .flagship-eyebrow::before, .flagship .flagship-pillar",
+            css,
+        )
+
+    def test_new_public_visual_guidance_is_agent_discoverable(self):
+        llms = (ROOT / "llms.txt").read_text()
+        self.assertIn("https://syntyr-css.pages.dev/docs/visual-composition.md", llms)
+        source = (ROOT / "scripts/build_agent_docs.py").read_text()
+        self.assertIn('"docs/visual-composition.md"', source)
+        compiled = (ROOT / "llms-full.txt").read_text()
+        self.assertIn("## Source: docs/visual-composition.md", compiled)
+
     def test_public_site_contains_showcases_and_visual_guidelines(self):
         from scripts.build_cloudflare_site import source_files
         published = source_files()
