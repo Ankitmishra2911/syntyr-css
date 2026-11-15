@@ -21,7 +21,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINES = ROOT / "tests" / "visual-baselines"
-FIXTURES = ("tailwind-v4", "astro", "shadcn-bridge")
+FIXTURES = ("tailwind-v4", "astro", "shadcn-bridge", "syntyr-shadcn-react")
 UPDATE = False
 
 
@@ -62,7 +62,7 @@ class SyntyrAdoptionVisual(unittest.TestCase):
 
     def inspect_fixture(self, name):
         root = ROOT / "examples" / name
-        root = root / "dist" if name == "astro" else root
+        root = root / "dist" if name in ("astro", "syntyr-shadcn-react") else root
         self.assertTrue((root / "index.html").is_file(), f"Build {name} before browser tests")
         page = self.browser.new_page(viewport={"width": 1100, "height": 760}, device_scale_factor=1, reduced_motion="reduce")
         errors = []
@@ -97,6 +97,23 @@ class SyntyrAdoptionVisual(unittest.TestCase):
             if name == "astro":
                 self.assertEqual(page.locator("article.syn-panel").count(), 2)
                 self.assertEqual(page.locator(".syn-button--primary").count(), 1)
+            if name == "syntyr-shadcn-react":
+                self.assertEqual(page.locator(".syn-shadcn").evaluate(
+                    "e => getComputedStyle(e).getPropertyValue('--primary').trim()"), "#2458c6")
+                self.assertEqual(page.locator("[data-syn-theme=noir]").evaluate(
+                    "e => getComputedStyle(e).getPropertyValue('--primary').trim()"), "#f1b574")
+                self.assertEqual(page.locator("#react-action").evaluate(
+                    "e => getComputedStyle(e).backgroundColor"), "rgb(36, 88, 198)")
+                self.assertEqual(page.locator("#noir-action").evaluate(
+                    "e => getComputedStyle(e).backgroundColor"), "rgb(241, 181, 116)")
+                self.assertEqual(page.locator("#aschild-link").get_attribute("data-slot"), "button")
+                self.assertEqual(page.locator("#aschild-link").evaluate("e => e.tagName"), "A")
+                self.assertTrue(page.locator("#disabled-action").is_disabled())
+                page.locator("#react-action").click()
+                self.assertEqual(page.locator("#react-action").inner_text(), "Increment 1")
+                page.locator("#aschild-link").click()
+                self.assertTrue(page.url.endswith("#details"))
+                page.reload(wait_until="networkidle")
             image_bytes = page.locator("main").screenshot(animations="disabled")
         page.close()
         expected = BASELINES / f"syntyr-{name}.png"
@@ -122,6 +139,9 @@ class SyntyrAdoptionVisual(unittest.TestCase):
 
     def test_shadcn_bridge(self):
         self.inspect_fixture("shadcn-bridge")
+
+    def test_generated_shadcn_react(self):
+        self.inspect_fixture("syntyr-shadcn-react")
 
 
 if __name__ == "__main__":

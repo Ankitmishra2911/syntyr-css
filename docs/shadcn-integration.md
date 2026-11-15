@@ -41,12 +41,22 @@ Nested `data-syn-theme` regions **redeclare** shadcn aliases so CSS
 custom-property computed values do not freeze at the ancestor palette.
 
 The adapter is not a fork, registry distribution of shadcn components,
-or a replacement for Radix focus management. The fixture at
-`examples/shadcn-bridge/` compiles actual shadcn **semantic utility
-classes** with Tailwind v4, but it does **not yet verify a real generated
-React/Radix/shadcn component**. Portal placement, component-owned classes,
-keyboard interaction, errors and color contrast must be checked when used
-in a production shadcn project.
+or a replacement for Radix focus management. Two optional fixtures test it:
+
+- `examples/shadcn-bridge/` builds actual shadcn-style Tailwind utility
+  classes without an application runtime.
+- `examples/syntyr-shadcn-react/` is generated with the official shadcn
+  Vite CLI (`--base radix`) and includes the CLI's **real generated**
+  `Button` component. A Chromium test verifies Studio and nested Noir
+  computed colors, React click handling, a disabled button and Radix
+  `asChild` rendering an anchor.
+
+This establishes compatibility with **one generated button implementation**,
+not universal shadcn/Radix coverage. Dialogs, popovers and other components
+that portal into `document.body` require a scoped portal container or
+equivalent explicit theme context; no automatic global portal styling is
+provided. Validate overlay focus management, colors and ARIA behavior
+before using those components in production.
 
 Official theming reference:
 https://ui.shadcn.com/docs/theming

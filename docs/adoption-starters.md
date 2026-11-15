@@ -42,7 +42,21 @@ npm run build
 python3 -m http.server 8000
 ```
 
-All three starters refer to `"@syntyr/css": "file:../.."` to avoid implying
+## Real shadcn/ui React/Radix fixture
+
+[Source](../examples/syntyr-shadcn-react/) — generated with the official
+shadcn CLI's Vite template and Radix primitives. The generated button
+is exercised in a React app with interactive click handling, `asChild` links,
+disabled state and scoped Studio/Noir colors.
+
+```sh
+cd examples/syntyr-shadcn-react
+npm install
+npm run build
+npm run dev
+```
+
+All four starters refer to `"@syntyr/css": "file:../.."` to avoid implying
 the alpha.5 package is published. Replace this with an actual pinned version
 after npm release. Generated assets, caches and dependencies are ignored.
 
