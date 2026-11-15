@@ -96,6 +96,14 @@ class PortableReleaseExampleTests(unittest.TestCase):
                 with self.subTest(cls=cls):
                     self.assertIn("." + cls, published, "Not in published alpha.4 CSS")
 
+    def test_agent_index_discovers_offline_demo_with_version_warning(self):
+        index = (ROOT / "llms.txt").read_text(encoding="utf-8")
+        distribution = next(line for line in index.splitlines()
+                            if "[Distribution and pinned CSS]" in line)
+        self.assertIn("offline", distribution.lower())
+        self.assertIn("alpha.5", distribution)
+        self.assertIn("unreleased", distribution.lower())
+
     def test_release_documentation_explains_offline_demo(self):
         docs = (ROOT / "docs/distribution.md").read_text(encoding="utf-8")
         self.assertIn("examples/saas.html", docs)
