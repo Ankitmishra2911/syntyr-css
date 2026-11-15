@@ -87,7 +87,7 @@ python3 -m unittest discover -s tests -p test_blocks_assets.py -v
 python3 -m unittest discover -s tests -v
 
 # Optional developer-only browser checks (Playwright plus browser engines):
-python tests/blocks_browser.py --browsers chromium firefox --axe-file /tmp/axe.min.js
+python tests/blocks_browser.py --browsers chromium firefox webkit --axe-file /tmp/axe.min.js
 ~~~
 
 Only the rendered gallery and its reviewed documentation assets are publicly

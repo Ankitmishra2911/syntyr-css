@@ -34,6 +34,14 @@ class ContinuousIntegrationContract(unittest.TestCase):
         self.assertIn("git --version", content)
         self.assertLess(content.index(install), content.index("python3 -m unittest discover"))
 
+    def test_blocks_gallery_is_in_three_engine_release_browser_gate(self):
+        workflow = (ROOT / ".woodpecker" / "browser.yaml").read_text(encoding="utf-8")
+        self.assertIn("python3 tests/blocks_browser.py --browsers chromium firefox webkit", workflow)
+        self.assertIn("event: manual", workflow)
+        self.assertIn("event: tag", workflow)
+        self.assertLess(workflow.index("python3 tests/browser_matrix.py"),
+                        workflow.index("python3 tests/blocks_browser.py"))
+
     def test_release_browser_matrix_is_explicit_and_not_a_runtime_dependency(self):
         workflow = ROOT / ".woodpecker" / "browser.yaml"
         self.assertTrue(workflow.is_file(), "Require a reproducible release browser workflow")
