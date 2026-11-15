@@ -48,6 +48,17 @@ python3 scripts/build_cloudflare_site.py --check
 python3 scripts/package_release.py
 ```
 
+After committing regenerated `dist/` artifacts, verify the checked-in
+distribution matches the generated files:
+
+```sh
+git status --porcelain -- dist/
+```
+
+This must produce **no output**. A successful `build.py --check` run after
+`build.py` alone is insufficient: the first command may have already
+rewritten files you forgot to commit.
+
 If you changed optional integrations, also check the relevant export scripts
 and tests documented in their guides. Browser tests use optional Playwright
 and browser engines **only in development or CI**; consumers do not install

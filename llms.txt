@@ -11,6 +11,8 @@ The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The 
 - [Component reference](https://syntyr-css.pages.dev/docs/components.md): Real classes, tokens, scopes, semantic modes and candidate-only table wrapping migration (use .syn-cell--nowrap for identifiers).
 - [Component manifest](https://syntyr-css.pages.dev/metadata/components.json): Curated, validated selectors with their required CSS modules.
 - [Consumer agent skill](https://syntyr-css.pages.dev/agents/syntyr/SKILL.md): Portable, opt-in instructions.
+- [Contribution policy](https://github.com/dporkka/syntyr-css/blob/main/CONTRIBUTING.md): Public repository development, test, release and documentation rules.
+- [Private security reporting](https://github.com/dporkka/syntyr-css/blob/main/SECURITY.md): Report vulnerabilities privately through GitHub; never include exploits in public issues.
 
 ## Reference
 
@@ -19,6 +21,7 @@ The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The 
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary.
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
 - [Copyable form recipes](https://syntyr-css.pages.dev/docs/component-recipes.md): Candidate-only native form groups and accessible markup.
+- [Pico.css migration and semantic starter](https://syntyr-css.pages.dev/docs/from-pico.md): Candidate-only one-file semantic bundle and migration cautions (not in alpha.4).
 - [Optional Radix adapter](https://syntyr-css.pages.dev/docs/radix-integration.md): State-only styling for projects that already use Radix Primitives.
 - [Framework integrations](https://syntyr-css.pages.dev/docs/framework-integrations.md): HTMX, server templates, React and other stacks.
 - [Theme tokens and customization](https://syntyr-css.pages.dev/docs/theme-customization.md): Supported design token overrides.

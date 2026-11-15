@@ -20,7 +20,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
-         "examples/native-apis.html")
+         "examples/native-apis.html", "examples/semantic-starter.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -53,6 +53,16 @@ def assert_page(browser, name: str, viewport: int) -> None:
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
+    if name == "examples/semantic-starter.html":
+        assert page.locator('link[rel="stylesheet"]').count() == 1
+        assert page.locator('body.syn-root.syn-semantic').count() == 1
+        control = page.get_by_role("textbox", name="Project name")
+        assert control.is_visible()
+        assert control.evaluate('e => getComputedStyle(e).borderWidth') != '0px'
+        button = page.get_by_role('button', name='Preview query URL')
+        assert button.is_visible()
+        assert button.evaluate('e => getComputedStyle(e).display') in ('flex', 'inline-flex')
+        assert page.locator('script').count() == 0
     if name == "docs/catalog.html":
         cards = page.locator(".catalog-card")
         total = cards.count()
@@ -100,7 +110,16 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert page.get_by_role('heading', level=1).count() == 1
         assert page.locator('.site-showcase-card').count() == 3
         assert page.locator('.site-theme-swatch').count() == 7
-        assert page.get_by_role('img', name='Illustrative Studio SaaS dashboard with navigation, key metrics and a chart. No live data.').count() == 1
+        preview = page.get_by_role('img', name='Illustrative Grid-themed SaaS dashboard with navigation, key metrics and a chart. No live data.')
+        assert preview.count() == 1
+        assert preview.evaluate('e => getComputedStyle(e).colorScheme') == 'dark'
+        palette_nav = page.get_by_role('navigation', name='Explore published themes')
+        assert palette_nav.count() == 1
+        for theme, expected_scheme in (('studio', 'light'), ('grid', 'dark'), ('noir', 'dark')):
+            link = palette_nav.locator(f'.site-palette-link[data-syn-theme="{theme}"]')
+            assert link.get_attribute('href') == '#theme-comparison'
+            assert link.evaluate('e => getComputedStyle(e).colorScheme') == expected_scheme
+            assert link.is_visible()
         assert page.locator('#grid').evaluate('e => getComputedStyle(e).colorScheme') == 'dark'
         assert page.locator('#business').evaluate('e => getComputedStyle(e).colorScheme') == 'light'
         for path in ('examples/saas-workflows.html', 'examples/business.html',
