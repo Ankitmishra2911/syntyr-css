@@ -61,10 +61,11 @@ def build() -> str:
 {snippet}
         </div>
         <details class="blocks-details">
-          <summary>View HTML source</summary>
+          <summary data-block-source>View HTML source for {escape(block['title'])}</summary>
           <pre class="blocks-source"><code>{escape(snippet)}</code></pre>
         </details>
-        <button type="button" class="syn-button blocks-copy" data-block-copy hidden>Copy HTML</button>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for {escape(block['title'], quote=True)}" hidden>Copy HTML</button>
       </article>""")
     icons = json.loads((ROOT / "blocks/icons.json").read_text(encoding="utf-8"))["icons"]
     icon_cards = []
@@ -78,7 +79,7 @@ def build() -> str:
         icon_cards.append(f"""
         <div class="blocks-icon-card" data-icon-id="{ident}">
           <div class="blocks-icon-preview">{svg}<strong>{label}</strong></div>
-          <details><summary>SVG source</summary><pre><code>{escape(svg)}</code></pre></details>
+          <details><summary data-icon-source>SVG source for {escape(icon['label'])}</summary><pre><code>{escape(svg)}</code></pre></details>
         </div>""")
     asset_cards = []
     for ident, title in ASSETS:

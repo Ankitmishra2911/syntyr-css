@@ -71,6 +71,20 @@ class BlocksAssetsTests(unittest.TestCase):
         self.assertIn('id="blocks-theme"', page)
         self.assertIn("without JavaScript", page)
 
+    def test_repeated_source_and_copy_controls_have_contextual_names(self):
+        page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
+        parser = InspectHTML()
+        parser.feed(page)
+        copy_labels = [attrs.get("aria-label", "") for attrs in parser.attributes
+                       if "data-block-copy" in attrs]
+        self.assertEqual(len(copy_labels), 20)
+        self.assertEqual(len(set(copy_labels)), 20)
+        self.assertTrue(all(name.startswith("Copy HTML for ") for name in copy_labels))
+        for block in json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]:
+            self.assertIn("View HTML source for " + block["title"] + "</summary>", page)
+        for icon in json.loads((ROOT / "blocks/icons.json").read_text(encoding="utf-8"))["icons"]:
+            self.assertIn("SVG source for " + icon["label"] + "</summary>", page)
+
     def test_twelve_opt_in_decorative_asset_recipes(self):
         css = (ROOT / "docs/blocks-assets.css").read_text(encoding="utf-8")
         ids = re.findall(r"/\* asset: ([a-z][a-z0-9-]+) \*/", css)
