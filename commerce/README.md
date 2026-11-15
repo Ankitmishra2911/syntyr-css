@@ -1,0 +1,96 @@
+# Syntyr agent commerce — isolated, disabled-by-default pilot
+
+**Not deployed or approved for real-money use.** Syntyr's current CSS, documentation,
+themes, and examples remain MIT-licensed and free. There is no premium asset
+available for purchase. The sole demonstration product is a *service*: generation
+of original, machine-readable accessible theme token suggestions.
+
+This directory is a **separate Cloudflare Worker**. Nothing here is part of
+`@syntyr/css`, its runtime dependencies, the static Cloudflare Pages output,
+or the immutable CSS CDN. The static site never receives Stripe secrets,
+wallet keys, or paid resource source.
+
+## Local tests
+
+```sh
+cd commerce
+npm ci
+npm test
+```
+
+The Node test suite verifies an actual x402 v2 payment challenge and uses
+in-memory fakes for Stripe's API and D1 boundaries. It does **not** claim
+to have settled any testnet payments or made live Stripe transactions.
+
+## API
+
+| Endpoint | Purpose | Auth |
+| --- | --- | --- |
+| `GET /v1/catalog` | Versioned public JSON catalog with input schema and disabled/enabled rails | None |
+| `GET /.well-known/agent-commerce.json` | Agent-readable discovery metadata | None |
+| `GET /v1/agent/theme?accent=%2379e3ed&surface=%23111827` | JSON tokens with measured text contrast | x402 testnet payment **or** one prepaid Stripe credit |
+| `POST /v1/checkout` | Stripe **test-mode** 20-credit checkout, returns checkout URL and opaque buyer token | Disabled unless configured |
+| `GET /v1/credits` | Buyer token balance | `Authorization: Bearer <token>` |
+| `POST /v1/webhooks/stripe` | Signed Stripe test webhooks for completion/refunds/disputes | Valid Stripe-Signature |
+
+The token returned by `POST /v1/checkout` must be stored securely by the
+buyer **before** visiting the Checkout URL. There is no customer-account
+recovery, dashboard, team license, or production identity flow yet. The API
+stores only SHA-256 hashes of buyer tokens, not the tokens themselves.
+
+## Deploy only to an isolated staging Worker
+
+1. Create a separate Cloudflare D1 database, then apply `schema.sql` with
+   `wrangler d1 execute syntyr-agent-commerce-pilot --remote --file=./schema.sql`
+   from this directory. Verify the chosen database name and deployment target
+   before applying migrations. Do **not** connect production Syntyr data.
+2. Copy `wrangler.toml.example` to `wrangler.toml` and set its actual D1
+   database ID. Deploy only to a specifically approved staging route; the
+   template leaves `workers_dev = false` and does not define a route.
+3. Supply an explicitly designated **Base Sepolia** receiving address with
+   `X402_PAY_TO`; set `X402_TESTNET_ENABLED=true` for a supervised x402
+   sandbox test. Network is hardcoded to `eip155:84532`, and the fee is
+   `$0.25` *testnet-denominated*, not a live-dollar transaction.
+4. Create a **Stripe test-mode** one-time price for **20 calls**, then set
+   the following **staging-only** values: `STRIPE_PRICE_ID`,
+   `STRIPE_SUCCESS_URL`, `STRIPE_CANCEL_URL`. Add
+   `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` through Wrangler
+   secrets; both are mandatory. Add `STRIPE_PILOT_ENABLED=true` only after
+   the webhook endpoint is registered in Stripe and migration checks pass.
+5. Configure the webhook endpoint for `checkout.session.completed`,
+   `checkout.session.async_payment_succeeded`, `charge.refunded`, and
+   `charge.dispute.created`. Stripe signatures are checked with WebCrypto
+   HMAC-SHA256, a 5-minute tolerance, and the unmodified raw request body.
+6. Exercise the paid route with a funded *testnet* agent wallet and a Stripe
+   test card. Confirm: 402 challenge, payment verification and settlement,
+   Stripe webhook credit, idempotent redelivery, refund/dispute revocation,
+   rate limiting, and operator reconciliation. Reconcile receipts against
+   Stripe's dashboard and the testnet explorer before broader access.
+
+## Safety boundaries and next release gates
+
+- **No mainnet:** x402 requires `X402_TESTNET_ENABLED=true` and uses
+  Base Sepolia only. Stripe accepts `sk_test_...` only.
+- **No price injection:** checkout uses a trusted server-side Stripe Price ID;
+  the request cannot choose arbitrary prices, redirect URLs, or credit counts.
+- **Fail closed:** missing D1, webhook secret, wallet address, or flags disables
+  the corresponding paid route. No token-bearing or payment-bearing requests
+  fall back to free access.
+- **Webhook replay:** only a paid, expected Stripe session grants credits.
+  D1 conditionally credits once; refunds/disputes leave tombstones so
+  reordered event delivery cannot recredit a purchase.
+- **No API security by CSS:** the gate lives server-side. The public static
+  build allowlists only documentation, not any commerce executable or secrets.
+- **Before production:** independent security review, WAF/rate limits and
+  bot-abuse prevention, Stripe account and customer recovery, financial
+  reconciliation, taxes, commercial licensing review, privacy policy,
+  monitoring, entitlement repair tooling, staging tests with real payment
+  providers, and an explicit live-payment launch decision.
+
+The optional x402 and Stripe methods share a single protected resource
+boundary, but payment accounting differs: Stripe grants durable prepaid
+credits; x402 authorizes a single request after SDK verification/settlement.
+The pilot deliberately does **not** mint permanent licenses from testnet
+payments. Avoid presenting this as a finished subscription product.
+
+See `../docs/agent-commerce.md` for public-facing integration notes.

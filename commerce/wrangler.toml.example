@@ -1,0 +1,16 @@
+# This is a deployment TEMPLATE, not an active deploy config.
+# Copy to wrangler.toml, insert your D1 database UUID, and configure secrets.
+name = "syntyr-agent-commerce-pilot"
+main = "src/index.js"
+compatibility_date = "2026-11-15"
+workers_dev = false
+
+[vars]
+X402_TESTNET_ENABLED = "false"
+STRIPE_PILOT_ENABLED = "false"
+X402_FACILITATOR_URL = "https://x402.org/facilitator"
+
+[[d1_databases]]
+binding = "ENTITLEMENTS_DB"
+database_name = "syntyr-agent-commerce-pilot"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_UUID"
