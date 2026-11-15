@@ -25,9 +25,11 @@ merged afterward, the published alpha.4 assets, or the future alpha.5 release.
   no consumer runtime dependencies.
 - A separate pinned **axe-core 4.10.3** audit of **21 pages** found
   **zero confirmed automated WCAG-tagged violations**, with **11 incomplete
-  color-contrast rule results containing 129 unresolved nodes**. Source
-  checksum of the audit script: SHA-256
-  `880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb`.
+  color-contrast rule results containing 129 unresolved nodes**. SHA-256 of
+  the repository audit harness (`tests/axe_audit.py` at audited commit
+  `038a24d`): `3f94a5672d13c39b511131386bc70abba43b81cba37a672f62b382c8908ddd58`.
+  SHA-256 of the separately downloaded axe-core 4.10.3 JavaScript payload
+  used by that harness: `880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb`.
   Incompletes are not passing contrast measurements or proven defects.
 - GitHub showed Cloudflare Pages, build, deploy, and build-status checks
   successful for the audited commit. **A real exact-head Woodpecker pipeline
