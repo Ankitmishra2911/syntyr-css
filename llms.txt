@@ -43,6 +43,10 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Optional visualization styles](https://syntyr-css.pages.dev/docs/viz.md): SVG/HTML rendering and boundaries.
 - [How to use Syntyr with coding agents](https://syntyr-css.pages.dev/docs/agent-integration.md): Recommended prompts, retrieval and validation.
 
+## Commercial research (not for sale)
+
+- [Syntyr Console Kit concept](https://syntyr-css.pages.dev/docs/console-kit.html): Separately authored, eight-screen private prototype with static screenshot previews and fictional data. **Not for sale:** no checkout, preorder, binding commercial license or working backend. The page offers a private preview request through the visitor's email app and a separate integration quote inquiry; neither is an order. All existing CSS, themes, components and public examples remain MIT licensed. Do not publish or claim access to the private kit source.
+
 ## Assets
 
 - [Pinned v0.3.0-alpha.4 core stylesheet](https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css)
