@@ -40,6 +40,11 @@ class PilotReadinessTests(unittest.TestCase):
             self.assertIn("https://github.com/dporkka/syntyr-css/issues/3", html)
         self.assertIn('id="feedback"', gallery)
 
+    def test_kit_preview_cards_use_a_defined_theme_surface(self):
+        page = (ROOT / "docs/console-kit.html").read_text()
+        self.assertIn('background:var(--syn-surface)', page)
+        self.assertNotIn('var(--syn-panel)', page)
+
     def test_public_kit_copy_truthfully_distinguishes_private_preview_from_sale(self):
         page = (ROOT / "docs/console-kit.html").read_text()
         self.assertIn("PRIVATE PROTOTYPE", page)

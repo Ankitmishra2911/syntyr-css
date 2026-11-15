@@ -17,13 +17,13 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = (
-    "index.html", "docs/index.html", "docs/catalog.html", "examples/console.html",
+    "index.html", "docs/index.html", "docs/catalog.html", "docs/guides.html", "examples/console.html",
     "examples/resources.html", "examples/pricing.html",
     "docs/console-kit.html", "examples/saas.html",
     "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/semantic-starter.html",
+    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/native-apis.html", "examples/semantic-starter.html",
 )
 
 
@@ -39,6 +39,8 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
               .filter(e => {
                 const r=e.getBoundingClientRect(), s=getComputedStyle(e);
                 if(s.display==='none'||s.visibility==='hidden'||r.width===0||r.height===0) return false;
+                // Closed native details conceal their content even if a child computes a display value.
+                if(e.closest('details:not([open])') && !e.closest('summary')) return false;
                 // Controls inside intentionally scrollable tables are exempt.
                 if(e.closest('.syn-table-wrap')) return false;
                 return r.left < -1 || r.right > innerWidth + 1;
@@ -49,6 +51,16 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
         assert data["scrollWidth"] <= data["clientWidth"] + 1 and not data["clipped"], (
             f"{path}: viewport={width}px, font scale={scale}x: {data}"
         )
+        mobile_menu = page.locator('details.site-mobile-menu')
+        if mobile_menu.count() and mobile_menu.is_visible():
+            mobile_menu.evaluate('e => e.open = true')
+            bounds = mobile_menu.locator('nav').evaluate("""e => {
+                const r = e.getBoundingClientRect();
+                return {left: r.left, right: r.right};
+            }""")
+            assert bounds['left'] >= -1 and bounds['right'] <= width + 1, (
+                f"{path}: expanded menu clipped at {width}px and {scale}x: {bounds}"
+            )
     finally:
         context.close()
 

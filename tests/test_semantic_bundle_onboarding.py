@@ -69,6 +69,9 @@ class SemanticStarterTests(unittest.TestCase):
         self.assertIn("alpha.5-only", guide)
         self.assertIn("explicit", guide)
         self.assertIn("alpha.4", guide)
+        guide_index = (ROOT / "docs/guides.html").read_text()
+        self.assertIn('href="from-pico.md"', guide_index)
+        self.assertIn('href="../examples/semantic-starter.html"', guide_index)
 
     def test_documented_starter_is_not_misrepresented_as_published(self):
         for relative in ('README.md', 'docs/distribution.md', 'docs/ai-quickstart.md'):

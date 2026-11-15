@@ -221,6 +221,8 @@ These values are local CSS custom properties, not compile-time settings.
 Inspect `metadata/syntyr-api.json` for the machine-readable API index,
 or use the [editor integration instructions](editor-integration.md).
 
+Optional native browser integrations: `.syn-popover--anchored` for invoker-relative popovers, `.syn-textarea--autosize` for `field-sizing: content`, and (with the optional `syntyr.motion.css` stylesheet) `.syn-popover--transition` and `.syn-reading-progress`. See the [browser API guide](native-browser-apis.md) for compatibility and fallbacks.
+
 Use native button `popovertarget="id"` to control a popover and `commandfor="id" command="show-modal"` to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.
 
 ## Neutral-first visual styling
@@ -373,6 +375,29 @@ Original: https://syntyr-css.pages.dev/docs/recipes.md
 For copyable input groups, labeled fields, container-responsive settings forms and optional headless UI styling, see [form composition recipes](component-recipes.md) and the [Radix adapter](radix-integration.md).
 
 These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see [the gallery](index.html), the [Grid console](../examples/console.html), and the [Noir pricing layout](../examples/pricing.html).
+
+## Optional vertical flow
+
+Use `.syn-flow` from `syntyr.recipes.css` on a content group to add
+consistent gaps between adjacent **direct children**. The flex-column
+composition stacks both inline and block elements, without overriding a
+child component's own display. It does not globally reset margins or modify
+unwrapped host markup. When children already have vertical margins, adjust
+them at the application level to avoid unexpectedly large combined spacing.
+For prose with heading rhythm, prefer the existing `.syn-prose` class.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <div class="syn-flow" style="--syn-flow-gap: 1.5rem">
+    <h2 class="syn-section-heading">A native-first design system</h2>
+    <p>Readable content with consistent configurable vertical rhythm.</p>
+    <a href="/documentation">Read the documentation</a>
+  </div>
+</section>
+```
+
+`.syn-flow` is an opt-in composition, not part of the minimal core.
+All spacing remains controlled by ordinary CSS custom properties.
 
 ## 1. Responsive telemetry cards
 
@@ -1054,6 +1079,16 @@ The demo server intentionally exposes only four static assets and one GET route,
 listens on localhost, and is **not** included in the Cloudflare static-site build.
 A static host cannot serve its dynamic search endpoint without a backend.
 
+## Lit / Web Components
+
+Syntyr works with Lit but does not depend on it. Lit components using light DOM
+can use ordinary `.syn-*` classes within a Syntyr root. Components with Shadow
+DOM need local internal styles consuming inherited `--syn-*` tokens, and may
+expose supported styling surfaces with `::part()`. Stylesheets in the page do
+not automatically style the inside of a shadow root. See the
+[Lit integration guide](lit-integration.md), [optional runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit)
+and [component-authoring conventions](component-authoring.md).
+
 ## Alpine.js
 
 Use native attributes for real state, and Syntyr classes for presentation:
@@ -1137,6 +1172,93 @@ theme-root and swap-boundary considerations as HTMX.
 
 ---
 
+## Source: docs/native-browser-apis.md
+
+Original: https://syntyr-css.pages.dev/docs/native-browser-apis.md
+
+# Native browser APIs in Syntyr
+
+Syntyr is a styling system, **not** a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser's built-in semantics and state before adding host-owned JavaScript. See the [scriptless integration demo](https://syntyr-css.pages.dev/examples/native-apis.html) (source: `examples/native-apis.html`).
+
+## Supported integrations
+
+| Primitive | Syntyr integration | Fallback / requirement |
+| --- | --- | --- |
+| HTML Popover API | `.syn-popover` on `[popover]` with `popovertarget`/`popovertargetaction` controls | Native API requires modern browser; critical content should remain reachable another way for older browsers |
+| Invoker Commands | `commandfor` and `command="show-modal"` on buttons targeting `.syn-dialog` | Older browsers may not support commands; give an ordinary link or `<details>` alternative |
+| Native `<dialog>` | `.syn-dialog`, `form method="dialog"`, `closedby` or app-owned `requestClose()` | Never replace modal semantics with a popover; handle focus on open/close in real-app tests |
+| CSS anchor positioning | `.syn-popover--anchored` alongside `.syn-popover` | With `position-area: bottom`, place near its invoking button; otherwise default to visible corner popover |
+| Content-sized fields | `.syn-textarea--autosize` alongside `.syn-textarea` | `field-sizing: content` grows to a maximum height; normal resizable textarea remains functional without support |
+| CSS scroll-driven animation | `.syn-reading-progress` in optional motion stylesheet | Decorative, hidden without support or with `prefers-reduced-motion: reduce` |
+| Discrete overlay transitions | `.syn-popover--transition` in optional motion stylesheet | Uses `@starting-style` and `transition-behavior: allow-discrete`; no animation without support or when reduced motion is requested |
+| Container queries | `.syn-region` with scoped layout patterns | Native responsive CSS replaces ResizeObserver for layout |
+| Form constraint validation | `required`, native types, `:user-invalid` and optional `aria-invalid` | Application must provide meaningful feedback and accessible error text |
+
+All new classes are **opt-in**. Core styles only add the anchor and textarea declarations; optional motion requires `syntyr.motion.css` (included in `syntyr.all.css`). Do not load `syntyr.all.css` alongside component files.
+
+## Example: popover near its invoker
+
+```html
+<link rel="stylesheet" href="syntyr.css">
+<link rel="stylesheet" href="syntyr.motion.css">
+<section class="syn-root" data-syn-theme="studio">
+  <button type="button" class="syn-button" popovertarget="account-menu">Account</button>
+  <div id="account-menu" popover class="syn-popover syn-popover--anchored syn-popover--transition">
+    <a href="/profile">Profile</a>
+    <button type="button" popovertarget="account-menu" popovertargetaction="hide">Close</button>
+  </div>
+</section>
+```
+
+The invoker creates an implicit CSS anchor. Do not apply `position-anchor: auto` to unrelated floating elements; supply an explicit anchor relationship or use normal document positioning. The default `.syn-popover` remains visible in browsers without anchor positioning. Make sure production menus have sensible keyboard navigation and screen-reader labeling.
+
+## Example: a dialog without an event handler
+
+```html
+<button type="button" commandfor="confirm-dialog" command="show-modal">Review</button>
+<dialog id="confirm-dialog" class="syn-dialog" aria-labelledby="confirm-title">
+  <h2 id="confirm-title">Review changes</h2>
+  <form method="dialog"><button type="submit">Close</button></form>
+</dialog>
+```
+
+The HTML Invoker Commands API is progressively available; don't assume the opener works in legacy browsers. A normal link to a review page or a `<details>` fallback gives users an accessible path even without it. Use `dialog.requestClose()` from host JavaScript when a cancelable close request is needed; unlike `dialog.close()`, `requestClose()` fires `cancel` first.
+
+## Application-owned JavaScript (optional)
+
+The following browser APIs are **not** included as Syntyr runtime dependencies. Use them only for capabilities CSS and HTML cannot provide:
+
+- **View Transition API**: for same-document updates, use `document.startViewTransition(updateDOM)` only if present and if reduced-motion is not preferred; otherwise run `updateDOM()` directly. Cross-document navigation requires explicit `@view-transition { navigation: auto; }` in *both* same-origin documents, not in a global Syntyr bundle. Preserve focus, history, and scrolling semantics during navigation.
+- **Clipboard API**: `navigator.clipboard.writeText(text)` requires a secure context and permissions/user activation; catch rejections and provide a selectable text/link fallback.
+- **Web Share API**: check `navigator.share`, invoke it from a click handler, catch cancellation or errors, and retain an ordinary shareable URL when unavailable. Do not assume mobile-only availability or guaranteed success.
+- **ResizeObserver**: reserve for application logic that must know measured dimensions; use CSS container queries for styling. Avoid synchronous DOM changes from observers that trigger resize loops.
+- **IntersectionObserver**: use to defer expensive application work, not for effects already supported by `animation-timeline: scroll(root block)`. Prefer native `loading="lazy"` for offscreen images and iframes.
+- **Web Animations API**: suitable for interruptible, imperative application animations; use CSS transitions and scroll-driven animations for presentation-only changes and honor reduced motion.
+- **Navigation API**: potentially helpful to app routers, but it changes navigation ownership. Do not add it to Syntyr just to style links; ordinary links work without it.
+
+A safe view transition wrapper in application code, not the Syntyr library:
+
+```js
+function updateWithViewTransition(updateDOM) {
+  if (!document.startViewTransition ||
+      matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    updateDOM();
+    return;
+  }
+  document.startViewTransition(updateDOM);
+}
+```
+
+## Browser-compatibility policy
+
+Test Chromium, Firefox, and WebKit at narrow widths and 200%/400% zoom. CSS feature queries guard anchor placement and scroll-driven timelines. Without the advanced feature, the controls remain styled, dismissible, and operable **where the underlying HTML primitive is supported**. For genuinely older browsers that lack the HTML primitive entirely, provide an alternative interaction or a conditionally loaded host-app polyfill; Syntyr never silently installs one.
+
+Always verify keyboard focus, Escape dismissal, forced-colors mode, native validation, and `prefers-reduced-motion`. Avoid animated content that conveys information unavailable as text. The scroll indicator uses `aria-hidden="true"` and must not replace a semantic progress bar for tasks.
+
+Compatibility references: [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API), [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API), [CSS anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning), [field-sizing](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing), [scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations), [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API).
+
+---
+
 ## Source: docs/theme-customization.md
 
 Original: https://syntyr-css.pages.dev/docs/theme-customization.md
@@ -1196,6 +1318,17 @@ is the contrasting **foreground on primary buttons**. Change both when
 necessary. Verify 4.5:1 contrast for body text and 3:1 for essential non-text
 graphics; don't assume arbitrary overrides remain accessible.
 
+Primary-button hover backgrounds default to the unchanged accent. On hover,
+the border switches to the contrasting foreground for a visible affordance.
+To customize the hover fill, set `--syn-primary-hover-bg` on the desired
+theme/root and test its contrast with `--syn-on-accent` in both rest and hover
+states. Syntyr does not automatically invent a contrast-safe hover color.
+
+Use `.syn-panel--raised` for opt-in elevation. The `.syn-title`/`.syn-display`
+and `.syn-section-heading` roles use native `text-wrap: balance` when
+supported; unsupported browsers fall back to ordinary line wrapping.
+Syntyr leaves platform font smoothing untouched.
+
 Useful tokens:
 
 | Token | Description |
@@ -1210,11 +1343,13 @@ Useful tokens:
 | `--syn-surface-recessed`, `--syn-surface-raised`, `--syn-border-subtle` | Derived surfaces and quiet separators |
 | `--syn-text-subtle`, `--syn-border-default`, `--syn-border-hover`, `--syn-border-focus`, `--syn-focus-ring` | Semantic text, borders, and focus |
 | `--syn-surface-interactive`, `--syn-surface-hover`, `--syn-surface-pressed` | Theme-aware interactive control states |
+| `--syn-primary-hover-bg` | Primary-button hover background; defaults to the accent so foreground contrast does not regress |
+| `--syn-shadow-sm`, `--syn-shadow-raised`, `--syn-shadow-overlay` | Semantic elevation (small surfaces, raised panels, floating overlays) |
 | `--syn-type-display`, `--syn-type-section`, `--syn-type-heading`, `--syn-type-body`, `--syn-leading-body`, `--syn-tracking-display` | Composable typography roles |
 | `--syn-row-padding-block`, `--syn-card-padding`, `--syn-control-padding-block` | Density-aware spacing |
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
-| `--syn-duration-fast`, `--syn-ease` | Optional transitions |
+| `--syn-duration-fast`, `--syn-duration-standard`, `--syn-ease`, `--syn-ease-enter` | Optional transitions |
 | `--syn-panel-padding`, `--syn-panel-radius`, `--syn-panel-border-width` | Local panel customization |
 | `--syn-button-padding-inline`, `--syn-button-border-width` | Local button customization |
 
@@ -1252,6 +1387,12 @@ individual component files at the same time.
 Use `.syn-region` as the parent for container-responsive patterns such as
 `.syn-stats`, `.syn-split`, `.syn-pricing`; width comes from the container,
 not the whole viewport. Use `.syn-page` only for a full-page experience.
+
+Syntyr also honors `prefers-contrast: more` by strengthening tokenized borders
+and suppressing nonessential decorative effects, including inside nested
+themes and explicit cinematic-intensity regions. This is a preference-aware
+visual enhancement, not a substitute for actual high-contrast/forced-colors,
+zoom, and screen-reader testing.
 
 Syntyr honors `prefers-reduced-motion: reduce`. Theme overrides
 must not remove focus outlines, fake disabled states, or communicate state
@@ -1447,6 +1588,121 @@ element, or set `--syn-frame-fill` to a solid value.
 See [live intensity comparison](../examples/intensity-geometry.html),
 [advanced geometry](geometry-terminal.md) and
 [theme customization](theme-customization.md).
+
+---
+
+## Source: docs/geometry-terminal.md
+
+Original: https://syntyr-css.pages.dev/docs/geometry-terminal.md
+
+# Advanced frames and terminal presentation
+
+These are original, MIT-licensed SYNTYR CSS components. They do not replicate entertainment franchise assets or require JavaScript.
+
+## Installation
+
+Load only the modules you need. Advanced geometry is separate so ordinary pages do not load its CSS:
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.geometry.css">
+<!-- Only for the optional application/terminal layouts: -->
+<link rel="stylesheet" href="/css/syntyr.recipes.css">
+```
+
+The all-in-one stylesheet includes geometry and recipes already. Do not load it alongside the individual modules.
+
+## Seven independent frame profiles
+
+Use `.syn-frame` with exactly **one** shape modifier. These can decorate an article, section, or any normal element. The surrounding content stays semantic:
+
+```html
+<section class="syn-root" data-syn-theme="grid">
+  <article class="syn-panel syn-frame syn-frame--bevel" style="--syn-frame-cut: 1.5rem">
+    <h2>Monitoring</h2>
+    <p>All systems operational.</p>
+    <a href="/status">See status</a>
+  </article>
+</section>
+```
+
+| Class | Purpose |
+| --- | --- |
+| `.syn-frame--bevel` | Diagonal cut on all four corners |
+| `.syn-frame--notch` | Asymmetric top-right and bottom-left cuts |
+| `.syn-frame--step` | Square stepped cuts on top-right and bottom-left |
+| `.syn-frame--facet` | Diagonal cuts on top-left and bottom-right |
+| `.syn-frame--bracket` | Four HUD-style L-shaped corner markers |
+| `.syn-frame--inset` | Nested technical border |
+| `.syn-frame--circuit` | Subtle corner trace bars |
+
+These style variables are inherited and can be overridden on a specific panel:
+
+- `--syn-frame-cut`: default `1rem`; fallback size for all cuts (backwards-compatible)
+- `--syn-frame-cut-tl`, `--syn-frame-cut-tr`, `--syn-frame-cut-br`, `--syn-frame-cut-bl`: optional **Per-corner** overrides; use explicit CSS lengths
+- `--syn-frame-stroke`: default `1px`; border thickness for clipped shapes
+- `--syn-frame-fill`: default `var(--syn-surface)`; interior background
+- `--syn-frame-outline`: default `var(--syn-frame-strong)`; solid border fallback
+- `--syn-frame-border-paint`: optional color or CSS gradient for the complete border
+- `--syn-frame-inlay-paint`: optional CSS gradient layered over the inner fill; use a translucent wash
+
+The clipped shapes use individually corrected inner polygons to keep diagonal borders closer to their specified perpendicular stroke width. Square steps use the same step size for both polygons. These are **painted frames**, not clipped interactive hit regions; the native element remains a rectangle for layout and focus. Avoid cut sizes larger than the element can accommodate, or strokes as large as the cuts.
+
+### Asymmetric geometry and gradient border example
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.geometry.css">
+<section class="syn-root" data-syn-theme="grid">
+  <article class="syn-panel syn-frame syn-frame--facet" style="
+    --syn-frame-cut-tl: 1.5rem; --syn-frame-cut-br: .75rem;
+    --syn-frame-stroke: 2px;
+    --syn-frame-border-paint: linear-gradient(120deg, var(--syn-accent), var(--syn-frame-strong));
+    --syn-frame-inlay-paint: linear-gradient(145deg, rgb(118 231 247 / 7%), transparent 65%);
+  ">
+    <h2>Signal analysis</h2>
+    <p>Decorative geometry never replaces semantic content.</p>
+  </article>
+</section>
+```
+
+For the interactive **geometry editor**, open [Syntyr's component playground](playground.html#geometry-title). The playground JavaScript is documentation-only; consumers load only CSS. Existing bevel/notch markup retains its original appearance unless new controls are set, apart from the improved diagonal stroke geometry.
+
+**Composition:** Advanced frame profiles own both pseudo-elements of the host node. They now reset the prior layer's corner dimensions and clip-path, so `.syn-panel--cut` can be used on the same element: the selected frame shape **supersedes** its simpler corner decoration. Add `.syn-frame--accent` for a stronger outline without adding any pseudo-elements. Do not combine multiple shape variants. The older `.syn-frame--precision` also owns `::before`; nest those two treatments if both accents must remain visible. The clipped border geometry does not depend on matching the parent background, but background gradients on the host can bleed into cut corners; prefer solid `--syn-frame-fill` or an inner element.
+
+In forced-colors mode, decorative pseudo-elements disappear and a visible native border and Canvas background take over. Frames should not be the only way you communicate operational state.
+
+## Browser terminal
+
+Load `syntyr.recipes.css` for the existing `.syn-terminal` base and the additional presentation classes:
+
+| Class | Role |
+| --- | --- |
+| `.syn-terminal-bar`, `.syn-terminal-title`, `.syn-terminal-dots` | Window chrome; mark visual-only dots `aria-hidden="true"` |
+| `.syn-terminal-body`, `.syn-terminal-line`, `.syn-terminal-output` | Readable lines, wrapped output |
+| `.syn-terminal-command`, `.syn-terminal-path`, `.syn-terminal-prompt` | CLI command anatomy |
+| `.syn-terminal-success`, `.syn-terminal-warning`, `.syn-terminal-error` | Colored output (with textual status) |
+| `.syn-terminal-meta`, `.syn-terminal-muted` | Secondary readouts |
+| `.syn-terminal-cursor` | Static decorative caret; hide from accessibility APIs |
+
+The terminal is **not** a shell emulator. It performs no input capture or commands. Applications implement real interaction separately; native CLI applications use `terminal/palettes.json` rather than browser CSS.
+
+## Table and button behavior
+
+The existing `.syn-table-emphasis` class highlights whichever cell you choose: there is no implicit highlight on the last column. Use `.syn-cell--numeric` on monetary or numeric cells for right-aligned tabular numbers.
+
+The native HTML `disabled` attribute blocks button activation. The ARIA `aria-disabled="true"` attribute only communicates a disabled state; it **does not block activation**. Application/server code must enforce disabled behavior. CSS alone cannot guarantee it. For a disabled action that must remain discoverable to keyboard users, preserve focus and handle input appropriately.
+
+## Validation
+
+```sh
+python3 scripts/build.py
+python3 scripts/build.py --check
+python3 -m unittest discover -s tests -v
+python3 tests/browser_matrix.py --browsers chromium firefox webkit
+```
+
+See [the frame + terminal example](../examples/geometry-terminal.html). Browser checks are developer-only; the distributed CSS still has zero runtime JS or dependencies.
 
 ---
 

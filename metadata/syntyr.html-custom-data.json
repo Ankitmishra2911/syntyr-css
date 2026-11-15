@@ -214,6 +214,10 @@
           "description": "Syntyr CSS class (components/forms.css)."
         },
         {
+          "name": "syn-flow",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-fluid-display",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -246,6 +250,10 @@
           "description": "Syntyr CSS class (geometry.css)."
         },
         {
+          "name": "syn-frame--facet",
+          "description": "Optional diagonal top-left and bottom-right facets."
+        },
+        {
           "name": "syn-frame--industrial",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -264,6 +272,10 @@
         {
           "name": "syn-frame--soft",
           "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-frame--step",
+          "description": "Optional square-stepped top-right and bottom-left frame."
         },
         {
           "name": "syn-glow",
@@ -378,8 +390,20 @@
           "description": "Syntyr CSS class (components/layout.css)."
         },
         {
+          "name": "syn-panel--raised",
+          "description": "Syntyr CSS class (components/layout.css)."
+        },
+        {
           "name": "syn-popover",
           "description": "Syntyr CSS class (components/overlays.css)."
+        },
+        {
+          "name": "syn-popover--anchored",
+          "description": "Syntyr CSS class (components/overlays.css)."
+        },
+        {
+          "name": "syn-popover--transition",
+          "description": "Syntyr CSS class (motion.css)."
         },
         {
           "name": "syn-price-card",
@@ -404,6 +428,10 @@
         {
           "name": "syn-reading",
           "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-reading-progress",
+          "description": "Syntyr CSS class (motion.css)."
         },
         {
           "name": "syn-region",
@@ -615,6 +643,10 @@
         },
         {
           "name": "syn-textarea",
+          "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-textarea--autosize",
           "description": "Syntyr CSS class (components/forms.css)."
         },
         {

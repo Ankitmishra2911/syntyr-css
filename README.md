@@ -18,6 +18,7 @@
 
 - [Live website on Cloudflare](https://syntyr-css.pages.dev/)
 - [Component gallery](https://syntyr-css.pages.dev/docs/)
+- [Practical installation, integration and performance guides](https://syntyr-css.pages.dev/docs/guides.html)
 - [Searchable, copyable component catalog](docs/catalog.html)
 - [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md)
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
@@ -31,7 +32,9 @@
 - [Migrating from Pico.css: differences and practical steps](docs/from-pico.md)
 - [Optional CSS-only npm package (unpublished alpha.5 candidate)](docs/package-managers.md)
 - [Performance and design polish guide (no size gate)](docs/performance-and-polish.md)
+- [Progressive loading and critical CSS decision guide](docs/progressive-loading.md) and [zero-JS performance-first example](examples/performance-first.html)
 - [Framework integrations: HTMX, Alpine, Datastar, React, Vue, Svelte and server templates](docs/framework-integrations.md)
+- [Lit / Web Components integration guide](docs/lit-integration.md), [opt-in runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit), and [component-authoring contract](docs/component-authoring.md)
 - [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Performance validation protocol and measured CSS size baseline](docs/performance-validation.md)
@@ -40,6 +43,9 @@
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
 - [Interactive component playground — live prerelease preview](https://8cfcb0ce.syntyr-css.pages.dev/docs/playground.html) ([permanent site URL after merge](https://syntyr-css.pages.dev/docs/playground.html); [HTML source](docs/playground.html))
 - [Editor metadata and autocomplete setup](docs/editor-integration.md)
+- [Tailwind v4 interoperability, local VS Code extension, and Figma token exports](docs/ecosystem-integrations.md) (opt-in alpha.5 source adapters)
+- [Runnable Tailwind v4, Astro and shadcn-token adoption projects](docs/adoption-starters.md) and [editable Figma component kit pilot](docs/figma-component-kit.md)
+- [Opt-in shadcn/ui semantic token bridge](docs/shadcn-integration.md), [Chromium visual regression](docs/visual-regression.md), and [release readiness](docs/release-readiness-ecosystem.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
 - [Progressive enhancement, automatic color scheme and print styling](docs/progressive-enhancement.md)
 - [Commercial Console Kit concept (not available for purchase)](docs/console-kit.html)
@@ -53,7 +59,7 @@
 - [Single-file, Pico-style semantic starter (unreleased alpha.5)](examples/semantic-starter.html)
 - [Alpha.5 integration and test evidence](RELEASE_CHECKS_ALPHA5.md)
 - [Alpha.5 manual accessibility review checklist](docs/accessibility-alpha5-review.md)
-- [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
+- [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md) and [interactive geometry mixer](docs/playground.html#geometry-title)
 - [Quiet / standard / cinematic intensity comparison](examples/intensity-geometry.html) with [composability guide](docs/visual-intensity.md): independent effect controls, composable frame accents, and nested presets without JavaScript
 - [Optional SVG icons, Unicode markers and ASCII/box-drawing demo](examples/symbols.html) with [copy-paste guide](docs/symbols.md)
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
@@ -116,6 +122,7 @@ For a smaller two-file installation, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.semantic.css` | Optional semantic HTML styling (load after core) |
 | `dist/syntyr.semantic-bundle.css` | Core + semantic in one file; scoped opt-in, alpha.5 source only |
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
+| `dist/syntyr.motion.css` | Optional browser-native scroll progress and discrete popover transitions |
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
 | `dist/syntyr.viz.css` | Optional theme-aware data visualization styles, no chart renderer or JS |
@@ -132,7 +139,7 @@ separate from core and included only in the all-in-one bundle.
 
 Geometry, symbols, Viz and utilities are opt-in; neither the core bundle nor ordinary component selectors require them. The symbols module ships no SVG assets, icon fonts, glyph sets or runtime dependencies.
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css`, `src/symbols.css`, `src/viz.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/motion.css`, `src/geometry.css`, `src/symbols.css`, `src/viz.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites
 
@@ -143,6 +150,8 @@ For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipe
 **Native CLI apps cannot consume CSS.** Instead, use `terminal/palettes.json` with Go, Rust, Python or another CLI implementation to define ANSI 16-color palettes and foreground/background preferences. See the [stdlib Python demonstration](examples/ansi_cli.py) and [integration guide](docs/saas-cli-business.md). Respect `NO_COLOR`, TTY detection and user terminal preferences.
 
 All additions are MIT licensed and do not change the core runtime dependency contract. The Studio theme, recipes and CLI palettes are included in the v0.3.0-alpha.4 release.
+
+For native platform integration, see the [browser API compatibility and progressive enhancement guide](docs/native-browser-apis.md) and the [script-free native API demo](examples/native-apis.html). The core stays JavaScript-free; native CSS anchors and content-sized textareas are opt-in, and scroll-progress / overlay transitions live in the dedicated motion module.
 
 ## Development and verification
 
@@ -219,5 +228,6 @@ See [LICENSE](LICENSE).
 - [Proposed premium Console Kit scope (not on sale)](business/console-kit-spec.md)
 - [Draft license boundary for *future* premium assets](business/premium-license-draft.md) — **not an operative contract**
 - [Validation and go/no-go plan](business/validation-plan.md)
+- [Console Kit buyer validation, pre-sale release gates and measured metrics](business/commercial-launch-gates.md)
 
 No paid kit has been shipped or put up for sale in this repository. No billing or license-key code is included. The Grid and Noir visual themes are original, not officially affiliated with any entertainment franchise. **SYNTYR is the selected but not trademark-cleared name**, pending documented brand clearance. The preliminary risk screen is not authorization for paid branding.
