@@ -24,6 +24,11 @@ For resource priority, LCP images, optional critical CSS experiments and
 cold/warm loading comparisons, see the [progressive-loading guide](progressive-loading.md)
 and [performance-first example](../examples/performance-first.html).
 
+On the Syntyr Cloudflare documentation site, generated HTML uses
+content-addressed immutable CSS copies for better repeat navigation caching;
+the public `/dist/*` and versioned release URLs keep their existing
+contracts. See [Cloudflare hosting](cloudflare-hosting.md).
+
 Start with `syntyr.core.css` alone. Add `syntyr.recipes.css`,
 `syntyr.semantic.css`, or effects only when the application uses them.
 Do not include both `syntyr.all.css` and its individual modules. Prefer

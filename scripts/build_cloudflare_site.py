@@ -7,6 +7,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import posixpath
+import re
+from urllib.parse import urlsplit
 from pathlib import Path, PurePosixPath
 import shutil
 import sys
@@ -44,7 +47,58 @@ HEADERS = """/*
 /v/*
   Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
+
+/_assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
 """
+
+
+LINK_TAG = re.compile(r"<link\b[^>]*>", re.IGNORECASE)
+REL_ATTR = re.compile(r"""\brel\s*=\s*(['"])(.*?)\1""", re.IGNORECASE)
+HREF_ATTR = re.compile(r"""\bhref\s*=\s*(['"])(.*?)\1""", re.IGNORECASE)
+
+
+def immutable_site_css(files: dict[str, bytes]) -> None:
+    """Rewrite only shipped HTML stylesheet references to content-hashed copies.
+
+    Original /dist and /v assets remain intact for consumers. The site HTML
+    references an immutable hashed copy of each linked local stylesheet.
+    Other source links, external URLs, JS, and Markdown examples are unchanged.
+    """
+    derived: dict[str, bytes] = {}
+    for filename, payload in tuple(files.items()):
+        if not filename.endswith(".html"):
+            continue
+        def replace_link(match: re.Match) -> str:
+            tag = match.group(0)
+            rel = REL_ATTR.search(tag)
+            href = HREF_ATTR.search(tag)
+            if not rel or not href or "stylesheet" not in rel.group(2).lower().split():
+                return tag
+            parsed = urlsplit(href.group(2))
+            if parsed.scheme or parsed.netloc or parsed.query or parsed.fragment:
+                return tag
+            # The HTML may be at the site root or in an examples/docs folder.
+            path = posixpath.normpath(
+                posixpath.join(posixpath.dirname(filename), parsed.path.lstrip("/"))
+                if not parsed.path.startswith("/")
+                else parsed.path.lstrip("/"))
+            if path not in files or not path.endswith(".css"):
+                return tag
+            css = files[path]
+            if re.search(rb"@import\b|url\s*\(", css, re.IGNORECASE):
+                raise ValueError(f"Cannot relocate CSS with imports/relative URLs: {path}")
+            dest = f"_assets/css/{hashlib.sha256(css).hexdigest()}.css"
+            existing = derived.get(dest)
+            if existing is not None and existing != css:
+                raise ValueError(f"Hash collision: {dest}")
+            derived[dest] = css
+            return tag[:href.start(2)] + "/" + dest + tag[href.end(2):]
+
+        html = payload.decode("utf-8")
+        rewritten = LINK_TAG.sub(replace_link, html)
+        files[filename] = rewritten.encode("utf-8")
+    files.update(derived)
 
 
 def source_files() -> dict[str, bytes]:
@@ -77,11 +131,11 @@ def source_files() -> dict[str, bytes]:
     public_docs = (
         "ai-quickstart.md", "agent-integration.md",
         "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "component-authoring.md", "components.md",
-        "console-kit.html", "component-recipes.md", "design-research-linear-resend.md",
+        "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md",
         "distribution.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
         "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md",
         "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
-        "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md",
+        "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
         "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
         "editor-integration.md", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
@@ -92,7 +146,7 @@ def source_files() -> dict[str, bytes]:
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html",
-        "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
+        "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
         "viz.html",
     )
@@ -136,6 +190,7 @@ def source_files() -> dict[str, bytes]:
                 raise ValueError(f"Modified immutable release asset: {path}")
             files[f"v/{version}/{filename}"] = data
 
+    immutable_site_css(files)
     files["_headers"] = HEADERS.encode("utf-8")
     return files
 
