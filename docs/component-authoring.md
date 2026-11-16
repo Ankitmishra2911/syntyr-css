@@ -108,6 +108,17 @@ labels, error text, and focus. Implement applicable
 **Ordinary `input`, `select`, `textarea`, and `button` should
 remain the default**; Syntyr does not ship a custom form-control runtime.
 
+The [form-associated integration fixture](https://github.com/dporkka/syntyr-css/blob/main/examples/web-components/form-associated.html)
+demonstrates a justified narrow use case: two native inputs treated as a
+single form-associated *range* with cross-field validity and a two-entry
+`FormData` submission. With JavaScript disabled, the original named fields
+remain usable. The enhancement removes those native `name` attributes so
+`setFormValue(FormData, state)` remains the sole submission source. Test
+`form.reset()`, ancestor `fieldset disabled`, direct host `disabled`,
+`FormData` cardinality, restoration, reconnection and validation across
+browsers. Server-side validation remains mandatory; this example is **not**
+a distributed Syntyr component or a reason to replace ordinary controls.
+
 References: [Custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements),
 [ElementInternals](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals),
 [Declarative Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#declarative_shadow_dom).
