@@ -19,6 +19,13 @@ except ImportError:
 
 COMMENTS = re.compile(r"/\*.*?\*/", re.DOTALL)
 THEME_ATTRIBUTE = re.compile(r"\[\s*data-syn-theme\b")
+# CSS core must never add a hidden network or application asset dependency.
+CSS_IMPORT = re.compile(r"^\s*@import\b", re.IGNORECASE | re.MULTILINE)
+CSS_URL = re.compile(
+    r"\burl\s*\(\s*(?:\"([^\"\n]*)\"|'([^'\n]*)'|([^\s)]*))\s*\)",
+    re.IGNORECASE,
+)
+
 # Adapter-only syntax and DOM contracts must not become core CSS requirements.
 # Keep the list narrow: native HTML/ARIA states remain valid core selectors.
 INTEGRATION_LEAK = re.compile(
@@ -54,6 +61,13 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
         if name not in referenced:
             issues.append(f"unregistered source: {name}")
         content = COMMENTS.sub("", path.read_text(encoding="utf-8"))
+        if CSS_IMPORT.search(content):
+            issues.append(f"{name}: CSS import; bundle the source at build time")
+        for match in CSS_URL.finditer(content):
+            asset = next((value for value in match.groups() if value is not None), "").strip()
+            if not asset.lower().startswith("data:") and not asset.startswith("#"):
+                issues.append(f"{name}: external CSS asset; embed or own it in the host application")
+                break
         # Theme palette variants must live in tokens, not in copied components.
         if name not in {"tokens.css", "base.css", "print.css", "viz.css"} and THEME_ATTRIBUTE.search(content):
             label = "component theme fork" if name.startswith("components/") else "theme fork"

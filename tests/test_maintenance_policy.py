@@ -82,6 +82,31 @@ class MaintenancePolicyTests(unittest.TestCase):
             file.write_text("/* @apply .syn-radix --tw-color */\n.syn-root { color: var(--syn-text); }")
             self.assertEqual(find_issues(src, {"syntyr.core.css": ("tokens.css",)}), [])
 
+    def test_css_imports_rejected_in_css_core(self):
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            f = src / "tokens.css"
+            registry = {"syntyr.core.css": ("tokens.css",)}
+            for value in ('@import "theme.css";', '@import url("https://example.org/font.css");'):
+                with self.subTest(value=value):
+                    f.write_text(value, encoding="utf-8")
+                    self.assertTrue(any("CSS import" in e for e in find_issues(src, registry)))
+
+    def test_unbundled_css_urls_rejected_but_embedded_sources_allowed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            f = src / "tokens.css"
+            registry = {"syntyr.core.css": ("tokens.css",)}
+            for value in ('url("https://example.org/logo.svg")', 'url(/images/logo.svg)',
+                          'url("../icons/logo.svg")', 'url(//example.org/logo.svg)'):
+                with self.subTest(value=value):
+                    f.write_text(f'.syn-root {{ background: {value}; }}', encoding="utf-8")
+                    self.assertTrue(any("external CSS asset" in e for e in find_issues(src, registry)))
+            f.write_text('/* @import "bad.css"; url(https://bad.test/img) */'
+                         '.syn-root { filter: url("#contrast");'
+                         'background: url(data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=); }', encoding="utf-8")
+            self.assertEqual(find_issues(src, registry), [])
+
     def test_important_declarations_outside_accessibility_base_are_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             src = Path(directory)
