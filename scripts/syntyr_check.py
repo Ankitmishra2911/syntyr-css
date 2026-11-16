@@ -261,6 +261,8 @@ def main(argv=None) -> int:
     p.add_argument("files", nargs="+", type=Path,
                    help="Static HTML files to check; use - to read HTML from stdin.")
     p.add_argument("--format", choices=("text", "json"), default="text")
+    p.add_argument("--fail-on", choices=("error", "warning"), default="error",
+                   help="Exit 1 on warnings too when strict CI checks are required.")
     p.add_argument("--semantic", action="store_true",
                    help="Additionally lint literal native HTML semantics (conservative; templates need rendered checks).")
     p.add_argument("--stylesheets", action="append", default=None,
@@ -295,7 +297,7 @@ def main(argv=None) -> int:
                   f"{diag['severity']} [{diag['code']}]: {diag['message']}")
         if not results:
             print(f"OK: {len(args.files)} file(s) checked")
-    return 1 if any(d["severity"] == "error" for d in results) else 0
+    return 1 if any(d["severity"] == "error" or args.fail_on == "warning" for d in results) else 0
 
 
 if __name__ == "__main__":
