@@ -26,8 +26,12 @@ HEX_COLOR = re.compile(r"^#[0-9a-fA-F]{6}$")
 REM_VALUE = re.compile(r"^((?:\d+(?:\.\d*)?|\.\d+))rem$")
 
 
-def read_palettes(css: str) -> dict[str, dict[str, str]]:
-    """Read literal source palettes; fail closed if a design token becomes dynamic."""
+def read_palettes(css: str, *, strict: bool = True) -> dict[str, dict[str, str]]:
+    """Read source palettes; strict mode requires literal public design tokens.
+
+    Non-strict mode is for diagnostics: it retains missing and nonliteral
+    declarations so the caller can report individual actionable failures.
+    """
     result: dict[str, dict[str, str]] = {}
     current = None
     for line in css.splitlines():
@@ -52,6 +56,8 @@ def read_palettes(css: str) -> dict[str, dict[str, str]]:
         raise ValueError(f"Unclosed theme block: {current}")
     if set(result) != set(PALETTES):
         raise ValueError(f"Expected {PALETTES}, found {sorted(result)}")
+    if not strict:
+        return result
     for name, palette in result.items():
         for token in COLORS:
             value = palette.get(f"--syn-{token}", "")
