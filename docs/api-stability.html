@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
-  <meta name="syntyr-source-sha256" content="4fd9116fa3c039b8bc4bb3211b1a1f397201cde55db1f22191d5de232dfa7934">
+  <meta name="syntyr-source-sha256" content="da6a0759226ed64ab340f257ddac42ef7a56df3b0eabf136f6699921df52cddc">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
@@ -130,6 +130,12 @@ Themes set design tokens; component selectors should not fork per theme. The
 finite utilities are explicit overrides in their own final <code>syn.utilities</code>
 cascade layer. Do not load a convenience bundle and its component modules
 simultaneously.</p>
+<p>Native <code>hidden</code> on the <code>.syn-root</code> itself or its descendants takes priority over
+Syntyr component, semantic, and utility <code>display</code> styles. Remove the attribute
+to reveal the element; do not rely on <code>aria-hidden</code> to hide it visually. The
+<code>hidden=&quot;until-found&quot;</code> state is deliberately exempt so browser find-in-page
+can reveal matching content. This contract is in <strong>unreleased alpha.5 source</strong>;
+published alpha.4 assets remain unchanged.</p>
 <h3 id="alpha5-opt-in-crm-compositions-and-density-profiles">Alpha.5 opt-in CRM compositions and density profiles</h3>
 <p>The source-only <code>syntyr.recipes.css</code> adds optional <code>.syn-filter-bar</code>,
 <code>.syn-pipeline</code> and <code>.syn-record-fields</code> compositions. These selectors are

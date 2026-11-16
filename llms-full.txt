@@ -1734,6 +1734,13 @@ finite utilities are explicit overrides in their own final `syn.utilities`
 cascade layer. Do not load a convenience bundle and its component modules
 simultaneously.
 
+Native `hidden` on the `.syn-root` itself or its descendants takes priority over
+Syntyr component, semantic, and utility `display` styles. Remove the attribute
+to reveal the element; do not rely on `aria-hidden` to hide it visually. The
+`hidden="until-found"` state is deliberately exempt so browser find-in-page
+can reveal matching content. This contract is in **unreleased alpha.5 source**;
+published alpha.4 assets remain unchanged.
+
 ### Alpha.5 opt-in CRM compositions and density profiles
 
 The source-only `syntyr.recipes.css` adds optional `.syn-filter-bar`,

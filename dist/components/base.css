@@ -6,6 +6,14 @@
     color: var(--syn-text);
     background: var(--syn-bg);
   }
+  /* Native [hidden] is an application visibility state, not a styling hint.
+     Author-level component and utility display rules otherwise override the UA
+     hidden rule. Preserve hidden=until-found for the browser's find-in-page
+     reveal algorithm; it must not receive display:none. */
+  :where(.syn-root[hidden]:not([hidden="until-found" i]),
+         .syn-root [hidden]:not([hidden="until-found" i])) {
+    display: none !important;
+  }
   .syn-root :where([data-syn-theme]) { color: var(--syn-text); background-color: var(--syn-bg); }
   .syn-root.syn-page { min-height: 100svh; }
   .syn-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }

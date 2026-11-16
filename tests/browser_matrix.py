@@ -98,6 +98,37 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert summary.evaluate("e => e.getBoundingClientRect().height") >= 44
         summary.click()
         assert page.locator("details").first.get_attribute("open") is not None
+        # Native hidden must win over explicit and semantic display rules.
+        # This exercises the actual compiled stylesheet in every browser.
+        visibility = page.evaluate("""() => {
+          const root = document.querySelector('body.syn-root.syn-semantic');
+          const make = (tag, className, hidden) => {
+            const el = document.createElement(tag);
+            if (className) el.className = className;
+            el.setAttribute('hidden', hidden);
+            root.append(el);
+            return el;
+          };
+          const classed = make('button', 'syn-button', '');
+          const semantic = make('button', '', '');
+          const grid = make('div', 'syn-grid', '');
+          const findable = make('div', 'syn-grid', 'until-found');
+          const display = el => getComputedStyle(el).display;
+          const initial = [display(classed), display(semantic), display(grid),
+                           display(findable), getComputedStyle(findable).contentVisibility];
+          classed.removeAttribute('hidden');
+          const revealed = display(classed);
+          root.setAttribute('hidden', '');
+          const rootHidden = display(root);
+          root.removeAttribute('hidden');
+          for (const el of [classed, semantic, grid, findable]) el.remove();
+          return {initial, revealed, rootHidden};
+        }""")
+        assert visibility["initial"][:3] == ["none"] * 3, visibility
+        assert visibility["initial"][3] != "none", visibility
+        assert visibility["initial"][4] == "hidden", visibility
+        assert visibility["revealed"] == "inline-flex", visibility
+        assert visibility["rootHidden"] == "none", visibility
     if name == "docs/catalog.html":
         cards = page.locator(".catalog-card")
         total = cards.count()
