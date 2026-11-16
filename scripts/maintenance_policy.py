@@ -60,6 +60,17 @@ def base_important_issues(content: str) -> list[str]:
     return issues
 
 
+# Adapter-only syntax and DOM contracts must not become core CSS requirements.
+# Keep the list narrow: native HTML/ARIA states remain valid core selectors.
+INTEGRATION_LEAK = re.compile(
+    r"@(?:theme|apply|tailwind|plugin|config)\b"
+    r"|\.syn-(?:shadcn|radix|figma)(?!\w)"
+    r"|\.(?:radix-|react-aria-|shadcn-)"
+    r"|--(?:tw|radix|react-aria|figma)-"
+    r"|\[\s*data-(?:radix|react-aria)-"
+)
+
+
 def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list[str]:
     """Return deterministic, actionable violations of the source ownership policy."""
     registry = all_distributions() if bundles is None else bundles
@@ -90,6 +101,8 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
         if name not in {"tokens.css", "base.css", "print.css", "viz.css"} and THEME_ATTRIBUTE.search(content):
             label = "component theme fork" if name.startswith("components/") else "theme fork"
             issues.append(f"{name}: {label}; change theme tokens instead")
+        if INTEGRATION_LEAK.search(content):
+            issues.append(f"{name}: integration leak; keep vendor-specific syntax, selectors and tokens in integrations/")
         if name == "base.css":
             issues.extend(base_important_issues(content))
         elif IMPORTANT.search(content):

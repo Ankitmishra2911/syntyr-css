@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="These are MIT-licensed, plain-HTML examples . Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime…">
-  <meta name="syntyr-source-sha256" content="f73a6f1e9e06e0b2ddd06fff938b80d77a110f128afce1cadb3d92f7b2b1177d">
+  <meta name="syntyr-source-sha256" content="44b6598669ef1b441df0eefea8d8bab361fc71ed67064084720ecbeec4f508fb">
   <meta name="theme-color" content="#f5f7fb">
   <title>Copy-owned form recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-recipes">
@@ -65,6 +65,7 @@
 &lt;/search&gt;
 </code></pre>
 <p>This is <strong>progressive enhancement</strong>: the GET form submits with <strong>No JavaScript</strong>. An HTMX application may add <code>hx-get</code> and <code>hx-target</code> while preserving <code>action</code>, <code>method</code>, and a server-rendered fallback. The application must implement the endpoint and return actual search results.</p>
+<p>At narrow available widths (12rem or less relative to the current text size), a connected input and submit button stack instead of squeezing the input into a tall, narrow strip. The <code>.syn-input-group</code> itself determines the breakpoint through a CSS container query; no viewport breakpoint, JavaScript, or additional component class is needed. Input groups containing only currency/unit addons keep their existing inline layout. Test long button labels, translations and browser zoom in consuming applications.</p>
 <h2 id="3-input-addon-currency-and-unit">3. Input addon (currency and unit)</h2>
 <pre><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-field&quot;&gt;
@@ -72,13 +73,13 @@
     &lt;div class=&quot;syn-input-group&quot;&gt;
       &lt;span class=&quot;syn-input-addon&quot; aria-hidden=&quot;true&quot;&gt;$&lt;/span&gt;
       &lt;input class=&quot;syn-input&quot; id=&quot;monthly-budget&quot; name=&quot;budget&quot;
-             type=&quot;number&quot; min=&quot;0&quot; step=&quot;0.01&quot; inputmode=&quot;decimal&quot;&gt;
+             type=&quot;text&quot; inputmode=&quot;decimal&quot;&gt;
       &lt;span class=&quot;syn-input-addon&quot; aria-hidden=&quot;true&quot;&gt;USD&lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
-<p>The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input.</p>
+<p>The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input. For monetary amounts, text plus <code>inputmode=&quot;decimal&quot;</code> avoids native number spinners and floating-point assumptions; the server must parse localized decimal input and validate exact precision. Use <code>type=&quot;number&quot;</code> for quantities where native numeric stepping is appropriate.</p>
 <h2 id="4-container-responsive-horizontal-form">4. Container-responsive horizontal form</h2>
 <pre><code class="language-html">&lt;form class=&quot;syn-root syn-region syn-form&quot; action=&quot;/settings&quot; method=&quot;post&quot;
       data-syn-theme=&quot;corporate&quot;&gt;
@@ -94,6 +95,55 @@
 &lt;/form&gt;
 </code></pre>
 <p>The <code>syn-region</code> container determines whether rows become horizontal at 42rem. Without that ancestor they remain safely stacked. This is intentionally not a full grid/breakpoint framework. The help text is associated with its input via <code>aria-describedby</code>. A production POST endpoint must handle authorization, validation and CSRF.</p>
+<h2 id="5-server-rendered-error-recovery">5. Server-rendered error recovery</h2>
+<p>The optional <code>syntyr.recipes.css</code> adds <code>.syn-error-summary</code> styling; the
+following HTML remains readable and operable without that stylesheet or any
+JavaScript. Render this response <strong>only after a failed submission</strong>, with the
+submitted value preserved and error messages associated with the field.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;account-title&quot;&gt;
+  &lt;h2 id=&quot;account-title&quot;&gt;Account settings&lt;/h2&gt;
+  &lt;div class=&quot;syn-error-summary&quot; id=&quot;form-errors&quot; tabindex=&quot;-1&quot;
+       role=&quot;region&quot; aria-labelledby=&quot;form-errors-title&quot;&gt;
+    &lt;h3 id=&quot;form-errors-title&quot;&gt;There is a problem&lt;/h3&gt;
+    &lt;ul&gt;&lt;li&gt;&lt;a href=&quot;#account-email&quot;&gt;Enter a valid email address&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;form class=&quot;syn-form&quot; method=&quot;post&quot; action=&quot;/account&quot;&gt;
+    &lt;div class=&quot;syn-field&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;account-email&quot;&gt;Email address&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;account-email&quot; name=&quot;email&quot; type=&quot;email&quot;
+             autocomplete=&quot;email&quot; value=&quot;not-an-email&quot; required
+             aria-invalid=&quot;true&quot;
+             aria-describedby=&quot;account-email-hint account-email-error&quot;&gt;
+      &lt;p class=&quot;syn-help&quot; id=&quot;account-email-hint&quot;&gt;Use the address for account notices.&lt;/p&gt;
+      &lt;p class=&quot;syn-error&quot; id=&quot;account-email-error&quot;&gt;Enter a valid email address.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The server owns validation, authorization, CSRF protection and re-rendering.
+On a successful response, omit the error summary, error paragraph and
+<code>aria-invalid</code>. On enhanced/partial-page submissions, the application must
+announce errors and move focus to the summary or first invalid field; CSS cannot
+do this. On a full-page response, keep the summary before the form in document
+order and link directly to each invalid input. Keep working <code>action</code>/<code>method</code>
+attributes even when HTMX, Datastar or another client adds progressive
+enhancement. Native constraint validation still runs; <code>aria-invalid</code> alone
+does not prevent submission or execute server-side validation.</p>
+<h2 id="6-native-readonly-text-fields">6. Native readonly text fields</h2>
+<p>Use the real <code>readonly</code> attribute, not <code>aria-readonly</code> or <code>disabled</code>, when
+text must remain selectable and submit with the form:</p>
+<pre><code class="language-html">&lt;div class=&quot;syn-root syn-field&quot;&gt;
+  &lt;label class=&quot;syn-label&quot; for=&quot;reference-id&quot;&gt;Reference ID&lt;/label&gt;
+  &lt;input class=&quot;syn-input&quot; id=&quot;reference-id&quot; name=&quot;reference_id&quot;
+         value=&quot;WS-1042&quot; readonly&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Classed inputs and opt-in <code>syn-semantic</code> fields display readonly text with a
+recessed surface and dashed border. Do not place <code>readonly</code> on native
+<code>select</code>, checkbox, radio, or file inputs: those controls do not support it.
+Keep the browser's autofill appearance and autocomplete functionality available;
+do not conceal autofilled values with pseudo-elements or forced-color overrides.</p>
 <h2 id="optional-companion-styles">Optional companion styles</h2>
 <ul>
 <li><a href="radix-integration.html">Radix Primitives state styling</a> provides an opt-in adapter for React applications while keeping Radix responsible for keyboard behavior.</li>
@@ -107,6 +157,8 @@
 <a class="docs-article-toc-link docs-article-toc-2" href="#2-search-field-with-a-connected-button">2. Search field with a connected button</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#3-input-addon-currency-and-unit">3. Input addon (currency and unit)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-container-responsive-horizontal-form">4. Container-responsive horizontal form</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#5-server-rendered-error-recovery">5. Server-rendered error recovery</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#6-native-readonly-text-fields">6. Native readonly text fields</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-companion-styles">Optional companion styles</a>
         </nav></aside>
       </div>

@@ -2,6 +2,11 @@
 
 Syntyr is a styling system, **not** a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser's built-in semantics and state before adding host-owned JavaScript. See the [scriptless integration demo](https://syntyr-css.pages.dev/examples/native-apis.html) (source: `examples/native-apis.html`).
 
+For framework-free custom elements and server-rendered Shadow DOM, see the
+[native Web Components fixture](https://github.com/dporkka/syntyr-css/tree/main/examples/web-components) and
+[component-authoring contract](component-authoring.md). Syntyr still requires
+no Custom Elements runtime for ordinary HTML components.
+
 ## Supported integrations
 
 | Primitive | Syntyr integration | Fallback / requirement |
@@ -37,11 +42,13 @@ The invoker creates an implicit CSS anchor. Do not apply `position-anchor: auto`
 ## Example: a dialog without an event handler
 
 ```html
-<button type="button" commandfor="confirm-dialog" command="show-modal">Review</button>
-<dialog id="confirm-dialog" class="syn-dialog" aria-labelledby="confirm-title">
-  <h2 id="confirm-title">Review changes</h2>
-  <form method="dialog"><button type="submit">Close</button></form>
-</dialog>
+<section class="syn-root" data-syn-theme="studio">
+  <button type="button" commandfor="confirm-dialog" command="show-modal">Review</button>
+  <dialog id="confirm-dialog" class="syn-dialog" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">Review changes</h2>
+    <form method="dialog"><button type="submit">Close</button></form>
+  </dialog>
+</section>
 ```
 
 The HTML Invoker Commands API is progressively available; don't assume the opener works in legacy browsers. A normal link to a review page or a `<details>` fallback gives users an accessible path even without it. Use `dialog.requestClose()` from host JavaScript when a cancelable close request is needed; unlike `dialog.close()`, `requestClose()` fires `cancel` first.

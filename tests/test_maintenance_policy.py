@@ -54,6 +54,34 @@ class MaintenancePolicyTests(unittest.TestCase):
             issues = find_issues(src, {"syntyr.recipes.css": ("recipes.css",)})
             self.assertTrue(any("theme fork" in issue for issue in issues), issues)
 
+    def test_core_refuses_framework_specific_css_directives_and_selectors(self):
+        examples = (
+            "@theme inline { --color-ui: blue; }",  # Tailwind v4
+            ".syn-root { @apply flex; }",  # Tailwind-only syntax
+            ".syn-shadcn { color: red; }",  # Adapter-owned surface
+            ".syn-shadcn-button { color: red; }",  # Adapter-owned extension
+            ".syn-radix[data-state=\"open\"] { color: red; }",  # Adapter-owned surface
+            ".syn-root { color: var(--radix-popover-trigger-width); }",  # Vendor variable
+            ".syn-root[data-radix-menu-content] { color: red; }",  # Vendor DOM shape
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            file = src / "components" / "card.css"
+            file.parent.mkdir()
+            registry = {"syntyr.core.css": ("components/card.css",)}
+            for css in examples:
+                with self.subTest(css=css):
+                    file.write_text(css)
+                    issues = find_issues(src, registry)
+                    self.assertTrue(any("integration leak" in issue for issue in issues), issues)
+
+    def test_comments_do_not_trigger_integration_leak_policy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            file = src / "tokens.css"
+            file.write_text("/* @apply .syn-radix --tw-color */\n.syn-root { color: var(--syn-text, CanvasText); }")
+            self.assertEqual(find_issues(src, {"syntyr.core.css": ("tokens.css",)}), [])
+
     def test_important_declarations_outside_accessibility_base_are_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             src = Path(directory)
