@@ -2468,6 +2468,11 @@ Original: https://syntyr-css.pages.dev/docs/native-browser-apis.md
 
 Syntyr is a styling system, **not** a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser's built-in semantics and state before adding host-owned JavaScript. See the [scriptless integration demo](https://syntyr-css.pages.dev/examples/native-apis.html) (source: `examples/native-apis.html`).
 
+For framework-free custom elements and server-rendered Shadow DOM, see the
+[native Web Components fixture](https://github.com/dporkka/syntyr-css/tree/main/examples/web-components) and
+[component-authoring contract](component-authoring.md). Syntyr still requires
+no Custom Elements runtime for ordinary HTML components.
+
 ## Supported integrations
 
 | Primitive | Syntyr integration | Fallback / requirement |

@@ -131,5 +131,24 @@ class LitInteroperabilityContract(unittest.TestCase):
             self.assertIn(text.lower(), guide.lower())
 
 
+    def test_native_web_components_remain_optional_and_framework_free(self):
+        native = ROOT / "examples" / "web-components"
+        for name in ("README.md", "index.html", "ssr.html",
+                     "main.js", "status-toggle.js", "status-toggle.css"):
+            self.assertTrue((native / name).is_file(), name)
+        js = (native / "status-toggle.js").read_text(encoding="utf-8")
+        self.assertIn("extends HTMLElement", js)
+        self.assertIn("disconnectedCallback()", js)
+        self.assertIn("new AbortController()", js)
+        self.assertIn("this.shadowRoot", js)
+        self.assertIn("textContent", js)
+        self.assertNotIn('from "lit"', js)
+        self.assertIn('shadowrootmode="open"',
+                      (native / "ssr.html").read_text(encoding="utf-8"))
+        self.assertIn("/examples/web-components/",
+                      (DEMO / "server.mjs").read_text(encoding="utf-8"))
+        self.assertTrue((DEMO / "tests" / "native.spec.mjs").is_file())
+
+
 if __name__ == "__main__":
     unittest.main()

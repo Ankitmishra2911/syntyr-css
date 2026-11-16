@@ -1,6 +1,9 @@
 # Syntyr + Lit: optional Web Components interoperability
 
 Syntyr is a **CSS-first design system**, not a Lit or Web Components runtime.
+For a zero-framework example using native `HTMLElement` and Declarative Shadow DOM,
+see the [native Custom Elements fixture](https://github.com/dporkka/syntyr-css/tree/main/examples/web-components).
+The Lit integration below remains optional and independent.
 The Syntyr core has **zero required JavaScript**, no Node.js install requirement,
 and no dependency on Lit. A consumer application may independently choose Lit
 to implement behavior. This guide demonstrates the integration using real
