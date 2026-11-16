@@ -29,7 +29,7 @@ SECTIONS = (
     ("Start here", ("ai-quickstart", "distribution", "package-managers", "from-pico",
                     "adoption-starters", "components", "data-tables", "data-grid",
                     "recipes", "native-patterns", "component-recipes")),
-    ("Design system", ("theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),
+    ("Design system", ("design-principles", "theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),
     ("Integrations", ("framework-integrations", "headless-interactions", "lit-integration", "radix-integration", "shadcn-integration", "ecosystem-integrations", "editor-integration", "figma-component-kit", "vertigo-integration", "rust-saas-integration", "saas-cli-business")),
     ("Accessibility and performance", ("accessibility", "accessibility-alpha5-review", "progressive-enhancement", "native-browser-apis", "progressive-loading", "performance-and-polish", "performance-validation", "live-performance-audit", "visual-regression")),
     ("Maintainer and reference", ("agent-integration", "api-stability", "cloudflare-hosting", "site-generator-decision", "design-research-linear-resend", "tailwind-research", "selective-builds", "release-readiness-ecosystem")),
@@ -54,6 +54,7 @@ def renderer() -> MarkdownIt:
 
 
 DESCRIPTION_OVERRIDES = {
+    "design-principles.md": "Learn shared UI design principles, accessible component states, semantic HTML compositions, and static palette contrast checks in Syntyr CSS.",
     "ai-quickstart.md": "Install Syntyr CSS with AI coding agents using semantic HTML, real component classes, and version-aware, framework-neutral examples.",
     "components.md": "Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.",
     "framework-integrations.md": "Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.",
