@@ -8,6 +8,9 @@
       min-inline-size: 0;
     }
     &.syn-field > :where(.syn-help, .syn-error) { margin-block: 0; }
+    /* Progressive native feedback; focus outlines and error text remain authoritative. */
+    &.syn-field:focus-within > .syn-label { color: var(--syn-accent); }
+    &.syn-field:has(:user-invalid, [aria-invalid="true"]) > .syn-label { color: var(--syn-danger); }
     &.syn-field-row {
       display: grid;
       gap: var(--syn-space-2);
@@ -58,6 +61,7 @@
       border-end-end-radius: var(--syn-radius);
     }
     &.syn-input-group > :not(:first-child) { border-inline-start: 0; }
+    &.syn-input-group:focus-within > .syn-input-addon { border-block-color: var(--syn-border-focus); }
     @media (forced-colors: active) {
       &.syn-input-addon { border-color: CanvasText; }
     }

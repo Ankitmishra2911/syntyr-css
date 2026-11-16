@@ -44,7 +44,7 @@
     &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
     &.syn-workspace { width: 100%; min-width: 0; overflow-wrap: anywhere; padding: clamp(1rem, 3vw, 2.5rem); }
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
-    &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
+    &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-kpi-min, 13rem)), 1fr)); gap: var(--syn-kpi-gap, var(--syn-space-2)); }
     &.syn-app-card {
       min-width: 0; padding: var(--syn-card-padding);
       border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius);
@@ -61,13 +61,14 @@
     /* CRM filters: wrapping, label-friendly controls and real GET forms. */
     &.syn-filter-bar {
       display: flex; align-items: end; flex-wrap: wrap;
-      gap: var(--syn-space-2); min-width: 0;
+      gap: var(--syn-filter-gap, var(--syn-space-2)); min-width: 0;
     }
     &.syn-filter-field {
       display: grid; gap: .35rem;
-      flex: 1 1 11rem; min-inline-size: min(100%, 11rem);
+      flex: 1 1 var(--syn-filter-field-min, 11rem);
+      min-inline-size: min(100%, var(--syn-filter-field-min, 11rem));
     }
-    &.syn-filter-field--query { flex: 2 1 18rem; }
+    &.syn-filter-field--query { flex: 2 1 var(--syn-filter-query-min, 18rem); }
     &.syn-filter-actions {
       display: flex; align-items: center; flex-wrap: wrap;
       gap: var(--syn-space-1); min-inline-size: 0;
@@ -286,10 +287,16 @@
     /* A content-first detail shell. The inspector wraps naturally at narrow widths. */
     &.syn-detail-layout {
       display: flex; flex-wrap: wrap; align-items: start;
-      gap: var(--syn-space-3); min-width: 0;
+      gap: var(--syn-detail-gap, var(--syn-space-3)); min-width: 0;
     }
-    &.syn-detail-main { flex: 999 1 32rem; min-width: min(100%, 22rem); }
-    &.syn-detail-aside { flex: 1 1 17rem; min-width: min(100%, 17rem); }
+    &.syn-detail-main {
+      flex: 999 1 var(--syn-detail-main-basis, 32rem);
+      min-width: min(100%, var(--syn-detail-main-min, 22rem));
+    }
+    &.syn-detail-aside {
+      flex: 1 1 var(--syn-detail-aside-basis, 17rem);
+      min-width: min(100%, var(--syn-detail-aside-min, 17rem));
+    }
 
     /* Search/command presentation only: the application owns actual commands. */
     &.syn-command-panel {

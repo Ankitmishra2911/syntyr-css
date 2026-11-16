@@ -263,6 +263,16 @@
       --syn-cut: .9rem;
     }
   }
+  /* Experimental perceptual mixing: explicitly enable per root or themed region.
+     The default sRGB role remains intact on unsupported engines and elsewhere.
+     Do not recolor semantic text/accent pairings without a contrast audit. */
+  @supports (color: color-mix(in oklch, red, blue)) {
+    :where(.syn-root[data-syn-color-space="oklch"],
+           .syn-root [data-syn-color-space="oklch"]) {
+      --syn-surface-hover: color-mix(in oklch, var(--syn-surface-hi) 83%, var(--syn-accent));
+    }
+  }
+
   /* Technical typography is an explicit choice, not the neutral root default. */
   :where(.syn-root[data-syn-theme="grid"],
          .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
@@ -334,10 +344,11 @@
       isolation: isolate;
     }
     &.syn-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
-    &.syn-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
-    &.syn-layout { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); align-items: start; }
-    &.syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); }
-    &.syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-2); }
+    /* Component-local variables customize intrinsic layouts without a utility compiler. */
+    &.syn-grid { display: grid; gap: var(--syn-grid-gap, 1rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-grid-min, 17rem)), 1fr)); }
+    &.syn-layout { display: grid; gap: var(--syn-layout-gap, 1.25rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-layout-min, 21rem)), 1fr)); align-items: start; }
+    &.syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-stack-gap, var(--syn-space-3)); }
+    &.syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-inline-gap, var(--syn-space-2)); }
     &.syn-panel {
       position: relative; padding: var(--syn-panel-padding, clamp(1rem, 2.8vw, 1.75rem)); overflow-wrap: anywhere;
       color: var(--syn-text); border: var(--syn-panel-border-width, 1px) solid var(--syn-border-subtle);
@@ -345,6 +356,8 @@
       background: var(--syn-surface);
       min-width: 0;
     }
+    /* Native inert blocks interaction; this is only a visible presentation cue. */
+    &.syn-panel:where([inert]) { border-style: dashed; background: var(--syn-surface-recessed); }
     &.syn-panel--raised { box-shadow: var(--syn-shadow-raised); }
     &.syn-panel--cut::after {
       content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
@@ -470,6 +483,9 @@
       min-inline-size: 0;
     }
     &.syn-field > :where(.syn-help, .syn-error) { margin-block: 0; }
+    /* Progressive native feedback; focus outlines and error text remain authoritative. */
+    &.syn-field:focus-within > .syn-label { color: var(--syn-accent); }
+    &.syn-field:has(:user-invalid, [aria-invalid="true"]) > .syn-label { color: var(--syn-danger); }
     &.syn-field-row {
       display: grid;
       gap: var(--syn-space-2);
@@ -520,6 +536,7 @@
       border-end-end-radius: var(--syn-radius);
     }
     &.syn-input-group > :not(:first-child) { border-inline-start: 0; }
+    &.syn-input-group:focus-within > .syn-input-addon { border-block-color: var(--syn-border-focus); }
     @media (forced-colors: active) {
       &.syn-input-addon { border-color: CanvasText; }
     }
@@ -1219,7 +1236,7 @@
     &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
     &.syn-workspace { width: 100%; min-width: 0; overflow-wrap: anywhere; padding: clamp(1rem, 3vw, 2.5rem); }
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
-    &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
+    &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-kpi-min, 13rem)), 1fr)); gap: var(--syn-kpi-gap, var(--syn-space-2)); }
     &.syn-app-card {
       min-width: 0; padding: var(--syn-card-padding);
       border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius);
@@ -1236,13 +1253,14 @@
     /* CRM filters: wrapping, label-friendly controls and real GET forms. */
     &.syn-filter-bar {
       display: flex; align-items: end; flex-wrap: wrap;
-      gap: var(--syn-space-2); min-width: 0;
+      gap: var(--syn-filter-gap, var(--syn-space-2)); min-width: 0;
     }
     &.syn-filter-field {
       display: grid; gap: .35rem;
-      flex: 1 1 11rem; min-inline-size: min(100%, 11rem);
+      flex: 1 1 var(--syn-filter-field-min, 11rem);
+      min-inline-size: min(100%, var(--syn-filter-field-min, 11rem));
     }
-    &.syn-filter-field--query { flex: 2 1 18rem; }
+    &.syn-filter-field--query { flex: 2 1 var(--syn-filter-query-min, 18rem); }
     &.syn-filter-actions {
       display: flex; align-items: center; flex-wrap: wrap;
       gap: var(--syn-space-1); min-inline-size: 0;
@@ -1461,10 +1479,16 @@
     /* A content-first detail shell. The inspector wraps naturally at narrow widths. */
     &.syn-detail-layout {
       display: flex; flex-wrap: wrap; align-items: start;
-      gap: var(--syn-space-3); min-width: 0;
+      gap: var(--syn-detail-gap, var(--syn-space-3)); min-width: 0;
     }
-    &.syn-detail-main { flex: 999 1 32rem; min-width: min(100%, 22rem); }
-    &.syn-detail-aside { flex: 1 1 17rem; min-width: min(100%, 17rem); }
+    &.syn-detail-main {
+      flex: 999 1 var(--syn-detail-main-basis, 32rem);
+      min-width: min(100%, var(--syn-detail-main-min, 22rem));
+    }
+    &.syn-detail-aside {
+      flex: 1 1 var(--syn-detail-aside-basis, 17rem);
+      min-width: min(100%, var(--syn-detail-aside-min, 17rem));
+    }
 
     /* Search/command presentation only: the application owns actual commands. */
     &.syn-command-panel {

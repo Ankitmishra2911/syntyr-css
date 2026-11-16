@@ -1499,6 +1499,31 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-detail-aside-basis",
+      "module": "recipes.css",
+      "description": "Detail aside flex basis; defaults to 17rem."
+    },
+    {
+      "name": "--syn-detail-aside-min",
+      "module": "recipes.css",
+      "description": "Detail aside minimum width; defaults to 17rem."
+    },
+    {
+      "name": "--syn-detail-gap",
+      "module": "recipes.css",
+      "description": "Detail shell gap; defaults to --syn-space-3."
+    },
+    {
+      "name": "--syn-detail-main-basis",
+      "module": "recipes.css",
+      "description": "Detail main flex basis; defaults to 32rem."
+    },
+    {
+      "name": "--syn-detail-main-min",
+      "module": "recipes.css",
+      "description": "Detail main minimum width; defaults to 22rem."
+    },
+    {
       "name": "--syn-duration-fast",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
@@ -1517,6 +1542,21 @@
       "name": "--syn-ease-enter",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-filter-field-min",
+      "module": "recipes.css",
+      "description": "Filter field basis and minimum; defaults to 11rem."
+    },
+    {
+      "name": "--syn-filter-gap",
+      "module": "recipes.css",
+      "description": "Wrapping filter-bar gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-filter-query-min",
+      "module": "recipes.css",
+      "description": "Query field flex basis; defaults to 18rem."
     },
     {
       "name": "--syn-fluid-display-size",
@@ -1639,9 +1679,19 @@
       "description": "Syntyr CSS property (data-grid.css)."
     },
     {
+      "name": "--syn-grid-gap",
+      "module": "components/layout.css",
+      "description": "Grid gap; defaults to 1rem."
+    },
+    {
       "name": "--syn-grid-hover",
       "module": "data-grid.css",
       "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-min",
+      "module": "components/layout.css",
+      "description": "Minimum grid track width; defaults to 17rem."
     },
     {
       "name": "--syn-grid-muted",
@@ -1667,6 +1717,31 @@
       "name": "--syn-horizon-alpha",
       "module": "tokens.css",
       "description": "Horizon line accent share."
+    },
+    {
+      "name": "--syn-inline-gap",
+      "module": "components/layout.css",
+      "description": "Inline flex gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-kpi-gap",
+      "module": "recipes.css",
+      "description": "KPI grid gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-kpi-min",
+      "module": "recipes.css",
+      "description": "Minimum KPI grid track width; defaults to 13rem."
+    },
+    {
+      "name": "--syn-layout-gap",
+      "module": "components/layout.css",
+      "description": "Layout gap; defaults to 1.25rem."
+    },
+    {
+      "name": "--syn-layout-min",
+      "module": "components/layout.css",
+      "description": "Minimum layout track width; defaults to 21rem."
     },
     {
       "name": "--syn-leading-body",
@@ -1772,6 +1847,11 @@
       "name": "--syn-space-5",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-stack-gap",
+      "module": "components/layout.css",
+      "description": "Stack gap; defaults to --syn-space-3."
     },
     {
       "name": "--syn-stage-pad",

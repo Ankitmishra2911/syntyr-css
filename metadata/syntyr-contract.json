@@ -3703,6 +3703,61 @@
       ]
     },
     {
+      "name": "--syn-detail-aside-basis",
+      "module": "recipes.css",
+      "description": "Detail aside flex basis; defaults to 17rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-aside-min",
+      "module": "recipes.css",
+      "description": "Detail aside minimum width; defaults to 17rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-gap",
+      "module": "recipes.css",
+      "description": "Detail shell gap; defaults to --syn-space-3.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-main-basis",
+      "module": "recipes.css",
+      "description": "Detail main flex basis; defaults to 32rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-main-min",
+      "module": "recipes.css",
+      "description": "Detail main minimum width; defaults to 22rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "--syn-duration-fast",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css).",
@@ -3760,6 +3815,39 @@
         "syntyr.core.css",
         "syntyr.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-field-min",
+      "module": "recipes.css",
+      "description": "Filter field basis and minimum; defaults to 11rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-gap",
+      "module": "recipes.css",
+      "description": "Wrapping filter-bar gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-query-min",
+      "module": "recipes.css",
+      "description": "Query field flex basis; defaults to 18rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -4040,12 +4128,42 @@
       ]
     },
     {
+      "name": "--syn-grid-gap",
+      "module": "components/layout.css",
+      "description": "Grid gap; defaults to 1rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "--syn-grid-hover",
       "module": "data-grid.css",
       "description": "Syntyr CSS property (data-grid.css).",
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-min",
+      "module": "components/layout.css",
+      "description": "Minimum grid track width; defaults to 17rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
       ]
     },
     {
@@ -4090,6 +4208,73 @@
       "description": "Horizon line accent share.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-inline-gap",
+      "module": "components/layout.css",
+      "description": "Inline flex gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-kpi-gap",
+      "module": "recipes.css",
+      "description": "KPI grid gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-kpi-min",
+      "module": "recipes.css",
+      "description": "Minimum KPI grid track width; defaults to 13rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-layout-gap",
+      "module": "components/layout.css",
+      "description": "Layout gap; defaults to 1.25rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-layout-min",
+      "module": "components/layout.css",
+      "description": "Minimum layout track width; defaults to 21rem.",
+      "stylesheets": [
+        "components/layout.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",
@@ -4401,6 +4586,21 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-stack-gap",
+      "module": "components/layout.css",
+      "description": "Stack gap; defaults to --syn-space-3.",
+      "stylesheets": [
+        "components/layout.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",
@@ -4841,6 +5041,9 @@
       "compact",
       "comfortable",
       "spacious"
+    ],
+    "data-syn-color-space": [
+      "oklch"
     ],
     "data-syn-state": [
       "active",
