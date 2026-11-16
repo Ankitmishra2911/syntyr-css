@@ -6,11 +6,14 @@ or build requirement**. It is **not** a Syntyr JavaScript package or public widg
 
 - `index.html`: a framework-free custom element with a readable light-DOM fallback.
 - `ssr.html`: server-delivered Declarative Shadow DOM remains visible with scripts disabled;
-  the same JavaScript module upgrades it *without clearing* the existing shadow tree.
+  its action button stays disabled until JavaScript attaches its handler; upgrade
+  reuses the existing shadow tree *without clearing* server-rendered content.
 - `status-toggle.js`: attributes/properties, native events, safe text rendering,
   and connection-scoped event listeners. The action button has changing
   "Mark online/offline" text, so it does **not** use `aria-pressed`.
-  A live status message remains outside the `aria-busy` region.
+  A live status message remains outside the `aria-busy` region and is changed
+  only when the message actually differs. Repeated module imports do not
+  redefine an already-registered example tag.
 - `status-toggle.css`: isolated Shadow DOM styles using public inherited Syntyr tokens
   and `::part()` for controlled host customization.
 
