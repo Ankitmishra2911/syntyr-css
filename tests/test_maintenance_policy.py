@@ -58,7 +58,7 @@ class MaintenancePolicyTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             src = Path(directory)
             (src / "components").mkdir()
-            (src / "base.css").write_text("@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }")
+            (src / "base.css").write_text("@media (prefers-reduced-motion: reduce) { * { animation-duration: 0s !important; } }")
             (src / "components" / "card.css").write_text(".syn-card { color: red !important; }")
             bundles = {"syntyr.core.css": ("base.css", "components/card.css")}
             issues = find_issues(src, bundles)
@@ -67,5 +67,72 @@ class MaintenancePolicyTests(unittest.TestCase):
             self.assertEqual(find_issues(src, bundles), [])
 
 
+
+class VariableResolutionPolicyTests(unittest.TestCase):
+    """CSS var() without a declared token or fallback is silent runtime breakage."""
+
+    def test_undefined_variable_without_fallback_is_an_error(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-button { color: var(--syn-missing-color); }"
+            )
+            issues = find_issues(source, {"buttons.css": ("buttons.css",)})
+            self.assertTrue(any("--syn-missing-color" in issue for issue in issues), issues)
+
+    def test_custom_variable_with_explicit_fallback_is_valid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-button { color: var(--syn-override, var(--syn-inner, blue)); }"
+            )
+            self.assertEqual(find_issues(source, {"buttons.css": ("buttons.css",)}), [])
+
+    def test_defined_token_used_by_another_module_is_valid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "tokens.css").write_text(":root { --syn-accent: blue; }")
+            (source / "buttons.css").write_text(".syn-button { color: var(--syn-accent); }")
+            self.assertEqual(find_issues(source, {"css": ("tokens.css", "buttons.css")}), [])
+
+    def test_comment_only_variable_reference_is_ignored(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                "/* var(--syn-discontinued) */ .syn-button { color: var(--syn-override, blue); }"
+            )
+            self.assertEqual(find_issues(source, {"buttons.css": ("buttons.css",)}), [])
+
+
+class ImportantExceptionPolicyTests(unittest.TestCase):
+    def test_important_outside_reduced_motion_is_rejected_in_base(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                ".syn-root { color: red !important; }\n"
+                "@media (prefers-reduced-motion: reduce) { .syn-root * { animation-duration: 0s !important; } }"
+            )
+            issues = find_issues(source, {"core": ("base.css",)})
+            self.assertTrue(any("!important outside reduced-motion" in issue for issue in issues), issues)
+
+    def test_unrelated_important_within_reduced_motion_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                "@media (prefers-reduced-motion: reduce) { .syn-root { color: red !important; } }"
+            )
+            issues = find_issues(source, {"core": ("base.css",)})
+            self.assertTrue(any("!important" in issue for issue in issues), issues)
+
+    def test_supported_reduced_motion_overrides_remain_valid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                "@media (prefers-reduced-motion: reduce) { .syn-root * {"
+                "scroll-behavior: auto !important;"
+                "transition-duration: 0s !important;"
+                "animation-duration: 0s !important;" "} }"
+            )
+            self.assertEqual(find_issues(source, {"core": ("base.css",)}), [])
 if __name__ == "__main__":
     unittest.main()

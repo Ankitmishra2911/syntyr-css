@@ -3,8 +3,9 @@
 Usage: python3 scripts/maintenance_policy.py
 
 Every source must be owned by a shipped distribution; a distribution must not
-include the same module twice. Component theme forks and specificity overrides
-introduce long-lived maintenance cost and are not allowed. No byte ceilings.
+include the same module twice. Component theme forks, missing CSS variables
+without fallbacks, and specificity overrides introduce long-lived maintenance
+cost and are not allowed. No byte ceilings.
 """
 from __future__ import annotations
 
@@ -19,6 +20,44 @@ except ImportError:
 
 COMMENTS = re.compile(r"/\*.*?\*/", re.DOTALL)
 THEME_ATTRIBUTE = re.compile(r"\[\s*data-syn-theme\b")
+CUSTOM_PROPERTY = re.compile(r"(?<![\w-])(--syn-[a-zA-Z0-9_-]+)\s*:")
+VAR_REFERENCE = re.compile(r"\bvar\(\s*(--syn-[a-zA-Z0-9_-]+)\s*([,)])")
+IMPORTANT = re.compile(r"!\s*important\b", re.IGNORECASE)
+BLOCK_OR_IMPORTANT = re.compile(r"[{}]|!\s*important\b", re.IGNORECASE)
+REDUCED_MOTION = re.compile(r"\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)")
+ALLOWED_MOTION_DECLARATION = re.compile(
+    r"(?:scroll-behavior\s*:\s*auto|transition-duration\s*:\s*0s|animation-duration\s*:\s*0s)",
+    re.IGNORECASE,
+)
+
+
+def base_important_issues(content: str) -> list[str]:
+    """Allow only the existing accessibility overrides inside reduced-motion media.
+
+    This intentionally small block walk is used only for base.css, whose
+    handwritten CSS does not contain braces inside strings or declarations.
+    It is not a general-purpose CSS parser or a consumer build dependency.
+    """
+    blocks = []
+    cursor = 0
+    issues = []
+    for token in BLOCK_OR_IMPORTANT.finditer(content):
+        if token.group() == "{":
+            blocks.append(content[cursor:token.start()].strip())
+            cursor = token.end()
+        elif token.group() == "}":
+            if blocks:
+                blocks.pop()
+            cursor = token.end()
+        else:
+            preceding = content[cursor:token.start()].rsplit(";", 1)[-1].strip()
+            reduced_motion = any(
+                block.startswith("@media") and REDUCED_MOTION.search(block)
+                for block in blocks
+            )
+            if not reduced_motion or not ALLOWED_MOTION_DECLARATION.fullmatch(preceding):
+                issues.append("base.css: !important outside reduced-motion accessibility allowlist")
+    return issues
 
 
 def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list[str]:
@@ -26,6 +65,7 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
     registry = all_distributions() if bundles is None else bundles
     issues = []
     referenced = set()
+    cleaned_sources = {}
     for bundle, sources in sorted(registry.items()):
         seen = set()
         for source in sources:
@@ -45,15 +85,30 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
         if name not in referenced:
             issues.append(f"unregistered source: {name}")
         content = COMMENTS.sub("", path.read_text(encoding="utf-8"))
+        cleaned_sources[name] = content
         # Theme palette variants must live in tokens, not in copied components.
         if name not in {"tokens.css", "base.css", "print.css", "viz.css"} and THEME_ATTRIBUTE.search(content):
             label = "component theme fork" if name.startswith("components/") else "theme fork"
             issues.append(f"{name}: {label}; change theme tokens instead")
-        # base.css already contains the deliberate reduced-motion exception.
-        if name != "base.css" and "!important" in content:
+        if name == "base.css":
+            issues.extend(base_important_issues(content))
+        elif IMPORTANT.search(content):
             issues.append(f"{name}: !important outside base.css; use cascade layers")
 
-    return sorted(issues)
+    # A custom property can be supplied by a theme or consumer when var() has
+    # a fallback. Without a fallback, a misspelled/missing default silently
+    # invalidates the consuming declaration in the browser.
+    declarations = {
+        match.group(1) for content in cleaned_sources.values()
+        for match in CUSTOM_PROPERTY.finditer(content)
+    }
+    for name, content in sorted(cleaned_sources.items()):
+        for match in VAR_REFERENCE.finditer(content):
+            token, delimiter = match.groups()
+            if delimiter == ")" and token not in declarations:
+                issues.append(f"{name}: unresolved CSS variable without fallback: {token}")
+
+    return sorted(set(issues))
 
 
 def main() -> int:
