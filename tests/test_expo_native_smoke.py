@@ -48,6 +48,13 @@ class ExpoNativeSmokeTest(unittest.TestCase):
         package = json.loads((FIXTURE / "package.json").read_text())
         self.assertIn("--platform android", package["scripts"]["export:android"])
         self.assertIn("--platform ios", package["scripts"]["export:ios"])
+        self.assertTrue((FIXTURE / "package-lock.json").is_file())
+        if (ROOT / ".git").exists():
+            tracked_lock = subprocess.run(
+                ["git", "ls-files", "--error-unmatch", "examples/expo-native-smoke/package-lock.json"],
+                cwd=ROOT, capture_output=True, text=True,
+            )
+            self.assertEqual(tracked_lock.returncode, 0, "npm ci requires the lockfile to be committed")
         self.assertTrue((FIXTURE / "tsconfig.json").is_file())
         self.assertTrue((FIXTURE / "index.ts").is_file())
         self.assertTrue((FIXTURE / "README.md").is_file())
