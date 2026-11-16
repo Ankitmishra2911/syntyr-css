@@ -150,6 +150,34 @@ class VariableResolutionPolicyTests(unittest.TestCase):
             self.assertTrue(any("unresolved CSS variable" in issue for issue in issues), issues)
 
 
+    def test_uppercase_or_mixed_case_var_function_cannot_hide_missing_tokens(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            file = source / "buttons.css"
+            for spelling in ("VAR", "Var", "vAr"):
+                with self.subTest(spelling=spelling):
+                    file.write_text(f".syn-button {{ color: {spelling}(--syn-missing); }}")
+                    issues = find_issues(source, {"css": ("buttons.css",)})
+                    self.assertTrue(any("--syn-missing" in issue for issue in issues), issues)
+
+    def test_supports_feature_query_does_not_define_custom_property(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                "@supports (--syn-missing: blue) { .syn-button { color: var(--syn-missing); } }"
+            )
+            issues = find_issues(source, {"css": ("buttons.css",)})
+            self.assertTrue(any("unresolved CSS variable" in issue for issue in issues), issues)
+
+    def test_real_custom_property_after_semicolon_is_still_detected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-button { color: red; --syn-local: blue; background: VAR(--syn-local); }"
+            )
+            self.assertEqual(find_issues(source, {"css": ("buttons.css",)}), [])
+
+
 class ImportantExceptionPolicyTests(unittest.TestCase):
     def test_important_outside_reduced_motion_is_rejected_in_base(self):
         with tempfile.TemporaryDirectory() as directory:

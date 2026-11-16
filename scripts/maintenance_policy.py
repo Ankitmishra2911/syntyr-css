@@ -53,8 +53,8 @@ def css_code_only(content: str) -> str:
 
 
 THEME_ATTRIBUTE = re.compile(r"\[\s*data-syn-theme\b")
-CUSTOM_PROPERTY = re.compile(r"(?<![\w-])(--syn-[a-zA-Z0-9_-]+)\s*:")
-VAR_REFERENCE = re.compile(r"\bvar\(\s*(--syn-[a-zA-Z0-9_-]+)\s*([,)])")
+CUSTOM_PROPERTY = re.compile(r"(?<=[{;])\s*(--syn-[a-zA-Z0-9_-]+)\s*:")
+VAR_REFERENCE = re.compile(r"\b(?i:var)\(\s*(--syn-[a-zA-Z0-9_-]+)\s*([,)])")
 IMPORTANT = re.compile(r"!\s*important\b", re.IGNORECASE)
 BLOCK_OR_IMPORTANT = re.compile(r"[{}]|!\s*important\b", re.IGNORECASE)
 APPROVED_REDUCED_MOTION_MEDIA = re.compile(
