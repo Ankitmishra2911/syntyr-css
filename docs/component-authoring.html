@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Define semantic HTML, styling namespaces, theme scopes, and accessibility contracts for Syntyr-compatible application and Web Components.">
-  <meta name="syntyr-source-sha256" content="e71df90c6a51d18dca983cd919d6c8f65217e02696c11a63641327e7f86dd29e">
+  <meta name="syntyr-source-sha256" content="5047e5b1d57ab3c7bbf83c2579d1aeb376ae521e127a0b324019ce0d810976af">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr component-authoring contract (experimental) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-authoring">
@@ -135,6 +135,16 @@ labels, error text, and focus. Implement applicable
 <code>FormData</code>, reset, disabled fieldsets, and native validation in browsers.
 <strong>Ordinary <code>input</code>, <code>select</code>, <code>textarea</code>, and <code>button</code> should
 remain the default</strong>; Syntyr does not ship a custom form-control runtime.</p>
+<p>The <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/web-components/form-associated.html">form-associated integration fixture</a>
+demonstrates a justified narrow use case: two native inputs treated as a
+single form-associated <em>range</em> with cross-field validity and a two-entry
+<code>FormData</code> submission. With JavaScript disabled, the original named fields
+remain usable. The enhancement removes those native <code>name</code> attributes so
+<code>setFormValue(FormData, state)</code> remains the sole submission source. Test
+<code>form.reset()</code>, ancestor <code>fieldset disabled</code>, direct host <code>disabled</code>,
+<code>FormData</code> cardinality, restoration, reconnection and validation across
+browsers. Server-side validation remains mandatory; this example is <strong>not</strong>
+a distributed Syntyr component or a reason to replace ordinary controls.</p>
 <p>References: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements">Custom elements</a>,
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals">ElementInternals</a>,
 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#declarative_shadow_dom">Declarative Shadow DOM</a>.</p>

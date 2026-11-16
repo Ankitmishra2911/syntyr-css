@@ -150,5 +150,27 @@ class LitInteroperabilityContract(unittest.TestCase):
         self.assertTrue((DEMO / "tests" / "native.spec.mjs").is_file())
 
 
+    def test_form_associated_fixture_is_optional_and_native_first(self):
+        native = ROOT / "examples" / "web-components"
+        js = (native / "asset-range.js").read_text(encoding="utf-8")
+        html = (native / "form-associated.html").read_text(encoding="utf-8")
+        self.assertTrue((native / "form-result.html").is_file())
+        for feature in ("formAssociated = true", "attachInternals()",
+                        "setFormValue(data,", "setValidity(", "formDisabledCallback(",
+                        "formResetCallback()", "formStateRestoreCallback(", "AbortController"):
+            self.assertIn(feature, js)
+        self.assertIn('method="get"', html)
+        self.assertIn('name="assets_min"', html)
+        self.assertIn('name="assets_max"', html)
+        self.assertIn('type="number"', html)
+        self.assertIn('required', html)
+        self.assertNotIn('type="hidden"', html)
+        self.assertNotIn("from \"lit\"", js)
+        self.assertNotIn("innerHTML", js)
+        self.assertTrue((DEMO / "tests" / "form-associated.spec.mjs").is_file())
+        self.assertNotIn("asset-range.js",
+                         (ROOT / "scripts/build_cloudflare_site.py").read_text())
+
+
 if __name__ == "__main__":
     unittest.main()
