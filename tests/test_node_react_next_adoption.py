@@ -42,6 +42,20 @@ class NodeReactNextAdoptionTests(unittest.TestCase):
         self.assertIn('"use client"', island)
         self.assertIn("useState", island)
 
+    def test_next_turbopack_root_includes_linked_monorepo_packages(self):
+        # Next 16 defaults to Turbopack, which cannot import local file: links
+        # outside the auto-detected Next app root. The config must be portable.
+        config = (ROOT / "examples/next-app-router/next.config.mjs")
+        self.assertTrue(config.is_file(), "Next must set its Turbopack workspace root")
+        source = config.read_text()
+        self.assertIn("turbopack:", source)
+        self.assertIn("root:", source)
+        self.assertIn("import.meta.url", source)
+        self.assertIn('new URL("../..", import.meta.url)', source)
+        self.assertIn("fileURLToPath", source)
+        self.assertNotIn("process.cwd()", source)
+        self.assertIn("turbopack.root", (ROOT / "docs/node-react-next-integration.md").read_text())
+
     def test_vite_react_is_real_consumer(self):
         root = ROOT / "examples/react-vite"
         pkg = json.loads((root / "package.json").read_text())
