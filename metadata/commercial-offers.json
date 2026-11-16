@@ -2,7 +2,7 @@
   "schema_version": 1,
   "catalog_status": "research-not-a-storefront",
   "currency": "USD",
-  "last_reviewed": "2026-11-15",
+  "last_reviewed": "2026-11-16",
   "note": "Research concepts only. Prices for non-core products are hypotheses, not offers. No payment is accepted and no premium customer deliverables are available. The MIT framework stays free.",
   "products": [
     {
@@ -41,7 +41,7 @@
       "billing_model": "one-time-proposed",
       "license_status": "draft-not-operative",
       "deliverable_ready": false,
-      "description": "Private source/preview candidate extending Console Kit to 15 SaaS screen types and 45 static variants, including work orders, dispatch scheduling and revenue intelligence.",
+      "description": "Private source/preview candidate extending Console Kit to 15 SaaS screen types and 45 static variants, including work orders, dispatch scheduling and revenue intelligence. An optional localhost-only Go resource edit example is included in the private preview source; it is not a production backend.",
       "details_url": "../docs/products.html",
       "prototype_screen_types": 15,
       "prototype_theme_variants": 45,
@@ -56,7 +56,7 @@
       "billing_model": "one-time-proposed",
       "license_status": "draft-not-operative",
       "deliverable_ready": false,
-      "description": "Private source/preview candidate extending Pro to 18 screen types and 54 static variants, including original homepage, pricing and case study designs.",
+      "description": "Private source/preview candidate extending Pro to 18 screen types and 54 static variants, including original homepage, pricing and case study designs. Includes the same local-only Go resource reference, not a hosted service.",
       "details_url": "../docs/products.html",
       "prototype_screen_types": 18,
       "prototype_theme_variants": 54,
