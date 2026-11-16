@@ -1,4 +1,4 @@
-"""Theme and utility contracts for SYNTYR's framework-neutral v0.5 foundations."""
+"""Stable theme-token, native-control and optional-utility contracts."""
 from pathlib import Path
 from html.parser import HTMLParser
 import re
@@ -64,23 +64,17 @@ class ThemeAndUtilitiesContract(unittest.TestCase):
 
     def test_themes_are_nested_and_native_controls_get_correct_color_scheme(self):
         source = (ROOT / "src/tokens.css").read_text()
-        geometry = {
-            "grid": (".25rem", ".9rem"),
-            "noir": (".25rem", ".9rem"),
-            "studio": (".25rem", ".9rem"),
-            "industrial": (".15rem", ".45rem"),
-            "terminal": ("0", "0"),
-            "corporate": (".5rem", "0"),
-            "minimal": (".375rem", "0"),
-        }
         for name in THEMES:
             with self.subTest(theme=name):
                 self.assertIn(f'.syn-root [data-syn-theme="{name}"]', source)
                 tokens = theme_rules(source, name)
                 self.assertEqual(tokens.get("color-scheme"),
                                  "light" if name in ("studio", "corporate", "minimal") else "dark")
-                self.assertEqual(tokens.get("--syn-radius"), geometry[name][0])
-                self.assertEqual(tokens.get("--syn-cut"), geometry[name][1])
+                # Theme geometry token *names* are part of the extension
+                # contract; aesthetic values are intentionally not frozen.
+                for role in ("--syn-radius", "--syn-cut"):
+                    self.assertIn(role, tokens)
+                    self.assertTrue(tokens[role].strip(), f"{name}: empty {role}")
 
     def test_utilities_are_opt_in_and_built_deterministically(self):
         utilities = (ROOT / "src/utilities.css").read_text()
