@@ -12,6 +12,9 @@ const NOOP = () => {};
 // Tracks one-shot reveals without retaining detached DOM nodes.
 const revealedElements = new WeakSet();
 const activeByElement = new WeakMap();
+// A new invocation invalidates any queued completion callback from an older
+// exit, even when its finished promise was already fulfilled before cancel().
+const invocationByElement = new WeakMap();
 const activeAnimations = new Set();
 let motionPreference = null;
 
@@ -104,8 +107,12 @@ function begin(element, options, frames, fill = 'none') {
   const delay = milliseconds(options.delay, 0);
   const easing = options.easing ?? token(style, '--syn-ease-out', 'cubic-bezier(.22, 1, .36, 1)');
   const keyframeValues = frames(style);
-  // Interrupt a previous effect before starting the new one. The rejected
-  // finished promise is observed by track(), so cancellation is leak-free.
+  // Invalidate any queued exit completion *before* cancelling the prior
+  // effect. Promise fulfillment cannot be undone by a late cancel().
+  const invocation = Symbol('syntyr-animation');
+  invocationByElement.set(element, invocation);
+  // The rejected finished promise is observed by track(), so cancellation
+  // remains leak-free even for an interrupted animation.
   activeByElement.get(element)?.cancel();
   const animation = element.animate(keyframeValues, {
     duration, easing, delay, iterations: 1, fill,
@@ -144,9 +151,16 @@ export function exit(element, onComplete, options = {}) {
     ];
   }, 'forwards');
   if (!animation) { onComplete(); return null; }
+  const invocation = invocationByElement.get(element);
   animation.finished.then(() => {
+    // A later animation may replace this one after it finished but before
+    // this queued promise callback runs. The token, unlike activeByElement,
+    // survives the earlier animation's cleanup microtask.
+    if (invocationByElement.get(element) !== invocation) return;
     try { onComplete(); }
-    finally { animation.cancel(); }
+    finally {
+      if (invocationByElement.get(element) === invocation) animation.cancel();
+    }
   }, NOOP);
   return animation;
 }

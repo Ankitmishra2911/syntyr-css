@@ -323,3 +323,17 @@ test('viewport reveal supports optional threshold and rootMargin', () => {
   observeReveals({querySelectorAll: () => [element]}, {threshold: .3, rootMargin: '0px 0px 15px 0px'});
   assert.deepEqual(args, {threshold: .3, rootMargin: '0px 0px 15px 0px'});
 });
+
+test('finished exit never removes content after a new animation replaces it before callbacks run', async () => {
+  const {element, animations} = controlledTarget();
+  globalThis.matchMedia = () => ({matches: false});
+  const removed = [];
+  const outgoing = exit(element, () => removed.push('removed'));
+  outgoing.finish(); // Queues a success callback which native cancel cannot undo.
+  const replacement = animate(element, 'fade');
+  replacement.finish();
+  await Promise.allSettled(animations.map(animation => animation.finished));
+  await Promise.resolve();
+  assert.equal(outgoing.cancelled, true);
+  assert.deepEqual(removed, [], 'a stale queued exit must not remove its replacement target');
+});
