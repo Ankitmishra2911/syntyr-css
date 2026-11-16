@@ -114,10 +114,13 @@ class NativeInteractionRecipes(unittest.TestCase):
 
     def test_classed_overlays_reflow_without_new_components(self):
         css = (ROOT / 'src/components/overlays.css').read_text(encoding='utf-8')
-        self.assertIn('max-block-size:', css)
+        # Physical viewport axes must remain physical under vertical writing modes.
+        self.assertIn('max-width: calc(100vw - 2rem)', css)
+        self.assertIn('max-height: min(80vh, 40rem)', css)
+        self.assertIn('max-height: min(80dvh, 40rem)', css)
         self.assertIn('overflow: auto', css)
         self.assertIn('box-sizing: border-box', css)
-        self.assertIn('max-block-size:', (ROOT / 'dist/syntyr.core.css').read_text())
+        self.assertIn('max-height: min(80dvh, 40rem)', (ROOT / 'dist/syntyr.core.css').read_text())
         self.assertNotIn('.syn-confirmation-dialog', css)
         self.assertNotIn('.syn-accordion', css)
 

@@ -9,7 +9,7 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Surface | Current policy | Intent for v1 |
 | --- | --- | --- |
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
-| Classed `.syn-dialog` and `.syn-popover` viewport overflow constraints | Alpha.5 bugfix, no new class names | Preserve keyboard-scrollable content at zoom and on short viewports |
+| Classed `.syn-dialog` and `.syn-popover` physical viewport overflow constraints (also in vertical writing modes) | Alpha.5 bugfix, no new class names | Preserve keyboard-scrollable content at zoom and on short viewports |
 | Specialized native `range`, `file` and `color` controls via the existing `.syn-input` selector | Experimental alpha.5 appearance improvement; no new classes or runtime | Keep native controls and browser-driven behavior |
 | New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |

@@ -81,9 +81,50 @@ def check(browser_type, engine, width, forced_colors=False):
         browser.close()
 
 
+def check_vertical_overlays(browser_type, engine):
+    # Physical size constraints must stay tied to physical viewport axes even
+    # when the document uses a vertical writing mode. No application JS loads.
+    browser = browser_type.launch(headless=True)
+    try:
+        page = browser.new_page(viewport={"width": 320, "height": 200}, java_script_enabled=False)
+        page.goto(URL, wait_until="domcontentloaded")
+        page.evaluate("""() => {
+          const dialog = document.querySelector('#native-interaction-confirm');
+          dialog.style.writingMode = 'vertical-rl';
+          const content = document.createElement('p');
+          content.textContent = 'A'.repeat(2000);
+          content.style.overflowWrap = 'anywhere';
+          dialog.append(content);
+          dialog.showModal();
+        }""")
+        dialog = page.locator("#native-interaction-confirm")
+        rect = dialog.bounding_box()
+        assert rect is not None
+        assert rect["height"] <= 200.01, (engine, "vertical writing mode escaped viewport", rect)
+        assert rect["width"] <= 320.01, (engine, "horizontal clipping", rect)
+        # A browser may apply its own modal top-layer clipping. Verify the
+        # stylesheet itself imposes the physical height limit, not UA rescue.
+        computed = dialog.evaluate("""el => ({
+          height: getComputedStyle(el).maxHeight,
+          width: getComputedStyle(el).maxWidth,
+        })""")
+        assert float(computed["height"].removesuffix("px")) <= 160.01, (
+            engine, "Syntyr missing 80dvh physical height limit", computed
+        )
+        assert float(computed["width"].removesuffix("px")) <= 288.01, (
+            engine, "Syntyr missing 100vw physical width limit", computed
+        )
+        assert dialog.evaluate("el => getComputedStyle(el).overflowY") == "auto"
+        print(f"PASS {engine} vertical writing overlays")
+    finally:
+        browser.close()
+
+
 if __name__ == "__main__":
     with sync_playwright() as playwright:
         for engine in ("chromium", "firefox"):
             for width in (320, 360, 1280):
                 check(getattr(playwright, engine), engine, width, forced_colors=False)
         check(playwright.chromium, "chromium", 360, forced_colors=True)
+        for engine in ("chromium", "firefox"):
+            check_vertical_overlays(getattr(playwright, engine), engine)

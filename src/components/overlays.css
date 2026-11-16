@@ -3,9 +3,10 @@
   :where(.syn-root, .syn-root *) {
     &.syn-popover, &.syn-dialog {
       box-sizing: border-box;
-      max-inline-size: calc(100vw - 2rem);
-      max-block-size: min(80vh, 40rem);
-      max-block-size: min(80dvh, 40rem);
+      /* Viewport axes are physical, including under vertical writing modes. */
+      max-width: calc(100vw - 2rem);
+      max-height: min(80vh, 40rem);
+      max-height: min(80dvh, 40rem);
       overflow: auto;
       width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
       border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
