@@ -30,6 +30,15 @@
     <h1>Semantic HTML components</h1>
     <p>Copy-owned native markup for publishing and SaaS interfaces. No JavaScript, custom widgets, or client-side framework is needed for these examples.</p>
     <p><a href="../docs/semantic-components.html">View copyable source and usage guidance</a></p>
+    <nav aria-label="On this page">
+      <ol>
+        <li><a href="#pricing-title">Example price</a></li>
+        <li><a href="#footnotes-title">Footnotes</a></li>
+        <li><a href="#technical-title">Technical notation</a></li>
+        <li><a href="#grouped-title">Grouped table</a></li>
+        <li><a href="#contact-title">Contact details</a></li>
+      </ol>
+    </nav>
 
     <section aria-labelledby="article-title">
       <h2 id="article-title">Article preview and byline</h2>
@@ -105,6 +114,81 @@
           <tfoot><tr><th scope="row">Total</th><td>15</td></tr></tfoot>
         </table>
         <p>Native caption and row/column header relationships remain intact.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="pricing-title">
+      <h2 id="pricing-title">Previous price versus editorial revision</h2>
+      <article>
+        <h3>Team plan — demonstration only</h3>
+        <p>Example price: <s><data value="39">US$39 per month</data></s>
+          <strong><data value="29">US$29 per month</data></strong></p>
+        <p><small>Illustrative prices, not a live Syntyr offer. Use
+          <code>&lt;s&gt;</code> for an outdated advertised price and
+          <code>&lt;del&gt;</code> for a documented change.</small></p>
+      </article>
+    </section>
+
+    <section aria-labelledby="footnotes-title">
+      <h2 id="footnotes-title">Linked footnotes and return navigation</h2>
+      <article>
+        <h3>Browser-native references</h3>
+        <p>Every reference works without scripts
+          <sup id="note-ref-1"><a href="#note-1" aria-label="Footnote 1">1</a></sup>.</p>
+        <section aria-labelledby="notes-heading">
+          <h4 id="notes-heading">Reference notes</h4>
+          <ol>
+            <li id="note-1">Ordinary document links also work with assistive technology.
+              <a href="#note-ref-1">Return to reference 1</a>.</li>
+          </ol>
+        </section>
+      </article>
+    </section>
+
+    <section aria-labelledby="technical-title">
+      <hgroup>
+        <h2 id="technical-title">Technical notation</h2>
+        <p>Built-in semantics for formulas, input, output and long paths.</p>
+      </hgroup>
+      <article>
+        <p>Area = <var>width</var> × <var>height</var>.
+          Water is H<sub>2</sub>O; E = mc<sup>2</sup>.</p>
+        <p>Press <kbd>Enter</kbd>. The program prints <samp>Ready</samp>.</p>
+        <p>Example endpoint: <code>api.example.test/<wbr>v1/<wbr>document-exports</code></p>
+        <p><small>These paths are placeholders; no API is contacted.</small></p>
+      </article>
+    </section>
+
+    <section aria-labelledby="grouped-title">
+      <h2 id="grouped-title">Grouped table headings</h2>
+      <article>
+        <table>
+          <caption>Example monthly accounts</caption>
+          <colgroup><col></colgroup>
+          <colgroup span="2"></colgroup>
+          <thead>
+            <tr><th scope="col" rowspan="2">Plan</th><th scope="colgroup" colspan="2">Accounts</th></tr>
+            <tr><th scope="col">Paid</th><th scope="col">Trial</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Starter</th><td>8</td><td>3</td></tr>
+            <tr><th scope="row">Growth</th><td>4</td><td>2</td></tr>
+          </tbody>
+          <tfoot><tr><th scope="row">Total</th><td>12</td><td>5</td></tr></tfoot>
+        </table>
+        <p>Header relationships remain native; Syntyr adds only presentation.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact information for a document</h2>
+      <article>
+        <h3>Maintainer contact</h3>
+        <address>
+          Questions about the Syntyr guide?
+          <a href="https://github.com/dporkka/syntyr-css/issues">Contact maintainers through GitHub Issues</a>.
+        </address>
+        <p>An <code>&lt;address&gt;</code> represents contact details, not arbitrary postal data.</p>
       </article>
     </section>
 
