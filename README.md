@@ -87,6 +87,7 @@ stylesheets.
 - [Public API and prerelease stability policy](docs/api-stability.md)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Optional email UI components and semantic HTML demo](docs/email-components.md): signup, inbox, composition, preferences and verification with no runtime JS
+- [CSS-only block effects](docs/animation.md#website-block-effects-css-only): opt-in parallax backgrounds, scroll fades/slides/zoom, and hover image zoom with reduced-motion fallbacks.
 - [Optional native animation companion](docs/animation.md) ([interactive example](examples/animation.html)): Web Animations API, stagger and viewport reveals, no animation dependency or change to the CSS-only default
 - [Migrating from Pico.css: differences and practical steps](docs/from-pico.md)
 - [Optional CSS-only npm package (unpublished alpha.5 candidate)](docs/package-managers.md)
@@ -241,7 +242,7 @@ Development-only screenshots live in `tests/visual-baselines/presets/`.
 | `dist/syntyr.server.css` | Optional request-state presentation bridge for LiveView, Livewire 4, HTMX and Turbo (load after core) |
 | `dist/syntyr.semantic-bundle.css` | Core + semantic in one file; scoped opt-in, alpha.5 source only |
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
-| `dist/syntyr.motion.css` | Optional browser-native scroll progress and discrete popover transitions |
+| `dist/syntyr.motion.css` | Optional scroll progress, block parallax and reveal effects, image hover zoom, and overlay transitions |
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
 | `dist/syntyr.viz.css` | Optional theme-aware data visualization styles, no chart renderer or JS |
