@@ -12,6 +12,7 @@
   "exports": {
     ".": "./dist/syntyr.core.css",
     "./core.css": "./dist/syntyr.core.css",
+    "./embed.css": "./dist/syntyr.embed.css",
     "./semantic.css": "./dist/syntyr.semantic.css",
     "./server.css": "./dist/syntyr.server.css",
     "./semantic-bundle.css": "./dist/syntyr.semantic-bundle.css",

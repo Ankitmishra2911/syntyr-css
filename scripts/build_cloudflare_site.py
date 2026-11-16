@@ -236,7 +236,7 @@ PUBLIC_DOCS = (
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
     "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
-    "site-generator-decision.md", "tailwind-research.md",
+    "site-generator-decision.md", "site-builders.md", "tailwind-research.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
     "vertigo-integration.md", "viz.md",
 )
@@ -280,7 +280,7 @@ def source_files() -> dict[str, bytes]:
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
     public_examples = (
-        "business.html", "common-ui.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
+        "business.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-interactions.html", "native-recipes.html", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",

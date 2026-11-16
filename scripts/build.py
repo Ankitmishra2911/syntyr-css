@@ -7,6 +7,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +21,31 @@ COMPONENTS = (
 
 def assemble(paths):
     return '\n'.join((SOURCE / path).read_text(encoding='utf-8').strip() for path in paths) + '\n'
+
+def assemble_embed(paths):
+    '''Generate unlayered scoped CSS for CSS-in-CMS integration.
+
+    Unlayered CMS theme declarations take precedence over all normal
+    declarations in CSS cascade layers. Reuse the same source components
+    but remove their outer layers for sites with an existing theme.
+    '''
+    parts = []
+    for path in paths:
+        source = (SOURCE / path).read_text(encoding='utf-8').strip()
+        source = re.sub(
+            r'(?m)^@layer syn\.[\w-]+(?:, syn\.[\w-]+)*;\s*\n',
+            '', source,
+        )
+        matches = list(re.finditer(r'(?m)^@layer syn\.[\w-]+\s*\{', source))
+        if len(matches) != 1 or not source.endswith('}'):
+            raise ValueError(f'Expected exactly one outer CSS layer in {path}')
+        match = matches[0]
+        content = source[:match.start()] + source[match.end():source.rfind('}')]
+        if re.search(r'(?m)^\s*@layer', content):
+            raise ValueError(f'Unexpected nested layer in {path}')
+        parts.append(content.strip())
+    return '\n'.join(parts) + '\n'
+
 
 def preset_distributions():
     """Named standalone presets, assembled from existing CSS; never runtime imports.
@@ -65,6 +91,7 @@ def distributions():
     core = ('tokens.css', 'base.css') + COMPONENTS
     primary = {
         'syntyr.core.css': core,
+        'syntyr.embed.css': core,  # Unlayered scoped core for existing host themes.
         'syntyr.semantic.css': ('semantic.css',),
         'syntyr.server.css': ('server.css',),
         'syntyr.semantic-bundle.css': core + ('semantic.css',),
@@ -106,7 +133,7 @@ def main():
     args = parser.parse_args()
     failed = False
     for name, inputs in all_distributions().items():
-        output = assemble(inputs).encode('utf-8')
+        output = (assemble_embed(inputs) if name == 'syntyr.embed.css' else assemble(inputs)).encode('utf-8')
         path = DIST / name
         zipped = len(gzip.compress(output, mtime=0))
         if args.check:
