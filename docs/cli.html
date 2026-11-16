@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS never requires a CLI, Python, Node.js or application JavaScript. The developer-only CLI runs offline on Python 3.10+ and never executes…">
-  <meta name="syntyr-source-sha256" content="634e548e72103221492abdfd0cb1783f92cdd4074bd66c8eb1f00bcbe7490cd4">
+  <meta name="syntyr-source-sha256" content="a5fb980c9cfd46b37274d7d1d975bdfa7e35ffeb145a456ed3295898e0659bc7">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional Syntyr CLI (alpha.5 source candidate) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/cli">
@@ -40,6 +40,8 @@ The developer-only CLI runs offline on Python 3.10+ and never executes registry
 markup. It is distributed separately from the CSS ZIP.</p>
 <h2 id="run-from-the-source-tree">Run from the source tree</h2>
 <pre><code class="language-sh">python3 scripts/syntyr_cli.py version
+python3 scripts/syntyr_cli.py init --project /path/to/app --format json
+python3 scripts/syntyr_cli.py check --project /path/to/app --format json /path/to/app/page.html
 python3 scripts/syntyr_cli.py list --category blocks
 python3 scripts/syntyr_cli.py add resource-workspace --project /path/to/app
 python3 scripts/syntyr_cli.py add resource-workspace --project /path/to/app --apply
@@ -61,7 +63,26 @@ missing lockfile or command error. Resolve drift manually before adding items.
 There is deliberately no force, upgrade, remote fetch, execute or delete command.
 Manual customization is supported, but doing so breaks strict managed-file
 verification until you intentionally reconcile the lockfile.</p>
-<p><code>syntyr check</code> delegates to the existing static HTML validator.
+<p><code>syntyr init</code> is an <strong>optional offline consumer-agent setup</strong>, separate from
+<code>syntyr add</code>: it copies immutable published alpha.4 CSS, a portable
+<code>.agents/skills/syntyr/SKILL.md</code> with release-pinned selector data, and
+<code>syntyr.agent.json</code> into an existing project. This defaults to published
+<code>0.3.0-alpha.4</code>, not the CLI's unreleased alpha.5 source candidate. Override
+with <code>--release 0.3.0-alpha.5</code> only when deliberately testing the unreleased
+source CSS. Use <code>--agent claude</code> or <code>--agent cursor</code> for those opt-in skill
+locations. Existing differing files and symlinked output paths are refused;
+no application imports are edited automatically.</p>
+<p><code>syntyr check --project /path/to/app</code> verifies the pinned CSS file hashes and
+checks literal <code>.html</code> selectors/states against <strong>that project's release</strong>, not
+the CLI's candidate version. JSX/TSX/Vue/Svelte get <strong>advisory literal
+opening-tag checks</strong>, including possible unknown class diagnostics, but these
+files are <strong>always reported as incomplete</strong> because a full framework AST,
+computed classes, and runtime behavior are not validated. Project-mode JSON
+returns exit 0 on checked error-free HTML, 1 on errors, and 2 when coverage is
+incomplete or there are no HTML files. Run framework-aware lint, tests and
+browser accessibility checks separately.</p>
+<p><code>syntyr check</code> delegates to the existing static HTML validator when called
+without <code>--project</code>.
 It does not render templates, validate a running application or inspect
 JavaScript/bundler imports. Its diagnostics return 1 for errors, 0 for
 warnings-only or clean files, 2 for invalid inputs. Keep CSS and contract
@@ -75,7 +96,8 @@ bundler-injected CSS or detect version drift in unversioned local filenames.</p>
 unzip /tmp/syntyr-cli.zip
 python3 syntyr-cli-0.3.0-alpha.5/scripts/syntyr_cli.py --help
 </code></pre>
-<p>The bundle includes the matching registry, Syntyr contract, version and Python
+<p>The bundle includes the matching registry, Syntyr contract, version,
+pinned published CSS, current source candidate CSS, portable Skill, and Python
 scripts; it runs from any directory without a source checkout or internet access.
 The build fails if committed registry JSON differs from its canonical generator,
 or the validator contract version differs from <code>VERSION</code>.

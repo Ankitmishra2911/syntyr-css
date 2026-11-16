@@ -10,10 +10,11 @@ from pathlib import Path
 import sys
 
 if __package__:
-    from . import syntyr_check
+    from . import syntyr_check, syntyr_agent
     from .registry_install import RegistryError, plan_install, apply_install, verify_install, ROOT, OUTPUT
 else:
     import syntyr_check
+    import syntyr_agent
     from registry_install import RegistryError, plan_install, apply_install, verify_install, ROOT, OUTPUT
 
 
@@ -49,6 +50,19 @@ def _list_items(category: str) -> list[dict]:
 
 def main(argv=None) -> int:
     args_list = list(sys.argv[1:] if argv is None else argv)
+    if args_list and (args_list[0] == 'init' or
+                      args_list[0] == 'check' and '--project' in args_list):
+        # Consumer project commands use a pinned, locally installed contract.
+        # Preserve --format json spelling from the existing CLI.
+        delegated = args_list.copy()
+        if '--format' in delegated:
+            index = delegated.index('--format')
+            fmt = delegated[index + 1] if index + 1 < len(delegated) else ''
+            if fmt not in ('text', 'json'):
+                print('syntyr: --format requires text or json', file=sys.stderr)
+                return 2
+            delegated[index:index + 2] = ['--json'] if fmt == 'json' else []
+        return syntyr_agent.main(delegated)
     if args_list and args_list[0] in ("check", "doctor"):
         # One canonical validator implementation; doctor only opts into CSS
         # dependency checks and preserves its established JSON/exit contract.
@@ -59,7 +73,8 @@ def main(argv=None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     # Help entries are advertised here; actual parsing is delegated above so
     # all validator arguments work without maintaining a second schema.
-    sub.add_parser("check", help="Validate literal Syntyr markup and semantics")
+    sub.add_parser("check", help="Validate Syntyr markup; --project uses pinned consumer CSS")
+    sub.add_parser("init", help="Install a portable Agent Skill and version-pinned CSS in a project")
     sub.add_parser("doctor", help="Diagnose CSS duplicates, overlaps, and mixed version pins")
 
     ver = sub.add_parser("version", help="Print the bundled Syntyr version")
