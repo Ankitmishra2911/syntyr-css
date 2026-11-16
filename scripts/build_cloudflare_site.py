@@ -160,6 +160,12 @@ HEADERS = """/*
 /examples/*
   Cache-Control: public, max-age=0, must-revalidate
 
+/blog/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/blog/rss.xml
+  Content-Type: application/rss+xml; charset=utf-8
+
 /dist/*
   Cache-Control: public, max-age=0, must-revalidate
   Access-Control-Allow-Origin: *
@@ -237,6 +243,7 @@ PUBLIC_DOCS = (
     "index.html", "animation.md", "lit-integration.md", "playground.html", "playground.css", "playground.js",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
     "site-generator-decision.md", "site-builders.md", "tailwind-research.md",
+    "wordpress.md", "shopify.md", "wix.md", "webflow.md", "framer.md", "squarespace.md", "ghost.md", "hubspot.md", "drupal.md", "joomla.md", "carrd.md", "duda.md", "tilda.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
     "vertigo-integration.md", "viz.md",
 )
@@ -316,6 +323,11 @@ def source_files() -> dict[str, bytes]:
     )
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
+    # Public editorial HTML, styling and RSS. Other blog sources stay private.
+    paths.extend(ROOT / "blog" / name for name in (
+        "index.html", "blog.css", "rss.xml", "css-first-design-systems.html",
+        "accessible-native-html.html", "landing-page-ui-blocks.html",
+    ))
     paths.extend(ROOT / "dist" / name for name in public_css)
     paths.extend(ROOT / "dist" / name for name in javascript_distributions())
     # Only known generated MIT universal-item JSON; never scan private products.
