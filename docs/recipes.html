@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="d62b1d551e6d12dfa1346c72b40e33ba39dcd3572c700c5f117e72ead9f631cb">
+  <meta name="syntyr-source-sha256" content="ba397c467ca38c3f3adeb9c7427aaf33318e848d09a711c86b2bfccafaef9800">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -121,7 +121,7 @@ All spacing remains controlled by ordinary CSS custom properties.</p>
 <ul>
 <li><strong>Filter bar:</strong> <code>.syn-filter-bar</code> arranges labelled <code>.syn-filter-field</code> controls and a wrapping <code>.syn-filter-actions</code> group. Use <code>.syn-filter-field--query</code> for a wider search field. A <code>method=&quot;get&quot;</code> form remains usable without JavaScript; the application must apply filters and preserve query values.</li>
 <li><strong>Pipeline:</strong> <code>.syn-pipeline</code> contains named <code>section.syn-pipeline-lane</code> columns; each lane contains a semantic <code>ul.syn-pipeline-list</code> of <code>li.syn-pipeline-card</code>. Set <code>tabindex=&quot;0&quot;</code> and an accessible name on the scrollable board so keyboard users can reach overflow. Links inside cards remain ordinary links. Drag-and-drop, permissions, saved filters, counts, and stage transitions must be implemented by the host application.</li>
-<li><strong>Record metadata:</strong> <code>dl.syn-record-fields</code> groups each <code>dt</code> and <code>dd</code> in a direct child <code>div</code> for readable, responsive key/value pairs. Use a real <code>time</code> element for dates.</li>
+<li><strong>Record metadata:</strong> <code>dl.syn-record-fields</code> groups each <code>dt</code> and <code>dd</code> in a direct child <code>div</code> for readable, responsive key/value pairs. Use a real <code>time</code> element for dates. <strong>Subgrid</strong> aligns labels and values across rows when supported. A named inline-size <code>container</code> on the <code>dl</code> stacks each pair below <strong>24rem</strong>, independently of viewport size; older browsers retain the original intrinsic two-column/wrapping <strong>fallback</strong>. No extra classes, media breakpoints, or JavaScript are required.</li>
 <li><strong>Density:</strong> <code>data-syn-density=&quot;compact&quot;</code> compresses control, row and card spacing without shrinking type. <code>data-syn-density=&quot;comfortable&quot;</code> restores default metrics inside compact ancestors. <code>data-syn-density=&quot;spacious&quot;</code> provides larger controls and rows for review-heavy screens. These attributes may be on <code>.syn-root</code> or nested elements. <code>comfortable</code> is the default when density is unspecified.</li>
 </ul>
 <pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; data-syn-density=&quot;compact&quot;&gt;
