@@ -51,14 +51,14 @@ At narrow available widths (12rem or less relative to the current text size), a 
     <div class="syn-input-group">
       <span class="syn-input-addon" aria-hidden="true">$</span>
       <input class="syn-input" id="monthly-budget" name="budget"
-             type="number" min="0" step="0.01" inputmode="decimal">
+             type="text" inputmode="decimal">
       <span class="syn-input-addon" aria-hidden="true">USD</span>
     </div>
   </div>
 </div>
 ```
 
-The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input.
+The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input. For monetary amounts, text plus `inputmode="decimal"` avoids native number spinners and floating-point assumptions; the server must parse localized decimal input and validate exact precision. Use `type="number"` for quantities where native numeric stepping is appropriate.
 
 ## 4. Container-responsive horizontal form
 
@@ -78,6 +78,65 @@ The unit is included in the label, not only in the decorative addon; assistive t
 ```
 
 The `syn-region` container determines whether rows become horizontal at 42rem. Without that ancestor they remain safely stacked. This is intentionally not a full grid/breakpoint framework. The help text is associated with its input via `aria-describedby`. A production POST endpoint must handle authorization, validation and CSRF.
+
+## 5. Server-rendered error recovery
+
+The optional `syntyr.recipes.css` adds `.syn-error-summary` styling; the
+following HTML remains readable and operable without that stylesheet or any
+JavaScript. Render this response **only after a failed submission**, with the
+submitted value preserved and error messages associated with the field.
+
+```html
+<section class="syn-root" data-syn-theme="studio" aria-labelledby="account-title">
+  <h2 id="account-title">Account settings</h2>
+  <div class="syn-error-summary" id="form-errors" tabindex="-1"
+       role="region" aria-labelledby="form-errors-title">
+    <h3 id="form-errors-title">There is a problem</h3>
+    <ul><li><a href="#account-email">Enter a valid email address</a></li></ul>
+  </div>
+  <form class="syn-form" method="post" action="/account">
+    <div class="syn-field">
+      <label class="syn-label" for="account-email">Email address</label>
+      <input class="syn-input" id="account-email" name="email" type="email"
+             autocomplete="email" value="not-an-email" required
+             aria-invalid="true"
+             aria-describedby="account-email-hint account-email-error">
+      <p class="syn-help" id="account-email-hint">Use the address for account notices.</p>
+      <p class="syn-error" id="account-email-error">Enter a valid email address.</p>
+    </div>
+    <button class="syn-button syn-button--primary" type="submit">Save</button>
+  </form>
+</section>
+```
+
+The server owns validation, authorization, CSRF protection and re-rendering.
+On a successful response, omit the error summary, error paragraph and
+`aria-invalid`. On enhanced/partial-page submissions, the application must
+announce errors and move focus to the summary or first invalid field; CSS cannot
+do this. On a full-page response, keep the summary before the form in document
+order and link directly to each invalid input. Keep working `action`/`method`
+attributes even when HTMX, Datastar or another client adds progressive
+enhancement. Native constraint validation still runs; `aria-invalid` alone
+does not prevent submission or execute server-side validation.
+
+## 6. Native readonly text fields
+
+Use the real `readonly` attribute, not `aria-readonly` or `disabled`, when
+text must remain selectable and submit with the form:
+
+```html
+<div class="syn-root syn-field">
+  <label class="syn-label" for="reference-id">Reference ID</label>
+  <input class="syn-input" id="reference-id" name="reference_id"
+         value="WS-1042" readonly>
+</div>
+```
+
+Classed inputs and opt-in `syn-semantic` fields display readonly text with a
+recessed surface and dashed border. Do not place `readonly` on native
+`select`, checkbox, radio, or file inputs: those controls do not support it.
+Keep the browser's autofill appearance and autocomplete functionality available;
+do not conceal autofilled values with pseudo-elements or forced-color overrides.
 
 ## Optional companion styles
 

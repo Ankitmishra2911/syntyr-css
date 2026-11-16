@@ -60,6 +60,20 @@ surface-hover color-mix role on explicitly opted-in regions. Default palettes,
 semantic foreground pairs and fallback colors are unchanged. It is not a new
 default theme or a stability commitment; see the [theme customization guide](theme-customization.md).
 
+### Alpha.5 native readonly form presentation
+
+In the unreleased alpha.5 source candidate, classed `syn-input` and
+`syn-textarea` and opt-in semantic native text fields with a real `readonly`
+attribute use a recessed background and dashed border. This visual distinction
+does not disable controls, remove focus, suppress browser autofill, or change
+native form submission. No new public class, state attribute, JavaScript
+dependency, or validation machinery is introduced. Do not use `readonly` for
+native controls that do not support it (such as `select` or checkboxes).
+
+The [server-error recovery recipe](component-recipes.md) composes existing
+`syn-error-summary` (from the *optional* recipes sheet) with core field
+primitives; it is a documentation contract, not a new core component.
+
 ### Alpha.5 semantic HTML authoring changes
 
 The unreleased semantic CSS candidate gives native classless `form` and
