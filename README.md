@@ -20,6 +20,7 @@
 - [Live website on Cloudflare](https://syntyr-css.pages.dev/)
 - [Native enterprise data table example](examples/data-tables.html) and [accessible table guide](docs/data-tables.html)
 - [Component gallery](https://syntyr-css.pages.dev/docs/)
+- [Common HTML and UI example](examples/common-ui.html): navigation links, avatars, chips, list groups, notices and native form controls; no JavaScript
 - [Native HTML elements demo](examples/native-elements.html): lists, code, media, forms, progress, and native overlays with optional semantic CSS
 - [20 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
 - [Practical installation, integration and performance guides](https://syntyr-css.pages.dev/docs/guides.html)
