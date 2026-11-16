@@ -143,6 +143,39 @@ def check_vertical_overlays(browser_type, engine):
         browser.close()
 
 
+def check_short_corner_popover(browser_type, engine):
+    # A fixed corner popover has both bottom inset and margin. Its max-height
+    # must subtract those from the usable viewport even under 100px height.
+    browser = browser_type.launch(headless=True)
+    try:
+        page = browser.new_page(viewport={"width": 320, "height": 100},
+                                java_script_enabled=False)
+        page.goto(URL, wait_until="domcontentloaded")
+        page.evaluate("""() => {
+          const pop = document.createElement('div');
+          pop.id = 'short-corner-popover';
+          pop.className = 'syn-popover';
+          pop.setAttribute('popover', 'manual');
+          pop.textContent = 'Long content '.repeat(250);
+          document.body.append(pop);
+          pop.showPopover();
+        }""")
+        pop = page.locator("#short-corner-popover")
+        size = pop.bounding_box()
+        computed = pop.evaluate("""el => ({
+          maxHeight: getComputedStyle(el).maxHeight,
+          overflow: getComputedStyle(el).overflowY
+        })""")
+        assert float(computed["maxHeight"].removesuffix("px")) <= 72.01, (
+            engine, "corner popover height did not reserve inset and margin", computed
+        )
+        assert size["y"] >= -1, (engine, "corner popover clipped at top", size)
+        assert computed["overflow"] == "auto", (engine, computed)
+        print(f"PASS {engine} short corner popover")
+    finally:
+        browser.close()
+
+
 if __name__ == "__main__":
     with sync_playwright() as playwright:
         for engine in ("chromium", "firefox"):
@@ -151,3 +184,4 @@ if __name__ == "__main__":
         check(playwright.chromium, "chromium", 360, forced_colors=True)
         for engine in ("chromium", "firefox"):
             check_vertical_overlays(getattr(playwright, engine), engine)
+            check_short_corner_popover(getattr(playwright, engine), engine)

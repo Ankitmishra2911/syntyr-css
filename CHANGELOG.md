@@ -6,7 +6,7 @@
   application JavaScript disabled; published CSS remains JS-free.
 
 - Add five native interaction recipes (exclusive `details[name]` accordion, GET `search` form, modal `dialog` choice, `datalist` suggestions, and `meter`/`output`) to the standard copyable catalog, static example, and documentation without a JS runtime or new CSS component classes.
-- Constrain classed dialogs and popovers to the physical viewport width/height (including anchored popovers) with scrollable overflow for smaller screens, enlarged text and vertical writing modes; add script-disabled Chromium/Firefox keyboard and forced-colors regression checks.
+- Constrain classed dialogs and popovers to the physical viewport width/height (including anchored popovers), reserving the corner popover inset and margin even on very short viewports, with scrollable overflow for enlarged text and vertical writing modes; add script-disabled Chromium/Firefox keyboard and forced-colors regression checks.
 
 - Improve opt-in semantic HTML: classless native form composition, accessible disclosure targets and captioned tables; restrict `aria-selected` row styling to real grid/treegrid roles, with `data-syn-state` for static visual selection.
 - Add an optional stdlib `syntyr_check.py --semantic` lint pass, and extend the one-file zero-JS semantic starter with navigation and a named data table. Default lint behavior and published alpha.4 remain unchanged.
