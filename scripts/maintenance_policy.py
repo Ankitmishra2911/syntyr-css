@@ -18,13 +18,48 @@ except ImportError:
     from build import SOURCE, all_distributions
 
 
-COMMENTS = re.compile(r"/\*.*?\*/", re.DOTALL)
+def css_code_only(content: str) -> str:
+    """Mask CSS comments and quoted strings without changing nesting positions.
+
+    This is a lexical guard for handwritten source, not a complete CSS parser.
+    Escaped quotes inside strings cannot escape the string-masking boundary.
+    """
+    out = list(content)
+    i = 0
+    while i < len(content):
+        if content.startswith("/*", i):
+            end = content.find("*/", i + 2)
+            stop = len(content) if end < 0 else end + 2
+        elif content[i] in ("\"", "'"):
+            quote = content[i]
+            stop = i + 1
+            while stop < len(content):
+                if content[stop] == "\\":
+                    stop += 2
+                elif content[stop] == quote:
+                    stop += 1
+                    break
+                else:
+                    stop += 1
+            stop = min(stop, len(content))
+        else:
+            i += 1
+            continue
+        for j in range(i, stop):
+            if content[j] not in "\r\n":
+                out[j] = " "
+        i = stop
+    return "".join(out)
+
+
 THEME_ATTRIBUTE = re.compile(r"\[\s*data-syn-theme\b")
 CUSTOM_PROPERTY = re.compile(r"(?<![\w-])(--syn-[a-zA-Z0-9_-]+)\s*:")
 VAR_REFERENCE = re.compile(r"\bvar\(\s*(--syn-[a-zA-Z0-9_-]+)\s*([,)])")
 IMPORTANT = re.compile(r"!\s*important\b", re.IGNORECASE)
 BLOCK_OR_IMPORTANT = re.compile(r"[{}]|!\s*important\b", re.IGNORECASE)
-REDUCED_MOTION = re.compile(r"\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)")
+APPROVED_REDUCED_MOTION_MEDIA = re.compile(
+    r"@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)", re.IGNORECASE
+)
 ALLOWED_MOTION_DECLARATION = re.compile(
     r"(?:scroll-behavior\s*:\s*auto|transition-duration\s*:\s*0s|animation-duration\s*:\s*0s)",
     re.IGNORECASE,
@@ -34,16 +69,16 @@ ALLOWED_MOTION_DECLARATION = re.compile(
 def base_important_issues(content: str) -> list[str]:
     """Allow only the existing accessibility overrides inside reduced-motion media.
 
-    This intentionally small block walk is used only for base.css, whose
-    handwritten CSS does not contain braces inside strings or declarations.
-    It is not a general-purpose CSS parser or a consumer build dependency.
+    Only the positive, standalone reduced-motion media query is accepted.
+    This conservative block walk is for handwritten base.css, not a general
+    CSS parser or a consumer build dependency.
     """
     blocks = []
     cursor = 0
     issues = []
     for token in BLOCK_OR_IMPORTANT.finditer(content):
         if token.group() == "{":
-            blocks.append(content[cursor:token.start()].strip())
+            blocks.append(content[cursor:token.start()].rsplit(";", 1)[-1].strip())
             cursor = token.end()
         elif token.group() == "}":
             if blocks:
@@ -52,7 +87,7 @@ def base_important_issues(content: str) -> list[str]:
         else:
             preceding = content[cursor:token.start()].rsplit(";", 1)[-1].strip()
             reduced_motion = any(
-                block.startswith("@media") and REDUCED_MOTION.search(block)
+                APPROVED_REDUCED_MOTION_MEDIA.fullmatch(block)
                 for block in blocks
             )
             if not reduced_motion or not ALLOWED_MOTION_DECLARATION.fullmatch(preceding):
@@ -95,7 +130,7 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
         name = path.relative_to(source_root).as_posix()
         if name not in referenced:
             issues.append(f"unregistered source: {name}")
-        content = COMMENTS.sub("", path.read_text(encoding="utf-8"))
+        content = css_code_only(path.read_text(encoding="utf-8"))
         cleaned_sources[name] = content
         # Theme palette variants must live in tokens, not in copied components.
         if name not in {"tokens.css", "base.css", "print.css", "viz.css"} and THEME_ATTRIBUTE.search(content):

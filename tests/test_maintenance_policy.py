@@ -132,6 +132,24 @@ class VariableResolutionPolicyTests(unittest.TestCase):
             self.assertEqual(find_issues(source, {"buttons.css": ("buttons.css",)}), [])
 
 
+    def test_quoted_variable_references_do_not_trigger_false_positives(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "label.css").write_text(
+                r'.syn-label { content: "escaped \"quote\" var(--syn-not-a-variable)"; }'
+            )
+            self.assertEqual(find_issues(source, {"css": ("label.css",)}), [])
+
+    def test_quoted_fake_declarations_do_not_hide_undefined_variables(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "label.css").write_text(
+                '.syn-label { content: "--syn-not-declared: teal"; color: var(--syn-not-declared); }'
+            )
+            issues = find_issues(source, {"css": ("label.css",)})
+            self.assertTrue(any("unresolved CSS variable" in issue for issue in issues), issues)
+
+
 class ImportantExceptionPolicyTests(unittest.TestCase):
     def test_important_outside_reduced_motion_is_rejected_in_base(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -162,5 +180,35 @@ class ImportantExceptionPolicyTests(unittest.TestCase):
                 "animation-duration: 0s !important;" "} }"
             )
             self.assertEqual(find_issues(source, {"core": ("base.css",)}), [])
+
+    def test_reduced_motion_exception_rejects_negated_media(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                '@media not all and (prefers-reduced-motion: reduce) {'
+                ' .syn-root { animation-duration: 0s !important; } }'
+            )
+            issues = find_issues(source, {"core": ("base.css",)})
+            self.assertTrue(any("outside reduced-motion" in issue for issue in issues), issues)
+
+    def test_reduced_motion_exception_rejects_unrestricted_media_list(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                '@media screen, (prefers-reduced-motion: reduce) {'
+                ' .syn-root { animation-duration: 0s !important; } }'
+            )
+            issues = find_issues(source, {"core": ("base.css",)})
+            self.assertTrue(any("outside reduced-motion" in issue for issue in issues), issues)
+
+    def test_reduced_motion_exception_accepts_nested_media_after_declaration(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                '.syn-root { color: red; @media (prefers-reduced-motion: reduce) {'
+                ' animation-duration: 0s !important; } }'
+            )
+            self.assertEqual(find_issues(source, {"core": ("base.css",)}), [])
+
 if __name__ == "__main__":
     unittest.main()
