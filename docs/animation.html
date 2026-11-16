@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="syntyr.animate.mjs is an opt-in, dependency-free ES module for application-triggered motion. It delegates timing and compositing to the native Web…">
-  <meta name="syntyr-source-sha256" content="121d35c7bf9666ab93792255725f432f6edf94b46fbb7f63f7f9d3f6bbbef2b8">
+  <meta name="syntyr-source-sha256" content="385d3fd354ba976509175a6ccb3465b449fe326f0a04b9e7e77c66f77c8fb371">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional Syntyr animation library — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/animation">
@@ -237,6 +237,59 @@ The module never intercepts input, alters semantics, starts a timer, or
 ships an animation dependency. Existing <code>data-syn-reveal</code> belongs to
 the separate optional JavaScript <code>observeReveals()</code> API; it does not
 control CSS-only <code>data-syn-scroll</code>.</p>
+<h3 id="animated-gradient-wash-composable-css">Animated gradient wash (composable CSS)</h3>
+<p>Use the existing static <code>syn-gradient-wash</code> from <code>syntyr.effects.css</code>.
+The optional <code>syntyr.motion.css</code> adds a decorative, slowly drifting
+gradient layer when <code>data-syn-gradient=&quot;drift&quot;</code> is present. The background
+remains static if motion is reduced or unsupported, and all content remains
+visible. The animated layer never accepts pointer events.</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.effects.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.motion.css&quot;&gt;
+
+&lt;section class=&quot;syn-root syn-gradient-wash&quot; data-syn-gradient=&quot;drift&quot;
+         style=&quot;--syn-gradient-drift-duration: 16s&quot;
+         aria-labelledby=&quot;gradient-title&quot;&gt;
+  &lt;div data-syn-gradient-content class=&quot;syn-site-hero&quot;&gt;
+    &lt;h2 id=&quot;gradient-title&quot;&gt;An atmospheric landing page&lt;/h2&gt;
+    &lt;p&gt;The content stays stationary and remains readable.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Keep the <code>data-syn-gradient-content</code> wrapper as a direct child for the
+foreground stacking order. The animation moves only a decorative pseudo-element
+with a composited <code>translate</code>, rather than repainting the entire gradient
+on every frame. Use modest sections and inspect contrast against actual
+photography or themes. Do not mix <code>data-syn-gradient</code> and <code>data-syn-parallax</code>
+on the same element; instead nest separate wrappers.</p>
+<h3 id="text-accents-no-splitting-or-javascript">Text accents (no splitting or JavaScript)</h3>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; aria-labelledby=&quot;text-effects-title&quot;&gt;
+  &lt;h2 id=&quot;text-effects-title&quot; data-syn-text=&quot;underline&quot;&gt;
+    A headline with an animated underline
+  &lt;/h2&gt;
+  &lt;p&gt;Supporting information stays completely static.&lt;/p&gt;
+  &lt;p class=&quot;syn-heading&quot; data-syn-text=&quot;glint&quot;&gt;
+    A restrained shifting headline accent
+  &lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p><code>data-syn-text=&quot;underline&quot;</code> uses a native CSS view timeline to
+transition underline color as a short heading enters. Without view timelines,
+the accent underline is <strong>static</strong> and visible. It preserves natural line
+wrapping, selectable text, and the document's accessible name.</p>
+<p><code>data-syn-text=&quot;glint&quot;</code> animates a text-clipped theme gradient, when
+<code>background-clip: text</code> is supported; set
+<code>--syn-text-glint-duration</code> (default <code>9s</code>). Reduced motion or increased
+contrast leaves the original solid text color. Forced-colors mode also
+restores a solid system text color. Do not apply shifting text gradients to
+essential text, body paragraphs, form labels, or critical navigation.
+Check the foreground contrast in all custom themes: an animated accent
+is decorative and is not guaranteed to preserve every arbitrary token
+combination's contrast.</p>
+<p>The two effects are independent of the optional JavaScript animation
+companion and do not add timers, DOM cloning, inaccessible character
+splitting, or component variants. They are <strong>alpha.5 source-candidate APIs</strong>
+until included in a published Syntyr version.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#install-and-invoke">Install and invoke</a>
@@ -247,6 +300,8 @@ control CSS-only <code>data-syn-scroll</code>.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#website-block-effects-css-only">Website block effects (CSS only)</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#image-parallax-blocks">Image parallax blocks</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#media-hover-zoom-and-existing-hover-lift">Media hover zoom and existing hover lift</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#animated-gradient-wash-composable-css">Animated gradient wash (composable CSS)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#text-accents-no-splitting-or-javascript">Text accents (no splitting or JavaScript)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="animation.md">Markdown source</a></nav>

@@ -60,6 +60,14 @@ and users requesting reduced motion retain visible, static content. See the
 [block effects guide and examples](animation.md#website-block-effects-css-only)
 and the [live animation gallery](../examples/animation.html).
 
+Use the existing static gradient wash with the optional motion module to
+add a gentle animated background without inventing a new block variant.
+`data-syn-gradient="drift"` works on `syn-gradient-wash` with a
+`data-syn-gradient-content` foreground wrapper. Short editorial headings
+may opt into `data-syn-text="underline"` or
+`data-syn-text="glint"`. Motion and high-contrast fallbacks are explained
+in the [animation guide](animation.md#animated-gradient-wash-composable-css).
+
 ## 12 original, optional CSS asset recipes
 
 The complete source is [blocks-assets.css](blocks-assets.css). It includes:

@@ -7,6 +7,7 @@
   <title>Syntyr — Optional native animation library</title>
   <link rel="stylesheet" href="../dist/syntyr.core.css">
   <link rel="stylesheet" href="../dist/syntyr.motion.css">
+  <link rel="stylesheet" href="../dist/syntyr.effects.css">
   <script type="module" src="./animation-demo.mjs"></script>
 </head>
 <body class="syn-root syn-page" data-syn-theme="studio">
@@ -77,6 +78,20 @@
           <h2 class="syn-heading" id="block-parallax-title">Decorative depth behind a block</h2>
           <p>The native view timeline moves only the background layer. This readable foreground stays in normal flow.</p>
           <p><a class="syn-button syn-button--outline" href="../docs/animation.html">CSS EFFECTS USAGE</a></p>
+        </div>
+      </section>
+      <section class="syn-stage" aria-labelledby="text-effects-title">
+        <p class="syn-eyebrow">CSS-ONLY / TYPOGRAPHY</p>
+        <h2 id="text-effects-title" data-syn-text="underline">Underline as you scroll</h2>
+        <p>Text stays selectable and accessible; the animated underline is decorative.</p>
+        <h3 class="syn-heading" data-syn-text="glint">Subtle animated headline accent</h3>
+      </section>
+      <section class="syn-stage syn-gradient-wash" data-syn-gradient="drift" aria-labelledby="gradient-effects-title">
+        <div class="syn-stack" data-syn-gradient-content>
+          <p class="syn-eyebrow">CSS-ONLY / GRADIENT WASH</p>
+          <h2 id="gradient-effects-title" class="syn-heading">Atmospheric block gradient</h2>
+          <p>The static wash is from Syntyr effects; the separate motion stylesheet adds an opt-in composited drift.</p>
+          <a class="syn-button syn-button--outline" href="../docs/animation.html">See the CSS effect guide</a>
         </div>
       </section>
     </main>
