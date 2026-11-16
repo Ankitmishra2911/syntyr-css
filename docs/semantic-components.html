@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Copy Syntyr semantic HTML component recipes for articles, metadata, quotations, revision history, ruby annotations and accessible tables.">
+  <meta name="syntyr-source-sha256" content="5739a343c215a0cccb4a041342d14bd2205cac02302e9145362a797732d82aab">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Semantic HTML component recipes — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/semantic-components">
+  <link rel="alternate" type="text/markdown" href="semantic-components.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Semantic HTML component recipes</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="semantic-components.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Semantic HTML component recipes">
+<h1 id="semantic-html-component-recipes">Semantic HTML component recipes</h1>
+<p>Build article previews, breadcrumbs, citations, metadata lists, change histories,
+internationalized labels, and summary tables with <strong>native HTML</strong>. Syntyr styles
+these elements without replacing browser semantics or adding a JavaScript runtime.
+These are copy-owned markup compositions in the free MIT core—not new JS widgets.</p>
+<p><a href="../examples/semantic-compositions.html">View the live semantic component gallery</a>.
+For the existing forms, dialogs, search and disclosure patterns, see
+<a href="native-patterns.html">native platform patterns</a>.</p>
+<h2 id="install-semantic-styling">Install semantic styling</h2>
+<p>Load core first, semantic second. Both are plain CSS; styles apply only to a
+<code>.syn-root.syn-semantic</code> element or a <code>.syn-semantic</code> subtree inside
+<code>.syn-root</code>. Classless elements are styled automatically. Add
+<code>data-syn-semantic</code> to classed elements <strong>only</strong> when opting them into the
+semantic rules. A classed element keeps its explicitly chosen component styles.</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/dist/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/dist/syntyr.semantic.css&quot;&gt;
+&lt;main class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;article&gt;&lt;h1&gt;Semantic HTML, styled by Syntyr&lt;/h1&gt;&lt;/article&gt;
+&lt;/main&gt;
+</code></pre>
+<p>Use version-pinned stylesheets from your own deployment in production. These
+examples require <strong>no JavaScript</strong>. Any data lookup, routing, persistence or
+change handling still belongs to the server or host application.</p>
+<h2 id="article-preview-with-publication-date">Article preview with publication date</h2>
+<p>Use <code>article</code> for a self-contained work and <code>time[datetime]</code> for
+machine-readable dates. Avoid <code>article</code> merely to get a bordered card:
+use <code>.syn-panel</code> on an ordinary container instead.</p>
+<pre><code class="language-html">&lt;article&gt;
+  &lt;header&gt;
+    &lt;h2&gt;&lt;a href=&quot;/notes/semantic-html&quot;&gt;Semantic HTML in practice&lt;/a&gt;&lt;/h2&gt;
+    &lt;p&gt;Published &lt;time datetime=&quot;2026-11-16&quot;&gt;16 November 2026&lt;/time&gt;&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;p&gt;A compact guide to meaningful browser-native markup.&lt;/p&gt;
+  &lt;footer&gt;&lt;small&gt;Documentation team&lt;/small&gt;&lt;/footer&gt;
+&lt;/article&gt;
+</code></pre>
+<h2 id="breadcrumb-navigation">Breadcrumb navigation</h2>
+<p>Use a real <code>nav</code> landmark, an ordered list and <code>aria-current=&quot;page&quot;</code>.
+Syntyr already provides <code>.syn-breadcrumbs</code>; do not create a second breadcrumb
+component or hand-code presentational separator characters.</p>
+<pre><code class="language-html">&lt;nav class=&quot;syn-breadcrumbs&quot; aria-label=&quot;Breadcrumb&quot;&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;/docs&quot;&gt;Docs&lt;/a&gt;&lt;/li&gt;
+    &lt;li aria-current=&quot;page&quot;&gt;Semantics&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+</code></pre>
+<h2 id="definitions-and-structured-metadata">Definitions and structured metadata</h2>
+<p>Use <code>dl</code>, <code>dt</code>, and <code>dd</code> for name/value pairs; <code>data[value]</code> for a
+machine-readable value, <code>abbr[title]</code> for a genuine abbreviation, and
+<code>time[datetime]</code> for dates. Do not use <code>dl</code> merely as a two-column grid.</p>
+<pre><code class="language-html">&lt;dl&gt;
+  &lt;dt&gt;Plan&lt;/dt&gt;&lt;dd&gt;Team&lt;/dd&gt;
+  &lt;dt&gt;Seats&lt;/dt&gt;&lt;dd&gt;&lt;data value=&quot;12&quot;&gt;12 active seats&lt;/data&gt;&lt;/dd&gt;
+  &lt;dt&gt;Renewal&lt;/dt&gt;&lt;dd&gt;&lt;time datetime=&quot;2027-01-01&quot;&gt;1 January 2027&lt;/time&gt;&lt;/dd&gt;
+  &lt;dt&gt;Availability&lt;/dt&gt;&lt;dd&gt;&lt;abbr title=&quot;Service-level agreement&quot;&gt;SLA&lt;/abbr&gt; 99.9%&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+<h2 id="quotation-and-source-attribution">Quotation and source attribution</h2>
+<p>Use <code>blockquote</code> for a long quotation and a <code>figure</code> with
+<code>figcaption</code> for its attribution. <code>cite</code> names the <em>work</em>, not its author;
+do not manufacture a URL for the <code>blockquote[cite]</code> attribute.</p>
+<pre><code class="language-html">&lt;figure&gt;
+  &lt;blockquote&gt;&lt;p&gt;Use the language of the platform before adding an abstraction.&lt;/p&gt;&lt;/blockquote&gt;
+  &lt;figcaption&gt;From &lt;cite&gt;Semantic Design Notes&lt;/cite&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p>A <code>blockquote</code> may alternatively include a <code>footer</code> for supporting
+attribution text. The optional semantic stylesheet styles that footer, without
+changing the surrounding <code>footer</code> elements elsewhere on the page.</p>
+<h2 id="document-revisions">Document revisions</h2>
+<p>The <code>ins</code> and <code>del</code> elements communicate additions and removals. Include a
+valid <code>datetime</code> if the modification date is known. For live collaborative
+editing or audit history, the server remains authoritative.</p>
+<pre><code class="language-html">&lt;p&gt;Retention: &lt;del datetime=&quot;2026-11-15&quot;&gt;90 days&lt;/del&gt;
+  &lt;ins datetime=&quot;2026-11-16&quot;&gt;120 days&lt;/ins&gt;.&lt;/p&gt;
+</code></pre>
+<h2 id="multilingual-pronunciation-and-bidi-isolation">Multilingual pronunciation and bidi isolation</h2>
+<p>Use <code>ruby</code> and <code>rt</code> for pronunciation annotations; <code>rp</code> supplies text
+fallback in browsers without ruby presentation. Syntyr deliberately does not restyle the
+annotation; the browser owns ruby positioning, text size, and fallback. Use <code>bdi</code> for a
+user-supplied string with unknown direction; <code>bdo</code> intentionally overrides
+direction and should be used only when that behavior is required.</p>
+<pre><code class="language-html">&lt;p&gt;Character: &lt;ruby&gt;漢&lt;rp&gt;(&lt;/rp&gt;&lt;rt&gt;hàn&lt;/rt&gt;&lt;rp&gt;)&lt;/rp&gt;&lt;/ruby&gt;&lt;/p&gt;
+&lt;p&gt;Author: &lt;bdi&gt;مريم&lt;/bdi&gt; — saved successfully.&lt;/p&gt;
+&lt;p&gt;Deliberate reverse sequence: &lt;bdo dir=&quot;rtl&quot;&gt;ABC&lt;/bdo&gt;&lt;/p&gt;
+</code></pre>
+<h2 id="tabular-totals-with-a-real-footer">Tabular totals with a real footer</h2>
+<p>Keep a caption, column headers with <code>scope=&quot;col&quot;</code>, row headers with
+<code>scope=&quot;row&quot;</code>, and a <code>tfoot</code> summary. The browser owns table semantics;
+Syntyr's optional <code>tfoot</code> styling adds only a separator and weight. For
+complex tables, connect headers using <code>id</code> and <code>headers</code> as needed.</p>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;caption&gt;Monthly license usage&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;License&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Seats&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Team&lt;/th&gt;&lt;td&gt;12&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Guest&lt;/th&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;&lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Total&lt;/th&gt;&lt;td&gt;15&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+<h2 id="complementary-content">Complementary content</h2>
+<p>A contextual <code>aside</code> is a complementary landmark, not a generic card. Apply
+the existing <code>.syn-panel</code> class when a visual callout is desirable.</p>
+<pre><code class="language-html">&lt;aside class=&quot;syn-panel&quot; aria-labelledby=&quot;help-title&quot;&gt;
+  &lt;h2 id=&quot;help-title&quot;&gt;Implementation guidance&lt;/h2&gt;
+  &lt;p&gt;Keep routing, translations, and data validation in the host application.&lt;/p&gt;
+&lt;/aside&gt;
+</code></pre>
+<p><strong>Accessibility and maintenance:</strong> Keep real heading order and link destinations,
+avoid adding redundant ARIA roles to native elements, test browser reflow and
+right-to-left content, and do not add JavaScript just to imitate HTML controls.
+<code>ruby</code>, <code>bdi</code>, <code>bdo</code>, <code>rp</code> and table navigation are browser-owned behavior.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#install-semantic-styling">Install semantic styling</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#article-preview-with-publication-date">Article preview with publication date</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#breadcrumb-navigation">Breadcrumb navigation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#definitions-and-structured-metadata">Definitions and structured metadata</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#quotation-and-source-attribution">Quotation and source attribution</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#document-revisions">Document revisions</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#multilingual-pronunciation-and-bidi-isolation">Multilingual pronunciation and bidi isolation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#tabular-totals-with-a-real-footer">Tabular totals with a real footer</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#complementary-content">Complementary content</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="semantic-components.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

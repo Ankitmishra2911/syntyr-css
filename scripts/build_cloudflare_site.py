@@ -239,7 +239,7 @@ PUBLIC_DOCS = (
     "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
     "faq.md", "compare.md", "compare-tailwind.md", "compare-bootstrap.md", "compare-shadcn.md",
     "compare-daisyui.md", "compare-pico.md", "compare-native-css.md",
-    "distribution.md", "native-patterns.md", "composition-adoption.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
+    "distribution.md", "native-patterns.md", "semantic-components.md", "composition-adoption.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
     "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "framework-integrations.md", "mobile-frameworks.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
@@ -292,7 +292,7 @@ def source_files() -> dict[str, bytes]:
 
     public_examples = (
         "business.html", "email.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
-        "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-interactions.html", "native-recipes.html", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "performance-first.html",
+        "minimalist-patterns.html", "design-states.html", "native-elements.html", "semantic-compositions.html", "native-interactions.html", "native-recipes.html", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
