@@ -32,7 +32,8 @@ alignment and start justification.
 A two-child `.syn-sidecar` puts the **main content first** and the supplementary
 aside second in document and focus order. It wraps on available container width
 without viewport breakpoints, JavaScript, or an explicit container query.
-A lone child behaves as normal content without sidecar-specific child sizing.
+A lone child remains the main region and keeps the min-size and
+unbroken-text overflow protections.
 
 ~~~html
 <div class="syn-root syn-sidecar" data-syn-theme="studio">

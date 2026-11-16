@@ -44,6 +44,20 @@ def check(browser_type):
         assert compact_aside["y"] >= compact_main["y"] + compact_main["height"] - 2, (
             compact_main, compact_aside
         )
+        # A sidecar with no aside must still constrain an unbroken identifier.
+        page.evaluate("""() => {
+            const sidecar = document.createElement('div');
+            sidecar.className = 'syn-sidecar';
+            sidecar.id = 'sidecar-single';
+            sidecar.style.width = '345px';
+            const content = document.createElement('div');
+            content.textContent = 'identifier'.repeat(100);
+            sidecar.append(content);
+            document.querySelector('main').append(sidecar);
+        }""")
+        assert page.locator("#sidecar-single").evaluate(
+            "(el) => el.scrollWidth <= el.clientWidth + 1"
+        ), "main-only sidecar overflows with long unbroken content"
         print(f"PASS {browser_type.name}: wide, mobile, embedded width, no JS")
     finally:
         browser.close()

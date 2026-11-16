@@ -363,7 +363,7 @@
       align-items: var(--syn-sidecar-align, start);
       gap: var(--syn-sidecar-gap, var(--syn-space-3));
     }
-    &.syn-sidecar > :first-child:not(:last-child) {
+    &.syn-sidecar > :first-child {
       flex: 999 1 0;
       min-inline-size: min(100%, var(--syn-sidecar-main-min, 28rem));
       overflow-wrap: anywhere;

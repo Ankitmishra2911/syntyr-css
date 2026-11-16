@@ -33,6 +33,11 @@ class AdoptionComposition(unittest.TestCase):
         self.assertNotIn("@media", sidecar)
         self.assertNotIn("@import", sidecar)
 
+    def test_optional_aside_keeps_main_child_overflow_protection(self):
+        css = (ROOT / "src/components/layout.css").read_text()
+        self.assertIn("&.syn-sidecar > :first-child {", css)
+        self.assertNotIn("&.syn-sidecar > :first-child:not(:last-child)", css)
+
     def test_existing_inline_supports_configurable_cluster_alignment(self):
         css = (ROOT / "src/components/layout.css").read_text()
         inline = css.split("&.syn-inline {", 1)[1].split("}", 1)[0]
