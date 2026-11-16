@@ -2662,6 +2662,14 @@ See [the interactive native screen](../examples/react-native/App.tsx) for an
 email field, a stateful button and a light/dark palette switch based on
 `useColorScheme()`. The example is **source to copy into an existing app**,
 not a separate installable Expo project; in the app, adjust relative imports.
+A separate [Expo SDK 58 development smoke fixture](https://github.com/dporkka/syntyr-css/tree/main/examples/expo-native-smoke)
+is provided for reproducible native TypeScript, Jest/RNTL interaction tests,
+and production Android/iOS Metro bundle exports. Run `npm ci`,
+`npm run typecheck`, `npm test`, `npm run export:android`, and
+`npm run export:ios` from that fixture. **Metro exports do not run on
+devices or produce signed native binaries**; simulator/hardware checks are
+still required. The fixture imports the canonical adapter by an ignored
+build-local source copy, not a second design-system implementation.
 Use the host application's safe-area provider and navigation system as usual.
 The example uses real `TextInput` and `Pressable` controls with accessibility
 labels; gestures, screen reader behavior, validation, keyboard handling and
