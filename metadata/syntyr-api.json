@@ -417,6 +417,96 @@
       "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
+      "name": "syn-email-body",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-code",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-compose",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-inbox",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-item",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-layout",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-main",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-message",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-message-header",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-meta",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-preferences",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-preview",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-recipient-list",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-sidebar",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-signup",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-subject",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-time",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-workspace",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
       "name": "syn-empty",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."

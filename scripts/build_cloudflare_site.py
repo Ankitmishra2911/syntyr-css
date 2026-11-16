@@ -235,7 +235,7 @@ PUBLIC_DOCS = (
     "ai-quickstart.md", "agent-integration.md", "design-principles.md",
     "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md",
     "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
-    "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
+    "console-kit.html", "component-recipes.md", "email-components.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
     "distribution.md", "native-patterns.md", "composition-adoption.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
     "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "framework-integrations.md", "mobile-frameworks.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
@@ -288,7 +288,7 @@ def source_files() -> dict[str, bytes]:
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
     public_examples = (
-        "business.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
+        "business.html", "email.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-interactions.html", "native-recipes.html", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
