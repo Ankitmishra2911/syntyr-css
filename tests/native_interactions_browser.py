@@ -115,6 +115,29 @@ def check_vertical_overlays(browser_type, engine):
             engine, "Syntyr missing 100vw physical width limit", computed
         )
         assert dialog.evaluate("el => getComputedStyle(el).overflowY") == "auto"
+        dialog.evaluate("el => el.close()")
+        page.evaluate("""() => {
+          const pop = document.createElement('div');
+          pop.id = 'vertical-popover-smoke';
+          pop.className = 'syn-popover syn-popover--anchored';
+          pop.setAttribute('popover', 'manual');
+          pop.style.writingMode = 'vertical-rl';
+          pop.style.overflowWrap = 'anywhere';
+          pop.textContent = 'A'.repeat(2000);
+          document.body.append(pop);
+          pop.showPopover();
+        }""")
+        pop = page.locator('#vertical-popover-smoke')
+        pop_computed = pop.evaluate("""el => ({
+          height: getComputedStyle(el).maxHeight,
+          width: getComputedStyle(el).maxWidth,
+        })""")
+        assert float(pop_computed['height'].removesuffix('px')) <= 160.01, (
+            engine, 'anchored popover lost physical height limit', pop_computed
+        )
+        assert float(pop_computed['width'].removesuffix('px')) <= 288.01, (
+            engine, 'anchored popover lost physical width limit', pop_computed
+        )
         print(f"PASS {engine} vertical writing overlays")
     finally:
         browser.close()

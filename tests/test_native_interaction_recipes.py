@@ -118,6 +118,7 @@ class NativeInteractionRecipes(unittest.TestCase):
         self.assertIn('max-width: calc(100vw - 2rem)', css)
         self.assertIn('max-height: min(80vh, 40rem)', css)
         self.assertIn('max-height: min(80dvh, 40rem)', css)
+        self.assertNotIn('max-inline-size: calc(100vw - 2rem)', css)
         self.assertIn('overflow: auto', css)
         self.assertIn('box-sizing: border-box', css)
         self.assertIn('max-height: min(80dvh, 40rem)', (ROOT / 'dist/syntyr.core.css').read_text())
