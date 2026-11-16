@@ -87,6 +87,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
+The local Next.js 16 fixture also contains `next.config.mjs` with an explicit
+`turbopack.root` pointing to the repository root. Turbopack otherwise infers
+the example app as its filesystem root and cannot resolve the locally linked
+`file:` `@syntyr/css` and `@syntyr/react` dependencies outside that directory.
+This is a **development monorepo setting**, not a required configuration for
+normal published npm packages or a change to Syntyr's CSS runtime. Keep it
+rooted to the narrowest common ancestor of the app and local packages; avoid
+absolute machine paths or a global filesystem root.
+
 In Pages Router projects, import global CSS once in `pages/_app.tsx`
 rather than in individual pages. No separate `@syntyr/next` package is
 necessary. Keep client boundaries small; no Syntyr-specific hydration step
