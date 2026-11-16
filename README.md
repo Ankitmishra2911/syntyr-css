@@ -92,6 +92,7 @@ stylesheets.
 - [Framework integrations: LiveView, Livewire, Hotwire/Turbo, HTMX, Go templ and frontend stacks](docs/framework-integrations.md)
 - [JSX and TSX with React, Preact and Solid: copy-owned recipes and verified builds](docs/jsx-tsx-integration.md)
 - [Verified Node.js, React/Vite and Next.js App Router adoption fixtures](docs/node-react-next-integration.md) (experimental, unpublished React wrappers)
+- [Framework-free native Custom Elements and Declarative Shadow DOM](https://github.com/dporkka/syntyr-css/tree/main/examples/web-components): native `HTMLElement`, lifecycle-safe events, accessibility, SSR preservation, and cross-engine browser tests; no application framework or Syntyr JavaScript package.
 - [Lit / Web Components integration guide](docs/lit-integration.md), [opt-in runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit), and [component-authoring contract](docs/component-authoring.md) (includes optional React 19 and HTMX interoperability fixtures and isolated browser CI)
 - [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Runnable Datastar + SSE + native GET fallback example](examples/datastar.html) (uses [localhost Python server](examples/datastar_server.py); not part of the static site)

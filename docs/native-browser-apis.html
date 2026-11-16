@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr is a styling system, not a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser&#x27;s built-in semantics and…">
-  <meta name="syntyr-source-sha256" content="83a945680ae863bad2e7490d73896c7090b1ed415649af5d356530cc338615ce">
+  <meta name="syntyr-source-sha256" content="85f077d55957a6c9215c1dd40c073679c4a6b11edf03e721f4566dae5ad63a25">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native browser APIs in Syntyr — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-browser-apis">
@@ -36,6 +36,10 @@
         <article class="docs-prose" aria-label="Native browser APIs in Syntyr">
 <h1 id="native-browser-apis-in-syntyr">Native browser APIs in Syntyr</h1>
 <p>Syntyr is a styling system, <strong>not</strong> a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser's built-in semantics and state before adding host-owned JavaScript. See the <a href="https://syntyr-css.pages.dev/examples/native-apis.html">scriptless integration demo</a> (source: <code>examples/native-apis.html</code>).</p>
+<p>For framework-free custom elements and server-rendered Shadow DOM, see the
+<a href="https://github.com/dporkka/syntyr-css/tree/main/examples/web-components">native Web Components fixture</a> and
+<a href="component-authoring.html">component-authoring contract</a>. Syntyr still requires
+no Custom Elements runtime for ordinary HTML components.</p>
 <h2 id="supported-integrations">Supported integrations</h2>
 <table>
 <thead>

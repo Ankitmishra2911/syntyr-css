@@ -57,7 +57,10 @@ test("Light DOM reuses Syntyr styles, state, events, disabled and keyboard", asy
   await expect(page.locator("#event-output")).toContainText("North hub: offline");
   await light.evaluate(e => { e.busy = true; });
   await expect(button).toBeDisabled();
+  await expect(light.locator(".syn-panel")).toHaveAttribute("aria-busy", "true");
+  await expect(light.getByRole("status")).toHaveText("Updating status…");
   await light.evaluate(e => { e.busy = false; });
+  await expect(light.locator(".syn-panel")).toHaveAttribute("aria-busy", "false");
   await button.focus();
   await page.keyboard.press("Enter");
   await expect(light).toHaveAttribute("online", "");
