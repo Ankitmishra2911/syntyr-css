@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
-  <meta name="syntyr-source-sha256" content="66db121290d98aa3f026f6d3011be1612363300f1c9b130c69563601e4d40978">
+  <meta name="syntyr-source-sha256" content="146822e7d7edb6ed7d06b2c950b2caa290f0ebe4d385859e2e4cb34058f83242">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
@@ -52,6 +52,11 @@ reviewed consistently before <code>1.0.0</code>. It is not a new compatibility g
 <td><code>syntyr.core.css</code>, <code>.syn-root</code>, stable component classes</td>
 <td>Public prerelease API</td>
 <td>Stable selectors and behavior</td>
+</tr>
+<tr>
+<td>Classed <code>.syn-dialog</code> and <code>.syn-popover</code> physical viewport overflow constraints (also in vertical writing modes)</td>
+<td>Alpha.5 bugfix, no new class names</td>
+<td>Preserve keyboard-scrollable content at zoom and on short viewports</td>
 </tr>
 <tr>
 <td>Specialized native <code>range</code>, <code>file</code> and <code>color</code> controls via the existing <code>.syn-input</code> selector</td>
