@@ -127,7 +127,9 @@ There is no `MutationObserver` or automatic event interception.
 - `prefers-reduced-motion: reduce` takes precedence over all presets and
   custom durations. Reduced-motion users always get visible, immediate content;
   if that preference changes while observing, animation is checked again;
-  existing Syntyr animations are canceled when it changes to reduce.
+  existing ordinary Syntyr animations are canceled when it changes to reduce,
+  while any pending exit commits its synchronous hide/remove callback so it
+  cannot leave content stranded in an intermediate state.
 - Content is never hidden while waiting for JavaScript, scroll observation,
   or native feature detection. Effects do not replace semantic HTML, focus
   management, ARIA announcements, or actual state-change notifications.

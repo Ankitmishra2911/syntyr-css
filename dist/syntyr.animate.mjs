@@ -16,6 +16,9 @@ const activeByElement = new WeakMap();
 // exit, even when its finished promise was already fulfilled before cancel().
 const invocationByElement = new WeakMap();
 const activeAnimations = new Set();
+// Only exits have a host state transition to complete on reduced-motion
+// activation; ordinary effects are canceled without touching DOM state.
+const reducedExitCompletion = new WeakMap();
 let motionPreference = null;
 
 function stopPreferenceWatch() {
@@ -26,7 +29,11 @@ function stopPreferenceWatch() {
 
 function onPreferenceChange(event) {
   if (!event.matches) return;
-  for (const animation of [...activeAnimations]) animation.cancel();
+  for (const animation of [...activeAnimations]) {
+    const completeExit = reducedExitCompletion.get(animation);
+    if (completeExit) completeExit();
+    else animation.cancel();
+  }
 }
 
 function track(element, animation, preference) {
@@ -152,16 +159,22 @@ export function exit(element, onComplete, options = {}) {
   }, 'forwards');
   if (!animation) { onComplete(); return null; }
   const invocation = invocationByElement.get(element);
-  animation.finished.then(() => {
+  let completed = false;
+  const complete = () => {
     // A later animation may replace this one after it finished but before
-    // this queued promise callback runs. The token, unlike activeByElement,
-    // survives the earlier animation's cleanup microtask.
-    if (invocationByElement.get(element) !== invocation) return;
+    // its queued callback runs. Replacement must never remove the element.
+    if (completed || invocationByElement.get(element) !== invocation) return;
+    completed = true;
+    reducedExitCompletion.delete(animation);
     try { onComplete(); }
     finally {
       if (invocationByElement.get(element) === invocation) animation.cancel();
     }
-  }, NOOP);
+  };
+  // A preference change must commit the host state immediately rather than
+  // strand a canceled exit. Ordinary cancellation and replacements do not.
+  reducedExitCompletion.set(animation, complete);
+  animation.finished.then(complete, () => reducedExitCompletion.delete(animation));
   return animation;
 }
 

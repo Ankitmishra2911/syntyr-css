@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="syntyr.animate.mjs is an opt-in, dependency-free ES module for application-triggered motion. It delegates timing and compositing to the native Web…">
-  <meta name="syntyr-source-sha256" content="c314e6bc81c4363b489fc9a0fc3a36559c53a23b2ac9c8c89ec0a28a42681c98">
+  <meta name="syntyr-source-sha256" content="0d2104fa3595c5143aba9714f7a15349e88a51981971bed4add54d598eb81378">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional Syntyr animation library — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/animation">
@@ -162,7 +162,9 @@ There is no <code>MutationObserver</code> or automatic event interception.</p>
 <li><code>prefers-reduced-motion: reduce</code> takes precedence over all presets and
 custom durations. Reduced-motion users always get visible, immediate content;
 if that preference changes while observing, animation is checked again;
-existing Syntyr animations are canceled when it changes to reduce.</li>
+existing ordinary Syntyr animations are canceled when it changes to reduce,
+while any pending exit commits its synchronous hide/remove callback so it
+cannot leave content stranded in an intermediate state.</li>
 <li>Content is never hidden while waiting for JavaScript, scroll observation,
 or native feature detection. Effects do not replace semantic HTML, focus
 management, ARIA announcements, or actual state-change notifications.</li>

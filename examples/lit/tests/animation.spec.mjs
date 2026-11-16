@@ -30,6 +30,18 @@ test.describe("optional free animation companion", () => {
     await expect.poll(() => page.locator("#motion-cards .syn-panel").first().evaluate(e => e.getAnimations().length)).toBe(0);
   });
 
+  test("turning on reduced motion completes an in-flight native exit", async ({ page }) => {
+    await page.goto("/examples/animation.html");
+    const started = await page.evaluate(async () => {
+      const { exit } = await import("/dist/syntyr.animate.mjs");
+      const target = document.querySelector("#exit-note");
+      return Boolean(exit(target, () => { target.hidden = true; }, {duration: 10000}));
+    });
+    expect(started).toBe(true);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect(page.locator("#exit-note")).toBeHidden();
+  });
+
   test("native disclosure works with CSS motion and degrades without JS", async ({ page }) => {
     await page.goto("/examples/animation.html");
     const disclosure = page.locator("#motion-disclosure");

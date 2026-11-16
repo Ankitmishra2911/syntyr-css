@@ -337,3 +337,44 @@ test('finished exit never removes content after a new animation replaces it befo
   assert.equal(outgoing.cancelled, true);
   assert.deepEqual(removed, [], 'a stale queued exit must not remove its replacement target');
 });
+
+test('switching to reduced motion completes an in-flight exit immediately without replay', async () => {
+  const listeners = new Set();
+  const preference = {
+    matches: false,
+    addEventListener(name, fn) { listeners.add(fn); },
+    removeEventListener(name, fn) { listeners.delete(fn); },
+  };
+  globalThis.matchMedia = () => preference;
+  const {element, animations} = controlledTarget();
+  let removed = 0;
+  exit(element, () => { removed += 1; });
+  assert.equal(removed, 0);
+  preference.matches = true;
+  for (const listener of [...listeners]) listener({matches: true});
+  await Promise.allSettled(animations.map(animation => animation.finished));
+  await Promise.resolve();
+  assert.equal(removed, 1, 'reduced motion must not strand a pending dismissal');
+  assert.equal(animations[0].cancelled, true);
+  assert.equal(listeners.size, 0);
+});
+
+test('reduced-motion cancellation does not run a replaced exit callback', async () => {
+  const listeners = new Set();
+  const preference = {
+    matches: false,
+    addEventListener(_, fn) { listeners.add(fn); },
+    removeEventListener(_, fn) { listeners.delete(fn); },
+  };
+  globalThis.matchMedia = () => preference;
+  const {element, animations} = controlledTarget();
+  let removed = 0;
+  exit(element, () => { removed += 1; });
+  animate(element, 'fade');
+  preference.matches = true;
+  for (const fn of [...listeners]) fn({matches: true});
+  await Promise.allSettled(animations.map(animation => animation.finished));
+  await Promise.resolve();
+  assert.equal(removed, 0);
+  assert.equal(animations.every(a => a.cancelled), true);
+});
