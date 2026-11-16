@@ -22,7 +22,7 @@
             data-on:submit="!$_fetching && @get('/customers/search')"
             data-attr:aria-busy="String($_fetching)">
         <label class="syn-label" for="customer-query">Customer name</label>
-        <input id="customer-query" class="syn-input" type="search" name="q"
+        <input id="customer-query" class="syn-input" type="search" name="q" value="" maxlength="120"
                data-bind:q="" autocomplete="off" placeholder="Search customers">
         <button id="search-button" class="syn-button syn-button--primary" type="submit"
                 data-attr:disabled="$_fetching"

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="7bf87820fea3cc521e1678660d0d1951bff90160fb53b05a4e7915127ae48b4b">
+  <meta name="syntyr-source-sha256" content="e57ce8b45204c85132a83bec6f7bf0356560dfea450eed1c5e205ff9c81e83e0">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -86,18 +86,29 @@ library doesn't load HTMX automatically. Production applications should
 self-host the pinned HTMX asset for control over performance, integrity, and CSP.</p>
 <p>The search form uses a real <code>action</code> and <code>method=get</code>. When HTMX sends
 <code>HX-Request: true</code>, the server returns only the result fragment. Ordinary
-navigation gets a complete HTML document. The server emits <code>Vary: HX-Request</code>
-to keep caches from mixing the representations, and escapes user-controlled
-query text before inserting it in HTML.</p>
+navigation gets a complete HTML document. The server emits
+<code>Vary: HX-Request, HX-History-Restore-Request</code> to keep caches from mixing
+normal fragments and full history-restore documents, and escapes
+user-controlled query text before inserting it in HTML.</p>
 <p>For best results:</p>
 <ul>
 <li>Put <code>.syn-root</code> and <code>data-syn-theme</code> <strong>outside</strong> the swapped element.</li>
 <li>Swap the narrowest stable target (normally <code>innerHTML</code> inside a results container).</li>
 <li>Give labels and inputs stable IDs; preserve native form submission as a fallback.</li>
+<li>Use <code>hx-push-url=&quot;true&quot;</code> when search/filter results should be bookmarkable.
+Ensure the same URL serves a complete document on reload, restores escaped
+field values, and returns only the intended fragment for normal HTMX requests.</li>
+<li>If full documents and partial responses share an endpoint, set
+<code>historyRestoreAsHxRequest: false</code> in HTMX 2 and return a complete HTML
+document when <code>HX-History-Restore-Request: true</code> is present, even if a
+proxy or client also sends <code>HX-Request: true</code>. Set <code>Vary</code> for both headers
+or disable caching. A history cache miss must not receive a fragment.</li>
+<li>Use <code>hx-disabled-elt</code> to lock an in-flight submit button when duplicate
+submissions are undesirable. An <code>hx-indicator</code> only provides feedback.</li>
 <li>If a control must survive a larger swap, consider <code>hx-preserve</code> with a stable
 ID on both sides of the swap; prefer narrow targets first.</li>
-<li>Use the framework's <code>hx-indicator</code> and <code>hx-disabled-elt</code> when appropriate;
-<code>aria-busy</code> does <strong>not</strong> block duplicate submissions by itself.</li>
+<li>A loading cursor, <code>aria-busy</code>, and <code>hx-indicator</code> are only feedback:
+they do <strong>not</strong> block duplicate submissions by themselves.</li>
 <li>Do not create a permanent Syntyr HTMX runtime or register Syntyr lifecycle events.</li>
 <li>For strict CSP, use <code>includeIndicatorStyles: false</code> and an external stylesheet.
 The demo shows this pattern with a small <strong>application-owned</strong> <code>htmx.css</code>.</li>
@@ -107,6 +118,36 @@ failure paths in an actual browser.</li>
 <p>The demo server intentionally exposes only four static assets and one GET route,
 listens on localhost, and is <strong>not</strong> included in the Cloudflare static-site build.
 A static host cannot serve its dynamic search endpoint without a backend.</p>
+<h3 id="htmx-4-migration-separate-from-syntyr">HTMX 4 migration (separate from Syntyr)</h3>
+<p>The runnable example intentionally pins HTMX <strong>2.0.8</strong>. HTMX <strong>4.0.1</strong>
+uses the same Syntyr stylesheet and component HTML, but its <em>HTMX-owned</em>
+API changes. A browser smoke test applies the migration in an isolated
+fixture rather than silently changing the v2 example:</p>
+<ul>
+<li>Replace <code>hx-disabled-elt=&quot;#search-button&quot;</code> with
+<code>hx-disable=&quot;#search-button&quot;</code>. In HTMX 4 the <em>old</em> <code>hx-disable</code> meaning
+(ignore a subtree) moved to <code>hx-ignore</code>.</li>
+<li>Use <code>includeIndicatorCSS: false</code> (rather than the v2
+<code>includeIndicatorStyles: false</code>) with the application-owned
+<code>htmx.css</code> indicator stylesheet.</li>
+<li>HTMX 4 refetches full documents for history navigation, instead of
+depending on the v2 browser snapshot cache. Full-page GET rendering
+and escaped form-value restoration must still work.</li>
+<li>HTMX 4 makes attribute inheritance explicit and swaps HTTP errors by
+default; review the framework's migration guide before upgrading
+any application. Syntyr does not override these semantics.</li>
+</ul>
+<p>To exercise both versions against the real browser runtime without
+installing either into Syntyr:</p>
+<pre><code class="language-sh">curl -fsSL https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js -o /tmp/syntyr-htmx2.js
+curl -fsSL https://cdn.jsdelivr.net/npm/htmx.org@4.0.1/dist/htmx.min.js -o /tmp/syntyr-htmx4.js
+HTMX_JS_PATH=/tmp/syntyr-htmx2.js HTMX4_JS_PATH=/tmp/syntyr-htmx4.js python3 tests/htmx_browser.py
+</code></pre>
+<p>Playwright is an <strong>optional testing dependency</strong>. In the smoke test,
+the HTML response uses HTMX 4's external script and renamed controls
+while keeping the identical Syntyr CSS, class names, and stable theme root.
+This is not a claim that every HTMX extension or version-specific behavior
+is drop-in compatible.</p>
 <h2 id="server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</h2>
 <p><strong>No adapter is necessary to render Syntyr components.</strong> Serve core CSS from
 your application and output the same <code>syn-</code> classes in HEEx, Blade, ERB, templ,
@@ -281,13 +322,24 @@ pinned script in production.</p>
 <p>The framework owns <code>data-indicator</code>, <code>data-bind:q</code>, <code>data-on:submit</code>,
 disabled state, and the SSE morph. The server returns
 <code>event: datastar-patch-elements</code> with a matching <code>id=&quot;customer-results&quot;</code>
-and escapes user content. Because Datastar GET requests send signal values
+and escapes user content. Serialize each SSE patch as a single data line:
+normalize carriage returns and line feeds <em>after</em> HTML escaping, since HTML
+escaping alone does not prevent attacker-controlled SSE record boundaries.
+Because Datastar GET requests send signal values
 inside a <code>datastar</code> query parameter, the sample endpoint reads that JSON for
 SSE requests and reads ordinary <code>q</code> for no-JavaScript GET requests.</p>
 <p><strong>Keep <code>.syn-root</code> and the form outside the morphed results section.</strong>
+The native GET fallback re-renders the escaped search term into the form
+value as well as the results, so users do not lose what they searched for.
 Syntyr's <code>data-syn-state</code> bridge is optional; the native disabled state and
 status message work independently of the progress cursor. Never rely on
 <code>aria-busy</code> or a CSS class alone to prevent duplicate mutations.</p>
+<p>Datastar <code>data-on:submit</code> automatically prevents native form navigation when
+the framework has initialized. Keep a real <code>action</code> and <code>method</code> so the form
+still works without Datastar. Prefer <code>data-class:*</code> to toggle state classes
+without overwriting a stable <code>syn-*</code> component class; use <code>data-attr:aria-*</code>
+to communicate interactive state. Keep the Syntyr theme root out of any
+SSE morph target and return a stable ID for the target.</p>
 <p>Datastar expressions execute JavaScript. Do not interpolate untrusted data into
 <code>data-*</code> expressions, do not put secrets in signals, validate on the server,
 and adopt Datastar's documented nonce-based <strong>CSP</strong> mode when forbidding
@@ -374,6 +426,7 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#choose-one-styling-mode">Choose one styling mode</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#htmx-progressive-enhancement">HTMX: progressive enhancement</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#htmx-4-migration-separate-from-syntyr">HTMX 4 migration (separate from Syntyr)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#phoenix-liveview-heex">Phoenix LiveView (HEEx)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#laravel-livewire-blade">Laravel Livewire (Blade)</a>

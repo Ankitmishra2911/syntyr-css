@@ -97,6 +97,7 @@ class DatastarServerTests(unittest.TestCase):
         self.assertEqual(response.headers["X-Content-Type-Options"], "nosniff")
         self.assertIn('class="syn-root', html)
         self.assertIn("Acme Corporation", html)
+        self.assertIn('name="q" value="Acme"', html)
 
     def test_datastar_signal_query_returns_escaped_sse_patch(self):
         payload = quote(json.dumps({"q": "<script>alert(1)</script>"}), safe="")
@@ -108,6 +109,19 @@ class DatastarServerTests(unittest.TestCase):
         self.assertIn("&lt;script&gt;", sse)
         self.assertNotIn("<script>", sse)
         self.assertTrue(sse.endswith("\n\n"))
+
+    def test_datastar_sse_rejects_protocol_framing_from_carriage_returns(self):
+        malicious = "\\r\\nevent: datastar-patch-signals\\r\\ndata: signals {isAdmin: true}\\r\\n\\r\\n"
+        # Decode JSON into actual CR/LF bytes inside the user's query string.
+        malicious = malicious.replace("\\r", "\r").replace("\\n", "\n")
+        payload = quote(json.dumps({"q": malicious}), safe="")
+        response, sse = self.get("/customers/search?datastar=" + payload, "text/event-stream")
+        self.assertEqual(response.status, 200)
+        self.assertNotIn("\r", sse)
+        self.assertEqual(sse.count("event: datastar-patch-elements"), 1)
+        self.assertNotIn("\nevent: datastar-patch-signals", sse)
+        self.assertNotIn("\ndata: signals", sse)
+        self.assertEqual(sse.count("\n\n"), 1)
 
     def test_malformed_signal_json_cannot_crash_handler(self):
         response, sse = self.get("/customers/search?datastar=%7Bbad", "text/event-stream")

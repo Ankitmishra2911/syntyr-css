@@ -7,6 +7,7 @@ Datastar is a pinned, demo-only browser dependency. Syntyr ships no JS.
 """
 from __future__ import annotations
 
+from html import escape
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
@@ -41,7 +42,8 @@ def requested_query(parameters: dict[str, list[str]], *, streaming: bool) -> str
 
 def result_section(query: str) -> str:
     # SSE 'elements' must fit on one data line. IDs permit targeted morphing.
-    content = customer_results(query).replace("\n", " ")
+    # SSE line boundaries are CR, LF or CRLF: do not let untrusted text frame events.
+    content = customer_results(query).replace("\r", " ").replace("\n", " ")
     return ('<section id="customer-results" class="syn-panel" role="region" '
             'aria-label="Search results" aria-live="polite">' + content + '</section>')
 
@@ -77,7 +79,9 @@ class DemoHandler(BaseHTTPRequestHandler):
                 mime = "text/event-stream; charset=utf-8"
             else:
                 html = (ROOT / "examples/datastar.html").read_text(encoding="utf-8")
-                body = html.replace("<!-- RESULTS -->", customer_results(query))
+                body = html.replace("<!-- RESULTS -->", customer_results(query)).replace(
+                    'name="q" value=""', f'name="q" value="{escape(query, quote=True)}"', 1
+                )
                 mime = "text/html; charset=utf-8"
             self.respond(200, body.encode("utf-8"), mime, vary=True)
             return
