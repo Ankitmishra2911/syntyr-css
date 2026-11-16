@@ -274,7 +274,7 @@ def source_files() -> dict[str, bytes]:
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
     public_examples = (
-        "business.html", "console.html", "form-composition.html", "form-state-contracts.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
+        "business.html", "common-ui.html", "console.html", "form-composition.html", "form-state-contracts.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",

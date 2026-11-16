@@ -21,6 +21,8 @@
 - [Server-rendered validation states](examples/form-state-contracts.html) and [dependency-aware, collision-safe local registry planner](docs/blocks-guide.md) (unreleased alpha.5 candidate).
 - [Native enterprise data table example](examples/data-tables.html) and [accessible table guide](docs/data-tables.html)
 - [Component gallery](https://syntyr-css.pages.dev/docs/)
+- [Common HTML and UI example](examples/common-ui.html): navigation, avatars, chips, lists, notices and native form controls
+- [Native HTML elements demo](examples/native-elements.html): native forms, progress and overlays
 - [23 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
 - [Practical installation, integration and performance guides](https://syntyr-css.pages.dev/docs/guides.html)
 - [Searchable, copyable component catalog](docs/catalog.html)

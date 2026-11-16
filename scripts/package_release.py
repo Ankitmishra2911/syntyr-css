@@ -34,6 +34,8 @@ FILES = (
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
+    "docs/headless-interactions.md",
+    "integrations/headless/interactions.css",
     "docs/native-browser-apis.md",
     "docs/theme-customization.md",
     "docs/visual-intensity.md",
