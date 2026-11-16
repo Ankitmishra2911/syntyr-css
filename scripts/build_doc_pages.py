@@ -26,6 +26,8 @@ else:
 SITE = "https://syntyr-css.pages.dev"
 GUIDES = tuple(name for name in PUBLIC_DOCS if name.endswith(".md"))
 SECTIONS = (
+    ("FAQ and comparisons", ("faq", "compare", "compare-tailwind", "compare-bootstrap",
+                             "compare-shadcn", "compare-daisyui", "compare-pico", "compare-native-css")),
     ("Start here", ("ai-quickstart", "distribution", "package-managers", "from-pico",
                     "adoption-starters", "components", "data-tables", "data-grid",
                     "recipes", "native-patterns", "composition-adoption", "component-recipes",
@@ -70,7 +72,26 @@ PLATFORM_SEO_TITLES = {
     'tilda.md': 'Syntyr for Tilda | T123 HTML & CSS Setup',
 }
 
+SEO_PAGE_TITLES = {
+    "faq.md": "Syntyr CSS FAQ | Installation, Licensing & Frameworks",
+    "compare.md": "Syntyr Alternatives | Compare CSS & UI Libraries",
+    "compare-tailwind.md": "Syntyr vs Tailwind CSS | Components vs Utilities",
+    "compare-bootstrap.md": "Syntyr vs Bootstrap | CSS Framework Comparison",
+    "compare-shadcn.md": "Syntyr vs shadcn/ui | CSS vs React Components",
+    "compare-daisyui.md": "Syntyr vs daisyUI | Standalone CSS or Tailwind",
+    "compare-pico.md": "Syntyr vs Pico CSS | Semantic Styling Compared",
+    "compare-native-css.md": "Syntyr vs Plain CSS | When to Use a Design System",
+}
+
 DESCRIPTION_OVERRIDES = {
+    "faq.md": "Answers to common Syntyr CSS questions about installation, MIT licensing, JavaScript requirements, React compatibility, native HTML, themes and accessibility.",
+    "compare.md": "Compare Syntyr CSS with Tailwind, Bootstrap, shadcn/ui, daisyUI, Pico and plain CSS. Explore practical tradeoffs, integration options and release compatibility.",
+    "compare-tailwind.md": "Compare Syntyr CSS and Tailwind CSS for components, utility-first styling, build tooling, performance tradeoffs and framework-neutral HTML projects.",
+    "compare-bootstrap.md": "Syntyr CSS vs Bootstrap: compare native HTML components, JavaScript plugins, CSS scopes, theme tokens, ecosystem maturity and migration guidance.",
+    "compare-shadcn.md": "Syntyr vs shadcn/ui: compare framework-neutral CSS primitives with editable React components, interaction ownership, Tailwind styling and dependencies.",
+    "compare-daisyui.md": "Compare Syntyr CSS and daisyUI for Tailwind plugin workflows, component classes, theming, JavaScript requirements and standalone CSS distribution.",
+    "compare-pico.md": "Syntyr CSS vs Pico CSS: compare scoped semantic HTML styling, classless defaults, theme tokens, SaaS layouts and a safe incremental migration path.",
+    "compare-native-css.md": "Syntyr CSS vs plain CSS: decide when a reusable design system pays off versus native browser CSS, custom properties and a smaller dependency surface.",
     "design-principles.md": "Learn shared UI design principles, accessible component states, semantic HTML compositions, and static palette contrast checks in Syntyr CSS.",
     "ai-quickstart.md": "Install Syntyr CSS with AI coding agents using semantic HTML, real component classes, and version-aware, framework-neutral examples.",
     "components.md": "Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.",
@@ -116,6 +137,21 @@ def render_guide(name: str, allowed: set[str]) -> str:
     digest = sha256(source.encode("utf-8")).hexdigest()
     tokens = renderer().parse(source)
     description = description_of(name, tokens)
+    page_title = SEO_PAGE_TITLES.get(name, PLATFORM_SEO_TITLES.get(name, f"{title} — Syntyr CSS docs"))
+    canonical = f"{SITE}/docs/{slug}"
+    # Marketing pages use the exact canonical URL emitted in the sitemap.
+    # These are inert metadata elements, not client-side JavaScript.
+    social_tags = ""
+    if name in SEO_PAGE_TITLES:
+        social_tags = (
+            f'<meta property="og:type" content="article">\n'
+            f'<meta property="og:title" content="{escape(page_title, quote=True)}">\n'
+            f'<meta property="og:description" content="{escape(description, quote=True)}">\n'
+            f'<meta property="og:url" content="{escape(canonical, quote=True)}">\n'
+            f'<meta property="og:image" content="{SITE}/assets/og-syntyr.png">\n'
+            f'<meta name="twitter:card" content="summary_large_image">\n'
+        )
+        social_tags = "\n  " + social_tags.rstrip().replace("\n", "\n  ")
     used: set[str] = set()
     headings: list[tuple[int, str, str]] = []
     for index, token in enumerate(tokens):
@@ -170,8 +206,8 @@ def render_guide(name: str, allowed: set[str]) -> str:
   <meta name="description" content="{escape(description, quote=True)}">
   <meta name="syntyr-source-sha256" content="{digest}">
   <meta name="theme-color" content="#f5f7fb">
-  <title>{escape(PLATFORM_SEO_TITLES.get(name, title + " — Syntyr CSS docs"))}</title>
-  <link rel="canonical" href="{SITE}/docs/{slug}">
+  <title>{escape(page_title)}</title>{social_tags}
+  <link rel="canonical" href="{canonical}">
 {platform_og}  <link rel="alternate" type="text/markdown" href="{name}" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">

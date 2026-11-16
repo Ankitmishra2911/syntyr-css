@@ -22,6 +22,11 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Contribution policy](https://github.com/dporkka/syntyr-css/blob/main/CONTRIBUTING.md): Public repository development, test, release and documentation rules.
 - [Private security reporting](https://github.com/dporkka/syntyr-css/blob/main/SECURITY.md): Report vulnerabilities privately through GitHub; never include exploits in public issues.
 
+## FAQ and comparisons
+
+- [FAQ](https://syntyr-css.pages.dev/docs/faq.md): Installation, licensing, browser-native behavior, frameworks and release compatibility.
+- [CSS framework comparison hub](https://syntyr-css.pages.dev/docs/compare.md): Decision guide covering Tailwind, Bootstrap, shadcn/ui, daisyUI, Pico and plain CSS.
+
 ## Reference
 
 - [Distribution and pinned CSS](https://syntyr-css.pages.dev/docs/distribution.md): Self-hosting, pinned asset URLs, and a downloadable offline SaaS demo in the **unreleased alpha.5** ZIP candidate (not in published alpha.4).
