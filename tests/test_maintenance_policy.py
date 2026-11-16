@@ -82,6 +82,43 @@ class MaintenancePolicyTests(unittest.TestCase):
             file.write_text("/* @apply .syn-radix --tw-color */\n.syn-root { color: var(--syn-text); }")
             self.assertEqual(find_issues(src, {"syntyr.core.css": ("tokens.css",)}), [])
 
+    def test_css_imports_are_rejected_even_when_local(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            stylesheet = source / "tokens.css"
+            bundles = {"syntyr.core.css": ("tokens.css",)}
+            for css in ('@import "theme.css";', '@import url("https://example.com/font.css");'):
+                with self.subTest(css=css):
+                    stylesheet.write_text(css)
+                    issues = find_issues(source, bundles)
+                    self.assertTrue(any("CSS import" in issue for issue in issues), issues)
+
+    def test_external_and_unbundled_css_assets_are_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            stylesheet = source / "tokens.css"
+            bundles = {"syntyr.core.css": ("tokens.css",)}
+            for reference in ('url("https://cdn.example.com/icon.svg")',
+                              "url( //cdn.example.com/icon.svg )",
+                              "url('./icons/icon.svg')",
+                              "url(/assets/icon.svg)",
+                              "url(file:///tmp/icon.svg)"):
+                with self.subTest(reference=reference):
+                    stylesheet.write_text(f".syn-root {{ background: {reference}; }}")
+                    issues = find_issues(source, bundles)
+                    self.assertTrue(any("external CSS asset" in issue for issue in issues), issues)
+
+    def test_embedded_assets_and_comments_do_not_fail_network_policy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            stylesheet = source / "tokens.css"
+            stylesheet.write_text(
+                '/* @import "bad.css"; background: url(https://example.com/x); */'
+                '.syn-root { filter: url("#contrast"); '
+                'background: url(data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=); }'
+            )
+            self.assertEqual(find_issues(source, {"syntyr.core.css": ("tokens.css",)}), [])
+
     def test_important_declarations_outside_accessibility_base_are_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             src = Path(directory)

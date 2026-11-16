@@ -44,6 +44,25 @@ Don't rely on ARIA to implement state changes or disable interactions. Use
 native control semantics; any optional JavaScript must feature-detect browser
 support, preserve keyboard focus, and never hide the only path to important data.
 
+## Escalation ladder: add only the behavior the platform cannot supply
+
+| Need | Prefer | When to add a dependency |
+| --- | --- | --- |
+| Links, form submission, validation | Native `a`, `form`, `input` and server responses | Only for workflow requirements beyond the browser |
+| Disclosure, modal, basic popover | `details`, `dialog` and `popover` | A tested fallback if target browsers lack the required primitive |
+| Responsive component presentation | CSS Grid, container queries, `:has()` and tokens | Only if the UI requires measured dimensions in application logic |
+| Incremental server-rendered updates | Optional HTMX/Datastar in the host application | If normal navigation cannot meet the interaction requirements |
+| Small client-side state | A host-owned JavaScript module | If HTML/CSS alone cannot represent the state |
+| Reusable cross-framework behavior | A separately installed, accessible custom element or Lit adapter | Only when encapsulation and reuse outweigh lifecycle costs |
+| Searchable combobox, rich editor, virtualized grid | Independently tested accessible widget package | Usually; don't recreate complex keyboard/focus semantics in CSS |
+
+Syntyr owns **presentation**, not input validation, business logic, focus management,
+server navigation, asynchronous state, or keyboard controllers. Applications own
+these responsibilities. A native custom element is not inherently simpler than
+native HTML; do not wrap existing controls solely to create another abstraction.
+Keep all optional adapters independently removable without changing the core
+stylesheet or its public selectors.
+
 ## Built-in system-aware theme
 
 Load core and set `data-syn-theme="auto"`. No separate automatic theme

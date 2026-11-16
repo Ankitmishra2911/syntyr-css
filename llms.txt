@@ -45,6 +45,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Interactive geometry mixer](https://syntyr-css.pages.dev/docs/playground.html#geometry-title): Documentation-only editor with copyable HTML and no consumer runtime JavaScript (alpha.5 source candidate).
 - [Accessibility guide](https://syntyr-css.pages.dev/docs/accessibility.md): Practical verification.
 - [Alpha.5 accessibility review](https://syntyr-css.pages.dev/docs/accessibility-alpha5-review.md): Pinned automated evidence, unresolved contrast targets, and manual release gates.
+- [Standards-first enhancement ladder](https://syntyr-css.pages.dev/docs/progressive-enhancement.md): Native HTML and CSS first, then optional hypermedia, host-owned JavaScript, or accessible specialized widgets only when required (alpha.5 source candidate).
 - [Progressive CSS loading](https://syntyr-css.pages.dev/docs/progressive-loading.md): Selective CSS, critical CSS tradeoffs, and measured loading approaches.
 - [Deployed mobile performance audit](https://syntyr-css.pages.dev/docs/live-performance-audit.md): Reproducible LCP, caching, CSP and accessibility evidence for the hosted business and SaaS examples.
 - [Optional visualization styles](https://syntyr-css.pages.dev/docs/viz.md): SVG/HTML rendering and boundaries.

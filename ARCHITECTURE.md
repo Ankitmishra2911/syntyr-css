@@ -8,6 +8,9 @@ smallest working application must need only a local stylesheet and HTML.
 
 1. **Zero CSS runtime dependencies:** no required JavaScript, package manager,
    network fonts, icons, CDN, server, or compiler for consumers.
+   The source-policy check prohibits runtime CSS `@import` and asset `url()`
+   references outside embedded `data:` and local fragment (`#id`) URLs;
+   integration-owned assets belong to host applications or optional adapters.
 2. **One styling contract:** public selectors use `syn-*`, custom properties
    `--syn-*`, and state/theme attributes `data-syn-*` (with semantic ARIA and
    native HTML states where appropriate). Avoid competing ways to express the
