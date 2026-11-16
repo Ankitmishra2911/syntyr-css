@@ -70,7 +70,7 @@ class OptionalHeadlessInteractions(unittest.TestCase):
         guide = (ROOT / 'docs/headless-interactions.md').read_text()
         for phrase in ('React Aria', 'Radix', 'popover', 'datalist',
                        'aria', 'portal', 'focus', 'toast', 'no runtime',
-                       'npm install', 'npm run build'):
+                       'npm ci', 'npm run build'):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.lower(), guide.lower())
         self.assertIn('../integrations/headless/interactions.css', guide)
