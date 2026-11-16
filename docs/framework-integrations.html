@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="6e43922fb64565fcd6c076de2f2655274460c2b966150384bcbae986364bdb2a">
+  <meta name="syntyr-source-sha256" content="044731f1f6ad7fb670869c8ae20280260af56f71d1a67feee8c0447dd48e3bfa">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -66,6 +66,12 @@ library unless you explicitly want Syntyr semantic styling there. Prefer
 control stateful, disabled, or accessible by itself.</p>
 <p>For accessible advanced menus, comboboxes and toasts, see the <a href="headless-interactions.html">optional headless interaction guide</a>. All framework JavaScript remains application-owned.</p>
 <h2 id="htmx-progressive-enhancement">HTMX: progressive enhancement</h2>
+<p>For a <strong>Go standard-library runnable starter</strong> with no third-party Go modules,
+see <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/go-htmx">examples/go-htmx</a>. The default server runs
+without JavaScript; optional locally vendored HTMX uses the same GET endpoint.
+Its Go tests verify full-page vs fragment responses, escaping, method handling
+and the CSS serving path. This is a development fixture, not a production auth
+or CSRF implementation.</p>
 <p>A complete example with a real stdlib Python HTTP server is at:
 <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.html">examples/htmx.html</a>,
 <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx_server.py">examples/htmx_server.py</a>, and

@@ -28,7 +28,7 @@ GUIDES = tuple(name for name in PUBLIC_DOCS if name.endswith(".md"))
 SECTIONS = (
     ("Start here", ("ai-quickstart", "distribution", "package-managers", "from-pico",
                     "adoption-starters", "components", "data-tables", "data-grid",
-                    "recipes", "native-patterns", "component-recipes")),
+                    "recipes", "native-patterns", "composition-adoption", "component-recipes")),
     ("Design system", ("design-principles", "theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),
     ("Integrations", ("framework-integrations", "headless-interactions", "lit-integration", "radix-integration", "shadcn-integration", "ecosystem-integrations", "editor-integration", "figma-component-kit", "vertigo-integration", "rust-saas-integration", "saas-cli-business")),
     ("Accessibility and performance", ("accessibility", "accessibility-alpha5-review", "progressive-enhancement", "native-browser-apis", "progressive-loading", "performance-and-polish", "performance-validation", "live-performance-audit", "visual-regression")),

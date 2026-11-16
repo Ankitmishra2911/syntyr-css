@@ -125,6 +125,21 @@ The optional `syntyr.symbols.css` adds BYO-SVG icon sizing, literal Unicode styl
 while still requiring `.syn-semantic` to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final `syn.utilities` cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see [the architecture policy](../ARCHITECTURE.md).
 
+## Loading contract at a glance
+
+| Goal | Stylesheet choice | Requirement |
+| --- | --- | --- |
+| Explicit components | `syntyr.core.css` | `.syn-root` wraps the component subtree |
+| Plain semantic HTML | `syntyr.semantic-bundle.css` | Add `.syn-semantic` to the scoped root |
+| Some components only | `components/tokens.css`, `components/base.css`, then selected component styles | Keep order; include `forms.css` with `form-composition.css` |
+| Application recipes | `syntyr.core.css` followed by `syntyr.recipes.css` | Use explicitly named recipe classes |
+| All features | `syntyr.all.css` | Never combine with the constituent files |
+
+Avoid combining bundles with their constituent CSS. Each separately imported
+component file intentionally has **no runtime `@import`**; load tokens and base
+first. Use the [intrinsic composition guide](composition-adoption.md) to build
+dashboard layouts without JavaScript or viewport-specific hacks.
+
 ## Optional explicit selective build
 
 Applications needing fewer core components can assemble a custom CSS file with

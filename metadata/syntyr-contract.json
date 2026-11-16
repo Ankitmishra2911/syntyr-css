@@ -2243,6 +2243,21 @@
       ]
     },
     {
+      "name": "syn-sidecar",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-site-heading",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",

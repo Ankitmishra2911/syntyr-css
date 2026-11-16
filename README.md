@@ -32,6 +32,8 @@
 - [Optional local read-only MCP server](agent_mcp/README.md) (separate Python SDK, no CSS runtime dependency)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
 - [Per-component CSS imports and native HTML patterns](docs/native-patterns.md), [static demo](examples/native-recipes.html)
+- [Intrinsic sidecar and cluster layouts](docs/composition-adoption.md), [zero-JS example](examples/composition-adoption.html): container-width wrapping and configurable alignment
+- [Runnable Go + html/template + optional HTMX](examples/go-htmx/README.md): native GET fallback, escaped queries and tested HTML fragments
 - [Optional headless interactions](docs/headless-interactions.md): accessible Radix menus/toasts and React Aria combobox source example; no core JavaScript dependency
 - [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)

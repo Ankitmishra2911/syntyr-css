@@ -348,7 +348,31 @@
     &.syn-grid { display: grid; gap: var(--syn-grid-gap, 1rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-grid-min, 17rem)), 1fr)); }
     &.syn-layout { display: grid; gap: var(--syn-layout-gap, 1.25rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-layout-min, 21rem)), 1fr)); align-items: start; }
     &.syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-stack-gap, var(--syn-space-3)); }
-    &.syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-inline-gap, var(--syn-space-2)); }
+    /* A wrapping cluster for filters, actions, chips and navigation.
+       Consumers can customize alignment without an extra utility API. */
+    &.syn-inline {
+      display: flex; flex-wrap: wrap; min-inline-size: 0;
+      align-items: var(--syn-inline-align, center);
+      justify-content: var(--syn-inline-justify, flex-start);
+      gap: var(--syn-inline-gap, var(--syn-space-2));
+    }
+    /* Intrinsic main + optional aside; direct children only, main first.
+       The narrow layout naturally wraps even in an embedded container. */
+    &.syn-sidecar {
+      display: flex; flex-wrap: wrap; min-inline-size: 0;
+      align-items: var(--syn-sidecar-align, start);
+      gap: var(--syn-sidecar-gap, var(--syn-space-3));
+    }
+    &.syn-sidecar > :first-child:not(:last-child) {
+      flex: 999 1 0;
+      min-inline-size: min(100%, var(--syn-sidecar-main-min, 28rem));
+      overflow-wrap: anywhere;
+    }
+    &.syn-sidecar > :last-child:not(:first-child) {
+      flex: 1 1 var(--syn-sidecar-aside-width, 16rem);
+      min-inline-size: min(100%, var(--syn-sidecar-aside-width, 16rem));
+      overflow-wrap: anywhere;
+    }
     &.syn-panel {
       position: relative; padding: var(--syn-panel-padding, clamp(1rem, 2.8vw, 1.75rem)); overflow-wrap: anywhere;
       color: var(--syn-text); border: var(--syn-panel-border-width, 1px) solid var(--syn-border-subtle);

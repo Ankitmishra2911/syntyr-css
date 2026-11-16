@@ -60,3 +60,5 @@ For browser readers, use the [human-readable HTML documentation directory](https
 
 - [Pinned v0.3.0-alpha.4 core stylesheet](https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css)
 - [Current experimental component gallery](https://syntyr-css.pages.dev/docs/)
+
+- [Intrinsic composition and adoption](docs/composition-adoption.md) — wrapping clusters and sidecars without JavaScript.

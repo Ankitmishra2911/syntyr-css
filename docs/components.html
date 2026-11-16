@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="1e07959c987689d7e61703924b3c97a91b54d3c70d5ddb83e2f0bc5786994386">
+  <meta name="syntyr-source-sha256" content="94707a7b668fe07c11bc3f4ddbf67e6a5eb46aa782d51a2c3782fd18ec8ad2b7">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -92,7 +92,7 @@ the surrounding label should provide additional activation area.</p>
 </tr>
 <tr>
 <td>Layout</td>
-<td><code>.syn-page</code> (viewport-height opt-in), <code>.syn-shell</code>, <code>.syn-header</code>, <code>.syn-grid</code>, <code>.syn-layout</code>, <code>.syn-inline</code>, <code>.syn-stack</code></td>
+<td><code>.syn-page</code> (viewport-height opt-in), <code>.syn-shell</code>, <code>.syn-header</code>, <code>.syn-grid</code>, <code>.syn-layout</code>, <code>.syn-inline</code>, <code>.syn-sidecar</code>, <code>.syn-stack</code></td>
 <td>normal CSS layout</td>
 </tr>
 <tr>
@@ -147,6 +147,12 @@ the surrounding label should provide additional activation area.</p>
 </tr>
 </tbody>
 </table>
+<p>For wrapping action/filter clusters, use existing <code>.syn-inline</code> with optional
+<code>--syn-inline-align</code>, <code>--syn-inline-justify</code> and <code>--syn-inline-gap</code>.
+For a main region followed by an aside, <code>.syn-sidecar</code> wraps intrinsically
+with <code>--syn-sidecar-main-min</code>, <code>--syn-sidecar-aside-width</code>,
+<code>--syn-sidecar-gap</code> and <code>--syn-sidecar-align</code>. See the
+<a href="composition-adoption.html">intrinsic composition guide</a>.</p>
 <h3 id="optional-composition-utilities-and-component-overrides">Optional composition utilities and component overrides</h3>
 <p>Load <code>syntyr.utilities.css</code> in addition to core to use finite helpers:
 <code>syn-u-w-full</code>, <code>syn-u-max-reading</code>, <code>syn-u-overflow-auto</code>,
