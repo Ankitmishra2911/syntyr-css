@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="db0b11fe436422d8feab6af87e54590900213e9a781228f7ed11af6f1dea3f3b">
+  <meta name="syntyr-source-sha256" content="1e07959c987689d7e61703924b3c97a91b54d3c70d5ddb83e2f0bc5786994386">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -234,6 +234,84 @@ or use the <a href="editor-integration.html">editor integration instructions</a>
   &lt;progress id=&quot;fill&quot; value=&quot;12&quot; max=&quot;20&quot;&gt;12 of 20&lt;/progress&gt;
 &lt;/main&gt;
 </code></pre>
+<h2 id="additional-common-ui-elements-and-semantic-html">Additional common UI elements and semantic HTML</h2>
+<p>The optional <code>syntyr.semantic.css</code> now covers the presentation-relevant
+<code>hgroup</code>, <code>time</code>, <code>data</code>, <code>cite</code>, <code>dfn</code>, <code>var</code>, <code>q</code>, <code>ins</code>, <code>del</code>,
+<code>picture</code>, <code>iframe</code>, <code>canvas</code>, and <code>svg</code> elements, plus native
+<code>select[multiple]</code> and <code>textarea</code> without a <code>rows</code> attribute.
+These styles apply only to unclassed elements inside <code>.syn-semantic</code> or to
+elements with <code>data-syn-semantic</code>. Existing semantics, quotes, change
+markings, media aspect ratios, and browser controls remain intact.</p>
+<p>Elements like <code>bdi</code>, <code>bdo</code>, <code>ruby</code>, <code>rt</code>, <code>rp</code>, <code>wbr</code>, <code>template</code>,
+<code>slot</code>, <code>option</code>, and <code>datalist</code> deliberately use native browser behavior.
+Structural landmarks, <code>script</code>, and metadata do not need cosmetic component
+APIs. <strong>Not every HTML element benefits from a CSS reset.</strong></p>
+<p>The core CSS adds these intentionally small presentation compositions:</p>
+<table>
+<thead>
+<tr>
+<th>CSS API</th>
+<th>Use case</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.syn-avatar</code>, <code>--sm</code>, <code>--lg</code>, <code>.syn-avatar-stack</code></td>
+<td>User or organization identities</td>
+<td>Image or initials; decorative stack labels need a separate accessible group label</td>
+</tr>
+<tr>
+<td><code>.syn-chip</code></td>
+<td>Filter/category labels</td>
+<td>Static or native anchor/button; <code>data-syn-state=&quot;active&quot;</code> only changes visuals</td>
+</tr>
+<tr>
+<td><code>.syn-nav-tabs</code></td>
+<td>Section navigation</td>
+<td>Ordinary links with <code>aria-current=&quot;page&quot;</code>; <strong>not</strong> JavaScript tabs or tabpanels</td>
+</tr>
+<tr>
+<td><code>.syn-list-group</code>, <code>.syn-list-row</code></td>
+<td>Settings, destinations, item lists</td>
+<td>Native list semantics; rows may contain anchors; <code>aria-current=&quot;page&quot;</code> for current destination</td>
+</tr>
+<tr>
+<td><code>.syn-button-group</code></td>
+<td>Adjacent actions</td>
+<td>Flexbox composition of real links/buttons; no artificial event handling</td>
+</tr>
+<tr>
+<td><code>.syn-divider-label</code></td>
+<td>Labeled separator</td>
+<td>Decorative rules before/after actual text</td>
+</tr>
+<tr>
+<td><code>.syn-alert--success</code>, <code>.syn-alert--warning</code></td>
+<td>Notices</td>
+<td>Extend existing <code>.syn-alert</code>; always include readable status/warning text</td>
+</tr>
+</tbody>
+</table>
+<p>Try the <a href="../examples/common-ui.html">CSS-only common UI example</a> and the
+<a href="../examples/native-elements.html">existing native elements example</a>.</p>
+<pre><code class="language-html">&lt;nav class=&quot;syn-nav-tabs&quot; aria-label=&quot;Account sections&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;/settings&quot; aria-current=&quot;page&quot;&gt;Settings&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;/billing&quot;&gt;Billing&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;ul class=&quot;syn-list-group&quot; aria-label=&quot;Team members&quot;&gt;
+  &lt;li&gt;&lt;span class=&quot;syn-list-row&quot;&gt;&lt;span class=&quot;syn-avatar&quot; aria-hidden=&quot;true&quot;&gt;JD&lt;/span&gt;Jane Doe&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p class=&quot;syn-alert syn-alert--warning&quot;&gt;Review changes before publishing.&lt;/p&gt;
+</code></pre>
+<p>Choose <code>aria-current=&quot;page&quot;</code> only for real navigation state; do not use
+<code>role=&quot;tab&quot;</code> without implementing the WAI-ARIA keyboard and panel behavior.
+Use <code>role=&quot;status&quot;</code> or <code>role=&quot;alert&quot;</code> only for genuinely dynamic
+announcements, not because a box has a particular color. More complex
+interactions (autocomplete, rich text editor, sortable tables, custom menus,
+toast lifecycles) belong to the host app, not a CSS runtime.</p>
 <h2 id="theme-tokens">Theme tokens</h2>
 <table>
 <thead>
@@ -450,6 +528,7 @@ are not included in the published immutable alpha.4 release.</p>
 <a class="docs-article-toc-link docs-article-toc-3" href="#optional-composition-utilities-and-component-overrides">Optional composition utilities and component overrides</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#neutral-first-visual-styling">Neutral-first visual styling</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-html-elements-optional-semantic-mode">Native HTML elements (optional semantic mode)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#additional-common-ui-elements-and-semantic-html">Additional common UI elements and semantic HTML</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#theme-tokens">Theme tokens</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-charts-and-microvisualizations">Optional charts and microvisualizations</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance-contracts">Accessibility and performance contracts</a>
