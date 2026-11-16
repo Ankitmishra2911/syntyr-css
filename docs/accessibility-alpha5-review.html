@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="This report distinguishes the most recent automated findings from older pixel-sampling evidence. It is not a WCAG certification.">
-  <meta name="syntyr-source-sha256" content="d69ee22de445d23cf6ee2c8542255fa8a545a09b99ccdad5d6eed62c0f3a34e2">
+  <meta name="description" content="Scope: source candidate at commit 0e09c34cd82f934f5d29b2df517886607ee9c7fe , built and audited from a clean worktree. The published alpha.4 release…">
+  <meta name="syntyr-source-sha256" content="dbfac6d2460d5f21e0906d6183b3f23e98b8e89c1f35d67403ab3f9e8e9e7b00">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR alpha.5 — outstanding accessibility review — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility-alpha5-review">
@@ -35,6 +35,172 @@
       <div class="docs-article-layout">
         <article class="docs-prose" aria-label="SYNTYR alpha.5 — outstanding accessibility review">
 <h1 id="syntyr-alpha5-outstanding-accessibility-review">SYNTYR alpha.5 — outstanding accessibility review</h1>
+<h2 id="november-16-2026-current-candidate-accessibility-regression-evidence">November 16, 2026 — current candidate accessibility regression evidence</h2>
+<p><strong>Scope:</strong> source candidate at commit
+<code>0e09c34cd82f934f5d29b2df517886607ee9c7fe</code>, built and audited from
+a clean worktree. The published alpha.4 release remains immutable. The change
+strengthens the Blocks fine-grid caption backdrop, instruments opaque
+placeholder foreground/background contrast, and fixes native input, padding,
+and table overflow at narrow widths and enlarged text. It does <strong>not</strong>
+establish WCAG 2.2 AA compliance or approve alpha.5 publication.</p>
+<ul>
+<li><strong>axe-core 4.10.3</strong> (payload SHA-256
+<code>880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb</code>):
+<strong>33 pages</strong>, <strong>0 confirmed automated violations</strong>, <strong>14 incomplete
+color-contrast rule results covering 160 element entries</strong>. The prior
+candidate had 161 entries. All 160 remain unresolved <em>manual-review
+targets</em>; do not equate an incomplete result with a failed or passed test.
+Audit JSON SHA-256:
+<code>732f605a4ea458f71917039395633f701a019a5813490d98a600844c0ded96c2</code>.</li>
+<li><strong>Developer-only contrast triage at 1280px, 390px and 320px:</strong> 447
+screenshot-pixel observations sampled above their text thresholds;
+6 computed, fully opaque placeholder observations above threshold
+(two placeholders × three widths); 27 observations classified as
+non-text; 0 sampled below threshold, 0 with a narrow margin, 0
+unsampled. The dashboard dispatch placeholder computed <strong>10.142:1</strong>
+and native-API notes placeholder <strong>6.263:1</strong> against their opaque
+element backgrounds. Neither heuristic pixel sampling nor computed
+placeholder colors certifies painted glyph-level contrast. Triage
+JSON SHA-256:
+<code>20d6e7c6d66113076bb4b536b083a802dd2ec34d63f95aa70dc0db5319ba68ed</code>.</li>
+<li><strong>Real browser regression tests using Playwright 1.64.1</strong> in a pinned
+Linux container: Chromium, Firefox, WebKit all passed the focused
+accessibility/native HTML tests, including all seven built-in palettes,
+initial 320px reflow, keyboard-operable native scroll regions,
+200%/400% <em>root-font scaling</em>, and forced-colors <em>emulation</em>.
+The shared browser matrix passed <strong>31 pages × 3 widths × 3 engines =
+279 page/viewport cases</strong>, plus interaction checks.</li>
+<li><strong>Published-site reflow matrix:</strong> <strong>88 allowlisted HTML pages ×
+13 viewport/root-font combinations × 3 engines = 3,432 passes</strong>,
+with no failed or blocked engines. This uses font enlargement and
+CSS viewport tests, <strong>not true browser UI zoom</strong>.</li>
+<li><strong>Build and packaging:</strong> 623 Python unit tests completed with
+1 skipped, plus deterministic CSS/API metadata checks, source
+color-pair audit (84/84), maintenance policy, public site build and
+package assembly. The package was only built locally; alpha.5 was
+<strong>not published, frozen or tagged</strong>. Tests and builds use no new
+consumer JavaScript dependencies.</li>
+</ul>
+<h3 id="outstanding-review-targets-axe-incomplete-not-proven-failures">Outstanding review targets (axe incomplete; not proven failures)</h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th style="text-align:right">Outstanding element entries</th>
+<th>Manual assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blocks gallery</td>
+<td style="text-align:right">35</td>
+<td>Effective paint behind text, gradients, focus and themes</td>
+</tr>
+<tr>
+<td>Geometry terminal</td>
+<td style="text-align:right">30</td>
+<td>Shaped-frame layers, glyph-level contrast and overlay states</td>
+</tr>
+<tr>
+<td>Documentation homepage</td>
+<td style="text-align:right">17</td>
+<td>Hero composites and nested palette surfaces</td>
+</tr>
+<tr>
+<td>Grid flagship</td>
+<td style="text-align:right">16</td>
+<td>Foregrounds over gradient and textured backgrounds</td>
+</tr>
+<tr>
+<td>Noir flagship</td>
+<td style="text-align:right">14</td>
+<td>Layered dark surfaces and decorative contrast</td>
+</tr>
+<tr>
+<td>Operations console</td>
+<td style="text-align:right">11</td>
+<td>Terminal decoration, badges and state indicators</td>
+</tr>
+<tr>
+<td>Other audited pages</td>
+<td style="text-align:right">37</td>
+<td>Page-specific computed backgrounds and non-text indicators</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align:right"><strong>160</strong></td>
+<td><strong>Still needs human adjudication</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The 27 non-text triage observations represent nine targets across three
+widths, including terminal prompt symbols and decorative SVG symbols;
+they are not automatically exempt from a non-text accessibility check
+where the indicator conveys essential meaning.</p>
+<p>Reproduce after obtaining the pinned axe script and developer-only
+Playwright/Pillow installation:</p>
+<pre><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-alpha5-axe.json
+python3 tests/contrast_pixel_triage.py \
+  --axe-report /tmp/syntyr-alpha5-axe.json \
+  --output /tmp/syntyr-alpha5-contrast-triage.json \
+  --widths 1280 390 320
+python3 tests/accessibility_regression_browser.py \
+  --browsers chromium firefox webkit
+python3 tests/native_semantic_browser.py
+python3 tests/browser_matrix.py --browsers chromium firefox webkit
+python3 tests/published_reflow_browser.py \
+  --browsers chromium firefox webkit
+</code></pre>
+<p>The two JSON digests above identify the retained local reports. They are
+review artifacts, <strong>not</strong> published site assets or included in the CSS
+distribution.</p>
+<h3 id="release-sign-off-is-still-open">Release sign-off is still OPEN</h3>
+<table>
+<thead>
+<tr>
+<th>Human-only gate</th>
+<th>Required evidence before release</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual contrast adjudication</td>
+<td>Reviewer checks each unresolved node using effective painted background, interaction state, viewport, contrast measurement and screenshot</td>
+<td><strong>OPEN — 160 targets</strong></td>
+</tr>
+<tr>
+<td>Real browser zoom</td>
+<td>200% and 400% browser UI zoom, content reflow, usable inputs and scrolling tables; record browser, OS, effective CSS viewport</td>
+<td><strong>OPEN</strong></td>
+</tr>
+<tr>
+<td>Assistive technology</td>
+<td>NVDA + Firefox/Chrome and VoiceOver + Safari (Orca + Firefox optional), with actual headings, landmarks, forms, table, status, popover and keyboard flow</td>
+<td><strong>OPEN</strong></td>
+</tr>
+<tr>
+<td>Native OS high contrast</td>
+<td>Real operating-system high-contrast mode and screenshot/keyboard inspection of focus, boundaries and status indicators</td>
+<td><strong>OPEN</strong></td>
+</tr>
+<tr>
+<td>Integrated application flow</td>
+<td>Real host-owned validation/feedback, overlay focus, keyboard operations and error recovery, with issue references for defects</td>
+<td><strong>OPEN</strong></td>
+</tr>
+<tr>
+<td>Release governance</td>
+<td>Trademark/name clearance, distribution ownership and authorized freeze/release approval</td>
+<td><strong>OPEN</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Reviewer, device, OS/browser/AT version, exact release commit, artifact links,
+observed behavior and explicit sign-off must be recorded before any gate is
+marked complete. Current automated evidence must <strong>not</strong> be used to claim
+WCAG conformance or authorize alpha.5 publishing.</p>
 <p>This report distinguishes the most recent automated findings from older
 pixel-sampling evidence. It is <strong>not</strong> a WCAG certification.</p>
 <h2 id="follow-up-audit-9f7f22b-november-15-2026">Follow-up audit: <code>9f7f22b</code> (November 15, 2026)</h2>
@@ -585,6 +751,9 @@ Playwright 1.65.2 image. These do not describe the newer 1.64.1 run.</li>
 <p>A passing axe-core run alone is <strong>not</strong> sufficient to claim WCAG conformance.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#november-16-2026-current-candidate-accessibility-regression-evidence">November 16, 2026 — current candidate accessibility regression evidence</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#outstanding-review-targets-axe-incomplete-not-proven-failures">Outstanding review targets (axe incomplete; not proven failures)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#release-sign-off-is-still-open">Release sign-off is still OPEN</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#follow-up-audit-9f7f22b-november-15-2026">Follow-up audit: 9f7f22b (November 15, 2026)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#follow-up-pixel-triage-after-pr-118-november-15-2026">Follow-up pixel triage after PR #118 (November 15, 2026)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#verified-source-snapshot-038a24d-november-15-2026">Verified source snapshot: 038a24d (November 15, 2026)</a>

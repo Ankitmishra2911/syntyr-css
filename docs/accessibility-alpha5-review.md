@@ -1,5 +1,110 @@
 # SYNTYR alpha.5 — outstanding accessibility review
 
+
+## November 16, 2026 — current candidate accessibility regression evidence
+
+**Scope:** source candidate at commit
+`0e09c34cd82f934f5d29b2df517886607ee9c7fe`, built and audited from
+a clean worktree. The published alpha.4 release remains immutable. The change
+strengthens the Blocks fine-grid caption backdrop, instruments opaque
+placeholder foreground/background contrast, and fixes native input, padding,
+and table overflow at narrow widths and enlarged text. It does **not**
+establish WCAG 2.2 AA compliance or approve alpha.5 publication.
+
+- **axe-core 4.10.3** (payload SHA-256
+  `880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb`):
+  **33 pages**, **0 confirmed automated violations**, **14 incomplete
+  color-contrast rule results covering 160 element entries**. The prior
+  candidate had 161 entries. All 160 remain unresolved *manual-review
+  targets*; do not equate an incomplete result with a failed or passed test.
+  Audit JSON SHA-256:
+  `732f605a4ea458f71917039395633f701a019a5813490d98a600844c0ded96c2`.
+- **Developer-only contrast triage at 1280px, 390px and 320px:** 447
+  screenshot-pixel observations sampled above their text thresholds;
+  6 computed, fully opaque placeholder observations above threshold
+  (two placeholders × three widths); 27 observations classified as
+  non-text; 0 sampled below threshold, 0 with a narrow margin, 0
+  unsampled. The dashboard dispatch placeholder computed **10.142:1**
+  and native-API notes placeholder **6.263:1** against their opaque
+  element backgrounds. Neither heuristic pixel sampling nor computed
+  placeholder colors certifies painted glyph-level contrast. Triage
+  JSON SHA-256:
+  `20d6e7c6d66113076bb4b536b083a802dd2ec34d63f95aa70dc0db5319ba68ed`.
+- **Real browser regression tests using Playwright 1.64.1** in a pinned
+  Linux container: Chromium, Firefox, WebKit all passed the focused
+  accessibility/native HTML tests, including all seven built-in palettes,
+  initial 320px reflow, keyboard-operable native scroll regions,
+  200%/400% *root-font scaling*, and forced-colors *emulation*.
+  The shared browser matrix passed **31 pages × 3 widths × 3 engines =
+  279 page/viewport cases**, plus interaction checks.
+- **Published-site reflow matrix:** **88 allowlisted HTML pages ×
+  13 viewport/root-font combinations × 3 engines = 3,432 passes**,
+  with no failed or blocked engines. This uses font enlargement and
+  CSS viewport tests, **not true browser UI zoom**.
+- **Build and packaging:** 623 Python unit tests completed with
+  1 skipped, plus deterministic CSS/API metadata checks, source
+  color-pair audit (84/84), maintenance policy, public site build and
+  package assembly. The package was only built locally; alpha.5 was
+  **not published, frozen or tagged**. Tests and builds use no new
+  consumer JavaScript dependencies.
+
+### Outstanding review targets (axe incomplete; not proven failures)
+
+| Area | Outstanding element entries | Manual assessment |
+| --- | ---: | --- |
+| Blocks gallery | 35 | Effective paint behind text, gradients, focus and themes |
+| Geometry terminal | 30 | Shaped-frame layers, glyph-level contrast and overlay states |
+| Documentation homepage | 17 | Hero composites and nested palette surfaces |
+| Grid flagship | 16 | Foregrounds over gradient and textured backgrounds |
+| Noir flagship | 14 | Layered dark surfaces and decorative contrast |
+| Operations console | 11 | Terminal decoration, badges and state indicators |
+| Other audited pages | 37 | Page-specific computed backgrounds and non-text indicators |
+| **Total** | **160** | **Still needs human adjudication** |
+
+The 27 non-text triage observations represent nine targets across three
+widths, including terminal prompt symbols and decorative SVG symbols;
+they are not automatically exempt from a non-text accessibility check
+where the indicator conveys essential meaning.
+
+Reproduce after obtaining the pinned axe script and developer-only
+Playwright/Pillow installation:
+
+```sh
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-alpha5-axe.json
+python3 tests/contrast_pixel_triage.py \
+  --axe-report /tmp/syntyr-alpha5-axe.json \
+  --output /tmp/syntyr-alpha5-contrast-triage.json \
+  --widths 1280 390 320
+python3 tests/accessibility_regression_browser.py \
+  --browsers chromium firefox webkit
+python3 tests/native_semantic_browser.py
+python3 tests/browser_matrix.py --browsers chromium firefox webkit
+python3 tests/published_reflow_browser.py \
+  --browsers chromium firefox webkit
+```
+
+The two JSON digests above identify the retained local reports. They are
+review artifacts, **not** published site assets or included in the CSS
+distribution.
+
+### Release sign-off is still OPEN
+
+| Human-only gate | Required evidence before release | Status |
+| --- | --- | --- |
+| Manual contrast adjudication | Reviewer checks each unresolved node using effective painted background, interaction state, viewport, contrast measurement and screenshot | **OPEN — 160 targets** |
+| Real browser zoom | 200% and 400% browser UI zoom, content reflow, usable inputs and scrolling tables; record browser, OS, effective CSS viewport | **OPEN** |
+| Assistive technology | NVDA + Firefox/Chrome and VoiceOver + Safari (Orca + Firefox optional), with actual headings, landmarks, forms, table, status, popover and keyboard flow | **OPEN** |
+| Native OS high contrast | Real operating-system high-contrast mode and screenshot/keyboard inspection of focus, boundaries and status indicators | **OPEN** |
+| Integrated application flow | Real host-owned validation/feedback, overlay focus, keyboard operations and error recovery, with issue references for defects | **OPEN** |
+| Release governance | Trademark/name clearance, distribution ownership and authorized freeze/release approval | **OPEN** |
+
+Reviewer, device, OS/browser/AT version, exact release commit, artifact links,
+observed behavior and explicit sign-off must be recorded before any gate is
+marked complete. Current automated evidence must **not** be used to claim
+WCAG conformance or authorize alpha.5 publishing.
+
+
 This report distinguishes the most recent automated findings from older
 pixel-sampling evidence. It is **not** a WCAG certification.
 
