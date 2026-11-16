@@ -8,6 +8,30 @@ when:
 
 steps:
   - name: node-jsx-tsx-consumers
+    # Preserve the optional consumer check while skipping npm for unrelated changes.
+    # A manual invocation always runs the full set of adoption fixtures.
+    when:
+      - event: manual
+      - event: [pull_request, push]
+        path:
+          include:
+            - src/**
+            - dist/**
+            - package.json
+            - packages/react/**
+            - examples/react-vite/**
+            - examples/preact-jsx/**
+            - examples/solid-tsx/**
+            - examples/next-app-router/**
+            - examples/node-express/**
+            - integrations/**
+            - scripts/build.py
+            - scripts/export_ecosystem_adapters.py
+            - scripts/test_js_adoption.py
+            - tests/test_node_react_next_adoption.py
+            - tests/animate.test.mjs
+            - .woodpecker/js-adoption.yaml
+          on_empty: true
     image: node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
     commands:
       - node --version && npm --version
