@@ -145,4 +145,31 @@ test("the native example tolerates loading its registration code through two URL
     await import("./status-toggle.js?second-load");
     return customElements.get("syn-demo-native-status") !== undefined;
   })).resolves.toBeTruthy();
+  await page.locator("#native-status").locator('[part="toggle"]').click();
+  await expect(page.locator("#native-event-output")).toHaveText("Relay: offline");
+});
+
+test("two native instances maintain independent state and emit one event per activation", async ({ page }) => {
+  await page.goto(nativePage);
+  await page.locator("#native-container").evaluate(container => {
+    const second = document.createElement("syn-demo-native-status");
+    second.id = "backup-status";
+    second.service = "Backup";
+    container.append(second);
+    window.__nativeEvents = [];
+    document.addEventListener("syn-demo-native-status-change",
+      event => window.__nativeEvents.push(event.detail));
+  });
+
+  await page.locator("#backup-status").locator('[part="toggle"]').click();
+  await expect(page.locator("#backup-status").locator('[part="status"]')).toHaveText("Online");
+  await expect(page.locator("#native-status").locator('[part="status"]')).toHaveText("Online");
+
+  await page.locator("#native-status").locator('[part="toggle"]').click();
+  await expect(page.locator("#native-status").locator('[part="status"]')).toHaveText("Offline");
+  await expect(page.locator("#backup-status").locator('[part="status"]')).toHaveText("Online");
+  expect(await page.evaluate(() => window.__nativeEvents)).toEqual([
+    { service: "Backup", online: true },
+    { service: "Relay", online: false },
+  ]);
 });
