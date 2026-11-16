@@ -40,6 +40,7 @@ class ContinuousIntegrationContract(unittest.TestCase):
         step = workflow.split("- name: node-jsx-tsx-consumers", 1)[1]
         self.assertIn("when:", step)
         self.assertIn("event: manual", step)
+        self.assertIn("event: [pull_request, push]", step)
         self.assertIn("path:", step)
         self.assertIn("on_empty: true", step)
         for relevant in (
