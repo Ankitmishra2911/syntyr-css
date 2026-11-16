@@ -378,3 +378,19 @@ test('reduced-motion cancellation does not run a replaced exit callback', async 
   assert.equal(removed, 0);
   assert.equal(animations.every(a => a.cancelled), true);
 });
+
+test('completed exit releases its filled effect when callback starts a new animation', async () => {
+  const {element, animations} = controlledTarget();
+  globalThis.matchMedia = () => ({matches: false});
+  const outgoing = exit(element, () => {
+    animate(element, 'press');
+  });
+  outgoing.finish();
+  await outgoing.finished;
+  await Promise.resolve();
+  assert.equal(animations.length, 2);
+  assert.equal(outgoing.cancelled, true, 'old forwards-filled opacity must be released');
+  assert.equal(animations[1].cancelled, false, 'cleanup must not cancel the new animation');
+  animations[1].finish();
+  await animations[1].finished;
+});

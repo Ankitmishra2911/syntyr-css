@@ -168,7 +168,9 @@ export function exit(element, onComplete, options = {}) {
     reducedExitCompletion.delete(animation);
     try { onComplete(); }
     finally {
-      if (invocationByElement.get(element) === invocation) animation.cancel();
+      // Release this specific forwards-filled exit even when the host callback
+      // immediately starts another effect on the same element.
+      animation.cancel();
     }
   };
   // A preference change must commit the host state immediately rather than
