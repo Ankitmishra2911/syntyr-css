@@ -140,6 +140,7 @@ def build() -> str:
           </select></div>
       </div>
       <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-feedback" class="syn-caption" role="status" aria-live="polite" aria-atomic="true"></p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">{''.join(cards)}
       </div>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="These are MIT-licensed, plain-HTML examples . Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime…">
-  <meta name="syntyr-source-sha256" content="44b6598669ef1b441df0eefea8d8bab361fc71ed67064084720ecbeec4f508fb">
+  <meta name="syntyr-source-sha256" content="76db49503915ca5932ad9d70b48bf3c5b1c938e2eb77845325737cf918cca3a3">
   <meta name="theme-color" content="#f5f7fb">
   <title>Copy-owned form recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-recipes">
@@ -57,7 +57,7 @@
       &lt;label class=&quot;syn-label&quot; for=&quot;account-query&quot;&gt;Account name&lt;/label&gt;
       &lt;div class=&quot;syn-input-group&quot;&gt;
         &lt;input class=&quot;syn-input&quot; id=&quot;account-query&quot; name=&quot;q&quot;
-               type=&quot;search&quot; placeholder=&quot;Search accounts&quot;&gt;
+               type=&quot;search&quot; enterkeyhint=&quot;search&quot; placeholder=&quot;Search accounts&quot;&gt;
         &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -66,6 +66,15 @@
 </code></pre>
 <p>This is <strong>progressive enhancement</strong>: the GET form submits with <strong>No JavaScript</strong>. An HTMX application may add <code>hx-get</code> and <code>hx-target</code> while preserving <code>action</code>, <code>method</code>, and a server-rendered fallback. The application must implement the endpoint and return actual search results.</p>
 <p>At narrow available widths (12rem or less relative to the current text size), a connected input and submit button stack instead of squeezing the input into a tall, narrow strip. The <code>.syn-input-group</code> itself determines the breakpoint through a CSS container query; no viewport breakpoint, JavaScript, or additional component class is needed. Input groups containing only currency/unit addons keep their existing inline layout. Test long button labels, translations and browser zoom in consuming applications.</p>
+<h3 id="search-results-accessibility-and-enhancement-contract">Search results, accessibility, and enhancement contract</h3>
+<ul>
+<li><strong>Result counts:</strong> On the server, preserve the submitted query, show truthful matches, and use an empty state only when no records match. When an optional live enhancement updates results, announce a concise count in a dedicated <code>role=&quot;status&quot;</code> element with <code>aria-live=&quot;polite&quot;</code>; keep clipboard and other action feedback separate.</li>
+<li><strong>Loading/errors:</strong> Host applications own network cancellation, request ordering, actual loading indicators, error recovery, URL/history state, authorization and pagination. A static composition never claims to filter records.</li>
+<li><strong>IME composition:</strong> Debounced or incremental search must not submit intermediate East Asian input while the user is composing; handle <code>compositionstart</code> / <code>compositionend</code> in the behavior owner. Do not turn native form submission into an inaccessible custom widget.</li>
+<li><strong>Fallbacks:</strong> For simple suggestions, <code>datalist</code> can add browser-provided values, but its rendering and assistive-technology behavior vary across browsers. Use an optional tested combobox adapter for async suggestions, controlled selection, or custom keyboard navigation.</li>
+<li><strong>Reflow and RTL:</strong> Test long translated labels, 320 CSS-pixel widths, 200% and 400% zoom, keyboard focus, forced colors, and <code>dir=&quot;rtl&quot;</code>. Keep the native search clear affordance and never rely on a placeholder as the accessible name.</li>
+<li><strong>Command palettes:</strong> Visual command rows are not working shortcuts or listbox options. Use actual links for destinations; if your application adds a keyboard command index, the behavior owner supplies focus, Escape, selection, permissions, and accessible announcements.</li>
+</ul>
 <h2 id="3-input-addon-currency-and-unit">3. Input addon (currency and unit)</h2>
 <pre><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-field&quot;&gt;
@@ -155,6 +164,7 @@ do not conceal autofilled values with pseudo-elements or forced-color overrides.
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#1-labeled-field-with-assistance-and-server-side-validation">1. Labeled field with assistance and server-side validation</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#2-search-field-with-a-connected-button">2. Search field with a connected button</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#search-results-accessibility-and-enhancement-contract">Search results, accessibility, and enhancement contract</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#3-input-addon-currency-and-unit">3. Input addon (currency and unit)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-container-responsive-horizontal-form">4. Container-responsive horizontal form</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#5-server-rendered-error-recovery">5. Server-rendered error recovery</a>
