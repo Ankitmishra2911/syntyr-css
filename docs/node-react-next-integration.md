@@ -20,8 +20,9 @@ From the repo root:
 python3 scripts/test_js_adoption.py --install
 ```
 
-The runner builds and runs server-rendered React tests, then builds the Vite
-and Next.js apps, then performs a real Express HTTP smoke test. After the
+The runner builds and runs server-rendered React tests, builds the React,
+Preact and Solid Vite consumers and the Next.js app, then performs a real
+Express HTTP smoke test. After the
 first installation, omit `--install`. npm fixture lockfiles and node_modules
 are intentionally ignored to avoid consumer dependencies in the CSS project.
 
@@ -41,6 +42,9 @@ python3 -m venv /tmp/syntyr-js-browser
 The separate Woodpecker `js-adoption` pipeline builds the same consumers
 without imposing Node.js on the standard CSS quality pipeline. The optional
 browser smoke is a maintainer check, not a claimed CI browser gate.
+
+For direct JSX/TSX use without the experimental wrappers, and Preact and Solid
+fixtures, see [JSX and TSX adoption](jsx-tsx-integration.md).
 
 ## React + Vite
 

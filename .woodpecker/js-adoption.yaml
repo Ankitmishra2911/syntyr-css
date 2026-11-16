@@ -7,7 +7,7 @@ when:
   - event: manual
 
 steps:
-  - name: node-react-next-consumers
+  - name: node-jsx-tsx-consumers
     image: node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
     commands:
       - node --version && npm --version
@@ -15,6 +15,10 @@ steps:
       - npm test --prefix packages/react
       - npm install --prefix examples/react-vite --no-audit --no-fund
       - npm run build --prefix examples/react-vite
+      - npm install --prefix examples/preact-jsx --no-audit --no-fund
+      - npm run build --prefix examples/preact-jsx
+      - npm install --prefix examples/solid-tsx --no-audit --no-fund
+      - npm run build --prefix examples/solid-tsx
       - npm install --prefix examples/next-app-router --no-audit --no-fund
       - npm run build --prefix examples/next-app-router
       - npm install --prefix examples/node-express --no-audit --no-fund

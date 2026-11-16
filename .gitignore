@@ -39,5 +39,7 @@ benchmarks/agent-output/runs/
 # Optional JS adoption examples: avoid committing generated outputs.
 packages/react/dist/
 examples/react-vite/dist/
+examples/preact-jsx/dist/
+examples/solid-tsx/dist/
 examples/next-app-router/.next/
 *.tsbuildinfo
