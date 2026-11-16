@@ -76,6 +76,7 @@ The form needs a real endpoint and appropriate security controls; CSS does not h
 - [Theme comparison](examples/themes.html), [three flagship layouts](docs/visual-composition.md), [original free HTML blocks](docs/blocks-guide.md), and [interactive playground](https://syntyr-css.pages.dev/docs/playground.html) ([source](docs/playground.html)).
 - [Visualizations](docs/viz.md) via `syntyr.viz.css`; [symbols](docs/symbols.md) via `syntyr.symbols.css`; [intensity and geometry](docs/visual-intensity.md). Optional visuals do not add application logic.
 - [Browser-native API demonstration](examples/native-apis.html), [headless interactions](docs/headless-interactions.md), and [performance-first demo](examples/performance-first.html).
+- [Runnable Unpoly](https://github.com/dporkka/syntyr-css/blob/main/examples/unpoly.html) and [Turbo](https://github.com/dporkka/syntyr-css/blob/main/examples/turbo.html) integration fixtures: [local server](https://github.com/dporkka/syntyr-css/blob/main/examples/hypertext_server.py) and [cross-browser test suite](https://github.com/dporkka/syntyr-css/blob/main/tests/hypertext_browser.py) (development-only; not static Cloudflare demos).
 
 All shipped repository source is MIT-licensed. Static examples can illustrate loading, search controls, buttons, and filters **without** implementing those behaviors.
 
