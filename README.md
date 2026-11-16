@@ -53,7 +53,7 @@
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
 - [Performance validation protocol and measured CSS size baseline](docs/performance-validation.md)
 - [Optional five-framework browser benchmark: Syntyr, plain CSS, Pure, Tailwind v4 and UnoCSS](docs/framework-performance.md)
-- [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
+- [Theme customization, component-local layout tokens, native states, and opt-in OKLCH mixing](docs/theme-customization.md)
 - [Design research: Linear, Resend, and developer tooling](docs/design-research-linear-resend.md)
 - [Premium CSS-only compositions](docs/premium-compositions.md) and [Studio/Grid/Noir live gallery](examples/premium-compositions.html): layered surfaces, detail inspector, command presentation, timeline, and showcase
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)

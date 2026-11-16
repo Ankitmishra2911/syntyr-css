@@ -1164,6 +1164,15 @@
       ]
     },
     {
+      "name": "data-syn-color-space",
+      "description": "Experimental opt-in OKLCH hover mixing; default remains sRGB.",
+      "values": [
+        {
+          "name": "oklch"
+        }
+      ]
+    },
+    {
       "name": "data-syn-state",
       "description": "Host-managed decorative state, not an ARIA substitute.",
       "values": [

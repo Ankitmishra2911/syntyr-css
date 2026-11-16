@@ -11,6 +11,8 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
 | New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
+| New documented component-local layout variables | Experimental alpha.5 opt-in API | Evaluate for stability after responsive review |
+| `data-syn-color-space="oklch"` | Experimental alpha.5 presentation opt-in | Evaluate perceptual color/contrast before v1 |
 | `data-syn-theme` and documented `data-syn-*` state hooks | Public prerelease API | Stable names and meanings |
 | `syntyr.semantic.css` and `.syn-semantic` | Opt-in prerelease API | Stable scoped semantics after audit |
 | `dist/presets/{minimal,saas,cinematic}.css` | Experimental single-file entrypoints | Stabilize names and inclusion contract only after explicit review |
@@ -41,6 +43,20 @@ experimental and are not in immutable alpha.4. Core adds explicit
 `data-syn-density="comfortable"` and `"spacious"` profiles alongside the
 existing `"compact"` profile, allowing nested density overrides.
 No application behaviors or JavaScript are shipped with these compositions.
+
+### Alpha.5 native CSS refinements
+
+Core layout components expose optional local `--syn-grid-*`,
+`--syn-layout-*`, `--syn-stack-gap` and `--syn-inline-gap` overrides.
+Optional recipes expose KPI, filter and detail-layout equivalents. Their
+fallbacks preserve the earlier default layouts, without a compiler or extra
+runtime dependency. `.syn-field` gains progressive native focus/error label
+styling, and `.syn-panel[inert]` gains a presentation-only unavailable cue.
+
+The experimental `data-syn-color-space="oklch"` attribute changes only the
+surface-hover color-mix role on explicitly opted-in regions. Default palettes,
+semantic foreground pairs and fallback colors are unchanged. It is not a new
+default theme or a stability commitment; see the [theme customization guide](theme-customization.md).
 
 ### Alpha.5 semantic HTML authoring changes
 
