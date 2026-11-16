@@ -26,7 +26,7 @@ else:
 SITE = "https://syntyr-css.pages.dev"
 GUIDES = tuple(name for name in PUBLIC_DOCS if name.endswith(".md"))
 SECTIONS = (
-    ("Start here", ("ai-quickstart", "distribution", "package-managers", "from-pico",
+    ("Start here", ("getting-started", "ai-quickstart", "distribution", "package-managers", "from-pico",
                     "adoption-starters", "components", "data-tables", "data-grid",
                     "recipes", "native-patterns", "component-recipes")),
     ("Design system", ("design-principles", "theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),

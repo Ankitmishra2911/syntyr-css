@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s editor integration is optional . Applications still consume ordinary prebuilt CSS, HTML, and custom properties without Node, JavaScript, or a…">
-  <meta name="syntyr-source-sha256" content="33fa5d04702d5b26f103b64011d0d9054449a35ec50d89d2818c6b1c1509b767">
+  <meta name="syntyr-source-sha256" content="796bcb9662216034cde22857c57f259da90c38368bfcceda2044cef4b5814d8a">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr editor autocomplete and metadata — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/editor-integration">
@@ -109,6 +109,7 @@ theme/state values, and CSS distribution filenames. The contract is generated
 by <code>python3 scripts/export_api_metadata.py</code> and checked by <code>--check</code>. Do
 not edit it directly. The existing <code>metadata/components.json</code> remains a
 curated subset and is not a complete list of classes.</p>
+<p>The unreleased alpha.5 release ZIP candidate now includes both <code>scripts/syntyr_check.py</code> and its matching <code>metadata/syntyr-contract.json</code>, so the extracted archive can run the optional checker without a source checkout. The published alpha.4 ZIP does not include these tools.</p>
 <p>To validate static HTML during development (Python 3.10+, standard library only):</p>
 <pre><code class="language-sh">python3 scripts/syntyr_check.py index.html examples/saas.html
 python3 scripts/syntyr_check.py --format json index.html
