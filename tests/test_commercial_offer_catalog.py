@@ -40,7 +40,7 @@ class CommercialOfferCatalogTests(unittest.TestCase):
         expected = {
             'console-kit': (12, 36),
             'pro': (15, 45),
-            'studio': (26, 78),
+            'studio': (30, 90),
         }
         products = {product['id']: product for product in self.catalog['products']}
         for slug, (screens, variants) in expected.items():
@@ -62,14 +62,16 @@ class CommercialOfferCatalogTests(unittest.TestCase):
         self.assertNotIn('prototype_screen_types', products['agency'])
         self.assertNotIn('prototype_screen_types', products['core'])
 
-    def test_studio_offer_describes_the_two_existing_website_kits(self):
+    def test_studio_offer_describes_three_merged_website_kits(self):
         studio = next(p for p in self.catalog['products'] if p['id'] == 'studio')
         self.assertIn('B2B SaaS', studio['description'])
         self.assertIn('professional-services', studio['description'])
-        self.assertIn('two original website kits', self.html)
+        self.assertIn('ecommerce', studio['description'])
+        self.assertIn('three original website kits', self.html)
         self.assertIn('six-page B2B SaaS', self.html)
         self.assertIn('five-page professional-services', self.html)
-        self.assertIn('Marketing page types</th><td>Free examples</td><td>—</td><td>—</td><td>11</td>', self.html)
+        self.assertIn('four-page ecommerce', self.html)
+        self.assertIn('Marketing page types</th><td>Free examples</td><td>—</td><td>—</td><td>15</td>', self.html)
 
     def test_roadmap_is_clearly_not_a_storefront_or_payment_form(self):
         self.assertIn('NOT FOR SALE', self.html)
