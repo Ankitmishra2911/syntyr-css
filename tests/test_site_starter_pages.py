@@ -37,6 +37,11 @@ class SiteStarterTests(unittest.TestCase):
                 self.assertTrue(any(a.get("href") == "#content" for a in tags.attrs))
                 self.assertIn("Illustrative site starter", page)
 
+    def test_agent_index_discovers_free_starters(self):
+        index = (ROOT / 'llms.txt').read_text()
+        self.assertIn('docs/blocks-guide.md', index)
+        self.assertIn('site starter', index.lower())
+
     def test_only_public_free_pages_are_allowlisted(self):
         from scripts.build_cloudflare_site import source_files
         public = source_files()
