@@ -44,7 +44,11 @@
     "./presets/minimal.css": "./dist/presets/minimal.css",
     "./presets/saas.css": "./dist/presets/saas.css",
     "./presets/cinematic.css": "./dist/presets/cinematic.css",
-    "./contract.json": "./metadata/css-contract.v1.json"
+    "./contract.json": "./metadata/css-contract.v1.json",
+    "./animate": {
+      "types": "./dist/syntyr.animate.d.mts",
+      "default": "./dist/syntyr.animate.mjs"
+    }
   },
   "sideEffects": [
     "**/*.css"

@@ -35,10 +35,15 @@ class NpmDistributionContract(unittest.TestCase):
         expected['./shadcn.css'] = './integrations/shadcn/syntyr.tokens.css'
         expected['./headless.css'] = './integrations/headless/interactions.css'
         expected['./contract.json'] = './metadata/css-contract.v1.json'
+        expected['./animate'] = {
+            'types': './dist/syntyr.animate.d.mts',
+            'default': './dist/syntyr.animate.mjs',
+        }
         self.assertEqual({key: value for key, value in self.package['exports'].items() if key != '.'}, expected)
-        for relative in expected.values():
-            with self.subTest(relative=relative):
-                self.assertTrue((ROOT / relative.removeprefix('./')).is_file())
+        for exported in expected.values():
+            for relative in exported.values() if isinstance(exported, dict) else (exported,):
+                with self.subTest(relative=relative):
+                    self.assertTrue((ROOT / relative.removeprefix('./')).is_file())
 
     def test_allowlisted_release_files_are_css_and_docs_only(self):
         self.assertEqual(set(self.package['files']), {'dist/', 'integrations/tailwind/', 'integrations/shadcn/', 'integrations/headless/', 'metadata/css-contract.v1.json', 'README.md', 'LICENSE'})

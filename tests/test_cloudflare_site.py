@@ -85,7 +85,8 @@ class CloudflareSiteTests(unittest.TestCase):
                 for page in out.rglob("*.html")
                 if page.relative_to(out).as_posix() not in {
                     "docs/theme-editor.html", "docs/catalog.html",
-                    "docs/playground.html", "docs/blocks.html"
+                    "docs/playground.html", "docs/blocks.html",
+                    "examples/animation.html"  # Explicitly opted-in first-party ESM example only.
                 }
             ))
 

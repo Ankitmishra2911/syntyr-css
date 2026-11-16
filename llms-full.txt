@@ -1911,6 +1911,14 @@ This is present in the alpha.5 source candidate, **not published alpha.4**.
 
 A CSS-only `@syntyr/css` manifest is available in the alpha.5 repository candidate, but **it has not been published to npm**. See [package-manager installation and local tarball testing](package-managers.md) for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.
 
+## Optional native animation companion
+
+Syntyr remains CSS-only by default. Applications that need *programmatic* motion
+can separately import `dist/syntyr.animate.mjs` (native Web Animations API and
+IntersectionObserver only). No script is included in core or `syntyr.all.css`.
+See the [animation API guide](animation.md) and the
+[runnable example](../examples/animation.html).
+
 ## Optional themes and semantic HTML
 
 Grid, Noir and Studio ship in the **same** core stylesheet; set
