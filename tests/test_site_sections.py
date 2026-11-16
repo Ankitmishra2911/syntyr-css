@@ -54,6 +54,22 @@ class SiteSectionsTests(unittest.TestCase):
                         self.assertNotIn("disabled", a)
                 self.assertNotRegex(source, r"\bon(?:click|submit|load)=")
 
+    def test_site_header_and_footer_link_targets_use_existing_accessible_rows(self):
+        """Prevent WCAG 2.2 target-size regressions in copy-owned nav patterns."""
+        for ident in ("site-header", "site-footer"):
+            snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text()
+            parsed = Elements()
+            parsed.feed(snippet)
+            for tag, attrs in parsed.elements:
+                if tag != "a":
+                    continue
+                with self.subTest(block=ident, destination=attrs.get("href")):
+                    classes = set(attrs.get("class", "").split())
+                    self.assertTrue(
+                        classes.intersection({"syn-list-row", "syn-button", "syn-page-link"}),
+                        f"{ident}: link has no existing >=24px target-size primitive",
+                    )
+
     def test_gallery_metadata_counts_are_generated_not_hard_coded(self):
         script = (ROOT / "scripts/build_blocks.py").read_text()
         self.assertNotIn("20 production-shaped blocks", script)

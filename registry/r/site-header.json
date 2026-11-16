@@ -13,7 +13,7 @@
       "path": "blocks/snippets/site-header.html",
       "type": "registry:file",
       "target": "~/syntyr/blocks/site-header.html",
-      "content": "<header class=\"syn-root syn-header syn-region\" data-syn-theme=\"studio\" aria-label=\"Example site header\">\n  <a class=\"syn-logo\" href=\"/home\">Northstar Studio</a>\n  <nav class=\"syn-nav\" aria-label=\"Primary navigation\">\n    <a href=\"/services\">Services</a><a href=\"/work\">Work</a><a href=\"/journal\">Journal</a>\n  </nav>\n  <a class=\"syn-button syn-button--primary\" href=\"/contact\">Start a project</a>\n</header>\n"
+      "content": "<header class=\"syn-root syn-header syn-region\" data-syn-theme=\"studio\" aria-label=\"Example site header\">\n  <a class=\"syn-logo syn-list-row\" href=\"/home\">Northstar Studio</a>\n  <nav class=\"syn-nav\" aria-label=\"Primary navigation\">\n    <a class=\"syn-list-row\" href=\"/services\">Services</a><a class=\"syn-list-row\" href=\"/work\">Work</a><a class=\"syn-list-row\" href=\"/journal\">Journal</a>\n  </nav>\n  <a class=\"syn-button syn-button--primary\" href=\"/contact\">Start a project</a>\n</header>\n"
     },
     {
       "path": "LICENSE",
