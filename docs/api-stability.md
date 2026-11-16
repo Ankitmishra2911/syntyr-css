@@ -9,6 +9,7 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Surface | Current policy | Intent for v1 |
 | --- | --- | --- |
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
+| Specialized native `range`, `file` and `color` controls via the existing `.syn-input` selector | Experimental alpha.5 appearance improvement; no new classes or runtime | Keep native controls and browser-driven behavior |
 | New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
 | New documented component-local layout variables | Experimental alpha.5 opt-in API | Evaluate for stability after responsive review |

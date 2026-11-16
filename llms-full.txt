@@ -476,6 +476,41 @@ Use native button `popovertarget="id"` to control a popover and `commandfor="id"
 For component-level package imports and optional native UI recipes, see
 [native patterns](native-patterns.md).
 
+## Standard low-entropy component inventory
+
+**Standard does not mean a CSS class for every HTML element.** Use
+`syntyr.core.css` for explicitly classed components and
+`syntyr.semantic.css` with `.syn-semantic` for native, unclassed elements.
+Both are standard supported surfaces in the alpha.5 source candidate;
+the semantic file is intentionally optional to avoid restyling host apps.
+The browser supplies state/validation/focus behavior. This is the baseline
+inventory of everyday UI needs, not an assertion that CSS implements
+application-specific interactions.
+
+| Need | Standard native-first implementation | Delivery |
+| --- | --- | --- |
+| Text and search | Labeled `input` (`text`, `search`, `email`, `password`, `tel`, `url`, `number`), `textarea`, `datalist` | `.syn-input`, `.syn-textarea`, `.syn-field`; native `datalist` |
+| Date and time | Native `date`, `time`, `datetime-local`, `month`, `week` inputs | `.syn-input`; system picker remains browser-owned |
+| Choice controls | Native `select`/`optgroup`, multiple select, checkbox, radio; `fieldset` + `legend` | `.syn-select`, `.syn-check`, `.syn-fieldset`; no custom select implementation |
+| Range | Native `input type="range"` | `.syn-input` with browser thumb and `accent-color` |
+| File upload | Native `input type="file"` | `.syn-input` with native file-selector button |
+| Color picker | Native `input type="color"` | `.syn-input` with browser color chooser |
+| Buttons and actions | `button`, `a`, submit/reset, `aria-pressed` when application-managed | `.syn-button`, `.syn-button-group`, `.syn-chip` |
+| Data and progress | `table` with headers/caption, `progress`, `meter`, `output`, `dl` | `.syn-table`, `.syn-meter` on `progress`; native `meter`/`output` in semantic mode |
+| Disclosure and overlays | `details`/`summary`, `dialog`, `[popover]`, native invoker attributes | `.syn-details`, `.syn-dialog`, `.syn-popover` |
+| Navigation | `nav`, anchor links, ordered breadcrumbs, pagination, page-link tabs | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-nav-tabs`, `.syn-list-group` |
+| Feedback and loading | Textual alerts/status, native `progress`, static skeleton, empty state | `.syn-alert`, `.syn-status`, `.syn-skeleton`, `.syn-empty` |
+| Media and content | `figure`/`figcaption`, `picture`/`img`, `video`/`audio`, `pre`/`code`, `kbd`, lists, `hr` | Native semantic mode; `.syn-code`, `.syn-rule`, `.syn-divider-label` |
+| Layout and composition | Semantic landmarks, `section`, `article`, grid, stack, inline, toolbar, panel | `.syn-grid`, `.syn-stack`, `.syn-inline`, `.syn-toolbar`, `.syn-panel`, `.syn-sidecar` |
+
+**Application-owned behavior:** A searchable combobox, ARIA tabpanel widget,
+roving-focus menu, sortable/virtualized data grid, notifications queue and
+drag-and-drop are **not** CSS components. Start with native `select`, links,
+`details`, `dialog`, `popover` or a normal table; when the product really
+needs behavior, use a small headless library or application code with keyboard,
+focus, announcements and tests. Do not introduce a Syntyr JS runtime.
+For native input examples, see [the component catalog](catalog.html).
+
 ## Neutral-first visual styling
 
 The implicit `.syn-root` palette is Studio (light and sans-serif). Explicit `data-syn-theme="grid"` and `data-syn-theme="terminal"` retain technical monospace presentation; other themes remain opt-in. `.syn-panel` and `.syn-stage` are flat by default; add `syn-surface--accent` from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. `.syn-badge` is a neutral label; use `.syn-status` with readable status text for meaningful state, or `.syn-badge--accent` to emphasize a badge.
@@ -1834,6 +1869,7 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Surface | Current policy | Intent for v1 |
 | --- | --- | --- |
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
+| Specialized native `range`, `file` and `color` controls via the existing `.syn-input` selector | Experimental alpha.5 appearance improvement; no new classes or runtime | Keep native controls and browser-driven behavior |
 | New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
 | New documented component-local layout variables | Experimental alpha.5 opt-in API | Evaluate for stability after responsive review |
