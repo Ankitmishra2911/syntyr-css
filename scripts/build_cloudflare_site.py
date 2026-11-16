@@ -17,10 +17,10 @@ import sys
 import tempfile
 
 if __package__:
-    from .build import all_distributions
+    from .build import all_distributions, javascript_distributions
     from .build_shadcn_registry import generate as universal_registry_files
 else:
-    from build import all_distributions
+    from build import all_distributions, javascript_distributions
     from build_shadcn_registry import generate as universal_registry_files
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -234,7 +234,7 @@ PUBLIC_DOCS = (
     "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "framework-integrations.md", "mobile-frameworks.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
-    "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
+    "index.html", "animation.md", "lit-integration.md", "playground.html", "playground.css", "playground.js",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
     "site-generator-decision.md", "site-builders.md", "tailwind-research.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
@@ -276,6 +276,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "integrations/radix/states.css",
         ROOT / "integrations/headless/interactions.css",
         ROOT / "examples/ansi_cli.py",
+        ROOT / "examples/animation-demo.mjs",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
@@ -286,7 +287,7 @@ def source_files() -> dict[str, bytes]:
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
-        "viz.html", "data-grid.html",
+        "viz.html", "data-grid.html", "animation.html",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.
@@ -310,6 +311,7 @@ def source_files() -> dict[str, bytes]:
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
     paths.extend(ROOT / "dist" / name for name in public_css)
+    paths.extend(ROOT / "dist" / name for name in javascript_distributions())
     # Only known generated MIT universal-item JSON; never scan private products.
     registry_expected = universal_registry_files()
     paths.extend(ROOT / "registry" / name for name in registry_expected)

@@ -127,6 +127,11 @@ def all_distributions():
     return {**distributions(), **component_distributions()}
 
 
+def javascript_distributions():
+    # Optional native ESM. Distributed unchanged, never imported by CSS.
+    return {'syntyr.animate.mjs': 'animate.mjs', 'syntyr.animate.d.mts': 'animate.d.mts'}
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--check', action='store_true', help='fail if committed dist is stale')
@@ -144,6 +149,19 @@ def main():
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(output)
             print(f'WROTE {name}: {len(output)} raw / {zipped} gzip')
+    for name, source in javascript_distributions().items():
+        output = (SOURCE / source).read_bytes()
+        path = DIST / name
+        zipped = len(gzip.compress(output, mtime=0))
+        if args.check:
+            match = path.exists() and path.read_bytes() == output
+            print(f'{"OK" if match else "STALE"} {name}: {len(output)} raw / {zipped} gzip')
+            failed |= not match
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(output)
+            print(f'WROTE {name}: {len(output)} raw / {zipped} gzip')
+
     contract_path = ROOT / 'metadata' / 'css-contract.v1.json'
     contract_bytes = (json.dumps(css_contract(), indent=2, sort_keys=True) + '\n').encode('utf-8')
     if args.check:

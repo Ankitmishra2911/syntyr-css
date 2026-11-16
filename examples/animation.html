@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Optional Web Animations API motion companion for Syntyr, using progressive native browser features and reduced-motion support.">
+  <title>Syntyr — Optional native animation library</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <script type="module" src="./animation-demo.mjs"></script>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <div class="syn-shell">
+    <header class="syn-header">
+      <a class="syn-logo" href="../index.html">SYNTYR</a>
+      <nav class="syn-nav" aria-label="Example navigation">
+        <a href="https://syntyr-css.pages.dev/docs/animation">READ THE ANIMATION GUIDE</a>
+        <a href="../docs/index.html">ALL COMPONENTS</a>
+      </nav>
+    </header>
+    <main>
+      <section class="syn-stage" aria-labelledby="title">
+        <p class="syn-eyebrow">OPTIONAL / ZERO-DEPENDENCY JAVASCRIPT</p>
+        <h1 id="title" class="syn-title">Motion when you ask for it.</h1>
+        <p class="syn-lede">This page uses native Web Animations and IntersectionObserver. Everything remains visible and usable with JavaScript disabled or reduced motion enabled.</p>
+      </section>
+      <section class="syn-stage" aria-labelledby="controls-title">
+        <h2 id="controls-title" class="syn-heading">On-demand animation</h2>
+        <p>Effects are one-shot, trigger only by the buttons below, and return to normal CSS state when complete.</p>
+        <div class="syn-stack">
+          <div class="syn-cluster">
+            <button type="button" id="animate-one" class="syn-button syn-button--primary">ANIMATE FIRST CARD</button>
+            <button type="button" id="animate-all" class="syn-button">STAGGER ALL CARDS</button>
+          </div>
+          <p id="animation-status" role="status" aria-live="polite">Select an animation to preview.</p>
+          <div class="syn-grid" id="motion-cards">
+            <article class="syn-panel"><h3 class="syn-heading">Native browser engine</h3><p>Opacity and individual translate properties stay independent of ordinary component styles.</p></article>
+            <article class="syn-panel"><h3 class="syn-heading">Lightweight timing</h3><p>Stagger sequencing uses WAAPI delays, not JavaScript timers.</p></article>
+            <article class="syn-panel"><h3 class="syn-heading">Accessible default</h3><p>No visibility changes happen before an actual animation begins.</p></article>
+          </div>
+        </div>
+      </section>
+      <section class="syn-stage" aria-labelledby="viewport-title">
+        <h2 id="viewport-title" class="syn-heading">Opt-in viewport entry</h2>
+        <p>The two paragraphs below use <code>data-syn-reveal</code>. They never start hidden, even if the observer is unsupported.</p>
+        <div class="syn-cluster" aria-hidden="true">
+          <span class="syn-badge" data-syn-reveal="fade">FADE EFFECT</span>
+          <span class="syn-badge" data-syn-reveal="enter">ENTER EFFECT</span>
+        </div>
+        <p>The decorative markers above demonstrate viewport animation; this explanation remains fully visible.</p>
+        <p><a class="syn-button syn-button--outline" href="https://syntyr-css.pages.dev/docs/animation">VIEW API DOCUMENTATION</a></p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

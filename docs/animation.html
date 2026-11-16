@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="syntyr.animate.mjs is an opt-in, dependency-free ES module for application-triggered motion. It delegates timing and compositing to the native Web…">
+  <meta name="syntyr-source-sha256" content="195b95a55d52dd56350319e212e19b83920f94e1c92584bd18c2ca892da22cf0">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional Syntyr animation library — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/animation">
+  <link rel="alternate" type="text/markdown" href="animation.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional Syntyr animation library</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="animation.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional Syntyr animation library">
+<h1 id="optional-syntyr-animation-library">Optional Syntyr animation library</h1>
+<p><code>syntyr.animate.mjs</code> is an <strong>opt-in, dependency-free ES module</strong> for
+application-triggered motion. It delegates timing and compositing to the native
+<strong>Web Animations API</strong> and viewport detection to <strong>IntersectionObserver</strong>.
+There are no imports, startup side effects, global listeners, background timers,
+framework adapters, CSS resets, or changes to core Syntyr.</p>
+<p>Use the CSS-only <code>syntyr.motion.css</code> for static declarative effects. Load this
+JavaScript module only when you actually need to trigger animations in code or
+observe viewport entry; either add-on can be used without the other.</p>
+<h2 id="install-and-invoke">Install and invoke</h2>
+<p>Copy <code>dist/syntyr.animate.mjs</code> and, if desired, <code>dist/syntyr.core.css</code> to
+your own static directory. The module needs no bundler and runs in evergreen
+browsers that support ES modules.</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;main class=&quot;syn-root&quot;&gt;
+  &lt;button id=&quot;show&quot; type=&quot;button&quot;&gt;Animate card&lt;/button&gt;
+  &lt;article id=&quot;card&quot;&gt;Card content stays visible without JavaScript.&lt;/article&gt;
+&lt;/main&gt;
+&lt;script type=&quot;module&quot; src=&quot;/js/animation-demo.mjs&quot;&gt;&lt;/script&gt;
+</code></pre>
+<pre><code class="language-js">// /js/animation-demo.mjs
+import { animate, stagger, observeReveals } from '/js/syntyr.animate.mjs';
+
+document.querySelector('#show')?.addEventListener('click', () =&gt; {
+  const card = document.querySelector('#card');
+  animate(card, 'enter', { direction: 'up', duration: 280 });
+});
+
+stagger(document.querySelectorAll('.syn-root .card'), 'fade', {
+  interval: 75, delay: 0,
+});
+
+// This does nothing until invoked, and only animates opted-in descendants.
+const disconnect = observeReveals(document);
+// Call disconnect() when unmounting the page/region.
+</code></pre>
+<p>When the experimental <code>@syntyr/css</code> npm package is published, the module
+also has a dedicated typed subpath:</p>
+<pre><code class="language-js">import { animate } from '@syntyr/css/animate';
+</code></pre>
+<p>That subpath exposes only the optional animation code and matching TypeScript
+declarations. The default package import remains the CSS entrypoint.</p>
+<h2 id="minimal-api">Minimal API</h2>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Purpose</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>animate(element, preset = 'enter', options?)</code></td>
+<td>Animate one element on demand</td>
+<td>Native <code>Animation</code> or <code>null</code></td>
+</tr>
+<tr>
+<td><code>stagger(iterable, preset = 'enter', options?)</code></td>
+<td>Animate each element with an incremental WAAPI delay</td>
+<td>Array of animations or <code>null</code> entries</td>
+</tr>
+<tr>
+<td><code>observeReveals(root = document)</code></td>
+<td>Observe <code>.syn-root [data-syn-reveal]</code> once per element</td>
+<td><code>disconnect()</code> cleanup function</td>
+</tr>
+</tbody>
+</table>
+<p>Presets are <code>fade</code> (opacity), <code>enter</code> (opacity plus individual <code>translate</code>),
+and <code>scale</code> (opacity plus individual <code>scale</code>). There is no infinite or
+autoplay animation preset. <code>enter</code> supports <code>direction: 'up' | 'down' | 'left' | 'right'</code> and <code>distance: '.75rem'</code>. Use <code>scaleFrom</code> to override the
+initial scale.</p>
+<p>All presets accept <code>duration</code> and <code>delay</code> in milliseconds and <code>easing</code>
+as a CSS timing function. <code>stagger</code> additionally accepts <code>interval</code> in
+milliseconds. The module reads existing CSS custom properties when options
+are omitted: <code>--syn-motion-duration</code> (220ms default),
+<code>--syn-motion-stagger</code> (65ms), <code>--syn-motion-distance</code> (.75rem),
+<code>--syn-motion-scale-from</code> (.96), and <code>--syn-ease-out</code>
+(<code>cubic-bezier(.22, 1, .36, 1)</code>). These defaults also work without a Syntyr
+stylesheet, and per-element CSS tokens can override them.</p>
+<p>Unknown presets and invalid directions throw <code>TypeError</code>; missing target,
+missing Web Animations API, or a reduced-motion preference return <code>null</code>
+without modifying the DOM. Prefer <code>animation?.cancel()</code> for interruption and
+<code>animation?.finished</code> when coordinating an actual transition (cancellation
+rejects its promise). Animation properties are released at the end rather
+than persisting a hidden or transformed element.</p>
+<h2 id="viewport-reveals">Viewport reveals</h2>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot;&gt;
+  &lt;h2&gt;Visible with CSS alone&lt;/h2&gt;
+  &lt;p data-syn-reveal=&quot;enter&quot;&gt;Animate on first viewport entry.&lt;/p&gt;
+  &lt;p data-syn-reveal=&quot;fade&quot;&gt;Fade when first seen.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<pre><code class="language-js">import { observeReveals } from '/js/syntyr.animate.mjs';
+const disconnect = observeReveals(document);
+</code></pre>
+<p>No <code>IntersectionObserver</code> is created automatically; call <code>observeReveals</code>
+after rendering the relevant HTML fragment. It observes only descendants of
+<code>.syn-root</code> with a <code>data-syn-reveal</code> attribute, runs each animation once,
+and does <strong>not</strong> add <code>opacity: 0</code> to page content before JavaScript starts.
+A region can be re-scanned after HTMX/Datastar/React renders new nodes.
+The root argument limits the query, and the return function disconnects it.
+There is no <code>MutationObserver</code> or automatic event interception.</p>
+<h2 id="accessibility-and-performance">Accessibility and performance</h2>
+<ul>
+<li><code>prefers-reduced-motion: reduce</code> takes precedence over all presets and
+custom durations. Reduced-motion users always get visible, immediate content;
+if that preference changes while observing, animation is checked again.</li>
+<li>Content is never hidden while waiting for JavaScript, scroll observation,
+or native feature detection. Effects do not replace semantic HTML, focus
+management, ARIA announcements, or actual state-change notifications.</li>
+<li>Keyframes use composited <code>opacity</code>, <code>translate</code>, and <code>scale</code> rather than
+layout dimensions. Avoid animating essential text and high-density data,
+where fading can temporarily reduce readability. An element with custom
+individual transform properties may need a wrapper for composition.</li>
+<li>The module uses one-shot <code>fill: 'none'</code> and <code>iterations: 1</code>, so focus and
+disabled states cannot remain overridden by a completed animation.</li>
+<li>For layout changes, prefer native View Transitions where available. For
+interactive scrubbing and complex timelines, use a specialized animation
+engine <em>outside</em> Syntyr instead of expanding this low-level module.</li>
+</ul>
+<h2 id="verification">Verification</h2>
+<pre><code class="language-sh">node --test tests/animate.test.mjs
+python3 scripts/build.py --check
+python3 -m unittest discover -s tests -v
+</code></pre>
+<p>Node is for the optional JavaScript behavior tests, <strong>not</strong> for building
+Syntyr or using the CSS library. The production JS is copied byte-for-byte
+by Syntyr's existing Python build, allowing deterministic release checks.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#install-and-invoke">Install and invoke</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#minimal-api">Minimal API</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#viewport-reveals">Viewport reveals</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance">Accessibility and performance</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#verification">Verification</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="animation.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>
