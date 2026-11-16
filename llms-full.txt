@@ -1612,6 +1612,8 @@ library unless you explicitly want Syntyr semantic styling there. Prefer
 `.syn-button` for already-classed controls. The marker does **not** make the
 control stateful, disabled, or accessible by itself.
 
+For accessible advanced menus, comboboxes and toasts, see the [optional headless interaction guide](headless-interactions.md). All framework JavaScript remains application-owned.
+
 ## HTMX: progressive enhancement
 
 A complete example with a real stdlib Python HTTP server is at:
