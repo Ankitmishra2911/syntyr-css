@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Live Syntyr semantic HTML components: articles, breadcrumbs, quotations, definitions, revisions, multilingual ruby and accessible tables.">
+  <meta name="description" content="Live Syntyr semantic HTML gallery: native FAQ accordions, issue search, grouped forms, progress, responsive images, articles, footnotes and tables.">
   <title>Semantic HTML component gallery — Syntyr CSS</title>
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -37,6 +37,11 @@
         <li><a href="#technical-title">Technical notation</a></li>
         <li><a href="#grouped-title">Grouped table</a></li>
         <li><a href="#contact-title">Contact details</a></li>
+        <li><a href="#faq-title">FAQ disclosures</a></li>
+        <li><a href="#search-title">Issue search</a></li>
+        <li><a href="#choices-title">Grouped form</a></li>
+        <li><a href="#status-title">Progress and measurement</a></li>
+        <li><a href="#media-title">Responsive media</a></li>
       </ol>
     </nav>
 
@@ -189,6 +194,99 @@
           <a href="https://github.com/dporkka/syntyr-css/issues">Contact maintainers through GitHub Issues</a>.
         </address>
         <p>An <code>&lt;address&gt;</code> represents contact details, not arbitrary postal data.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="faq-title">
+      <h2 id="faq-title">Native FAQ accordion</h2>
+      <article>
+        <h3>Common questions</h3>
+        <details name="syn-semantic-faq" open>
+          <summary>Does this require JavaScript?</summary>
+          <p>No. The browser handles disclosure state, keyboard input and closing sibling items.</p>
+        </details>
+        <details name="syn-semantic-faq">
+          <summary>Can I use it with server-rendered HTML?</summary>
+          <p>Yes. A native disclosure works in plain HTML, Django, Rails, Go templates and more.</p>
+        </details>
+        <details name="syn-semantic-faq">
+          <summary>Can multiple answers remain open?</summary>
+          <p>Yes. Omit the shared <code>name</code> attribute to allow independent panels.</p>
+        </details>
+      </article>
+    </section>
+
+    <section aria-labelledby="search-title">
+      <h2 id="search-title">Semantic search landmark</h2>
+      <article>
+        <h3>Search the public Syntyr issue tracker</h3>
+        <search>
+          <form action="https://github.com/dporkka/syntyr-css/issues" method="get">
+            <label for="semantic-issues-query">Search Syntyr issues</label>
+            <input id="semantic-issues-query" type="search" name="q" required
+                   placeholder="Example: accessibility">
+            <button type="submit">Find issues on GitHub</button>
+          </form>
+        </search>
+        <p><small>Submitting opens GitHub's public issue search. No local search index or JavaScript required.</small></p>
+      </article>
+    </section>
+
+    <section aria-labelledby="choices-title">
+      <h2 id="choices-title">Grouped choice form</h2>
+      <article>
+        <h3>Browse Syntyr topics</h3>
+        <form action="https://github.com/dporkka/syntyr-css/issues" method="get">
+          <fieldset>
+            <legend>Browse an issue topic</legend>
+            <label for="semantic-issue-topic">Issue topic</label>
+            <select name="q" id="semantic-issue-topic" required>
+              <option value="">Choose a topic</option>
+              <optgroup label="Native HTML">
+                <option value="semantic">Semantic HTML</option>
+                <option value="accessibility">Accessibility</option>
+              </optgroup>
+              <optgroup label="Styles">
+                <option value="css">CSS</option>
+                <option value="themes">Themes</option>
+              </optgroup>
+            </select>
+            <button type="submit">View matching issues</button>
+          </fieldset>
+        </form>
+      </article>
+    </section>
+
+    <section aria-labelledby="status-title">
+      <h2 id="status-title">Progress, measurement and computed output</h2>
+      <article>
+        <h3>Illustrative status — not live metrics</h3>
+        <label for="semantic-review-progress">Review progress: 7 of 10 complete</label>
+        <progress id="semantic-review-progress" value="7" max="10">7 of 10</progress>
+        <label for="semantic-capacity-meter">Sample capacity: 68%</label>
+        <meter id="semantic-capacity-meter" value="68" min="0" max="100"
+               low="30" high="85" optimum="70">68%</meter>
+        <p>Calculated review total:
+          <output name="semantic-review-total">7 completed reviews</output>
+        </p>
+        <p><small>Progress measures completion; a meter measures a bounded value. Server-rendered output does not auto-update without host logic.</small></p>
+      </article>
+    </section>
+
+    <section aria-labelledby="media-title">
+      <h2 id="media-title">Responsive image with caption</h2>
+      <article>
+        <h3>Art-directed screenshot</h3>
+        <figure>
+          <picture>
+            <source media="(max-width: 600px)"
+                    srcset="../docs/previews/studio-settings.webp">
+            <img src="../docs/previews/studio-editor.webp" width="1120" height="700"
+                 loading="lazy" decoding="async"
+                 alt="Syntyr Studio interface: settings on small screens and editor on larger screens">
+          </picture>
+          <figcaption>Two existing Syntyr Studio screenshots, selected using native media queries.</figcaption>
+        </figure>
       </article>
     </section>
 
