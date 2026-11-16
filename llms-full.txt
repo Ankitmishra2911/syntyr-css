@@ -249,6 +249,37 @@ Use `.syn-section-heading` between `.syn-heading` and `.syn-display`. Table cont
 
 For large server-rendered tables, see the [enterprise tables guide](data-tables.html) and [static example](../examples/data-tables.html). Sorting and filtering remain application responsibilities.
 
+## Native HTML elements (optional semantic mode)
+
+Syntyr styles common HTML primitives within `.syn-root.syn-semantic` or a `.syn-semantic` subtree of `.syn-root`. Load `syntyr.semantic.css` **after** `syntyr.core.css`. Without the semantic stylesheet and scope, ordinary HTML remains untouched.
+
+| Native elements | Included presentation |
+| --- | --- |
+| `ul`, `ol`, `menu`, `li`, `dl`, `dt`, `dd` | List spacing, preserved native markers, definition terms |
+| `h5`, `h6`, `small`, `abbr[title]`, `address` | Heading depth, readable captions, abbreviations, contact text |
+| `pre`, `code`, `kbd`, `samp`, `mark` | Scrollable code, keyboard hints, sample output, contrast-safe highlights |
+| `figure`, `figcaption`, `img`, `video`, `audio` | Captions and width-constrained media; intrinsic image/video proportions |
+| `table`, `caption`, `progress`, `meter`, `output` | Data captions and native browser indicators |
+| `input[type=file]`, `input[type=color]` | Native chooser controls with theme-aware surfaces |
+| `details`, `summary`, `dialog`, `[popover]` | Browser-owned disclosure, top-layer behavior and dismissal |
+
+The selectors style **unclassed elements only**, or elements explicitly marked `data-syn-semantic`. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.
+
+For a copyable page covering the additions, see [native HTML element examples](../examples/native-elements.html). The `commandfor` / `command="show-modal"` dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.
+
+```html
+<link rel="stylesheet" href="syntyr.core.css">
+<link rel="stylesheet" href="syntyr.semantic.css">
+<main class="syn-root syn-semantic">
+  <dl><dt>Availability</dt><dd>12 active screens</dd></dl>
+  <figure><img src="/assets/preview.svg" alt="Campaign preview">
+    <figcaption>Proof-of-posting image</figcaption>
+  </figure>
+  <label for="fill">Capacity</label>
+  <progress id="fill" value="12" max="20">12 of 20</progress>
+</main>
+```
+
 ## Theme tokens
 
 | Token | Purpose |
