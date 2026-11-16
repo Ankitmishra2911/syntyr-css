@@ -3,7 +3,9 @@ from html.parser import HTMLParser
 import json
 from pathlib import Path
 import re
+import tempfile
 import unittest
+from unittest.mock import patch
 
 from scripts.build import assemble_embed, distributions
 
@@ -22,6 +24,35 @@ class MarkupParser(HTMLParser):
 
 
 class PlatformEmbedTests(unittest.TestCase):
+    def test_embed_build_rejects_nested_layers_even_when_indented_or_inline(self):
+        # Future source additions must not silently reintroduce layers in
+        # the separately advertised unlayered embed output.
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "nested.css"
+            for inner in (
+                "@layer theme { .syn-root { color: red; } }",
+                "  @layer theme { .syn-root { color: red; } }",
+                "@media (width > 20rem) { @layer theme { .syn-root { color: red; } } }",
+            ):
+                with self.subTest(nested=inner):
+                    path.write_text("@layer syn.components {\n" + inner + "\n}\n")
+                    with patch("scripts.build.SOURCE", Path(folder)):
+                        with self.assertRaisesRegex(ValueError, "nested layer"):
+                            assemble_embed(("nested.css",))
+
+    def test_embed_build_ignores_layer_text_in_css_comment(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "comment.css"
+            path.write_text(
+                "@layer syn.components {\n"
+                " /* @layer annotation from documentation */\n"
+                " .syn-root { color: red; }\n"
+                "}\n"
+            )
+            with patch("scripts.build.SOURCE", Path(folder)):
+                css = assemble_embed(("comment.css",))
+            self.assertIn(".syn-root { color: red; }", css)
+
     def test_embed_bundle_is_a_named_distribution(self):
         self.assertIn("syntyr.embed.css", distributions())
 
