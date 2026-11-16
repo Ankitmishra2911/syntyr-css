@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="71b0c36e596000d9eaf8f1a1c42ff5ced8f72e09e54602c73144ed9cd4bd243b">
+  <meta name="syntyr-source-sha256" content="db0b11fe436422d8feab6af87e54590900213e9a781228f7ed11af6f1dea3f3b">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -181,6 +181,59 @@ or use the <a href="editor-integration.html">editor integration instructions</a>
 <p>The implicit <code>.syn-root</code> palette is Studio (light and sans-serif). Explicit <code>data-syn-theme=&quot;grid&quot;</code> and <code>data-syn-theme=&quot;terminal&quot;</code> retain technical monospace presentation; other themes remain opt-in. <code>.syn-panel</code> and <code>.syn-stage</code> are flat by default; add <code>syn-surface--accent</code> from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. <code>.syn-badge</code> is a neutral label; use <code>.syn-status</code> with readable status text for meaningful state, or <code>.syn-badge--accent</code> to emphasize a badge.</p>
 <p>Use <code>.syn-section-heading</code> between <code>.syn-heading</code> and <code>.syn-display</code>. Table content wraps by default for better readability in narrow regions, including long text. Apply <code>.syn-cell--nowrap</code> to identifiers or short labels that must stay on one line; <code>.syn-cell--numeric</code> also preserves no-wrap numeric alignment. <code>.syn-cell--wrap</code> remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside <code>.syn-table-wrap</code> with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with <code>tabindex=&quot;0&quot;</code>, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.</p>
 <p>For large server-rendered tables, see the <a href="data-tables.html">enterprise tables guide</a> and <a href="../examples/data-tables.html">static example</a>. Sorting and filtering remain application responsibilities.</p>
+<h2 id="native-html-elements-optional-semantic-mode">Native HTML elements (optional semantic mode)</h2>
+<p>Syntyr styles common HTML primitives within <code>.syn-root.syn-semantic</code> or a <code>.syn-semantic</code> subtree of <code>.syn-root</code>. Load <code>syntyr.semantic.css</code> <strong>after</strong> <code>syntyr.core.css</code>. Without the semantic stylesheet and scope, ordinary HTML remains untouched.</p>
+<table>
+<thead>
+<tr>
+<th>Native elements</th>
+<th>Included presentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ul</code>, <code>ol</code>, <code>menu</code>, <code>li</code>, <code>dl</code>, <code>dt</code>, <code>dd</code></td>
+<td>List spacing, preserved native markers, definition terms</td>
+</tr>
+<tr>
+<td><code>h5</code>, <code>h6</code>, <code>small</code>, <code>abbr[title]</code>, <code>address</code></td>
+<td>Heading depth, readable captions, abbreviations, contact text</td>
+</tr>
+<tr>
+<td><code>pre</code>, <code>code</code>, <code>kbd</code>, <code>samp</code>, <code>mark</code></td>
+<td>Scrollable code, keyboard hints, sample output, contrast-safe highlights</td>
+</tr>
+<tr>
+<td><code>figure</code>, <code>figcaption</code>, <code>img</code>, <code>video</code>, <code>audio</code></td>
+<td>Captions and width-constrained media; intrinsic image/video proportions</td>
+</tr>
+<tr>
+<td><code>table</code>, <code>caption</code>, <code>progress</code>, <code>meter</code>, <code>output</code></td>
+<td>Data captions and native browser indicators</td>
+</tr>
+<tr>
+<td><code>input[type=file]</code>, <code>input[type=color]</code></td>
+<td>Native chooser controls with theme-aware surfaces</td>
+</tr>
+<tr>
+<td><code>details</code>, <code>summary</code>, <code>dialog</code>, <code>[popover]</code></td>
+<td>Browser-owned disclosure, top-layer behavior and dismissal</td>
+</tr>
+</tbody>
+</table>
+<p>The selectors style <strong>unclassed elements only</strong>, or elements explicitly marked <code>data-syn-semantic</code>. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.</p>
+<p>For a copyable page covering the additions, see <a href="../examples/native-elements.html">native HTML element examples</a>. The <code>commandfor</code> / <code>command=&quot;show-modal&quot;</code> dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.semantic.css&quot;&gt;
+&lt;main class=&quot;syn-root syn-semantic&quot;&gt;
+  &lt;dl&gt;&lt;dt&gt;Availability&lt;/dt&gt;&lt;dd&gt;12 active screens&lt;/dd&gt;&lt;/dl&gt;
+  &lt;figure&gt;&lt;img src=&quot;/assets/preview.svg&quot; alt=&quot;Campaign preview&quot;&gt;
+    &lt;figcaption&gt;Proof-of-posting image&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;label for=&quot;fill&quot;&gt;Capacity&lt;/label&gt;
+  &lt;progress id=&quot;fill&quot; value=&quot;12&quot; max=&quot;20&quot;&gt;12 of 20&lt;/progress&gt;
+&lt;/main&gt;
+</code></pre>
 <h2 id="theme-tokens">Theme tokens</h2>
 <table>
 <thead>
@@ -396,6 +449,7 @@ are not included in the published immutable alpha.4 release.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#components">Components</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#optional-composition-utilities-and-component-overrides">Optional composition utilities and component overrides</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#neutral-first-visual-styling">Neutral-first visual styling</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-html-elements-optional-semantic-mode">Native HTML elements (optional semantic mode)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#theme-tokens">Theme tokens</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-charts-and-microvisualizations">Optional charts and microvisualizations</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance-contracts">Accessibility and performance contracts</a>
