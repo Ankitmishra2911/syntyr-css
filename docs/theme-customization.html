@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Customize Syntyr CSS themes and design tokens for SaaS dashboards, accessible business applications, and futuristic interfaces.">
-  <meta name="syntyr-source-sha256" content="47bda0c3421d451704b8270c00c2fae625b0f73784395b214bf7e93318d9550b">
+  <meta name="syntyr-source-sha256" content="1f2fe88d483d0b2158c0da2784ecc8b58d3536ffd8ee788a794aa1a6ff7d7cf2">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr theme customization — copy, override, ship — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/theme-customization">
@@ -273,6 +273,26 @@ For errors, pair <code>aria-invalid=&quot;true&quot;</code> with an associated e
 (<code>aria-describedby</code>); never rely on border color alone.</p>
 <p>See <a href="../examples/design-states.html">the live design-state example</a> for
 semantic typography, nested themes, compact layout and form states.</p>
+<h2 id="manual-contrast-independent-of-theme">Manual contrast, independent of theme</h2>
+<p>Set <code>data-syn-contrast=&quot;more&quot;</code> on a <code>.syn-root</code> or a nested region to
+strengthen subtle/default borders and suppress raised/overlay shadows.
+The option uses the current theme's <code>--syn-frame-strong</code>; it does <strong>not</strong>
+switch palettes, change typography, or load JavaScript. Use
+<code>data-syn-contrast=&quot;normal&quot;</code> on a nested region to restore ordinary
+border/shadow tokens when the OS has not requested increased contrast.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;minimal&quot; data-syn-contrast=&quot;more&quot;&gt;
+  &lt;article class=&quot;syn-panel&quot;&gt;Higher-contrast borders&lt;/article&gt;
+  &lt;aside data-syn-contrast=&quot;normal&quot;&gt;&lt;div class=&quot;syn-panel&quot;&gt;Ordinary borders&lt;/div&gt;&lt;/aside&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The OS <code>prefers-contrast: more</code> preference <strong>always wins</strong>, including inside
+explicit <code>normal</code> regions. Forced-colors support remains native. Manual
+contrast only changes border/shadow roles; combine it with
+<code>data-syn-intensity=&quot;quiet&quot;</code> for reduced optional decoration. None of these
+settings guarantees WCAG contrast for consumer-supplied token overrides.
+Studio and Minimal now give plain <code>.syn-panel</code> a theme-sized corner radius;
+Grid, Noir, Industrial, Terminal, Corporate and Auto keep their prior square
+panel shape, including when nested inside Studio/Minimal.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#1-choose-a-theme">1. Choose a theme</a>
@@ -284,6 +304,7 @@ semantic typography, nested themes, compact layout and form states.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#system-palette-no-javascript-experimental">System palette, no JavaScript (experimental)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#typography-density-and-quiet-surfaces">Typography, density, and quiet surfaces</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#semantic-roles-states-and-content-rhythm">Semantic roles, states, and content rhythm</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#manual-contrast-independent-of-theme">Manual contrast, independent of theme</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="theme-customization.md">Markdown source</a></nav>
