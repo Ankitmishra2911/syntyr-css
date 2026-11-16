@@ -19,6 +19,7 @@ CUSTOMERS = ("Acme Corporation", "Northstar Media", "Orion Advertising", "Meridi
 ASSETS = {
     "/examples/htmx.html": ("examples/htmx.html", "text/html; charset=utf-8"),
     "/examples/htmx.css": ("examples/htmx.css", "text/css; charset=utf-8"),
+    "/examples/htmx-recovery.js": ("examples/htmx-recovery.js", "text/javascript; charset=utf-8"),
     "/dist/syntyr.core.css": ("dist/syntyr.core.css", "text/css; charset=utf-8"),
     "/dist/syntyr.semantic.css": ("dist/syntyr.semantic.css", "text/css; charset=utf-8"),
 }
