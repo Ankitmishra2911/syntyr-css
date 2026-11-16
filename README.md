@@ -2,6 +2,49 @@
 
 **Experimental v0.3.0-alpha.5 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
 
+## Quick start — published alpha.4
+
+Copy the HTML below into `index.html` and open it in a browser. It uses the
+**published, immutable alpha.4 CSS** from the versioned site; **alpha.5 remains
+unreleased**. The example needs no JavaScript, build tool, or app framework.
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntyr first page</title>
+  <link rel="stylesheet" href="https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css">
+</head>
+<body>
+  <main class="syn-root syn-shell" data-syn-theme="studio">
+    <section class="syn-panel" aria-labelledby="overview-title">
+      <h1 id="overview-title" class="syn-heading">Project overview</h1>
+      <p class="syn-muted">A readable interface using ordinary HTML and one stylesheet.</p>
+      <a class="syn-button syn-button--primary" href="https://syntyr-css.pages.dev/docs/">
+        Browse components
+      </a>
+    </section>
+  </main>
+</body>
+</html>
+```
+
+For production, **self-host the same pinned release** rather than depending on
+a public CDN. From the directory containing `index.html`:
+
+```sh
+curl -fsSLo syntyr.core.css https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css
+```
+
+Replace the stylesheet reference in the HTML with `href="./syntyr.core.css"`.
+The page's styles then work without a network connection; its documentation
+link still points online. For the **unreleased alpha.5 source candidate**,
+see [the single-file semantic starter](examples/semantic-starter.html) and
+[distribution guide](docs/distribution.md). Do not mix alpha.4 and alpha.5
+stylesheets.
+
 - **The `syn-` class, CSS token, and HTML data-attribute namespace is the public API.**
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
@@ -111,9 +154,9 @@ python3 scripts/build_doc_pages.py --check
 
 The authoring dependency does **not** ship to consumers or run during the static-site build. CI's stdlib-only tests verify that HTML source hashes match the public Markdown allowlist. See the [agent documentation integration contract](docs/agent-integration.md).
 
-## Start in 10 seconds
+## Source checkout demos and experimental modes
 
-Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
+For the unreleased alpha.5 source checkout, open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
