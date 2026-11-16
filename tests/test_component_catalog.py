@@ -55,6 +55,26 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(preview_html.strip(), unescape(escaped_source).strip())
 
 
+    def test_gallery_covers_core_and_optional_modules_with_accessible_categories(self):
+        page = (ROOT / 'docs/catalog.html').read_text()
+        parsed = CatalogHTML()
+        parsed.feed(page)
+        self.assertGreaterEqual(len(parsed.items), 21)
+        categories = {'controls', 'forms', 'data', 'layout', 'feedback', 'navigation', 'visuals'}
+        self.assertTrue(all(item.get('data-catalog-category') in categories for item in parsed.items))
+        self.assertEqual({item['data-catalog-category'] for item in parsed.items}, categories)
+        self.assertIn('id="catalog-filters"', page)
+        for category in ('all', *sorted(categories)):
+            self.assertIn(f'data-catalog-filter="{category}"', page)
+        for cls in ('syn-input-group', 'syn-filter-bar', 'syn-result-state', 'syn-frame--bracket', 'syn-viz-bars'):
+            with self.subTest(class_name=cls):
+                self.assertIn(cls, page)
+        for module in ('syntyr.core.css', 'syntyr.recipes.css', 'syntyr.geometry.css', 'syntyr.viz.css'):
+            self.assertIn(module, page)
+        js = (ROOT / 'docs/catalog.js').read_text()
+        self.assertIn('aria-pressed', js)
+        self.assertIn('catalogCategory', js)
+
     def test_search_and_copy_behaviour_is_documentation_only(self):
         js = (ROOT / 'docs/catalog.js').read_text()
         self.assertIn('addEventListener("input"', js)
