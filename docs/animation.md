@@ -163,7 +163,8 @@ candidate**, not the published alpha.4 assets.
 `data-syn-scroll` accepts `fade`, `rise`, `slide-left`,
 `slide-right`, or `zoom`. Add it to a short block or an individual
 heading/card. Native CSS view timelines link animation progress to scroll
-position, without JavaScript scroll handlers. Override
+position, with short blocks completing when they have fully entered the viewport,
+without JavaScript scroll handlers. Override
 `--syn-block-reveal-distance` (default `1.5rem`) or
 `--syn-block-reveal-scale` (default `.94`) per element.
 Avoid scroll-linked opacity on long-form text or content essential to
@@ -201,7 +202,7 @@ Avoid `background-attachment: fixed` and JavaScript scroll handlers.
 ### Media hover zoom and existing hover lift
 
 ```html
-<a class="syn-root syn-panel" href="/portfolio/project" data-syn-hover="zoom">
+<a class="syn-root syn-panel" style="display: block" href="/portfolio/project" data-syn-hover="zoom">
   <img src="/images/project.webp" alt="Project preview"
        width="640" height="420" data-syn-hover-media>
   <span>Explore the project</span>

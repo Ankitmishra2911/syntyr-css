@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="syntyr.animate.mjs is an opt-in, dependency-free ES module for application-triggered motion. It delegates timing and compositing to the native Web…">
-  <meta name="syntyr-source-sha256" content="f835ed3bb850b645a5988ef978ce8c409813664229af55d9faf6978cdb5146db">
+  <meta name="syntyr-source-sha256" content="121d35c7bf9666ab93792255725f432f6edf94b46fbb7f63f7f9d3f6bbbef2b8">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional Syntyr animation library — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/animation">
@@ -186,7 +186,8 @@ candidate</strong>, not the published alpha.4 assets.</p>
 <p><code>data-syn-scroll</code> accepts <code>fade</code>, <code>rise</code>, <code>slide-left</code>,
 <code>slide-right</code>, or <code>zoom</code>. Add it to a short block or an individual
 heading/card. Native CSS view timelines link animation progress to scroll
-position, without JavaScript scroll handlers. Override
+position, with short blocks completing when they have fully entered the viewport,
+without JavaScript scroll handlers. Override
 <code>--syn-block-reveal-distance</code> (default <code>1.5rem</code>) or
 <code>--syn-block-reveal-scale</code> (default <code>.94</code>) per element.
 Avoid scroll-linked opacity on long-form text or content essential to
@@ -216,7 +217,7 @@ or controls. When motion is reduced or view timelines are unsupported,
 the image is <strong>static</strong> and all foreground content remains visible.
 Avoid <code>background-attachment: fixed</code> and JavaScript scroll handlers.</p>
 <h3 id="media-hover-zoom-and-existing-hover-lift">Media hover zoom and existing hover lift</h3>
-<pre><code class="language-html">&lt;a class=&quot;syn-root syn-panel&quot; href=&quot;/portfolio/project&quot; data-syn-hover=&quot;zoom&quot;&gt;
+<pre><code class="language-html">&lt;a class=&quot;syn-root syn-panel&quot; style=&quot;display: block&quot; href=&quot;/portfolio/project&quot; data-syn-hover=&quot;zoom&quot;&gt;
   &lt;img src=&quot;/images/project.webp&quot; alt=&quot;Project preview&quot;
        width=&quot;640&quot; height=&quot;420&quot; data-syn-hover-media&gt;
   &lt;span&gt;Explore the project&lt;/span&gt;

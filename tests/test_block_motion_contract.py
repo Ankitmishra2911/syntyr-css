@@ -18,13 +18,19 @@ class BlockMotionContract(unittest.TestCase):
                 self.assertIn(f'data-syn-scroll="{name}"', self.docs)
         self.assertIn('.syn-root', self.motion)
         self.assertIn('animation-timeline: view()', self.motion)
-        self.assertIn('animation-range: entry', self.motion)
+        self.assertIn('animation-range: entry 0% entry 100%;', self.motion)
 
     def test_scroll_animation_requires_native_full_support_and_motion_opt_in(self):
-        self.assertIn('@supports (animation-timeline: view()) and (animation-range: entry 0% cover 30%)', self.motion)
+        self.assertIn('@supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%)', self.motion)
         self.assertIn('@media (prefers-reduced-motion: no-preference)', self.motion)
         self.assertIn('fallback', self.docs.lower())
         self.assertIn('prefers-reduced-motion', self.docs)
+
+    def test_hover_example_and_agent_index_are_discoverable_and_clipped(self):
+        self.assertIn('style="display: block" href="/portfolio/project" data-syn-hover="zoom"', self.docs)
+        index = (ROOT / 'llms.txt').read_text()
+        self.assertIn('CSS-only scroll', index)
+        self.assertIn('parallax', index)
 
     def test_parallax_layer_uses_view_timeline_and_has_overscan(self):
         for selector in ('[data-syn-parallax]', '[data-syn-parallax-layer]', '[data-syn-parallax-content]'):
