@@ -41,7 +41,7 @@ def assemble_embed(paths):
             raise ValueError(f'Expected exactly one outer CSS layer in {path}')
         match = matches[0]
         content = source[:match.start()] + source[match.end():source.rfind('}')]
-        if re.search(r'(?m)^\s*@layer', content):
+        if re.search(r'@layer\b', re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)):
             raise ValueError(f'Unexpected nested layer in {path}')
         parts.append(content.strip())
     return '\n'.join(parts) + '\n'

@@ -5,6 +5,7 @@ Run with Python Playwright installed:
 Browser packages are maintainer-only; Syntyr's runtime remains CSS-only.
 """
 from pathlib import Path
+from html import escape
 import unittest
 
 from playwright.sync_api import sync_playwright, Error as PlaywrightError
@@ -62,6 +63,41 @@ class PlatformEmbedBrowserTests(unittest.TestCase):
                     page.close()
                 finally:
                     browser.close()
+
+    def test_site_builder_iframe_styles_do_not_cross_documents(self):
+        # Models the iframe boundary of Wix HTML Embed and isolated embeds.
+        css = (ROOT / "dist/syntyr.embed.css").read_text()
+        browser = self.playwright.chromium.launch(headless=True)
+        try:
+            page = browser.new_page(viewport={"width": 390, "height": 844})
+            embedded_html = (
+                '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+                '<style>' + css + '</style></head><body>'
+                '<section class="syn-root" data-syn-theme="studio">'
+                '<button id="iframe-button" class="syn-button syn-button--primary">'
+                'Inside embed</button></section></body></html>'
+            )
+            host_html = (
+                '<!doctype html><html><head><style>'
+                'button{background:#743a20;color:white}</style></head><body>'
+                '<button id="outside-button">Host button</button>'
+                '<iframe title="Syntyr embedded widget" sandbox="allow-same-origin"'
+                ' srcdoc="' + escape(embedded_html, quote=True) + '"></iframe>'
+                '</body></html>'
+            )
+            page.set_content(host_html, wait_until="load")
+            self.assertEqual(background(page, "#outside-button"), "rgb(116, 58, 32)")
+            self.assertEqual(page.frame_locator('iframe').locator('#iframe-button').evaluate(
+                "(element) => getComputedStyle(element).backgroundColor"), "rgb(36, 88, 198)")
+            page.evaluate(
+                '() => { const button = document.createElement("button");'
+                'button.id = "outside-syntyr";'
+                'button.className = "syn-button syn-button--primary";'
+                'document.body.appendChild(button); }'
+            )
+            self.assertEqual(background(page, "#outside-syntyr"), "rgb(116, 58, 32)")
+        finally:
+            browser.close()
 
     def test_webkit_embed_if_system_dependencies_available(self):
         try:
