@@ -29,6 +29,8 @@ FILES = (
     "docs/components.md",
     "docs/recipes.md",
     "docs/component-recipes.md",
+    "docs/email-components.md",
+    "examples/email.html",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
     "examples/preset-preview.html",
     "examples/animation.html",
