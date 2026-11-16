@@ -60,6 +60,8 @@ motion, load the additional `syntyr.motion.css` file, then add
 `.syn-dialog--transition` to a `.syn-dialog`. Both class and file are
 required. The motion module honors reduced-motion preferences; without
 either opt-in, dialogs and popovers use their native static behavior.
+The native recipe gallery pairs its dialog command with a `<details>`
+disclosure exposing equivalent critical information on older engines.
 Native browsers own focus management, Escape and dialog inertness; the stylesheet
 does not implement a custom ARIA menu.
 
@@ -80,6 +82,9 @@ Optional activity timelines also place their markers on inline-start. Native
   <label for="name" class="syn-floating-label">Full name</label>
 </div>
 ~~~
+
+Both floating and stacked labels remain real pointer targets; clicking a label
+focuses its associated native control without JavaScript.
 
 Keep a persistent programmatic label with for/id. The one-space placeholder
 is a deliberate :placeholder-shown state hook, **not** the accessible label.

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="2237392ac98bbc8f520759f192b799e814b252be604dc6a90fc005057752ae7e">
+  <meta name="syntyr-source-sha256" content="0901c6fb2f625e1926b2b030b604d9b7562f1c4bc453feacff758a134b5735c4">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -83,6 +83,8 @@ motion, load the additional <code>syntyr.motion.css</code> file, then add
 <code>.syn-dialog--transition</code> to a <code>.syn-dialog</code>. Both class and file are
 required. The motion module honors reduced-motion preferences; without
 either opt-in, dialogs and popovers use their native static behavior.
+The native recipe gallery pairs its dialog command with a <code>&lt;details&gt;</code>
+disclosure exposing equivalent critical information on older engines.
 Native browsers own focus management, Escape and dialog inertness; the stylesheet
 does not implement a custom ARIA menu.</p>
 <h2 id="native-direction-aware-presentation">Native direction-aware presentation</h2>
@@ -98,6 +100,8 @@ Optional activity timelines also place their markers on inline-start. Native
   &lt;label for=&quot;name&quot; class=&quot;syn-floating-label&quot;&gt;Full name&lt;/label&gt;
 &lt;/div&gt;
 </code></pre>
+<p>Both floating and stacked labels remain real pointer targets; clicking a label
+focuses its associated native control without JavaScript.</p>
 <p>Keep a persistent programmatic label with for/id. The one-space placeholder
 is a deliberate :placeholder-shown state hook, <strong>not</strong> the accessible label.</p>
 <p>The field becomes a <strong>stacked, wrapping label above the input</strong> when its own

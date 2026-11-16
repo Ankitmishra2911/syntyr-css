@@ -1732,7 +1732,7 @@
     text-overflow: ellipsis;
     color: var(--syn-muted);
     font: 500 var(--syn-type-sm)/1.4 var(--syn-font-ui);
-    pointer-events: none;
+    /* Keep the real label clickable: pointer events forward focus to the input. */
     transform-origin: left top;
   }
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating):dir(rtl) > .syn-floating-label {

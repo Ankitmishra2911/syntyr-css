@@ -53,7 +53,8 @@ class HtmlIntegrationTests(unittest.TestCase):
         self.assertTrue(any(tag == "button" and "data-syn-semantic" in a for tag, a in parser.tags))
         self.assertEqual(
             [a.get("src") for tag, a in parser.tags if tag == "script"],
-            ["https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js"],
+            ["https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js",
+             "/examples/htmx-recovery.js"],
         )
         self.assertNotIn("onload=", html)
         self.assertNotIn("onclick=", html)
