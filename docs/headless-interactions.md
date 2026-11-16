@@ -32,7 +32,7 @@ Aria controls, not inert HTML copies. Its npm dependencies are optional
 
 ~~~sh
 cd examples/headless-react
-npm install
+npm ci
 npm run build
 npx playwright install chromium  # optional browser-test setup
 npm test                      # six Chromium keyboard/state smoke tests

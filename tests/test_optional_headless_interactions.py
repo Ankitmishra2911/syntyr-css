@@ -44,6 +44,7 @@ class OptionalHeadlessInteractions(unittest.TestCase):
         for library in ('react', 'react-dom', 'react-aria-components',
                         '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'):
             self.assertIn(library, pkg['dependencies'])
+        self.assertTrue((base / 'package-lock.json').is_file())
         self.assertIn('build', pkg['scripts'])
         self.assertIn('test', pkg['scripts'])
         self.assertIn('@playwright/test', pkg['devDependencies'])

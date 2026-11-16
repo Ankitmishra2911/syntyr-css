@@ -3,3 +3,6 @@ dist/
 .vite/
 playwright-report/
 test-results/
+
+# Keep this isolated example reproducible without creating a root npm lockfile.
+!package-lock.json
