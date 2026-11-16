@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Learn shared UI design principles, accessible component states, semantic HTML compositions, and static palette contrast checks in Syntyr CSS.">
-  <meta name="syntyr-source-sha256" content="6102cf6f28ae9039a87bc16047e317400374fecdfb7990af0dd85eede1934a09">
+  <meta name="syntyr-source-sha256" content="f704c5e969515b0d09fcb722067a33031c4552346aa69bf84de493dcda1bf666">
   <meta name="theme-color" content="#f5f7fb">
   <title>Design principles and conformance contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/design-principles">
@@ -91,8 +91,8 @@ and <a href="accessibility.html">the accessibility guide</a>.</p>
 <tbody>
 <tr>
 <td>Action buttons</td>
-<td>`button type=&quot;button</td>
-<td>submit&quot;<code>; </code>a href` only for navigation</td>
+<td><code>button type=&quot;button&quot;</code> or <code>button type=&quot;submit&quot;</code>; <code>a href</code> only for navigation</td>
+<td>default, hover when meaningful, <code>:focus-visible</code>, pressed, true disabled; distinguish toggle <code>aria-pressed</code> from decoration</td>
 </tr>
 <tr>
 <td>Inputs and form groups</td>

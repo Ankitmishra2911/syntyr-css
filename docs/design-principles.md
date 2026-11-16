@@ -51,7 +51,7 @@ and [the accessibility guide](accessibility.md).
 
 | Component family | Real semantics | Required presentation and verification |
 | --- | --- | --- |
-| Action buttons | `button type="button|submit"`; `a href` only for navigation | default, hover when meaningful, `:focus-visible`, pressed, true disabled; distinguish toggle `aria-pressed` from decoration |
+| Action buttons | `button type="button"` or `button type="submit"`; `a href` only for navigation | default, hover when meaningful, `:focus-visible`, pressed, true disabled; distinguish toggle `aria-pressed` from decoration |
 | Inputs and form groups | paired `label` + `id`, `fieldset`/`legend`, optional `aria-describedby` | default, focus, disabled, `:user-invalid` or synchronized `aria-invalid`, explicit error text |
 | Navigation | `nav`, real links, `aria-current` on current destination | visible keyboard focus, active destination, wrapping/overflow, short discernible names |
 | Data tables | `caption`, `th scope`, numeric cells when helpful | row/cell hierarchy, legible density, focusable overflow region, optional `aria-sort` only when sorting exists |

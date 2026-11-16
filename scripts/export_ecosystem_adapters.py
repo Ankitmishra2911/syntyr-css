@@ -21,6 +21,7 @@ COLORS = ("bg", "surface", "surface-hi", "text", "muted", "accent", "accent-2",
           "on-accent", "frame", "frame-strong", "danger", "success", "warning")
 DIMENSIONS = ("radius", "cut")
 DECLARATION = re.compile(r"^\s*(--syn-[\w-]+):\s*([^;]+);")
+CSS_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
 THEME_NAME = re.compile(r'data-syn-theme="([a-z]+)"')
 HEX_COLOR = re.compile(r"^#[0-9a-fA-F]{6}$")
 REM_VALUE = re.compile(r"^((?:\d+(?:\.\d*)?|\.\d+))rem$")
@@ -34,7 +35,8 @@ def read_palettes(css: str, *, strict: bool = True) -> dict[str, dict[str, str]]
     """
     result: dict[str, dict[str, str]] = {}
     current = None
-    for line in css.splitlines():
+    # CSS ignores declarations inside block comments; audit the same active text.
+    for line in CSS_COMMENT.sub("", css).splitlines():
         stripped = line.strip()
         if current is not None:
             if stripped == "}":
