@@ -58,11 +58,11 @@ test('enter directions use independent translate and overrideable distance', () 
   const { element, calls } = target({ '--syn-motion-distance': '2rem' });
   animate(element, 'enter', { direction: 'left' });
   assert.deepEqual(calls[0].frames, [
-    { opacity: 0, translate: '-2rem 0' },
+    { opacity: 0, translate: 'calc(-1 * 2rem) 0' },
     { opacity: 1, translate: '0 0' },
   ]);
   animate(element, 'enter', { direction: 'down', distance: '16px' });
-  assert.equal(calls[1].frames[0].translate, '0 -16px');
+  assert.equal(calls[1].frames[0].translate, '0 calc(-1 * 16px)');
 });
 
 test('scale is a finite compositor-friendly entrance', () => {
@@ -135,4 +135,70 @@ test('observer fallback avoids hiding content when JS features or motion are una
 test('package subpath exposes only the optional native animation module', async () => {
   const api = await import('@syntyr/css/animate');
   assert.deepEqual(Object.keys(api).sort(), ['animate', 'observeReveals', 'stagger']);
+});
+
+
+test('functional and negative distances are correctly negated by CSS calc', () => {
+  const { element, calls } = target({ '--syn-motion-distance': 'calc(1rem + 2px)' });
+  animate(element, 'enter', { direction: 'left' });
+  assert.equal(calls[0].frames[0].translate, 'calc(-1 * calc(1rem + 2px)) 0');
+  animate(element, 'enter', { direction: 'down', distance: '-16px' });
+  assert.equal(calls[1].frames[0].translate, '0 calc(-1 * -16px)');
+  animate(element, 'enter', { direction: 'right', distance: 'calc(1rem + 2px)' });
+  assert.equal(calls[2].frames[0].translate, 'calc(1rem + 2px) 0');
+});
+
+test('rescan only observes and animates new elements, even with queued duplicate entries', () => {
+  const { element: first, calls: one } = target();
+  const { element: second, calls: two } = target();
+  first.dataset.synReveal = 'enter';
+  second.dataset.synReveal = 'fade';
+  let nodes = [first];
+  const observers = [];
+  globalThis.IntersectionObserver = class {
+    constructor(callback) {
+      this.callback = callback;
+      this.targets = [];
+      observers.push(this);
+    }
+    observe(element) { this.targets.push(element); }
+    unobserve() {}
+    disconnect() {}
+  };
+  const root = { querySelectorAll: () => nodes };
+  const firstStop = observeReveals(root);
+  observers[0].callback([{ target: first, isIntersecting: true }]);
+  assert.equal(one.length, 1);
+  nodes = [first, second];
+  const secondStop = observeReveals(root);
+  assert.deepEqual(observers[1].targets, [second]);
+  observers[1].callback([
+    { target: first, isIntersecting: true },
+    { target: second, isIntersecting: true },
+  ]);
+  assert.equal(one.length, 1);
+  assert.equal(two.length, 1);
+  firstStop();
+  secondStop();
+});
+
+test('two observers racing for the same element still animate it once', () => {
+  const { element, calls } = target();
+  element.dataset.synReveal = 'fade';
+  const observers = [];
+  globalThis.IntersectionObserver = class {
+    constructor(callback) { this.callback = callback; observers.push(this); }
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+  const root = { querySelectorAll: () => [element] };
+  const stopOne = observeReveals(root);
+  const stopTwo = observeReveals(root);
+  const entry = { target: element, isIntersecting: true };
+  observers[0].callback([entry]);
+  observers[1].callback([entry]);
+  assert.equal(calls.length, 1);
+  stopOne();
+  stopTwo();
 });

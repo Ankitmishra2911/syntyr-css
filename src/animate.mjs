@@ -9,6 +9,8 @@
 const PRESETS = new Set(['fade', 'enter', 'scale']);
 const DIRECTIONS = new Set(['up', 'down', 'left', 'right']);
 const NOOP = () => {};
+// Tracks one-shot reveals without retaining detached DOM nodes.
+const revealedElements = new WeakSet();
 
 function reducedMotion() {
   return globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches === true;
@@ -40,10 +42,13 @@ function keyframes(preset, options, style) {
   if (!DIRECTIONS.has(direction)) throw new TypeError('Invalid direction: ' + direction);
   const distance = options.distance ?? token(style, '--syn-motion-distance', '.75rem');
   const offset = String(distance);
+  // CSS math works with both functional lengths (calc/var) and signed values.
+  // Prefixing '-' to 'calc(...)' produces invalid keyframes.
+  const negative = 'calc(-1 * ' + offset + ')';
   const origin = {
     up: '0 ' + offset,
-    down: '0 -' + offset,
-    left: '-' + offset + ' 0',
+    down: '0 ' + negative,
+    left: negative + ' 0',
     right: offset + ' 0',
   }[direction];
   return [{ opacity: 0, translate: origin }, { opacity: 1, translate: '0 0' }];
@@ -104,13 +109,18 @@ export function stagger(elements, preset = 'enter', options = {}) {
 export function observeReveals(root = globalThis.document) {
   if (!root?.querySelectorAll || !globalThis.IntersectionObserver || reducedMotion()) return NOOP;
 
-  const targets = root.querySelectorAll('.syn-root [data-syn-reveal]');
+  const targets = Array.from(root.querySelectorAll('.syn-root [data-syn-reveal]'))
+    .filter(element => !revealedElements.has(element));
   if (!targets.length) return NOOP;
 
   const observer = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
       observer.unobserve(entry.target);
+      // Two observers can queue callbacks for the same target. Mark before
+      // animating so rescans and queued entries cannot replay a reveal.
+      if (revealedElements.has(entry.target)) continue;
+      revealedElements.add(entry.target);
       const preset = entry.target.dataset?.synReveal || 'enter';
       animate(entry.target, PRESETS.has(preset) ? preset : 'enter');
     }

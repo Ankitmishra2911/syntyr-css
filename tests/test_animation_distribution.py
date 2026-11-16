@@ -49,6 +49,11 @@ class AnimationDistribution(unittest.TestCase):
         self.assertIn('node --test tests/animate.test.mjs',
                       (ROOT / '.woodpecker/js-adoption.yaml').read_text())
 
+    def test_agent_index_lists_opt_in_animation_guide(self):
+        index = (ROOT / 'llms.txt').read_text()
+        self.assertIn('https://syntyr-css.pages.dev/docs/animation.md', index)
+        self.assertIn('unreleased alpha.5', index)
+
     def test_readme_describes_opt_in_native_motion_companion(self):
         docs = (ROOT / 'docs/animation.md').read_text()
         for term in ('syntyr.animate.mjs', 'animate(', 'stagger(',
