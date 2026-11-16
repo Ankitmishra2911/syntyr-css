@@ -535,7 +535,17 @@ Syntyr styles common HTML primitives within `.syn-root.syn-semantic` or a `.syn-
 
 The selectors style **unclassed elements only**, or elements explicitly marked `data-syn-semantic`. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.
 
-For a copyable page covering the additions, see [native HTML element examples](../examples/native-elements.html). The `commandfor` / `command="show-modal"` dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.
+For a copyable page covering the additions, see [native HTML element examples](../examples/native-elements.html).
+
+The same example now shows a labeled `input[list]` with a native `datalist`,
+a `select` with semantic `optgroup` choices, and paired `details name`
+disclosures. None are custom comboboxes or tab widgets. Datalist suggestions
+do **not** constrain valid input; server validation remains essential. A
+matching `details name` group behaves like a single-open accordion in
+supporting browsers, and remains fully usable (with independently open panels)
+in older engines. Syntyr adds only open-state spacing and preserves the
+browser's summary markers, keyboard support and focus outlines.
+ The `commandfor` / `command="show-modal"` dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">

@@ -1001,6 +1001,12 @@
     cursor: pointer; font-weight: 600; min-block-size: 2.75rem;
     padding-block: .5rem; align-content: center;
   }
+  /* Named disclosure groups use the native details[name] exclusive-open rule.
+     The open state gains spacing only; preserve the summary marker and focus. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(details:not([class])[open], details[data-syn-semantic][open]) > :is(summary:not([class]), summary[data-syn-semantic])) {
+    margin-block-end: var(--syn-space-2);
+    color: var(--syn-text);
+  }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(blockquote:not([class]), blockquote[data-syn-semantic])) { margin-inline: 0; padding: .5rem 1rem; border-inline-start: 2px solid var(--syn-accent); color: var(--syn-muted); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(hr:not([class]), hr[data-syn-semantic])) { border: 0; border-top: 1px solid var(--syn-frame); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(code:not([class]), code[data-syn-semantic])) { font-family: var(--syn-mono); color: var(--syn-accent); }

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="fc505ac9dd13dbb18316c308b27de456f29caa1bf5ef2ea3764b80ed0233db1a">
+  <meta name="syntyr-source-sha256" content="b54f28666ab40d67aa14ded0b816839e1e3823c193394c44800b639ef79244bc">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -320,7 +320,16 @@ For native input examples, see <a href="catalog.html">the component catalog</a>.
 </tbody>
 </table>
 <p>The selectors style <strong>unclassed elements only</strong>, or elements explicitly marked <code>data-syn-semantic</code>. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.</p>
-<p>For a copyable page covering the additions, see <a href="../examples/native-elements.html">native HTML element examples</a>. The <code>commandfor</code> / <code>command=&quot;show-modal&quot;</code> dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.</p>
+<p>For a copyable page covering the additions, see <a href="../examples/native-elements.html">native HTML element examples</a>.</p>
+<p>The same example now shows a labeled <code>input[list]</code> with a native <code>datalist</code>,
+a <code>select</code> with semantic <code>optgroup</code> choices, and paired <code>details name</code>
+disclosures. None are custom comboboxes or tab widgets. Datalist suggestions
+do <strong>not</strong> constrain valid input; server validation remains essential. A
+matching <code>details name</code> group behaves like a single-open accordion in
+supporting browsers, and remains fully usable (with independently open panels)
+in older engines. Syntyr adds only open-state spacing and preserves the
+browser's summary markers, keyboard support and focus outlines.
+The <code>commandfor</code> / <code>command=&quot;show-modal&quot;</code> dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.</p>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.semantic.css&quot;&gt;
 &lt;main class=&quot;syn-root syn-semantic&quot;&gt;
