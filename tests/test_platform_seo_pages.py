@@ -112,6 +112,13 @@ class PlatformLandingSEOTests(unittest.TestCase):
                 self.assertIn("alpha.4", text)
                 self.assertGreaterEqual(len(re.findall(r"\b[\w-]+\b", text)), 220)
 
+    def test_joomla_guide_activates_registered_css_asset(self):
+        guide = (ROOT / "docs/joomla.md").read_text(encoding="utf-8")
+        self.assertIn("Web Asset Manager", guide)
+        self.assertIn("joomla.asset.json", guide)
+        self.assertIn("useStyle(", guide)
+        self.assertIn("registerAndUseStyle", guide)
+
     def test_index_sitemap_and_discoverability(self):
         sitemap = self.files["sitemap.xml"].decode()
         hub = self.files["docs/site-builders.html"].decode()

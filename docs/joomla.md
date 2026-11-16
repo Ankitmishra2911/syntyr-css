@@ -9,7 +9,16 @@ Joomla already separates a site's public template from its CMS content and exten
 ## How to install Syntyr in a Joomla template
 
 1. Work in a custom or **child site template**, not in an unmodified core template that an update could replace. Copy the candidate `dist/syntyr.embed.css` into the template's static CSS directory.
-2. Register the stylesheet using your site's template asset-loading convention (in current Joomla templates, this can use the **Web Asset Manager** or a declared template asset file). Avoid pasting the entire distribution into an article's editor HTML.
+2. Register **and activate** the stylesheet using Joomla's **Web Asset Manager**. Registering a style in the template's `joomla.asset.json` only makes the asset known to Joomla; it does **not** load the CSS until you mark it as used. For example, after registering the style under the name `syntyr.embed`, call the following from your site template's PHP rendering code:
+
+```php
+<?php
+$wa = $this->getWebAssetManager();
+$wa->useStyle('syntyr.embed'); // The name must match the registered style asset.
+?>
+```
+
+   Alternatively, if your template does not use an asset JSON declaration, Joomla supports `$wa->registerAndUseStyle('syntyr.embed', 'YOUR-ASSET-URI.css')` to register and enable the style in one call. Replace the URI with the correct template asset URI for your Joomla installation. Confirm the stylesheet `<link>` is emitted on the rendered page; simply registering a file is insufficient.
 3. Insert a Syntyr component in a custom module or template override that outputs permitted HTML:
 
 ```html
@@ -28,7 +37,7 @@ Joomla already separates a site's public template from its CMS content and exten
 
 Joomla's visual article editors may sanitize custom markup according to filtering and role settings. Styling a custom module does not automatically style third-party extensions, forms or ecommerce flows. If your template generates additional styles after Syntyr, a more specific rule may win; use a wrapper-scoped override rather than adding platform-internal CSS to Syntyr itself. Administrative styling is a separate template concern.
 
-**Joomla reference:** [Official extension and template development overview](https://manual.joomla.org/docs/next/building-extensions/).
+**Joomla references:** [Web Asset Manager: registering versus using styles](https://manual.joomla.org/docs/5.4/general-concepts/web-asset-manager/) and [official extension and template development overview](https://manual.joomla.org/docs/next/building-extensions/).
 
 ## Verify the result before publishing
 
