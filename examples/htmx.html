@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS + HTMX: a progressive-enhancement search demo.">
-  <meta name="htmx-config" content='{"includeIndicatorStyles":false}'>
+  <meta name="htmx-config" content='{"includeIndicatorStyles":false,"historyRestoreAsHxRequest":false}'>
   <title>Syntyr + HTMX — Customer search</title>
   <link rel="stylesheet" href="/dist/syntyr.core.css">
   <link rel="stylesheet" href="/dist/syntyr.semantic.css">
@@ -24,9 +24,10 @@
       <article class="syn-panel">
         <form action="/customers/search" method="get"
               hx-get="/customers/search" hx-target="#results"
-              hx-swap="innerHTML" hx-indicator="#search-button">
+              hx-swap="innerHTML" hx-push-url="true" hx-indicator="#search-button"
+              hx-disabled-elt="#search-button">
           <label for="query">Customer name</label>
-          <input id="query" type="search" name="q" maxlength="120"
+          <input id="query" type="search" name="q" value="" maxlength="120"
                  data-syn-semantic placeholder="Try Acme or Northstar">
           <button type="submit" id="search-button" data-syn-semantic>
             Search <span class="htmx-indicator" role="status">Searching…</span>

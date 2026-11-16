@@ -125,6 +125,7 @@ class DatastarBrowserTests(unittest.TestCase):
             page.locator("#search-button").click()
             page.get_by_text("Acme Corporation").wait_for()
             self.assertIn("q=Acme", page.url)
+            self.assertEqual(page.locator("#customer-query").input_value(), "Acme")
             self.assertEqual(page.locator("main.syn-root").get_attribute("data-syn-theme"), "studio")
         finally:
             no_js.close()

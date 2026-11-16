@@ -48,7 +48,7 @@ class DemoHandler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         if vary:
-            self.send_header("Vary", "HX-Request")
+            self.send_header("Vary", "HX-Request, HX-History-Restore-Request")
         self.end_headers()
         self.wfile.write(payload)
 
@@ -64,11 +64,14 @@ class DemoHandler(BaseHTTPRequestHandler):
         if parsed.path == "/customers/search":
             query = parse_qs(parsed.query, keep_blank_values=True).get("q", [""])[0].strip()[:120]
             fragment = customer_results(query)
-            if self.headers.get("HX-Request", "").lower() == "true":
+            if (self.headers.get("HX-Request", "").lower() == "true"
+                    and self.headers.get("HX-History-Restore-Request", "").lower() != "true"):
                 body = fragment
             else:
                 template = (ROOT / "examples/htmx.html").read_text(encoding="utf-8")
-                body = template.replace("<!-- RESULTS -->", fragment)
+                body = template.replace("<!-- RESULTS -->", fragment).replace(
+                    'name="q" value=""', f'name="q" value="{escape(query, quote=True)}"', 1
+                )
             self.respond(200, body.encode("utf-8"), "text/html; charset=utf-8", vary=True)
             return
 

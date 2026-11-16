@@ -64,19 +64,30 @@ self-host the pinned HTMX asset for control over performance, integrity, and CSP
 
 The search form uses a real `action` and `method=get`. When HTMX sends
 `HX-Request: true`, the server returns only the result fragment. Ordinary
-navigation gets a complete HTML document. The server emits `Vary: HX-Request`
-to keep caches from mixing the representations, and escapes user-controlled
-query text before inserting it in HTML.
+navigation gets a complete HTML document. The server emits
+`Vary: HX-Request, HX-History-Restore-Request` to keep caches from mixing
+normal fragments and full history-restore documents, and escapes
+user-controlled query text before inserting it in HTML.
 
 For best results:
 
 - Put `.syn-root` and `data-syn-theme` **outside** the swapped element.
 - Swap the narrowest stable target (normally `innerHTML` inside a results container).
 - Give labels and inputs stable IDs; preserve native form submission as a fallback.
+- Use `hx-push-url="true"` when search/filter results should be bookmarkable.
+  Ensure the same URL serves a complete document on reload, restores escaped
+  field values, and returns only the intended fragment for normal HTMX requests.
+- If full documents and partial responses share an endpoint, set
+  `historyRestoreAsHxRequest: false` in HTMX 2 and return a complete HTML
+  document when `HX-History-Restore-Request: true` is present, even if a
+  proxy or client also sends `HX-Request: true`. Set `Vary` for both headers
+  or disable caching. A history cache miss must not receive a fragment.
+- Use `hx-disabled-elt` to lock an in-flight submit button when duplicate
+  submissions are undesirable. An `hx-indicator` only provides feedback.
 - If a control must survive a larger swap, consider `hx-preserve` with a stable
   ID on both sides of the swap; prefer narrow targets first.
-- Use the framework's `hx-indicator` and `hx-disabled-elt` when appropriate;
-  `aria-busy` does **not** block duplicate submissions by itself.
+- A loading cursor, `aria-busy`, and `hx-indicator` are only feedback:
+  they do **not** block duplicate submissions by themselves.
 - Do not create a permanent Syntyr HTMX runtime or register Syntyr lifecycle events.
 - For strict CSP, use `includeIndicatorStyles: false` and an external stylesheet.
   The demo shows this pattern with a small **application-owned** `htmx.css`.
@@ -86,6 +97,41 @@ For best results:
 The demo server intentionally exposes only four static assets and one GET route,
 listens on localhost, and is **not** included in the Cloudflare static-site build.
 A static host cannot serve its dynamic search endpoint without a backend.
+
+### HTMX 4 migration (separate from Syntyr)
+
+The runnable example intentionally pins HTMX **2.0.8**. HTMX **4.0.1**
+uses the same Syntyr stylesheet and component HTML, but its *HTMX-owned*
+API changes. A browser smoke test applies the migration in an isolated
+fixture rather than silently changing the v2 example:
+
+- Replace `hx-disabled-elt="#search-button"` with
+  `hx-disable="#search-button"`. In HTMX 4 the *old* `hx-disable` meaning
+  (ignore a subtree) moved to `hx-ignore`.
+- Use `includeIndicatorCSS: false` (rather than the v2
+  `includeIndicatorStyles: false`) with the application-owned
+  `htmx.css` indicator stylesheet.
+- HTMX 4 refetches full documents for history navigation, instead of
+  depending on the v2 browser snapshot cache. Full-page GET rendering
+  and escaped form-value restoration must still work.
+- HTMX 4 makes attribute inheritance explicit and swaps HTTP errors by
+  default; review the framework's migration guide before upgrading
+  any application. Syntyr does not override these semantics.
+
+To exercise both versions against the real browser runtime without
+installing either into Syntyr:
+
+```sh
+curl -fsSL https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js -o /tmp/syntyr-htmx2.js
+curl -fsSL https://cdn.jsdelivr.net/npm/htmx.org@4.0.1/dist/htmx.min.js -o /tmp/syntyr-htmx4.js
+HTMX_JS_PATH=/tmp/syntyr-htmx2.js HTMX4_JS_PATH=/tmp/syntyr-htmx4.js python3 tests/htmx_browser.py
+```
+
+Playwright is an **optional testing dependency**. In the smoke test,
+the HTML response uses HTMX 4's external script and renamed controls
+while keeping the identical Syntyr CSS, class names, and stable theme root.
+This is not a claim that every HTMX extension or version-specific behavior
+is drop-in compatible.
 
 
 ## Server-driven HTML: optional request-state bridge
@@ -303,14 +349,26 @@ pinned script in production.
 The framework owns `data-indicator`, `data-bind:q`, `data-on:submit`,
 disabled state, and the SSE morph. The server returns
 `event: datastar-patch-elements` with a matching `id="customer-results"`
-and escapes user content. Because Datastar GET requests send signal values
+and escapes user content. Serialize each SSE patch as a single data line:
+normalize carriage returns and line feeds *after* HTML escaping, since HTML
+escaping alone does not prevent attacker-controlled SSE record boundaries.
+Because Datastar GET requests send signal values
 inside a `datastar` query parameter, the sample endpoint reads that JSON for
 SSE requests and reads ordinary `q` for no-JavaScript GET requests.
 
 **Keep `.syn-root` and the form outside the morphed results section.**
+The native GET fallback re-renders the escaped search term into the form
+value as well as the results, so users do not lose what they searched for.
 Syntyr's `data-syn-state` bridge is optional; the native disabled state and
 status message work independently of the progress cursor. Never rely on
 `aria-busy` or a CSS class alone to prevent duplicate mutations.
+
+Datastar `data-on:submit` automatically prevents native form navigation when
+the framework has initialized. Keep a real `action` and `method` so the form
+still works without Datastar. Prefer `data-class:*` to toggle state classes
+without overwriting a stable `syn-*` component class; use `data-attr:aria-*`
+to communicate interactive state. Keep the Syntyr theme root out of any
+SSE morph target and return a stable ID for the target.
 
 Datastar expressions execute JavaScript. Do not interpolate untrusted data into
 `data-*` expressions, do not put secrets in signals, validate on the server,
