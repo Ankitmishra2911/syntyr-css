@@ -1,4 +1,4 @@
-"""Optional real-browser smoke for built Next.js and Vite consumers.
+"""Optional real-browser smoke for built React, Preact, Solid and Next.js consumers.
 
 Run after scripts/test_js_adoption.py --install:
   python3 -m venv /tmp/syntyr-js-browser
@@ -29,10 +29,10 @@ class QuietHandler(SimpleHTTPRequestHandler):
 
 
 @contextmanager
-def vite_site():
-    folder = ROOT / "examples/react-vite/dist"
+def vite_site(fixture="examples/react-vite"):
+    folder = ROOT / fixture / "dist"
     if not (folder / "index.html").is_file():
-        raise RuntimeError("Build examples/react-vite before browser tests")
+        raise RuntimeError(f"Build {fixture} before browser tests")
     server = ThreadingHTTPServer(
         ("127.0.0.1", 0), partial(QuietHandler, directory=str(folder)))
     thread = threading.Thread(target=server.serve_forever, daemon=True)
@@ -83,7 +83,7 @@ def next_site():
             process.wait(timeout=5)
 
 
-class SyntyrReactBrowser(unittest.TestCase):
+class SyntyrJsxBrowser(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.playwright = sync_playwright().start()
@@ -122,6 +122,14 @@ class SyntyrReactBrowser(unittest.TestCase):
 
     def test_vite_react_hydrates_and_styles(self):
         with vite_site() as url:
+            self.check_app(url, "Count: 0", "Count: 1")
+
+    def test_preact_jsx_mounts_and_styles(self):
+        with vite_site("examples/preact-jsx") as url:
+            self.check_app(url, "Count: 0", "Count: 1")
+
+    def test_solid_tsx_mounts_and_styles(self):
+        with vite_site("examples/solid-tsx") as url:
             self.check_app(url, "Count: 0", "Count: 1")
 
     def test_next_app_router_hydrates_client_island(self):
