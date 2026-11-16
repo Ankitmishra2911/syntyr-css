@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="These are MIT-licensed, plain-HTML examples . Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime…">
-  <meta name="syntyr-source-sha256" content="f73a6f1e9e06e0b2ddd06fff938b80d77a110f128afce1cadb3d92f7b2b1177d">
+  <meta name="syntyr-source-sha256" content="bd62198e37153fb1ee0033f43820435076ef90283a16f6148d73ffea65b3c033">
   <meta name="theme-color" content="#f5f7fb">
   <title>Copy-owned form recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-recipes">
@@ -65,6 +65,7 @@
 &lt;/search&gt;
 </code></pre>
 <p>This is <strong>progressive enhancement</strong>: the GET form submits with <strong>No JavaScript</strong>. An HTMX application may add <code>hx-get</code> and <code>hx-target</code> while preserving <code>action</code>, <code>method</code>, and a server-rendered fallback. The application must implement the endpoint and return actual search results.</p>
+<p>At narrow available widths (12rem or less relative to the current text size), a connected input and submit button stack instead of squeezing the input into a tall, narrow strip. The <code>.syn-input-group</code> itself determines the breakpoint through a CSS container query; no viewport breakpoint, JavaScript, or additional component class is needed. Input groups containing only currency/unit addons keep their existing inline layout. Test long button labels, translations and browser zoom in consuming applications.</p>
 <h2 id="3-input-addon-currency-and-unit">3. Input addon (currency and unit)</h2>
 <pre><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-field&quot;&gt;

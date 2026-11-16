@@ -40,6 +40,8 @@ Only render `aria-invalid="true"` and the error message when the form is actuall
 
 This is **progressive enhancement**: the GET form submits with **No JavaScript**. An HTMX application may add `hx-get` and `hx-target` while preserving `action`, `method`, and a server-rendered fallback. The application must implement the endpoint and return actual search results.
 
+At narrow available widths (12rem or less relative to the current text size), a connected input and submit button stack instead of squeezing the input into a tall, narrow strip. The `.syn-input-group` itself determines the breakpoint through a CSS container query; no viewport breakpoint, JavaScript, or additional component class is needed. Input groups containing only currency/unit addons keep their existing inline layout. Test long button labels, translations and browser zoom in consuming applications.
+
 ## 3. Input addon (currency and unit)
 
 ```html
