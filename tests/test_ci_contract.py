@@ -31,6 +31,29 @@ class ContinuousIntegrationContract(unittest.TestCase):
             with self.subTest(contract=contract):
                 self.assertIn(contract, content)
 
+    def test_framework_adoption_builds_are_path_scoped_without_skipping_quality(self):
+        # Keep the workflow/status present, but skip npm steps for unrelated PRs.
+        workflow = (ROOT / ".woodpecker/js-adoption.yaml").read_text()
+        self.assertIn("event: pull_request", workflow)
+        self.assertIn("event: push", workflow)
+        self.assertIn("branch: main", workflow)
+        step = workflow.split("- name: node-react-next-consumers", 1)[1]
+        self.assertIn("when:", step)
+        self.assertIn("event: manual", step)
+        self.assertIn("path:", step)
+        self.assertIn("on_empty: true", step)
+        for relevant in (
+            "src/**", "dist/**", "package.json", "packages/react/**",
+            "examples/react-vite/**", "examples/next-app-router/**",
+            "examples/node-express/**", "integrations/**",
+            ".woodpecker/js-adoption.yaml",
+        ):
+            with self.subTest(path=relevant):
+                self.assertIn(relevant, step)
+        # Never path-gate the universal stdlib and release browser workflows.
+        self.assertNotIn("path:", (ROOT / ".woodpecker/quality.yaml").read_text())
+        self.assertNotIn("path:", (ROOT / ".woodpecker/browser.yaml").read_text())
+
     def test_quality_runner_installs_git_before_git_tracking_tests(self):
         # Python slim has no Git CLI. Several brand/distribution tests use
         # git ls-files, so the CI image must supply Git before running them.

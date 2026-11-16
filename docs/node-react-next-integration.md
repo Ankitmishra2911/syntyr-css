@@ -39,8 +39,12 @@ python3 -m venv /tmp/syntyr-js-browser
 ```
 
 The separate Woodpecker `js-adoption` pipeline builds the same consumers
-without imposing Node.js on the standard CSS quality pipeline. The optional
-browser smoke is a maintainer check, not a claimed CI browser gate.
+without imposing Node.js on the standard CSS quality pipeline. Its npm step
+runs when CSS, package, adapter, build or relevant consumer fixture paths
+change; it remains manually runnable for release verification. Documentation-
+only PRs skip that step. Such a skip is not proof of passed consumer builds;
+run the adoption suite before a release regardless of PR path filtering.
+The optional browser smoke is a maintainer check, not a claimed CI browser gate.
 
 ## React + Vite
 

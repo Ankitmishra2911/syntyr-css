@@ -8,6 +8,28 @@ when:
 
 steps:
   - name: node-react-next-consumers
+    # Run Node consumers only if their upstream CSS contract or fixture changes.
+    # Keep the workflow itself present so required PR status is not silently absent.
+    # Manual runs remain available for release reviews and investigations.
+    when:
+      - event: manual
+      - event: [pull_request, push]
+        path:
+          include:
+            - src/**
+            - dist/**
+            - package.json
+            - packages/react/**
+            - examples/react-vite/**
+            - examples/next-app-router/**
+            - examples/node-express/**
+            - integrations/**
+            - scripts/build.py
+            - scripts/export_ecosystem_adapters.py
+            - scripts/test_js_adoption.py
+            - tests/test_node_react_next_adoption.py
+            - .woodpecker/js-adoption.yaml
+          on_empty: true
     image: node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
     commands:
       - node --version && npm --version
