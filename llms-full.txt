@@ -2757,6 +2757,27 @@ Syntyr styles **your own HTML**, without JavaScript, build tooling, framework
 dependencies, plugins or proprietary APIs. It does **not** automatically reskin
 native CMS widgets, checkout, platform data services or their editor interfaces.
 
+## Platform-by-platform setup guides
+
+Each guide covers benefits for that platform, installation steps, real HTML
+examples, limitations, and checks for the published site. These are portable
+CSS recipes, **not** official platform plugins, partnerships or end-to-end
+certification for every platform account.
+
+- [Syntyr for WordPress](wordpress.md) — Gutenberg and child themes
+- [Syntyr for Shopify](shopify.md) — Liquid sections and storefront assets
+- [Syntyr for Wix / Wix Studio](wix.md) — HTML iframe embeds
+- [Syntyr for Webflow](webflow.md) — Code Embed and custom Head CSS
+- [Syntyr for Framer](framer.md) — Custom Code and iframe-aware embeds
+- [Syntyr for Squarespace](squarespace.md) — plan-aware HTML Code Blocks
+- [Syntyr for Ghost](ghost.md) — HTML cards and editorial themes
+- [Syntyr for HubSpot CMS](hubspot.md) — custom modules and landing pages
+- [Syntyr for Drupal](drupal.md) — theme libraries and Twig
+- [Syntyr for Joomla](joomla.md) — custom site templates and modules
+- [Syntyr for Carrd](carrd.md) — one-page custom HTML sections
+- [Syntyr for Duda](duda.md) — HTML Widgets for agency sites
+- [Syntyr for Tilda](tilda.md) — T123 HTML blocks and Head code
+
 ## Pick the correct CSS
 
 Use `syntyr.core.css` for a site that Syntyr owns. For a Syntyr feature inside

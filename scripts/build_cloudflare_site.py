@@ -237,6 +237,7 @@ PUBLIC_DOCS = (
     "index.html", "animation.md", "lit-integration.md", "playground.html", "playground.css", "playground.js",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
     "site-generator-decision.md", "site-builders.md", "tailwind-research.md",
+    "wordpress.md", "shopify.md", "wix.md", "webflow.md", "framer.md", "squarespace.md", "ghost.md", "hubspot.md", "drupal.md", "joomla.md", "carrd.md", "duda.md", "tilda.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
     "vertigo-integration.md", "viz.md",
 )
