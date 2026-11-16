@@ -146,6 +146,101 @@ needs behavior, use a small headless library or application code with keyboard,
 focus, announcements and tests. Do not introduce a Syntyr JS runtime.
 For native input examples, see [the component catalog](catalog.html).
 
+## Native choices, filters and rich list rows (alpha.5 source candidate)
+
+These recipes adapt useful shadcn/ui and daisyUI ideas to **native HTML**, without
+copying upstream implementations or requiring a JS widget runtime. They are
+opt-in, scoped under `.syn-root`, and use the existing theme tokens. See the
+[standalone demonstration](../examples/native-choice-filter-list.html).
+
+### Choice cards
+
+Use `<fieldset>` and `<legend>` to give radio/checkbox groups a name.
+`.syn-choice-card` is a real `<label>`, not an ARIA radio substitute.
+Compose a responsive layout with existing `.syn-grid`:
+
+```html
+<fieldset class="syn-fieldset">
+  <legend>Choose a plan</legend>
+  <div class="syn-grid">
+    <label class="syn-choice-card">
+      <input class="syn-input" type="radio" name="plan" value="starter" checked>
+      <span><strong>Starter</strong><small>For a small team</small></span>
+    </label>
+    <label class="syn-choice-card">
+      <input class="syn-input" type="radio" name="plan" value="growth">
+      <span><strong>Growth</strong><small>For a growing team</small></span>
+    </label>
+  </div>
+</fieldset>
+```
+
+Browser-owned `:checked`, `:focus-visible` and `:disabled` drive appearance.
+Keep the actual radio visible and focusable. No manually synchronized
+`aria-checked` or custom keyboard controller is needed.
+
+### Validation (browser and server)
+
+Native `:user-invalid` and explicit `aria-invalid="true"` already style
+Syntyr inputs and their field label. A server can additionally render
+`data-syn-state="error"` on `.syn-field` to style the field consistently
+before user interaction, without changing browser validity or hiding the error:
+
+```html
+<div class="syn-field" data-syn-state="error">
+  <label class="syn-label" for="email">Email</label>
+  <input class="syn-input" id="email" name="email" type="email" required
+         aria-invalid="true" aria-describedby="email-help email-error">
+  <p class="syn-help" id="email-help">Use a work email.</p>
+  <p class="syn-error" id="email-error">Enter a valid email address.</p>
+</div>
+```
+
+The host must validate on the server, supply real error text, update
+`aria-invalid`, and announce/focus a submission error summary when appropriate.
+CSS does not create errors, switch ARIA states, or focus controls. Do not hide
+all error text using CSS alone; accessible error content belongs to the host.
+This pattern works without JavaScript.
+
+### Native filter choices
+
+Use `.syn-filter-choices` to display a group of `.syn-chip` labels backed by
+real named radio/checkbox inputs. A wrapping filter group should be inside a
+named fieldset in a normal GET form:
+
+```html
+<form action="/campaigns" method="get">
+  <fieldset class="syn-fieldset">
+    <legend>Campaign status</legend>
+    <div class="syn-filter-choices">
+      <label class="syn-chip"><input type="radio" name="status" value="all" checked> All</label>
+      <label class="syn-chip"><input type="radio" name="status" value="active"> Active</label>
+    </div>
+  </fieldset>
+  <button class="syn-button" type="submit">Apply filter</button>
+</form>
+```
+
+The radio remains keyboard focusable and contributes to native form submission;
+the filter choice composition visually conceals only its small input and
+exposes `focus-visible` on the full chip. The server processes the query string.
+HTMX or Datastar may optionally enhance submission, but should preserve the
+HTML action/method fallback. Do not use these controls as faux ARIA tabs.
+
+### Rich collection rows
+
+Keep `.syn-list-group` and `.syn-list-row`. Optionally compose
+`.syn-list-row__media`, `.syn-list-row__body` and `.syn-list-row__actions`
+for an avatar, multiline description and an action cluster.
+When a row contains multiple actions, use a **noninteractive** `<li>` wrapper
+with independent links/buttons. Never nest interactive controls inside a row
+that is itself an `<a>` or `<button>`. Actions wrap on narrow containers and
+RTL follows logical margin properties.
+
+All four patterns inherit theme and density tokens. Validate keyboard focus,
+forced colors, mobile overflow, and actual server form behavior in consumers.
+
+
 ## Neutral-first visual styling
 
 The implicit `.syn-root` palette is Studio (light and sans-serif). Explicit `data-syn-theme="grid"` and `data-syn-theme="terminal"` retain technical monospace presentation; other themes remain opt-in. `.syn-panel` and `.syn-stage` are flat by default; add `syn-surface--accent` from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. `.syn-badge` is a neutral label; use `.syn-status` with readable status text for meaningful state, or `.syn-badge--accent` to emphasize a badge.
