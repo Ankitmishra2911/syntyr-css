@@ -384,9 +384,14 @@
     &.syn-panel:where([inert]) { border-style: dashed; background: var(--syn-surface-recessed); }
     &.syn-panel--raised { box-shadow: var(--syn-shadow-raised); }
     &.syn-panel--cut::after {
-      content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
-      width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-panel-cut-fill, var(--syn-bg));
+      content: ""; pointer-events: none; position: absolute;
+      inset-inline-end: -1px; inset-block-end: -1px;
+      inline-size: var(--syn-cut); block-size: var(--syn-cut);
+      background: var(--syn-panel-cut-fill, var(--syn-bg));
       clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    }
+    &.syn-panel--cut:dir(rtl)::after {
+      clip-path: polygon(0 0, 0 100%, 100% 100%);
     }
     @media (forced-colors: active) { &.syn-stage, &.syn-panel { border-color: CanvasText; } }
   }
@@ -575,7 +580,9 @@
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-overlay);
     }
-    &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    &.syn-popover { margin: .75rem; inset: auto;
+      inset-block-end: 1rem; inset-inline-end: 1rem;
+    }
     /* The ordinary corner popover remains the fallback if anchors are unsupported. */
     @supports (position-area: bottom) {
       &.syn-popover.syn-popover--anchored {
@@ -1378,12 +1385,29 @@
     &.syn-pipeline-card > :first-child { margin-block-start: 0; }
     &.syn-pipeline-card > :last-child { margin-block-end: 0; }
 
-    /* Definition-list fields for account, asset and deal detail panels. */
+    /* Definition-list fields for account, asset and deal detail panels.
+       The original intrinsic row layout is the fallback without subgrid. */
     &.syn-record-fields { display: grid; gap: 0; margin: 0; }
     &.syn-record-fields > div {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
       gap: .25rem var(--syn-space-2); padding-block: var(--syn-row-padding-block);
       border-block-end: 1px solid var(--syn-border-subtle);
+    }
+    /* Share column tracks across every row without hard-coded label widths.
+       The list itself owns the container, so embedded sidebars also reflow. */
+    @supports (grid-template-columns: subgrid) {
+      &.syn-record-fields {
+        container-name: syn-record-fields;
+        container-type: inline-size;
+        grid-template-columns: minmax(0, min(35%, 14rem)) minmax(0, 1fr);
+      }
+      &.syn-record-fields > div {
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+      }
+      @container syn-record-fields (max-width: 24rem) {
+        &.syn-record-fields > div { grid-template-columns: minmax(0, 1fr); }
+      }
     }
     &.syn-record-fields > div:last-child { border-block-end: 0; }
     &.syn-record-fields dt { color: var(--syn-muted); }
@@ -1560,17 +1584,20 @@
     /* An ordered activity stream: markers and lines are decoration, text is truth. */
     &.syn-activity-timeline { margin: 0; padding: 0; list-style: none; }
     &.syn-activity-timeline > li {
-      position: relative; padding: 0 0 var(--syn-space-3) 1.75rem; min-width: 0; overflow-wrap: anywhere;
+      position: relative;
+      padding-block-end: var(--syn-space-3); padding-inline-start: 1.75rem;
+      min-inline-size: 0; overflow-wrap: anywhere;
     }
     &.syn-activity-timeline > li:last-child { padding-block-end: 0; }
     &.syn-activity-timeline > li::before {
-      content: ""; position: absolute; inset: .35em auto auto .25rem;
-      width: .65rem; height: .65rem; border: 2px solid var(--syn-accent);
+      content: ""; position: absolute; inset-block-start: .35em; inset-inline-start: .25rem;
+      inline-size: .65rem; block-size: .65rem; border: 2px solid var(--syn-accent);
       border-radius: 50%; background: var(--syn-surface);
     }
     &.syn-activity-timeline > li:not(:last-child)::after {
-      content: ""; position: absolute; inset: 1.35em auto 0 .56rem;
-      width: 1px; background: var(--syn-border-default);
+      content: ""; position: absolute;
+      inset-block-start: 1.35em; inset-block-end: 0; inset-inline-start: .56rem;
+      inline-size: 1px; background: var(--syn-border-default);
     }
     &.syn-activity-timeline time {
       display: block; color: var(--syn-muted); font-size: var(--syn-type-sm);

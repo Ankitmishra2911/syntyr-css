@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="f52abf8dcd9060f37919f50bf93934b4f568de059475d0aa3cff0f2403682edb">
+  <meta name="syntyr-source-sha256" content="406542f87d2f38d491a01150650472b4279e5f1c80ccc7c171461ee9284a696e">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -85,6 +85,13 @@ required. The motion module honors reduced-motion preferences; without
 either opt-in, dialogs and popovers use their native static behavior.
 Native browsers own focus management, Escape and dialog inertness; the stylesheet
 does not implement a custom ARIA menu.</p>
+<h2 id="native-direction-aware-presentation">Native direction-aware presentation</h2>
+<p>The core popover's fixed-corner fallback and optional cut-corner panels use
+CSS <strong>logical</strong> inset properties. They follow the document's text direction
+(LTR or <strong>RTL</strong>) without a new theme or variant. Anchored popovers use the
+browser's native block/inline positioning and flip candidates when available.
+Optional activity timelines also place their markers on inline-start. Native
+<code>dir=&quot;rtl&quot;</code> controls direction; components keep semantic document order.</p>
 <h2 id="floating-labels">Floating labels</h2>
 <pre><code class="language-html">&lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
   &lt;input id=&quot;name&quot; name=&quot;name&quot; class=&quot;syn-input&quot; placeholder=&quot; &quot; required&gt;
@@ -188,6 +195,7 @@ and fallbacks.</p>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#individually-importable-css">Individually importable CSS</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-anchored-popovers-and-modal-commands">Native anchored popovers and modal commands</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-direction-aware-presentation">Native direction-aware presentation</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#floating-labels">Floating labels</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#semantic-timelines-and-captioned-code">Semantic timelines and captioned code</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendering-and-framework-use">Server-rendering and framework use</a>

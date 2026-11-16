@@ -63,6 +63,15 @@ either opt-in, dialogs and popovers use their native static behavior.
 Native browsers own focus management, Escape and dialog inertness; the stylesheet
 does not implement a custom ARIA menu.
 
+## Native direction-aware presentation
+
+The core popover's fixed-corner fallback and optional cut-corner panels use
+CSS **logical** inset properties. They follow the document's text direction
+(LTR or **RTL**) without a new theme or variant. Anchored popovers use the
+browser's native block/inline positioning and flip candidates when available.
+Optional activity timelines also place their markers on inline-start. Native
+`dir="rtl"` controls direction; components keep semantic document order.
+
 ## Floating labels
 
 ~~~html
