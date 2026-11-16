@@ -52,6 +52,19 @@ class NativeHTMLWorkflowTests(unittest.TestCase):
         self.assertNotIn("list-style: none", css)
         self.assertNotIn("summary::marker", css)
 
+    def test_semantic_inputs_and_fieldsets_shrink_at_large_text_sizes(self):
+        css = (ROOT / "src/semantic.css").read_text()
+        self.assertIn("grid-template-columns: minmax(0, 1fr)", css)
+        self.assertIn("inline-size: min(4rem, 100%)", css)
+        self.assertIn("min-inline-size: 0", css)
+        self.assertIn("padding: min(1rem, 6vw)", css)
+        html = (ROOT / "examples/native-elements.html").read_text()
+        self.assertIn('class="syn-table-wrap" role="region"', html)
+        self.assertIn('tabindex="0"', html)
+        harness = (ROOT / "tests/native_html_controls_browser.cjs").read_text()
+        self.assertIn("details[name=", harness)
+        self.assertIn("'400%'", harness)
+
     def test_native_workflows_are_discoverable(self):
         docs = (ROOT / "docs/components.md").read_text()
         self.assertIn("details name", docs)

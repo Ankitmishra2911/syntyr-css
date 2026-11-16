@@ -533,6 +533,16 @@ Syntyr styles common HTML primitives within `.syn-root.syn-semantic` or a `.syn-
 | `input[type=file]`, `input[type=color]` | Native chooser controls with theme-aware surfaces |
 | `details`, `summary`, `dialog`, `[popover]` | Browser-owned disclosure, top-layer behavior and dismissal |
 
+Classless file and color inputs now shrink inside semantic fieldsets rather
+than stretching the document at narrow or enlarged text sizes. Fieldsets and
+articles use viewport-capped spacing, preserving room for controls at high
+text enlargement. For genuinely wide data, wrap the native table in a
+keyboard-focusable `.syn-table-wrap` region with a clear accessible label.
+The developer-only Chromium/Firefox regression harness is
+`tests/native_html_controls_browser.cjs`; run it with Playwright available
+in the maintainer's Node environment and the appropriate browser executable
+variables.
+
 The selectors style **unclassed elements only**, or elements explicitly marked `data-syn-semantic`. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.
 
 For a copyable page covering the additions, see [native HTML element examples](../examples/native-elements.html).

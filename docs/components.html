@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="b54f28666ab40d67aa14ded0b816839e1e3823c193394c44800b639ef79244bc">
+  <meta name="syntyr-source-sha256" content="9b26efa41c43a8d0f89a907cd7a96abc44e5533c5ea1d510870c5ae45242dccb">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -319,6 +319,15 @@ For native input examples, see <a href="catalog.html">the component catalog</a>.
 </tr>
 </tbody>
 </table>
+<p>Classless file and color inputs now shrink inside semantic fieldsets rather
+than stretching the document at narrow or enlarged text sizes. Fieldsets and
+articles use viewport-capped spacing, preserving room for controls at high
+text enlargement. For genuinely wide data, wrap the native table in a
+keyboard-focusable <code>.syn-table-wrap</code> region with a clear accessible label.
+The developer-only Chromium/Firefox regression harness is
+<code>tests/native_html_controls_browser.cjs</code>; run it with Playwright available
+in the maintainer's Node environment and the appropriate browser executable
+variables.</p>
 <p>The selectors style <strong>unclassed elements only</strong>, or elements explicitly marked <code>data-syn-semantic</code>. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.</p>
 <p>For a copyable page covering the additions, see <a href="../examples/native-elements.html">native HTML element examples</a>.</p>
 <p>The same example now shows a labeled <code>input[list]</code> with a native <code>datalist</code>,
