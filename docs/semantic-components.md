@@ -419,6 +419,153 @@ document location. These paths assume the snippet runs in the examples
 directory as in the live component gallery. If there is no meaningful
 art-direction change, prefer a single responsive `img` instead.
 
+## Native suggestions with datalist
+
+Use `input[list]` with an associated `datalist` when you want to
+**suggest** common text entries without restricting what the user can type.
+Unlike `select`, it does not create an exhaustive set of choices. The
+`input` still needs a visible `label`, a real `name` for submission, and
+server-side validation. The browser owns how suggestions appear; do not try
+to skin a datalist popup.
+
+This working example submits a GET query to Syntyr's public issue tracker.
+
+~~~html
+<form action="https://github.com/dporkka/syntyr-css/issues" method="get">
+  <label for="topic-suggest">Search issues (try a suggested topic)</label>
+  <input id="topic-suggest" name="q" type="search"
+         list="reference-topic-suggestions" required
+         placeholder="Type a topic">
+  <datalist id="reference-topic-suggestions">
+    <option value="semantic"></option>
+    <option value="accessibility"></option>
+    <option value="themes"></option>
+    <option value="typography"></option>
+  </datalist>
+  <button type="submit">Search issues on GitHub</button>
+</form>
+~~~
+
+**No JavaScript is required** for suggestions. Use `select` instead when
+the submitted value must come from a finite set.
+
+## Glossary and abbreviations
+
+Use a real definition list for a collection of terms and their definitions.
+`dfn` identifies the term being defined, and `abbr[title]` expands an
+abbreviation the first time it matters. Do not use `dfn` as a decorative
+italic treatment or `dl` as an arbitrary two-column layout.
+
+~~~html
+<section aria-labelledby="glossary-heading">
+  <h2 id="glossary-heading">Glossary</h2>
+  <dl>
+    <dt><dfn>Native semantics</dfn></dt>
+    <dd>Meaning provided by HTML elements without custom roles.</dd>
+    <dt><dfn>ARIA</dfn></dt>
+    <dd><abbr title="Accessible Rich Internet Applications">ARIA</abbr>
+        extends accessibility semantics only where native HTML is insufficient.</dd>
+  </dl>
+</section>
+~~~
+
+## Highlighted excerpts and quotations
+
+`mark` indicates a relevant excerpt in its current context, such as a
+search match, while `q` denotes an inline quotation. The `cite` element
+names the cited **work**, rather than the author or a source URL. Do not
+manually insert quote-mark characters around `q` when the browser already
+provides them. Syntyr already styles `mark`, `q`, and `cite`; no extra
+components or runtime are necessary.
+
+~~~html
+<article aria-labelledby="excerpt-heading">
+  <h2 id="excerpt-heading">Highlighted documentation excerpt</h2>
+  <p><mark>Native HTML</mark> allows browser-owned focus and semantics.</p>
+  <p><q>Syntyr styles these elements without replacing browser semantics</q>
+     — <cite><a href="../docs/semantic-components.html">
+       Semantic HTML component recipes</a></cite>.</p>
+</article>
+~~~
+
+The quoted line comes from this guide's introduction. For search results,
+the server supplies the real match and safely escaped text; never inject
+untrusted HTML into highlighted excerpts.
+
+## Chronological ordered list
+
+Use `ol` for genuinely ordered events and `time[datetime]` for dates
+that machines can parse. `reversed` and `start` preserve native
+numbering for newest-first sequences; they are not substitutes for sorting
+the data server-side. This checklist is illustrative, **not** an actual
+Syntyr release history.
+
+~~~html
+<section aria-labelledby="history-heading">
+  <h2 id="history-heading">Illustrative release steps</h2>
+  <ol reversed start="3">
+    <li><time datetime="2026-11-16">16 November 2026</time>: Publish examples</li>
+    <li><time datetime="2026-11-15">15 November 2026</time>: Validate HTML</li>
+    <li><time datetime="2026-11-14">14 November 2026</time>: Draft content</li>
+  </ol>
+</section>
+~~~
+
+Use normal `ol` without `reversed` for a conventional chronological
+timeline or instructions progressing from step one.
+
+## Mathematical notation with MathML
+
+Native **MathML** gives equations structural meaning: `math`, `mrow`,
+`mi`, `mn`, `mo`, and `msup` identify the formula and its parts.
+Include readable explanatory text in a `figcaption`; avoid images of
+math without meaningful text alternatives. Annotation may preserve
+source notation for compatible tools, but browsers own layout.
+
+~~~html
+<figure>
+  <math display="block">
+    <semantics>
+      <mrow>
+        <msup><mi>a</mi><mn>2</mn></msup>
+        <mo>+</mo>
+        <msup><mi>b</mi><mn>2</mn></msup>
+        <mo>=</mo>
+        <msup><mi>c</mi><mn>2</mn></msup>
+      </mrow>
+      <annotation encoding="application/x-tex">a^2 + b^2 = c^2</annotation>
+    </semantics>
+  </math>
+  <figcaption>Example Pythagorean identity: a squared plus b squared equals c squared.</figcaption>
+</figure>
+~~~
+
+MathML is browser-native, **not styled by the optional semantic sheet**.
+Test presentation and accessibility with the actual browsers your users
+need to support.
+
+## Resource command list
+
+A native `menu` is an unordered list of **commands/actions**, not an ARIA
+application menu with arrow-key behavior. Use actual links for navigation
+actions and `button` only when it performs an implemented action. Do not
+add `role="menu"` unless you intend to implement its complete keyboard
+interaction contract.
+
+~~~html
+<section aria-labelledby="resources-heading">
+  <h2 id="resources-heading">Reference actions</h2>
+  <menu>
+    <li><a href="../docs/semantic-components.html">Read semantic recipes</a></li>
+    <li><a href="native-elements.html">Browse native controls</a></li>
+    <li><a href="https://github.com/dporkka/syntyr-css/issues">Report an issue</a></li>
+  </menu>
+</section>
+~~~
+
+All destinations are real links. Ordinary `ul` remains preferable for
+a list of information rather than actions.
+
 **Accessibility and maintenance:** Keep real heading order and link destinations,
 avoid adding redundant ARIA roles to native elements, test browser reflow and
 right-to-left content, and do not add JavaScript just to imitate HTML controls.

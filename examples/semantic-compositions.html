@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Live Syntyr semantic HTML gallery: native FAQ accordions, issue search, grouped forms, progress, responsive images, articles, footnotes and tables.">
+  <meta name="description" content="Semantic HTML components and copyable examples: native search suggestions, glossaries, highlights, MathML, timelines, FAQ, forms, responsive media and tables.">
   <title>Semantic HTML component gallery — Syntyr CSS</title>
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -30,7 +30,9 @@
     <h1>Semantic HTML components</h1>
     <p>Copy-owned native markup for publishing and SaaS interfaces. No JavaScript, custom widgets, or client-side framework is needed for these examples.</p>
     <p><a href="../docs/semantic-components.html">View copyable source and usage guidance</a></p>
-    <nav aria-label="On this page">
+    <details>
+      <summary>Browse all semantic examples</summary>
+      <nav aria-label="On this page">
       <ol>
         <li><a href="#pricing-title">Example price</a></li>
         <li><a href="#footnotes-title">Footnotes</a></li>
@@ -42,8 +44,15 @@
         <li><a href="#choices-title">Grouped form</a></li>
         <li><a href="#status-title">Progress and measurement</a></li>
         <li><a href="#media-title">Responsive media</a></li>
+        <li><a href="#suggestions-title">Autocomplete suggestions</a></li>
+        <li><a href="#glossary-title">Terminology and glossary</a></li>
+        <li><a href="#excerpt-title">Highlighted excerpt</a></li>
+        <li><a href="#chronology-title">Ordered release steps</a></li>
+        <li><a href="#math-title">MathML expression</a></li>
+        <li><a href="#resources-title">Resource commands</a></li>
       </ol>
-    </nav>
+      </nav>
+    </details>
 
     <section aria-labelledby="article-title">
       <h2 id="article-title">Article preview and byline</h2>
@@ -224,7 +233,7 @@
           <form action="https://github.com/dporkka/syntyr-css/issues" method="get">
             <label for="semantic-issues-query">Search Syntyr issues</label>
             <input id="semantic-issues-query" type="search" name="q" required
-                   placeholder="Example: accessibility">
+                   list="reference-topic-suggestions" placeholder="Example: accessibility">
             <button type="submit">Find issues on GitHub</button>
           </form>
         </search>
@@ -287,6 +296,94 @@
           </picture>
           <figcaption>Two existing Syntyr Studio screenshots, selected using native media queries.</figcaption>
         </figure>
+      </article>
+    </section>
+
+    <section aria-labelledby="suggestions-title">
+      <h2 id="suggestions-title">Native search suggestions</h2>
+      <article>
+        <h3>Autocomplete from a datalist</h3>
+        <p>The <a href="#semantic-issues-query">existing issue search</a> now suggests
+          relevant topics; users can still type any query.</p>
+        <datalist id="reference-topic-suggestions">
+          <option value="semantic"></option>
+          <option value="accessibility"></option>
+          <option value="themes"></option>
+          <option value="typography"></option>
+        </datalist>
+        <p><small>The browser owns suggestion rendering. The server validates submitted text.</small></p>
+      </article>
+    </section>
+
+    <section aria-labelledby="glossary-title">
+      <h2 id="glossary-title">Glossary of semantic terms</h2>
+      <article>
+        <h3 id="glossary-heading">Native HTML glossary</h3>
+        <dl>
+          <dt><dfn>Native semantics</dfn></dt>
+          <dd>Meaning provided by HTML elements without custom roles.</dd>
+          <dt><dfn>ARIA</dfn></dt>
+          <dd><abbr title="Accessible Rich Internet Applications">ARIA</abbr>
+            extends semantics only where the native element is insufficient.</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section aria-labelledby="excerpt-title">
+      <h2 id="excerpt-title">Highlighted search excerpt</h2>
+      <article aria-labelledby="excerpt-heading">
+        <h3 id="excerpt-heading">Highlighted documentation excerpt</h3>
+        <p><mark>Native HTML</mark> retains browser-owned focus and semantics.</p>
+        <p><q>Syntyr styles these elements without replacing browser semantics</q>
+          — <cite><a href="../docs/semantic-components.html">Semantic HTML component recipes</a></cite>.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="chronology-title">
+      <h2 id="chronology-title">Reverse chronological steps</h2>
+      <article>
+        <h3>Illustrative release steps (not real release history)</h3>
+        <ol reversed start="3">
+          <li><time datetime="2026-11-16">16 November 2026</time>: Publish examples</li>
+          <li><time datetime="2026-11-15">15 November 2026</time>: Validate HTML</li>
+          <li><time datetime="2026-11-14">14 November 2026</time>: Draft content</li>
+        </ol>
+      </article>
+    </section>
+
+    <section aria-labelledby="math-title">
+      <h2 id="math-title">Native mathematical notation</h2>
+      <article>
+        <h3>Structured MathML</h3>
+        <figure>
+          <math display="block">
+            <semantics>
+              <mrow>
+                <msup><mi>a</mi><mn>2</mn></msup>
+                <mo>+</mo>
+                <msup><mi>b</mi><mn>2</mn></msup>
+                <mo>=</mo>
+                <msup><mi>c</mi><mn>2</mn></msup>
+              </mrow>
+              <annotation encoding="application/x-tex">a^2 + b^2 = c^2</annotation>
+            </semantics>
+          </math>
+          <figcaption>Example Pythagorean identity: a squared plus b squared equals c squared.</figcaption>
+        </figure>
+        <p><small>Native MathML is laid out by the browser, with a readable caption.</small></p>
+      </article>
+    </section>
+
+    <section aria-labelledby="resources-title">
+      <h2 id="resources-title">Resource command list</h2>
+      <article>
+        <h3>Documentation actions</h3>
+        <menu>
+          <li><a href="../docs/semantic-components.html">Read semantic recipes</a></li>
+          <li><a href="native-elements.html">Browse native controls</a></li>
+          <li><a href="https://github.com/dporkka/syntyr-css/issues">Report an issue</a></li>
+        </menu>
+        <p><small>This is a native list of actions, not an ARIA application menu.</small></p>
       </article>
     </section>
 
