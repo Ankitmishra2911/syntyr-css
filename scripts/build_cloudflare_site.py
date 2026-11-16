@@ -160,6 +160,12 @@ HEADERS = """/*
 /examples/*
   Cache-Control: public, max-age=0, must-revalidate
 
+/blog/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/blog/rss.xml
+  Content-Type: application/rss+xml; charset=utf-8
+
 /dist/*
   Cache-Control: public, max-age=0, must-revalidate
   Access-Control-Allow-Origin: *
@@ -311,6 +317,11 @@ def source_files() -> dict[str, bytes]:
     )
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
+    # Public editorial HTML, styling and RSS. Other blog sources stay private.
+    paths.extend(ROOT / "blog" / name for name in (
+        "index.html", "blog.css", "rss.xml", "css-first-design-systems.html",
+        "accessible-native-html.html", "landing-page-ui-blocks.html",
+    ))
     paths.extend(ROOT / "dist" / name for name in public_css)
     paths.extend(ROOT / "dist" / name for name in javascript_distributions())
     # Only known generated MIT universal-item JSON; never scan private products.
