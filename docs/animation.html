@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="syntyr.animate.mjs is an opt-in, dependency-free ES module for application-triggered motion. It delegates timing and compositing to the native Web…">
-  <meta name="syntyr-source-sha256" content="195b95a55d52dd56350319e212e19b83920f94e1c92584bd18c2ca892da22cf0">
+  <meta name="syntyr-source-sha256" content="121d35c7bf9666ab93792255725f432f6edf94b46fbb7f63f7f9d3f6bbbef2b8">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional Syntyr animation library — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/animation">
@@ -164,6 +164,79 @@ python3 -m unittest discover -s tests -v
 <p>Node is for the optional JavaScript behavior tests, <strong>not</strong> for building
 Syntyr or using the CSS library. The production JS is copied byte-for-byte
 by Syntyr's existing Python build, allowing deterministic release checks.</p>
+<h2 id="website-block-effects-css-only">Website block effects (CSS only)</h2>
+<p>Load the optional <code>syntyr.motion.css</code> stylesheet <strong>alongside core</strong>. These
+effects can be applied to existing Syntyr Blocks, sections, React-rendered
+markup, and CMS templates. No JavaScript, hydration, observer setup, or new
+framework is required. This section describes the <strong>unreleased alpha.5
+candidate</strong>, not the published alpha.4 assets.</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.motion.css&quot;&gt;
+
+&lt;section class=&quot;syn-root syn-region&quot; aria-labelledby=&quot;features-heading&quot;&gt;
+  &lt;h2 id=&quot;features-heading&quot; data-syn-scroll=&quot;rise&quot;&gt;Built for clarity&lt;/h2&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot; data-syn-scroll=&quot;fade&quot;&gt;Feature one&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot; data-syn-scroll=&quot;slide-left&quot;&gt;Feature two&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot; data-syn-scroll=&quot;zoom&quot;&gt;Feature three&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot; data-syn-scroll=&quot;slide-right&quot;&gt;Feature four&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p><code>data-syn-scroll</code> accepts <code>fade</code>, <code>rise</code>, <code>slide-left</code>,
+<code>slide-right</code>, or <code>zoom</code>. Add it to a short block or an individual
+heading/card. Native CSS view timelines link animation progress to scroll
+position, with short blocks completing when they have fully entered the viewport,
+without JavaScript scroll handlers. Override
+<code>--syn-block-reveal-distance</code> (default <code>1.5rem</code>) or
+<code>--syn-block-reveal-scale</code> (default <code>.94</code>) per element.
+Avoid scroll-linked opacity on long-form text or content essential to
+understanding the page.</p>
+<h3 id="image-parallax-blocks">Image parallax blocks</h3>
+<p>Apply <code>data-syn-parallax</code> to a section with a natural or explicit height.
+Include one decorative media layer as a <strong>direct child</strong> marked
+<code>data-syn-parallax-layer</code>, plus a foreground <code>data-syn-parallax-content</code>.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-parallax
+         style=&quot;min-block-size: 26rem; --syn-parallax-travel: 2rem&quot;
+         aria-labelledby=&quot;parallax-title&quot;&gt;
+  &lt;img data-syn-parallax-layer src=&quot;/images/landscape.webp&quot;
+       alt=&quot;&quot; width=&quot;1600&quot; height=&quot;900&quot; loading=&quot;lazy&quot;&gt;
+  &lt;div class=&quot;syn-site-hero&quot; data-syn-parallax-content&gt;
+    &lt;h2 id=&quot;parallax-title&quot;&gt;A more engaging hero&lt;/h2&gt;
+    &lt;p&gt;Important content stays in normal document flow.&lt;/p&gt;
+    &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/start&quot;&gt;Explore&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Media is oversized and clipped inside its section. The parent defines a
+native view timeline, and the media moves over its visible scroll range.
+Use <code>--syn-parallax-travel</code> (default <code>2.5rem</code> each way) to keep movement
+subtle. Make sure foreground text stays readable against the image; add
+an overlay if needed. The layer should never contain essential content
+or controls. When motion is reduced or view timelines are unsupported,
+the image is <strong>static</strong> and all foreground content remains visible.
+Avoid <code>background-attachment: fixed</code> and JavaScript scroll handlers.</p>
+<h3 id="media-hover-zoom-and-existing-hover-lift">Media hover zoom and existing hover lift</h3>
+<pre><code class="language-html">&lt;a class=&quot;syn-root syn-panel&quot; style=&quot;display: block&quot; href=&quot;/portfolio/project&quot; data-syn-hover=&quot;zoom&quot;&gt;
+  &lt;img src=&quot;/images/project.webp&quot; alt=&quot;Project preview&quot;
+       width=&quot;640&quot; height=&quot;420&quot; data-syn-hover-media&gt;
+  &lt;span&gt;Explore the project&lt;/span&gt;
+&lt;/a&gt;
+</code></pre>
+<p>Use <code>data-syn-hover=&quot;zoom&quot;</code> on an image block and
+<code>data-syn-hover-media</code> on its image. Hover or keyboard focus-within
+scales only the media by <code>--syn-hover-zoom</code> (default <code>1.06</code>) on
+fine-pointer devices. For cards, reuse the existing
+<code>syn-surface--lift</code> from <code>syntyr.recipes.css</code> instead of another
+hover-lift class. You can use CSS-only scroll effects and static
+Syntyr effects together, but check contrast and visual distraction.</p>
+<p><strong>Fallback and accessibility:</strong> Unsupported browsers simply show the
+static blocks; no baseline CSS hides content. All new scroll, parallax,
+and hover motion is disabled by <code>prefers-reduced-motion: reduce</code>.
+The module never intercepts input, alters semantics, starts a timer, or
+ships an animation dependency. Existing <code>data-syn-reveal</code> belongs to
+the separate optional JavaScript <code>observeReveals()</code> API; it does not
+control CSS-only <code>data-syn-scroll</code>.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#install-and-invoke">Install and invoke</a>
@@ -171,6 +244,9 @@ by Syntyr's existing Python build, allowing deterministic release checks.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#viewport-reveals">Viewport reveals</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance">Accessibility and performance</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#verification">Verification</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#website-block-effects-css-only">Website block effects (CSS only)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#image-parallax-blocks">Image parallax blocks</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#media-hover-zoom-and-existing-hover-lift">Media hover zoom and existing hover lift</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="animation.md">Markdown source</a></nav>

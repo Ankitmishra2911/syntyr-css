@@ -4,9 +4,9 @@
   "presets": {
     "cinematic": {
       "file": "dist/presets/cinematic.css",
-      "gzip_bytes": 21732,
-      "raw_bytes": 116295,
-      "sha256": "14d1eca6843397b9d190e211db5095cb5cf161973007f809410c4686e6b00bd6",
+      "gzip_bytes": 22392,
+      "raw_bytes": 120362,
+      "sha256": "a9f563206ae0194e2e08edab3f1028af7fbfac237a93acc5f061886d13a8ab09",
       "sources": [
         "tokens.css",
         "base.css",

@@ -135,3 +135,92 @@ python3 -m unittest discover -s tests -v
 Node is for the optional JavaScript behavior tests, **not** for building
 Syntyr or using the CSS library. The production JS is copied byte-for-byte
 by Syntyr's existing Python build, allowing deterministic release checks.
+
+
+## Website block effects (CSS only)
+
+Load the optional `syntyr.motion.css` stylesheet **alongside core**. These
+effects can be applied to existing Syntyr Blocks, sections, React-rendered
+markup, and CMS templates. No JavaScript, hydration, observer setup, or new
+framework is required. This section describes the **unreleased alpha.5
+candidate**, not the published alpha.4 assets.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.motion.css">
+
+<section class="syn-root syn-region" aria-labelledby="features-heading">
+  <h2 id="features-heading" data-syn-scroll="rise">Built for clarity</h2>
+  <div class="syn-grid">
+    <article class="syn-panel" data-syn-scroll="fade">Feature one</article>
+    <article class="syn-panel" data-syn-scroll="slide-left">Feature two</article>
+    <article class="syn-panel" data-syn-scroll="zoom">Feature three</article>
+    <article class="syn-panel" data-syn-scroll="slide-right">Feature four</article>
+  </div>
+</section>
+```
+
+`data-syn-scroll` accepts `fade`, `rise`, `slide-left`,
+`slide-right`, or `zoom`. Add it to a short block or an individual
+heading/card. Native CSS view timelines link animation progress to scroll
+position, with short blocks completing when they have fully entered the viewport,
+without JavaScript scroll handlers. Override
+`--syn-block-reveal-distance` (default `1.5rem`) or
+`--syn-block-reveal-scale` (default `.94`) per element.
+Avoid scroll-linked opacity on long-form text or content essential to
+understanding the page.
+
+### Image parallax blocks
+
+Apply `data-syn-parallax` to a section with a natural or explicit height.
+Include one decorative media layer as a **direct child** marked
+`data-syn-parallax-layer`, plus a foreground ``data-syn-parallax-content``.
+
+```html
+<section class="syn-root syn-region" data-syn-parallax
+         style="min-block-size: 26rem; --syn-parallax-travel: 2rem"
+         aria-labelledby="parallax-title">
+  <img data-syn-parallax-layer src="/images/landscape.webp"
+       alt="" width="1600" height="900" loading="lazy">
+  <div class="syn-site-hero" data-syn-parallax-content>
+    <h2 id="parallax-title">A more engaging hero</h2>
+    <p>Important content stays in normal document flow.</p>
+    <a class="syn-button syn-button--primary" href="/start">Explore</a>
+  </div>
+</section>
+```
+
+Media is oversized and clipped inside its section. The parent defines a
+native view timeline, and the media moves over its visible scroll range.
+Use `--syn-parallax-travel` (default `2.5rem` each way) to keep movement
+subtle. Make sure foreground text stays readable against the image; add
+an overlay if needed. The layer should never contain essential content
+or controls. When motion is reduced or view timelines are unsupported,
+the image is **static** and all foreground content remains visible.
+Avoid `background-attachment: fixed` and JavaScript scroll handlers.
+
+### Media hover zoom and existing hover lift
+
+```html
+<a class="syn-root syn-panel" style="display: block" href="/portfolio/project" data-syn-hover="zoom">
+  <img src="/images/project.webp" alt="Project preview"
+       width="640" height="420" data-syn-hover-media>
+  <span>Explore the project</span>
+</a>
+```
+
+Use `data-syn-hover="zoom"` on an image block and
+`data-syn-hover-media` on its image. Hover or keyboard focus-within
+scales only the media by `--syn-hover-zoom` (default `1.06`) on
+fine-pointer devices. For cards, reuse the existing
+`syn-surface--lift` from `syntyr.recipes.css` instead of another
+hover-lift class. You can use CSS-only scroll effects and static
+Syntyr effects together, but check contrast and visual distraction.
+
+**Fallback and accessibility:** Unsupported browsers simply show the
+static blocks; no baseline CSS hides content. All new scroll, parallax,
+and hover motion is disabled by `prefers-reduced-motion: reduce`.
+The module never intercepts input, alters semantics, starts a timer, or
+ships an animation dependency. Existing `data-syn-reveal` belongs to
+the separate optional JavaScript `observeReveals()` API; it does not
+control CSS-only `data-syn-scroll`.

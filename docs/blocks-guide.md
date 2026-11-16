@@ -46,6 +46,20 @@ Routes like /settings and /checkout/team are example host-app routes. Replace
 them before using in production. Static samples do not implement authentication,
 filtering, payments, sorting, persistence or actual monitoring.
 
+## Optional scroll, parallax, and hover effects
+
+Any copied block can opt into decorative animation by loading
+[syntyr.motion.css](animation.md#website-block-effects-css-only) alongside its
+existing CSS. Add `data-syn-scroll="rise"` or `data-syn-scroll="fade"` directly
+to a heading or card in its original HTML; do not clone the block to create
+an animation variant. A decorative background can use `data-syn-parallax`
+with a separate media layer, and image tiles can use `data-syn-hover="zoom"`.
+
+These are CSS-first progressive enhancements: unsupported browser versions
+and users requesting reduced motion retain visible, static content. See the
+[block effects guide and examples](animation.md#website-block-effects-css-only)
+and the [live animation gallery](../examples/animation.html).
+
 ## 12 original, optional CSS asset recipes
 
 The complete source is [blocks-assets.css](blocks-assets.css). It includes:
