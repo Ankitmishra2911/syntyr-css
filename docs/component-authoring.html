@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Define semantic HTML, styling namespaces, theme scopes, and accessibility contracts for Syntyr-compatible application and Web Components.">
-  <meta name="syntyr-source-sha256" content="84c9f7a16ea0267b38aef8781cad974301c0f1475bcba98bc1dde8651df130e2">
+  <meta name="syntyr-source-sha256" content="e71df90c6a51d18dca983cd919d6c8f65217e02696c11a63641327e7f86dd29e">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr component-authoring contract (experimental) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-authoring">
@@ -111,6 +111,11 @@ behavior in browser tests.</p>
 <p>For an essential workflow, either provide meaningful static content
 that is valid without JavaScript or provide an independent native form/link
 fallback. Server-rendered text must match the initial attributes/state.
+A JavaScript-only action rendered into Declarative Shadow DOM should begin
+<strong>disabled</strong> and be enabled only after its event listener is installed, so a
+failed module load does not leave a misleading, apparently working control.
+Only rewrite a live region when its announced message actually changes,
+not when unrelated attributes (such as a heading) change.
 Do not claim that a JavaScript-only toggle provides a no-script mutation path.</p>
 <h3 id="custom-state-and-form-association-optional-application-concerns">Custom state and form association (optional application concerns)</h3>
 <p>Prefer the built-in state/ARIA vocabulary when it already expresses the behavior.

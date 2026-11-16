@@ -80,6 +80,11 @@ behavior in browser tests.
 For an essential workflow, either provide meaningful static content
 that is valid without JavaScript or provide an independent native form/link
 fallback. Server-rendered text must match the initial attributes/state.
+A JavaScript-only action rendered into Declarative Shadow DOM should begin
+**disabled** and be enabled only after its event listener is installed, so a
+failed module load does not leave a misleading, apparently working control.
+Only rewrite a live region when its announced message actually changes,
+not when unrelated attributes (such as a heading) change.
 Do not claim that a JavaScript-only toggle provides a no-script mutation path.
 
 ### Custom state and form association (optional application concerns)
