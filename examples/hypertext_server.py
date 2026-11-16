@@ -27,11 +27,30 @@ ASSETS = {
 }
 
 
-def render_page(framework: str, query: str, *, frame_only: bool = False) -> str:
+def render_page(framework: str, query: str, *, frame_only: bool = False,
+                stream_fallback: bool = False, validation_error: bool = False) -> str:
     """Both HTML-enhanced and no-JS requests derive from identical escaped markup."""
     html = (ROOT / f"examples/{framework}.html").read_text(encoding="utf-8")
     html = html.replace("<!-- QUERY -->", escape(query, quote=True))
-    html = html.replace("<!-- RESULTS -->", customer_results(query))
+    # Full-page navigation should show the results in only the form's own target.
+    html = html.replace("<!-- RESULTS -->",
+                        customer_results(query) if not stream_fallback else "")
+    html = html.replace("<!-- STREAM_RESULTS -->",
+                        customer_results(query) if stream_fallback else "")
+    if framework == "unpoly":
+        if validation_error:
+            html = html.replace(
+                'id="unpoly-query"',
+                'id="unpoly-query" aria-invalid="true" aria-describedby="unpoly-search-error"',
+                1,
+            )
+            html = html.replace(
+                "<!-- VALIDATION -->",
+                '<p id="unpoly-search-error" class="syn-error" role="alert">'
+                'Enter a customer name before searching.</p>',
+            )
+        else:
+            html = html.replace("<!-- VALIDATION -->", "")
     if frame_only:
         open_tag = '<turbo-frame id="customer-results">'
         close_tag = '</turbo-frame>'
@@ -61,10 +80,30 @@ class DemoHandler(BaseHTTPRequestHandler):
             self.send_header("Content-Length", "0")
             self.end_headers()
             return
-        if parsed.path in ("/customers/unpoly", "/customers/turbo"):
-            framework = parsed.path.rsplit("/", 1)[1]
+        if parsed.path in ("/customers/unpoly", "/customers/turbo", "/customers/turbo-stream"):
+            framework = "unpoly" if parsed.path == "/customers/unpoly" else "turbo"
             params = parse_qs(parsed.query, keep_blank_values=True)
             query = params.get("q", [""])[0].strip()[:120]
+            if parsed.path == "/customers/turbo-stream":
+                # A GET form remains a full document without Turbo; enhanced requests
+                # deliver a tiny stream that updates only its matched target.
+                is_stream = "text/vnd.turbo-stream.html" in self.headers.get("Accept", "").lower()
+                if is_stream:
+                    body = (
+                        '<turbo-stream action="update" target="turbo-stream-results"><template>'
+                        + customer_results(query)
+                        + "</template></turbo-stream>"
+                    )
+                    mime = "text/vnd.turbo-stream.html; charset=utf-8"
+                else:
+                    body = render_page("turbo", query, stream_fallback=True)
+                    mime = "text/html; charset=utf-8"
+                self.respond(200, body.encode("utf-8"), mime, vary="Accept")
+                return
+            if framework == "unpoly" and not query:
+                body = render_page(framework, query, validation_error=True)
+                self.respond(422, body.encode("utf-8"), "text/html; charset=utf-8")
+                return
             # Turbo explicitly requests a matching frame, unlike a native GET.
             frame_only = framework == "turbo" and self.headers.get("Turbo-Frame") == "customer-results"
             html = render_page(framework, query, frame_only=frame_only)

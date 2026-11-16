@@ -66,7 +66,8 @@ class HypertextRuntimeTests(unittest.TestCase):
         turbo = (ROOT / "examples/turbo.html").read_text()
         self.assertIn("unpoly@3.15.0", unpoly)
         self.assertIn("@hotwired/turbo@8.0.23", turbo)
-        self.assertIn("up-target=\"#customer-results\"", unpoly)
+        self.assertIn("up-target=\"#customer-results, #unpoly-search\"", unpoly)
+        self.assertIn("up-fail-target=\"#unpoly-search\"", unpoly)
         self.assertIn("data-turbo-frame=\"customer-results\"", turbo)
         self.assertNotIn("unpoly.js", (ROOT / "dist/syntyr.core.css").read_text())
         self.assertNotIn("turbo.js", (ROOT / "dist/syntyr.server.css").read_text())
@@ -94,6 +95,48 @@ class HypertextRuntimeTests(unittest.TestCase):
         self.assertIn("<!doctype html>", html)
         self.assertIn("<turbo-frame", html)
         self.assertIn("Acme Corporation", html)
+
+    def test_turbo_stream_request_updates_only_target_and_preserves_full_page_fallback(self):
+        response, stream = self.get(
+            "/customers/turbo-stream?q=Acme",
+            headers={"Accept": "text/vnd.turbo-stream.html, text/html"}
+        )
+        self.assertEqual(response["Content-Type"], "text/vnd.turbo-stream.html; charset=utf-8")
+        self.assertEqual(response["Vary"], "Accept")
+        self.assertIn('<turbo-stream action="update" target="turbo-stream-results">', stream)
+        self.assertIn("Acme Corporation", stream)
+        self.assertNotIn("<!doctype", stream.lower())
+        normal_response, html = self.get("/customers/turbo-stream?q=Acme")
+        self.assertIn("text/html", normal_response["Content-Type"])
+        self.assertEqual(normal_response["Vary"], "Accept")
+        self.assertIn("<!doctype html>", html)
+        self.assertIn('id="turbo-stream-results"', html)
+        self.assertIn("Acme Corporation", html)
+        self.assertEqual(html.count("Acme Corporation"), 1)
+        escaped = quote("<script>attack()</script>")
+        response, malicious_stream = self.get(
+            "/customers/turbo-stream?q=" + escaped,
+            headers={"Accept": "text/vnd.turbo-stream.html"}
+        )
+        self.assertIn("&lt;script&gt;", malicious_stream)
+        self.assertNotIn("<script>attack()", malicious_stream)
+        self.assertEqual(malicious_stream.count("<turbo-stream "), 1)
+
+    def test_unpoly_failed_form_submission_returns_accessible_error_and_full_document(self):
+        with self.assertRaises(HTTPError) as failure:
+            self.get("/customers/unpoly?q=")
+        response = failure.exception
+        try:
+            self.assertEqual(response.code, 422)
+            self.assertIn("text/html", response.headers["Content-Type"])
+            html = response.read().decode("utf-8")
+            self.assertIn("<!doctype html>", html)
+            self.assertIn('id="unpoly-search"', html)
+            self.assertIn('aria-invalid="true"', html)
+            self.assertIn('aria-describedby="unpoly-search-error"', html)
+            self.assertIn('id="unpoly-search-error"', html)
+        finally:
+            response.close()
 
     def test_asset_routes_are_allowlisted_and_send_nosniff(self):
         response, css = self.get("/dist/syntyr.server.css")
