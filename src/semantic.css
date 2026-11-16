@@ -299,6 +299,20 @@
     min-block-size: 7rem;
     resize: vertical;
   }
+  /* Extended document semantics: leave ruby annotations and table row grouping
+     native. Style only the table summary and optional quote attribution. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(tfoot:not([class]), tfoot[data-syn-semantic])) {
+    border-block-start: 2px solid var(--syn-border-default);
+    font-weight: 650;
+  }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(
+    blockquote:not([class]) > footer:not([class]),
+    blockquote[data-syn-semantic] > footer[data-syn-semantic]
+  ) {
+    margin-block-start: var(--syn-space-2);
+    color: var(--syn-text-subtle);
+    font-size: var(--syn-type-sm);
+  }
   @media (forced-colors: active) {
     :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(mark:not([class]), mark[data-syn-semantic])) {
       background: Highlight; color: HighlightText;

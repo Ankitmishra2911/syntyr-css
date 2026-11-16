@@ -367,7 +367,7 @@ Original: https://syntyr-css.pages.dev/docs/components.md
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
-Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
+Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). New [semantic HTML composition recipes](semantic-components.md) show article metadata, native citations, change history, ruby annotations, and table footers, with a [live gallery](../examples/semantic-compositions.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
 
 ## Loading and scoping
 
