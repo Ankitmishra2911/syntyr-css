@@ -49,11 +49,18 @@ def _list_items(category: str) -> list[dict]:
 
 def main(argv=None) -> int:
     args_list = list(sys.argv[1:] if argv is None else argv)
-    if args_list and args_list[0] == "check":
-        return syntyr_check.main(args_list[1:])
+    if args_list and args_list[0] in ("check", "doctor"):
+        # One canonical validator implementation; doctor only opts into CSS
+        # dependency checks and preserves its established JSON/exit contract.
+        flags = ["--doctor"] if args_list[0] == "doctor" else []
+        return syntyr_check.main([*flags, *args_list[1:]])
 
     parser = argparse.ArgumentParser(prog="syntyr", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+    # Help entries are advertised here; actual parsing is delegated above so
+    # all validator arguments work without maintaining a second schema.
+    sub.add_parser("check", help="Validate literal Syntyr markup and semantics")
+    sub.add_parser("doctor", help="Diagnose CSS duplicates, overlaps, and mixed version pins")
 
     ver = sub.add_parser("version", help="Print the bundled Syntyr version")
     ver.add_argument("--format", choices=("text", "json"), default="text")

@@ -229,9 +229,9 @@ PUBLIC_DOCS = (
     "ai-quickstart.md", "agent-integration.md",
     "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md",
     "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
-    "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
+    "console-kit.html", "component-recipes.md", "design-principles.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
     "distribution.md", "getting-started.md", "native-patterns.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
-    "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md",
+    "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md", "headless-interactions.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
     "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
@@ -269,6 +269,7 @@ def source_files() -> dict[str, bytes]:
         ),
         ROOT / "integrations/vertigo/admin.css",
         ROOT / "integrations/radix/states.css",
+        ROOT / "integrations/headless/interactions.css",
         ROOT / "examples/ansi_cli.py",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.

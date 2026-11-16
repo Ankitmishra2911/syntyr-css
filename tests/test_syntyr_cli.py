@@ -79,6 +79,11 @@ class SyntyrCliTests(unittest.TestCase):
             checked = run_cli("check", "--format", "json", "-", cli=extracted)
             # stdin is empty; the checker still works with bundled contract.
             self.assertEqual(checked.returncode, 0, checked.stderr)
+            doctor_html = project / "duplicate.html"
+            doctor_html.write_text('<html><head><link rel="stylesheet" href="syntyr.core.css"><link rel="stylesheet" href="syntyr.core.css"></head></html>')
+            diagnosed = run_cli("doctor", "--format", "json", doctor_html, cli=extracted)
+            self.assertEqual(diagnosed.returncode, 0, diagnosed.stderr)
+            self.assertIn("duplicate-stylesheet", [d["code"] for d in json.loads(diagnosed.stdout)])
 
 
     def test_check_warning_is_nonfatal_unless_fail_on_warning_is_requested(self):
@@ -91,6 +96,35 @@ class SyntyrCliTests(unittest.TestCase):
             strict = run_cli("check", "--semantic", "--fail-on", "warning", "--format", "json", html)
             self.assertEqual(strict.returncode, 1, strict.stderr)
             self.assertIn("table-missing-name", [d["code"] for d in json.loads(strict.stdout)])
+
+
+    def test_doctor_command_is_discoverable_and_flags_duplicate_stylesheets(self):
+        usage = run_cli("--help")
+        self.assertEqual(usage.returncode, 0, usage.stderr)
+        self.assertIn("doctor", usage.stdout)
+        self.assertIn("check", usage.stdout)
+        with tempfile.TemporaryDirectory() as folder:
+            html = Path(folder) / "page.html"
+            html.write_text('''<html><head>
+<link rel="stylesheet" href="/dist/syntyr.core.css">
+<link rel="stylesheet" href="/dist/syntyr.core.css">
+</head><body></body></html>''' )
+            report = run_cli("doctor", "--format", "json", html)
+            self.assertEqual(report.returncode, 0, report.stderr)
+            self.assertIn("duplicate-stylesheet", [d["code"] for d in json.loads(report.stdout)])
+            strict = run_cli("doctor", "--fail-on", "warning", "--format", "json", html)
+            self.assertEqual(strict.returncode, 1, strict.stderr)
+
+    def test_doctor_rejects_mixed_versioned_css_pins(self):
+        with tempfile.TemporaryDirectory() as folder:
+            html = Path(folder) / "page.html"
+            html.write_text('''<html><head>
+<link rel="stylesheet" href="/v/0.3.0-alpha.4/syntyr.core.css">
+<link rel="stylesheet" href="/v/0.3.0-alpha.5/syntyr.recipes.css">
+</head><body></body></html>''' )
+            report = run_cli("doctor", "--format", "json", html)
+            self.assertEqual(report.returncode, 1, report.stderr)
+            self.assertIn("mixed-stylesheet-versions", [d["code"] for d in json.loads(report.stdout)])
 
 
 if __name__ == "__main__":

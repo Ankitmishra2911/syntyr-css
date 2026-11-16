@@ -14,6 +14,8 @@ python3 scripts/syntyr_cli.py add resource-workspace --project /path/to/app --ap
 python3 scripts/syntyr_cli.py verify --project /path/to/app
 python3 scripts/syntyr_cli.py check --semantic --format json path/to/index.html
 python3 scripts/syntyr_cli.py check --semantic --fail-on warning path/to/index.html
+python3 scripts/syntyr_cli.py doctor --format json path/to/index.html
+python3 scripts/syntyr_cli.py doctor --fail-on warning path/to/index.html
 ```
 
 The default add operation is a **read-only preview**. Installation requires
@@ -34,8 +36,11 @@ verification until you intentionally reconcile the lockfile.
 It does not render templates, validate a running application or inspect
 JavaScript/bundler imports. Its diagnostics return 1 for errors, 0 for
 warnings-only or clean files, 2 for invalid inputs. Keep CSS and contract
-versions matched. Opt-in duplicate CSS diagnosis is being developed separately
-in PR #174 and is not yet available in this CLI branch.
+versions matched. The optional `syntyr doctor` command additionally detects
+literal duplicate/overlapping Syntyr CSS links and explicit mixed `/v/…/`
+release pins, using the generated distribution ownership metadata. It
+supports `--format json` and `--fail-on warning` for CI. It cannot infer
+bundler-injected CSS or detect version drift in unversioned local filenames.
 
 ## Portable CLI ZIP
 
