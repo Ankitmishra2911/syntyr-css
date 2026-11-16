@@ -66,6 +66,21 @@ class OptionalHeadlessInteractions(unittest.TestCase):
         self.assertIn('id="root"', html)
         self.assertNotIn('https://', html, 'demo must self-host assets')
 
+    def test_real_sortable_grid_uses_headless_keyboard_behavior_without_core_js(self):
+        markup = (ROOT / 'examples/headless-react/src/App.tsx').read_text()
+        browser = (ROOT / 'examples/headless-react/tests/interactions.spec.ts').read_text()
+        self.assertIn('TableHeader', markup)
+        self.assertIn('isRowHeader allowsSorting', markup)
+        self.assertIn('onSortChange={setSortDescriptor}', markup)
+        self.assertIn('sortDescriptor={sortDescriptor}', markup)
+        self.assertIn('aria-label="Campaign inventory"', markup)
+        self.assertIn('sortDescriptor.column === "faces"', markup)
+        self.assertIn('getByRole("grid", { name: "Campaign inventory" })', browser)
+        self.assertIn('toHaveAttribute("aria-sort", "descending")', browser)
+        self.assertIn('toContainText("Transit shelter")', browser)
+        self.assertIn('sortable data grid works from keyboard', browser)
+        self.assertNotIn('react-aria-components', (ROOT / 'package.json').read_text())
+
     def test_guide_explains_semantics_portals_and_dependencies(self):
         guide = (ROOT / 'docs/headless-interactions.md').read_text()
         for phrase in ('React Aria', 'Radix', 'popover', 'datalist',
@@ -74,6 +89,10 @@ class OptionalHeadlessInteractions(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.lower(), guide.lower())
         self.assertIn('../integrations/headless/interactions.css', guide)
+        self.assertIn('React Aria Table', guide)
+        self.assertIn('actual sort order', guide)
+        self.assertIn('GET links', guide)
+        self.assertIn('role="grid"', guide)
         self.assertIn('github.com/dporkka/syntyr-css/tree/main/examples/headless-react', guide)
         self.assertIn('headless-interactions.md', (ROOT / 'README.md').read_text())
         self.assertIn('headless-interactions.md', (ROOT / 'scripts/build_cloudflare_site.py').read_text())
