@@ -121,7 +121,8 @@ class _SyntyrParser(HTMLParser):
 class _SemanticParser(HTMLParser):
     """Opt-in, conservative checks for literal native HTML, not a DOM/ARIA engine."""
 
-    _UNLABELED_INPUT_TYPES = frozenset(("hidden", "submit", "reset", "button", "image"))
+    # Image submits need alt text; type=button needs a value or another name.
+    _UNLABELED_INPUT_TYPES = frozenset(("hidden", "submit", "reset"))
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -173,7 +174,8 @@ class _SemanticParser(HTMLParser):
             tag, attrs = node["tag"], node["attrs"]
             identifier = attrs.get("id") or ""
             if tag in ("input", "textarea", "select"):
-                if tag == "input" and (attrs.get("type") or "text").lower() in self._UNLABELED_INPUT_TYPES:
+                input_type = (attrs.get("type") or "text").lower() if tag == "input" else ""
+                if input_type in self._UNLABELED_INPUT_TYPES:
                     continue
                 # Dynamic templates need language-aware validation after rendering.
                 if any(_is_dynamic(value) for value in (identifier, attrs.get("aria-label") or "",
@@ -184,12 +186,31 @@ class _SemanticParser(HTMLParser):
                         not parent["attrs"].get("for") or
                         parent["attrs"].get("for") == identifier
                     ) for parent in node["parents"])
-                named = wrapped or (identifier and identifier in labels) or (
+                native_name = (
+                    (attrs.get("alt") or "").strip() if input_type == "image" else
+                    (attrs.get("value") or "").strip() if input_type == "button" else ""
+                )
+                named = wrapped or (identifier and identifier in labels) or native_name or (
                     attrs.get("aria-label") or "").strip() or (
                     attrs.get("aria-labelledby") or "").strip()
                 if not named:
                     result.append(self._finding(node, "missing-form-label",
                                                 f"{tag} needs a visible label or accessible name."))
+            if complete_document:
+                # Native invokers do not work if the referenced element is absent.
+                # Only inspect static, complete documents; templates/fragments can
+                # resolve these IDs during rendering or after insertion.
+                for attr in ("popovertarget", "commandfor"):
+                    target = attrs.get(attr)
+                    if target is None or _is_dynamic(target):
+                        continue
+                    destination = ids.get(target)
+                    if destination is None:
+                        result.append(self._finding(node, "missing-native-target",
+                            f"{attr} references missing id='{target}'."))
+                    elif attr == "popovertarget" and "popover" not in destination["attrs"]:
+                        result.append(self._finding(node, "invalid-popover-target",
+                            f"popovertarget='{target}' must point to an element with a popover attribute."))
             if complete_document and tag == "label":
                 target = attrs.get("for") or ""
                 if target and not _is_dynamic(target) and target not in ids:

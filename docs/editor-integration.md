@@ -116,9 +116,12 @@ supply the root; dynamic ancestor classes and inert `<template>` contents are
 also exempt because their rendered scope is unknown.
 
 With `--semantic`, a second standard-library pass checks literal HTML for
-duplicate static IDs, missing form labels, unmatched `label for` and
+duplicate static IDs, missing form labels (including an unnamed `input
+type="image"` or `type="button"`), unmatched `label for` and
 `aria-labelledby`/`aria-describedby` ID references (the latter two only in
-complete documents). It advises when an ordinary table row uses
+complete documents). For complete HTML it also detects missing `popovertarget`
+or `commandfor` IDs and popover triggers that point to elements without a
+`popover` attribute. It advises when an ordinary table row uses
 `aria-selected` instead of `data-syn-state`, or when a headed data table
 lacks a caption or other accessible name. Errors produce exit code 1; advisory
 warnings are included in text/JSON output but do not fail the command.
