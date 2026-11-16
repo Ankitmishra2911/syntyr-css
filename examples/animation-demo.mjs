@@ -30,6 +30,13 @@ document.querySelector('#animate-exit')?.addEventListener('click', () => {
   exit(note, () => { note.hidden = true; status.textContent = 'Dismissed note.'; });
 });
 
+// Enable controls only once this module and its action handlers have loaded.
+for (const id of ['animate-one', 'animate-all', 'animate-press',
+                  'animate-highlight', 'animate-slide', 'animate-exit']) {
+  const button = document.getElementById(id);
+  if (button) button.disabled = false;
+}
+
 // The explicit call is the entire initialization contract; no hidden state,
 // persistent listener, or observer exists for ordinary Syntyr pages.
 observeReveals(document);

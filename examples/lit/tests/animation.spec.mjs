@@ -46,6 +46,9 @@ test.describe("scriptless motion fallback", () => {
     await page.goto("/examples/animation.html");
     await expect(page.locator("#motion-cards .syn-panel")).toHaveCount(3);
     await expect(page.locator("#exit-note")).toBeVisible();
+    for (const id of ["animate-one", "animate-all", "animate-press", "animate-highlight", "animate-slide", "animate-exit"]) {
+      await expect(page.locator("#" + id)).toBeDisabled();
+    }
     await page.locator("#motion-disclosure summary").click();
     await expect(page.locator("#motion-disclosure")).toHaveAttribute("open", "");
   });
