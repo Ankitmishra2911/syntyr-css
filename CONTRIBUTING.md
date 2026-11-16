@@ -10,6 +10,12 @@ or framework-specific component package.
 - Search the existing issues and pull requests to avoid duplicating work.
 - Start from the current `main` branch, use a focused feature branch, and
   describe the user-facing behavior, compatibility impact, and test evidence.
+- Start by composing existing semantic HTML, Syntyr classes and design tokens.
+  Proposals for a new class/variant/module must name the compositions considered,
+  explain why they fail, and identify the new API's ongoing test and maintenance cost.
+- Keep React, Tailwind, shadcn, Figma, and AI-agent/editor adapters optional and
+  independently removable. Do not introduce adapter syntax or vendor selectors
+  into `src/` or require adapter packages to use the core stylesheet.
 - Follow [ARCHITECTURE.md](ARCHITECTURE.md) and
   [docs/api-stability.md](docs/api-stability.md). Document changes to the
   `syn-*` class API, `--syn-*` variables, and `data-syn-*` attributes.
@@ -39,6 +45,7 @@ From the repository root, with Python 3 installed:
 ```sh
 python3 scripts/build.py
 python3 scripts/build.py --check
+python3 scripts/maintenance_policy.py
 python3 scripts/design_conformance.py
 python3 scripts/export_api_metadata.py --check
 python3 scripts/build_agent_docs.py

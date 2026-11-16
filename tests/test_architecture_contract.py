@@ -36,6 +36,16 @@ class ArchitectureContract(unittest.TestCase):
             {path for path in public if path.startswith("dist/")},
         )
 
+    def test_css_package_has_no_required_framework_or_install_time_dependencies(self):
+        import json
+        package = json.loads((ROOT / "package.json").read_text())
+        for key in ("dependencies", "optionalDependencies", "peerDependencies"):
+            self.assertFalse(package.get(key), key)
+        for key in ("preinstall", "install", "postinstall", "prepare"):
+            self.assertNotIn(key, package.get("scripts", {}))
+        self.assertTrue(package["exports"]["."].endswith(".css"))
+        self.assertEqual(package["exports"]["."], "./dist/syntyr.core.css")
+
     def test_core_has_no_app_or_integrations_dependency(self):
         for name, paths in distributions().items():
             with self.subTest(name=name):
