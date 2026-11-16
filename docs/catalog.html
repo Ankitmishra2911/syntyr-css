@@ -29,7 +29,7 @@
         <label class="syn-label" for="catalog-search">Find a component</label>
         <input id="catalog-search" class="syn-input" type="search" autocomplete="off" placeholder="Search buttons, tables, alerts…" aria-controls="catalog-items">
       </div>
-      <p id="catalog-results" class="syn-caption" role="status" aria-live="polite">11 examples available.</p>
+      <p id="catalog-results" class="syn-caption" role="status" aria-live="polite">16 examples available.</p>
       <p id="catalog-empty" class="syn-alert" hidden>No components match your search. Try a different term.</p>
       <div id="catalog-items" class="catalog-grid">
         <article class="catalog-card syn-panel" data-catalog-keywords="actions controls primary outline" aria-labelledby="catalog-buttons-title">
@@ -103,6 +103,173 @@
   &lt;input id=&quot;catalog-file&quot; type=&quot;file&quot; class=&quot;syn-input&quot;&gt;
   &lt;label class=&quot;syn-label&quot; for=&quot;catalog-color&quot;&gt;Accent color&lt;/label&gt;
   &lt;input id=&quot;catalog-color&quot; type=&quot;color&quot; class=&quot;syn-input&quot; value=&quot;#3355aa&quot;&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-keywords="native accordion FAQ details summary exclusive disclosure" aria-labelledby="catalog-interaction-card-0">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-interaction-card-0">Exclusive accordion</h2>
+            <span class="syn-badge">syntyr.core.css</span>
+          </div>
+          <p class="syn-muted">Related disclosures use native <code>details name</code>; no script or custom roles.</p>
+          <div class="catalog-preview">
+<section aria-labelledby="catalog-faq-heading">
+  <h3 id="catalog-faq-heading">Common questions</h3>
+  <details class="syn-details" name="catalog-interaction-faq" open>
+    <summary>Can I use standard HTML?</summary>
+    <p>Yes, Syntyr styles browser-native elements.</p>
+  </details>
+  <details class="syn-details" name="catalog-interaction-faq">
+    <summary>Do I need a JavaScript runtime?</summary>
+    <p>No. Native disclosures handle their own open state.</p>
+  </details>
+</section>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;section aria-labelledby=&quot;catalog-faq-heading&quot;&gt;
+  &lt;h3 id=&quot;catalog-faq-heading&quot;&gt;Common questions&lt;/h3&gt;
+  &lt;details class=&quot;syn-details&quot; name=&quot;catalog-interaction-faq&quot; open&gt;
+    &lt;summary&gt;Can I use standard HTML?&lt;/summary&gt;
+    &lt;p&gt;Yes, Syntyr styles browser-native elements.&lt;/p&gt;
+  &lt;/details&gt;
+  &lt;details class=&quot;syn-details&quot; name=&quot;catalog-interaction-faq&quot;&gt;
+    &lt;summary&gt;Do I need a JavaScript runtime?&lt;/summary&gt;
+    &lt;p&gt;No. Native disclosures handle their own open state.&lt;/p&gt;
+  &lt;/details&gt;
+&lt;/section&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-keywords="native search get landmark searchform filtering server" aria-labelledby="catalog-interaction-card-1">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-interaction-card-1">GET search form</h2>
+            <span class="syn-badge">syntyr.core.css</span>
+          </div>
+          <p class="syn-muted">Real search landmark and GET submission; the static destination does not filter results.</p>
+          <div class="catalog-preview">
+<search aria-label="Search example inventory">
+  <form class="syn-form" action="../examples/native-interactions.html" method="get">
+    <label class="syn-label" for="catalog-inventory-query">Inventory search</label>
+    <input class="syn-input" id="catalog-inventory-query" type="search"
+           name="q" required placeholder="Enter a keyword">
+    <button class="syn-button syn-button--primary" type="submit">Search</button>
+  </form>
+</search>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;search aria-label=&quot;Search example inventory&quot;&gt;
+  &lt;form class=&quot;syn-form&quot; action=&quot;../examples/native-interactions.html&quot; method=&quot;get&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;catalog-inventory-query&quot;&gt;Inventory search&lt;/label&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;catalog-inventory-query&quot; type=&quot;search&quot;
+           name=&quot;q&quot; required placeholder=&quot;Enter a keyword&quot;&gt;
+    &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/search&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-keywords="native dialog modal confirmation commandfor method dialog" aria-labelledby="catalog-interaction-card-2">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-interaction-card-2">Confirmation dialog</h2>
+            <span class="syn-badge">syntyr.core.css</span>
+          </div>
+          <p class="syn-muted">Native modal command and dialog-only choices; confirming this preview does not persist changes.</p>
+          <div class="catalog-preview">
+<div class="syn-inline">
+  <button type="button" class="syn-button" commandfor="catalog-interaction-dialog"
+          command="show-modal">Open confirmation</button>
+  <dialog class="syn-dialog" id="catalog-interaction-dialog"
+          aria-labelledby="catalog-interaction-dialog-title">
+    <h3 id="catalog-interaction-dialog-title">Confirm preview?</h3>
+    <p>This static example changes no data.</p>
+    <form method="dialog" class="syn-inline">
+      <button class="syn-button syn-button--outline" type="submit"
+              value="cancel" autofocus>Cancel</button>
+      <button class="syn-button syn-button--primary" type="submit"
+              value="confirm">Confirm preview</button>
+    </form>
+  </dialog>
+</div>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;div class=&quot;syn-inline&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;syn-button&quot; commandfor=&quot;catalog-interaction-dialog&quot;
+          command=&quot;show-modal&quot;&gt;Open confirmation&lt;/button&gt;
+  &lt;dialog class=&quot;syn-dialog&quot; id=&quot;catalog-interaction-dialog&quot;
+          aria-labelledby=&quot;catalog-interaction-dialog-title&quot;&gt;
+    &lt;h3 id=&quot;catalog-interaction-dialog-title&quot;&gt;Confirm preview?&lt;/h3&gt;
+    &lt;p&gt;This static example changes no data.&lt;/p&gt;
+    &lt;form method=&quot;dialog&quot; class=&quot;syn-inline&quot;&gt;
+      &lt;button class=&quot;syn-button syn-button--outline&quot; type=&quot;submit&quot;
+              value=&quot;cancel&quot; autofocus&gt;Cancel&lt;/button&gt;
+      &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;
+              value=&quot;confirm&quot;&gt;Confirm preview&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/dialog&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-keywords="native datalist suggestions autocomplete input optgroup" aria-labelledby="catalog-interaction-card-3">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-interaction-card-3">Datalist suggestions</h2>
+            <span class="syn-badge">syntyr.core.css</span>
+          </div>
+          <p class="syn-muted">Browser suggestions for a free-text input; not a searchable select or combobox implementation.</p>
+          <div class="catalog-preview">
+<div class="syn-form">
+  <label class="syn-label" for="catalog-suggested-city">City</label>
+  <input class="syn-input" id="catalog-suggested-city" name="city"
+         list="catalog-city-options" placeholder="Start typing a city">
+  <datalist id="catalog-city-options">
+    <option value="Brasília"></option>
+    <option value="Chicago"></option>
+    <option value="New York"></option>
+  </datalist>
+</div>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;div class=&quot;syn-form&quot;&gt;
+  &lt;label class=&quot;syn-label&quot; for=&quot;catalog-suggested-city&quot;&gt;City&lt;/label&gt;
+  &lt;input class=&quot;syn-input&quot; id=&quot;catalog-suggested-city&quot; name=&quot;city&quot;
+         list=&quot;catalog-city-options&quot; placeholder=&quot;Start typing a city&quot;&gt;
+  &lt;datalist id=&quot;catalog-city-options&quot;&gt;
+    &lt;option value=&quot;Brasília&quot;&gt;&lt;/option&gt;
+    &lt;option value=&quot;Chicago&quot;&gt;&lt;/option&gt;
+    &lt;option value=&quot;New York&quot;&gt;&lt;/option&gt;
+  &lt;/datalist&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-keywords="native meter output capacity calculation progress gauge" aria-labelledby="catalog-interaction-card-4">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-interaction-card-4">Meter and output</h2>
+            <span class="syn-badge">syntyr.core.css</span>
+          </div>
+          <p class="syn-muted">Native bounded measurements and static server result; calculations belong to the host.</p>
+          <div class="catalog-preview">
+<div class="syn-semantic syn-stack">
+  <label for="catalog-capacity-meter">Utilization</label>
+  <meter id="catalog-capacity-meter" min="0" max="100" low="20"
+         high="85" optimum="40" value="68">68%</meter>
+  <label for="catalog-inventory-output">Matching inventory</label>
+  <output id="catalog-inventory-output" name="results">42 available locations</output>
+</div>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;div class=&quot;syn-semantic syn-stack&quot;&gt;
+  &lt;label for=&quot;catalog-capacity-meter&quot;&gt;Utilization&lt;/label&gt;
+  &lt;meter id=&quot;catalog-capacity-meter&quot; min=&quot;0&quot; max=&quot;100&quot; low=&quot;20&quot;
+         high=&quot;85&quot; optimum=&quot;40&quot; value=&quot;68&quot;&gt;68%&lt;/meter&gt;
+  &lt;label for=&quot;catalog-inventory-output&quot;&gt;Matching inventory&lt;/label&gt;
+  &lt;output id=&quot;catalog-inventory-output&quot; name=&quot;results&quot;&gt;42 available locations&lt;/output&gt;
 &lt;/div&gt;</code></pre>
           </details>
           <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>

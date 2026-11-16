@@ -2,6 +2,11 @@
   /* All component rules match the root itself or a descendant, never a host sibling. */
   :where(.syn-root, .syn-root *) {
     &.syn-popover, &.syn-dialog {
+      box-sizing: border-box;
+      max-inline-size: calc(100vw - 2rem);
+      max-block-size: min(80vh, 40rem);
+      max-block-size: min(80dvh, 40rem);
+      overflow: auto;
       width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
       border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
       background: var(--syn-surface); color: var(--syn-text);

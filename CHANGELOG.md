@@ -1,5 +1,8 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Add five native interaction recipes (exclusive `details[name]` accordion, GET `search` form, modal `dialog` choice, `datalist` suggestions, and `meter`/`output`) to the standard copyable catalog, static example, and documentation without a JS runtime or new CSS component classes.
+- Constrain classed dialogs and popovers to the viewport with scrollable overflow for smaller screens and enlarged text; add script-disabled Chromium/Firefox keyboard and forced-colors regression checks.
+
 - Improve opt-in semantic HTML: classless native form composition, accessible disclosure targets and captioned tables; restrict `aria-selected` row styling to real grid/treegrid roles, with `data-syn-state` for static visual selection.
 - Add an optional stdlib `syntyr_check.py --semantic` lint pass, and extend the one-file zero-JS semantic starter with navigation and a named data table. Default lint behavior and published alpha.4 remain unchanged.
 

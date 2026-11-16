@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="fc505ac9dd13dbb18316c308b27de456f29caa1bf5ef2ea3764b80ed0233db1a">
+  <meta name="syntyr-source-sha256" content="796f3b3f9c92966e0146d0a70e4ea83d90e784e7de572d8a68b2e7b4119f6ff0">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -274,7 +274,10 @@ drag-and-drop are <strong>not</strong> CSS components. Start with native <code>s
 <code>details</code>, <code>dialog</code>, <code>popover</code> or a normal table; when the product really
 needs behavior, use a small headless library or application code with keyboard,
 focus, announcements and tests. Do not introduce a Syntyr JS runtime.
-For native input examples, see <a href="catalog.html">the component catalog</a>.</p>
+For native input examples, see <a href="catalog.html">the component catalog</a>. For exclusive accordions, search landmarks, confirmation dialogs,
+datalist suggestions, and meter/output examples, use the
+<a href="native-patterns.html">native interaction recipes</a> and the
+<a href="https://syntyr-css.pages.dev/examples/native-interactions.html">script-free demo</a>.</p>
 <h2 id="neutral-first-visual-styling">Neutral-first visual styling</h2>
 <p>The implicit <code>.syn-root</code> palette is Studio (light and sans-serif). Explicit <code>data-syn-theme=&quot;grid&quot;</code> and <code>data-syn-theme=&quot;terminal&quot;</code> retain technical monospace presentation; other themes remain opt-in. <code>.syn-panel</code> and <code>.syn-stage</code> are flat by default; add <code>syn-surface--accent</code> from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. <code>.syn-badge</code> is a neutral label; use <code>.syn-status</code> with readable status text for meaningful state, or <code>.syn-badge--accent</code> to emphasize a badge.</p>
 <p>Use <code>.syn-section-heading</code> between <code>.syn-heading</code> and <code>.syn-display</code>. Table content wraps by default for better readability in narrow regions, including long text. Apply <code>.syn-cell--nowrap</code> to identifiers or short labels that must stay on one line; <code>.syn-cell--numeric</code> also preserves no-wrap numeric alignment. <code>.syn-cell--wrap</code> remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside <code>.syn-table-wrap</code> with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with <code>tabindex=&quot;0&quot;</code>, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.</p>

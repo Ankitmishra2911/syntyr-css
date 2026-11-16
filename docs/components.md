@@ -144,7 +144,10 @@ drag-and-drop are **not** CSS components. Start with native `select`, links,
 `details`, `dialog`, `popover` or a normal table; when the product really
 needs behavior, use a small headless library or application code with keyboard,
 focus, announcements and tests. Do not introduce a Syntyr JS runtime.
-For native input examples, see [the component catalog](catalog.html).
+For native input examples, see [the component catalog](catalog.html). For exclusive accordions, search landmarks, confirmation dialogs,
+datalist suggestions, and meter/output examples, use the
+[native interaction recipes](native-patterns.html) and the
+[script-free demo](https://syntyr-css.pages.dev/examples/native-interactions.html).
 
 ## Neutral-first visual styling
 
