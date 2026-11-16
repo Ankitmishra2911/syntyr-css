@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="4cb867c3568cef25730694080e572a9e3e8120727328a33b8f87bbce8ed23fd0">
+  <meta name="syntyr-source-sha256" content="eb2a1336a6b3d6053261fa43ac1ff5f9a72fdc20d151523a6bc0cd321e5ea660">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -64,6 +64,7 @@ elements elsewhere. Do not put it on elements styled by a separate component
 library unless you explicitly want Syntyr semantic styling there. Prefer
 <code>.syn-button</code> for already-classed controls. The marker does <strong>not</strong> make the
 control stateful, disabled, or accessible by itself.</p>
+<p>For accessible advanced menus, comboboxes and toasts, see the <a href="headless-interactions.html">optional headless interaction guide</a>. All framework JavaScript remains application-owned.</p>
 <h2 id="htmx-progressive-enhancement">HTMX: progressive enhancement</h2>
 <p>A complete example with a real stdlib Python HTTP server is at:
 <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.html">examples/htmx.html</a>,
