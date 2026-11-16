@@ -19,9 +19,11 @@ import tempfile
 if __package__:
     from .build import all_distributions, javascript_distributions
     from .build_shadcn_registry import generate as universal_registry_files
+    from .static_deploy import validate_site_url
 else:
     from build import all_distributions, javascript_distributions
     from build_shadcn_registry import generate as universal_registry_files
+    from static_deploy import validate_site_url
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -46,7 +48,7 @@ def canonical_path(name: str) -> str:
     return "/" + name.removesuffix(".html")
 
 
-def add_seo_metadata(files: dict[str, bytes]) -> None:
+def add_seo_metadata(files: dict[str, bytes], site_url: str = SITE_URL) -> None:
     """Build-time-only SEO: preserve readable sources and avoid browser JS."""
     for name, data in tuple(files.items()):
         if not name.endswith(".html"):
@@ -58,7 +60,7 @@ def add_seo_metadata(files: dict[str, bytes]) -> None:
             # Excluded pages should not claim canonical index URLs.
             html = CANONICAL_LINK.sub("", html)
         else:
-            url = SITE_URL + canonical_path(name)
+            url = site_url + canonical_path(name)
             tag = f'<link rel="canonical" href="{url}">'
             if CANONICAL_LINK.search(html):
                 html = CANONICAL_LINK.sub(tag, html, count=1)
@@ -94,7 +96,7 @@ def add_seo_metadata(files: dict[str, bytes]) -> None:
                 title = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
                 label = unescape_html(title.group(1)).removesuffix(" — Syntyr CSS docs") if title else "Documentation"
                 items = [
-                    {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": site_url + "/"},
                     {"@type": "ListItem", "position": 2, "name": "Documentation", "item": SITE_URL + "/docs/"},
                 ]
                 if name not in {"docs/index.html"}:
@@ -233,7 +235,7 @@ def immutable_site_css(files: dict[str, bytes]) -> None:
 
 PUBLIC_DOCS = (
     "ai-quickstart.md", "agent-integration.md", "design-principles.md",
-    "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md",
+    "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "nulang-cloud-hosting.md",
     "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
     "console-kit.html", "component-recipes.md", "email-components.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
     "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
@@ -252,7 +254,8 @@ PUBLIC_DOCS = (
 )
 
 
-def source_files() -> dict[str, bytes]:
+def source_files(site_url: str = SITE_URL, *, include_cloudflare_headers: bool = True) -> dict[str, bytes]:
+    site_url = validate_site_url(site_url)
     files: dict[str, bytes] = {}
     paths = [
         ROOT / "index.html",
@@ -365,9 +368,9 @@ def source_files() -> dict[str, bytes]:
     # Keep the sitemap confined to HTML that is useful as a search result.
     # Cloudflare Pages redirects *.html -> clean paths, so only list final 200 URLs.
     from xml.sax.saxutils import escape as escape_xml
-    add_seo_metadata(files)
+    add_seo_metadata(files, site_url)
     indexable = sorted(
-        SITE_URL + canonical_path(name)
+        site_url + canonical_path(name)
         for name in files if name.endswith(".html") and name not in NOINDEX_HTML
     )
     files["sitemap.xml"] = ('<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -375,17 +378,19 @@ def source_files() -> dict[str, bytes]:
                             + "".join(f"  <url><loc>{escape_xml(url)}</loc></url>\n"
                                       for url in indexable)
                             + "</urlset>\n").encode("utf-8")
-    files["robots.txt"] = (f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n").encode("utf-8")
+    files["robots.txt"] = (f"User-agent: *\nAllow: /\n\nSitemap: {site_url}/sitemap.xml\n").encode("utf-8")
     immutable_site_css(files)
-    files["_headers"] = HEADERS.encode("utf-8")
+    if include_cloudflare_headers:
+        files["_headers"] = HEADERS.encode("utf-8")
     return files
 
 
-def build(out: Path, check: bool) -> int:
+def build(out: Path, check: bool, *, site_url: str = SITE_URL,
+          include_cloudflare_headers: bool = True) -> int:
     out = out.resolve()
     if out == ROOT or out in ROOT.parents:
         raise ValueError("Refusing to publish into the source root or its parents")
-    files = source_files()
+    files = source_files(site_url, include_cloudflare_headers=include_cloudflare_headers)
     index = {path: hashlib.sha256(data).hexdigest() for path, data in sorted(files.items())}
     files[MARKER] = (json.dumps(index, indent=2, sort_keys=True) + "\n").encode("utf-8")
     if check:
@@ -413,8 +418,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--site-url", default=SITE_URL, help="Canonical HTTPS origin for SEO metadata")
+    parser.add_argument("--portable", action="store_true", help="Omit Cloudflare-specific _headers for other static hosts")
     args = parser.parse_args()
-    return build(args.output, args.check)
+    return build(args.output, args.check, site_url=args.site_url,
+                 include_cloudflare_headers=not args.portable)
 
 
 if __name__ == "__main__":

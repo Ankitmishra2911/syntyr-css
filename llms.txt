@@ -31,6 +31,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 
 - [Distribution and pinned CSS](https://syntyr-css.pages.dev/docs/distribution.md): Self-hosting, pinned asset URLs, and a downloadable offline SaaS demo in the **unreleased alpha.5** ZIP candidate (not in published alpha.4).
 - [Cloudflare hosting and cache contract](https://syntyr-css.pages.dev/docs/cloudflare-hosting.md): Content-addressed website CSS, mutable preview URLs and immutable consumer releases.
+- [Experimental Nulang Cloud hosting adapter](https://syntyr-css.pages.dev/docs/nulang-cloud-hosting.md): Prepare portable static websites and offline deployment bundles; live Nulang Cloud hosting is not yet available.
 - [Release freeze and exact-commit approval procedure](https://syntyr-css.pages.dev/docs/release-freeze.md): Maintainer-only human approval and evidence gates before freezing the unreleased alpha.5 candidate; technical preflight is not release authorization.
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary, including a proposed minimum v1 contract (not yet approved); alpha.5 remains experimental.
 - [Optional native animation companion](https://syntyr-css.pages.dev/docs/animation.md): Opt-in CSS-only scroll block effects, parallax and hover zoom, plus separate Web Animations API, stagger and viewport reveal helpers with reduced-motion support; **unreleased alpha.5**, never required by CSS core.
