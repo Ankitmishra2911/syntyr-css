@@ -3,6 +3,9 @@ from contextlib import contextmanager
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from tempfile import TemporaryDirectory
+import subprocess
+import sys
 import threading
 import unittest
 
@@ -12,7 +15,6 @@ ROOT = Path(__file__).resolve().parents[1]
 PLATFORMS = ("wordpress", "shopify", "wix", "webflow", "framer",
              "squarespace", "ghost", "hubspot", "drupal", "joomla",
              "carrd", "duda", "tilda")
-PUBLIC = Path("/tmp/syntyr-platform-pages-publish-20261116")
 
 
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -22,24 +24,30 @@ class QuietHandler(SimpleHTTPRequestHandler):
 
 @contextmanager
 def http_site():
-    server = ThreadingHTTPServer(
-        ("127.0.0.1", 0),
-        partial(QuietHandler, directory=str(PUBLIC))
-    )
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    try:
-        yield f"http://127.0.0.1:{server.server_port}"
-    finally:
-        server.shutdown()
-        server.server_close()
-        thread.join(timeout=5)
+    # Never depend on a dated /tmp snapshot or a stale local site output.
+    with TemporaryDirectory(prefix="syntyr-platform-seo-") as temp:
+        public = Path(temp) / "public"
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts/build_cloudflare_site.py"),
+             "--output", str(public)],
+            cwd=ROOT, check=True, capture_output=True, text=True,
+        )
+        server = ThreadingHTTPServer(
+            ("127.0.0.1", 0),
+            partial(QuietHandler, directory=str(public))
+        )
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            yield f"http://127.0.0.1:{server.server_port}"
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=5)
 
 
 class PlatformSEOPageBrowserTests(unittest.TestCase):
     def test_browser_rendering_and_keyboard_navigation(self):
-        if not (PUBLIC / "sitemap.xml").exists():
-            self.skipTest("Build static site with scripts/build_cloudflare_site.py")
         with http_site() as base, sync_playwright() as playwright:
             for browser_type in ("chromium", "firefox"):
                 browser = getattr(playwright, browser_type).launch(headless=True)
