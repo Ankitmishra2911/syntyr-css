@@ -87,9 +87,11 @@ is a deliberate :placeholder-shown state hook, **not** the accessible label.
 The field becomes a **stacked, wrapping label above the input** when its own
 container is narrow (21rem or less). This protects visible field identification
 when users enlarge text, including long translated labels. At wider sizes the
-floating presentation remains. The label is always a real `<label for>`; the
-CSS never substitutes placeholders for an accessible name. Test real browser
-zoom and translations in consuming applications.
+floating presentation remains. In RTL documents (`dir="rtl"`), the floating
+label shrinks toward the right-hand inline-start edge rather than drifting
+left. The label is always a real `<label for>`; the CSS never substitutes
+placeholders for an accessible name. Test real browser zoom and translations
+in consuming applications.
 
 Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast

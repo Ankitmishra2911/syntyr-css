@@ -27,6 +27,9 @@
     pointer-events: none;
     transform-origin: left top;
   }
+  :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating):dir(rtl) > .syn-floating-label {
+    transform-origin: right top;
+  }
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)) + .syn-floating-label {
     transform: translateY(-.62rem) scale(.82);
     color: var(--syn-text);

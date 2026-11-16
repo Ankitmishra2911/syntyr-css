@@ -1164,6 +1164,8 @@ Only render `aria-invalid="true"` and the error message when the form is actuall
 
 This is **progressive enhancement**: the GET form submits with **No JavaScript**. An HTMX application may add `hx-get` and `hx-target` while preserving `action`, `method`, and a server-rendered fallback. The application must implement the endpoint and return actual search results.
 
+At narrow available widths (12rem or less relative to the current text size), a connected input and submit button stack instead of squeezing the input into a tall, narrow strip. The `.syn-input-group` itself determines the breakpoint through a CSS container query; no viewport breakpoint, JavaScript, or additional component class is needed. Input groups containing only currency/unit addons keep their existing inline layout. Test long button labels, translations and browser zoom in consuming applications.
+
 ## 3. Input addon (currency and unit)
 
 ```html
@@ -1304,9 +1306,11 @@ is a deliberate :placeholder-shown state hook, **not** the accessible label.
 The field becomes a **stacked, wrapping label above the input** when its own
 container is narrow (21rem or less). This protects visible field identification
 when users enlarge text, including long translated labels. At wider sizes the
-floating presentation remains. The label is always a real `<label for>`; the
-CSS never substitutes placeholders for an accessible name. Test real browser
-zoom and translations in consuming applications.
+floating presentation remains. In RTL documents (`dir="rtl"`), the floating
+label shrinks toward the right-hand inline-start edge rather than drifting
+left. The label is always a real `<label for>`; the CSS never substitutes
+placeholders for an accessible name. Test real browser zoom and translations
+in consuming applications.
 
 Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast
@@ -2544,11 +2548,13 @@ The invoker creates an implicit CSS anchor. Do not apply `position-anchor: auto`
 ## Example: a dialog without an event handler
 
 ```html
-<button type="button" commandfor="confirm-dialog" command="show-modal">Review</button>
-<dialog id="confirm-dialog" class="syn-dialog" aria-labelledby="confirm-title">
-  <h2 id="confirm-title">Review changes</h2>
-  <form method="dialog"><button type="submit">Close</button></form>
-</dialog>
+<section class="syn-root" data-syn-theme="studio">
+  <button type="button" commandfor="confirm-dialog" command="show-modal">Review</button>
+  <dialog id="confirm-dialog" class="syn-dialog" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">Review changes</h2>
+    <form method="dialog"><button type="submit">Close</button></form>
+  </dialog>
+</section>
 ```
 
 The HTML Invoker Commands API is progressively available; don't assume the opener works in legacy browsers. A normal link to a review page or a `<details>` fallback gives users an accessible path even without it. Use `dialog.requestClose()` from host JavaScript when a cancelable close request is needed; unlike `dialog.close()`, `requestClose()` fires `cancel` first.
