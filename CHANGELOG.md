@@ -1,5 +1,10 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Make the PR progressive-enhancement browser gate independent of PyPI access by
+  reusing the existing locked Node Playwright test infrastructure and the real
+  Python stdlib HTTP fixture. All three browser engines still run with
+  application JavaScript disabled; published CSS remains JS-free.
+
 - Add five native interaction recipes (exclusive `details[name]` accordion, GET `search` form, modal `dialog` choice, `datalist` suggestions, and `meter`/`output`) to the standard copyable catalog, static example, and documentation without a JS runtime or new CSS component classes.
 - Constrain classed dialogs and popovers to the physical viewport width/height with scrollable overflow for smaller screens, enlarged text and vertical writing modes; add script-disabled Chromium/Firefox keyboard and forced-colors regression checks.
 
