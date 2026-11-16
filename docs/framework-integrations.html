@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="7bf87820fea3cc521e1678660d0d1951bff90160fb53b05a4e7915127ae48b4b">
+  <meta name="syntyr-source-sha256" content="aaeb9d3854b516c01b4d8f0bf1f6367b1fc16c76e574aa933e7ecb148170d3a0">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -342,6 +342,29 @@ the framework). No Syntyr provider, hooks, hydration, or dependency on React.</p
 <code>data-syn-state</code> using each framework's built-in template syntax.
 Do not wrap simple visual classes in additional runtime components unless the
 application benefits from reusable semantic component boundaries.</p>
+<h2 id="nulang-web-experimental-compiler-first-server-rendering">Nulang Web (experimental compiler-first server rendering)</h2>
+<p>The <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/nulang-web/README.md">Nulang Web example</a> demonstrates two
+runnable routes, an accessible table, a native GET form, and disclosure markup,
+using ordinary <code>Html</code> values. It uses the same unmodified Syntyr CSS artifact
+as every other integration: no special renderer, component package, or JavaScript
+dependency is needed.</p>
+<pre><code class="language-sh">python3 examples/nulang-web/prepare.py
+cd examples/nulang-web
+nulang nula dev
+</code></pre>
+<p>The preparation step copies <code>dist/syntyr.core.css</code> into the example's
+<code>static/</code> directory. The Nulang web manifest sets <code>static_dir = &quot;static&quot;</code>;
+a normal <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;/syntyr.core.css&quot;&gt;</code> loads the CSS.
+For statically renderable routes, <code>nulang nula build --web</code> also copies these
+assets to the output site.</p>
+<p>Use Nulang's <code>el</code>, <code>text</code> and <code>Html</code> constructors as the portable
+baseline. Standard Syntyr markup uses <code>class</code>, <code>data-syn-theme</code>, and
+<code>aria-*</code> attributes; JSX support for hyphenated names depends on the
+compiler revision. Keep <code>.syn-root</code> on a stable ancestor outside any
+signal-managed or replaced fragment. Nulang owns action, signal, and form
+behavior; Syntyr responds only to the resulting HTML/ARIA state.</p>
+<p>Nulang's Web host is experimental. This example is not a security guarantee
+for untrusted traffic and does not rely on the development host for production.</p>
 <h2 id="astro-hugo-zola-django-rails-gotempl-and-rust-templates">Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates</h2>
 <p>Serve <code>syntyr.core.css</code> as a normal static asset. Write HTML partials
 with real headings, forms and links. Optional interactive islands can use
@@ -385,6 +408,7 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
 <a class="docs-article-toc-link docs-article-toc-2" href="#unpoly">Unpoly</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#react-nextjs">React / Next.js</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#vue-nuxt-and-svelte-sveltekit">Vue / Nuxt and Svelte / SvelteKit</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#nulang-web-experimental-compiler-first-server-rendering">Nulang Web (experimental compiler-first server rendering)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#astro-hugo-zola-django-rails-gotempl-and-rust-templates">Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#existing-tailwind-or-component-library-applications">Existing Tailwind or component-library applications</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#performance-and-compatibility-contract">Performance and compatibility contract</a>

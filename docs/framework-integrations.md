@@ -380,6 +380,36 @@ Import the same CSS once. Bind native classes, `aria-*`, and
 Do not wrap simple visual classes in additional runtime components unless the
 application benefits from reusable semantic component boundaries.
 
+## Nulang Web (experimental compiler-first server rendering)
+
+The [Nulang Web example](../examples/nulang-web/README.md) demonstrates two
+runnable routes, an accessible table, a native GET form, and disclosure markup,
+using ordinary `Html` values. It uses the same unmodified Syntyr CSS artifact
+as every other integration: no special renderer, component package, or JavaScript
+dependency is needed.
+
+```sh
+python3 examples/nulang-web/prepare.py
+cd examples/nulang-web
+nulang nula dev
+```
+
+The preparation step copies `dist/syntyr.core.css` into the example's
+`static/` directory. The Nulang web manifest sets `static_dir = "static"`;
+a normal `<link rel="stylesheet" href="/syntyr.core.css">` loads the CSS.
+For statically renderable routes, `nulang nula build --web` also copies these
+assets to the output site.
+
+Use Nulang's `el`, `text` and `Html` constructors as the portable
+baseline. Standard Syntyr markup uses `class`, `data-syn-theme`, and
+`aria-*` attributes; JSX support for hyphenated names depends on the
+compiler revision. Keep `.syn-root` on a stable ancestor outside any
+signal-managed or replaced fragment. Nulang owns action, signal, and form
+behavior; Syntyr responds only to the resulting HTML/ARIA state.
+
+Nulang's Web host is experimental. This example is not a security guarantee
+for untrusted traffic and does not rely on the development host for production.
+
 ## Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates
 
 Serve `syntyr.core.css` as a normal static asset. Write HTML partials

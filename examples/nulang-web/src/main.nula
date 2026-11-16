@@ -1,0 +1,112 @@
+import stdlib::web::html
+import stdlib::web::types
+
+// The static CSS file is copied from Syntyr's canonical dist/ output.
+// No Syntyr runtime or Nulang-specific CSS adapter is required.
+
+fn navigation() -> Html {
+    el("nav", [("aria-label", text("Main navigation"))], [
+        el("a", [
+            ("href", text("/")),
+            ("class", text("syn-button syn-button--ghost"))
+        ], [text("Overview")]),
+        el("a", [
+            ("href", text("/status")),
+            ("class", text("syn-button syn-button--outline"))
+        ], [text("Status")])
+    ])
+}
+
+fn page(page_title: String, content: [Html]) -> Html {
+    document(
+        head([
+            title(page_title),
+            el("meta", [
+                ("name", text("viewport")),
+                ("content", text("width=device-width, initial-scale=1"))
+            ], []),
+            el("link", [
+                ("rel", text("stylesheet")),
+                ("href", text("/syntyr.core.css"))
+            ], [])
+        ]),
+        el("body", [
+            ("class", text("syn-root syn-page")),
+            ("data-syn-theme", text("studio"))
+        ], [
+            el("div", [("class", text("syn-shell"))], [
+                navigation(),
+                el("main", [("id", text("main-content"))], content)
+            ])
+        ])
+    )
+}
+
+@placement(static)
+fn home() -> Html {
+    page("Nulang + Syntyr", [
+        el("header", [("class", text("syn-stack"))], [
+            el("p", [("class", text("syn-eyebrow"))], [text("NULANG + SYNTYR")]),
+            el("h1", [("class", text("syn-title"))], [text("An HTML-first application")]),
+            el("p", [("class", text("syn-lede"))], [
+                text("Server-rendered markup, a static stylesheet, and native browser controls.")
+            ])
+        ]),
+        el("section", [("class", text("syn-panel"))], [
+            el("h2", [("class", text("syn-heading"))], [text("Release checklist")]),
+            el("div", [("class", text("syn-table-wrap"))], [
+                el("table", [("class", text("syn-table"))], [
+                    el("thead", [], [
+                        el("tr", [], [
+                            el("th", [("scope", text("col"))], [text("Layer")]),
+                            el("th", [("scope", text("col"))], [text("Implementation")])
+                        ])
+                    ]),
+                    el("tbody", [], [
+                        el("tr", [], [
+                            el("th", [("scope", text("row"))], [text("Markup")]),
+                            el("td", [], [text("Nulang Web Html")])
+                        ]),
+                        el("tr", [], [
+                            el("th", [("scope", text("row"))], [text("Styles")]),
+                            el("td", [], [text("Syntyr core CSS")])
+                        ])
+                    ])
+                ])
+            ]),
+            el("form", [
+                ("method", text("GET")),
+                ("action", text("/status"))
+            ], [
+                el("button", [
+                    ("type", text("submit")),
+                    ("class", text("syn-button syn-button--primary"))
+                ], [text("Open status page")])
+            ])
+        ]),
+        el("details", [("class", text("syn-details"))], [
+            el("summary", [], [text("Why no JavaScript?")]),
+            el("p", [], [text("Navigation, form submission, and disclosure use native HTML.")])
+        ])
+    ])
+}
+
+@placement(static)
+fn status() -> Html {
+    page("Status - Nulang + Syntyr", [
+        el("article", [("class", text("syn-panel"))], [
+            el("h1", [("class", text("syn-heading"))], [text("Status")]),
+            el("p", [("class", text("syn-muted"))], [
+                text("This is an illustrative static page, not live service telemetry.")
+            ]),
+            el("p", [], [
+                el("a", [("href", text("/"))], [text("Back to overview")])
+            ])
+        ])
+    ])
+}
+
+app "syntyr-web" {
+    route "GET" "/" -> home
+    route "GET" "/status" -> status
+}
