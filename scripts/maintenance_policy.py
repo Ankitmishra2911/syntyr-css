@@ -19,6 +19,15 @@ except ImportError:
 
 COMMENTS = re.compile(r"/\*.*?\*/", re.DOTALL)
 THEME_ATTRIBUTE = re.compile(r"\[\s*data-syn-theme\b")
+# Adapter-only syntax and DOM contracts must not become core CSS requirements.
+# Keep the list narrow: native HTML/ARIA states remain valid core selectors.
+INTEGRATION_LEAK = re.compile(
+    r"@(?:theme|apply|tailwind|plugin|config)\b"
+    r"|\.syn-(?:shadcn|radix|figma)(?!\w)"
+    r"|\.(?:radix-|react-aria-|shadcn-)"
+    r"|--(?:tw|radix|react-aria|figma)-"
+    r"|\[\s*data-(?:radix|react-aria)-"
+)
 
 
 def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list[str]:
@@ -49,6 +58,8 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
         if name not in {"tokens.css", "base.css", "print.css", "viz.css"} and THEME_ATTRIBUTE.search(content):
             label = "component theme fork" if name.startswith("components/") else "theme fork"
             issues.append(f"{name}: {label}; change theme tokens instead")
+        if INTEGRATION_LEAK.search(content):
+            issues.append(f"{name}: integration leak; keep vendor-specific syntax, selectors and tokens in integrations/")
         # base.css already contains the deliberate reduced-motion exception.
         if name != "base.css" and "!important" in content:
             issues.append(f"{name}: !important outside base.css; use cascade layers")
@@ -62,7 +73,7 @@ def main() -> int:
         for issue in issues:
             print("MAINTENANCE POLICY: " + issue)
         return 1
-    print("OK: CSS sources are registered once per bundle, with no component theme forks or !important overrides")
+    print("OK: CSS sources are registered, theme-neutral and free of integration-specific CSS")
     return 0
 
 

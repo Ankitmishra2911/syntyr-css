@@ -112,6 +112,42 @@ Prefer removing duplicate rules and simplifying variants before adding new
 features. Do not add a CSS compiler, framework runtime, NPM dependency,
 custom widget system or site generator without measured demand.
 
+## Composition-first review and replaceable integrations
+
+Treat **existing HTML and CSS primitives as the default implementation**. Before
+adding a class, variant, token, module or abstraction, demonstrate a real use
+case that cannot be expressed cleanly and accessibly with existing elements,
+`--syn-*` tokens, layout primitives, native states, and documented composition.
+Prefer a short documented composition over a special-purpose selector. A new
+primitive needs a distinct reusable responsibility, not just a repeated visual
+arrangement. Avoid adding aliases for a second way to express an existing API.
+
+Review proposals in this order:
+
+1. Compose semantic HTML and existing core classes/tokens.
+2. Use an existing opt-in recipe or a local application style if the need is
+   application-specific.
+3. Add an optional, independently versionable adapter for framework-specific
+   presentation or behavior. Keep behavior owned by the host framework.
+4. Expand the core API only for an independently reusable, accessible primitive
+   with evidence that composition is insufficient and clear lifecycle ownership.
+
+**Integration direction is always outward:** `src/` -> generated distributions ->
+optional adapters -> consumer apps. React wrappers, Tailwind directives, shadcn
+aliases, Figma exports, and AI-agent/editor tooling may read the public CSS
+contract but must never be inputs to core CSS generation or prerequisites for
+installing or consuming core. Adapter-specific selectors, proprietary CSS
+syntax, and vendor state hooks belong under `integrations/`, not `src/`.
+Native HTML states, ARIA and Syntyr's own documented `data-syn-*` attributes
+are not vendor integrations. Removing any adapter must leave the same core
+CSS bytes and public contract intact.
+
+The deterministic maintenance policy rejects known framework-specific CSS
+constructs in `src/`; package contracts reject install-time/runtime framework
+dependencies. These checks cannot judge whether a new class was necessary:
+that **composition decision remains a required human PR review**, not a
+pretense of automated design quality.
+
 ## Zero-runtime presets and distribution integrity
 
 Named presets (`minimal`, `saas`, `cinematic`) are **preassembled, full CSS
