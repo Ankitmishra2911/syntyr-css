@@ -251,6 +251,31 @@ and sets `Vary: Turbo-Frame` to avoid cross-representation caching issues.
 The Turbo browser dependency is pinned and demo-only; self-host the bundle
 in production. Syntyr never includes it.
 
+### Turbo Streams: independent server-updated regions
+
+The same runnable Turbo 8 example now includes a **GET stream form** outside
+the frame. Add `data-turbo-stream="true"` to the form, keep the target inside a
+stable `.syn-root`, and return an action targeting that element:
+
+```html
+<form action="/customers/turbo-stream" method="get" data-turbo-stream="true">
+  <label for="stream-q">Customers</label>
+  <input id="stream-q" class="syn-input" name="q">
+  <button class="syn-button" type="submit">Update</button>
+</form>
+<div id="turbo-stream-results" class="syn-panel" aria-live="polite"></div>
+```
+
+An enhanced request with `Accept: text/vnd.turbo-stream.html` gets a
+`text/vnd.turbo-stream.html` response with a `<turbo-stream action="update"
+target="turbo-stream-results">` and escaped, server-rendered HTML in a
+`<template>`. Native GET navigation returns a complete document with
+the result in the correct region, not duplicate results in both the frame
+and stream target. Set `Vary: Accept` to distinguish the two representations.
+The example uses normal HTTP responses rather than WebSockets or SSE; Turbo
+Streams can also arrive over those transports when the application provides them.
+The original frame remains mounted when the stream updates its separate target.
+
 Turbo Streams and full-page visits must keep the Syntyr root appropriately
 scoped. Where Turbo must preserve a client-managed element, use
 `data-turbo-permanent` with a stable unique ID on both versions. Do not put
@@ -277,9 +302,13 @@ Python standard-library contract tests. HTMX has an existing opt-in browser
 suite; Datastar has an opt-in browser test using a pinned bundle.
 Unpoly 3.15.0 and Turbo 8.0.23 have real, opt-in browser tests in
 `tests/hypertext_browser.py` that cover request feedback, DOM replacement,
-theme-root survival, and no-JavaScript form fallback in Chromium, Firefox
-and WebKit (WebKit on a compatible Playwright container). The demo servers
-also have request/response tests. This is **not** a claim that Phoenix,
+Turbo Stream updates, Unpoly 422 validation/error recovery, theme-root
+survival, and no-JavaScript form fallback in Chromium and Firefox
+(and in WebKit only on a compatible Playwright container). The demo servers
+also have request/response tests. Simulated browser checks confirm that
+Livewire 4's `data-loading` and LiveView's `phx-*loading` cursor selectors
+are scoped to Syntyr and do not override native disabled controls.
+This is **not** a claim that Phoenix,
 Laravel, Rails, or Go application runtime tests have run. Add framework-owned
 end-to-end tests when adopting templates.
 
@@ -385,6 +414,17 @@ with the Turbo demo. Run `python3 examples/hypertext_server.py` and open
 The example pins the JS and CSS bundles; both belong to the demo application,
 not Syntyr. Self-host both in production.
 
+Unpoly can update multiple fragments from a single response. The runnable
+example uses `up-target="#customer-results, #unpoly-search"` so a successful
+search refreshes the result and re-renders the form, including clearing any
+previous validation error. An empty query returns HTTP **422**, with
+`up-fail-target="#unpoly-search"` replacing only the form and an associated
+`aria-invalid="true"` / `aria-describedby="unpoly-search-error"` message.
+A subsequent valid submission clears both the invalid state and message.
+The no-JavaScript fallback receives a complete document, including the
+form error, instead of an orphaned fragment. These are **server-side application
+behaviors**, not Syntyr CSS features.
+
 Unpoly adds `.up-active` to an initiating link or form and `.up-loading`
 to the targeted fragment. Syntyr's optional `syntyr.server.css` styles the
 progress cursor on an enabled `.syn-button.up-active` or the enabled
@@ -393,7 +433,9 @@ the target. Unpoly owns response handling, loading feedback and morphing.
 
 ```html
 <section class="syn-root" data-syn-theme="studio">
-  <form action="/customers" method="get" up-target="#customer-results">
+  <form action="/customers" method="get"
+        up-target="#customer-results, #customer-search" up-fail-target="#customer-search"
+        id="customer-search">
     <label class="syn-label" for="customer-query">Customer</label>
     <input id="customer-query" class="syn-input" name="q">
     <button class="syn-button" type="submit">Search</button>
