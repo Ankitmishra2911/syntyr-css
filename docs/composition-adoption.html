@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr uses scoped native CSS, not a JavaScript layout engine. These patterns are available in the unreleased alpha.5 source candidate under…">
-  <meta name="syntyr-source-sha256" content="a7406823472df208814b58b31074bdb71427fc0799cecaaef0d471b6a0e63f81">
+  <meta name="syntyr-source-sha256" content="b204c287de2cc92ca7dd81691a513ca640b6aadbf506dc1444ea12832ef21a54">
   <meta name="theme-color" content="#f5f7fb">
   <title>Intrinsic layout compositions: inline clusters and sidecars — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/composition-adoption">
@@ -59,7 +59,8 @@ alignment and start justification.</p>
 <p>A two-child <code>.syn-sidecar</code> puts the <strong>main content first</strong> and the supplementary
 aside second in document and focus order. It wraps on available container width
 without viewport breakpoints, JavaScript, or an explicit container query.
-A lone child behaves as normal content without sidecar-specific child sizing.</p>
+A lone child remains the main region and keeps the min-size and
+unbroken-text overflow protections.</p>
 <pre><code class="language-html">&lt;div class=&quot;syn-root syn-sidecar&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;main class=&quot;syn-panel&quot;&gt;
     &lt;h1&gt;Campaigns&lt;/h1&gt;

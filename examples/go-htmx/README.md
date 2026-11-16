@@ -23,8 +23,9 @@ The search form uses `action="/contacts"` and `method="get"` so it works
 with **no browser JavaScript**. Go's `html/template` autoescapes the search
 query and contact data. The `/contacts` endpoint renders a complete document
 for ordinary requests, or the results partial for `HX-Request: true`. The
-server sets `Vary: HX-Request` and `Cache-Control: no-store`; no external
-requests are made.
+server sets `Vary: HX-Request, HX-History-Restore-Request` and
+`Cache-Control: no-store`. HTMX history-restoration requests receive a
+complete page, even when `HX-Request: true`. No external requests are made.
 
 To enable HTMX, put a vetted, pinned copy of `htmx.min.js` at
 `examples/go-htmx/vendor/htmx.min.js` (the file is intentionally not

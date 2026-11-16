@@ -70,7 +70,7 @@ func newHandler(distDir string, enableHTMX bool) http.Handler {
 			return
 		}
 		// HTML fragments and full pages share a URL but must not share cache entries.
-		w.Header().Set("Vary", "HX-Request")
+		w.Header().Set("Vary", "HX-Request, HX-History-Restore-Request")
 		w.Header().Set("Cache-Control", "no-store")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		query := strings.TrimSpace(r.URL.Query().Get("q"))
@@ -80,7 +80,7 @@ func newHandler(distDir string, enableHTMX bool) http.Handler {
 		}
 		data := pageData{Query: query, Contacts: results(query), HTMXEnabled: enableHTMX}
 		name := "page"
-		if r.URL.Path == "/contacts" && r.Header.Get("HX-Request") == "true" {
+		if r.URL.Path == "/contacts" && r.Header.Get("HX-Request") == "true" && r.Header.Get("HX-History-Restore-Request") != "true" {
 			name = "results"
 		}
 		if err := templates.ExecuteTemplate(w, name, data); err != nil {

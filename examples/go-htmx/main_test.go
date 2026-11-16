@@ -57,11 +57,32 @@ func TestHTMXReturnsOnlyFragmentAndVariesByRequestHeader(t *testing.T) {
 	if strings.Contains(rec.Body.String(), "Grace") {
 		t.Error("query returned unrelated contacts")
 	}
-	if rec.Header().Get("Vary") != "HX-Request" {
-		t.Error("missing Vary: HX-Request")
+	if rec.Header().Get("Vary") != "HX-Request, HX-History-Restore-Request" {
+		t.Error("missing Vary: HX-Request, HX-History-Restore-Request")
 	}
 	if got := rec.Header().Get("Content-Type"); !strings.HasPrefix(got, "text/html") {
 		t.Errorf("content type: %s", got)
+	}
+}
+
+func TestHTMXHistoryRestoreReturnsCompleteDocument(t *testing.T) {
+	h := newHandler("../../dist", false)
+	req := httptest.NewRequest(http.MethodGet, "/contacts?q=ada", nil)
+	req.Header.Set("HX-Request", "true")
+	req.Header.Set("HX-History-Restore-Request", "true")
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, req)
+	if rec.Code != http.StatusOK {
+		t.Fatalf("history restore status: %d", rec.Code)
+	}
+	if !strings.Contains(rec.Body.String(), "<!doctype html>") {
+		t.Errorf("history restore must return a full document: %s", rec.Body.String())
+	}
+	if !strings.Contains(rec.Body.String(), "method=\"get\"") {
+		t.Error("history restore lost the native search form")
+	}
+	if !strings.Contains(rec.Body.String(), "Ada Lovelace") {
+		t.Error("history restore lost filtered results")
 	}
 }
 
