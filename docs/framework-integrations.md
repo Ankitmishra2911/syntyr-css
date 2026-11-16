@@ -168,7 +168,10 @@ client runtime comes from the Laravel application.
 ## Rails Hotwire / Turbo Frames
 
 [Copyable Turbo form](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/turbo.html)
-uses a normal GET form to update only a matching frame:
+uses a normal GET form to update only a matching frame. For a running
+server-backed fixture with a real Turbo 8.0.23 browser integration,
+see [examples/turbo.html](https://github.com/dporkka/syntyr-css/blob/main/examples/turbo.html)
+and [examples/hypertext_server.py](https://github.com/dporkka/syntyr-css/blob/main/examples/hypertext_server.py):
 
 ```html
 <section class="syn-root" data-syn-theme="studio">
@@ -182,7 +185,19 @@ uses a normal GET form to update only a matching frame:
 ```
 
 The server must return a matching `<turbo-frame id="campaign-results">`
-element. Turbo toggles `turbo-frame[busy]` while it fetches a replacement.
+element. Turbo toggles `turbo-frame[busy]` while it fetches a replacement. The
+optional CSS bridge styles enabled Syntyr buttons **inside** a busy frame;
+for a button outside that frame, bind an application-owned
+`data-syn-state="loading"` rather than expecting CSS to infer cross-frame
+request ownership.
+For the runnable example, start `python3 examples/hypertext_server.py` and
+open `http://127.0.0.1:8767/examples/turbo.html`. The server distinguishes
+`Turbo-Frame: customer-results` from native navigation, returns a matching
+frame for enhanced requests, returns complete HTML for native GET requests,
+and sets `Vary: Turbo-Frame` to avoid cross-representation caching issues.
+The Turbo browser dependency is pinned and demo-only; self-host the bundle
+in production. Syntyr never includes it.
+
 Turbo Streams and full-page visits must keep the Syntyr root appropriately
 scoped. Where Turbo must preserve a client-managed element, use
 `data-turbo-permanent` with a stable unique ID on both versions. Do not put
@@ -206,10 +221,14 @@ partials/components and anti-CSRF mechanisms.
 
 **Verification scope:** the optional bridge and copyable templates have
 Python standard-library contract tests. HTMX has an existing opt-in browser
-suite; Datastar also has an opt-in browser test using a pinned, separately
-provided Datastar bundle. The Datastar demo server has request/response tests.
-These are not a claim that Phoenix, Laravel, Rails, Unpoly or Go runtime tests
-have run. Add framework-owned end-to-end tests when adopting these templates.
+suite; Datastar has an opt-in browser test using a pinned bundle.
+Unpoly 3.15.0 and Turbo 8.0.23 have real, opt-in browser tests in
+`tests/hypertext_browser.py` that cover request feedback, DOM replacement,
+theme-root survival, and no-JavaScript form fallback in Chromium, Firefox
+and WebKit (WebKit on a compatible Playwright container). The demo servers
+also have request/response tests. This is **not** a claim that Phoenix,
+Laravel, Rails, or Go application runtime tests have run. Add framework-owned
+end-to-end tests when adopting templates.
 
 ## Lit / Web Components
 
@@ -294,6 +313,13 @@ Neither framework owns the other's initialization lifecycle.
 
 ## Unpoly
 
+[Runnable Unpoly 3.15.0 demo](https://github.com/dporkka/syntyr-css/blob/main/examples/unpoly.html)
+shares the [local HTTP server](https://github.com/dporkka/syntyr-css/blob/main/examples/hypertext_server.py)
+with the Turbo demo. Run `python3 examples/hypertext_server.py` and open
+`http://127.0.0.1:8767/examples/unpoly.html`.
+The example pins the JS and CSS bundles; both belong to the demo application,
+not Syntyr. Self-host both in production.
+
 Unpoly adds `.up-active` to an initiating link or form and `.up-loading`
 to the targeted fragment. Syntyr's optional `syntyr.server.css` styles the
 progress cursor on an enabled `.syn-button.up-active` or the enabled
@@ -310,6 +336,10 @@ the target. Unpoly owns response handling, loading feedback and morphing.
   <div id="customer-results" aria-live="polite"></div>
 </section>
 ```
+
+The example server responds with an HTML document containing
+`#customer-results`; Unpoly extracts and replaces the matching fragment.
+Without JavaScript, a native GET responds with the same complete document.
 
 Retain a real `action`, `method` and stable target ID. Keep the Syntyr root
 outside any fragment Unpoly replaces; do not interpret `.up-loading` as a
