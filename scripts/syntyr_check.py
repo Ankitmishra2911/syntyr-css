@@ -122,6 +122,20 @@ class _SemanticParser(HTMLParser):
     """Opt-in, conservative checks for literal native HTML, not a DOM/ARIA engine."""
 
     _UNLABELED_INPUT_TYPES = frozenset(("hidden", "submit", "reset", "button", "image"))
+    _LABELABLE_TAGS = frozenset(("button", "input", "meter", "output",
+                                 "progress", "select", "textarea"))
+    _DIALOG_COMMANDS = frozenset(("show-modal", "close", "request-close"))
+    _POPOVER_COMMANDS = frozenset(("show-popover", "hide-popover", "toggle-popover"))
+
+    @classmethod
+    def _is_labelable(cls, node):
+        tag, attrs = node["tag"], node["attrs"]
+        # Form-associated custom elements can be labelable. Their registration
+        # is application-owned, so a literal HTML scan cannot disprove it.
+        if "-" in tag or "is" in attrs:
+            return True
+        return tag in cls._LABELABLE_TAGS and not (
+            tag == "input" and (attrs.get("type") or "").lower() == "hidden")
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -172,6 +186,48 @@ class _SemanticParser(HTMLParser):
         for node in self.nodes:
             tag, attrs = node["tag"], node["attrs"]
             identifier = attrs.get("id") or ""
+            if tag == "summary" and (not node["parents"] or
+                                     node["parents"][-1]["tag"] != "details"):
+                result.append(self._finding(node, "summary-outside-details",
+                    "summary must be a direct child of details to be an interactive disclosure."))
+            if complete_document and tag == "input":
+                target = attrs.get("list")
+                if target is not None and not _is_dynamic(target):
+                    destination = ids.get(target)
+                    if destination is None:
+                        result.append(self._finding(node, "missing-native-target",
+                            f"input list='{target}' does not reference an element."))
+                    elif destination["tag"] != "datalist":
+                        result.append(self._finding(node, "invalid-datalist-target",
+                            f"input list='{target}' must reference a datalist element."))
+            if tag == "input" and (attrs.get("type") or "").lower() == "image":
+                alt = attrs.get("alt")
+                if alt is None or (not _is_dynamic(alt) and not alt.strip()):
+                    result.append(self._finding(node, "image-input-missing-alt",
+                        "Image submit controls need a nonempty alt describing the action."))
+            if complete_document and tag in ("button", "input"):
+                target = attrs.get("popovertarget")
+                if target is not None and not _is_dynamic(target):
+                    destination = ids.get(target)
+                    if destination is None:
+                        result.append(self._finding(node, "missing-native-target",
+                            f"popovertarget='{target}' does not reference an element."))
+                    elif "popover" not in destination["attrs"]:
+                        result.append(self._finding(node, "invalid-popover-target",
+                            f"popovertarget='{target}' must reference a popover element."))
+                target = attrs.get("commandfor") if tag == "button" else None
+                if target is not None and not _is_dynamic(target):
+                    destination = ids.get(target)
+                    command = attrs.get("command") or ""
+                    if destination is None:
+                        result.append(self._finding(node, "missing-native-target",
+                            f"commandfor='{target}' does not reference an element."))
+                    elif command in self._DIALOG_COMMANDS and destination["tag"] != "dialog":
+                        result.append(self._finding(node, "invalid-dialog-target",
+                            f"command='{command}' requires a dialog target."))
+                    elif command in self._POPOVER_COMMANDS and "popover" not in destination["attrs"]:
+                        result.append(self._finding(node, "invalid-popover-target",
+                            f"command='{command}' requires a popover target."))
             if tag in ("input", "textarea", "select"):
                 if tag == "input" and (attrs.get("type") or "text").lower() in self._UNLABELED_INPUT_TYPES:
                     continue
@@ -192,9 +248,14 @@ class _SemanticParser(HTMLParser):
                                                 f"{tag} needs a visible label or accessible name."))
             if complete_document and tag == "label":
                 target = attrs.get("for") or ""
-                if target and not _is_dynamic(target) and target not in ids:
-                    result.append(self._finding(node, "missing-label-target",
-                                                f"label for='{target}' has no matching id."))
+                if target and not _is_dynamic(target):
+                    destination = ids.get(target)
+                    if destination is None:
+                        result.append(self._finding(node, "missing-label-target",
+                                                    f"label for='{target}' has no matching id."))
+                    elif not self._is_labelable(destination):
+                        result.append(self._finding(node, "invalid-label-target",
+                            f"label for='{target}' does not reference a labelable element."))
             if complete_document:
                 for attr in ("aria-labelledby", "aria-describedby"):
                     references = attrs.get(attr) or ""

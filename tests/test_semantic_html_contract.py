@@ -109,5 +109,90 @@ class SemanticHTMLContract(unittest.TestCase):
             self.assertEqual(json.loads(result.stdout)[0]["severity"], "warning")
 
 
+    def test_explicit_labels_must_target_labelable_elements(self):
+        markup = ("<html><body>"
+                  '<label for="card">Card</label><div id="card"></div>'
+                  '<label for="token">Token</label><input id="token" type="hidden">'
+                  '<label for="query">Query</label><input id="query" name="query">'
+                  "</body></html>")
+        issues = self.check(markup)
+        self.assertEqual([f["code"] for f in issues],
+                         ["invalid-label-target", "invalid-label-target"])
+
+    def test_image_submit_control_requires_alt_text(self):
+        markup = ('<html><body><form><input type="image" src="submit.svg">'
+                  '<input type="image" src="save.svg" alt="Save changes">'
+                  '</form></body></html>')
+        self.assertEqual([f["code"] for f in self.check(markup)],
+                         ["image-input-missing-alt"])
+
+    def test_native_invokers_require_matching_popover_and_dialog_targets(self):
+        markup = ("<html><body>"
+                  '<button type="button" popovertarget="missing">Missing</button>'
+                  '<button type="button" popovertarget="plain">Plain</button>'
+                  '<div id="plain"></div>'
+                  '<button type="button" commandfor="plain" command="show-modal">Wrong</button>'
+                  '<button type="button" commandfor="missing-dialog" command="show-modal">Missing dialog</button>'
+                  '<button type="button" popovertarget="menu">Menu</button>'
+                  '<div popover id="menu"></div>'
+                  '<button type="button" commandfor="modal" command="show-modal">Modal</button>'
+                  '<dialog id="modal" aria-label="Review"></dialog>'
+                  '</body></html>')
+        self.assertEqual([f["code"] for f in self.check(markup)], [
+            "missing-native-target", "invalid-popover-target",
+            "invalid-dialog-target", "missing-native-target",
+        ])
+
+    def test_custom_commands_and_dynamic_targets_are_not_false_positives(self):
+        markup = ("<html><body>"
+                  '<button type="button" commandfor="panel" command="--refresh">Refresh</button>'
+                  '<div id="panel"></div>'
+                  '<button type="button" popovertarget="{{ menu_id }}">Menu</button>'
+                  '<button type="button" commandfor="{{ dialog_id }}" command="show-modal">Open</button>'
+                  '</body></html>')
+        self.assertEqual(self.check(markup), [])
+
+    def test_native_reference_examples_remain_semantically_valid(self):
+        for filename in ("native-apis.html", "native-elements.html", "native-recipes.html",
+                         "semantic-starter.html"):
+            with self.subTest(filename=filename):
+                self.assertEqual(self.check((ROOT / "examples" / filename).read_text()), [])
+
+
+    def test_datalist_references_must_target_real_datalist(self):
+        markup = ('<html><body><form>'
+                  '<label>Wrong <input list="ordinary"></label><div id="ordinary"></div>'
+                  '<label>Missing <input list="missing"></label>'
+                  '<label>Correct <input list="suggestions"></label>'
+                  '<datalist id="suggestions"><option value="A"></datalist>'
+                  '</form></body></html>')
+        self.assertEqual([f["code"] for f in self.check(markup)],
+                         ["invalid-datalist-target", "missing-native-target"])
+
+    def test_summary_must_be_direct_child_of_details(self):
+        markup = ('<html><body><summary>Not a disclosure</summary>'
+                  '<details><div><summary>Nested</summary></div></details>'
+                  '<details><summary>Correct</summary><p>Content</p></details>'
+                  '</body></html>')
+        self.assertEqual([f["code"] for f in self.check(markup)],
+                         ["summary-outside-details", "summary-outside-details"])
+
+    def test_fragment_native_references_are_left_to_host_document(self):
+        self.assertEqual(self.check('<button popovertarget="host-popover">Open</button>'
+                                    '<label>Suggestion <input list="host-list"></label>'), [])
+
+
+    def test_all_first_party_examples_keep_valid_native_relationships(self):
+        pages = sorted((ROOT / "examples").rglob("*.html"))
+        self.assertGreater(len(pages), 40)
+        for page in pages:
+            with self.subTest(page=page.relative_to(ROOT)):
+                findings = self.check(page.read_text())
+                semantic_errors = [item for item in findings if item["severity"] == "error" and
+                                   item["code"] not in ("missing-stylesheet", "unknown-class",
+                                                        "unscoped-class")]
+                self.assertEqual(semantic_errors, [])
+
+
 if __name__ == "__main__":
     unittest.main()
