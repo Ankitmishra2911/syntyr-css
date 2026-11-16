@@ -1,16 +1,36 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import * as Toast from "@radix-ui/react-toast";
 import {
   Button, ComboBox, Group, Input, Label,
-  ListBox, ListBoxItem, Popover
+  ListBox, ListBoxItem, Popover, Table, TableHeader, Column, TableBody, Row, Cell,
+  type SortDescriptor
 } from "react-aria-components";
 
 type Notice = { id: number; title: string; message: string; tone: "success" | "error" };
+type Asset = { id: string; asset: string; faces: number };
+const assets: Asset[] = [
+  { id: "airport", asset: "Airport display", faces: 3 },
+  { id: "central", asset: "Central billboard", faces: 12 },
+  { id: "transit", asset: "Transit shelter", faces: 7 }
+];
 
 export default function App() {
   const nextNotice = useRef(0);
   const [notices, setNotices] = useState<Notice[]>([]);
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
+    column: "asset",
+    direction: "ascending"
+  });
+  const sortedAssets = useMemo(() => {
+    const direction = sortDescriptor.direction === "descending" ? -1 : 1;
+    return [...assets].sort((a, b) => {
+      const comparison = sortDescriptor.column === "faces"
+        ? a.faces - b.faces
+        : a.asset.localeCompare(b.asset);
+      return direction * comparison || a.asset.localeCompare(b.asset);
+    });
+  }, [sortDescriptor]);
 
   function notify(title: string, message: string, tone: Notice["tone"] = "success") {
     const id = ++nextNotice.current;
@@ -80,6 +100,40 @@ export default function App() {
               </ListBox>
             </Popover>
           </ComboBox>
+        </section>
+
+        <section className="syn-panel" aria-labelledby="grid-heading">
+          <h2 id="grid-heading">Keyboard-accessible sortable inventory grid</h2>
+          <p>
+            React Aria provides grid keyboard navigation and sort announcements.
+            The application orders this illustrative in-memory dataset; Syntyr
+            supplies the existing table presentation.
+          </p>
+          <div className="syn-table-wrap" role="region" aria-label="Scrollable inventory">
+            <Table
+              className="syn-table syn-table--striped"
+              aria-label="Campaign inventory"
+              sortDescriptor={sortDescriptor}
+              onSortChange={setSortDescriptor}
+            >
+              <TableHeader>
+                <Column id="asset" isRowHeader allowsSorting>
+                  <span className="syn-table-sort">Asset</span>
+                </Column>
+                <Column id="faces" allowsSorting>
+                  <span className="syn-table-sort">Faces</span>
+                </Column>
+              </TableHeader>
+              <TableBody items={sortedAssets}>
+                {(item) => (
+                  <Row id={item.id}>
+                    <Cell>{item.asset}</Cell>
+                    <Cell>{item.faces}</Cell>
+                  </Row>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </section>
 
         <section className="syn-panel" aria-labelledby="toast-heading">

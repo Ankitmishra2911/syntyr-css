@@ -1,4 +1,4 @@
-# Optional accessible menus, comboboxes and notifications
+# Optional accessible menus, comboboxes, data grids and notifications
 
 Syntyr is a CSS presentation layer with **no runtime JavaScript**. Interactive
 menu and combobox ARIA patterns require keyboard, focus, filtering and
@@ -15,6 +15,11 @@ It does NOT ship in the Syntyr core CSS, all.css or presets.
   `.syn-combobox-popover`, `.syn-combobox-listbox`,
   `.syn-combobox-option`. [React Aria ComboBox](https://react-aria.adobe.com/ComboBox)
   owns the filtered options, selection and accessible active focus.
+- Sortable data grids: existing `.syn-table` and `.syn-table-sort` classes
+  style a real [React Aria Table](https://react-aria.adobe.com/Table). React Aria
+  owns the grid keyboard model, focus and sort announcements; the host
+  actually sorts the rows and supplies accurate data. No extra CSS module
+  or Syntyr JavaScript is required.
 - Toasts: `.syn-toast-region`, `.syn-toast`, `.syn-toast-title`,
   `.syn-toast-description`. [Radix Toast](https://www.radix-ui.com/primitives/docs/components/toast)
   owns notification timing, focus, hover pauses, dismissals and live regions.
@@ -35,7 +40,7 @@ cd examples/headless-react
 npm ci
 npm run build
 npx playwright install chromium  # optional browser-test setup
-npm test                      # six Chromium keyboard/state smoke tests
+npm test                      # eight Chromium keyboard/state smoke tests
 npm run dev
 ~~~
 
@@ -59,6 +64,29 @@ content to `document.body`. The example uses `body.syn-root` so its portal
 content inherits theme tokens and CSS rules. In other apps mount portals
 within a stable styled `.syn-root`. Without this, unscoped portal content
 will look unstyled. Keep root scope stable across updates.
+
+## Choosing the behavior owner
+
+| Need | Lowest-maintenance baseline | When to add headless behavior |
+| --- | --- | --- |
+| Choose from a short list | Labeled native `<select>` with built-in keyboard typeahead | Searchable, async, multi-select or rich-options combobox |
+| Find an item by text | GET search form; `<datalist>` only when its browser limits are acceptable | Filtered suggestions with controlled selection, async results or IME support |
+| Show optional actions | Native `popover` with links and buttons | ARIA menu with roving focus, typeahead and menu-item keyboard semantics |
+| Sort a normal data table | Server-sorted HTML table with GET links and truthful `aria-sort` | Keyboard-navigable grid with selection, editing, resizing or complex sorting |
+| Confirm destructive action | Native modal `<dialog>` (and a navigable fallback where needed) | An application-owned dialog abstraction with audited focus behavior |
+
+**Contract:** Syntyr never infers behavior from a `syn-*` class and never
+sets ARIA state on your behalf. A behavior owner must provide accessible
+names, state transitions, focus/keyboard handling, IME, disabled/selection
+rules, and asynchronous status announcements as required by its widget.
+The host owns data fetching, permissions, persistence, server validation
+and actual sort order. A visually styled grid is not a functioning grid.
+
+The React Aria example includes an accessible sortable table with
+`sortDescriptor` and `onSortChange`. Unlike a static table, it
+intentionally opts into the grid keyboard model. For noninteractive tables,
+prefer [native server-sortable tables](data-tables.md), and **do not**
+apply `role="grid"` merely to activate visual styling.
 
 ## Native alternatives that need no headless dependencies
 

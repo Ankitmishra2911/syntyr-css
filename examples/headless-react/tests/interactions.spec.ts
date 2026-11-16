@@ -64,3 +64,30 @@ test("forced colors and reduced motion preserve menu keyboard access", async ({ 
   await page.keyboard.press("Escape");
   await expect(trigger).toBeFocused();
 });
+
+
+test("React Aria sortable data grid changes DOM order and announces the sorted column", async ({ page }) => {
+  await page.goto("/");
+  const grid = page.getByRole("grid", { name: "Campaign inventory" });
+  await expect(grid).toBeVisible();
+  const nameHeader = grid.getByRole("columnheader", { name: "Asset" });
+  await expect(nameHeader).toHaveAttribute("aria-sort", "ascending");
+  await expect(grid.getByRole("row").nth(1)).toContainText("Airport display");
+  await nameHeader.click();
+  await expect(nameHeader).toHaveAttribute("aria-sort", "descending");
+  await expect(grid.getByRole("row").nth(1)).toContainText("Transit shelter");
+  const faces = grid.getByRole("columnheader", { name: "Faces" });
+  await faces.click();
+  await expect(faces).toHaveAttribute("aria-sort", "ascending");
+  await expect(grid.getByRole("row").nth(1)).toContainText("Airport display");
+});
+
+test("sortable data grid works from keyboard and keeps focus visible", async ({ page }) => {
+  await page.goto("/");
+  const grid = page.getByRole("grid", { name: "Campaign inventory" });
+  const asset = grid.getByRole("columnheader", { name: "Asset" });
+  await asset.focus();
+  await page.keyboard.press("Enter");
+  await expect(asset).toHaveAttribute("aria-sort", "descending");
+  await expect(asset).toBeFocused();
+});
