@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="19d569eb09979a38d8c22ea7e1e91a87e357ff5916f1a3df4c5663e0ebcb58a4">
+  <meta name="syntyr-source-sha256" content="023a925db06511642aa2b096b7d9d7a5445120c036a500827fd6c32614e4a6a7">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -131,6 +131,8 @@ motion, load the additional <code>syntyr.motion.css</code> file, then add
 <code>.syn-dialog--transition</code> to a <code>.syn-dialog</code>. Both class and file are
 required. The motion module honors reduced-motion preferences; without
 either opt-in, dialogs and popovers use their native static behavior.
+The native recipe gallery pairs its dialog command with a <code>&lt;details&gt;</code>
+disclosure exposing equivalent critical information on older engines.
 Native browsers own focus management, Escape and dialog inertness; the stylesheet
 does not implement a custom ARIA menu.</p>
 <h2 id="native-direction-aware-presentation">Native direction-aware presentation</h2>
@@ -146,14 +148,18 @@ Optional activity timelines also place their markers on inline-start. Native
   &lt;label for=&quot;name&quot; class=&quot;syn-floating-label&quot;&gt;Full name&lt;/label&gt;
 &lt;/div&gt;
 </code></pre>
+<p>Both floating and stacked labels remain real pointer targets; clicking a label
+focuses its associated native control without JavaScript.</p>
 <p>Keep a persistent programmatic label with for/id. The one-space placeholder
 is a deliberate :placeholder-shown state hook, <strong>not</strong> the accessible label.</p>
 <p>The field becomes a <strong>stacked, wrapping label above the input</strong> when its own
 container is narrow (21rem or less). This protects visible field identification
 when users enlarge text, including long translated labels. At wider sizes the
-floating presentation remains. The label is always a real <code>&lt;label for&gt;</code>; the
-CSS never substitutes placeholders for an accessible name. Test real browser
-zoom and translations in consuming applications.</p>
+floating presentation remains. In RTL documents (<code>dir=&quot;rtl&quot;</code>), the floating
+label shrinks toward the right-hand inline-start edge rather than drifting
+left. The label is always a real <code>&lt;label for&gt;</code>; the CSS never substitutes
+placeholders for an accessible name. Test real browser zoom and translations
+in consuming applications.</p>
 <p>Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast
 and long translated labels in the actual application.</p>

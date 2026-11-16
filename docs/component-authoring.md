@@ -60,6 +60,12 @@ a stable widget API or distributed as part of Syntyr CSS.
   Retain real button keyboard semantics instead of inventing key handlers.
 - `aria-busy` reports operational state, and `disabled` prevents activation.
   A custom CSS state is not a substitute for an accessible state or status text.
+  Place a live status announcement **outside** a region with `aria-busy="true"`;
+  assistive technologies may defer updates to busy descendants.
+- Use `aria-pressed` only for an actual toggle button with a **stable accessible
+  name** (for example, "Mute"). When the label instead names the changing
+  action ("Mark online" / "Mark offline"), use a normal action button without
+  `aria-pressed`. The native demonstration uses action-button semantics.
 
 ### Declarative Shadow DOM and progressive enhancement
 

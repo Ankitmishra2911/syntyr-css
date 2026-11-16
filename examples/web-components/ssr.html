@@ -15,9 +15,11 @@
       <template shadowrootmode="open">
         <link rel="stylesheet" href="./status-toggle.css">
         <section part="panel" data-server-rendered="true">
-          <h3 part="title">SSR hub</h3>
+          <div data-busy-region aria-busy="false">
+            <h3 part="title">SSR hub</h3>
+            <button part="toggle" type="button">Mark offline</button>
+          </div>
           <p part="status" role="status">Online</p>
-          <button part="toggle" type="button" aria-pressed="true">Mark offline</button>
         </section>
       </template>
       <p data-native-fallback>SSR hub: online</p>

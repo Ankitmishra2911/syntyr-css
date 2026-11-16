@@ -22,7 +22,7 @@
       <h1 id="customers-heading" class="syn-title">Customer search</h1>
       <p class="syn-lede">Same server endpoint works with or without HTMX. The theme and form stay mounted while results change.</p>
       <article class="syn-panel">
-        <form action="/customers/search" method="get"
+        <form id="customer-search" action="/customers/search" method="get"
               hx-get="/customers/search" hx-target="#results"
               hx-swap="innerHTML" hx-push-url="true" hx-indicator="#search-button"
               hx-disabled-elt="#search-button">
@@ -33,6 +33,10 @@
             Search <span class="htmx-indicator" role="status">Searching…</span>
           </button>
         </form>
+        <p id="search-error" role="alert" hidden>
+          Search could not be updated. Your query has been preserved.
+          <a id="native-search-link" href="/customers/search">Open full search results</a>.
+        </p>
       </article>
       <section id="results" aria-label="Customer results" aria-live="polite">
         <!-- RESULTS -->
@@ -40,5 +44,7 @@
       <p class="syn-caption">No Syntyr runtime JavaScript, component initialization, or hydration. HTMX is optional progressive enhancement.</p>
     </section>
   </main>
+  <!-- Demo-owned recovery; Syntyr CSS never installs request handlers. -->
+  <script defer src="/examples/htmx-recovery.js"></script>
 </body>
 </html>
