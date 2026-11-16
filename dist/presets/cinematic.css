@@ -2240,4 +2240,81 @@
       }
     }
   }
+
+  /* Reuse the static syn-gradient-wash from effects.css; never animate core. */
+  @keyframes syn-gradient-drift {
+    from { translate: -4% 0; }
+    to { translate: 4% 0; }
+  }
+  @keyframes syn-text-glint {
+    from { background-position: 100% 50%; }
+    to { background-position: 0 50%; }
+  }
+  @keyframes syn-text-underline {
+    from { text-decoration-color: transparent; }
+    to { text-decoration-color: var(--syn-accent); }
+  }
+
+  :where(.syn-root.syn-gradient-wash[data-syn-gradient="drift"],
+         .syn-root .syn-gradient-wash[data-syn-gradient="drift"]) {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+  /* Position ordinary content above the decorative gradient overlay. */
+  :where(.syn-root.syn-gradient-wash[data-syn-gradient="drift"],
+         .syn-root .syn-gradient-wash[data-syn-gradient="drift"]) > [data-syn-gradient-content] {
+    position: relative;
+    z-index: 1;
+  }
+  :where(.syn-root[data-syn-text="underline"], .syn-root [data-syn-text="underline"]) {
+    text-decoration-line: underline;
+    text-decoration-thickness: .1em;
+    text-decoration-color: var(--syn-accent);
+    text-underline-offset: .18em;
+  }
+  @media (prefers-reduced-motion: no-preference) and (prefers-contrast: no-preference) and (forced-colors: none) {
+    :where(.syn-root.syn-gradient-wash[data-syn-gradient="drift"],
+           .syn-root .syn-gradient-wash[data-syn-gradient="drift"])::before {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 30% 40%,
+          color-mix(in srgb, var(--syn-accent) 14%, transparent), transparent 55%),
+        radial-gradient(ellipse at 70% 65%,
+          color-mix(in srgb, var(--syn-accent-2) 12%, transparent), transparent 58%);
+      animation: syn-gradient-drift var(--syn-gradient-drift-duration, 14s) ease-in-out infinite alternate;
+    }
+    @supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%) {
+      :where(.syn-root[data-syn-text="underline"], .syn-root [data-syn-text="underline"]) {
+        animation: syn-text-underline 1s linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    }
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+      :where(.syn-root[data-syn-text="glint"], .syn-root [data-syn-text="glint"]) {
+        background-image: linear-gradient(105deg,
+          var(--syn-text) 28%, var(--syn-accent) 48%, var(--syn-text) 68%);
+        background-size: 240% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: syn-text-glint var(--syn-text-glint-duration, 9s) linear infinite alternate;
+      }
+    }
+  }
+  /* Do not leave text transparent or override contrast-enhanced browser colors. */
+  @media (forced-colors: active) {
+    :where(.syn-root[data-syn-text="glint"], .syn-root [data-syn-text="glint"]) {
+      background: none;
+      color: CanvasText;
+    }
+    :where(.syn-root[data-syn-text="underline"], .syn-root [data-syn-text="underline"]) {
+      text-decoration-color: CanvasText;
+    }
+  }
 }

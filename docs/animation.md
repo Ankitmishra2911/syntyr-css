@@ -174,7 +174,7 @@ understanding the page.
 
 Apply `data-syn-parallax` to a section with a natural or explicit height.
 Include one decorative media layer as a **direct child** marked
-`data-syn-parallax-layer`, plus a foreground ``data-syn-parallax-content``.
+`data-syn-parallax-layer`, plus a foreground `data-syn-parallax-content`.
 
 ```html
 <section class="syn-root syn-region" data-syn-parallax
@@ -224,3 +224,68 @@ The module never intercepts input, alters semantics, starts a timer, or
 ships an animation dependency. Existing `data-syn-reveal` belongs to
 the separate optional JavaScript `observeReveals()` API; it does not
 control CSS-only `data-syn-scroll`.
+
+
+### Animated gradient wash (composable CSS)
+
+Use the existing static `syn-gradient-wash` from `syntyr.effects.css`.
+The optional `syntyr.motion.css` adds a decorative, slowly drifting
+gradient layer when `data-syn-gradient="drift"` is present. The background
+remains static if motion is reduced or unsupported, and all content remains
+visible. The animated layer never accepts pointer events.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.effects.css">
+<link rel="stylesheet" href="/css/syntyr.motion.css">
+
+<section class="syn-root syn-gradient-wash" data-syn-gradient="drift"
+         style="--syn-gradient-drift-duration: 16s"
+         aria-labelledby="gradient-title">
+  <div data-syn-gradient-content class="syn-site-hero">
+    <h2 id="gradient-title">An atmospheric landing page</h2>
+    <p>The content stays stationary and remains readable.</p>
+  </div>
+</section>
+```
+
+Keep the `data-syn-gradient-content` wrapper as a direct child for the
+foreground stacking order. The animation moves only a decorative pseudo-element
+with a composited `translate`, rather than repainting the entire gradient
+on every frame. Use modest sections and inspect contrast against actual
+photography or themes. Do not mix `data-syn-gradient` and `data-syn-parallax`
+on the same element; instead nest separate wrappers.
+
+### Text accents (no splitting or JavaScript)
+
+```html
+<section class="syn-root" aria-labelledby="text-effects-title">
+  <h2 id="text-effects-title" data-syn-text="underline">
+    A headline with an animated underline
+  </h2>
+  <p>Supporting information stays completely static.</p>
+  <p class="syn-heading" data-syn-text="glint">
+    A restrained shifting headline accent
+  </p>
+</section>
+```
+
+`data-syn-text="underline"` uses a native CSS view timeline to
+transition underline color as a short heading enters. Without view timelines,
+the accent underline is **static** and visible. It preserves natural line
+wrapping, selectable text, and the document's accessible name.
+
+`data-syn-text="glint"` animates a text-clipped theme gradient, when
+`background-clip: text` is supported; set
+`--syn-text-glint-duration` (default `9s`). Reduced motion or increased
+contrast leaves the original solid text color. Forced-colors mode also
+restores a solid system text color. Do not apply shifting text gradients to
+essential text, body paragraphs, form labels, or critical navigation.
+Check the foreground contrast in all custom themes: an animated accent
+is decorative and is not guaranteed to preserve every arbitrary token
+combination's contrast.
+
+The two effects are independent of the optional JavaScript animation
+companion and do not add timers, DOM cloning, inaccessible character
+splitting, or component variants. They are **alpha.5 source-candidate APIs**
+until included in a published Syntyr version.

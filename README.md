@@ -87,6 +87,7 @@ stylesheets.
 - [Public API and prerelease stability policy](docs/api-stability.md)
 - [Dependency-free CSS distribution guide](docs/distribution.md)
 - [Optional email UI components and semantic HTML demo](docs/email-components.md): signup, inbox, composition, preferences and verification with no runtime JS
+- [Animated gradient wash and text accents](docs/animation.md#animated-gradient-wash-composable-css): optional CSS-only drift, underline and headline glint that respect motion preferences.
 - [CSS-only block effects](docs/animation.md#website-block-effects-css-only): opt-in parallax backgrounds, scroll fades/slides/zoom, and hover image zoom with reduced-motion fallbacks.
 - [Optional native animation companion](docs/animation.md) ([interactive example](examples/animation.html)): Web Animations API, stagger and viewport reveals, no animation dependency or change to the CSS-only default
 - [Migrating from Pico.css: differences and practical steps](docs/from-pico.md)

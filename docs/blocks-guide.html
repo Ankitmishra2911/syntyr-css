@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: Experimental alpha.5 source gallery, not an immutable release or published npm package.">
-  <meta name="syntyr-source-sha256" content="9b586973ec282db60892545a7448b79a57a8eeae51a655ebf8d5429014da0beb">
+  <meta name="syntyr-source-sha256" content="da0e0653142bef63eba5d666d3c8ef707eeb54d6440abf9557c84061bac07fa7">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide">
@@ -81,6 +81,13 @@ with a separate media layer, and image tiles can use <code>data-syn-hover=&quot;
 and users requesting reduced motion retain visible, static content. See the
 <a href="animation.html#website-block-effects-css-only">block effects guide and examples</a>
 and the <a href="../examples/animation.html">live animation gallery</a>.</p>
+<p>Use the existing static gradient wash with the optional motion module to
+add a gentle animated background without inventing a new block variant.
+<code>data-syn-gradient=&quot;drift&quot;</code> works on <code>syn-gradient-wash</code> with a
+<code>data-syn-gradient-content</code> foreground wrapper. Short editorial headings
+may opt into <code>data-syn-text=&quot;underline&quot;</code> or
+<code>data-syn-text=&quot;glint&quot;</code>. Motion and high-contrast fallbacks are explained
+in the <a href="animation.html#animated-gradient-wash-composable-css">animation guide</a>.</p>
 <h2 id="12-original-optional-css-asset-recipes">12 original, optional CSS asset recipes</h2>
 <p>The complete source is <a href="blocks-assets.css">blocks-assets.css</a>. It includes:
 fine-grid, dot-field, radar, ambient-glow, glass, blueprint, signal-stripes,
