@@ -30,7 +30,7 @@ SECTIONS = (
                     "adoption-starters", "components", "data-tables", "data-grid",
                     "recipes", "native-patterns", "composition-adoption", "component-recipes")),
     ("Design system", ("design-principles", "theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),
-    ("Integrations", ("framework-integrations", "site-builders", "mobile-frameworks", "headless-interactions", "lit-integration", "radix-integration", "shadcn-integration", "ecosystem-integrations", "editor-integration", "figma-component-kit", "vertigo-integration", "rust-saas-integration", "saas-cli-business")),
+    ("Integrations", ("framework-integrations", "site-builders", "wordpress", "shopify", "wix", "webflow", "framer", "squarespace", "ghost", "hubspot", "drupal", "joomla", "carrd", "duda", "tilda", "mobile-frameworks", "headless-interactions", "lit-integration", "radix-integration", "shadcn-integration", "ecosystem-integrations", "editor-integration", "figma-component-kit", "vertigo-integration", "rust-saas-integration", "saas-cli-business")),
     ("Accessibility and performance", ("accessibility", "accessibility-alpha5-review", "progressive-enhancement", "native-browser-apis", "progressive-loading", "performance-and-polish", "performance-validation", "live-performance-audit", "visual-regression")),
     ("Maintainer and reference", ("agent-integration", "api-stability", "cloudflare-hosting", "site-generator-decision", "design-research-linear-resend", "tailwind-research", "selective-builds", "release-readiness-ecosystem")),
 )
@@ -52,6 +52,22 @@ def renderer() -> MarkdownIt:
     md = MarkdownIt("default", {"html": False, "linkify": False}).enable("table")
     return md
 
+
+PLATFORM_SEO_TITLES = {
+    'wordpress.md': 'Syntyr for WordPress | CSS Components & Setup',
+    'shopify.md': 'Syntyr for Shopify | CSS Components & Setup',
+    'wix.md': 'Syntyr for Wix | HTML Embed & CSS Setup',
+    'webflow.md': 'Syntyr for Webflow | Custom CSS & HTML Guide',
+    'framer.md': 'Syntyr for Framer | Embeds & CSS Components',
+    'squarespace.md': 'Syntyr for Squarespace | Custom CSS & HTML',
+    'ghost.md': 'Syntyr for Ghost | CSS for Posts & Themes',
+    'hubspot.md': 'Syntyr for HubSpot CMS | Custom Module CSS',
+    'drupal.md': 'Syntyr for Drupal | Theme CSS Integration',
+    'joomla.md': 'Syntyr for Joomla | Template CSS Components',
+    'carrd.md': 'Syntyr for Carrd | Custom CSS & HTML Embeds',
+    'duda.md': 'Syntyr for Duda | HTML Widget & CSS Guide',
+    'tilda.md': 'Syntyr for Tilda | T123 HTML & CSS Setup',
+}
 
 DESCRIPTION_OVERRIDES = {
     "design-principles.md": "Learn shared UI design principles, accessible component states, semantic HTML compositions, and static palette contrast checks in Syntyr CSS.",
@@ -140,6 +156,11 @@ def render_guide(name: str, allowed: set[str]) -> str:
         f'<a class="docs-article-toc-link docs-article-toc-{level}" href="#{escape(anchor)}">{escape(label)}</a>'
         for level, anchor, label in headings
     )
+    platform_og = (
+        '  <meta property="og:image" content="https://syntyr-css.pages.dev/assets/og-syntyr.png">\n'
+        '  <meta name="twitter:card" content="summary_large_image">\n'
+        if name in PLATFORM_SEO_TITLES else ""
+    )
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -148,9 +169,9 @@ def render_guide(name: str, allowed: set[str]) -> str:
   <meta name="description" content="{escape(description, quote=True)}">
   <meta name="syntyr-source-sha256" content="{digest}">
   <meta name="theme-color" content="#f5f7fb">
-  <title>{escape(title)} — Syntyr CSS docs</title>
+  <title>{escape(PLATFORM_SEO_TITLES.get(name, title + " — Syntyr CSS docs"))}</title>
   <link rel="canonical" href="{SITE}/docs/{slug}">
-  <link rel="alternate" type="text/markdown" href="{name}" title="Markdown source">
+{platform_og}  <link rel="alternate" type="text/markdown" href="{name}" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
   <link rel="stylesheet" href="docs.css">
