@@ -718,6 +718,10 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-sidecar",
+          "description": "Syntyr CSS class (components/layout.css)."
+        },
+        {
           "name": "syn-site-heading",
           "description": "Syntyr CSS class (recipes.css)."
         },

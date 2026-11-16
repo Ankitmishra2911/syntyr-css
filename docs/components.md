@@ -53,7 +53,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | --- | --- | --- |
 | Buttons | `.syn-button`, `.syn-button--primary`, `.syn-button--outline`, `.syn-button--danger`, `.syn-button--small`, `.syn-button--ghost` | unclassed `button` |
 | Panels | `.syn-panel`, `.syn-panel--cut` | unclassed `article` |
-| Layout | `.syn-page` (viewport-height opt-in), `.syn-shell`, `.syn-header`, `.syn-grid`, `.syn-layout`, `.syn-inline`, `.syn-stack` | normal CSS layout |
+| Layout | `.syn-page` (viewport-height opt-in), `.syn-shell`, `.syn-header`, `.syn-grid`, `.syn-layout`, `.syn-inline`, `.syn-sidecar`, `.syn-stack` | normal CSS layout |
 | Typography | `.syn-logo`, `.syn-eyebrow`, `.syn-title`, `.syn-section-heading`, `.syn-heading`, `.syn-lede`, `.syn-mono`, `.syn-caption`, `.syn-muted` | native heading/text |
 | Status | `.syn-badge`, `.syn-badge--accent`, `.syn-status` and semantic variants, `.syn-alert`, `.syn-alert--danger`, `.syn-meter` on `progress` | native `progress` |
 | Forms | `.syn-form`, `.syn-label`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-check`, `.syn-fieldset`, `.syn-help`, `.syn-error` | unclassed form controls |
@@ -64,6 +64,13 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Workflow (unreleased) | `.syn-steps`, `.syn-step`, `.syn-steps--vertical` | ordered `<ol>` and `aria-current="step"` |
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
+
+For wrapping action/filter clusters, use existing `.syn-inline` with optional
+`--syn-inline-align`, `--syn-inline-justify` and `--syn-inline-gap`.
+For a main region followed by an aside, `.syn-sidecar` wraps intrinsically
+with `--syn-sidecar-main-min`, `--syn-sidecar-aside-width`,
+`--syn-sidecar-gap` and `--syn-sidecar-align`. See the
+[intrinsic composition guide](composition-adoption.md).
 
 ### Optional composition utilities and component overrides
 

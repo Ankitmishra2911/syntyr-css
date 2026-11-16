@@ -38,6 +38,13 @@ For accessible advanced menus, comboboxes and toasts, see the [optional headless
 
 ## HTMX: progressive enhancement
 
+For a **Go standard-library runnable starter** with no third-party Go modules,
+see [examples/go-htmx](https://github.com/dporkka/syntyr-css/tree/main/examples/go-htmx). The default server runs
+without JavaScript; optional locally vendored HTMX uses the same GET endpoint.
+Its Go tests verify full-page vs fragment responses, escaping, method handling
+and the CSS serving path. This is a development fixture, not a production auth
+or CSRF implementation.
+
 A complete example with a real stdlib Python HTTP server is at:
 [examples/htmx.html](https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.html),
 [examples/htmx_server.py](https://github.com/dporkka/syntyr-css/blob/main/examples/htmx_server.py), and

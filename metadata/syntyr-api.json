@@ -892,6 +892,11 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-sidecar",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
       "name": "syn-site-heading",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."

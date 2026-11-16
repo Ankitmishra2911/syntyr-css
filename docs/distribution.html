@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Install and self-host Syntyr CSS using versioned stylesheets, optional modules, and immutable releases for production websites.">
-  <meta name="syntyr-source-sha256" content="598da7506e2d61484884e10ebfe062c504f8c96e81f1f39178305e501acba8a1">
+  <meta name="syntyr-source-sha256" content="c80d6e116f07e5ad18ec96e694bebd84237082b1d92140efffc7cca1e5bc0ca2">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS distribution — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/distribution">
@@ -152,6 +152,47 @@ The optional <code>syntyr.symbols.css</code> adds BYO-SVG icon sizing, literal U
 <code>syntyr.css</code> bundles core and effects. <code>syntyr.all.css</code> bundles all modules
 while still requiring <code>.syn-semantic</code> to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final <code>syn.utilities</code> cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see <a href="https://github.com/dporkka/syntyr-css/blob/main/ARCHITECTURE.md">the architecture policy</a>.</p>
+<h2 id="loading-contract-at-a-glance">Loading contract at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Stylesheet choice</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Explicit components</td>
+<td><code>syntyr.core.css</code></td>
+<td><code>.syn-root</code> wraps the component subtree</td>
+</tr>
+<tr>
+<td>Plain semantic HTML</td>
+<td><code>syntyr.semantic-bundle.css</code></td>
+<td>Add <code>.syn-semantic</code> to the scoped root</td>
+</tr>
+<tr>
+<td>Some components only</td>
+<td><code>components/tokens.css</code>, <code>components/base.css</code>, then selected component styles</td>
+<td>Keep order; include <code>forms.css</code> with <code>form-composition.css</code></td>
+</tr>
+<tr>
+<td>Application recipes</td>
+<td><code>syntyr.core.css</code> followed by <code>syntyr.recipes.css</code></td>
+<td>Use explicitly named recipe classes</td>
+</tr>
+<tr>
+<td>All features</td>
+<td><code>syntyr.all.css</code></td>
+<td>Never combine with the constituent files</td>
+</tr>
+</tbody>
+</table>
+<p>Avoid combining bundles with their constituent CSS. Each separately imported
+component file intentionally has <strong>no runtime <code>@import</code></strong>; load tokens and base
+first. Use the <a href="composition-adoption.html">intrinsic composition guide</a> to build
+dashboard layouts without JavaScript or viewport-specific hacks.</p>
 <h2 id="optional-explicit-selective-build">Optional explicit selective build</h2>
 <p>Applications needing fewer core components can assemble a custom CSS file with
 the Python standard-library-only <code>scripts/build_selective.py</code>. It does not scan
@@ -190,6 +231,7 @@ cross-browser and full accessibility audits are still release gates.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#single-file-presets-experimental-alpha5-source">Single-file presets (experimental alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-themes-and-semantic-html">Optional themes and semantic HTML</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#loading-contract-at-a-glance">Loading contract at a glance</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-explicit-selective-build">Optional explicit selective build</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#pinned-cdn-for-prototyping">Pinned CDN for prototyping</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#release-artifacts-and-guarantees">Release artifacts and guarantees</a>
