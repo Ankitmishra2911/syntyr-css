@@ -161,10 +161,11 @@ the source stays available in the repository.
 After building the example, optionally run the browser interoperability checks:
 
 ```sh
-python3 tests/lit_browser.py --browsers chromium,firefox,webkit
+cd examples/lit && npm test
 ```
 
-Playwright and browser engines are developer-only test tools. A skipped,
+Playwright and browser engines are developer-only test tools. This isolated
+Node-based test runner avoids Python package downloads in CI. A skipped,
 uninstalled, or broken engine must be reported as unavailable, not as passing.
 
 ## Lit references

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr is a CSS-first design system , not a Lit or Web Components runtime. The Syntyr core has zero required JavaScript , no Node.js install requirement…">
-  <meta name="syntyr-source-sha256" content="3ac2739d0eef3564d0a5b09fbf7b446ede66c8fdc888523bd501de30b52fdf90">
+  <meta name="syntyr-source-sha256" content="fd3491211fa414e624bc3a8c8efd06ae3b88cc6b5f0df75bafd2c93d4f442b50">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr + Lit: optional Web Components interoperability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/lit-integration">
@@ -171,9 +171,10 @@ python3 -m http.server 8765 --bind 127.0.0.1
 Syntyr runtime file. The Cloudflare site does not publish this demo by default;
 the source stays available in the repository.</p>
 <p>After building the example, optionally run the browser interoperability checks:</p>
-<pre><code class="language-sh">python3 tests/lit_browser.py --browsers chromium,firefox,webkit
+<pre><code class="language-sh">cd examples/lit &amp;&amp; npm test
 </code></pre>
-<p>Playwright and browser engines are developer-only test tools. A skipped,
+<p>Playwright and browser engines are developer-only test tools. This isolated
+Node-based test runner avoids Python package downloads in CI. A skipped,
 uninstalled, or broken engine must be reported as unavailable, not as passing.</p>
 <h2 id="lit-references">Lit references</h2>
 <ul>

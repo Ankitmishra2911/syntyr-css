@@ -90,14 +90,17 @@ class LitInteroperabilityContract(unittest.TestCase):
         self.assertIn("lit-integration.md", framework_guide)
         self.assertIn("lit-integration.md", readme)
         self.assertIn('href="lit-integration.html"', (ROOT / "docs/guides.html").read_text())
-        self.assertTrue((ROOT / "tests/lit_browser.py").is_file())
+        self.assertTrue((DEMO / "tests/lit.spec.mjs").is_file())
 
 
     def test_lit_browser_ci_runs_outside_python_css_gate(self):
         pipeline = (ROOT / ".woodpecker/lit.yaml").read_text(encoding="utf-8")
         self.assertIn("npm ci --prefix examples/lit", pipeline)
         self.assertIn("npm run build --prefix examples/lit", pipeline)
-        self.assertIn("tests/lit_browser.py --browsers chromium,firefox,webkit", pipeline)
+        self.assertIn("npm test --prefix examples/lit", pipeline)
+        demo = json.loads((DEMO / "package.json").read_text(encoding="utf-8"))
+        self.assertIn("playwright:v" + demo["devDependencies"]["@playwright/test"] + "-noble", pipeline)
+        self.assertNotIn("pip install", pipeline)
         self.assertIn("event: pull_request", pipeline)
         self.assertNotIn("npm ", (ROOT / ".woodpecker/quality.yaml").read_text())
 
@@ -105,6 +108,8 @@ class LitInteroperabilityContract(unittest.TestCase):
         demo = json.loads((DEMO / "package.json").read_text(encoding="utf-8"))
         for dep in ("react", "react-dom", "htmx.org", "lit"):
             self.assertIn(dep, demo["dependencies"])
+        self.assertIn("@playwright/test", demo["devDependencies"])
+        self.assertIn("playwright test", demo["scripts"]["test"])
         self.assertIn("react-interop.jsx", demo["scripts"]["build"])
         self.assertIn("htmx-interop.js", demo["scripts"]["build"])
         react_page = (DEMO / "react-interop.html").read_text(encoding="utf-8")

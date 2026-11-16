@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "esbuild main.js --bundle --format=esm --minify --target=es2022 --outfile=dist/demo.js && esbuild react-interop.jsx --bundle --format=esm --minify --target=es2022 --outfile=dist/react-demo.js && esbuild htmx-interop.js --bundle --format=esm --minify --target=es2022 --outfile=dist/htmx-demo.js"
+    "build": "esbuild main.js --bundle --format=esm --minify --target=es2022 --outfile=dist/demo.js && esbuild react-interop.jsx --bundle --format=esm --minify --target=es2022 --outfile=dist/react-demo.js && esbuild htmx-interop.js --bundle --format=esm --minify --target=es2022 --outfile=dist/htmx-demo.js",
+    "test": "playwright test"
   },
   "dependencies": {
     "htmx.org": "2.0.8",
@@ -13,6 +14,7 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.65.0",
     "esbuild": "0.28.2"
   }
 }

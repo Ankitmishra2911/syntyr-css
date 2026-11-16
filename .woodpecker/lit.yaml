@@ -13,7 +13,6 @@ steps:
       - npm ci --prefix examples/lit --no-audit --no-fund
       - npm run build --prefix examples/lit
   - name: lit-browser-interoperability
-    image: mcr.microsoft.com/playwright/python:v1.65.2-noble@sha256:38dd67fc654b56b3cba611e4c8eb71cd33750e1cd29eea2a5dc00b484817a75f
+    image: mcr.microsoft.com/playwright:v1.65.0-noble@sha256:9beb546099e11f52d62e505537914870e01a67e0e6b00ae41da4775324e73dbe
     commands:
-      - python3 -m pip install --disable-pip-version-check playwright==1.65.2
-      - python3 tests/lit_browser.py --browsers chromium,firefox,webkit
+      - npm test --prefix examples/lit

@@ -41,11 +41,13 @@ artifacts need regeneration.
 To run Lit, React 19, and HTMX browser coverage after building:
 
 ```sh
-python3 tests/lit_browser.py --browsers chromium,firefox,webkit
+cd examples/lit
+npm test
 ```
 
-Requires a separate developer installation of Python Playwright and its browsers.
-Unavailable engines fail visibly rather than being counted as passing.
+Requires the locally pinned `@playwright/test` development dependency and
+installed browser binaries. The dedicated CI pipeline supplies all three browser
+engines; unavailable engines fail visibly rather than being counted as passing.
 
 The HTML includes static fallback markup for both components. Without JavaScript,
 this remains readable; enhanced buttons intentionally operate on **local demo
