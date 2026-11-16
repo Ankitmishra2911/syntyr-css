@@ -21,6 +21,17 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Embed inside an existing CMS theme (unreleased alpha.5)
+
+The alpha.5 source builds a separate `dist/syntyr.embed.css` entrypoint
+from the canonical core CSS, removing its outer CSS cascade layers to avoid
+the normal layered-versus-unlayered theme-precedence trap. Load it **instead
+of** `syntyr.core.css` for self-hosted Syntyr sections on WordPress, Shopify,
+Webflow or similar themes. This file is not in published alpha.4 releases;
+the CSS still uses the same `.syn-root` namespace and no runtime JavaScript.
+See the [site-builder integration guide](site-builders.md) for platform limits
+and copyable snippets.
+
 ## Offline SaaS preview in the next release ZIP (unreleased alpha.5)
 
 The alpha.5 source candidate now packages `examples/saas.html` together with

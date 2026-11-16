@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Install and self-host Syntyr CSS using versioned stylesheets, optional modules, and immutable releases for production websites.">
-  <meta name="syntyr-source-sha256" content="c80d6e116f07e5ad18ec96e694bebd84237082b1d92140efffc7cca1e5bc0ca2">
+  <meta name="syntyr-source-sha256" content="f1a238c374b83a1afccd5d8fd105cdf9a99506d2ab749005fd5a10f4b5625cff">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS distribution — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/distribution">
@@ -52,6 +52,15 @@ icons, Sass compiler or CSS framework is required to use the distributed CSS.</p
 The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See <a href="framework-integrations.html">the framework integration guide</a> for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add <code>syn-page</code> to the root only if you want full-page min-height.</p>
+<h2 id="embed-inside-an-existing-cms-theme-unreleased-alpha5">Embed inside an existing CMS theme (unreleased alpha.5)</h2>
+<p>The alpha.5 source builds a separate <code>dist/syntyr.embed.css</code> entrypoint
+from the canonical core CSS, removing its outer CSS cascade layers to avoid
+the normal layered-versus-unlayered theme-precedence trap. Load it <strong>instead
+of</strong> <code>syntyr.core.css</code> for self-hosted Syntyr sections on WordPress, Shopify,
+Webflow or similar themes. This file is not in published alpha.4 releases;
+the CSS still uses the same <code>.syn-root</code> namespace and no runtime JavaScript.
+See the <a href="site-builders.html">site-builder integration guide</a> for platform limits
+and copyable snippets.</p>
 <h2 id="offline-saas-preview-in-the-next-release-zip-unreleased-alpha5">Offline SaaS preview in the next release ZIP (unreleased alpha.5)</h2>
 <p>The alpha.5 source candidate now packages <code>examples/saas.html</code> together with
 <code>dist/syntyr.core.css</code> and <code>dist/syntyr.recipes.css</code>. After building or
@@ -226,6 +235,7 @@ cross-browser and full accessibility audits are still release gates.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#recommended-self-host-a-versioned-stylesheet">Recommended: self-host a versioned stylesheet</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#embed-inside-an-existing-cms-theme-unreleased-alpha5">Embed inside an existing CMS theme (unreleased alpha.5)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#offline-saas-preview-in-the-next-release-zip-unreleased-alpha5">Offline SaaS preview in the next release ZIP (unreleased alpha.5)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#single-file-presets-experimental-alpha5-source">Single-file presets (experimental alpha.5 source)</a>
