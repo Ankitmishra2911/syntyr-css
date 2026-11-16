@@ -92,11 +92,14 @@
         <p><label for="capacity-meter">Capacity utilization</label>
         <meter id="capacity-meter" min="0" max="100" low="25" high="85" optimum="20" value="58">58%</meter></p>
         <p>Job status: <output name="job-status">Ready for processing</output></p>
-        <table>
-          <caption>Sample campaign inventory</caption>
-          <thead><tr><th scope="col">Format</th><th scope="col">Count</th></tr></thead>
-          <tbody><tr><th scope="row">Static</th><td>42</td></tr><tr><th scope="row">Digital</th><td>12</td></tr></tbody>
-        </table>
+        <div class="syn-table-wrap" role="region"
+             aria-label="Sample campaign inventory table" tabindex="0">
+          <table>
+            <caption>Sample campaign inventory</caption>
+            <thead><tr><th scope="col">Format</th><th scope="col">Count</th></tr></thead>
+            <tbody><tr><th scope="row">Static</th><td>42</td></tr><tr><th scope="row">Digital</th><td>12</td></tr></tbody>
+          </table>
+        </div>
       </article>
     </section>
     <section aria-labelledby="native-title">

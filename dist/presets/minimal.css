@@ -1084,9 +1084,15 @@
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(pre:not([class]), pre[data-syn-semantic]) :is(code:not([class]), code[data-syn-semantic])) {
     color: inherit;
   }
-  /* Browser-native file and color controls (no custom pickers or runtime JS). */
+  /* Native file control keeps its browser picker but may have an intrinsic
+     width wider than a 320px device. Don't let it enlarge a form grid track. */
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="file"]:not([class]), input[type="file"][data-syn-semantic])) {
+    inline-size: 100%;
+    min-inline-size: 0;
     max-inline-size: 100%;
+    /* WebKit otherwise paints the native picker past the resized input's box.
+       Match Chromium/Firefox clipping while retaining the native file picker. */
+    overflow: clip;
     color: var(--syn-text);
     font: inherit;
   }
@@ -1102,7 +1108,9 @@
     cursor: pointer;
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="color"]:not([class]), input[type="color"][data-syn-semantic])) {
-    inline-size: 4rem;
+    inline-size: min(4rem, 100%);
+    min-inline-size: 0;
+    max-inline-size: 100%;
     min-block-size: var(--syn-control-height);
     padding: .25rem;
     border: 1px solid var(--syn-border-default);
@@ -1162,6 +1170,17 @@
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(textarea:not([rows]):not([class]), textarea:not([rows])[data-syn-semantic])) {
     min-block-size: 7rem;
     resize: vertical;
+  }
+  /* Rem-based card/fieldset padding must not consume an entire narrow
+     layout when users enlarge text aggressively. Keep normal sizing at 320px
+     and cap the padding to viewport space as the root font grows. */
+  @media (max-width: 40rem) {
+    :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(
+      :is(article:not([class]), article[data-syn-semantic]),
+      :is(fieldset:not([class]), fieldset[data-syn-semantic])
+    ) {
+      padding: min(1rem, 5vw);
+    }
   }
   @media (forced-colors: active) {
     :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(mark:not([class]), mark[data-syn-semantic])) {

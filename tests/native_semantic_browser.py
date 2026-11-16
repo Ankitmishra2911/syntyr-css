@@ -34,8 +34,22 @@ def run():
                 page = browser.new_page(viewport={"width": width, "height": 800})
                 page.goto(URL)
                 assert page.locator("search[aria-label='Search examples']").count() == 1
+                if width == 320:
+                    # Check the *initial* Studio-rendered file input before
+                    # palette changes; intrinsic UA size can stretch fieldsets.
+                    file_input = page.locator('#design-file')
+                    assert file_input.is_visible(), (engine, 'file control missing')
+                    metrics = file_input.evaluate("""e => {
+                        const b = e.getBoundingClientRect();
+                        return {right: b.right, width: b.width,
+                            pageScroll: document.documentElement.scrollWidth,
+                            viewport: document.documentElement.clientWidth};
+                    }""")
+                    assert metrics['right'] <= width + 1, (engine, 'file input clipped', metrics)
+                    assert metrics['pageScroll'] <= metrics['viewport'] + 1, (
+                        engine, 'initial native page overflow', metrics)
                 assert page.locator("meter#native-meter").get_attribute("value") == "65"
-                assert page.locator("figure figcaption").count() == 1
+                assert page.locator("figure figcaption").count() == 2, (engine, "both native figures need captions")
                 for palette in PALETTES:
                     page.locator("body").evaluate("(e, theme) => e.setAttribute('data-syn-theme', theme)", palette)
                     foreground, background = page.locator("mark").first.evaluate(
@@ -74,6 +88,14 @@ def run():
                         kbd = page.get_by_text("Control+Alt+Shift+ArrowRight", exact=True)
                         rect = kbd.bounding_box()
                         assert rect is not None and rect["width"] <= width - 2, (engine, size, "long kbd overflow", rect)
+                        if size == "400%":
+                            region = page.get_by_role("region", name="Sample campaign inventory table")
+                            assert region.count() == 1
+                            assert region.evaluate("e => e.scrollWidth > e.clientWidth"), (engine, "table internal overflow")
+                            region.focus()
+                            assert region.evaluate("e => document.activeElement === e"), (engine, "table focus")
+                            region.press("ArrowRight")
+                            page.wait_for_function("document.querySelector('.syn-table-wrap').scrollLeft > 0", timeout=2000)
                     page.evaluate("() => document.documentElement.style.fontSize = ''")
                 page.emulate_media(forced_colors="active")
                 foreground, background = page.locator("mark").first.evaluate(

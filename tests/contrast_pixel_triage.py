@@ -103,7 +103,26 @@ MEASURE_JS = r'''(items) => {
         color: style.color, fontSize: parseFloat(style.fontSize),
         weight: parseInt(style.fontWeight, 10) || 400, rects});
     }
-    output.push({...item, fragments, error: fragments.length ? null : 'no_visible_text_rect'});
+    // Placeholder glyphs have no DOM Text node and are otherwise silently
+    // classified as unsampled. Capture only opaque, solid-color candidates;
+    // unusual pseudo/background effects still require manual adjudication.
+    let placeholder = null;
+    if (!fragments.length && /^(INPUT|TEXTAREA)$/.test(el.tagName) && el.placeholder) {
+      const pseudo = getComputedStyle(el, '::placeholder');
+      const style = getComputedStyle(el);
+      placeholder = {
+        text: el.placeholder.slice(0, 80),
+        foreground: pseudo.color,
+        background: style.backgroundColor,
+        background_image: style.backgroundImage,
+        opacity: pseudo.opacity,
+        element_opacity: style.opacity,
+        font_size_px: parseFloat(pseudo.fontSize),
+        font_weight: parseInt(pseudo.fontWeight, 10) || 400
+      };
+    }
+    output.push({...item, fragments, placeholder,
+      error: fragments.length ? null : 'no_visible_text_rect'});
   }
   for (const el of hide) {
     for (const node of [el, ...el.querySelectorAll('*')]) {
@@ -127,6 +146,44 @@ def sample_rect_pixels(img, rect):
     return candidates
 
 
+
+def score_solid_placeholder(item):
+    """Computed placeholder vs *opaque solid element* background; not a paint audit.
+
+    Never infer a background through translucent/gradient layers or pseudo opacity.
+    A real text background can still be occluded by external overlays.
+    """
+    placeholder = item.get('placeholder')
+    if not placeholder or not placeholder.get('text'):
+        return None
+    if placeholder.get('background_image') != 'none':
+        return None
+    try:
+        if (float(placeholder.get('opacity', '0')) < 0.99999 or
+                float(placeholder.get('element_opacity', '0')) < 0.99999):
+            return None
+    except (TypeError, ValueError):
+        return None
+    fg = parse_rgb(placeholder.get('foreground', ''))
+    bg = parse_rgb(placeholder.get('background', ''))
+    if fg is None or bg is None:
+        return None
+    ratio = contrast_ratio(fg, bg)
+    threshold = text_contrast_threshold(
+        placeholder.get('font_size_px', 16),
+        placeholder.get('font_weight', 400))
+    return {
+        'status': ('computed_placeholder_below_threshold'
+                   if ratio < threshold else 'computed_placeholder_above_threshold'),
+        'computed_ratio': round(ratio, 3),
+        'threshold': threshold,
+        'placeholder_text': placeholder['text'],
+        'foreground': placeholder['foreground'],
+        'background': placeholder['background'],
+        'method': 'computed foreground and opaque solid element background',
+    }
+
+
 def score_item(item, img):
     result = {key: item[key] for key in ('page', 'selector', 'failure_summary')}
     result['status'] = 'unsampled'
@@ -135,6 +192,10 @@ def score_item(item, img):
         result['status'] = 'non_text'
         return result
     if item.get('error'):
+        placeholder = score_solid_placeholder(item)
+        if placeholder is not None:
+            result.update(placeholder)
+            return result
         result['reason'] = item['error']
         return result
     scored = []
@@ -214,12 +275,13 @@ def main():
         finally:
             browser.close()
     review = {
-        'method': 'Chromium pixel sampling with transparent text glyph fill, not WCAG certification',
+        'method': 'Chromium pixel sampling and computed opaque-placeholder colors; not WCAG certification',
         'source_commit': head,
         'source_worktree_clean': clean,
         'source_axe_report': str(args.axe_report),
         'viewport_widths': args.widths,
-        'limitations': ['Sampling does not certify glyph-level contrast or compositing accuracy',
+        'limitations': ['Computed opaque placeholder colors do not certify external overlays or actual painted glyphs',
+                        'Sampling does not certify glyph-level contrast or compositing accuracy',
                         'Pseudo-elements, occlusion, partial visibility and text shadows may affect samples',
                         'Interactive states, native OS contrast, real browser zoom, screen readers not tested',
                         'Manual adjudication of all axe incomplete nodes remains required'],

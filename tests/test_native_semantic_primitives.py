@@ -57,6 +57,41 @@ class NativeSemanticPrimitives(unittest.TestCase):
         self.assertIn(css, (ROOT / "dist/syntyr.all.css").read_text())
 
 
+    def test_native_file_input_does_not_force_wide_intrinsic_grid_track(self):
+        # Browsers give file inputs intrinsic widths exceeding 320px; ordinary
+        # semantic forms must not expand their fieldset and entire document.
+        css = (ROOT / "src/semantic.css").read_text(encoding="utf-8")
+        self.assertIn('input[type="file"]:not([class])', css)
+        self.assertIn('input[type="file"][data-syn-semantic]', css)
+        start = css.index('input[type="file"]:not([class])')
+        rule = css[start:css.index("}", start)]
+        for declaration in ('inline-size: 100%', 'min-inline-size: 0',
+                            'max-inline-size: 100%', 'overflow: clip'):
+            self.assertIn(declaration, rule)
+        html = (ROOT / "examples/native-elements.html").read_text(encoding="utf-8")
+        self.assertIn('type="file" id="design-file"', html)
+
+    def test_native_color_picker_and_large_text_card_padding_are_constrained(self):
+        css = (ROOT / "src/semantic.css").read_text(encoding="utf-8")
+        self.assertIn('input[type="color"]:not([class])', css)
+        self.assertIn('input[type="color"][data-syn-semantic]', css)
+        picker = css[css.index('input[type="color"]:not([class])'):]
+        for property in ("inline-size: min(4rem, 100%)", "min-inline-size: 0",
+                         "max-inline-size: 100%"):
+            self.assertIn(property, picker)
+        self.assertIn("@media (max-width: 40rem)", css)
+        self.assertIn("padding: min(1rem, 5vw)", css)
+
+    def test_native_table_is_wrapped_in_a_named_keyboard_scroll_region(self):
+        html = (ROOT / "examples/native-elements.html").read_text(encoding="utf-8")
+        self.assertIn('class="syn-table-wrap" role="region"', html)
+        self.assertIn('aria-label="Sample campaign inventory table" tabindex="0"', html)
+        self.assertRegex(html,
+            r'<div class="syn-table-wrap"[^>]+>\s*<table>\s*<caption>Sample campaign inventory')
+        browser = (ROOT / "tests/native_semantic_browser.py").read_text(encoding="utf-8")
+        self.assertIn('Sample campaign inventory table', browser)
+        self.assertIn("scrollLeft > 0", browser)
+
     def test_keyboard_scrollable_code_example_is_focusable(self):
         import re
         html = (ROOT / "examples/native-elements.html").read_text()

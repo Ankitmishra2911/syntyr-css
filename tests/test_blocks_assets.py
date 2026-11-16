@@ -97,6 +97,16 @@ class BlocksAssetsTests(unittest.TestCase):
         self.assertNotIn("@font-face", css)
         self.assertIn("prefers-reduced-motion", css)
 
+    def test_fine_grid_caption_has_opaque_backplate(self):
+        # Fine-grid lines can land under 12px caption glyphs. The painted
+        # caption background must not rely on a near-4.5 gradient sample.
+        css = (ROOT / "docs/blocks-assets.css").read_text(encoding="utf-8")
+        self.assertRegex(css,
+            r"\.syn-root :is\([^)]*\.syn-block-asset--fine-grid[^)]*\)>span\s*\{"
+            r"\s*background:var\(--syn-surface\);")
+        self.assertIn(".syn-block-asset--dot-field", css)
+        self.assertIn(".syn-block-asset--diagonal", css)
+
     def test_radar_asset_caption_uses_high_contrast_theme_text(self):
         # The decorative radar ring crossed muted caption text at 390px;
         # don't rely on a narrowly passing background sample.

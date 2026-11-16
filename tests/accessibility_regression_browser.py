@@ -5,6 +5,7 @@ Runs against the actual CSS without adding runtime dependencies. Example:
 """
 import argparse
 from pathlib import Path
+from contrast_pixel_triage import contrast_ratio, parse_rgb
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -93,9 +94,58 @@ def check(browser, engine):
                     assert height >= 24, f"{engine}: undersized {path} {selector} [{idx}]: {height}px"
         finally:
             page.close()
+    # The Blocks fine-grid caption has a solid, opaque semantic surface,
+    # rather than relying on where a 1px gradient line intersects its glyphs.
+    # Check its computed foreground/background in all named themes across engines.
+    for width in (320, 390, 1280):
+        page = browser.new_page(viewport={"width": width, "height": 820},
+                                reduced_motion="reduce")
+        try:
+            page.goto((ROOT / "docs/blocks.html").as_uri())
+            for theme in ('studio', 'grid', 'noir', 'industrial',
+                          'terminal', 'corporate', 'minimal'):
+                page.locator('body').evaluate(
+                    '(e, theme) => e.setAttribute("data-syn-theme", theme)', theme)
+                caption = page.locator('.syn-block-asset--fine-grid > span')
+                colors = caption.evaluate("""e => {
+                    const s = getComputedStyle(e);
+                    return {foreground: s.color, background: s.backgroundColor,
+                            backgroundImage: s.backgroundImage, opacity: s.opacity};
+                }""")
+                fg, bg = parse_rgb(colors['foreground']), parse_rgb(colors['background'])
+                assert fg is not None and bg is not None, (engine, theme, colors)
+                assert colors['backgroundImage'] == 'none' and colors['opacity'] == '1', colors
+                assert contrast_ratio(fg, bg) >= 5.0, (
+                    engine, width, theme, contrast_ratio(fg, bg), colors)
+        finally:
+            page.close()
+
+    # Unlike Text nodes, textarea placeholders live in a CSS pseudo-element;
+    # verify opaque solid pairs rather than silently ignoring these axe targets.
+    for path, selector in (('docs/index.html', '#dispatch'),
+                           ('examples/native-apis.html', '#native-notes')):
+        page = browser.new_page(viewport={"width": 320, "height": 820})
+        try:
+            page.goto((ROOT / path).as_uri())
+            field = page.locator(selector)
+            palette = field.evaluate("""e => {
+                const s = getComputedStyle(e), p = getComputedStyle(e,'::placeholder');
+                return {foreground: p.color, background: s.backgroundColor,
+                        backgroundImage: s.backgroundImage, opacity: p.opacity,
+                        text: e.placeholder};
+            }""")
+            fg, bg = parse_rgb(palette['foreground']), parse_rgb(palette['background'])
+            assert fg is not None and bg is not None, (engine, path, palette)
+            assert palette['text'] and palette['backgroundImage'] == 'none', palette
+            assert palette['opacity'] == '1', palette
+            assert contrast_ratio(fg, bg) >= 4.5, (engine, path, palette)
+        finally:
+            page.close()
+
     # Browser forced-colors *emulation* is useful regression coverage, but it
     # does not stand in for a native OS high-contrast screen-reader review.
     for path, selector in (
+        ('docs/blocks.html', '.syn-block-asset--fine-grid > span'),
         ('docs/blocks.html', '.syn-block-asset--dot-field > span'),
         ('docs/blocks.html', '.syn-block-asset--diagonal > span'),
         ('examples/flagship-grid.html', '.flagship-lede'),

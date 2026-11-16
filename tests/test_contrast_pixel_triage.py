@@ -52,6 +52,62 @@ class PixelContrastMath(unittest.TestCase):
         self.assertEqual(good['status'], 'sampled_above_threshold')
         self.assertAlmostEqual(good['minimum_sampled_ratio'], 21)
 
+    def test_solid_opaque_placeholder_receives_explicit_computed_contrast(self):
+        item = {
+            "page": "fixture.html", "selector": ["#notes"],
+            "failure_summary": "textarea placeholder",
+            "viewport_width": 320,
+            "error": "no_visible_text_rect",
+            "placeholder": {
+                "text": "Write your notes",
+                "foreground": "rgb(75, 93, 118)",
+                "background": "rgb(255, 255, 255)",
+                "background_image": "none",
+                "opacity": "1",
+                "element_opacity": "1",
+                "font_size_px": 16,
+                "font_weight": 400,
+            },
+        }
+        result = MODULE.score_item(item, object())
+        self.assertEqual(result["status"], "computed_placeholder_above_threshold")
+        self.assertGreaterEqual(result["computed_ratio"], 4.5)
+
+    def test_placeholder_with_gradient_or_transparency_remains_unresolved(self):
+        item = {
+            "page": "fixture.html", "selector": ["#notes"],
+            "failure_summary": "placeholder", "viewport_width": 320,
+            "error": "no_visible_text_rect",
+            "placeholder": {
+                "text": "Write notes",
+                "foreground": "rgb(17, 34, 51)",
+                "background": "rgb(255, 255, 255)",
+                "background_image": "linear-gradient(red, blue)",
+                "opacity": "1", "element_opacity": "1",
+                "font_size_px": 16, "font_weight": 400,
+            },
+        }
+        self.assertEqual(MODULE.score_item(item, object())["status"], "unsampled")
+        item["placeholder"]["background_image"] = "none"
+        item["placeholder"]["opacity"] = "0.5"
+        self.assertEqual(MODULE.score_item(item, object())["status"], "unsampled")
+
+    def test_low_contrast_opaque_placeholder_is_explicitly_flagged(self):
+        item = {
+            "page": "fixture.html", "selector": ["#notes"],
+            "failure_summary": "placeholder", "viewport_width": 320,
+            "error": "no_visible_text_rect",
+            "placeholder": {
+                "text": "Write notes",
+                "foreground": "rgb(240, 240, 240)",
+                "background": "rgb(255, 255, 255)",
+                "background_image": "none",
+                "opacity": "1", "element_opacity": "1",
+                "font_size_px": 16, "font_weight": 400,
+            },
+        }
+        self.assertEqual(MODULE.score_item(item, object())["status"], "computed_placeholder_below_threshold")
+
     def test_summary_keeps_unresolved_distinct_from_sampled(self):
         items = [
             {'status': 'sampled_below_threshold'},
