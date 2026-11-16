@@ -422,6 +422,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Typography | `.syn-logo`, `.syn-eyebrow`, `.syn-title`, `.syn-section-heading`, `.syn-heading`, `.syn-lede`, `.syn-mono`, `.syn-caption`, `.syn-muted` | native heading/text |
 | Status | `.syn-badge`, `.syn-badge--accent`, `.syn-status` and semantic variants, `.syn-alert`, `.syn-alert--danger`, `.syn-meter` on `progress` | native `progress` |
 | Forms | `.syn-form`, `.syn-label`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-check`, `.syn-fieldset`, `.syn-help`, `.syn-error` | unclassed form controls |
+| Email UI (optional) | `.syn-email-signup`, `.syn-email-inbox`, `.syn-email-message`, `.syn-email-compose`, `.syn-email-preferences` | Native forms and mailbox navigation; see [email components](email-components.md) |
 | Form compositions | `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` | native `form`, `label`, `input`, `button` |
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
 | Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--nowrap`, `.syn-cell--numeric` | unclassed `table` |
@@ -475,6 +476,139 @@ Use native button `popovertarget="id"` to control a popover and `commandfor="id"
 
 For component-level package imports and optional native UI recipes, see
 [native patterns](native-patterns.md).
+
+## Standard low-entropy component inventory
+
+**Standard does not mean a CSS class for every HTML element.** Use
+`syntyr.core.css` for explicitly classed components and
+`syntyr.semantic.css` with `.syn-semantic` for native, unclassed elements.
+Both are standard supported surfaces in the alpha.5 source candidate;
+the semantic file is intentionally optional to avoid restyling host apps.
+The browser supplies state/validation/focus behavior. This is the baseline
+inventory of everyday UI needs, not an assertion that CSS implements
+application-specific interactions.
+
+| Need | Standard native-first implementation | Delivery |
+| --- | --- | --- |
+| Text and search | Labeled `input` (`text`, `search`, `email`, `password`, `tel`, `url`, `number`), `textarea`, `datalist` | `.syn-input`, `.syn-textarea`, `.syn-field`; native `datalist` |
+| Date and time | Native `date`, `time`, `datetime-local`, `month`, `week` inputs | `.syn-input`; system picker remains browser-owned |
+| Choice controls | Native `select`/`optgroup`, multiple select, checkbox, radio; `fieldset` + `legend` | `.syn-select`, `.syn-check`, `.syn-fieldset`; no custom select implementation |
+| Range | Native `input type="range"` | `.syn-input` with browser thumb and `accent-color` |
+| File upload | Native `input type="file"` | `.syn-input` with native file-selector button |
+| Color picker | Native `input type="color"` | `.syn-input` with browser color chooser |
+| Buttons and actions | `button`, `a`, submit/reset, `aria-pressed` when application-managed | `.syn-button`, `.syn-button-group`, `.syn-chip` |
+| Data and progress | `table` with headers/caption, `progress`, `meter`, `output`, `dl` | `.syn-table`, `.syn-meter` on `progress`; native `meter`/`output` in semantic mode |
+| Disclosure and overlays | `details`/`summary`, `dialog`, `[popover]`, native invoker attributes | `.syn-details`, `.syn-dialog`, `.syn-popover` |
+| Navigation | `nav`, anchor links, ordered breadcrumbs, pagination, page-link tabs | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-nav-tabs`, `.syn-list-group` |
+| Feedback and loading | Textual alerts/status, native `progress`, static skeleton, empty state | `.syn-alert`, `.syn-status`, `.syn-skeleton`, `.syn-empty` |
+| Media and content | `figure`/`figcaption`, `picture`/`img`, `video`/`audio`, `pre`/`code`, `kbd`, lists, `hr` | Native semantic mode; `.syn-code`, `.syn-rule`, `.syn-divider-label` |
+| Layout and composition | Semantic landmarks, `section`, `article`, grid, stack, inline, toolbar, panel | `.syn-grid`, `.syn-stack`, `.syn-inline`, `.syn-toolbar`, `.syn-panel`, `.syn-sidecar` |
+
+**Application-owned behavior:** A searchable combobox, ARIA tabpanel widget,
+roving-focus menu, sortable/virtualized data grid, notifications queue and
+drag-and-drop are **not** CSS components. Start with native `select`, links,
+`details`, `dialog`, `popover` or a normal table; when the product really
+needs behavior, use a small headless library or application code with keyboard,
+focus, announcements and tests. Do not introduce a Syntyr JS runtime.
+For native input examples, see [the component catalog](catalog.html). For exclusive accordions, search landmarks, confirmation dialogs,
+datalist suggestions, and meter/output examples, use the
+[native interaction recipes](native-patterns.html) and the
+[script-free demo](https://syntyr-css.pages.dev/examples/native-interactions.html).
+
+## Native choices, filters and rich list rows (alpha.5 source candidate)
+
+These recipes adapt useful shadcn/ui and daisyUI ideas to **native HTML**, without
+copying upstream implementations or requiring a JS widget runtime. They are
+opt-in, scoped under `.syn-root`, and use the existing theme tokens. See the
+[standalone demonstration](../examples/native-choice-filter-list.html).
+
+### Choice cards
+
+Use `<fieldset>` and `<legend>` to give radio/checkbox groups a name.
+`.syn-choice-card` is a real `<label>`, not an ARIA radio substitute.
+Compose a responsive layout with existing `.syn-grid`:
+
+```html
+<fieldset class="syn-fieldset">
+  <legend>Choose a plan</legend>
+  <div class="syn-grid">
+    <label class="syn-choice-card">
+      <input class="syn-input" type="radio" name="plan" value="starter" checked>
+      <span><strong>Starter</strong><small>For a small team</small></span>
+    </label>
+    <label class="syn-choice-card">
+      <input class="syn-input" type="radio" name="plan" value="growth">
+      <span><strong>Growth</strong><small>For a growing team</small></span>
+    </label>
+  </div>
+</fieldset>
+```
+
+Browser-owned `:checked`, `:focus-visible` and `:disabled` drive appearance.
+Keep the actual radio visible and focusable. No manually synchronized
+`aria-checked` or custom keyboard controller is needed.
+
+### Validation (browser and server)
+
+Native `:user-invalid` and explicit `aria-invalid="true"` already style
+Syntyr inputs and their field label. A server can additionally render
+`data-syn-state="error"` on `.syn-field` to style the field consistently
+before user interaction, without changing browser validity or hiding the error:
+
+```html
+<div class="syn-field" data-syn-state="error">
+  <label class="syn-label" for="email">Email</label>
+  <input class="syn-input" id="email" name="email" type="email" required
+         aria-invalid="true" aria-describedby="email-help email-error">
+  <p class="syn-help" id="email-help">Use a work email.</p>
+  <p class="syn-error" id="email-error">Enter a valid email address.</p>
+</div>
+```
+
+The host must validate on the server, supply real error text, update
+`aria-invalid`, and announce/focus a submission error summary when appropriate.
+CSS does not create errors, switch ARIA states, or focus controls. Do not hide
+all error text using CSS alone; accessible error content belongs to the host.
+This pattern works without JavaScript.
+
+### Native filter choices
+
+Use `.syn-filter-choices` to display a group of `.syn-chip` labels backed by
+real named radio/checkbox inputs. A wrapping filter group should be inside a
+named fieldset in a normal GET form:
+
+```html
+<form action="/campaigns" method="get">
+  <fieldset class="syn-fieldset">
+    <legend>Campaign status</legend>
+    <div class="syn-filter-choices">
+      <label class="syn-chip"><input type="radio" name="status" value="all" checked> All</label>
+      <label class="syn-chip"><input type="radio" name="status" value="active"> Active</label>
+    </div>
+  </fieldset>
+  <button class="syn-button" type="submit">Apply filter</button>
+</form>
+```
+
+The radio remains keyboard focusable and contributes to native form submission;
+the filter choice composition visually conceals only its small input and
+exposes `focus-visible` on the full chip. The server processes the query string.
+HTMX or Datastar may optionally enhance submission, but should preserve the
+HTML action/method fallback. Do not use these controls as faux ARIA tabs.
+
+### Rich collection rows
+
+Keep `.syn-list-group` and `.syn-list-row`. Optionally compose
+`.syn-list-row__media`, `.syn-list-row__body` and `.syn-list-row__actions`
+for an avatar, multiline description and an action cluster.
+When a row contains multiple actions, use a **noninteractive** `<li>` wrapper
+with independent links/buttons. Never nest interactive controls inside a row
+that is itself an `<a>` or `<button>`. Actions wrap on narrow containers and
+RTL follows logical margin properties.
+
+All four patterns inherit theme and density tokens. Validate keyboard focus,
+forced colors, mobile overflow, and actual server form behavior in consumers.
+
 
 ## Neutral-first visual styling
 
@@ -940,7 +1074,7 @@ Load `syntyr.core.css` and then optional `syntyr.recipes.css`. See the [complete
 
 - **Filter bar:** `.syn-filter-bar` arranges labelled `.syn-filter-field` controls and a wrapping `.syn-filter-actions` group. Use `.syn-filter-field--query` for a wider search field. A `method="get"` form remains usable without JavaScript; the application must apply filters and preserve query values.
 - **Pipeline:** `.syn-pipeline` contains named `section.syn-pipeline-lane` columns; each lane contains a semantic `ul.syn-pipeline-list` of `li.syn-pipeline-card`. Set `tabindex="0"` and an accessible name on the scrollable board so keyboard users can reach overflow. Links inside cards remain ordinary links. Drag-and-drop, permissions, saved filters, counts, and stage transitions must be implemented by the host application.
-- **Record metadata:** `dl.syn-record-fields` groups each `dt` and `dd` in a direct child `div` for readable, responsive key/value pairs. Use a real `time` element for dates.
+- **Record metadata:** `dl.syn-record-fields` groups each `dt` and `dd` in a direct child `div` for readable, responsive key/value pairs. Use a real `time` element for dates. **Subgrid** aligns labels and values across rows when supported. A named inline-size `container` on the `dl` stacks each pair below **24rem**, independently of viewport size; older browsers retain the original intrinsic two-column/wrapping **fallback**. No extra classes, media breakpoints, or JavaScript are required.
 - **Density:** `data-syn-density="compact"` compresses control, row and card spacing without shrinking type. `data-syn-density="comfortable"` restores default metrics inside compact ancestors. `data-syn-density="spacious"` provides larger controls and rows for review-heavy screens. These attributes may be on `.syn-root` or nested elements. `comfortable` is the default when density is unspecified.
 
 ```html
@@ -1129,6 +1263,8 @@ Only render `aria-invalid="true"` and the error message when the form is actuall
 
 This is **progressive enhancement**: the GET form submits with **No JavaScript**. An HTMX application may add `hx-get` and `hx-target` while preserving `action`, `method`, and a server-rendered fallback. The application must implement the endpoint and return actual search results.
 
+At narrow available widths (12rem or less relative to the current text size), a connected input and submit button stack instead of squeezing the input into a tall, narrow strip. The `.syn-input-group` itself determines the breakpoint through a CSS container query; no viewport breakpoint, JavaScript, or additional component class is needed. Input groups containing only currency/unit addons keep their existing inline layout. Test long button labels, translations and browser zoom in consuming applications.
+
 ## 3. Input addon (currency and unit)
 
 ```html
@@ -1138,14 +1274,14 @@ This is **progressive enhancement**: the GET form submits with **No JavaScript**
     <div class="syn-input-group">
       <span class="syn-input-addon" aria-hidden="true">$</span>
       <input class="syn-input" id="monthly-budget" name="budget"
-             type="number" min="0" step="0.01" inputmode="decimal">
+             type="text" inputmode="decimal">
       <span class="syn-input-addon" aria-hidden="true">USD</span>
     </div>
   </div>
 </div>
 ```
 
-The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input.
+The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input. For monetary amounts, text plus `inputmode="decimal"` avoids native number spinners and floating-point assumptions; the server must parse localized decimal input and validate exact precision. Use `type="number"` for quantities where native numeric stepping is appropriate.
 
 ## 4. Container-responsive horizontal form
 
@@ -1166,6 +1302,65 @@ The unit is included in the label, not only in the decorative addon; assistive t
 
 The `syn-region` container determines whether rows become horizontal at 42rem. Without that ancestor they remain safely stacked. This is intentionally not a full grid/breakpoint framework. The help text is associated with its input via `aria-describedby`. A production POST endpoint must handle authorization, validation and CSRF.
 
+## 5. Server-rendered error recovery
+
+The optional `syntyr.recipes.css` adds `.syn-error-summary` styling; the
+following HTML remains readable and operable without that stylesheet or any
+JavaScript. Render this response **only after a failed submission**, with the
+submitted value preserved and error messages associated with the field.
+
+```html
+<section class="syn-root" data-syn-theme="studio" aria-labelledby="account-title">
+  <h2 id="account-title">Account settings</h2>
+  <div class="syn-error-summary" id="form-errors" tabindex="-1"
+       role="region" aria-labelledby="form-errors-title">
+    <h3 id="form-errors-title">There is a problem</h3>
+    <ul><li><a href="#account-email">Enter a valid email address</a></li></ul>
+  </div>
+  <form class="syn-form" method="post" action="/account">
+    <div class="syn-field">
+      <label class="syn-label" for="account-email">Email address</label>
+      <input class="syn-input" id="account-email" name="email" type="email"
+             autocomplete="email" value="not-an-email" required
+             aria-invalid="true"
+             aria-describedby="account-email-hint account-email-error">
+      <p class="syn-help" id="account-email-hint">Use the address for account notices.</p>
+      <p class="syn-error" id="account-email-error">Enter a valid email address.</p>
+    </div>
+    <button class="syn-button syn-button--primary" type="submit">Save</button>
+  </form>
+</section>
+```
+
+The server owns validation, authorization, CSRF protection and re-rendering.
+On a successful response, omit the error summary, error paragraph and
+`aria-invalid`. On enhanced/partial-page submissions, the application must
+announce errors and move focus to the summary or first invalid field; CSS cannot
+do this. On a full-page response, keep the summary before the form in document
+order and link directly to each invalid input. Keep working `action`/`method`
+attributes even when HTMX, Datastar or another client adds progressive
+enhancement. Native constraint validation still runs; `aria-invalid` alone
+does not prevent submission or execute server-side validation.
+
+## 6. Native readonly text fields
+
+Use the real `readonly` attribute, not `aria-readonly` or `disabled`, when
+text must remain selectable and submit with the form:
+
+```html
+<div class="syn-root syn-field">
+  <label class="syn-label" for="reference-id">Reference ID</label>
+  <input class="syn-input" id="reference-id" name="reference_id"
+         value="WS-1042" readonly>
+</div>
+```
+
+Classed inputs and opt-in `syn-semantic` fields display readonly text with a
+recessed surface and dashed border. Do not place `readonly` on native
+`select`, checkbox, radio, or file inputs: those controls do not support it.
+Keep the browser's autofill appearance and autocomplete functionality available;
+do not conceal autofilled values with pseudo-elements or forced-color overrides.
+
 ## Optional companion styles
 
 - [Radix Primitives state styling](radix-integration.md) provides an opt-in adapter for React applications while keeping Radix responsible for keyboard behavior.
@@ -1185,6 +1380,57 @@ Original: https://syntyr-css.pages.dev/docs/native-patterns.md
 This prerelease Syntyr example uses original CSS, not upstream Blades source.
 All patterns retain native HTML semantics and need **no runtime JavaScript**.
 For a live static preview, see [the native recipe example (live alpha.5 source preview)](https://syntyr-css.pages.dev/examples/native-recipes.html).
+
+## Native interaction recipes
+
+The standard library includes the following **five native interaction
+compositions**, using existing core classes plus normal HTML. They do **not**
+require a new JavaScript runtime, Syntyr component subclass, or optional
+`syntyr.native-recipes.css` import. Use `syntyr.core.css` for the classed
+controls; load `syntyr.semantic.css` and opt in with `.syn-semantic` if
+you want unclassed `meter` and `output` styling.
+
+- **Exclusive accordion:** use `<details class="syn-details" name="faq">`
+  and a real `<summary>` for each item. Reuse the `name` only *within*
+  an intended disclosure group; only one item opens at once in current
+  browsers. Do not invent `role="tab"`, `aria-expanded`, or keyboard handlers.
+- **GET search:** use `<search>`, `<form method="get" action="/inventory">`,
+  an associated label, and `<input class="syn-input" type="search" name="q">`.
+  Native form navigation works with scripts disabled. Your server must filter
+  results, preserve the query, escape untrusted input, and return a useful
+  response; Syntyr does not implement a search endpoint.
+- **Confirmation dialog:** use a `commandfor` + `command="show-modal"`
+  button, `<dialog class="syn-dialog" aria-labelledby="...">`, and a
+  `<form method="dialog">` with Cancel/Confirm choices. `method="dialog"`
+  **only closes the dialog**; it does not submit a destructive action or
+  authorize a mutation. A real save/delete must use a secure application
+  endpoint or separately tested application logic. Provide a reachable
+  non-dialog fallback for older browsers without invoker commands.
+- **Datalist suggestions:** connect a labeled text input's `list` to a
+  native `<datalist id="...">`. Users can enter text not in the suggestions.
+  For restricted values use native `<select>` with optional `<optgroup>`;
+  do not claim `datalist` is an accessible custom combobox.
+- **Meter and output:** use `<meter min max low high optimum value>` for a
+  bounded measurement and `<output>` for a computed or server-provided
+  result. Provide readable labels and numeric text. Values do not update
+  automatically: the server or application must calculate and synchronize
+  them when inputs change.
+
+[Open the script-free native interaction demo](https://syntyr-css.pages.dev/examples/native-interactions.html)
+or [copy each recipe from the component catalog](https://syntyr-css.pages.dev/docs/catalog.html).
+The page is intentionally static: search reloads with a query string,
+dialog confirmation has no side effects, and output is a snapshot. In a
+production application, implement real search and mutations in the host.
+
+These patterns compose existing `syn-form`, `syn-input`, `syn-details`,
+`syn-dialog`, `syn-inline`, and native HTML; adding a separate
+`.syn-accordion`, `.syn-search`, or `.syn-confirm` class would duplicate
+styles, selectors, documentation, and long-term compatibility obligations.
+Native picker popup details and suggestion menus vary among browsers.
+Test keyboard interaction, forced colors, zoom/reflow, and real product
+copy in the target browsers. **Application-owned behavior** includes
+search filtering, validation on the server, destructive action
+authorization, and live calculations; none are provided by CSS.
 
 ## Individually importable CSS
 
@@ -1242,8 +1488,19 @@ motion, load the additional `syntyr.motion.css` file, then add
 `.syn-dialog--transition` to a `.syn-dialog`. Both class and file are
 required. The motion module honors reduced-motion preferences; without
 either opt-in, dialogs and popovers use their native static behavior.
+The native recipe gallery pairs its dialog command with a `<details>`
+disclosure exposing equivalent critical information on older engines.
 Native browsers own focus management, Escape and dialog inertness; the stylesheet
 does not implement a custom ARIA menu.
+
+## Native direction-aware presentation
+
+The core popover's fixed-corner fallback and optional cut-corner panels use
+CSS **logical** inset properties. They follow the document's text direction
+(LTR or **RTL**) without a new theme or variant. Anchored popovers use the
+browser's native block/inline positioning and flip candidates when available.
+Optional activity timelines also place their markers on inline-start. Native
+`dir="rtl"` controls direction; components keep semantic document order.
 
 ## Floating labels
 
@@ -1254,15 +1511,20 @@ does not implement a custom ARIA menu.
 </div>
 ~~~
 
+Both floating and stacked labels remain real pointer targets; clicking a label
+focuses its associated native control without JavaScript.
+
 Keep a persistent programmatic label with for/id. The one-space placeholder
 is a deliberate :placeholder-shown state hook, **not** the accessible label.
 
 The field becomes a **stacked, wrapping label above the input** when its own
 container is narrow (21rem or less). This protects visible field identification
 when users enlarge text, including long translated labels. At wider sizes the
-floating presentation remains. The label is always a real `<label for>`; the
-CSS never substitutes placeholders for an accessible name. Test real browser
-zoom and translations in consuming applications.
+floating presentation remains. In RTL documents (`dir="rtl"`), the floating
+label shrinks toward the right-hand inline-start edge rather than drifting
+left. The label is always a real `<label for>`; the CSS never substitutes
+placeholders for an accessible name. Test real browser zoom and translations
+in consuming applications.
 
 Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast
@@ -1559,6 +1821,17 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Embed inside an existing CMS theme (unreleased alpha.5)
+
+The alpha.5 source builds a separate `dist/syntyr.embed.css` entrypoint
+from the canonical core CSS, removing its outer CSS cascade layers to avoid
+the normal layered-versus-unlayered theme-precedence trap. Load it **instead
+of** `syntyr.core.css` for self-hosted Syntyr sections on WordPress, Shopify,
+Webflow or similar themes. This file is not in published alpha.4 releases;
+the CSS still uses the same `.syn-root` namespace and no runtime JavaScript.
+See the [site-builder integration guide](site-builders.md) for platform limits
+and copyable snippets.
+
 ## Offline SaaS preview in the next release ZIP (unreleased alpha.5)
 
 The alpha.5 source candidate now packages `examples/saas.html` together with
@@ -1638,6 +1911,14 @@ This is present in the alpha.5 source candidate, **not published alpha.4**.
 ## Optional npm/package-manager distribution
 
 A CSS-only `@syntyr/css` manifest is available in the alpha.5 repository candidate, but **it has not been published to npm**. See [package-manager installation and local tarball testing](package-managers.md) for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.
+
+## Optional native animation companion
+
+Syntyr remains CSS-only by default. Applications that need *programmatic* motion
+can separately import `dist/syntyr.animate.mjs` (native Web Animations API and
+IntersectionObserver only). No script is included in core or `syntyr.all.css`.
+See the [animation API guide](animation.md) and the
+[runnable example](../examples/animation.html).
 
 ## Optional themes and semantic HTML
 
@@ -1825,6 +2106,8 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Surface | Current policy | Intent for v1 |
 | --- | --- | --- |
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
+| Classed `.syn-dialog` and `.syn-popover` physical viewport overflow constraints (also in vertical writing modes) | Alpha.5 bugfix, no new class names | Preserve keyboard-scrollable content at zoom and on short viewports |
+| Specialized native `range`, `file` and `color` controls via the existing `.syn-input` selector | Experimental alpha.5 appearance improvement; no new classes or runtime | Keep native controls and browser-driven behavior |
 | New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
 | New documented component-local layout variables | Experimental alpha.5 opt-in API | Evaluate for stability after responsive review |
@@ -1905,6 +2188,20 @@ The experimental `data-syn-color-space="oklch"` attribute changes only the
 surface-hover color-mix role on explicitly opted-in regions. Default palettes,
 semantic foreground pairs and fallback colors are unchanged. It is not a new
 default theme or a stability commitment; see the [theme customization guide](theme-customization.md).
+
+### Alpha.5 native readonly form presentation
+
+In the unreleased alpha.5 source candidate, classed `syn-input` and
+`syn-textarea` and opt-in semantic native text fields with a real `readonly`
+attribute use a recessed background and dashed border. This visual distinction
+does not disable controls, remove focus, suppress browser autofill, or change
+native form submission. No new public class, state attribute, JavaScript
+dependency, or validation machinery is introduced. Do not use `readonly` for
+native controls that do not support it (such as `select` or checkboxes).
+
+The [server-error recovery recipe](component-recipes.md) composes existing
+`syn-error-summary` (from the *optional* recipes sheet) with core field
+primitives; it is a documentation contract, not a new core component.
 
 ### Alpha.5 semantic HTML authoring changes
 
@@ -2222,6 +2519,31 @@ and sets `Vary: Turbo-Frame` to avoid cross-representation caching issues.
 The Turbo browser dependency is pinned and demo-only; self-host the bundle
 in production. Syntyr never includes it.
 
+### Turbo Streams: independent server-updated regions
+
+The same runnable Turbo 8 example now includes a **GET stream form** outside
+the frame. Add `data-turbo-stream="true"` to the form, keep the target inside a
+stable `.syn-root`, and return an action targeting that element:
+
+```html
+<form action="/customers/turbo-stream" method="get" data-turbo-stream="true">
+  <label for="stream-q">Customers</label>
+  <input id="stream-q" class="syn-input" name="q">
+  <button class="syn-button" type="submit">Update</button>
+</form>
+<div id="turbo-stream-results" class="syn-panel" aria-live="polite"></div>
+```
+
+An enhanced request with `Accept: text/vnd.turbo-stream.html` gets a
+`text/vnd.turbo-stream.html` response with a `<turbo-stream action="update"
+target="turbo-stream-results">` and escaped, server-rendered HTML in a
+`<template>`. Native GET navigation returns a complete document with
+the result in the correct region, not duplicate results in both the frame
+and stream target. Set `Vary: Accept` to distinguish the two representations.
+The example uses normal HTTP responses rather than WebSockets or SSE; Turbo
+Streams can also arrive over those transports when the application provides them.
+The original frame remains mounted when the stream updates its separate target.
+
 Turbo Streams and full-page visits must keep the Syntyr root appropriately
 scoped. Where Turbo must preserve a client-managed element, use
 `data-turbo-permanent` with a stable unique ID on both versions. Do not put
@@ -2248,9 +2570,13 @@ Python standard-library contract tests. HTMX has an existing opt-in browser
 suite; Datastar has an opt-in browser test using a pinned bundle.
 Unpoly 3.15.0 and Turbo 8.0.23 have real, opt-in browser tests in
 `tests/hypertext_browser.py` that cover request feedback, DOM replacement,
-theme-root survival, and no-JavaScript form fallback in Chromium, Firefox
-and WebKit (WebKit on a compatible Playwright container). The demo servers
-also have request/response tests. This is **not** a claim that Phoenix,
+Turbo Stream updates, Unpoly 422 validation/error recovery, theme-root
+survival, and no-JavaScript form fallback in Chromium and Firefox
+(and in WebKit only on a compatible Playwright container). The demo servers
+also have request/response tests. Simulated browser checks confirm that
+Livewire 4's `data-loading` and LiveView's `phx-*loading` cursor selectors
+are scoped to Syntyr and do not override native disabled controls.
+This is **not** a claim that Phoenix,
 Laravel, Rails, or Go application runtime tests have run. Add framework-owned
 end-to-end tests when adopting templates.
 
@@ -2356,6 +2682,17 @@ with the Turbo demo. Run `python3 examples/hypertext_server.py` and open
 The example pins the JS and CSS bundles; both belong to the demo application,
 not Syntyr. Self-host both in production.
 
+Unpoly can update multiple fragments from a single response. The runnable
+example uses `up-target="#customer-results, #unpoly-search"` so a successful
+search refreshes the result and re-renders the form, including clearing any
+previous validation error. An empty query returns HTTP **422**, with
+`up-fail-target="#unpoly-search"` replacing only the form and an associated
+`aria-invalid="true"` / `aria-describedby="unpoly-search-error"` message.
+A subsequent valid submission clears both the invalid state and message.
+The no-JavaScript fallback receives a complete document, including the
+form error, instead of an orphaned fragment. These are **server-side application
+behaviors**, not Syntyr CSS features.
+
 Unpoly adds `.up-active` to an initiating link or form and `.up-loading`
 to the targeted fragment. Syntyr's optional `syntyr.server.css` styles the
 progress cursor on an enabled `.syn-button.up-active` or the enabled
@@ -2364,7 +2701,9 @@ the target. Unpoly owns response handling, loading feedback and morphing.
 
 ```html
 <section class="syn-root" data-syn-theme="studio">
-  <form action="/customers" method="get" up-target="#customer-results">
+  <form action="/customers" method="get"
+        up-target="#customer-results, #customer-search" up-fail-target="#customer-search"
+        id="customer-search">
     <label class="syn-label" for="customer-query">Customer</label>
     <input id="customer-query" class="syn-input" name="q">
     <button class="syn-button" type="submit">Search</button>
@@ -2441,6 +2780,430 @@ theme-root and swap-boundary considerations as HTMX.
 
 ---
 
+## Source: docs/site-builders.md
+
+Original: https://syntyr-css.pages.dev/docs/site-builders.md
+
+# Use Syntyr with WordPress, Wix, Shopify, Webflow, Framer and other platforms
+
+Syntyr styles **your own HTML**, without JavaScript, build tooling, framework
+dependencies, plugins or proprietary APIs. It does **not** automatically reskin
+native CMS widgets, checkout, platform data services or their editor interfaces.
+
+## Platform-by-platform setup guides
+
+Each guide covers benefits for that platform, installation steps, real HTML
+examples, limitations, and checks for the published site. These are portable
+CSS recipes, **not** official platform plugins, partnerships or end-to-end
+certification for every platform account.
+
+- [Syntyr for WordPress](wordpress.md) — Gutenberg and child themes
+- [Syntyr for Shopify](shopify.md) — Liquid sections and storefront assets
+- [Syntyr for Wix / Wix Studio](wix.md) — HTML iframe embeds
+- [Syntyr for Webflow](webflow.md) — Code Embed and custom Head CSS
+- [Syntyr for Framer](framer.md) — Custom Code and iframe-aware embeds
+- [Syntyr for Squarespace](squarespace.md) — plan-aware HTML Code Blocks
+- [Syntyr for Ghost](ghost.md) — HTML cards and editorial themes
+- [Syntyr for HubSpot CMS](hubspot.md) — custom modules and landing pages
+- [Syntyr for Drupal](drupal.md) — theme libraries and Twig
+- [Syntyr for Joomla](joomla.md) — custom site templates and modules
+- [Syntyr for Carrd](carrd.md) — one-page custom HTML sections
+- [Syntyr for Duda](duda.md) — HTML Widgets for agency sites
+- [Syntyr for Tilda](tilda.md) — T123 HTML blocks and Head code
+
+## Pick the correct CSS
+
+Use `syntyr.core.css` for a site that Syntyr owns. For a Syntyr feature inside
+an existing site or CMS theme, use `syntyr.embed.css` from the **unreleased
+alpha.5 source candidate**. It contains the same core tokens and components
+but removes their outer CSS cascade layers. A typical unlayered theme declaration
+otherwise overrides *all* normal layered rules, regardless of specificity.
+The embed CSS remains scoped to the `syn-root` class. It does not guarantee
+victory over more specific host selectors or `!important`, and it does not
+inject CSS across iframe boundaries.
+
+**Release boundary:** `syntyr.embed.css` is not in the published immutable
+alpha.4 release; build it locally using `python3 scripts/build.py` and self-host
+`dist/syntyr.embed.css` for alpha.5 development. Do not invent an alpha.5 CDN
+URL. For production today, alpha.4 `syntyr.core.css` is published, but its
+layered cascade needs validation against each host theme. Do **not** load both
+core and embed stylesheets together.
+
+Load the stylesheet once in your page's `<head>`:
+
+```html
+<link rel="stylesheet" href="/assets/syntyr.embed.css">
+```
+
+Then place this content in a platform-provided **visible HTML** block or theme
+template (not in a head-code field):
+
+```html
+<section class="syn-root" data-syn-theme="studio" aria-labelledby="syntyr-title">
+  <div class="syn-panel">
+    <h2 class="syn-heading" id="syntyr-title">Our services</h2>
+    <p class="syn-muted">A self-contained, accessible feature.</p>
+    <a href="/services" class="syn-button syn-button--primary">Explore</a>
+  </div>
+</section>
+```
+
+Keep `syn-root` on the *component wrapper*, not the site's `<body>`. Do not
+apply the optional `syn-semantic` class to the whole CMS document or use
+`syn-page` unless a full-height page is intended. Replace the sample URL with
+your own site paths. For production, prefer a **self-hosted, immutable versioned
+asset** over an unversioned CDN.
+
+## Installation matrix
+
+| Platform | Load CSS | Place visible HTML | Important boundary |
+| --- | --- | --- | --- |
+| **WordPress** (self-hosted/theme access) | Enqueue CSS in child theme or site plugin | Gutenberg Custom HTML, template or custom block | HTML may be sanitized by role; CSS is not automatically loaded by an HTML block |
+| **Shopify** Online Store | Theme Assets + one Liquid stylesheet tag | Section, Custom Liquid or template | Storefront theme only; not checkout |
+| **Wix / Wix Studio** | Inside HTML embed iframe | Embed HTML element or custom element | Dashboard Custom Code cannot reliably style managed Wix elements |
+| **Webflow** | Site/Page Settings > Custom Code > Head | Designer Code Embed | Custom-code plan permissions and publishing apply |
+| **Framer** | Project Settings > Custom Code > head | Embed component or supported HTML | If embed is an iframe, stylesheet must load inside it |
+| **Squarespace** | Permitted Code Injection/Custom CSS | Code Block | Plan/security restrictions; CSS editor is intended for limited tweaks |
+| **Ghost** | Code Injection header or theme CSS | HTML card or theme template | Site-owned markup only |
+| **HubSpot CMS** | Theme / page / custom module stylesheet | Custom module/template | CMS policy and custom-code privileges |
+| **Drupal / Joomla** | Theme library or template stylesheet | Custom block/template/module | Prefer theme-managed assets |
+| **Carrd / Duda / Tilda / other builders** | Head code or iframe HTML when supported | Custom HTML/embed | Unavailable when custom HTML/CSS is prohibited |
+
+### WordPress
+
+Copy the alpha.5 build's CSS into a child theme at
+`assets/syntyr.embed.css`, then adapt
+[the WordPress enqueue example](https://github.com/dporkka/syntyr-css/blob/main/integrations/wordpress/syntyr-enqueue.php)
+into the child theme's `functions.php` or a site-specific plugin. Add the
+example `<section>` through a Custom HTML block. Do not assume a
+`<link>` tag pasted into a post will be preserved; permissions determine
+HTML sanitization. On block themes, Additional CSS may be available
+through Site Editor > Styles, but is less convenient for a full distribution.
+WordPress.com and managed hosts can restrict theme access and custom code.
+
+### Shopify
+
+Copy the CSS to theme `assets/syntyr.embed.css`, then load once in
+`layout/theme.liquid` inside `<head>`:
+
+```liquid
+{{ 'syntyr.embed.css' | asset_url | stylesheet_tag }}
+```
+
+Copy [the Shopify feature section](https://github.com/dporkka/syntyr-css/blob/main/integrations/shopify/sections/syntyr-feature.liquid)
+into theme **Sections** and insert “Syntyr feature” in the theme editor.
+The sample uses editable text, URL settings, and HTML-escaped outputs.
+This targets **Online Store themes**, not checkout extensions. Avoid
+pasting the CSS into Shopify's Custom CSS field: its 1,500-character
+theme-wide and 500-character section limits, as well as forbidden at-rules,
+make it unsuitable for a complete CSS distribution.
+
+### Wix / Wix Studio
+
+For a visible standalone feature, add an **Embed HTML** element; this is
+an iframe. Paste a complete iframe document containing the stylesheet link
+and Syntyr `<section>`:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://YOUR-HOST.example/syntyr.embed.css">
+</head>
+<body>
+  <section class="syn-root" data-syn-theme="studio">
+    <div class="syn-panel"><h2 class="syn-heading">Hello from Syntyr</h2></div>
+  </section>
+</body>
+</html>
+```
+
+Use your own HTTPS-hosted stylesheet, and size the embed so its contents
+aren't clipped. Styling in the parent Wix document cannot reach into
+the iframe. Wix dashboard Custom Code is not the same as Velo/site code:
+it cannot access Wix APIs and must not rely on Wix-generated classes or
+page DOM nodes remaining stable. Custom elements and Velo can provide deeper
+integrations but are optional and platform-specific.
+
+### Webflow
+
+Add the link tag to **Site Settings > Custom Code > Head** or page-level
+Head, then insert the feature markup using a **Code Embed**. Publish the
+site to confirm behavior. Embedded code and CSS may conflict with the native
+Designer, and custom-code permissions vary by plan.
+
+### Framer
+
+Add the link tag to **Project Settings > Custom Code**, placed in the
+head, and insert the feature markup using a supported Embed or code component.
+An isolated iframe needs the stylesheet **inside its own document**.
+Verify the published URL rather than assuming the editor canvas reflects
+external code.
+
+### Other builders
+
+Squarespace Code Blocks, Ghost HTML cards, HubSpot CMS custom modules,
+Drupal/Joomla theme templates, and other builders can use the same
+asset + `syn-root` recipe when they allow both CSS and custom HTML.
+If only an iframe is supported, host an HTML page that links Syntyr inside
+the frame. If a platform forbids custom CSS or visible HTML, do not target
+private generated classes: native widgets are **not compatible by default**.
+
+## Verify on the published site
+
+1. Verify the CSS URL succeeds, is served as CSS and matches the installed version.
+2. Compare native site buttons/cards outside `syn-root` before and after.
+3. Test the Syntyr feature at 320px, with keyboard navigation, reduced motion,
+   forced colors, and the host theme's global typography/forms rules.
+4. For an iframe, check sizing, accessibility, asset origin, CSP and sandboxing.
+5. Host theme CSS with higher specificity/`!important` may still need a local,
+   narrowly scoped override; the embed distribution addresses **cascade-layer
+   precedence**, not every possible site builder rule.
+6. Recheck after builder or theme updates; no provider account integration
+   has been end-to-end verified by this source-only compatibility suite.
+
+See [the static host-theme fixture](../examples/platform-embed.html)
+for an offline, zero-JavaScript example with a host button outside Syntyr.
+
+### Official platform references
+
+- WordPress: https://wordpress.org/documentation/article/custom-html/
+- Shopify CSS restrictions: https://help.shopify.com/en/manual/online-store/themes/customizing-themes/edit-code/add-css
+- Shopify theme asset tags: https://shopify.dev/docs/storefronts/themes/best-practices/javascript-and-stylesheet-tags
+- Wix code boundaries: https://dev.wix.com/docs/overview/site-features-tools/about-custom-code
+- Wix embed: https://support.wix.com/en/article/wix-editor-about-embeds-and-codes-on-your-site
+- Webflow custom code: https://help.webflow.com/hc/en-us/articles/33961357265299-Custom-code-in-head-and-body-tags
+- Framer custom code: https://www.framer.com/help/articles/how-to-add-custom-code/
+- Squarespace: https://support.squarespace.com/hc/en-us/articles/206545567-Add-custom-CSS-to-your-site
+
+---
+
+## Source: docs/mobile-frameworks.md
+
+Original: https://syntyr-css.pages.dev/docs/mobile-frameworks.md
+
+# Syntyr on mobile: React Native, Expo, Flutter, SwiftUI and Compose
+
+**Status: opt-in source adapter (alpha.5 candidate), not published as a native
+package.** Syntyr's web CSS does **not** execute in the native iOS or Android
+renderers. The supported portable contract is **literal design tokens** from
+one existing source, `src/tokens.css`. Browser-only components and behaviors
+must be implemented with native controls.
+
+| Target | Adoption route | Scope |
+| --- | --- | --- |
+| React Native / Expo (iOS, Android) | Copy `integrations/react-native/{tokens,styles}.ts` | Native colors, spacing, fonts, basic surface/input/button style objects |
+| React Native Web / Expo Web | Same native style adapter for shared screens; Syntyr CSS in web-only HTML | Native `View` / `Text` do not become Syntyr HTML components |
+| Flutter | Bundle `metadata/mobile/syntyr.tokens.json` as an asset | Theme data mapped to Flutter widgets |
+| SwiftUI | Add the JSON asset to an Xcode target | Colors, spacing and metrics mapped to SwiftUI controls |
+| Jetpack Compose | Add JSON to `src/main/assets/` | Colors and sizing mapped to Compose Material themes |
+| Ionic / Capacitor (web-powered) | Load Syntyr's existing CSS normally | Full browser CSS support in the WebView; test platform-specific accessibility |
+| NativeScript / .NET MAUI | Parse the same portable JSON | Custom native style bindings; no tested adapter shipped |
+
+## Exact token contract
+
+Run from the Syntyr repository root:
+
+```sh
+python3 scripts/export_mobile_tokens.py
+python3 scripts/export_mobile_tokens.py --check
+python3 -m unittest discover -s tests -p test_mobile_adapters.py -v
+```
+
+The generated files are:
+
+- `metadata/mobile/syntyr.tokens.json`: all seven named Syntyr palettes,
+  with 13 literal SRGB color roles each, per-palette `radius`/`cut`,
+  shared spacing `1–5`, font sizes `xs/sm/base`, and control height.
+- `integrations/react-native/tokens.ts`: the **same values** as a standalone
+  typed `as const` module, with `SyntyrMobileTheme`.
+- `integrations/react-native/styles.ts`: a small, copy-owned native recipe
+  that uses those generated tokens. It is not a new component library.
+
+Unit `logical-points` means the generator converts Syntyr's literal CSS
+`rem` values using the explicit **16px browser baseline** (for example,
+`0.75rem -> 12`). In a native UI, treat the numbers as dp on Android,
+points on iOS, or logical pixels in Flutter. This is a **design scale
+mapping**, not a promise of identical physical size, font metrics or dynamic
+type behavior. Native consumers must adapt to accessibility font scaling,
+platform text metrics and user device settings. Colors do not automatically
+follow system appearance; select the desired palette.
+
+Only literal values are exported. Derived `color-mix()`, runtime CSS
+variables, hover, grid, container queries, viewport-relative typography,
+motion and browser focus semantics **are deliberately excluded**. Do not
+parse `dist/syntyr.core.css` at runtime or use a WebView solely to get
+Syntyr-native styling.
+
+## React Native / Expo: copy-owned, no adapter dependency
+
+In an Expo or bare React Native app, copy both `integrations/react-native/*.ts`
+files into `src/theme/`, then use:
+
+```tsx
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { createSyntyrNativeStyles } from "./theme/styles";
+
+const styles = StyleSheet.create(createSyntyrNativeStyles("studio"));
+
+export function Example() {
+  return (
+    <View style={styles.panel}>
+      <Text accessibilityRole="header" style={styles.heading}>Account</Text>
+      <Pressable accessibilityRole="button" style={styles.button}>
+        <Text style={styles.buttonLabel}>Continue</Text>
+      </Pressable>
+    </View>
+  );
+}
+```
+
+See [the interactive native screen](../examples/react-native/App.tsx) for an
+email field, a stateful button and a light/dark palette switch based on
+`useColorScheme()`. The example is **source to copy into an existing app**,
+not a separate installable Expo project; in the app, adjust relative imports.
+A separate [Expo SDK 58 development smoke fixture](https://github.com/dporkka/syntyr-css/tree/main/examples/expo-native-smoke)
+is provided for reproducible native TypeScript, Jest/RNTL interaction tests,
+and production Android/iOS Metro bundle exports. Run `npm ci`,
+`npm run typecheck`, `npm test`, `npm run export:android`, and
+`npm run export:ios` from that fixture. **Metro exports do not run on
+devices or produce signed native binaries**; simulator/hardware checks are
+still required. The fixture imports the canonical adapter by an ignored
+build-local source copy, not a second design-system implementation.
+Use the host application's safe-area provider and navigation system as usual.
+The example uses real `TextInput` and `Pressable` controls with accessibility
+labels; gestures, screen reader behavior, validation, keyboard handling and
+focus management remain the native application's responsibility.
+
+Do **not** import `@syntyr/css`, `syntyr.core.css` or `syn-*` classes into
+Android/iOS React Native screens. An Expo Web or React Native Web route can
+load Syntyr CSS in **web-only markup**, or use the token adapter for shared
+native components. Syntyr does not require NativeWind, Uniwind, Tamagui or
+Restyle. If your application already uses a CSS-to-native system, feed it the
+token values explicitly; don't assume Syntyr selectors, pseudo-classes or
+browser layout features will be compiled correctly.
+
+## Flutter
+
+Declare the copied JSON under `flutter/assets/syntyr.tokens.json` in
+`pubspec.yaml`:
+
+```yaml
+flutter:
+  assets:
+    - assets/syntyr.tokens.json
+```
+
+In Dart, load once and build the palette for your widgets:
+
+```dart
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
+Future<ThemeData> loadSyntyrTheme(String name) async {
+  final root = jsonDecode(await rootBundle.loadString(
+    'assets/syntyr.tokens.json')) as Map<String, dynamic>;
+  final theme = (root['themes'] as Map<String, dynamic>)[name] as Map;
+  final colors = theme['colors'] as Map;
+  Color color(String role) =>
+      Color(int.parse('FF${(colors[role] as String).substring(1)}', radix: 16));
+  return ThemeData(
+    scaffoldBackgroundColor: color('bg'),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: color('accent'),
+      surface: color('surface'),
+      onSurface: color('text'),
+    ),
+    cardColor: color('surface'),
+  );
+}
+```
+
+`ColorScheme.fromSeed` computes unspecified Material roles rather than
+duplicating all Syntyr roles; map `muted`, `frame`, `danger`, and
+`on-accent` explicitly for exact custom widget colors.
+
+## SwiftUI
+
+Bundle the JSON in the app target, parse it with `JSONSerialization` or
+`Decodable`, then convert RGB hex to SwiftUI `Color`. For example:
+
+```swift
+import SwiftUI
+
+func syntyrColor(_ hex: String) -> Color {
+    let value = UInt64(hex.dropFirst(), radix: 16)!
+    return Color(
+        .sRGB,
+        red: Double((value >> 16) & 0xff) / 255,
+        green: Double((value >> 8) & 0xff) / 255,
+        blue: Double(value & 0xff) / 255,
+        opacity: 1
+    )
+}
+
+// Given the selected palette's "colors" dictionary:
+// Text("Account").foregroundStyle(syntyrColor(colors["text"]!))
+```
+
+Use semantic native accessibility roles and dynamic type; a fixed design
+font size is not a substitute for the user's preferred text size.
+
+## Android Jetpack Compose
+
+Add the JSON to `app/src/main/assets/syntyr.tokens.json`, load it through
+`context.assets.open(...)`, and read `themes[themeName].colors`.
+For example, once `hex` is read from the JSON:
+
+```kotlin
+import androidx.compose.ui.graphics.Color
+
+val syntyrSurface = Color(android.graphics.Color.parseColor(hex))
+```
+
+In your Compose theme, map the named palette roles to `MaterialTheme`
+`colorScheme` fields; keep user font scaling and touch-target conventions.
+This is a token import route, **not** a verified Compose UI toolkit.
+
+## Ionic / Capacitor
+
+Ionic and Capacitor usually render HTML/CSS inside a WebView, so use the
+existing `dist/syntyr.core.css` on HTML nodes within a `.syn-root`:
+
+```html
+<link rel="stylesheet" href="/assets/syntyr.core.css">
+<main class="syn-root" data-syn-theme="studio">
+  <button class="syn-button syn-button--primary" type="button">Continue</button>
+</main>
+```
+
+Ionic components may use Shadow DOM; ordinary external selectors do not
+cross shadow roots. Prefer styling Syntyr-owned HTML, or the Ionic component's
+documented CSS custom properties/parts. Respect safe areas, on-screen
+keyboards and touch interactions.
+
+## Boundary and maintenance policy
+
+- One authored source: `src/tokens.css`. All native tokens are generated,
+  deterministic and checked by `--check`. No second hand-maintained theme.
+- The CSS package's exports and zero-dependency core are **unchanged**.
+  Native consumers copy only the files they need; no React, Expo, Flutter,
+  Swift or Compose dependencies are added to Syntyr.
+- Runtime controls remain genuinely native. Native keyboard navigation,
+  gesture handling, accessibility and OS adaptations are not made equivalent
+  by colors or spacing alone.
+- Native builds have **not** been run by the Syntyr test suite; token/adapter
+  contract tests are run in CI or locally. Validate a real iOS/Android app
+  before claiming full platform certification.
+
+References: [React Native styles](https://reactnative.dev/docs/style.html),
+[Expo Web](https://docs.expo.dev/workflow/web/),
+[Expo CSS limitations](https://docs.expo.dev/versions/v55.0.0/config/metro/).
+
+---
+
 ## Source: docs/native-browser-apis.md
 
 Original: https://syntyr-css.pages.dev/docs/native-browser-apis.md
@@ -2448,6 +3211,11 @@ Original: https://syntyr-css.pages.dev/docs/native-browser-apis.md
 # Native browser APIs in Syntyr
 
 Syntyr is a styling system, **not** a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser's built-in semantics and state before adding host-owned JavaScript. See the [scriptless integration demo](https://syntyr-css.pages.dev/examples/native-apis.html) (source: `examples/native-apis.html`).
+
+For framework-free custom elements and server-rendered Shadow DOM, see the
+[native Web Components fixture](https://github.com/dporkka/syntyr-css/tree/main/examples/web-components) and
+[component-authoring contract](component-authoring.md). Syntyr still requires
+no Custom Elements runtime for ordinary HTML components.
 
 ## Supported integrations
 
@@ -2484,11 +3252,13 @@ The invoker creates an implicit CSS anchor. Do not apply `position-anchor: auto`
 ## Example: a dialog without an event handler
 
 ```html
-<button type="button" commandfor="confirm-dialog" command="show-modal">Review</button>
-<dialog id="confirm-dialog" class="syn-dialog" aria-labelledby="confirm-title">
-  <h2 id="confirm-title">Review changes</h2>
-  <form method="dialog"><button type="submit">Close</button></form>
-</dialog>
+<section class="syn-root" data-syn-theme="studio">
+  <button type="button" commandfor="confirm-dialog" command="show-modal">Review</button>
+  <dialog id="confirm-dialog" class="syn-dialog" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">Review changes</h2>
+    <form method="dialog"><button type="submit">Close</button></form>
+  </dialog>
+</section>
 ```
 
 The HTML Invoker Commands API is progressively available; don't assume the opener works in legacy browsers. A normal link to a review page or a `<details>` fallback gives users an accessible path even without it. Use `dialog.requestClose()` from host JavaScript when a cancelable close request is needed; unlike `dialog.close()`, `requestClose()` fires `cancel` first.

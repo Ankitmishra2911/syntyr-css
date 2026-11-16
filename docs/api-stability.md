@@ -9,6 +9,8 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Surface | Current policy | Intent for v1 |
 | --- | --- | --- |
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
+| Classed `.syn-dialog` and `.syn-popover` physical viewport overflow constraints (also in vertical writing modes) | Alpha.5 bugfix, no new class names | Preserve keyboard-scrollable content at zoom and on short viewports |
+| Specialized native `range`, `file` and `color` controls via the existing `.syn-input` selector | Experimental alpha.5 appearance improvement; no new classes or runtime | Keep native controls and browser-driven behavior |
 | New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
 | New documented component-local layout variables | Experimental alpha.5 opt-in API | Evaluate for stability after responsive review |
@@ -89,6 +91,20 @@ The experimental `data-syn-color-space="oklch"` attribute changes only the
 surface-hover color-mix role on explicitly opted-in regions. Default palettes,
 semantic foreground pairs and fallback colors are unchanged. It is not a new
 default theme or a stability commitment; see the [theme customization guide](theme-customization.md).
+
+### Alpha.5 native readonly form presentation
+
+In the unreleased alpha.5 source candidate, classed `syn-input` and
+`syn-textarea` and opt-in semantic native text fields with a real `readonly`
+attribute use a recessed background and dashed border. This visual distinction
+does not disable controls, remove focus, suppress browser autofill, or change
+native form submission. No new public class, state attribute, JavaScript
+dependency, or validation machinery is introduced. Do not use `readonly` for
+native controls that do not support it (such as `select` or checkboxes).
+
+The [server-error recovery recipe](component-recipes.md) composes existing
+`syn-error-summary` (from the *optional* recipes sheet) with core field
+primitives; it is a documentation contract, not a new core component.
 
 ### Alpha.5 semantic HTML authoring changes
 

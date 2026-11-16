@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="e57ce8b45204c85132a83bec6f7bf0356560dfea450eed1c5e205ff9c81e83e0">
+  <meta name="syntyr-source-sha256" content="232047681fdb53f3ea30eb0d693dc58cc7eac77a483153e421bed77542b77589">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -243,6 +243,25 @@ frame for enhanced requests, returns complete HTML for native GET requests,
 and sets <code>Vary: Turbo-Frame</code> to avoid cross-representation caching issues.
 The Turbo browser dependency is pinned and demo-only; self-host the bundle
 in production. Syntyr never includes it.</p>
+<h3 id="turbo-streams-independent-server-updated-regions">Turbo Streams: independent server-updated regions</h3>
+<p>The same runnable Turbo 8 example now includes a <strong>GET stream form</strong> outside
+the frame. Add <code>data-turbo-stream=&quot;true&quot;</code> to the form, keep the target inside a
+stable <code>.syn-root</code>, and return an action targeting that element:</p>
+<pre><code class="language-html">&lt;form action=&quot;/customers/turbo-stream&quot; method=&quot;get&quot; data-turbo-stream=&quot;true&quot;&gt;
+  &lt;label for=&quot;stream-q&quot;&gt;Customers&lt;/label&gt;
+  &lt;input id=&quot;stream-q&quot; class=&quot;syn-input&quot; name=&quot;q&quot;&gt;
+  &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Update&lt;/button&gt;
+&lt;/form&gt;
+&lt;div id=&quot;turbo-stream-results&quot; class=&quot;syn-panel&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>An enhanced request with <code>Accept: text/vnd.turbo-stream.html</code> gets a
+<code>text/vnd.turbo-stream.html</code> response with a <code>&lt;turbo-stream action=&quot;update&quot; target=&quot;turbo-stream-results&quot;&gt;</code> and escaped, server-rendered HTML in a
+<code>&lt;template&gt;</code>. Native GET navigation returns a complete document with
+the result in the correct region, not duplicate results in both the frame
+and stream target. Set <code>Vary: Accept</code> to distinguish the two representations.
+The example uses normal HTTP responses rather than WebSockets or SSE; Turbo
+Streams can also arrive over those transports when the application provides them.
+The original frame remains mounted when the stream updates its separate target.</p>
 <p>Turbo Streams and full-page visits must keep the Syntyr root appropriately
 scoped. Where Turbo must preserve a client-managed element, use
 <code>data-turbo-permanent</code> with a stable unique ID on both versions. Do not put
@@ -265,9 +284,13 @@ Python standard-library contract tests. HTMX has an existing opt-in browser
 suite; Datastar has an opt-in browser test using a pinned bundle.
 Unpoly 3.15.0 and Turbo 8.0.23 have real, opt-in browser tests in
 <code>tests/hypertext_browser.py</code> that cover request feedback, DOM replacement,
-theme-root survival, and no-JavaScript form fallback in Chromium, Firefox
-and WebKit (WebKit on a compatible Playwright container). The demo servers
-also have request/response tests. This is <strong>not</strong> a claim that Phoenix,
+Turbo Stream updates, Unpoly 422 validation/error recovery, theme-root
+survival, and no-JavaScript form fallback in Chromium and Firefox
+(and in WebKit only on a compatible Playwright container). The demo servers
+also have request/response tests. Simulated browser checks confirm that
+Livewire 4's <code>data-loading</code> and LiveView's <code>phx-*loading</code> cursor selectors
+are scoped to Syntyr and do not override native disabled controls.
+This is <strong>not</strong> a claim that Phoenix,
 Laravel, Rails, or Go application runtime tests have run. Add framework-owned
 end-to-end tests when adopting templates.</p>
 <h2 id="lit-web-components">Lit / Web Components</h2>
@@ -352,13 +375,25 @@ with the Turbo demo. Run <code>python3 examples/hypertext_server.py</code> and o
 <code>http://127.0.0.1:8767/examples/unpoly.html</code>.
 The example pins the JS and CSS bundles; both belong to the demo application,
 not Syntyr. Self-host both in production.</p>
+<p>Unpoly can update multiple fragments from a single response. The runnable
+example uses <code>up-target=&quot;#customer-results, #unpoly-search&quot;</code> so a successful
+search refreshes the result and re-renders the form, including clearing any
+previous validation error. An empty query returns HTTP <strong>422</strong>, with
+<code>up-fail-target=&quot;#unpoly-search&quot;</code> replacing only the form and an associated
+<code>aria-invalid=&quot;true&quot;</code> / <code>aria-describedby=&quot;unpoly-search-error&quot;</code> message.
+A subsequent valid submission clears both the invalid state and message.
+The no-JavaScript fallback receives a complete document, including the
+form error, instead of an orphaned fragment. These are <strong>server-side application
+behaviors</strong>, not Syntyr CSS features.</p>
 <p>Unpoly adds <code>.up-active</code> to an initiating link or form and <code>.up-loading</code>
 to the targeted fragment. Syntyr's optional <code>syntyr.server.css</code> styles the
 progress cursor on an enabled <code>.syn-button.up-active</code> or the enabled
 submit button inside <code>form.up-active</code>, without hiding, dimming, or blocking
 the target. Unpoly owns response handling, loading feedback and morphing.</p>
 <pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
-  &lt;form action=&quot;/customers&quot; method=&quot;get&quot; up-target=&quot;#customer-results&quot;&gt;
+  &lt;form action=&quot;/customers&quot; method=&quot;get&quot;
+        up-target=&quot;#customer-results, #customer-search&quot; up-fail-target=&quot;#customer-search&quot;
+        id=&quot;customer-search&quot;&gt;
     &lt;label class=&quot;syn-label&quot; for=&quot;customer-query&quot;&gt;Customer&lt;/label&gt;
     &lt;input id=&quot;customer-query&quot; class=&quot;syn-input&quot; name=&quot;q&quot;&gt;
     &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
@@ -431,6 +466,7 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
 <a class="docs-article-toc-link docs-article-toc-2" href="#phoenix-liveview-heex">Phoenix LiveView (HEEx)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#laravel-livewire-blade">Laravel Livewire (Blade)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#rails-hotwire-turbo-frames">Rails Hotwire / Turbo Frames</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#turbo-streams-independent-server-updated-regions">Turbo Streams: independent server-updated regions</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#go-templ-and-other-server-template-engines">Go templ and other server template engines</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#lit-web-components">Lit / Web Components</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#alpinejs">Alpine.js</a>

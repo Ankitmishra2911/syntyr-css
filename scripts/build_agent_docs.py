@@ -24,6 +24,8 @@ SOURCES = (
     "docs/from-pico.md",
     "docs/api-stability.md",
     "docs/framework-integrations.md",
+    "docs/site-builders.md",
+    "docs/mobile-frameworks.md",
     "docs/native-browser-apis.md",
     "docs/theme-customization.md",
     "docs/visual-intensity.md",

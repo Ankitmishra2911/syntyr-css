@@ -4,6 +4,57 @@ This prerelease Syntyr example uses original CSS, not upstream Blades source.
 All patterns retain native HTML semantics and need **no runtime JavaScript**.
 For a live static preview, see [the native recipe example (live alpha.5 source preview)](https://syntyr-css.pages.dev/examples/native-recipes.html).
 
+## Native interaction recipes
+
+The standard library includes the following **five native interaction
+compositions**, using existing core classes plus normal HTML. They do **not**
+require a new JavaScript runtime, Syntyr component subclass, or optional
+`syntyr.native-recipes.css` import. Use `syntyr.core.css` for the classed
+controls; load `syntyr.semantic.css` and opt in with `.syn-semantic` if
+you want unclassed `meter` and `output` styling.
+
+- **Exclusive accordion:** use `<details class="syn-details" name="faq">`
+  and a real `<summary>` for each item. Reuse the `name` only *within*
+  an intended disclosure group; only one item opens at once in current
+  browsers. Do not invent `role="tab"`, `aria-expanded`, or keyboard handlers.
+- **GET search:** use `<search>`, `<form method="get" action="/inventory">`,
+  an associated label, and `<input class="syn-input" type="search" name="q">`.
+  Native form navigation works with scripts disabled. Your server must filter
+  results, preserve the query, escape untrusted input, and return a useful
+  response; Syntyr does not implement a search endpoint.
+- **Confirmation dialog:** use a `commandfor` + `command="show-modal"`
+  button, `<dialog class="syn-dialog" aria-labelledby="...">`, and a
+  `<form method="dialog">` with Cancel/Confirm choices. `method="dialog"`
+  **only closes the dialog**; it does not submit a destructive action or
+  authorize a mutation. A real save/delete must use a secure application
+  endpoint or separately tested application logic. Provide a reachable
+  non-dialog fallback for older browsers without invoker commands.
+- **Datalist suggestions:** connect a labeled text input's `list` to a
+  native `<datalist id="...">`. Users can enter text not in the suggestions.
+  For restricted values use native `<select>` with optional `<optgroup>`;
+  do not claim `datalist` is an accessible custom combobox.
+- **Meter and output:** use `<meter min max low high optimum value>` for a
+  bounded measurement and `<output>` for a computed or server-provided
+  result. Provide readable labels and numeric text. Values do not update
+  automatically: the server or application must calculate and synchronize
+  them when inputs change.
+
+[Open the script-free native interaction demo](https://syntyr-css.pages.dev/examples/native-interactions.html)
+or [copy each recipe from the component catalog](https://syntyr-css.pages.dev/docs/catalog.html).
+The page is intentionally static: search reloads with a query string,
+dialog confirmation has no side effects, and output is a snapshot. In a
+production application, implement real search and mutations in the host.
+
+These patterns compose existing `syn-form`, `syn-input`, `syn-details`,
+`syn-dialog`, `syn-inline`, and native HTML; adding a separate
+`.syn-accordion`, `.syn-search`, or `.syn-confirm` class would duplicate
+styles, selectors, documentation, and long-term compatibility obligations.
+Native picker popup details and suggestion menus vary among browsers.
+Test keyboard interaction, forced colors, zoom/reflow, and real product
+copy in the target browsers. **Application-owned behavior** includes
+search filtering, validation on the server, destructive action
+authorization, and live calculations; none are provided by CSS.
+
 ## Individually importable CSS
 
 Use the following **source-tree alpha.5 candidate** entrypoints after this PR
@@ -60,8 +111,19 @@ motion, load the additional `syntyr.motion.css` file, then add
 `.syn-dialog--transition` to a `.syn-dialog`. Both class and file are
 required. The motion module honors reduced-motion preferences; without
 either opt-in, dialogs and popovers use their native static behavior.
+The native recipe gallery pairs its dialog command with a `<details>`
+disclosure exposing equivalent critical information on older engines.
 Native browsers own focus management, Escape and dialog inertness; the stylesheet
 does not implement a custom ARIA menu.
+
+## Native direction-aware presentation
+
+The core popover's fixed-corner fallback and optional cut-corner panels use
+CSS **logical** inset properties. They follow the document's text direction
+(LTR or **RTL**) without a new theme or variant. Anchored popovers use the
+browser's native block/inline positioning and flip candidates when available.
+Optional activity timelines also place their markers on inline-start. Native
+`dir="rtl"` controls direction; components keep semantic document order.
 
 ## Floating labels
 
@@ -72,15 +134,20 @@ does not implement a custom ARIA menu.
 </div>
 ~~~
 
+Both floating and stacked labels remain real pointer targets; clicking a label
+focuses its associated native control without JavaScript.
+
 Keep a persistent programmatic label with for/id. The one-space placeholder
 is a deliberate :placeholder-shown state hook, **not** the accessible label.
 
 The field becomes a **stacked, wrapping label above the input** when its own
 container is narrow (21rem or less). This protects visible field identification
 when users enlarge text, including long translated labels. At wider sizes the
-floating presentation remains. The label is always a real `<label for>`; the
-CSS never substitutes placeholders for an accessible name. Test real browser
-zoom and translations in consuming applications.
+floating presentation remains. In RTL documents (`dir="rtl"`), the floating
+label shrinks toward the right-hand inline-start edge rather than drifting
+left. The label is always a real `<label for>`; the CSS never substitutes
+placeholders for an accessible name. Test real browser zoom and translations
+in consuming applications.
 
 Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast

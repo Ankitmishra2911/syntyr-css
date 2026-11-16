@@ -20,8 +20,9 @@ From the repo root:
 python3 scripts/test_js_adoption.py --install
 ```
 
-The runner builds and runs server-rendered React tests, then builds the Vite
-and Next.js apps, then performs a real Express HTTP smoke test. After the
+The runner builds and runs server-rendered React tests, builds the React,
+Preact and Solid Vite consumers and the Next.js app, then performs a real
+Express HTTP smoke test. After the
 first installation, omit `--install`. npm fixture lockfiles and node_modules
 are intentionally ignored to avoid consumer dependencies in the CSS project.
 
@@ -45,6 +46,9 @@ change; it remains manually runnable for release verification. Documentation-
 only PRs skip that step. Such a skip is not proof of passed consumer builds;
 run the adoption suite before a release regardless of PR path filtering.
 The optional browser smoke is a maintainer check, not a claimed CI browser gate.
+
+For direct JSX/TSX use without the experimental wrappers, and Preact and Solid
+fixtures, see [JSX and TSX adoption](jsx-tsx-integration.md).
 
 ## React + Vite
 

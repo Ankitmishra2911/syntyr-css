@@ -51,6 +51,12 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert "light-dark(" in css, (name, css)
     else:
         assert css in ("#76e7f7", "#f1b574", "#2458c6", "#ffb36b", "#65e8a0", "#155ac8", "#313a45"), (name, css)
+    if name == "examples/native-elements.html" and viewport == 320:
+        # A native file input must not force a semantic fieldset grid track
+        # wider than the viewport. Check the offending region, not only body.
+        fieldset = page.get_by_role("group", name="Native inputs")
+        bounds = fieldset.evaluate("e => ({client: e.clientWidth, scroll: e.scrollWidth})")
+        assert bounds["scroll"] <= bounds["client"] + 1, (name, viewport, bounds)
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)

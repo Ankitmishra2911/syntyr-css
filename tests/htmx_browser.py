@@ -173,6 +173,30 @@ class HtmxBrowserTests(unittest.TestCase):
         self.assertEqual(self.page.locator("body").get_attribute("data-syn-theme"), "studio")
         self.assertFalse(button.is_disabled())
 
+    def test_failed_enhanced_request_offers_real_navigation_with_preserved_query(self):
+        def unavailable(route):
+            if route.request.headers.get("hx-request") == "true":
+                route.fulfill(status=503, body="Service unavailable",
+                              content_type="text/plain")
+            else:
+                route.continue_()
+
+        self.page.route("**/customers/search*", unavailable)
+        self.page.goto(self.base + "/examples/htmx.html")
+        self.page.wait_for_function("() => typeof window.htmx !== 'undefined'")
+        self.page.locator("#query").fill("Northstar")
+        self.page.locator("#search-button").click()
+        error = self.page.locator("#search-error")
+        error.wait_for(state="visible")
+        self.assertEqual(self.page.locator("#query").input_value(), "Northstar")
+        self.assertEqual(self.page.locator("#native-search-link").get_attribute("href"),
+                         "/customers/search?q=Northstar")
+        self.page.unroute("**/customers/search*", unavailable)
+        self.page.locator("#native-search-link").click()
+        self.page.wait_for_url("**/customers/search?q=Northstar")
+        self.page.get_by_text("Northstar Media").wait_for()
+        self.assertEqual(self.page.locator("#query").input_value(), "Northstar")
+
     def test_without_htmx_script_native_form_loads_complete_document(self):
         self.page.route(
             "https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js",

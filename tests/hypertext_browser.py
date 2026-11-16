@@ -149,15 +149,89 @@ class HypertextBrowserTests(unittest.TestCase):
         finally:
             self.server.gate.set()
 
+    def test_turbo_stream_updates_target_without_replacing_theme_or_search_frame(self):
+        self.page.goto(self.url + "/examples/turbo.html")
+        self.page.wait_for_function("() => window.Turbo && customElements.get('turbo-frame')")
+        self.page.evaluate("""() => {
+            window.__syntyrRoot = document.querySelector('main.syn-root');
+            window.__syntyrFrame = document.querySelector('turbo-frame#customer-results');
+        }""")
+        self.page.locator("#turbo-stream-query").fill("Acme")
+        self.page.locator("#turbo-stream-submit").click()
+        self.page.locator("#turbo-stream-results").get_by_text("Acme Corporation").wait_for()
+        self.assertTrue(self.page.evaluate(
+            "() => window.__syntyrRoot === document.querySelector('main.syn-root')"))
+        self.assertTrue(self.page.evaluate(
+            "() => window.__syntyrFrame === document.querySelector('turbo-frame#customer-results')"))
+        self.assertEqual(self.page.locator("main.syn-root").get_attribute("data-syn-theme"), "studio")
+
+    def test_unpoly_validation_failure_replaces_form_without_losing_theme(self):
+        self.page.goto(self.url + "/examples/unpoly.html")
+        self.page.wait_for_function("() => window.up && document.documentElement.classList.contains('up-booted')")
+        self.page.evaluate("window.__syntyrRoot = document.querySelector('main.syn-root')")
+        self.page.locator("#unpoly-query").fill("")
+        self.page.locator("#unpoly-submit").click()
+        self.page.locator("#unpoly-search-error").wait_for()
+        field = self.page.locator("#unpoly-query")
+        self.assertEqual(field.get_attribute("aria-invalid"), "true")
+        self.assertEqual(field.get_attribute("aria-describedby"), "unpoly-search-error")
+        self.assertEqual(self.page.locator("#unpoly-search").count(), 1)
+        self.assertTrue(self.page.evaluate(
+            "() => window.__syntyrRoot === document.querySelector('main.syn-root')"))
+        # A valid retry must clear server validation feedback as well as update results.
+        field.fill("Northstar")
+        self.page.locator("#unpoly-submit").click()
+        self.page.locator("#customer-results").get_by_text("Northstar Media").wait_for()
+        self.assertEqual(self.page.locator("#unpoly-search-error").count(), 0)
+        self.assertNotEqual(self.page.locator("#unpoly-query").get_attribute("aria-invalid"), "true")
+
+    def test_optional_server_states_remain_scoped_and_preserve_disabled(self):
+        self.page.goto(self.url + "/examples/turbo.html")
+        self.page.evaluate("""() => {
+            const root = document.querySelector('main.syn-root');
+            const form = document.createElement('form');
+            form.id = 'phoenix-form';
+            form.className = 'phx-submit-loading';
+            form.innerHTML = '<button class="syn-button" type="submit">Submit</button>';
+            root.append(form);
+            for (const state of ['phx-click-loading', 'phx-change-loading', 'data-loading']) {
+                const button = document.createElement('button');
+                button.id = 'state-' + state;
+                button.className = 'syn-button';
+                if (state === 'data-loading') button.setAttribute(state, '');
+                else button.classList.add(state);
+                root.append(button);
+            }
+            const outside = document.createElement('button');
+            outside.className = 'syn-button';
+            outside.id = 'outside-loading';
+            outside.setAttribute('data-loading', '');
+            document.body.append(outside);
+        }""")
+        for selector in ("#phoenix-form button", "#state-phx-click-loading",
+                         "#state-phx-change-loading", "#state-data-loading"):
+            with self.subTest(selector=selector):
+                button = self.page.locator(selector)
+                self.assertEqual(button.evaluate("e => getComputedStyle(e).cursor"), "progress")
+                button.evaluate("e => e.disabled = true")
+                self.assertNotEqual(button.evaluate("e => getComputedStyle(e).cursor"), "progress")
+        self.assertNotEqual(
+            self.page.locator("#outside-loading").evaluate("e => getComputedStyle(e).cursor"),
+            "progress")
+
     def test_unpoly_and_turbo_work_with_javascript_disabled(self):
-        for framework, field in (("unpoly", "unpoly-query"), ("turbo", "turbo-query")):
-            with self.subTest(framework=framework):
+        for framework, field, submit in (
+            ("unpoly", "unpoly-query", "unpoly-submit"),
+            ("turbo", "turbo-query", "turbo-submit"),
+            ("turbo", "turbo-stream-query", "turbo-stream-submit"),
+        ):
+            with self.subTest(framework=framework, field=field):
                 context = self.browser.new_context(java_script_enabled=False)
                 page = context.new_page()
                 try:
                     page.goto(self.url + f"/examples/{framework}.html")
                     page.locator(f"#{field}").fill("Acme")
-                    page.locator(f"#{framework}-submit").click()
+                    page.locator(f"#{submit}").click()
                     page.get_by_text("Acme Corporation").wait_for()
                     self.assertIn("q=Acme", page.url)
                     self.assertEqual(page.locator("main.syn-root").get_attribute("data-syn-theme"), "studio")

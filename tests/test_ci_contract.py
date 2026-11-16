@@ -37,7 +37,7 @@ class ContinuousIntegrationContract(unittest.TestCase):
         self.assertIn("event: pull_request", workflow)
         self.assertIn("event: push", workflow)
         self.assertIn("branch: main", workflow)
-        step = workflow.split("- name: node-react-next-consumers", 1)[1]
+        step = workflow.split("- name: node-jsx-tsx-consumers", 1)[1]
         self.assertIn("when:", step)
         self.assertIn("event: manual", step)
         self.assertIn("path:", step)
@@ -45,7 +45,8 @@ class ContinuousIntegrationContract(unittest.TestCase):
         for relevant in (
             "src/**", "dist/**", "package.json", "packages/react/**",
             "examples/react-vite/**", "examples/next-app-router/**",
-            "examples/node-express/**", "integrations/**",
+            "examples/node-express/**", "examples/preact-jsx/**",
+            "examples/solid-tsx/**", "tests/animate.test.mjs", "integrations/**",
             ".woodpecker/js-adoption.yaml",
         ):
             with self.subTest(path=relevant):

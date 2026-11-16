@@ -2,7 +2,7 @@
 """Opt-in actual package and framework verification.
 
 No Node/npm dependency is introduced into Syntyr's core Python test suite.
-Run with --install after a clean checkout; see docs/node-react-next-integration.md.
+Run with --install after a clean checkout; see docs/jsx-tsx-integration.md.
 """
 import argparse
 from pathlib import Path
@@ -28,6 +28,8 @@ def main():
     tasks = [
         ("packages/react", "test"),
         ("examples/react-vite", "build"),
+        ("examples/preact-jsx", "build"),
+        ("examples/solid-tsx", "build"),
         ("examples/next-app-router", "build"),
         ("examples/node-express", "test"),
     ]
@@ -35,7 +37,7 @@ def main():
         if options.install:
             run(folder, "npm", "install", "--no-audit", "--no-fund")
         run(folder, "npm", "run", task)
-    print("All Syntyr Node/React/Next adoption checks passed.", flush=True)
+    print("All Syntyr JSX/TSX, Node, React and Next adoption checks passed.", flush=True)
 
 if __name__ == "__main__":
     try:

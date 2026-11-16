@@ -7,7 +7,7 @@ const root = resolve(import.meta.dirname, "../..");
 const types = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
 createServer(async (req, res) => {
   const pathname = new URL(req.url, "http://localhost").pathname;
-  if (!["/dist/", "/examples/lit/"].some(prefix => pathname.startsWith(prefix))) {
+  if (!["/dist/", "/examples/lit/", "/examples/web-components/"].some(prefix => pathname.startsWith(prefix))) {
     res.writeHead(404); res.end(); return;
   }
   const file = resolve(root, "." + pathname);

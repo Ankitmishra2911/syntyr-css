@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
-  <meta name="syntyr-source-sha256" content="ef3c0fbe5d411f7f1ea481a5a19e27a709e651621101c6696a53d6fdacddfe06">
+  <meta name="syntyr-source-sha256" content="20b02e513567b6f9186175b91e231523ac94b770a54e6abefcd896fdee90dd34">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
@@ -52,6 +52,16 @@ reviewed consistently before <code>1.0.0</code>. It is not a new compatibility g
 <td><code>syntyr.core.css</code>, <code>.syn-root</code>, stable component classes</td>
 <td>Public prerelease API</td>
 <td>Stable selectors and behavior</td>
+</tr>
+<tr>
+<td>Classed <code>.syn-dialog</code> and <code>.syn-popover</code> physical viewport overflow constraints (also in vertical writing modes)</td>
+<td>Alpha.5 bugfix, no new class names</td>
+<td>Preserve keyboard-scrollable content at zoom and on short viewports</td>
+</tr>
+<tr>
+<td>Specialized native <code>range</code>, <code>file</code> and <code>color</code> controls via the existing <code>.syn-input</code> selector</td>
+<td>Experimental alpha.5 appearance improvement; no new classes or runtime</td>
+<td>Keep native controls and browser-driven behavior</td>
 </tr>
 <tr>
 <td>New <code>.syn-field</code>, <code>.syn-field-row</code>, <code>.syn-field-body</code>, <code>.syn-input-group</code>, <code>.syn-input-addon</code> form compositions</td>
@@ -212,6 +222,17 @@ styling, and <code>.syn-panel[inert]</code> gains a presentation-only unavailabl
 surface-hover color-mix role on explicitly opted-in regions. Default palettes,
 semantic foreground pairs and fallback colors are unchanged. It is not a new
 default theme or a stability commitment; see the <a href="theme-customization.html">theme customization guide</a>.</p>
+<h3 id="alpha5-native-readonly-form-presentation">Alpha.5 native readonly form presentation</h3>
+<p>In the unreleased alpha.5 source candidate, classed <code>syn-input</code> and
+<code>syn-textarea</code> and opt-in semantic native text fields with a real <code>readonly</code>
+attribute use a recessed background and dashed border. This visual distinction
+does not disable controls, remove focus, suppress browser autofill, or change
+native form submission. No new public class, state attribute, JavaScript
+dependency, or validation machinery is introduced. Do not use <code>readonly</code> for
+native controls that do not support it (such as <code>select</code> or checkboxes).</p>
+<p>The <a href="component-recipes.html">server-error recovery recipe</a> composes existing
+<code>syn-error-summary</code> (from the <em>optional</em> recipes sheet) with core field
+primitives; it is a documentation contract, not a new core component.</p>
 <h3 id="alpha5-semantic-html-authoring-changes">Alpha.5 semantic HTML authoring changes</h3>
 <p>The unreleased semantic CSS candidate gives native classless <code>form</code> and
 <code>fieldset</code> a composed vertical layout, a comfortable native <code>summary</code>
@@ -269,6 +290,7 @@ runtime dependency.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#proposed-minimum-v1-contract-not-yet-approved">Proposed minimum v1 contract (not yet approved)</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-opt-in-crm-compositions-and-density-profiles">Alpha.5 opt-in CRM compositions and density profiles</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-native-css-refinements">Alpha.5 native CSS refinements</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-native-readonly-form-presentation">Alpha.5 native readonly form presentation</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-semantic-html-authoring-changes">Alpha.5 semantic HTML authoring changes</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#compatibility-and-version-policy">Compatibility and version policy</a>
