@@ -9,9 +9,9 @@ describe("Syntyr native Expo integration", () => {
     const { getByLabelText, getByRole, getByText } = await render(<App />);
     expect(getByRole("header")).toBeTruthy();
     const email = getByLabelText("Email address");
-    fireEvent.changeText(email, "mobile@example.com");
+    await fireEvent.changeText(email, "mobile@example.com");
     await waitFor(() => expect(getByLabelText("Email address").props.value).toBe("mobile@example.com"));
-    fireEvent.press(getByLabelText("Submit sample form"));
+    await fireEvent.press(getByLabelText("Submit sample form"));
     await waitFor(() => expect(getByText("Submitted 1 time(s)")).toBeTruthy());
   });
 

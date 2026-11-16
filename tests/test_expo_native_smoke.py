@@ -1,5 +1,8 @@
 """Contract tests for Syntyr's opt-in Expo native integration smoke fixture."""
 import json
+import os
+import shutil
+import sys
 from pathlib import Path
 import subprocess
 import tempfile
@@ -22,10 +25,13 @@ class ExpoNativeSmokeTest(unittest.TestCase):
         self.assertNotIn("react-native", core.get("dependencies", {}))
         self.assertNotIn("jest", core.get("devDependencies", {}))
 
+    @unittest.skipUnless(shutil.which("node"), "Node is optional; Expo sync requires Node")
     def test_source_sync_reuses_exact_canonical_adapter(self):
         with tempfile.TemporaryDirectory() as temp:
+            node = shutil.which("node")
+            self.assertIsNotNone(node)
             result = subprocess.run(
-                ["node", str(FIXTURE / "scripts/sync-adapter.mjs"), "--output", temp],
+                [node, str(FIXTURE / "scripts/sync-adapter.mjs"), "--output", temp],
                 cwd=FIXTURE, capture_output=True, text=True, timeout=30,
             )
             self.assertEqual(result.returncode, 0, result.stderr)
@@ -39,6 +45,21 @@ class ExpoNativeSmokeTest(unittest.TestCase):
             rewritten = source.replace("../../integrations/react-native/", "./")
             self.assertEqual((target / "App.tsx").read_text(), rewritten)
 
+    def test_python_only_checkout_runs_core_contract_checks_without_node_or_git(self):
+        # The optional Expo test must not break the Python-only Syntyr core suite.
+        with tempfile.TemporaryDirectory() as empty_path:
+            env = dict(os.environ, PATH=empty_path)
+            result = subprocess.run(
+                [sys.executable, "-m", "unittest", "discover", "-s", "tests",
+                 "-p", "test_expo_native_smoke.py", "-v",
+                 "-k", "test_source_sync_reuses_exact_canonical_adapter",
+                 "-k", "test_fixture_has_native_interaction_tests_and_platform_exports",
+                 "-k", "test_fixture_uses_official_expo_sdk_with_no_native_core_dependency"],
+                cwd=ROOT, env=env, capture_output=True, text=True, timeout=30,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn("skipped", result.stderr)
+
     def test_fixture_has_native_interaction_tests_and_platform_exports(self):
         test = (FIXTURE / "App.test.tsx").read_text()
         for fragment in ("fireEvent.press", "fireEvent.changeText", "getByLabelText",
@@ -49,12 +70,12 @@ class ExpoNativeSmokeTest(unittest.TestCase):
         self.assertIn("--platform android", package["scripts"]["export:android"])
         self.assertIn("--platform ios", package["scripts"]["export:ios"])
         self.assertTrue((FIXTURE / "package-lock.json").is_file())
-        if (ROOT / ".git").exists():
-            tracked_lock = subprocess.run(
-                ["git", "ls-files", "--error-unmatch", "examples/expo-native-smoke/package-lock.json"],
-                cwd=ROOT, capture_output=True, text=True,
-            )
-            self.assertEqual(tracked_lock.returncode, 0, "npm ci requires the lockfile to be committed")
+        # Verify npm ci's committed lock contract without requiring Git or Node
+        # in Syntyr's Python-only quality gate.
+        lock = json.loads((FIXTURE / "package-lock.json").read_text())
+        self.assertGreaterEqual(lock["lockfileVersion"], 3)
+        self.assertEqual(lock["packages"][""]["dependencies"], package["dependencies"])
+        self.assertEqual(lock["packages"][""]["devDependencies"], package["devDependencies"])
         self.assertTrue((FIXTURE / "tsconfig.json").is_file())
         self.assertTrue((FIXTURE / "index.ts").is_file())
         self.assertTrue((FIXTURE / "README.md").is_file())
