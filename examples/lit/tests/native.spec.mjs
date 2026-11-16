@@ -17,6 +17,7 @@ test.describe("native Custom Elements without JavaScript", () => {
     const element = page.locator("syn-demo-native-status");
     await expect(element.locator('[part="status"]')).toHaveText("Online");
     await expect(element.locator('[part="status"]')).toBeVisible();
+    expect(await element.locator('[part="toggle"]').getAttribute("aria-pressed")).toBeNull();
     expect(await element.evaluate(host => Boolean(host.shadowRoot))).toBe(true);
   });
 });
@@ -26,11 +27,13 @@ test("framework-free Custom Element upgrades and exposes native events", async (
   const element = page.locator("#native-status");
   const toggle = element.locator('[part="toggle"]');
   await expect(element.locator('[part="status"]')).toHaveText("Online");
-  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await expect(toggle).toHaveAccessibleName("Mark offline");
+  expect(await toggle.getAttribute("aria-pressed")).toBeNull();
   await toggle.focus();
   await page.keyboard.press("Space");
   await expect(element.locator('[part="status"]')).toHaveText("Offline");
-  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  await expect(toggle).toHaveAccessibleName("Mark online");
+  expect(await toggle.getAttribute("aria-pressed")).toBeNull();
   await expect(page.locator("#native-event-output")).toHaveText("Relay: offline");
   expect(await element.evaluate(host => host.shadowRoot?.querySelector('[part="panel"]') !== null)).toBe(true);
 });
@@ -43,13 +46,15 @@ test("native Custom Element reflects external attributes and provides accessible
 
   await element.evaluate(host => { host.setAttribute("service", "<img src=x onerror=alert(1)>"); host.busy = true; });
   await expect(element.locator('[part="title"]')).toHaveText("<img src=x onerror=alert(1)>");
-  await expect(panel).toHaveAttribute("aria-busy", "true");
+  await expect(panel.locator("[data-busy-region]")).toHaveAttribute("aria-busy", "true");
+  expect(await element.locator('[part="status"]').evaluate(node => node.closest('[aria-busy="true"]'))).toBeNull();
   await expect(button).toBeDisabled();
   await expect(element.locator('[part="status"]')).toHaveText("Updating status…");
   await element.evaluate(host => { host.busy = false; host.online = false; });
   await expect(button).toBeEnabled();
   await expect(element.locator('[part="status"]')).toHaveText("Offline");
-  await expect(button).toHaveAttribute("aria-pressed", "false");
+  await expect(button).toHaveAccessibleName("Mark online");
+  expect(await button.getAttribute("aria-pressed")).toBeNull();
 });
 
 test("native Custom Element survives disconnect/reconnect without duplicate handlers", async ({ page }) => {

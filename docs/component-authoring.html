@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Define semantic HTML, styling namespaces, theme scopes, and accessibility contracts for Syntyr-compatible application and Web Components.">
-  <meta name="syntyr-source-sha256" content="c7a66359e186aac9cb1a4492cef4aa11be3df46c657209b57758cee5c831d798">
+  <meta name="syntyr-source-sha256" content="84c9f7a16ea0267b38aef8781cad974301c0f1475bcba98bc1dde8651df130e2">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr component-authoring contract (experimental) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-authoring">
@@ -92,7 +92,13 @@ into <code>innerHTML</code> or other unsafe HTML sinks.</li>
 <li>Native events need a documented name, payload, and bubbling/composed contract.
 Retain real button keyboard semantics instead of inventing key handlers.</li>
 <li><code>aria-busy</code> reports operational state, and <code>disabled</code> prevents activation.
-A custom CSS state is not a substitute for an accessible state or status text.</li>
+A custom CSS state is not a substitute for an accessible state or status text.
+Place a live status announcement <strong>outside</strong> a region with <code>aria-busy=&quot;true&quot;</code>;
+assistive technologies may defer updates to busy descendants.</li>
+<li>Use <code>aria-pressed</code> only for an actual toggle button with a <strong>stable accessible
+name</strong> (for example, &quot;Mute&quot;). When the label instead names the changing
+action (&quot;Mark online&quot; / &quot;Mark offline&quot;), use a normal action button without
+<code>aria-pressed</code>. The native demonstration uses action-button semantics.</li>
 </ul>
 <h3 id="declarative-shadow-dom-and-progressive-enhancement">Declarative Shadow DOM and progressive enhancement</h3>
 <p>Server rendering can supply <code>&lt;template shadowrootmode=&quot;open&quot;&gt;</code> inside

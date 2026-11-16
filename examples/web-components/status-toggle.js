@@ -32,9 +32,11 @@ export class DemoNativeStatus extends HTMLElement {
       const panel = document.createElement("section");
       panel.setAttribute("part", "panel");
       // Fixed structural markup only; dynamic values are assigned with textContent.
-      panel.innerHTML = `<h3 part="title"></h3>
-        <p part="status" role="status"></p>
-        <button part="toggle" type="button"></button>`;
+      panel.innerHTML = `<div data-busy-region>
+          <h3 part="title"></h3>
+          <button part="toggle" type="button"></button>
+        </div>
+        <p part="status" role="status"></p>`;
       root.append(stylesheet, panel);
     }
     this._render();
@@ -58,12 +60,13 @@ export class DemoNativeStatus extends HTMLElement {
     const title = panel?.querySelector('[part="title"]');
     const status = panel?.querySelector('[part="status"]');
     const button = panel?.querySelector('[part="toggle"]');
-    if (!title || !status || !button) return;
+    const busyRegion = panel?.querySelector("[data-busy-region]");
+    if (!title || !status || !button || !busyRegion) return;
     title.textContent = this.service;
-    panel.setAttribute("aria-busy", String(this.busy));
+    busyRegion.setAttribute("aria-busy", String(this.busy));
     status.textContent = this.busy ? "Updating status…" : this.online ? "Online" : "Offline";
     button.disabled = this.busy;
-    button.setAttribute("aria-pressed", String(this.online));
+    // Changing action text makes this a normal button, not an aria-pressed toggle.
     button.textContent = this.busy ? "Updating…" : this.online ? "Mark offline" : "Mark online";
   }
 }

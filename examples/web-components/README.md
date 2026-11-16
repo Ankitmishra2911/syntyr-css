@@ -8,7 +8,9 @@ or build requirement**. It is **not** a Syntyr JavaScript package or public widg
 - `ssr.html`: server-delivered Declarative Shadow DOM remains visible with scripts disabled;
   the same JavaScript module upgrades it *without clearing* the existing shadow tree.
 - `status-toggle.js`: attributes/properties, native events, safe text rendering,
-  and connection-scoped event listeners.
+  and connection-scoped event listeners. The action button has changing
+  "Mark online/offline" text, so it does **not** use `aria-pressed`.
+  A live status message remains outside the `aria-busy` region.
 - `status-toggle.css`: isolated Shadow DOM styles using public inherited Syntyr tokens
   and `::part()` for controlled host customization.
 
