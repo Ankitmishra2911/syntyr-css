@@ -98,6 +98,60 @@ def run_checks(browser, name, url):
         context.close()
 
 
+def run_framework_checks(browser, name, base_url):
+    """Exercise real React 19 custom events and real HTMX host replacement."""
+    react_url = base_url + "/examples/lit/react-interop.html"
+    htmx_url = base_url + "/examples/lit/htmx-interop.html"
+    nojs = browser.new_context(java_script_enabled=False)
+    try:
+        page = nojs.new_page()
+        page.goto(react_url)
+        assert page.locator("[data-nojs-fallback]").is_visible(), (name, "React no-JS fallback")
+        page.goto(htmx_url)
+        assert page.locator("#htmx-result [data-lit-fallback]").is_visible(), (name, "HTMX fallback")
+        page.get_by_role("button", name="Load relay status").click()
+        assert "/examples/lit/htmx-result.html" in page.url, (name, "native GET navigation")
+        assert page.locator("#htmx-result [data-lit-fallback]").is_visible(), (name, "GET response")
+    finally:
+        nojs.close()
+
+    context = browser.new_context()
+    try:
+        page = context.new_page()
+        errors = []
+        external_requests = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.on("request", lambda request: (
+            external_requests.append(request.url)
+            if not request.url.startswith(base_url + "/") else None
+        ))
+        page.goto(react_url)
+        react_custom = page.locator("#react-root syn-demo-status-panel")
+        react_custom.get_by_role("button", name="Mark offline").click()
+        page.get_by_text("React customer hub: offline (React 19 handler)",
+                         exact=True).wait_for(timeout=5000)
+        assert react_custom.locator(".syn-status--warning").count() == 1
+
+        page.goto(htmx_url)
+        original = page.locator("#htmx-result syn-demo-status-panel")
+        original.locator(".syn-status--warning").wait_for()
+        original.evaluate("e => e.dataset.testOld = 'yes'")
+        page.get_by_role("button", name="Load relay status").click()
+        replaced = page.locator("#htmx-result syn-demo-status-panel")
+        replaced.locator(".syn-status--success").wait_for()
+        assert page.url == htmx_url, (name, "HTMX did not intercept GET")
+        assert replaced.get_attribute("data-test-old") is None, (name, "old host not replaced")
+        assert replaced.locator("[data-lit-fallback]").count() == 0, (
+            name, "new Lit host not upgraded")
+        replaced.get_by_role("button", name="Mark offline").click()
+        assert "HTMX relay: offline" in page.locator("#htmx-event-output").inner_text(), (
+            name, "custom event after HTMX swap")
+        assert not errors, (name, "framework runtime errors", errors)
+        assert not external_requests, (name, "unexpected external requests", external_requests)
+    finally:
+        context.close()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--browsers", default="chromium,firefox,webkit",
@@ -138,7 +192,8 @@ def main():
                     continue
                 try:
                     run_checks(browser, name, url)
-                    print(f"PASS {name}: no-JS fallback, themes, state, keyboard, ::part and events")
+                    run_framework_checks(browser, name, url.split("/examples/")[0])
+                    print(f"PASS {name}: Lit, React 19, HTMX, native GET fallback, themes and events")
                 except Exception as error:
                     print(f"FAIL {name}: {type(error).__name__}: {error}")
                     failures += 1

@@ -1,0 +1,19 @@
+# Optional browser verification for Lit, React custom elements and HTMX.
+# All JavaScript dependencies are isolated in examples/lit; none ship with CSS.
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+  - event: manual
+
+steps:
+  - name: build-isolated-lit-consumers
+    image: node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+    commands:
+      - npm ci --prefix examples/lit --no-audit --no-fund
+      - npm run build --prefix examples/lit
+  - name: lit-browser-interoperability
+    image: mcr.microsoft.com/playwright/python:v1.65.2-noble@sha256:38dd67fc654b56b3cba611e4c8eb71cd33750e1cd29eea2a5dc00b484817a75f
+    commands:
+      - python3 -m pip install --disable-pip-version-check playwright==1.65.2
+      - python3 tests/lit_browser.py --browsers chromium,firefox,webkit

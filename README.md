@@ -48,7 +48,7 @@
 - [Progressive loading and critical CSS decision guide](docs/progressive-loading.md) and [zero-JS performance-first example](examples/performance-first.html)
 - [Framework integrations: LiveView, Livewire, Hotwire/Turbo, HTMX, Go templ and frontend stacks](docs/framework-integrations.md)
 - [Verified Node.js, React/Vite and Next.js App Router adoption fixtures](docs/node-react-next-integration.md) (experimental, unpublished React wrappers)
-- [Lit / Web Components integration guide](docs/lit-integration.md), [opt-in runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit), and [component-authoring contract](docs/component-authoring.md)
+- [Lit / Web Components integration guide](docs/lit-integration.md), [opt-in runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit), and [component-authoring contract](docs/component-authoring.md) (includes optional React 19 and HTMX interoperability fixtures and isolated browser CI)
 - [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Runnable Datastar + SSE + native GET fallback example](examples/datastar.html) (uses [localhost Python server](examples/datastar_server.py); not part of the static site)
 - [Runnable Unpoly and Turbo browser integrations](examples/unpoly.html) ([Turbo fixture](examples/turbo.html), [local HTML server](examples/hypertext_server.py), [opt-in cross-browser test suite](tests/hypertext_browser.py))

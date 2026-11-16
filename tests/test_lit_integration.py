@@ -26,7 +26,7 @@ class LitInteroperabilityContract(unittest.TestCase):
         self.assertTrue(demo["private"])
         self.assertIn("lit", demo["dependencies"])
         self.assertIn("esbuild", demo["devDependencies"])
-        self.assertEqual(demo["scripts"]["build"].count("--bundle"), 1)
+        self.assertEqual(demo["scripts"]["build"].count("--bundle"), 3)
         self.assertTrue((DEMO / ".gitignore").is_file())
         self.assertNotIn("examples/lit", (ROOT / "scripts/build_cloudflare_site.py").read_text())
 
@@ -91,6 +91,39 @@ class LitInteroperabilityContract(unittest.TestCase):
         self.assertIn("lit-integration.md", readme)
         self.assertIn('href="lit-integration.html"', (ROOT / "docs/guides.html").read_text())
         self.assertTrue((ROOT / "tests/lit_browser.py").is_file())
+
+
+    def test_lit_browser_ci_runs_outside_python_css_gate(self):
+        pipeline = (ROOT / ".woodpecker/lit.yaml").read_text(encoding="utf-8")
+        self.assertIn("npm ci --prefix examples/lit", pipeline)
+        self.assertIn("npm run build --prefix examples/lit", pipeline)
+        self.assertIn("tests/lit_browser.py --browsers chromium,firefox,webkit", pipeline)
+        self.assertIn("event: pull_request", pipeline)
+        self.assertNotIn("npm ", (ROOT / ".woodpecker/quality.yaml").read_text())
+
+    def test_lit_interop_pages_use_real_react_and_htmx_without_core_dependencies(self):
+        demo = json.loads((DEMO / "package.json").read_text(encoding="utf-8"))
+        for dep in ("react", "react-dom", "htmx.org", "lit"):
+            self.assertIn(dep, demo["dependencies"])
+        self.assertIn("react-interop.jsx", demo["scripts"]["build"])
+        self.assertIn("htmx-interop.js", demo["scripts"]["build"])
+        react_page = (DEMO / "react-interop.html").read_text(encoding="utf-8")
+        htmx_page = (DEMO / "htmx-interop.html").read_text(encoding="utf-8")
+        react_app = (DEMO / "react-interop.jsx").read_text(encoding="utf-8")
+        self.assertIn("dist/react-demo.js", react_page)
+        self.assertIn("onsyn-demo-status-change", react_app)
+        self.assertIn("createRoot", react_app)
+        self.assertIn('action="./htmx-result.html"', htmx_page)
+        self.assertIn('hx-target="#htmx-result"', htmx_page)
+        self.assertIn("dist/htmx-demo.js", htmx_page)
+        self.assertIn("data-lit-fallback", htmx_page)
+        self.assertNotIn("https://", react_page + htmx_page)
+
+    def test_lit_interop_docs_cover_app_owned_behavior_and_shadow_boundaries(self):
+        guide = (ROOT / "docs/lit-integration.md").read_text(encoding="utf-8")
+        for text in ("react-interop.html", "htmx-interop.html", "form action",
+                     "custom event", "Shadow DOM", "JavaScript"):
+            self.assertIn(text.lower(), guide.lower())
 
 
 if __name__ == "__main__":
