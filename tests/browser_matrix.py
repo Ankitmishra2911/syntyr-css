@@ -14,14 +14,14 @@ import sys
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html", "docs/guides.html", "examples/console.html",
+PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html", "docs/guides.html", "docs/design-principles.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/operations-workspace.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
+         "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
-         "examples/semantic-starter.html", "examples/premium-compositions.html",
+         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
 )
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -68,6 +68,16 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert comfortable > compact, (compact, comfortable)
         if viewport == 320:
             assert board.evaluate("e => e.scrollWidth > e.clientWidth")
+    if name == "examples/workflow-steps.html":
+        assert page.get_by_role("list", name="Workspace setup progress").count() == 1
+        assert page.locator(".syn-steps").count() == 2
+        assert page.locator('.syn-steps:not(.syn-steps--vertical) > [aria-current="step"]').count() == 1
+        assert page.locator(".syn-steps--vertical > .syn-step").count() == 3
+        flow = page.locator(".syn-steps").first.evaluate("e => getComputedStyle(e).gridAutoFlow")
+        forced_flow = page.locator(".syn-steps--vertical").evaluate("e => getComputedStyle(e).gridAutoFlow")
+        assert flow == ("column" if viewport >= 1280 else "row"), (viewport, flow)
+        assert forced_flow == "row", (viewport, forced_flow)
+        assert page.locator(".syn-step").first.evaluate("e => getComputedStyle(e, '::before').content") != "none"
     if name == "examples/semantic-starter.html":
         assert page.locator('link[rel="stylesheet"]').count() == 1
         assert page.locator('body.syn-root.syn-semantic').count() == 1
@@ -78,6 +88,16 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert button.is_visible()
         assert button.evaluate('e => getComputedStyle(e).display') in ('flex', 'inline-flex')
         assert page.locator('script').count() == 0
+        assert page.locator('form:not([class])').evaluate(
+            "e => getComputedStyle(e).display") == "grid"
+        assert page.locator('fieldset:not([class])').evaluate(
+            "e => getComputedStyle(e).display") == "grid"
+        assert page.locator('table caption').inner_text() == "Example project inventory"
+        assert page.get_by_role("navigation", name="Page sections").is_visible()
+        summary = page.locator('details > summary').first
+        assert summary.evaluate("e => e.getBoundingClientRect().height") >= 44
+        summary.click()
+        assert page.locator("details").first.get_attribute("open") is not None
     if name == "docs/catalog.html":
         cards = page.locator(".catalog-card")
         total = cards.count()
@@ -514,6 +534,18 @@ def assert_page(browser, name: str, viewport: int) -> None:
             searchbox = page.get_by_role("searchbox", name="SEARCH RECORDS")
             searchbox.fill("Atlas")
             assert searchbox.input_value() == "Atlas"
+
+    if name == "examples/vertigo-resource-workflow.html":
+        assert page.get_by_role("search", name="Search task resources").count() == 1
+        assert page.get_by_role("table").count() == 1
+        assert page.locator("#resource-detail").count() == 1
+        assert page.locator("#resource-editor fieldset").get_attribute("disabled") is not None
+        assert page.get_by_role("button", name="Save (requires backend)", include_hidden=True).is_disabled()
+        assert page.locator("script").count() == 0
+        assert page.locator('body[data-syn-theme="studio"][data-syn-density="compact"]').count() == 1
+        if viewport == 320:
+            table = page.locator(".vrw-table-scroll")
+            assert table.evaluate("e => getComputedStyle(e).overflowX") in ("auto", "scroll")
     if name == "examples/vertigo-admin.html" and viewport == 1280:
         def styles():
             return page.evaluate("""() => {

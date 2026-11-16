@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: Syntyr CSS accessibility validation. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="d01262e636f8b766aa8d652e84ced1688d5e2c53c4f03589f204da5201c6d8c4">
+  <meta name="description" content="Status: experimental alpha; not a WCAG certification or professional audit.">
+  <meta name="syntyr-source-sha256" content="29d0ba3393d5ae517abd4db6366dfcd79168e2e22638e14319fa1cd6fd729b73">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS accessibility validation — Syntyr CSS docs</title>
-  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility.html">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility">
   <link rel="alternate" type="text/markdown" href="accessibility.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -36,6 +36,37 @@
         <article class="docs-prose" aria-label="Syntyr CSS accessibility validation">
 <h1 id="syntyr-css-accessibility-validation">Syntyr CSS accessibility validation</h1>
 <p><strong>Status:</strong> experimental alpha; not a WCAG certification or professional audit.</p>
+<h2 id="responsive-follow-up-november-15-2026">Responsive follow-up — November 15, 2026</h2>
+<p>On the source merged by PR #135 (commit 0b04607), the published-site
+layout suite passed <strong>2,964/2,964</strong> reflow cases: 76 allowlisted HTML
+pages, 13 viewport/text configurations, and Chromium, Firefox, and pinned
+Playwright 1.65.2 WebKit 27.2. These cover 320–1920 CSS-pixel widths,
+mobile landscape, and 150%/200% root-text enlargement. This is <strong>not</strong>
+native browser zoom.</p>
+<p>For separate browser-UI zoom verification, an isolated X11 virtual display
+was used to send the browser's native zoom keyboard shortcuts, rather than
+CSS zoom, device emulation, or pinch/visual viewport scaling. Fourteen
+representative pages passed at <strong>200% and 400%</strong> in both Chromium
+(<strong>28/28 checks</strong>) and Firefox (<strong>28/28 checks</strong>): the original 1280
+CSS-pixel viewport became 640 and 320 CSS pixels respectively, with
+physical X11 window dimensions unchanged. The checks found no
+document-level horizontal overflow or off-viewport controls. Pages
+included the homepage, documentation, playground, pricing, forms, CRM,
+console, Noir landing, and visualization gallery. Screenshots and
+machine-local logs are test artifacts, not proof of a complete human
+visual assessment. <strong>Safari native zoom was not verified.</strong></p>
+<p>The follow-up mobile audit identified ten native disclosure summaries with
+19–22 CSS-pixel heights (three FAQ examples and seven chart data
+expansions). A targeted change gives these standalone controls a 44px
+minimum hit area at default text size, retaining native open/close and
+focus behavior. The published-site browser matrix now checks native
+controls for at least 24×24 CSS-pixel target geometry at 320px and 390px
+unless a larger associated label supplies the target. This is a <strong>focused
+regression check</strong>, not a full WCAG 2.2 target-spacing or touchscreen
+conformance audit.</p>
+<p>Manual assistive technology, Safari browser zoom, real hardware touch
+testing, contrast exceptions, and native OS forced-colors review remain
+outstanding.</p>
 <h2 id="audited-source-snapshot-november-15-2026-commit-038a24d">Audited source snapshot (November 15, 2026; commit <code>038a24d</code>)</h2>
 <p>At pinned <code>main</code> commit <code>038a24d</code>, deterministic CSS/metadata/adapters/site
 checks passed, <strong>311 Python contracts</strong> passed, the <strong>198-case</strong>
@@ -88,13 +119,72 @@ python3 -m unittest discover -s tests -v
 python3 tests/browser_test.py
 python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit
+python3 tests/published_reflow_browser.py --browsers chromium firefox webkit
 python3 tests/minimalist_browser.py --browsers chromium firefox webkit
+# Opt-in: seven-theme enlarged-label, scroll keyboard, and link-target checks.
+python3 tests/accessibility_regression_browser.py --browsers chromium firefox webkit
 </code></pre>
 <p>For a pinned axe-core 4.10.3 audit, provide the checker at test time. No
 JavaScript file is shipped to application consumers:</p>
 <pre><code class="language-sh">curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
-python3 tests/axe_audit.py --axe-file /tmp/axe.min.js
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe-manual-review.json
 </code></pre>
+<p>The published-site reflow test serves the actual Cloudflare-allowlisted HTML
+and hashed CSS locally, checks every page in multiple portrait and landscape
+viewports, and stresses root text at 150%/200%. It permits independently
+scrollable data regions but rejects page-level horizontal overflow and
+out-of-viewport controls. This is <strong>not</strong> 200%/400% native browser zoom.</p>
+<p>For the remaining manual zoom gate, use the browser's own zoom control (not
+CSS <code>zoom</code>, a changed root font size, device pixel ratio, or pinch zoom):
+open the homepage, all-documentation index, free Noir landing, visualization
+gallery, pricing, and native forms. Check 200% and 400% zoom at a 1280 CSS-pixel
+starting window, then mobile landscape and portrait; record each browser,
+OS, zoom, viewport, navigation/control reachability and any overflow. Run with
+Chrome/Firefox and Safari/WebKit on a supported host, including keyboard and
+screen-reader inspection. Keep these as outstanding human review requirements
+until actually performed.</p>
+<p>The JSON now includes a <code>summary</code> that distinguishes incomplete rule results
+from <strong>inconclusive individual element targets</strong>, with counts by page and rule.
+Prioritize the highest-count pages for composited-gradient and pseudo-element
+contrast inspection. These targets are unresolved, not automatically passing
+or failing; record measured contrast, viewport, state, and reviewer decision
+before approving a release. The enlarged-label tests change root font size,
+not genuine browser zoom; human zoom and screen-reader gates remain open.</p>
+<h2 id="contrast-pixel-triage-developer-only-not-a-conformance-result">Contrast pixel triage (developer-only; NOT a conformance result)</h2>
+<p>An optional Chromium screenshot sampler helps prioritize axe-core findings that
+cannot automatically evaluate gradients and pseudo-elements. It samples the
+painted background under temporarily transparent glyphs, groups results by
+page/viewport/selector, and retains non-text and unsampled targets explicitly.
+The helper is deliberately <strong>not a release gate</strong>: selected pixels do not prove
+the contrast of every glyph, hover/focus state, overlay or customized theme.
+Run it with pinned tooling in a disposable developer environment:</p>
+<pre><code class="language-sh">python3 -m pip install playwright==1.65.2 Pillow==12.1.1
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe.json
+python3 tests/contrast_pixel_triage.py \
+  --axe-report /tmp/syntyr-axe.json \
+  --output /tmp/syntyr-contrast-triage.json \
+  --widths 1280 390 320
+</code></pre>
+<p>The November 15, 2026 <code>9ff10ac</code> baseline contained 162 incomplete contrast
+elements. After rebasing the targeted contrast fixes onto <code>7e5c14d</code> (a newer
+main with additional unrelated changes), a fresh axe scan reported <strong>160
+incomplete elements</strong> across 27 pages. Across three widths (480 observations),
+the heuristic classified 450 as sampled above their text threshold, 27 as
+non-text (9 distinct targets), and 3 as unsampled placeholders (one distinct
+target). <strong>Zero samples fell below their threshold or within a 0.5:1 margin.</strong>
+The earlier 162-target and 456-above sample counts are historical; neither
+report closes any axe incompletes as certified passes. Verify actual glyph
+pixels, interaction states and screen reader/zoom/OS high-contrast behavior
+before making a conformance claim.
+Following a further rebase onto <code>c726dc3</code> (restored native-APIs page),
+the newest candidate scan found <strong>161 incomplete elements across 28 pages</strong>:
+450 text/viewport observations sampled above threshold, 27 non-text and six
+unsampled textarea observations. There were still zero sampled-below or
+narrow-margin observations. All 161 inconclusives remain open for manual
+adjudication; the preceding 160-element count is historical.</p>
+<p>See <a href="accessibility-alpha5-review.html">the manual release review</a> for limitations.</p>
 <p>For reproducible WebKit on an isolated testing host with Podman or Docker, clone
 the repository to a directory that the container can read and run:</p>
 <pre><code class="language-sh">podman run --rm --shm-size=1g -v &quot;$PWD&quot;:/work:ro,Z -w /work \
@@ -255,10 +345,12 @@ targets. Do not present these findings as WCAG conformance certification.</p>
 <p>Optional native recipe smoke test: run <code>node tests/native_recipes_browser.js</code> with developer-installed Playwright and its browser engines. It exercises form label state, popover escape/dismissal, modal commands where supported, reduced-motion transitions, and narrow viewport reflow. No Playwright package is shipped to consumers.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#responsive-follow-up-november-15-2026">Responsive follow-up — November 15, 2026</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#audited-source-snapshot-november-15-2026-commit-038a24d">Audited source snapshot (November 15, 2026; commit 038a24d)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#historical-post-merge-results-november-14-2026">Historical post-merge results (November 14, 2026)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#what-is-and-is-not-covered">What is and is not covered</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reproduce-the-tests-without-installing-production-dependencies">Reproduce the tests without installing production dependencies</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#contrast-pixel-triage-developer-only-not-a-conformance-result">Contrast pixel triage (developer-only; NOT a conformance result)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#earlier-automated-baseline-november-14-2026-unreleased-alpha5">Earlier automated baseline (November 14, 2026, unreleased alpha.5)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#manual-checklist">Manual checklist</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-system-palette-and-intrinsic-layout-checks">Optional system palette and intrinsic layout checks</a>

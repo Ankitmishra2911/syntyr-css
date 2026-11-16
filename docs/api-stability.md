@@ -13,6 +13,8 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
 | `data-syn-theme` and documented `data-syn-*` state hooks | Public prerelease API | Stable names and meanings |
 | `syntyr.semantic.css` and `.syn-semantic` | Opt-in prerelease API | Stable scoped semantics after audit |
+| `dist/presets/{minimal,saas,cinematic}.css` | Experimental single-file entrypoints | Stabilize names and inclusion contract only after explicit review |
+| `metadata/css-contract.v1.json` | Build artifact-manifest schema v1 | Version schema independently of public CSS API |
 | `syntyr.recipes.css`, `syntyr.geometry.css` | Experimental, opt-in | Evaluate for individual stabilization |
 | `syntyr.effects.css`, `syntyr.utilities.css` | Experimental, opt-in | Evaluate for individual stabilization |
 | `syntyr.css`, `syntyr.all.css` | Public convenience bundles | Maintain documented contents/meaning at v1 |
@@ -39,6 +41,21 @@ experimental and are not in immutable alpha.4. Core adds explicit
 `data-syn-density="comfortable"` and `"spacious"` profiles alongside the
 existing `"compact"` profile, allowing nested density overrides.
 No application behaviors or JavaScript are shipped with these compositions.
+
+### Alpha.5 semantic HTML authoring changes
+
+The unreleased semantic CSS candidate gives native classless `form` and
+`fieldset` a composed vertical layout, a comfortable native `summary`
+target, and readable table `caption` styling. Classed forms continue using
+their explicit component API. For ordinary `.syn-table` rows,
+`data-syn-state="selected"` remains the visual state; the
+`aria-selected="true"` row selector now applies only to a real ARIA grid or
+treegrid. Consumers styling ordinary table rows with `aria-selected` should
+switch to the visual data attribute rather than inventing widget semantics.
+The published immutable alpha.4 assets are unchanged.
+
+The optional validator `--semantic` mode adds conservative native HTML
+diagnostics, with no change to default validation or consumer runtime.
 
 ### Alpha.5 data-table wrapping migration
 

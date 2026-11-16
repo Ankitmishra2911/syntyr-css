@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: SYNTYR CSS public API and prerelease stability. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="4f5ddaf9617d1ba1e3fdf8b5e4bed01fb32f54f31e391b10362bf7ef8e38e002">
+  <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
+  <meta name="syntyr-source-sha256" content="01515c4993cfda6b1b4a7cef553b5ba8a8212b57b3eaa53bee12e6695f49c98c">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
-  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability.html">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
   <link rel="alternate" type="text/markdown" href="api-stability.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -74,6 +74,16 @@ reviewed consistently before <code>1.0.0</code>. It is not a new compatibility g
 <td>Stable scoped semantics after audit</td>
 </tr>
 <tr>
+<td><code>dist/presets/{minimal,saas,cinematic}.css</code></td>
+<td>Experimental single-file entrypoints</td>
+<td>Stabilize names and inclusion contract only after explicit review</td>
+</tr>
+<tr>
+<td><code>metadata/css-contract.v1.json</code></td>
+<td>Build artifact-manifest schema v1</td>
+<td>Version schema independently of public CSS API</td>
+</tr>
+<tr>
 <td><code>syntyr.recipes.css</code>, <code>syntyr.geometry.css</code></td>
 <td>Experimental, opt-in</td>
 <td>Evaluate for individual stabilization</td>
@@ -117,6 +127,18 @@ experimental and are not in immutable alpha.4. Core adds explicit
 <code>data-syn-density=&quot;comfortable&quot;</code> and <code>&quot;spacious&quot;</code> profiles alongside the
 existing <code>&quot;compact&quot;</code> profile, allowing nested density overrides.
 No application behaviors or JavaScript are shipped with these compositions.</p>
+<h3 id="alpha5-semantic-html-authoring-changes">Alpha.5 semantic HTML authoring changes</h3>
+<p>The unreleased semantic CSS candidate gives native classless <code>form</code> and
+<code>fieldset</code> a composed vertical layout, a comfortable native <code>summary</code>
+target, and readable table <code>caption</code> styling. Classed forms continue using
+their explicit component API. For ordinary <code>.syn-table</code> rows,
+<code>data-syn-state=&quot;selected&quot;</code> remains the visual state; the
+<code>aria-selected=&quot;true&quot;</code> row selector now applies only to a real ARIA grid or
+treegrid. Consumers styling ordinary table rows with <code>aria-selected</code> should
+switch to the visual data attribute rather than inventing widget semantics.
+The published immutable alpha.4 assets are unchanged.</p>
+<p>The optional validator <code>--semantic</code> mode adds conservative native HTML
+diagnostics, with no change to default validation or consumer runtime.</p>
 <h3 id="alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</h3>
 <p>The unreleased alpha.5 candidate changes classed <code>.syn-table</code> cells to wrap
 descriptive text by default, including when a table is placed in a narrow
@@ -160,6 +182,7 @@ runtime dependency.</p>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#public-surface-and-intended-v1-boundaries">Public surface and intended v1 boundaries</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-opt-in-crm-compositions-and-density-profiles">Alpha.5 opt-in CRM compositions and density profiles</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-semantic-html-authoring-changes">Alpha.5 semantic HTML authoring changes</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#compatibility-and-version-policy">Compatibility and version policy</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#pre-10-release-checklist">Pre-1.0 release checklist</a>

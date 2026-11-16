@@ -54,3 +54,106 @@ This is an editor convenience layer, **not** a Tailwind-style CSS compiler.
 A class being present in the metadata does not mean its optional stylesheet
 is already loaded. Check each item's `module` in the generated catalog and
 load the corresponding Syntyr CSS distribution.
+
+## Optional static HTML diagnostics
+
+The generated `metadata/syntyr-contract.json` is Syntyr's machine-readable
+development contract. It combines the **full source-discovered** class and token
+inventory with the existing **curated** semantic component recipes, supported
+theme/state values, and CSS distribution filenames. The contract is generated
+by `python3 scripts/export_api_metadata.py` and checked by `--check`. Do
+not edit it directly. The existing `metadata/components.json` remains a
+curated subset and is not a complete list of classes.
+
+To validate static HTML during development (Python 3.10+, standard library only):
+
+```sh
+python3 scripts/syntyr_check.py index.html examples/saas.html
+python3 scripts/syntyr_check.py --format json index.html
+# Opt-in, conservative native HTML checks (warnings do not fail the CLI):
+python3 scripts/syntyr_check.py --semantic --format json examples/semantic-starter.html
+python3 scripts/syntyr_check.py --stylesheets syntyr.core.css,syntyr.recipes.css partial.html
+# Pipe generated markup into the same deterministic checker without a temporary file:
+printf '<button class="syn-buttn">Save</button>' | python3 scripts/syntyr_check.py --format json -
+# For fragments, supply the CSS modules actually installed in the consumer app:
+cat fragment.html | python3 scripts/syntyr_check.py --format json --stylesheets syntyr.core.css -
+```
+
+### Agent-ready composition recipes
+
+The same generated `metadata/syntyr-contract.json` includes an optional
+`recipes` array curated in `metadata/components.json`. Each recipe declares:
+
+- A stable `id`, purpose, example page and required CSS distributions.
+- A native HTML `root` element and named `slots` with `tag`, `classes`,
+  `optional` and `repeatable` fields.
+- `variants` restricted to real, CSS-supported `data-syn-*` attribute values.
+- `host_behavior` explaining what CSS **cannot** perform (server requests,
+  selection, pagination, validation, focus or authorization).
+
+Available recipes cover a CRM filter form, semantic resource table, app shell,
+and validated form. Use a `.syn-root` ancestor for every composition, and load
+all listed stylesheets in the documented order (core before optional recipes).
+The contract's `slots` describe roles, **not a strict DOM nesting validator**;
+authors must still use accessible native HTML in context. The host application
+supplies state and behavior. No JavaScript component engine is required.
+
+Source truth is the existing curated `metadata/components.json`, not another
+hand-maintained metadata registry. After editing a recipe, run
+`python3 scripts/export_api_metadata.py` to regenerate the contract;
+`python3 scripts/export_api_metadata.py --check` detects drift. The exporter
+rejects stale class names, missing CSS modules, unsupported variant values,
+invalid example paths and duplicate slot names before publication.
+
+The checker reports source positions, unknown literal `syn-*` classes, invalid
+literal `data-syn-*` values, and missing optional CSS modules **when a Syntyr
+stylesheet is linked or explicitly specified**. For full HTML documents with
+an explicit `<html>` element, it also reports `unscoped-class` when a known
+Syntyr component class is outside every `.syn-root` ancestor. Since CSS
+selectors are scoped, those classes would otherwise silently render without
+Syntyr styles. Plain HTML fragments are exempt because the embedding app may
+supply the root; dynamic ancestor classes and inert `<template>` contents are
+also exempt because their rendered scope is unknown.
+
+With `--semantic`, a second standard-library pass checks literal HTML for
+duplicate static IDs, missing form labels, unmatched `label for` and
+`aria-labelledby`/`aria-describedby` ID references (the latter two only in
+complete documents). It advises when an ordinary table row uses
+`aria-selected` instead of `data-syn-state`, or when a headed data table
+lacks a caption or other accessible name. Errors produce exit code 1; advisory
+warnings are included in text/JSON output but do not fail the command.
+The mode is **off by default** to preserve existing integrations.
+
+This is not an HTML conformance parser, a WCAG audit, or a template renderer.
+It deliberately skips inert template content and avoids guessing what dynamic
+attributes resolve to. Validate rendered server/framework templates and actual
+screen-reader behavior separately. Static fragments may reference IDs supplied
+by their embedding document, so cross-document references are checked only
+when a full `<html>` document is supplied.
+
+The checker recognizes local and version-pinned stylesheet paths (including
+query parameters). Without a known Syntyr stylesheet, module-presence checks
+are skipped, but root-scope checks still run for complete documents. Explicit
+`--stylesheets` overrides stylesheet-link discovery.
+
+Exit code 0 means no diagnostics, 1 means findings, and 2 means invalid
+arguments or unreadable files. JSON diagnostics contain `file`, `line`,
+`column`, `severity`, `code` and `message` fields. Input `-` reads HTML
+from standard input and identifies findings with `file: "<stdin>"`; JSON stays
+a top-level diagnostics array for backward compatibility. Agent-friendly
+optional fields include `suggestions` (up to three real source-contract class
+names with available stylesheet distributions), `class_name` and
+`required_root` (unscoped component classes), `attribute` and
+`allowed_values` (invalid theme or state), and `required_stylesheets` and
+`loaded_stylesheets` (missing CSS modules). Suggestions are hints, **not**
+automatic edits; confirm the target class exists in the **installed** release.
+
+**Boundaries:** This is a static HTML checker, not a full HTML accessibility
+auditor, runtime type checker, or an HTML/CSS build requirement. Dynamic
+template class expressions are conservatively skipped. Component `elements`
+describe composite examples rather than allowed tags for every constituent
+class; the validator deliberately does not enforce those as strict rules.
+JSX/TSX, HEEx, Blade, and Nulang template adapters would need separate
+language-aware parsing. Semantic accessibility and actual loaded CSS still
+need browser and keyboard checks. No script or generated manifest is shipped
+to the browser by this integration.

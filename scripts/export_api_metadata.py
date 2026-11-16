@@ -12,9 +12,9 @@ import re
 import sys
 
 if __package__:
-    from .build import distributions
+    from .build import all_distributions, distributions
 else:
-    from build import distributions
+    from build import all_distributions, distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src"
@@ -100,6 +100,18 @@ EXPLICIT_TOKENS = {
     "--syn-frame-border-paint": "geometry.css",
     "--syn-frame-inlay-paint": "geometry.css",
 }
+# Only permit literal, CSS-implemented presentation states. Curated choices
+# must not omit states used by optional server or visualization stylesheets.
+CSS_STATE = re.compile(r'\[\s*data-syn-state\s*=\s*["\']([^"\']+)["\']\s*\]')
+
+
+def source_state_values() -> list[str]:
+    values = set()
+    for path in SOURCE.rglob("*.css"):
+        values.update(CSS_STATE.findall(CSS_COMMENT.sub("", path.read_text(encoding="utf-8"))))
+    return sorted(values)
+
+
 SNIPPET_CLASSES = (
     "syn-root", "syn-panel", "syn-button", "syn-button--primary",
     "syn-region", "syn-grid", "syn-stats", "syn-form",
@@ -146,6 +158,130 @@ def collect():
     }
 
 
+
+def validate_recipes(recipes, class_stylesheets, attributes):
+    """Check curated multi-part recipes against actual source-discovered CSS.
+
+    Recipes are compositional guidance, never runtime widgets or strict HTML
+    authoring rules. Validation catches stale classes and missing modules.
+    """
+    ids = set()
+    for recipe in recipes:
+        ident = recipe["id"]
+        if not re.fullmatch(r"[a-z][a-z0-9-]*", ident) or ident in ids:
+            raise ValueError(f"invalid or duplicate recipe id: {ident}")
+        ids.add(ident)
+        stylesheet_names = recipe.get("stylesheets")
+        if (not isinstance(stylesheet_names, list) or not stylesheet_names
+                or any(not isinstance(name, str) or not name for name in stylesheet_names)):
+            raise ValueError(f"{ident}: stylesheets must be a nonempty list of strings")
+        stylesheets = set(stylesheet_names)
+        distributions = all_distributions()
+        unknown_stylesheets = stylesheets - set(distributions)
+        if unknown_stylesheets:
+            raise ValueError(f"{ident}: unknown stylesheet: {sorted(unknown_stylesheets)}")
+        if any(name.startswith("components/") for name in stylesheets):
+            supplied_sources = {
+                source for name in stylesheets for source in distributions[name]
+            }
+            if not {"tokens.css", "base.css"}.issubset(supplied_sources):
+                raise ValueError(f"{ident}: component CSS requires tokens and base")
+        if not recipe["description"].strip() or not recipe["host_behavior"].strip():
+            raise ValueError(f"{ident}: missing descriptive or host behavior contract")
+        example = recipe["example"]
+        if not example.startswith("examples/") or ".." in Path(example).parts or not (ROOT / example).is_file():
+            raise ValueError(f"{ident}: example not found: {example}")
+        root = recipe.get("root")
+        if not isinstance(root, dict) or not all(
+            key in root for key in ("tag", "classes")
+        ):
+            raise ValueError(f"{ident}: root requires tag and classes")
+        slots = recipe.get("slots")
+        if not isinstance(slots, list):
+            raise ValueError(f"{ident}: slots must be an array")
+        slot_names = set()
+        for part in slots:
+            if not isinstance(part, dict) or any(
+                key not in part for key in ("name", "tag", "classes", "optional", "repeatable")
+            ) or not isinstance(part.get("name"), str) or not part["name"].strip():
+                raise ValueError(f"{ident}: required slot name, tag, classes and flags")
+            if part["name"] in slot_names:
+                raise ValueError(f"{ident}: duplicate slot: {part['name']}")
+            slot_names.add(part["name"])
+            if not isinstance(part["optional"], bool) or not isinstance(part["repeatable"], bool):
+                raise ValueError(f"{ident}: required slot flags must be booleans")
+        for part in [root] + slots:
+            if not isinstance(part["tag"], str) or not re.fullmatch(r"[a-z][a-z0-9-]*", part["tag"]):
+                raise ValueError(f"{ident}: invalid HTML tag: {part['tag']}")
+            if not isinstance(part["classes"], list) or not part["classes"]:
+                raise ValueError(f"{ident}: slot missing classes")
+            for name in part["classes"]:
+                if name not in class_stylesheets:
+                    raise ValueError(f"{ident}: unknown class: {name}")
+                if not class_stylesheets[name].intersection(stylesheets):
+                    raise ValueError(f"{ident}: class {name} not loaded by {sorted(stylesheets)}")
+        variants = recipe.get("variants", {})
+        if not isinstance(variants, dict):
+            raise ValueError(f"{ident}: variants must be an object")
+        for attribute, values in variants.items():
+            if (not isinstance(values, list) or not values
+                    or any(not isinstance(value, str) for value in values)):
+                raise ValueError(f"{ident}: variant {attribute} requires a nonempty list of strings")
+            if attribute not in attributes or not set(values).issubset(attributes[attribute]):
+                raise ValueError(f"{ident}: unsupported variant {attribute}: {values}")
+
+
+def component_contract(api, html_data):
+    """Full source-discovered inventory plus curated semantic component recipes.
+
+    This is tooling metadata, not a second, separately maintained CSS API.
+    The curated component list describes compositions, not class-by-class
+    allowed elements; those must not be treated as strict static rules.
+    """
+    distributions_by_name = all_distributions()
+    curated = json.loads((OUTPUT / "components.json").read_text(encoding="utf-8"))
+    known_classes = {item["name"] for item in api["classes"]}
+    for component in curated["components"]:
+        unknown = sorted(set(component["classes"]) - known_classes)
+        if unknown:
+            raise ValueError(f"Curated {component['name']} uses unknown classes: {unknown}")
+        if component["module"] not in distributions_by_name:
+            raise ValueError(f"Unknown component distribution: {component['module']}")
+
+    def with_stylesheets(items):
+        return [
+            {**item, "stylesheets": sorted(
+                name for name, modules in distributions_by_name.items()
+                if item["module"] in modules
+            )}
+            for item in items
+        ]
+
+    attributes = {
+        attribute["name"]: [value["name"] for value in attribute["values"]]
+        for attribute in html_data["globalAttributes"]
+        if attribute["name"].startswith("data-syn-") and "values" in attribute
+    }
+    class_stylesheets = {
+        item["name"]: set(item["stylesheets"]) for item in with_stylesheets(api["classes"])
+    }
+    validate_recipes(curated.get("recipes", []), class_stylesheets, attributes)
+
+    return {
+        "schema_version": 1,
+        "source_version": (ROOT / "VERSION").read_text(encoding="utf-8").strip(),
+        "completeness": "all-source-discovered-classes-and-tokens; curated-components",
+        "note": "Curated component elements are guidance, not per-class tag restrictions.",
+        "stylesheets": sorted(distributions_by_name),
+        "classes": with_stylesheets(api["classes"]),
+        "tokens": with_stylesheets(api["tokens"]),
+        "themes": api["themes"],
+        "attributes": attributes,
+        "components": curated["components"],
+        "recipes": curated.get("recipes", []),
+    }
+
+
 def outputs():
     api = collect()
     classes = api["classes"]
@@ -162,7 +298,7 @@ def outputs():
             {"name": "data-syn-density", "description": "Opt-in presentation density.",
              "values": [{"name": name} for name in ("compact", "comfortable", "spacious")]},
             {"name": "data-syn-state", "description": "Host-managed decorative state, not an ARIA substitute.",
-             "values": [{"name": "active"}]},
+             "values": [{"name": name} for name in source_state_values()]},
             {"name": "data-syn-featured", "description": "Decorative featured pricing card state."},
         ],
     }
@@ -180,6 +316,7 @@ def outputs():
         for name in SNIPPET_CLASSES
     }
     payloads = {
+        "syntyr-contract.json": component_contract(api, html),
         "syntyr-api.json": api,
         "syntyr.html-custom-data.json": html,
         "syntyr.css-custom-data.json": css,

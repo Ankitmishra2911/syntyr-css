@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: Syntyr Blocks &amp; Assets — integration guide. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="8d11f4ab2684a374809d42a0a82188ad314d60a958dd67bcae811f549a51bd0d">
+  <meta name="description" content="Status: Experimental alpha.5 source gallery, not an immutable release or published npm package.">
+  <meta name="syntyr-source-sha256" content="a1efa213a518e7cde0636345b5e51a240a3b006793a41264bccf70e2b29e0aa2">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
-  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide.html">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide">
   <link rel="alternate" type="text/markdown" href="blocks-guide.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -113,6 +113,33 @@ state or retain fabricated customer endorsements in production.</p>
 <p>All new snippets, original CSS assets and documentation are MIT licensed.
 No premium Tailwind, commercial UI kit or third-party icon artwork has been
 copied into the public project. The separate private Console Kit is unaffected.</p>
+<h2 id="experimental-shadcn-universal-item-registry">Experimental shadcn universal-item registry</h2>
+<p>The source candidate can generate a <strong>copy-owned, framework-independent</strong>
+shadcn-compatible universal-item registry from the same 20 MIT blocks and
+checked-in CSS distributions. It neither replaces nor duplicates the native
+block installer from PR #104. Universal files use explicit project-relative
+targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.</p>
+<pre><code class="language-sh">python3 scripts/build.py --check
+python3 scripts/build_shadcn_registry.py       # generate registry/registry.json and registry/r/*
+python3 scripts/build_shadcn_registry.py --check
+# Optional, developer-only shadcn 4.23.0 integration smoke (requires npm):
+python3 tests/shadcn_registry_cli_smoke.py --package shadcn@4.23.0
+</code></pre>
+<p>Each <code>registry/r/&lt;block-id&gt;.json</code> contains the source HTML at
+<code>~/syntyr/blocks/&lt;block-id&gt;.html</code> and absolute same-origin registry dependencies for
+the required stylesheets at <code>~/syntyr/css/</code>. Each registry item also installs
+the original MIT <code>LICENSE</code> at <code>~/syntyr/LICENSE</code>. Install in an existing project
+only after reviewing the exact files, license and project configuration. For
+example, <strong>after publishing the reviewed candidate site</strong>, a shadcn CLI may
+consume <code>https://syntyr-css.pages.dev/registry/r/faq.json</code>. This is a
+candidate endpoint, not a claim that it is currently deployed. The independent
+local-mirror smoke verifies that CLI 4.23.0 can install both core-only and
+core-plus-recipes blocks without a consumer package.json or runtime dependencies.</p>
+<p>The generated index is intended for editor/agent inspection. The generator
+never reads private Console Kit assets or executes downloaded code. No dynamic
+service, telemetry, npm dependency, or customer license is introduced.
+Published alpha.4 assets remain immutable; registry payloads declare their
+source-candidate Syntyr version and must not be confused with a tagged release.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#contract">Contract</a>
@@ -121,6 +148,7 @@ copied into the public project. The separate private Console Kit is unaffected.<
 <a class="docs-article-toc-link docs-article-toc-2" href="#six-font-recipes-and-24-original-svg-icons">Six font recipes and 24 original SVG icons</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#source-build-and-maintenance">Source, build and maintenance</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-fidelity-and-licensing">Accessibility, fidelity and licensing</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#experimental-shadcn-universal-item-registry">Experimental shadcn universal-item registry</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="blocks-guide.md">Markdown source</a></nav>

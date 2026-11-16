@@ -60,6 +60,21 @@ class AgentDocsTests(unittest.TestCase):
                      "docs/api-stability.md", "docs/ai-quickstart.md"):
             self.assertIn(name, published)
 
+    def test_release_freeze_guide_is_public_and_agent_discoverable(self):
+        from scripts.build_cloudflare_site import source_files
+        from urllib.parse import urlsplit
+        published = source_files()
+        procedure = "docs/release-freeze.md"
+        self.assertIn(procedure, published)
+        self.assertIn("docs/release-freeze.html", published)
+        self.assertIn("docs/cloudflare-hosting.md", published)
+        index = (ROOT / "llms.txt").read_text(encoding="utf-8")
+        self.assertIn("https://syntyr-css.pages.dev/docs/release-freeze.md", index)
+        self.assertIn("exact-commit", index)
+        for name in ("docs/cloudflare-hosting.md", "llms.txt"):
+            self.assertIn("release-freeze.md", published[name].decode("utf-8"))
+        self.assertIn("approval", published[procedure].decode("utf-8").lower())
+
     def test_pinned_quickstart_classes_exist_in_alpha4_release(self):
         import re
         example = (ROOT / "docs/ai-quickstart.md").read_text()

@@ -1,0 +1,74 @@
+{
+  "api_stability": "experimental-pre-1.0",
+  "library_version": "0.3.0-alpha.5",
+  "presets": {
+    "cinematic": {
+      "file": "dist/presets/cinematic.css",
+      "gzip_bytes": 19277,
+      "raw_bytes": 105049,
+      "sha256": "24865ef77762ea230f89c563ae935cccbf9d6c5664f7af918410ee5f7e218c84",
+      "sources": [
+        "tokens.css",
+        "base.css",
+        "components/layout.css",
+        "components/typography.css",
+        "components/buttons.css",
+        "components/forms.css",
+        "components/form-composition.css",
+        "components/overlays.css",
+        "components/data.css",
+        "components/patterns.css",
+        "semantic.css",
+        "recipes.css",
+        "geometry.css",
+        "symbols.css",
+        "effects.css",
+        "motion.css"
+      ]
+    },
+    "minimal": {
+      "file": "dist/presets/minimal.css",
+      "gzip_bytes": 11964,
+      "raw_bytes": 66783,
+      "sha256": "594caad3db3a87d3d24751e5ac51c144f6be1b67ad84b8209f6d9928bc8ec96d",
+      "sources": [
+        "tokens.css",
+        "base.css",
+        "components/layout.css",
+        "components/typography.css",
+        "components/buttons.css",
+        "components/forms.css",
+        "components/form-composition.css",
+        "components/overlays.css",
+        "components/data.css",
+        "components/patterns.css",
+        "semantic.css"
+      ]
+    },
+    "saas": {
+      "file": "dist/presets/saas.css",
+      "gzip_bytes": 18107,
+      "raw_bytes": 97796,
+      "sha256": "ccd6492d42b5255bc6c64890811b1624194eccc8d6bc1a78623a6a46378e2c4b",
+      "sources": [
+        "tokens.css",
+        "base.css",
+        "components/layout.css",
+        "components/typography.css",
+        "components/buttons.css",
+        "components/forms.css",
+        "components/form-composition.css",
+        "components/overlays.css",
+        "components/data.css",
+        "components/patterns.css",
+        "semantic.css",
+        "recipes.css",
+        "native-recipes.css",
+        "server.css",
+        "utilities.css"
+      ]
+    }
+  },
+  "runtime": "css-only",
+  "schema_version": 1
+}

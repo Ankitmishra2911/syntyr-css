@@ -99,9 +99,40 @@ Accept a new module, component or theme only when it:
 - can be documented with a short example and a clear opt-in boundary;
 - has a credible owner for its continuing maintenance cost.
 
+Every CSS source must be part of a declared distribution, without duplicated
+source inclusion inside a bundle. Components and optional recipes cannot branch on
+`data-syn-theme` or rely on `!important`; palette variations belong in token
+declarations and cascade layers resolve normal precedence. Only tokens and
+existing base, print, and viz theme-context rules may select themed regions. The existing
+`base.css` reduced-motion accessibility exception remains intact.
+`maintenance_policy.py` enforces these rules without CSS compilation or byte
+ceilings.
+
 Prefer removing duplicate rules and simplifying variants before adding new
 features. Do not add a CSS compiler, framework runtime, NPM dependency,
 custom widget system or site generator without measured demand.
+
+## Zero-runtime presets and distribution integrity
+
+Named presets (`minimal`, `saas`, `cinematic`) are **preassembled, full CSS
+files** from the same source modules as the existing bundles. They do not
+introduce a new selector namespace, theme-specific component forks or runtime
+`@import` dependencies. Their source order, hashes, bytes and library version
+are recorded in the generated `metadata/css-contract.v1.json`. The build's
+`--check` mode verifies this file and every distribution byte-for-byte.
+
+The contract manifest has **schema version 1**, not CSS API stability version 1.
+Pre-1.0 selector/token/attribute stability is governed by
+`docs/api-stability.md`. `@syntyr/css` npm exports and the release ZIP include
+these standalone files as an **optional convenience**; a static HTML app
+requires only one copied stylesheet. The Python standard-library selective
+builder remains an optional maintainer optimization for custom distributions.
+
+Browser screenshot regressions (`tests/preset_visual_browser.py`) are optional
+maintainer-only checks requiring Playwright + Pillow. None are used in CSS
+consumption, and no generated preset contains a browser runtime. The test
+intentionally covers opt-in semantic style boundaries, recipes isolation,
+keyboard focus, native disclosure/popover and 390/1280px screen widths.
 
 ## Generated editor metadata
 
@@ -118,6 +149,7 @@ script-disabled sandbox, and is never bundled into distributed stylesheets.
 
 ```sh
 python3 scripts/build.py --check
+python3 scripts/maintenance_policy.py
 python3 scripts/export_api_metadata.py --check
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py

@@ -14,6 +14,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-avatar-size",
+      "description": "Syntyr CSS property (components/patterns.css)."
+    },
+    {
       "name": "--syn-bg",
       "description": "Theme background."
     },
@@ -192,6 +196,42 @@
     {
       "name": "--syn-grid-alpha",
       "description": "Grid-line accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-grid-density-pad-inline",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-density-row-block",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-edge",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-focus",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-hover",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-muted",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-pad-inline",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-row-block",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-selected",
+      "description": "Syntyr CSS property (data-grid.css)."
     },
     {
       "name": "--syn-horizon-alpha",

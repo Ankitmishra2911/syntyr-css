@@ -21,6 +21,22 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Offline SaaS preview in the next release ZIP (unreleased alpha.5)
+
+The alpha.5 source candidate now packages `examples/saas.html` together with
+`dist/syntyr.core.css` and `dist/syntyr.recipes.css`. After building or
+extracting the **alpha.5** ZIP, open `examples/saas.html` directly in your
+browser. Its relative stylesheets resolve within the extracted archive, so it
+requires **no internet connection, local server, npm, build step or runtime
+JavaScript**. You can edit the HTML and CSS locally to test integration.
+
+This is a static **illustrative SaaS dashboard**: fictional metrics, no real
+account data, authentication, filtering, API calls, or backend actions. To use
+it in an application, replace sample values with server-rendered data and wire
+navigation and mutations to your own server. The already published **alpha.4**
+release does *not* contain this packaged example; the next alpha.5 release
+has not been published yet.
+
 ## One-file semantic starter (unreleased alpha.5 source)
 
 For a Pico-like HTML workflow, `dist/syntyr.semantic-bundle.css` combines core and semantic CSS into a single file. Copy it to your static assets, then opt in on the region you want styled:
@@ -35,6 +51,51 @@ For a Pico-like HTML workflow, `dist/syntyr.semantic-bundle.css` combines core a
 ```
 
 Only the controls and elements inside `.syn-root.syn-semantic` are styled semantically. This is **not** Pico's globally classless behavior: the root scope is deliberate. No script or build tool is required. [See the runnable starter](../examples/semantic-starter.html) and the [Pico migration guide](from-pico.md). **This file is not in the published alpha.4 release** and its `/dist/` URL is not an immutable release asset; pin a released version once alpha.5 is actually published. Do not load `core.css` or `semantic.css` alongside this bundle.
+
+## Single-file presets (experimental alpha.5 source)
+
+Choose one self-contained file and self-host it. There are **no stylesheet
+imports or runtime dependencies**. Each preset includes tokens, core components,
+and scoped opt-in semantic HTML styling:
+
+| Preset | Distribution | When to choose |
+| --- | --- | --- |
+| Minimal | `dist/presets/minimal.css` | Documentation, forms and simple websites |
+| SaaS | `dist/presets/saas.css` | Business sites, dashboards, HTMX/server-rendered apps; explicit `syn-u-*` helpers |
+| Cinematic | `dist/presets/cinematic.css` | Optional Grid/Noir effects, precision frames, native CSS motion |
+
+```html
+<link rel="stylesheet" href="/css/syntyr-saas.css">
+<main class="syn-root syn-semantic" data-syn-theme="studio">
+  <article><h1>Settings</h1><label for="email">Email</label>
+    <input type="email" id="email" required>
+    <button type="button">Preview</button>
+  </article>
+</main>
+```
+
+Only the path is application-defined; copy `dist/presets/saas.css` to match.
+**Do not stack presets** or add core/semantic/recipes CSS already inside a
+preset. Styles are still isolated to `.syn-root`, while bare element styling
+requires `.syn-semantic`. Native dialogs/popovers/forms retain browser behavior;
+Syntyr adds no component runtime. `data-syn-theme` and `--syn-*` custom
+properties remain the theme API in every preset.
+
+Advanced users can keep a single CSS output but omit unused core components
+with the optional, stdlib-only `scripts/build_selective.py --components ...
+--modules ... --output ...` build. That optimization is not a consumer
+requirement and does **not** purge dynamic selectors or minify CSS.
+
+`metadata/css-contract.v1.json` is a machine-readable, deterministic
+**distribution artifact manifest**: it declares preset source order, file
+names, raw/gzip bytes and SHA-256 hashes, together with the library version.
+The `v1` suffix versions the **manifest schema**, not the public CSS API,
+which remains experimental until an explicit v1 release. `build.py --check`
+rejects stale CSS and contract manifests. See [CSS API stability](api-stability.md)
+and [optional visual regression testing](visual-regression.md).
+
+Try the [script-free preset demonstration](../examples/preset-preview.html).
+This is present in the alpha.5 source candidate, **not published alpha.4**.
 
 ## Optional npm/package-manager distribution
 

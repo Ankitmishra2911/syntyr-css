@@ -56,8 +56,8 @@ At $59 per kit and 2% **qualified visitor-to-purchase** conversion, 35 monthly s
 
 ## Competitive benchmark context
 
-As of Nov 2026, Tailwind Plus is advertised at $299 one-time; Shadcnblocks at $149–399 one-time; Preline offers free components and Pro at $249 and Team at $459. These are **product/packaging anchors, not proof Syntyr can charge those rates**. See official pages:
-- https://tailwindcss.com/plus/templates/spotlight
+Tailwind Plus historically sold for $299 one-time, but **new customer signups closed on September 9, 2026**, when Tailwind Labs announced it was joining Shopify. It is not a live purchasable pricing anchor. Shadcnblocks and Preline are category comparisons, not verified evidence of Syntyr willingness to pay; always recheck current prices before making customer-facing claims. Sources:
+- https://tailwindcss.com/blog/tailwind-is-joining-shopify
 - https://www.shadcnblocks.com/pricing
 - https://preline.co/pricing/
 

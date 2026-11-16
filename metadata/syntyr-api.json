@@ -27,6 +27,16 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-alert--success",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-alert--warning",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
       "name": "syn-app-card",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -77,6 +87,26 @@
       "description": "Syntyr CSS class (effects.css)."
     },
     {
+      "name": "syn-avatar",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-avatar--lg",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-avatar--sm",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-avatar-stack",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-badge",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -95,6 +125,11 @@
       "name": "syn-breadcrumbs",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-bulk-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-button",
@@ -125,6 +160,11 @@
       "name": "syn-button--small",
       "module": "components/buttons.css",
       "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
+      "name": "syn-button-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
       "name": "syn-caption",
@@ -192,6 +232,11 @@
       "description": "Syntyr CSS class (components/forms.css)."
     },
     {
+      "name": "syn-chip",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-code",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -200,6 +245,16 @@
       "name": "syn-code-figure",
       "module": "native-recipes.css",
       "description": "Syntyr CSS class (native-recipes.css)."
+    },
+    {
+      "name": "syn-collection-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-collection-toolbar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-command-description",
@@ -242,6 +297,76 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-data-grid",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__cell",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__cell--numeric",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__cell-text",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__columnheader",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__editor",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__footer",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__header",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__header-row",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__loading",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__row",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__status",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__toolbar",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__viewport",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
       "name": "syn-defer-section",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -282,6 +407,11 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-divider-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-empty",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
@@ -290,6 +420,11 @@
       "name": "syn-error",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-error-summary",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-eyebrow",
@@ -527,6 +662,16 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-list-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-list-row",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-logo",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -555,6 +700,11 @@
       "name": "syn-nav",
       "module": "components/layout.css",
       "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-nav-tabs",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
       "name": "syn-ops-inspector",
@@ -762,6 +912,11 @@
       "description": "Container query boundary for responsive compositions."
     },
     {
+      "name": "syn-result-state",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-root",
       "module": "base.css",
       "description": "Required style scope for Syntyr components and themes."
@@ -902,6 +1057,31 @@
       "description": "Syntyr CSS class (components/data.css)."
     },
     {
+      "name": "syn-step",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-step-detail",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-step-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-steps",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-steps--vertical",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-surface--accent",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -952,12 +1132,37 @@
       "description": "Syntyr CSS class (components/data.css)."
     },
     {
+      "name": "syn-table--compact",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-table--sticky",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-table--striped",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
       "name": "syn-table-emphasis",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
     },
     {
+      "name": "syn-table-sort",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
       "name": "syn-table-wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-table-wrap--scroll",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
     },
@@ -1264,6 +1469,11 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-avatar-size",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS property (components/patterns.css)."
+    },
+    {
       "name": "--syn-bg",
       "module": "tokens.css",
       "description": "Theme background."
@@ -1487,6 +1697,51 @@
       "name": "--syn-grid-alpha",
       "module": "tokens.css",
       "description": "Grid-line accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-grid-density-pad-inline",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-density-row-block",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-edge",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-focus",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-hover",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-muted",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-pad-inline",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-row-block",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-selected",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
     },
     {
       "name": "--syn-horizon-alpha",

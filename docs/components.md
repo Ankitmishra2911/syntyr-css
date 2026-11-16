@@ -2,7 +2,7 @@
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
-Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
+Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
 
 ## Loading and scoping
 
@@ -27,6 +27,14 @@ For Pico-like semantic markup, add the optional file **after** core and mark the
   </article>
 </section>
 ```
+
+Use `article` only for genuinely self-contained content; to draw a visual
+card around a generic region use `.syn-panel` on the appropriate native
+element. Use `fieldset` + `legend` to name control groups. In semantic mode
+the default form layout applies to *unclassed* `form` (or explicit
+`data-syn-semantic`), while `.syn-form` and application-owned classes retain
+their separate styling contract. Use `label` rather than placeholders to name
+inputs, and always give buttons a deliberate `type`.
 
 Class-based components, recipes, effects, and geometry apply only to elements
 inside a Syntyr root, including classes attached directly to the root itself.
@@ -53,6 +61,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
 | Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--nowrap`, `.syn-cell--numeric` | unclassed `table` |
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
+| Workflow (unreleased) | `.syn-steps`, `.syn-step`, `.syn-steps--vertical` | ordered `<ol>` and `aria-current="step"` |
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
 
@@ -100,6 +109,89 @@ For component-level package imports and optional native UI recipes, see
 The implicit `.syn-root` palette is Studio (light and sans-serif). Explicit `data-syn-theme="grid"` and `data-syn-theme="terminal"` retain technical monospace presentation; other themes remain opt-in. `.syn-panel` and `.syn-stage` are flat by default; add `syn-surface--accent` from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. `.syn-badge` is a neutral label; use `.syn-status` with readable status text for meaningful state, or `.syn-badge--accent` to emphasize a badge.
 
 Use `.syn-section-heading` between `.syn-heading` and `.syn-display`. Table content wraps by default for better readability in narrow regions, including long text. Apply `.syn-cell--nowrap` to identifiers or short labels that must stay on one line; `.syn-cell--numeric` also preserves no-wrap numeric alignment. `.syn-cell--wrap` remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside `.syn-table-wrap` with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with `tabindex="0"`, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.
+
+For large server-rendered tables, see the [enterprise tables guide](data-tables.html) and [static example](../examples/data-tables.html). Sorting and filtering remain application responsibilities.
+
+## Native HTML elements (optional semantic mode)
+
+Syntyr styles common HTML primitives within `.syn-root.syn-semantic` or a `.syn-semantic` subtree of `.syn-root`. Load `syntyr.semantic.css` **after** `syntyr.core.css`. Without the semantic stylesheet and scope, ordinary HTML remains untouched.
+
+| Native elements | Included presentation |
+| --- | --- |
+| `ul`, `ol`, `menu`, `li`, `dl`, `dt`, `dd` | List spacing, preserved native markers, definition terms |
+| `h5`, `h6`, `small`, `abbr[title]`, `address` | Heading depth, readable captions, abbreviations, contact text |
+| `pre`, `code`, `kbd`, `samp`, `mark` | Scrollable code, keyboard hints, sample output, contrast-safe highlights |
+| `figure`, `figcaption`, `img`, `video`, `audio` | Captions and width-constrained media; intrinsic image/video proportions |
+| `table`, `caption`, `progress`, `meter`, `output` | Data captions and native browser indicators |
+| `input[type=file]`, `input[type=color]` | Native chooser controls with theme-aware surfaces |
+| `details`, `summary`, `dialog`, `[popover]` | Browser-owned disclosure, top-layer behavior and dismissal |
+
+The selectors style **unclassed elements only**, or elements explicitly marked `data-syn-semantic`. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.
+
+For a copyable page covering the additions, see [native HTML element examples](../examples/native-elements.html). The `commandfor` / `command="show-modal"` dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.
+
+```html
+<link rel="stylesheet" href="syntyr.core.css">
+<link rel="stylesheet" href="syntyr.semantic.css">
+<main class="syn-root syn-semantic">
+  <dl><dt>Availability</dt><dd>12 active screens</dd></dl>
+  <figure><img src="/assets/preview.svg" alt="Campaign preview">
+    <figcaption>Proof-of-posting image</figcaption>
+  </figure>
+  <label for="fill">Capacity</label>
+  <progress id="fill" value="12" max="20">12 of 20</progress>
+</main>
+```
+
+## Additional common UI elements and semantic HTML
+
+The optional `syntyr.semantic.css` now covers the presentation-relevant
+`hgroup`, `time`, `data`, `cite`, `dfn`, `var`, `q`, `ins`, `del`,
+`picture`, `iframe`, `canvas`, and `svg` elements, plus native
+`select[multiple]` and `textarea` without a `rows` attribute.
+These styles apply only to unclassed elements inside `.syn-semantic` or to
+elements with `data-syn-semantic`. Existing semantics, quotes, change
+markings, media aspect ratios, and browser controls remain intact.
+
+Elements like `bdi`, `bdo`, `ruby`, `rt`, `rp`, `wbr`, `template`,
+`slot`, `option`, and `datalist` deliberately use native browser behavior.
+Structural landmarks, `script`, and metadata do not need cosmetic component
+APIs. **Not every HTML element benefits from a CSS reset.**
+
+The core CSS adds these intentionally small presentation compositions:
+
+| CSS API | Use case | Behavior |
+| --- | --- | --- |
+| `.syn-avatar`, `--sm`, `--lg`, `.syn-avatar-stack` | User or organization identities | Image or initials; decorative stack labels need a separate accessible group label |
+| `.syn-chip` | Filter/category labels | Static or native anchor/button; `data-syn-state="active"` only changes visuals |
+| `.syn-nav-tabs` | Section navigation | Ordinary links with `aria-current="page"`; **not** JavaScript tabs or tabpanels |
+| `.syn-list-group`, `.syn-list-row` | Settings, destinations, item lists | Native list semantics; rows may contain anchors; `aria-current="page"` for current destination |
+| `.syn-button-group` | Adjacent actions | Flexbox composition of real links/buttons; no artificial event handling |
+| `.syn-divider-label` | Labeled separator | Decorative rules before/after actual text |
+| `.syn-alert--success`, `.syn-alert--warning` | Notices | Extend existing `.syn-alert`; always include readable status/warning text |
+
+Try the [CSS-only common UI example](../examples/common-ui.html) and the
+[existing native elements example](../examples/native-elements.html).
+
+```html
+<nav class="syn-nav-tabs" aria-label="Account sections">
+  <ul>
+    <li><a href="/settings" aria-current="page">Settings</a></li>
+    <li><a href="/billing">Billing</a></li>
+  </ul>
+</nav>
+<ul class="syn-list-group" aria-label="Team members">
+  <li><span class="syn-list-row"><span class="syn-avatar" aria-hidden="true">JD</span>Jane Doe</span></li>
+</ul>
+<p class="syn-alert syn-alert--warning">Review changes before publishing.</p>
+```
+
+Choose `aria-current="page"` only for real navigation state; do not use
+`role="tab"` without implementing the WAI-ARIA keyboard and panel behavior.
+Use `role="status"` or `role="alert"` only for genuinely dynamic
+announcements, not because a box has a particular color. More complex
+interactions (autocomplete, rich text editor, sortable tables, custom menus,
+toast lifecycles) belong to the host app, not a CSS runtime.
 
 ## Theme tokens
 
@@ -234,3 +326,38 @@ The optional [design-state example](../examples/design-states.html) exercises ac
 System-aware `data-syn-theme="auto"` is built into core CSS. Use optional
 `syntyr.print.css` for printable reports and the
 [progressive-enhancement guide](progressive-enhancement.md) for fallbacks.
+
+### Workflow steps (source candidate only)
+
+Use the core CSS module with native ordered-list semantics. Wrap the list in a
+`.syn-region` **ancestor** for a horizontal layout at wide *container* widths;
+the narrow presentation is vertical. Use `.syn-steps--vertical` to keep a
+vertical layout at every width.
+
+```html
+<section class="syn-root syn-region" data-syn-theme="studio">
+  <h2>Workspace setup</h2>
+  <ol class="syn-steps" role="list" aria-label="Workspace setup progress">
+    <li class="syn-step" data-syn-state="complete">
+      <span class="syn-step-label">Account created (complete)</span>
+    </li>
+    <li class="syn-step" aria-current="step">
+      <span class="syn-step-label">Configure workspace (current step)</span>
+    </li>
+    <li class="syn-step"><span class="syn-step-label">Invite team (not started)</span></li>
+  </ol>
+</section>
+```
+
+Use `aria-current="step"` on exactly the current step. The application must
+supply completed/error state text; `data-syn-state="complete|error"` is only a
+presentation hook, not an ARIA state. Numbered circles and connectors are
+decorative; the real ordered list and labels convey order and meaning. Preserve
+`role="list"` for list semantics in Safari when CSS removes list markers.
+Never use colors alone to communicate completion or failure. CSS cannot
+implement step navigation, eligibility checks or server-side transitions.
+Long step descriptions and translated text keep numbered markers aligned at the
+block start so vertical connectors do not cross the marker or its numeral.
+
+See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
+are not included in the published immutable alpha.4 release.

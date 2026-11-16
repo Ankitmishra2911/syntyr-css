@@ -42,7 +42,7 @@
       color: var(--syn-accent); background: var(--syn-accent-soft);
     }
     &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
-    &.syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
+    &.syn-workspace { width: 100%; min-width: 0; overflow-wrap: anywhere; padding: clamp(1rem, 3vw, 2.5rem); }
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
     &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
     &.syn-app-card {
@@ -71,6 +71,57 @@
     &.syn-filter-actions {
       display: flex; align-items: center; flex-wrap: wrap;
       gap: var(--syn-space-1); min-inline-size: 0;
+    }
+
+    /* Collection workspaces: combine with existing syn-filter-bar and syn-detail-layout.
+       No simulated selection, filtering or persistence behavior is implied. */
+    &.syn-collection-toolbar {
+      display: flex; flex-wrap: wrap; align-items: end;
+      justify-content: space-between; gap: var(--syn-space-2);
+      min-inline-size: 0; margin-block-end: var(--syn-space-2);
+    }
+    &.syn-collection-toolbar > :where(form, .syn-filter-bar) {
+      flex: 1 1 20rem; min-inline-size: min(100%, 20rem);
+    }
+    &.syn-collection-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: var(--syn-space-1); min-inline-size: 0;
+    }
+    &.syn-bulk-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--syn-space-2);
+      padding: var(--syn-space-2); min-inline-size: 0;
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+    }
+    /* Opt-in row density, never a global table override. */
+    &.syn-table--compact :where(th, td) { padding-block: .375rem; padding-inline: .5rem; }
+    &.syn-result-state {
+      padding: clamp(1rem, 3vw, 2rem); min-inline-size: 0;
+      border: 1px dashed var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-result-state > :first-child { margin-block-start: 0; }
+    &.syn-result-state > :last-child { margin-block-end: 0; }
+    /* Link each summary item to a field id; the server supplies actual errors
+       and must manage focus after a failed POST. */
+    &.syn-error-summary {
+      padding: var(--syn-space-3); margin-block-end: var(--syn-space-3);
+      border: 1px solid var(--syn-danger);
+      border-inline-start: 4px solid var(--syn-danger);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-error-summary > :first-child { margin-block-start: 0; }
+    &.syn-error-summary > :last-child { margin-block-end: 0; }
+    &.syn-error-summary a { color: var(--syn-text); text-decoration: underline; text-decoration-color: var(--syn-danger); text-underline-offset: .2em; }
+    &.syn-error-summary:focus-visible { outline: 3px solid var(--syn-focus-ring); outline-offset: 2px; }
+    @media (forced-colors: active) {
+      &.syn-error-summary, &.syn-result-state, &.syn-bulk-actions { border-color: CanvasText; }
     }
 
     /* Native pipeline view: horizontal scroll only on the board, not the page.
@@ -286,7 +337,7 @@
     /* An ordered activity stream: markers and lines are decoration, text is truth. */
     &.syn-activity-timeline { margin: 0; padding: 0; list-style: none; }
     &.syn-activity-timeline > li {
-      position: relative; padding: 0 0 var(--syn-space-3) 1.75rem; min-width: 0;
+      position: relative; padding: 0 0 var(--syn-space-3) 1.75rem; min-width: 0; overflow-wrap: anywhere;
     }
     &.syn-activity-timeline > li:last-child { padding-block-end: 0; }
     &.syn-activity-timeline > li::before {
