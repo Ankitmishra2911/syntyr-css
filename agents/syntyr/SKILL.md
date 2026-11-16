@@ -51,11 +51,14 @@ Syntyr server, JavaScript runtime, npm installation, or network access is requir
 If the Syntyr source checkout is available, run:
 
 ```sh
+python3 scripts/syntyr_cli.py check --project /path/to/project --format json path/to/page.html
+# Alternatively, without the experimental CLI:
 python3 scripts/syntyr_agent.py check --project /path/to/project --json path/to/page.html
 ```
 
 The optional checker verifies pinned CSS integrity and **literal `.html`**
-selectors and state values. Exit code 1 means errors; 2 means validation is
+selectors and state values. JSX/TSX/Vue/Svelte receive advisory literal
+opening-tag class checks only; they are never reported as fully verified. Exit code 1 means errors; 2 means validation is
 incomplete (such as JSX/TSX), not success. Without the source checkout, use
 `references/api.json` and the actual installed CSS to verify selectors.
 React/Vue/Svelte and dynamic templates require framework-aware lint and real

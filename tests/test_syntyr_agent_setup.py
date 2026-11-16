@@ -112,7 +112,8 @@ class AgentSetupTests(unittest.TestCase):
             page = project / 'page.tsx'
             page.write_text('<main className="syn-root syn-no-such-class"></main>')
             result = self.run_cli('check', '--project', project, '--json', page)
-            self.assertEqual(result.returncode, 2)
+            self.assertEqual(result.returncode, 1)  # Literal selector error detected, still not fully parsed.
+            self.assertIn('unknown-class', [d['code'] for d in json.loads(result.stdout)['diagnostics']])
             self.assertEqual(json.loads(result.stdout)['unchecked_files'], [str(page)])
 
 

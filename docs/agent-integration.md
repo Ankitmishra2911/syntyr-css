@@ -27,7 +27,9 @@ It runs from a Syntyr source checkout and does **not** install any application
 runtime dependencies, connect to services, or publish a package:
 
 ```sh
-python3 scripts/syntyr_agent.py init --project /path/to/my-app --json
+python3 scripts/syntyr_cli.py init --project /path/to/my-app --format json
+python3 scripts/syntyr_cli.py check --project /path/to/my-app --format json /path/to/my-app/page.html
+# The source-checkout helper remains available without the experimental CLI:
 python3 scripts/syntyr_agent.py check --project /path/to/my-app --json /path/to/my-app/page.html
 ```
 
@@ -49,9 +51,12 @@ appear in an alpha.4 reference.
 `check` validates the installed CSS asset hashes and literal `.html` files
 against that project's pinned release, returning structured, source-located
 JSON diagnostics. Its exit codes are **0** for checked and error-free HTML,
-**1** for errors, and **2** for incomplete coverage (for example, JSX/TSX or
-no HTML files). It is not a React/Vue/Svelte parser or a browser accessibility
-test. Generated CSS assets are not proof that the app has actually imported
+**1** for errors, and **2** for incomplete coverage (for example, JSX/TSX/Vue/Svelte
+or no HTML files). The first framework-aware layer reports static selector
+errors inside literal JSX/Vue/Svelte opening tags, but it deliberately leaves
+these files unverified: dynamic bindings and actual framework syntax require
+proper parsers and browser tests. It is not a React/Vue/Svelte parser or a
+browser accessibility test. Generated CSS assets are not proof that the app has actually imported
 them. The separate local MCP adapter remains available for smaller markup
 fragments and interactive catalog queries.
 

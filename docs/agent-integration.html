@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that generate HTML or framework markup. No Syntyr-specific service, account, MCP…">
-  <meta name="syntyr-source-sha256" content="8d9f9ce876e561034ce1416dc75149401d4aabe8eb33d308a9a7e0a073c672ac">
+  <meta name="syntyr-source-sha256" content="cc77d748e5fc8f6180719ff0632dd805b3e39d231f11b0e34dd171424716b521">
   <meta name="theme-color" content="#f5f7fb">
   <title>Using Syntyr with coding agents — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-integration">
@@ -55,7 +55,9 @@
 release-pinned CSS, and a small verified selector reference into an existing app.
 It runs from a Syntyr source checkout and does <strong>not</strong> install any application
 runtime dependencies, connect to services, or publish a package:</p>
-<pre><code class="language-sh">python3 scripts/syntyr_agent.py init --project /path/to/my-app --json
+<pre><code class="language-sh">python3 scripts/syntyr_cli.py init --project /path/to/my-app --format json
+python3 scripts/syntyr_cli.py check --project /path/to/my-app --format json /path/to/my-app/page.html
+# The source-checkout helper remains available without the experimental CLI:
 python3 scripts/syntyr_agent.py check --project /path/to/my-app --json /path/to/my-app/page.html
 </code></pre>
 <p><code>init</code> defaults to the <strong>published, immutable alpha.4 CSS</strong> and writes
@@ -74,9 +76,12 @@ appear in an alpha.4 reference.</p>
 <p><code>check</code> validates the installed CSS asset hashes and literal <code>.html</code> files
 against that project's pinned release, returning structured, source-located
 JSON diagnostics. Its exit codes are <strong>0</strong> for checked and error-free HTML,
-<strong>1</strong> for errors, and <strong>2</strong> for incomplete coverage (for example, JSX/TSX or
-no HTML files). It is not a React/Vue/Svelte parser or a browser accessibility
-test. Generated CSS assets are not proof that the app has actually imported
+<strong>1</strong> for errors, and <strong>2</strong> for incomplete coverage (for example, JSX/TSX/Vue/Svelte
+or no HTML files). The first framework-aware layer reports static selector
+errors inside literal JSX/Vue/Svelte opening tags, but it deliberately leaves
+these files unverified: dynamic bindings and actual framework syntax require
+proper parsers and browser tests. It is not a React/Vue/Svelte parser or a
+browser accessibility test. Generated CSS assets are not proof that the app has actually imported
 them. The separate local MCP adapter remains available for smaller markup
 fragments and interactive catalog queries.</p>
 <h2 id="optional-local-mcp-adapter">Optional local MCP adapter</h2>

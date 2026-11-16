@@ -18,6 +18,7 @@ if str(ROOT) not in sys.path:
 
 from agent_mcp.catalog import PUBLISHED, RELEASES, SyntyrCatalog  # noqa: E402
 from scripts.syntyr_check import validate_html  # noqa: E402
+from scripts.syntyr_framework_check import check_literal_framework_markup  # noqa: E402
 
 DEFAULT_SHEETS = ('syntyr.core.css', 'syntyr.recipes.css')
 AGENT_PATHS = {
@@ -27,6 +28,7 @@ AGENT_PATHS = {
     'cursor': '.cursor/skills/syntyr',
     'generic': '.agents/skills/syntyr',
 }
+FRAMEWORK_SUFFIXES = {'.jsx', '.tsx', '.vue', '.svelte'}
 SKIP_DIRS = {'.git', '.next', '.nuxt', '.svelte-kit', 'node_modules', 'dist', 'build', 'vendor', '.venv', '.agents', '.claude', '.cursor'}
 
 
@@ -122,9 +124,10 @@ def _check_asset_integrity(project: Path, config: dict, diagnostics: list[dict])
 
 def _html_files(project: Path) -> list[Path]:
     files = []
-    for p in project.rglob('*.html'):
-        if not any(part in SKIP_DIRS for part in p.relative_to(project).parts[:-1]):
-            files.append(p)
+    for p in project.rglob('*'):
+        if p.is_file() and p.suffix.lower() in {'.html', *FRAMEWORK_SUFFIXES}:
+            if not any(part in SKIP_DIRS for part in p.relative_to(project).parts[:-1]):
+                files.append(p)
     return sorted(files)
 
 
@@ -151,6 +154,12 @@ def check(args: argparse.Namespace, catalog: SyntyrCatalog) -> tuple[int, dict]:
     for path in files:
         if not path.is_file():
             diagnostics.append({'file': str(path), 'code': 'missing-input', 'severity': 'error', 'message': 'File does not exist'})
+        elif path.suffix.lower() in FRAMEWORK_SUFFIXES:
+            content = path.read_text(encoding='utf-8')
+            findings = check_literal_framework_markup(content, catalog._validation_contract(release),
+                                                       set(DEFAULT_SHEETS))
+            diagnostics.extend({'file': str(path), **d} for d in findings)
+            unchecked.append(str(path))
         elif path.suffix.lower() != '.html':
             unchecked.append(str(path))
         else:
@@ -163,7 +172,7 @@ def check(args: argparse.Namespace, catalog: SyntyrCatalog) -> tuple[int, dict]:
     return code, {'release': release, 'status': 'errors' if code == 1 else 'incomplete' if code == 2 else 'passed',
                   'checked_files': checked, 'unchecked_files': unchecked,
                   'diagnostics': diagnostics,
-                  'limitations': 'Static literal HTML and pinned file integrity only. CSS inclusion, browser behavior, JSX/TSX/Vue/Svelte, and WCAG require separate verification.'}
+                  'limitations': 'HTML is checked statically. JSX/TSX/Vue/Svelte literal opening-tag checks are advisory and always incomplete; dynamic bindings, actual CSS loading, browser behavior, and WCAG require separate verification.'}
 
 
 def main(argv=None) -> int:
