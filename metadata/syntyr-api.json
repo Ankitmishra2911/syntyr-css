@@ -237,6 +237,11 @@
       "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
+      "name": "syn-choice-card",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-code",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -482,6 +487,11 @@
       "description": "Optional wrapping CRM GET filter form; host applies query parameters."
     },
     {
+      "name": "syn-filter-choices",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-filter-field",
       "module": "recipes.css",
       "description": "Label and control group in an optional CRM filter bar."
@@ -668,6 +678,21 @@
     },
     {
       "name": "syn-list-row",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-list-row__actions",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-list-row__body",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-list-row__media",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
     },
