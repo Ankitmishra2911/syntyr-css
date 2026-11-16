@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="fc505ac9dd13dbb18316c308b27de456f29caa1bf5ef2ea3764b80ed0233db1a">
+  <meta name="syntyr-source-sha256" content="168b334698be38f0930cea0c3b2c4e9efe59a25c2885a48645edf173ce9d3cf0">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -275,6 +275,80 @@ drag-and-drop are <strong>not</strong> CSS components. Start with native <code>s
 needs behavior, use a small headless library or application code with keyboard,
 focus, announcements and tests. Do not introduce a Syntyr JS runtime.
 For native input examples, see <a href="catalog.html">the component catalog</a>.</p>
+<h2 id="native-choices-filters-and-rich-list-rows-alpha5-source-candidate">Native choices, filters and rich list rows (alpha.5 source candidate)</h2>
+<p>These recipes adapt useful shadcn/ui and daisyUI ideas to <strong>native HTML</strong>, without
+copying upstream implementations or requiring a JS widget runtime. They are
+opt-in, scoped under <code>.syn-root</code>, and use the existing theme tokens. See the
+<a href="../examples/native-choice-filter-list.html">standalone demonstration</a>.</p>
+<h3 id="choice-cards">Choice cards</h3>
+<p>Use <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> to give radio/checkbox groups a name.
+<code>.syn-choice-card</code> is a real <code>&lt;label&gt;</code>, not an ARIA radio substitute.
+Compose a responsive layout with existing <code>.syn-grid</code>:</p>
+<pre><code class="language-html">&lt;fieldset class=&quot;syn-fieldset&quot;&gt;
+  &lt;legend&gt;Choose a plan&lt;/legend&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;label class=&quot;syn-choice-card&quot;&gt;
+      &lt;input class=&quot;syn-input&quot; type=&quot;radio&quot; name=&quot;plan&quot; value=&quot;starter&quot; checked&gt;
+      &lt;span&gt;&lt;strong&gt;Starter&lt;/strong&gt;&lt;small&gt;For a small team&lt;/small&gt;&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;syn-choice-card&quot;&gt;
+      &lt;input class=&quot;syn-input&quot; type=&quot;radio&quot; name=&quot;plan&quot; value=&quot;growth&quot;&gt;
+      &lt;span&gt;&lt;strong&gt;Growth&lt;/strong&gt;&lt;small&gt;For a growing team&lt;/small&gt;&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;
+</code></pre>
+<p>Browser-owned <code>:checked</code>, <code>:focus-visible</code> and <code>:disabled</code> drive appearance.
+Keep the actual radio visible and focusable. No manually synchronized
+<code>aria-checked</code> or custom keyboard controller is needed.</p>
+<h3 id="validation-browser-and-server">Validation (browser and server)</h3>
+<p>Native <code>:user-invalid</code> and explicit <code>aria-invalid=&quot;true&quot;</code> already style
+Syntyr inputs and their field label. A server can additionally render
+<code>data-syn-state=&quot;error&quot;</code> on <code>.syn-field</code> to style the field consistently
+before user interaction, without changing browser validity or hiding the error:</p>
+<pre><code class="language-html">&lt;div class=&quot;syn-field&quot; data-syn-state=&quot;error&quot;&gt;
+  &lt;label class=&quot;syn-label&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;
+  &lt;input class=&quot;syn-input&quot; id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot; required
+         aria-invalid=&quot;true&quot; aria-describedby=&quot;email-help email-error&quot;&gt;
+  &lt;p class=&quot;syn-help&quot; id=&quot;email-help&quot;&gt;Use a work email.&lt;/p&gt;
+  &lt;p class=&quot;syn-error&quot; id=&quot;email-error&quot;&gt;Enter a valid email address.&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p>The host must validate on the server, supply real error text, update
+<code>aria-invalid</code>, and announce/focus a submission error summary when appropriate.
+CSS does not create errors, switch ARIA states, or focus controls. Do not hide
+all error text using CSS alone; accessible error content belongs to the host.
+This pattern works without JavaScript.</p>
+<h3 id="native-filter-choices">Native filter choices</h3>
+<p>Use <code>.syn-filter-choices</code> to display a group of <code>.syn-chip</code> labels backed by
+real named radio/checkbox inputs. A wrapping filter group should be inside a
+named fieldset in a normal GET form:</p>
+<pre><code class="language-html">&lt;form action=&quot;/campaigns&quot; method=&quot;get&quot;&gt;
+  &lt;fieldset class=&quot;syn-fieldset&quot;&gt;
+    &lt;legend&gt;Campaign status&lt;/legend&gt;
+    &lt;div class=&quot;syn-filter-choices&quot;&gt;
+      &lt;label class=&quot;syn-chip&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;status&quot; value=&quot;all&quot; checked&gt; All&lt;/label&gt;
+      &lt;label class=&quot;syn-chip&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;status&quot; value=&quot;active&quot;&gt; Active&lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/fieldset&gt;
+  &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Apply filter&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>The radio remains keyboard focusable and contributes to native form submission;
+the filter choice composition visually conceals only its small input and
+exposes <code>focus-visible</code> on the full chip. The server processes the query string.
+HTMX or Datastar may optionally enhance submission, but should preserve the
+HTML action/method fallback. Do not use these controls as faux ARIA tabs.</p>
+<h3 id="rich-collection-rows">Rich collection rows</h3>
+<p>Keep <code>.syn-list-group</code> and <code>.syn-list-row</code>. Optionally compose
+<code>.syn-list-row__media</code>, <code>.syn-list-row__body</code> and <code>.syn-list-row__actions</code>
+for an avatar, multiline description and an action cluster.
+When a row contains multiple actions, use a <strong>noninteractive</strong> <code>&lt;li&gt;</code> wrapper
+with independent links/buttons. Never nest interactive controls inside a row
+that is itself an <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code>. Actions wrap on narrow containers and
+RTL follows logical margin properties.</p>
+<p>All four patterns inherit theme and density tokens. Validate keyboard focus,
+forced colors, mobile overflow, and actual server form behavior in consumers.</p>
 <h2 id="neutral-first-visual-styling">Neutral-first visual styling</h2>
 <p>The implicit <code>.syn-root</code> palette is Studio (light and sans-serif). Explicit <code>data-syn-theme=&quot;grid&quot;</code> and <code>data-syn-theme=&quot;terminal&quot;</code> retain technical monospace presentation; other themes remain opt-in. <code>.syn-panel</code> and <code>.syn-stage</code> are flat by default; add <code>syn-surface--accent</code> from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. <code>.syn-badge</code> is a neutral label; use <code>.syn-status</code> with readable status text for meaningful state, or <code>.syn-badge--accent</code> to emphasize a badge.</p>
 <p>Use <code>.syn-section-heading</code> between <code>.syn-heading</code> and <code>.syn-display</code>. Table content wraps by default for better readability in narrow regions, including long text. Apply <code>.syn-cell--nowrap</code> to identifiers or short labels that must stay on one line; <code>.syn-cell--numeric</code> also preserves no-wrap numeric alignment. <code>.syn-cell--wrap</code> remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside <code>.syn-table-wrap</code> with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with <code>tabindex=&quot;0&quot;</code>, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.</p>
@@ -625,6 +699,11 @@ are not included in the published immutable alpha.4 release.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#components">Components</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#optional-composition-utilities-and-component-overrides">Optional composition utilities and component overrides</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#standard-low-entropy-component-inventory">Standard low-entropy component inventory</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-choices-filters-and-rich-list-rows-alpha5-source-candidate">Native choices, filters and rich list rows (alpha.5 source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#choice-cards">Choice cards</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#validation-browser-and-server">Validation (browser and server)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#native-filter-choices">Native filter choices</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#rich-collection-rows">Rich collection rows</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#neutral-first-visual-styling">Neutral-first visual styling</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-html-elements-optional-semantic-mode">Native HTML elements (optional semantic mode)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#additional-common-ui-elements-and-semantic-html">Additional common UI elements and semantic HTML</a>
