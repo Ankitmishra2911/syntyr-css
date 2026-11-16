@@ -30,7 +30,7 @@
 - [Searchable, copyable component catalog](docs/catalog.html)
 - [Shared design principles, component-state matrix and native composition patterns](docs/design-principles.md) ([contrast audit](scripts/design_conformance.py))
 - [Canonical DESIGN.md contract](DESIGN.md): Google-compatible Studio tokens generated from CSS, component states, accessibility rules, and AI implementation guidance ([sync/check tool](scripts/sync_design_md.py)).
-- [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md)
+- [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md) (includes optional offline `init`/`check` CLI for portable consumer Skills and version-pinned HTML validation)
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
 - [Optional local read-only MCP server](agent_mcp/README.md) (separate Python SDK, no CSS runtime dependency)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
