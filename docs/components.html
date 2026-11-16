@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="94707a7b668fe07c11bc3f4ddbf67e6a5eb46aa782d51a2c3782fd18ec8ad2b7">
+  <meta name="syntyr-source-sha256" content="fc505ac9dd13dbb18316c308b27de456f29caa1bf5ef2ea3764b80ed0233db1a">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -183,6 +183,98 @@ or use the <a href="editor-integration.html">editor integration instructions</a>
 <p>Use native button <code>popovertarget=&quot;id&quot;</code> to control a popover and <code>commandfor=&quot;id&quot; command=&quot;show-modal&quot;</code> to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.</p>
 <p>For component-level package imports and optional native UI recipes, see
 <a href="native-patterns.html">native patterns</a>.</p>
+<h2 id="standard-low-entropy-component-inventory">Standard low-entropy component inventory</h2>
+<p><strong>Standard does not mean a CSS class for every HTML element.</strong> Use
+<code>syntyr.core.css</code> for explicitly classed components and
+<code>syntyr.semantic.css</code> with <code>.syn-semantic</code> for native, unclassed elements.
+Both are standard supported surfaces in the alpha.5 source candidate;
+the semantic file is intentionally optional to avoid restyling host apps.
+The browser supplies state/validation/focus behavior. This is the baseline
+inventory of everyday UI needs, not an assertion that CSS implements
+application-specific interactions.</p>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Standard native-first implementation</th>
+<th>Delivery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text and search</td>
+<td>Labeled <code>input</code> (<code>text</code>, <code>search</code>, <code>email</code>, <code>password</code>, <code>tel</code>, <code>url</code>, <code>number</code>), <code>textarea</code>, <code>datalist</code></td>
+<td><code>.syn-input</code>, <code>.syn-textarea</code>, <code>.syn-field</code>; native <code>datalist</code></td>
+</tr>
+<tr>
+<td>Date and time</td>
+<td>Native <code>date</code>, <code>time</code>, <code>datetime-local</code>, <code>month</code>, <code>week</code> inputs</td>
+<td><code>.syn-input</code>; system picker remains browser-owned</td>
+</tr>
+<tr>
+<td>Choice controls</td>
+<td>Native <code>select</code>/<code>optgroup</code>, multiple select, checkbox, radio; <code>fieldset</code> + <code>legend</code></td>
+<td><code>.syn-select</code>, <code>.syn-check</code>, <code>.syn-fieldset</code>; no custom select implementation</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>Native <code>input type=&quot;range&quot;</code></td>
+<td><code>.syn-input</code> with browser thumb and <code>accent-color</code></td>
+</tr>
+<tr>
+<td>File upload</td>
+<td>Native <code>input type=&quot;file&quot;</code></td>
+<td><code>.syn-input</code> with native file-selector button</td>
+</tr>
+<tr>
+<td>Color picker</td>
+<td>Native <code>input type=&quot;color&quot;</code></td>
+<td><code>.syn-input</code> with browser color chooser</td>
+</tr>
+<tr>
+<td>Buttons and actions</td>
+<td><code>button</code>, <code>a</code>, submit/reset, <code>aria-pressed</code> when application-managed</td>
+<td><code>.syn-button</code>, <code>.syn-button-group</code>, <code>.syn-chip</code></td>
+</tr>
+<tr>
+<td>Data and progress</td>
+<td><code>table</code> with headers/caption, <code>progress</code>, <code>meter</code>, <code>output</code>, <code>dl</code></td>
+<td><code>.syn-table</code>, <code>.syn-meter</code> on <code>progress</code>; native <code>meter</code>/<code>output</code> in semantic mode</td>
+</tr>
+<tr>
+<td>Disclosure and overlays</td>
+<td><code>details</code>/<code>summary</code>, <code>dialog</code>, <code>[popover]</code>, native invoker attributes</td>
+<td><code>.syn-details</code>, <code>.syn-dialog</code>, <code>.syn-popover</code></td>
+</tr>
+<tr>
+<td>Navigation</td>
+<td><code>nav</code>, anchor links, ordered breadcrumbs, pagination, page-link tabs</td>
+<td><code>.syn-breadcrumbs</code>, <code>.syn-pagination</code>, <code>.syn-nav-tabs</code>, <code>.syn-list-group</code></td>
+</tr>
+<tr>
+<td>Feedback and loading</td>
+<td>Textual alerts/status, native <code>progress</code>, static skeleton, empty state</td>
+<td><code>.syn-alert</code>, <code>.syn-status</code>, <code>.syn-skeleton</code>, <code>.syn-empty</code></td>
+</tr>
+<tr>
+<td>Media and content</td>
+<td><code>figure</code>/<code>figcaption</code>, <code>picture</code>/<code>img</code>, <code>video</code>/<code>audio</code>, <code>pre</code>/<code>code</code>, <code>kbd</code>, lists, <code>hr</code></td>
+<td>Native semantic mode; <code>.syn-code</code>, <code>.syn-rule</code>, <code>.syn-divider-label</code></td>
+</tr>
+<tr>
+<td>Layout and composition</td>
+<td>Semantic landmarks, <code>section</code>, <code>article</code>, grid, stack, inline, toolbar, panel</td>
+<td><code>.syn-grid</code>, <code>.syn-stack</code>, <code>.syn-inline</code>, <code>.syn-toolbar</code>, <code>.syn-panel</code>, <code>.syn-sidecar</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Application-owned behavior:</strong> A searchable combobox, ARIA tabpanel widget,
+roving-focus menu, sortable/virtualized data grid, notifications queue and
+drag-and-drop are <strong>not</strong> CSS components. Start with native <code>select</code>, links,
+<code>details</code>, <code>dialog</code>, <code>popover</code> or a normal table; when the product really
+needs behavior, use a small headless library or application code with keyboard,
+focus, announcements and tests. Do not introduce a Syntyr JS runtime.
+For native input examples, see <a href="catalog.html">the component catalog</a>.</p>
 <h2 id="neutral-first-visual-styling">Neutral-first visual styling</h2>
 <p>The implicit <code>.syn-root</code> palette is Studio (light and sans-serif). Explicit <code>data-syn-theme=&quot;grid&quot;</code> and <code>data-syn-theme=&quot;terminal&quot;</code> retain technical monospace presentation; other themes remain opt-in. <code>.syn-panel</code> and <code>.syn-stage</code> are flat by default; add <code>syn-surface--accent</code> from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. <code>.syn-badge</code> is a neutral label; use <code>.syn-status</code> with readable status text for meaningful state, or <code>.syn-badge--accent</code> to emphasize a badge.</p>
 <p>Use <code>.syn-section-heading</code> between <code>.syn-heading</code> and <code>.syn-display</code>. Table content wraps by default for better readability in narrow regions, including long text. Apply <code>.syn-cell--nowrap</code> to identifiers or short labels that must stay on one line; <code>.syn-cell--numeric</code> also preserves no-wrap numeric alignment. <code>.syn-cell--wrap</code> remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside <code>.syn-table-wrap</code> with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with <code>tabindex=&quot;0&quot;</code>, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.</p>
@@ -532,6 +624,7 @@ are not included in the published immutable alpha.4 release.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#loading-and-scoping">Loading and scoping</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#components">Components</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#optional-composition-utilities-and-component-overrides">Optional composition utilities and component overrides</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#standard-low-entropy-component-inventory">Standard low-entropy component inventory</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#neutral-first-visual-styling">Neutral-first visual styling</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-html-elements-optional-semantic-mode">Native HTML elements (optional semantic mode)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#additional-common-ui-elements-and-semantic-html">Additional common UI elements and semantic HTML</a>
