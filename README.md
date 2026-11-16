@@ -197,6 +197,32 @@ permissions, availability and map/list synchronization. `data-syn-selected`
 only styles a state already determined by the host; it does not select records.
 See the [complete fictional operations workspace](examples/operations-workspace.html).
 
+### Functional GET-filtered workspace (optional, no client JavaScript)
+
+The [standard-library Python reference server](examples/operations_workspace_server.py)
+adds genuine search, availability/format filters, per-asset URL selection and a
+no-results state to the same CSS composition. Run this from the repository root:
+
+```sh
+python3 scripts/build.py
+python3 examples/operations_workspace_server.py --port 8765
+# Visit http://127.0.0.1:8765/
+python3 -m unittest discover -s tests -p test_operations_workspace_server.py -v
+# Optional browser verification (requires developer-installed Playwright):
+python3 tests/operations_workspace_server_browser.py --browser chromium
+# Optional local axe-core JavaScript for automated WCAG checks (test-only):
+python3 tests/operations_workspace_server_browser.py --browser chromium --axe-file /path/to/axe.min.js
+```
+
+The server only serves three allowlisted local stylesheets and escaped HTML.
+Native GET forms and links work without a JavaScript bundle or framework-specific
+components. **This is a fictional, unauthenticated, localhost-only reference**;
+it does not implement authorization, tenanted data, map geography, live bookings
+or financial transactions. A production application must supply those services
+and enforce access permissions on every request. The browser smoke checks
+filtering, selection, empty results and viewport overflow, but does not replace
+manual screen-reader, high-zoom or cross-browser accessibility evaluation.
+
 ## Modern SaaS, CLI and business websites
 
 Use `data-syn-theme="studio"` for a neutral, professional light theme. Grid and Noir remain available. Themes control color and typography roles; optional `syn-frame--precision`, `syn-frame--industrial` and `syn-frame--soft` classes control visual geometry independently. Add `data-syn-density="compact"` to `.syn-root` or a nested region to tighten control heights, rows, and card padding without shrinking type.
