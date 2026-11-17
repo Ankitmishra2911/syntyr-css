@@ -21,6 +21,17 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Embed inside an existing CMS theme (unreleased alpha.5)
+
+The alpha.5 source builds a separate `dist/syntyr.embed.css` entrypoint
+from the canonical core CSS, removing its outer CSS cascade layers to avoid
+the normal layered-versus-unlayered theme-precedence trap. Load it **instead
+of** `syntyr.core.css` for self-hosted Syntyr sections on WordPress, Shopify,
+Webflow or similar themes. This file is not in published alpha.4 releases;
+the CSS still uses the same `.syn-root` namespace and no runtime JavaScript.
+See the [site-builder integration guide](site-builders.md) for platform limits
+and copyable snippets.
+
 ## Offline SaaS preview in the next release ZIP (unreleased alpha.5)
 
 The alpha.5 source candidate now packages `examples/saas.html` together with
@@ -52,9 +63,62 @@ For a Pico-like HTML workflow, `dist/syntyr.semantic-bundle.css` combines core a
 
 Only the controls and elements inside `.syn-root.syn-semantic` are styled semantically. This is **not** Pico's globally classless behavior: the root scope is deliberate. No script or build tool is required. [See the runnable starter](../examples/semantic-starter.html) and the [Pico migration guide](from-pico.md). **This file is not in the published alpha.4 release** and its `/dist/` URL is not an immutable release asset; pin a released version once alpha.5 is actually published. Do not load `core.css` or `semantic.css` alongside this bundle.
 
+## Single-file presets (experimental alpha.5 source)
+
+Choose one self-contained file and self-host it. There are **no stylesheet
+imports or runtime dependencies**. Each preset includes tokens, core components,
+and scoped opt-in semantic HTML styling:
+
+| Preset | Distribution | When to choose |
+| --- | --- | --- |
+| Minimal | `dist/presets/minimal.css` | Documentation, forms and simple websites |
+| SaaS | `dist/presets/saas.css` | Business sites, dashboards, HTMX/server-rendered apps; explicit `syn-u-*` helpers |
+| Cinematic | `dist/presets/cinematic.css` | Optional Grid/Noir effects, precision frames, native CSS motion |
+
+```html
+<link rel="stylesheet" href="/css/syntyr-saas.css">
+<main class="syn-root syn-semantic" data-syn-theme="studio">
+  <article><h1>Settings</h1><label for="email">Email</label>
+    <input type="email" id="email" required>
+    <button type="button">Preview</button>
+  </article>
+</main>
+```
+
+Only the path is application-defined; copy `dist/presets/saas.css` to match.
+**Do not stack presets** or add core/semantic/recipes CSS already inside a
+preset. Styles are still isolated to `.syn-root`, while bare element styling
+requires `.syn-semantic`. Native dialogs/popovers/forms retain browser behavior;
+Syntyr adds no component runtime. `data-syn-theme` and `--syn-*` custom
+properties remain the theme API in every preset.
+
+Advanced users can keep a single CSS output but omit unused core components
+with the optional, stdlib-only `scripts/build_selective.py --components ...
+--modules ... --output ...` build. That optimization is not a consumer
+requirement and does **not** purge dynamic selectors or minify CSS.
+
+`metadata/css-contract.v1.json` is a machine-readable, deterministic
+**distribution artifact manifest**: it declares preset source order, file
+names, raw/gzip bytes and SHA-256 hashes, together with the library version.
+The `v1` suffix versions the **manifest schema**, not the public CSS API,
+which remains experimental until an explicit v1 release. `build.py --check`
+rejects stale CSS and contract manifests. See [CSS API stability](api-stability.md)
+and [optional visual regression testing](visual-regression.md).
+
+Try the [script-free preset demonstration](../examples/preset-preview.html).
+This is present in the alpha.5 source candidate, **not published alpha.4**.
+
 ## Optional npm/package-manager distribution
 
 A CSS-only `@syntyr/css` manifest is available in the alpha.5 repository candidate, but **it has not been published to npm**. See [package-manager installation and local tarball testing](package-managers.md) for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.
+
+## Optional native animation companion
+
+Syntyr remains CSS-only by default. Applications that need *programmatic* motion
+can separately import `dist/syntyr.animate.mjs` (native Web Animations API and
+IntersectionObserver only). No script is included in core or `syntyr.all.css`.
+See the [animation API guide](animation.md) and the
+[runnable example](../examples/animation.html).
 
 ## Optional themes and semantic HTML
 
@@ -79,6 +143,21 @@ The optional `syntyr.symbols.css` adds BYO-SVG icon sizing, literal Unicode styl
 `syntyr.css` bundles core and effects. `syntyr.all.css` bundles all modules
 while still requiring `.syn-semantic` to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final `syn.utilities` cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see [the architecture policy](../ARCHITECTURE.md).
+
+## Loading contract at a glance
+
+| Goal | Stylesheet choice | Requirement |
+| --- | --- | --- |
+| Explicit components | `syntyr.core.css` | `.syn-root` wraps the component subtree |
+| Plain semantic HTML | `syntyr.semantic-bundle.css` | Add `.syn-semantic` to the scoped root |
+| Some components only | `components/tokens.css`, `components/base.css`, then selected component styles | Keep order; include `forms.css` with `form-composition.css` |
+| Application recipes | `syntyr.core.css` followed by `syntyr.recipes.css` | Use explicitly named recipe classes |
+| All features | `syntyr.all.css` | Never combine with the constituent files |
+
+Avoid combining bundles with their constituent CSS. Each separately imported
+component file intentionally has **no runtime `@import`**; load tokens and base
+first. Use the [intrinsic composition guide](composition-adoption.md) to build
+dashboard layouts without JavaScript or viewport-specific hacks.
 
 ## Optional explicit selective build
 

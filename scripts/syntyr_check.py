@@ -118,7 +118,108 @@ class _SyntyrParser(HTMLParser):
         self.handle_endtag(tag)
 
 
-def validate_html(html: str, contract: dict, *, stylesheets: set[str] | None = None) -> list[dict]:
+class _SemanticParser(HTMLParser):
+    """Opt-in, conservative checks for literal native HTML, not a DOM/ARIA engine."""
+
+    _UNLABELED_INPUT_TYPES = frozenset(("hidden", "submit", "reset", "button", "image"))
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.nodes = []
+        self.stack = []
+
+    def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
+        node = {"tag": tag, "attrs": dict(attrs), "parents": tuple(self.stack),
+                "line": self.getpos()[0], "column": self.getpos()[1] + 1}
+        if tag != "template" and not any(p["tag"] == "template" for p in self.stack):
+            self.nodes.append(node)
+        if tag not in _VOID_TAGS:
+            self.stack.append(node)
+
+    def handle_endtag(self, tag):
+        for i in range(len(self.stack) - 1, -1, -1):
+            if self.stack[i]["tag"] == tag.lower():
+                del self.stack[i:]
+                break
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        self.handle_endtag(tag)
+
+    @staticmethod
+    def _finding(node, code, message, severity="error"):
+        return {"line": node["line"], "column": node["column"],
+                "severity": severity, "code": code, "message": message}
+
+    def findings(self, *, complete_document):
+        result = []
+        ids = {}
+        labels = set()
+        for node in self.nodes:
+            attrs = node["attrs"]
+            identifier = attrs.get("id") or ""
+            if identifier and not _is_dynamic(identifier):
+                if identifier in ids:
+                    result.append(self._finding(node, "duplicate-id",
+                                                f"Duplicate id='{identifier}'."))
+                else:
+                    ids[identifier] = node
+            if node["tag"] == "label":
+                target = attrs.get("for") or ""
+                if target and not _is_dynamic(target):
+                    labels.add(target)
+        for node in self.nodes:
+            tag, attrs = node["tag"], node["attrs"]
+            identifier = attrs.get("id") or ""
+            if tag in ("input", "textarea", "select"):
+                if tag == "input" and (attrs.get("type") or "text").lower() in self._UNLABELED_INPUT_TYPES:
+                    continue
+                # Dynamic templates need language-aware validation after rendering.
+                if any(_is_dynamic(value) for value in (identifier, attrs.get("aria-label") or "",
+                                                        attrs.get("aria-labelledby") or "")):
+                    continue
+                wrapped = any(
+                    parent["tag"] == "label" and (
+                        not parent["attrs"].get("for") or
+                        parent["attrs"].get("for") == identifier
+                    ) for parent in node["parents"])
+                named = wrapped or (identifier and identifier in labels) or (
+                    attrs.get("aria-label") or "").strip() or (
+                    attrs.get("aria-labelledby") or "").strip()
+                if not named:
+                    result.append(self._finding(node, "missing-form-label",
+                                                f"{tag} needs a visible label or accessible name."))
+            if complete_document and tag == "label":
+                target = attrs.get("for") or ""
+                if target and not _is_dynamic(target) and target not in ids:
+                    result.append(self._finding(node, "missing-label-target",
+                                                f"label for='{target}' has no matching id."))
+            if complete_document:
+                for attr in ("aria-labelledby", "aria-describedby"):
+                    references = attrs.get(attr) or ""
+                    if references and not _is_dynamic(references):
+                        for target in references.split():
+                            if target not in ids:
+                                result.append(self._finding(node, "missing-aria-reference",
+                                    f"{attr} references missing id='{target}'."))
+            if tag == "tr" and attrs.get("aria-selected") is not None:
+                table = next((p for p in reversed(node["parents"]) if p["tag"] == "table"), None)
+                if table and table["attrs"].get("role") not in ("grid", "treegrid"):
+                    result.append(self._finding(node, "aria-selected-static-table",
+                        "Ordinary table rows cannot model interactive selection; use "
+                        "data-syn-state for visual highlighting or implement a real grid.", "warning"))
+            if tag == "table" and not attrs.get("aria-label") and not attrs.get("aria-labelledby"):
+                descendants = [n for n in self.nodes if node in n["parents"]]
+                if any(n["tag"] == "th" for n in descendants) and not any(
+                        n["tag"] == "caption" for n in descendants):
+                    result.append(self._finding(node, "table-missing-name",
+                        "Data table has no caption or accessible name; consider a caption.", "warning"))
+        return result
+
+
+def validate_html(html: str, contract: dict, *, stylesheets: set[str] | None = None,
+                  semantic: bool = False) -> list[dict]:
     """Return deterministic diagnostics for literal HTML.
 
     When no Syntyr stylesheet is linked and none is explicitly provided,
@@ -146,6 +247,11 @@ def validate_html(html: str, contract: dict, *, stylesheets: set[str] | None = N
                               f"'{name}' is not in the loaded Syntyr CSS; add {hint}.",
                               line, col, required_stylesheets=sorted(expected),
                               loaded_stylesheets=sorted(loaded))
+    if semantic:
+        inspector = _SemanticParser()
+        inspector.feed(html)
+        inspector.close()
+        parser.diagnostics.extend(inspector.findings(complete_document=parser.complete_document))
     return sorted(parser.diagnostics, key=lambda d: (d["line"], d["column"],
                                                     d["code"] == "missing-stylesheet"))
 
@@ -155,6 +261,8 @@ def main(argv=None) -> int:
     p.add_argument("files", nargs="+", type=Path,
                    help="Static HTML files to check; use - to read HTML from stdin.")
     p.add_argument("--format", choices=("text", "json"), default="text")
+    p.add_argument("--semantic", action="store_true",
+                   help="Additionally lint literal native HTML semantics (conservative; templates need rendered checks).")
     p.add_argument("--stylesheets", action="append", default=None,
                    help="Known loaded Syntyr stylesheets, comma-separated; overrides HTML links.")
     p.add_argument("--contract", type=Path, default=CONTRACT)
@@ -173,7 +281,7 @@ def main(argv=None) -> int:
         results = []
         for file in args.files:
             source = sys.stdin.read() if str(file) == "-" else file.read_text(encoding="utf-8")
-            diagnostics = validate_html(source, contract, stylesheets=configured)
+            diagnostics = validate_html(source, contract, stylesheets=configured, semantic=args.semantic)
             label = "<stdin>" if str(file) == "-" else str(file)
             results += [{"file": label, **diag} for diag in diagnostics]
     except (OSError, UnicodeError, ValueError, KeyError) as exc:
@@ -187,7 +295,7 @@ def main(argv=None) -> int:
                   f"{diag['severity']} [{diag['code']}]: {diag['message']}")
         if not results:
             print(f"OK: {len(args.files)} file(s) checked")
-    return 1 if results else 0
+    return 1 if any(d["severity"] == "error" for d in results) else 0
 
 
 if __name__ == "__main__":

@@ -14,7 +14,7 @@ import sys
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html", "docs/guides.html", "examples/console.html",
+PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html", "docs/guides.html", "docs/design-principles.html", "examples/console.html",
          "examples/resources.html", "examples/pricing.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
@@ -51,6 +51,12 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert "light-dark(" in css, (name, css)
     else:
         assert css in ("#76e7f7", "#f1b574", "#2458c6", "#ffb36b", "#65e8a0", "#155ac8", "#313a45"), (name, css)
+    if name == "examples/native-elements.html" and viewport == 320:
+        # A native file input must not force a semantic fieldset grid track
+        # wider than the viewport. Check the offending region, not only body.
+        fieldset = page.get_by_role("group", name="Native inputs")
+        bounds = fieldset.evaluate("e => ({client: e.clientWidth, scroll: e.scrollWidth})")
+        assert bounds["scroll"] <= bounds["client"] + 1, (name, viewport, bounds)
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
@@ -88,6 +94,16 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert button.is_visible()
         assert button.evaluate('e => getComputedStyle(e).display') in ('flex', 'inline-flex')
         assert page.locator('script').count() == 0
+        assert page.locator('form:not([class])').evaluate(
+            "e => getComputedStyle(e).display") == "grid"
+        assert page.locator('fieldset:not([class])').evaluate(
+            "e => getComputedStyle(e).display") == "grid"
+        assert page.locator('table caption').inner_text() == "Example project inventory"
+        assert page.get_by_role("navigation", name="Page sections").is_visible()
+        summary = page.locator('details > summary').first
+        assert summary.evaluate("e => e.getBoundingClientRect().height") >= 44
+        summary.click()
+        assert page.locator("details").first.get_attribute("open") is not None
     if name == "docs/catalog.html":
         cards = page.locator(".catalog-card")
         total = cards.count()

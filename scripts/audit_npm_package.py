@@ -27,6 +27,14 @@ def expected_files(root: Path) -> dict[str, Path]:
         "package.json", "LICENSE", "README.md",
         "integrations/tailwind/syntyr.theme.css",
         "integrations/shadcn/syntyr.tokens.css",
+        "integrations/headless/interactions.css",
+        "metadata/css-contract.v1.json",
+        "metadata/component-gallery.v1.json",
+        # Opt-in companions are explicitly exported but never required by CSS.
+        "dist/syntyr.animate.mjs",
+        "dist/syntyr.animate.d.mts",
+        "dist/syntyr.copy.mjs",
+        "dist/syntyr.copy.d.mts",
     ) + tuple("dist/" + name for name in all_distributions())
     return {"package/" + name: root / name for name in paths}
 
@@ -92,11 +100,23 @@ def audit_archive(archive: Path, root: Path = ROOT) -> list[str]:
         exports = metadata.get("exports")
         if not isinstance(exports, dict):
             raise ValueError("exports must be an object")
-        for public, target in exports.items():
-            if not isinstance(target, str) or not target.startswith("./"):
+        def verify_export(public: str, target: object) -> None:
+            # Node conditional exports may map types/default to separate files.
+            if isinstance(target, dict) and target:
+                for condition, destination in target.items():
+                    if not isinstance(condition, str) or not condition:
+                        errors.append(f"invalid npm export condition: {public}")
+                        continue
+                    verify_export(f"{public}/{condition}", destination)
+                return
+            if (not isinstance(target, str) or not target.startswith("./") or
+                    "\\" in target or
+                    any(part in ("", ".", "..") for part in target[2:].split("/"))):
                 errors.append(f"invalid npm export target: {public}")
             elif "package/" + target[2:] not in found:
                 errors.append(f"missing npm export target {public}: {target}")
+        for public, target in exports.items():
+            verify_export(public, target)
     except (KeyError, ValueError, TypeError, OSError) as exc:
         errors.append(f"invalid package metadata: {exc}")
     return errors
@@ -134,7 +154,7 @@ def main() -> int:
         for error in errors:
             print(f"FAIL {error}", file=sys.stderr)
         return 1
-    print("PASS npm tarball: complete, source-identical CSS exports; no extra files or runtime code")
+    print("PASS npm tarball: exact allowlist, source-identical CSS and optional JS exports; no unexpected files")
     return 0
 
 

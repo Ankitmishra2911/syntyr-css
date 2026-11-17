@@ -63,6 +63,22 @@ TOKEN_DOCS = {
     "--syn-panel-border-width": "Per-panel border width; defaults to 1px.",
     "--syn-button-padding-inline": "Per-button inline padding; defaults to 1rem.",
     "--syn-button-border-width": "Per-button border width; defaults to 1px.",
+    "--syn-grid-min": "Minimum grid track width; defaults to 17rem.",
+    "--syn-grid-gap": "Grid gap; defaults to 1rem.",
+    "--syn-layout-min": "Minimum layout track width; defaults to 21rem.",
+    "--syn-layout-gap": "Layout gap; defaults to 1.25rem.",
+    "--syn-stack-gap": "Stack gap; defaults to --syn-space-3.",
+    "--syn-inline-gap": "Inline flex gap; defaults to --syn-space-2.",
+    "--syn-kpi-min": "Minimum KPI grid track width; defaults to 13rem.",
+    "--syn-kpi-gap": "KPI grid gap; defaults to --syn-space-2.",
+    "--syn-filter-gap": "Wrapping filter-bar gap; defaults to --syn-space-2.",
+    "--syn-filter-field-min": "Filter field basis and minimum; defaults to 11rem.",
+    "--syn-filter-query-min": "Query field flex basis; defaults to 18rem.",
+    "--syn-detail-gap": "Detail shell gap; defaults to --syn-space-3.",
+    "--syn-detail-main-basis": "Detail main flex basis; defaults to 32rem.",
+    "--syn-detail-main-min": "Detail main minimum width; defaults to 22rem.",
+    "--syn-detail-aside-basis": "Detail aside flex basis; defaults to 17rem.",
+    "--syn-detail-aside-min": "Detail aside minimum width; defaults to 17rem.",
     "--syn-frame-cut": "Shared fallback corner size for optional geometry shapes.",
     "--syn-frame-cut-tl": "Optional top-left frame cut size.",
     "--syn-frame-cut-tr": "Optional top-right frame cut size.",
@@ -81,6 +97,22 @@ EXPLICIT_TOKENS = {
     "--syn-panel-border-width": "components/layout.css",
     "--syn-button-padding-inline": "components/buttons.css",
     "--syn-button-border-width": "components/buttons.css",
+    "--syn-grid-min": "components/layout.css",
+    "--syn-grid-gap": "components/layout.css",
+    "--syn-layout-min": "components/layout.css",
+    "--syn-layout-gap": "components/layout.css",
+    "--syn-stack-gap": "components/layout.css",
+    "--syn-inline-gap": "components/layout.css",
+    "--syn-kpi-min": "recipes.css",
+    "--syn-kpi-gap": "recipes.css",
+    "--syn-filter-gap": "recipes.css",
+    "--syn-filter-field-min": "recipes.css",
+    "--syn-filter-query-min": "recipes.css",
+    "--syn-detail-gap": "recipes.css",
+    "--syn-detail-main-basis": "recipes.css",
+    "--syn-detail-main-min": "recipes.css",
+    "--syn-detail-aside-basis": "recipes.css",
+    "--syn-detail-aside-min": "recipes.css",
     "--syn-frame-cut": "geometry.css",
     "--syn-frame-cut-tl": "geometry.css",
     "--syn-frame-cut-tr": "geometry.css",
@@ -150,6 +182,79 @@ def collect():
     }
 
 
+
+def validate_recipes(recipes, class_stylesheets, attributes):
+    """Check curated multi-part recipes against actual source-discovered CSS.
+
+    Recipes are compositional guidance, never runtime widgets or strict HTML
+    authoring rules. Validation catches stale classes and missing modules.
+    """
+    ids = set()
+    for recipe in recipes:
+        ident = recipe["id"]
+        if not re.fullmatch(r"[a-z][a-z0-9-]*", ident) or ident in ids:
+            raise ValueError(f"invalid or duplicate recipe id: {ident}")
+        ids.add(ident)
+        stylesheet_names = recipe.get("stylesheets")
+        if (not isinstance(stylesheet_names, list) or not stylesheet_names
+                or any(not isinstance(name, str) or not name for name in stylesheet_names)):
+            raise ValueError(f"{ident}: stylesheets must be a nonempty list of strings")
+        stylesheets = set(stylesheet_names)
+        distributions = all_distributions()
+        unknown_stylesheets = stylesheets - set(distributions)
+        if unknown_stylesheets:
+            raise ValueError(f"{ident}: unknown stylesheet: {sorted(unknown_stylesheets)}")
+        if any(name.startswith("components/") for name in stylesheets):
+            supplied_sources = {
+                source for name in stylesheets for source in distributions[name]
+            }
+            if not {"tokens.css", "base.css"}.issubset(supplied_sources):
+                raise ValueError(f"{ident}: component CSS requires tokens and base")
+        if not recipe["description"].strip() or not recipe["host_behavior"].strip():
+            raise ValueError(f"{ident}: missing descriptive or host behavior contract")
+        example = recipe["example"]
+        if not example.startswith("examples/") or ".." in Path(example).parts or not (ROOT / example).is_file():
+            raise ValueError(f"{ident}: example not found: {example}")
+        root = recipe.get("root")
+        if not isinstance(root, dict) or not all(
+            key in root for key in ("tag", "classes")
+        ):
+            raise ValueError(f"{ident}: root requires tag and classes")
+        slots = recipe.get("slots")
+        if not isinstance(slots, list):
+            raise ValueError(f"{ident}: slots must be an array")
+        slot_names = set()
+        for part in slots:
+            if not isinstance(part, dict) or any(
+                key not in part for key in ("name", "tag", "classes", "optional", "repeatable")
+            ) or not isinstance(part.get("name"), str) or not part["name"].strip():
+                raise ValueError(f"{ident}: required slot name, tag, classes and flags")
+            if part["name"] in slot_names:
+                raise ValueError(f"{ident}: duplicate slot: {part['name']}")
+            slot_names.add(part["name"])
+            if not isinstance(part["optional"], bool) or not isinstance(part["repeatable"], bool):
+                raise ValueError(f"{ident}: required slot flags must be booleans")
+        for part in [root] + slots:
+            if not isinstance(part["tag"], str) or not re.fullmatch(r"[a-z][a-z0-9-]*", part["tag"]):
+                raise ValueError(f"{ident}: invalid HTML tag: {part['tag']}")
+            if not isinstance(part["classes"], list) or not part["classes"]:
+                raise ValueError(f"{ident}: slot missing classes")
+            for name in part["classes"]:
+                if name not in class_stylesheets:
+                    raise ValueError(f"{ident}: unknown class: {name}")
+                if not class_stylesheets[name].intersection(stylesheets):
+                    raise ValueError(f"{ident}: class {name} not loaded by {sorted(stylesheets)}")
+        variants = recipe.get("variants", {})
+        if not isinstance(variants, dict):
+            raise ValueError(f"{ident}: variants must be an object")
+        for attribute, values in variants.items():
+            if (not isinstance(values, list) or not values
+                    or any(not isinstance(value, str) for value in values)):
+                raise ValueError(f"{ident}: variant {attribute} requires a nonempty list of strings")
+            if attribute not in attributes or not set(values).issubset(attributes[attribute]):
+                raise ValueError(f"{ident}: unsupported variant {attribute}: {values}")
+
+
 def component_contract(api, html_data):
     """Full source-discovered inventory plus curated semantic component recipes.
 
@@ -176,6 +281,16 @@ def component_contract(api, html_data):
             for item in items
         ]
 
+    attributes = {
+        attribute["name"]: [value["name"] for value in attribute["values"]]
+        for attribute in html_data["globalAttributes"]
+        if attribute["name"].startswith("data-syn-") and "values" in attribute
+    }
+    class_stylesheets = {
+        item["name"]: set(item["stylesheets"]) for item in with_stylesheets(api["classes"])
+    }
+    validate_recipes(curated.get("recipes", []), class_stylesheets, attributes)
+
     return {
         "schema_version": 1,
         "source_version": (ROOT / "VERSION").read_text(encoding="utf-8").strip(),
@@ -185,12 +300,9 @@ def component_contract(api, html_data):
         "classes": with_stylesheets(api["classes"]),
         "tokens": with_stylesheets(api["tokens"]),
         "themes": api["themes"],
-        "attributes": {
-            attribute["name"]: [value["name"] for value in attribute["values"]]
-            for attribute in html_data["globalAttributes"]
-            if attribute["name"].startswith("data-syn-") and "values" in attribute
-        },
+        "attributes": attributes,
         "components": curated["components"],
+        "recipes": curated.get("recipes", []),
     }
 
 
@@ -209,6 +321,8 @@ def outputs():
              "values": [{"name": name} for name in ("quiet", "standard", "cinematic")]},
             {"name": "data-syn-density", "description": "Opt-in presentation density.",
              "values": [{"name": name} for name in ("compact", "comfortable", "spacious")]},
+            {"name": "data-syn-color-space", "description": "Experimental opt-in OKLCH hover mixing; default remains sRGB.",
+             "values": [{"name": "oklch"}]},
             {"name": "data-syn-state", "description": "Host-managed decorative state, not an ARIA substitute.",
              "values": [{"name": name} for name in source_state_values()]},
             {"name": "data-syn-featured", "description": "Decorative featured pricing card state."},

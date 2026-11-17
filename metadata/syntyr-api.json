@@ -27,6 +27,16 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-alert--success",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-alert--warning",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
       "name": "syn-app-card",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -75,6 +85,26 @@
       "name": "syn-atmosphere",
       "module": "effects.css",
       "description": "Syntyr CSS class (effects.css)."
+    },
+    {
+      "name": "syn-avatar",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-avatar--lg",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-avatar--sm",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-avatar-stack",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
       "name": "syn-badge",
@@ -130,6 +160,11 @@
       "name": "syn-button--small",
       "module": "components/buttons.css",
       "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
+      "name": "syn-button-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
       "name": "syn-caption",
@@ -197,6 +232,16 @@
       "description": "Syntyr CSS class (components/forms.css)."
     },
     {
+      "name": "syn-chip",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-choice-card",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-code",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -257,6 +302,76 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-data-grid",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__cell",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__cell--numeric",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__cell-text",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__columnheader",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__editor",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__footer",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__header",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__header-row",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__loading",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__row",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__status",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__toolbar",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
+      "name": "syn-data-grid__viewport",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css)."
+    },
+    {
       "name": "syn-defer-section",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -295,6 +410,101 @@
       "name": "syn-display",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-divider-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-email-body",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-code",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-compose",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-inbox",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-item",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-layout",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-main",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-message",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-message-header",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-meta",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-preferences",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-preview",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-recipient-list",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-sidebar",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-signup",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-subject",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-time",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
+    },
+    {
+      "name": "syn-email-workspace",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css)."
     },
     {
       "name": "syn-empty",
@@ -365,6 +575,11 @@
       "name": "syn-filter-bar",
       "module": "recipes.css",
       "description": "Optional wrapping CRM GET filter form; host applies query parameters."
+    },
+    {
+      "name": "syn-filter-choices",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
       "name": "syn-filter-field",
@@ -547,6 +762,31 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-list-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-list-row",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-list-row__actions",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-list-row__body",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-list-row__media",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
       "name": "syn-logo",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -575,6 +815,11 @@
       "name": "syn-nav",
       "module": "components/layout.css",
       "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
+      "name": "syn-nav-tabs",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
       "name": "syn-page",
@@ -762,6 +1007,11 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-sidecar",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css)."
+    },
+    {
       "name": "syn-site-heading",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -927,12 +1177,32 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-table--sticky",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-table--striped",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
       "name": "syn-table-emphasis",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
     },
     {
+      "name": "syn-table-sort",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
       "name": "syn-table-wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css)."
+    },
+    {
+      "name": "syn-table-wrap--scroll",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
     },
@@ -1239,6 +1509,11 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-avatar-size",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS property (components/patterns.css)."
+    },
+    {
       "name": "--syn-bg",
       "module": "tokens.css",
       "description": "Theme background."
@@ -1344,6 +1619,31 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-detail-aside-basis",
+      "module": "recipes.css",
+      "description": "Detail aside flex basis; defaults to 17rem."
+    },
+    {
+      "name": "--syn-detail-aside-min",
+      "module": "recipes.css",
+      "description": "Detail aside minimum width; defaults to 17rem."
+    },
+    {
+      "name": "--syn-detail-gap",
+      "module": "recipes.css",
+      "description": "Detail shell gap; defaults to --syn-space-3."
+    },
+    {
+      "name": "--syn-detail-main-basis",
+      "module": "recipes.css",
+      "description": "Detail main flex basis; defaults to 32rem."
+    },
+    {
+      "name": "--syn-detail-main-min",
+      "module": "recipes.css",
+      "description": "Detail main minimum width; defaults to 22rem."
+    },
+    {
       "name": "--syn-duration-fast",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
@@ -1362,6 +1662,21 @@
       "name": "--syn-ease-enter",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-filter-field-min",
+      "module": "recipes.css",
+      "description": "Filter field basis and minimum; defaults to 11rem."
+    },
+    {
+      "name": "--syn-filter-gap",
+      "module": "recipes.css",
+      "description": "Wrapping filter-bar gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-filter-query-min",
+      "module": "recipes.css",
+      "description": "Query field flex basis; defaults to 18rem."
     },
     {
       "name": "--syn-fluid-display-size",
@@ -1464,9 +1779,89 @@
       "description": "Grid-line accent share; varies by scoped data-syn-intensity."
     },
     {
+      "name": "--syn-grid-density-pad-inline",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-density-row-block",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-edge",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-focus",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-gap",
+      "module": "components/layout.css",
+      "description": "Grid gap; defaults to 1rem."
+    },
+    {
+      "name": "--syn-grid-hover",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-min",
+      "module": "components/layout.css",
+      "description": "Minimum grid track width; defaults to 17rem."
+    },
+    {
+      "name": "--syn-grid-muted",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-pad-inline",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-row-block",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-selected",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
       "name": "--syn-horizon-alpha",
       "module": "tokens.css",
       "description": "Horizon line accent share."
+    },
+    {
+      "name": "--syn-inline-gap",
+      "module": "components/layout.css",
+      "description": "Inline flex gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-kpi-gap",
+      "module": "recipes.css",
+      "description": "KPI grid gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-kpi-min",
+      "module": "recipes.css",
+      "description": "Minimum KPI grid track width; defaults to 13rem."
+    },
+    {
+      "name": "--syn-layout-gap",
+      "module": "components/layout.css",
+      "description": "Layout gap; defaults to 1.25rem."
+    },
+    {
+      "name": "--syn-layout-min",
+      "module": "components/layout.css",
+      "description": "Minimum layout track width; defaults to 21rem."
     },
     {
       "name": "--syn-leading-body",
@@ -1572,6 +1967,11 @@
       "name": "--syn-space-5",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-stack-gap",
+      "module": "components/layout.css",
+      "description": "Stack gap; defaults to --syn-space-3."
     },
     {
       "name": "--syn-stage-pad",

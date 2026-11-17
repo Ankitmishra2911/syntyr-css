@@ -55,6 +55,42 @@ A class being present in the metadata does not mean its optional stylesheet
 is already loaded. Check each item's `module` in the generated catalog and
 load the corresponding Syntyr CSS distribution.
 
+## Generated portable component gallery for builders
+
+The source-tree candidate also ships [component-gallery.v1.json](../metadata/component-gallery.v1.json),
+an **optional, framework-neutral** static contract for documentation,
+visual editors and AI-assisted composition. It is derived automatically from
+the curated `metadata/components.json` and the actual native HTML examples
+in `docs/catalog.html`, not another manually authored component registry.
+
+The manifest also carries the curated `recipes[]` with slots and variants,
+plus theme names from the generated CSS API metadata (not a new theme
+registry). Each `components[]` entry is the existing curated metadata. Each
+`examples[]` entry has a stable `id`, title, description, searchable
+keywords, native HTML, semantic element names, actual `syn-*` classes, and
+`required_stylesheets`. The stylesheet list can include the separately opt-in
+semantic CSS module; loading `syntyr.core.css` alone is not always sufficient.
+The `module` field preserves the primary stylesheet shown in the gallery.
+
+From a source checkout, regenerate and verify with:
+
+```sh
+python3 scripts/build_component_gallery.py
+python3 scripts/build_component_gallery.py --check
+```
+
+The public documentation catalog adds optional theme and compact-width preview
+controls. Without JavaScript, all previews and visible source snippets remain
+available. None of these controls or generator scripts ships in core CSS.
+
+**Safety and compatibility:** the JSON is a library of trusted, checked-in
+examples, not an HTML sanitizer or a guarantee that examples implement business
+behavior. Treat incoming user markup separately. Component classes require a
+`.syn-root` ancestor, the installed release must provide the listed CSS
+modules, and the **unreleased alpha.5 source candidate** must not be mistaken
+for the published alpha.4 release. HTML form actions, billing, data, dialogs,
+and application state are controlled by the host platform.
+
 ## Optional static HTML diagnostics
 
 The generated `metadata/syntyr-contract.json` is Syntyr's machine-readable
@@ -70,12 +106,40 @@ To validate static HTML during development (Python 3.10+, standard library only)
 ```sh
 python3 scripts/syntyr_check.py index.html examples/saas.html
 python3 scripts/syntyr_check.py --format json index.html
+# Opt-in, conservative native HTML checks (warnings do not fail the CLI):
+python3 scripts/syntyr_check.py --semantic --format json examples/semantic-starter.html
 python3 scripts/syntyr_check.py --stylesheets syntyr.core.css,syntyr.recipes.css partial.html
 # Pipe generated markup into the same deterministic checker without a temporary file:
 printf '<button class="syn-buttn">Save</button>' | python3 scripts/syntyr_check.py --format json -
 # For fragments, supply the CSS modules actually installed in the consumer app:
 cat fragment.html | python3 scripts/syntyr_check.py --format json --stylesheets syntyr.core.css -
 ```
+
+### Agent-ready composition recipes
+
+The same generated `metadata/syntyr-contract.json` includes an optional
+`recipes` array curated in `metadata/components.json`. Each recipe declares:
+
+- A stable `id`, purpose, example page and required CSS distributions.
+- A native HTML `root` element and named `slots` with `tag`, `classes`,
+  `optional` and `repeatable` fields.
+- `variants` restricted to real, CSS-supported `data-syn-*` attribute values.
+- `host_behavior` explaining what CSS **cannot** perform (server requests,
+  selection, pagination, validation, focus or authorization).
+
+Available recipes cover a CRM filter form, semantic resource table, app shell,
+and validated form. Use a `.syn-root` ancestor for every composition, and load
+all listed stylesheets in the documented order (core before optional recipes).
+The contract's `slots` describe roles, **not a strict DOM nesting validator**;
+authors must still use accessible native HTML in context. The host application
+supplies state and behavior. No JavaScript component engine is required.
+
+Source truth is the existing curated `metadata/components.json`, not another
+hand-maintained metadata registry. After editing a recipe, run
+`python3 scripts/export_api_metadata.py` to regenerate the contract;
+`python3 scripts/export_api_metadata.py --check` detects drift. The exporter
+rejects stale class names, missing CSS modules, unsupported variant values,
+invalid example paths and duplicate slot names before publication.
 
 The checker reports source positions, unknown literal `syn-*` classes, invalid
 literal `data-syn-*` values, and missing optional CSS modules **when a Syntyr
@@ -86,6 +150,22 @@ selectors are scoped, those classes would otherwise silently render without
 Syntyr styles. Plain HTML fragments are exempt because the embedding app may
 supply the root; dynamic ancestor classes and inert `<template>` contents are
 also exempt because their rendered scope is unknown.
+
+With `--semantic`, a second standard-library pass checks literal HTML for
+duplicate static IDs, missing form labels, unmatched `label for` and
+`aria-labelledby`/`aria-describedby` ID references (the latter two only in
+complete documents). It advises when an ordinary table row uses
+`aria-selected` instead of `data-syn-state`, or when a headed data table
+lacks a caption or other accessible name. Errors produce exit code 1; advisory
+warnings are included in text/JSON output but do not fail the command.
+The mode is **off by default** to preserve existing integrations.
+
+This is not an HTML conformance parser, a WCAG audit, or a template renderer.
+It deliberately skips inert template content and avoids guessing what dynamic
+attributes resolve to. Validate rendered server/framework templates and actual
+screen-reader behavior separately. Static fragments may reference IDs supplied
+by their embedding document, so cross-document references are checked only
+when a full `<html>` document is supplied.
 
 The checker recognizes local and version-pinned stylesheet paths (including
 query parameters). Without a known Syntyr stylesheet, module-presence checks

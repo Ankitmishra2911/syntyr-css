@@ -50,6 +50,24 @@ class NpmTarballAuditTests(unittest.TestCase):
     def test_clean_archive_is_complete(self):
         self.assertEqual(self.check(archive_with()), [])
 
+    def test_current_conditional_exports_and_metadata_are_in_audit_allowlist(self):
+        package_files = expected_files(ROOT)
+        for path in (
+            "package/integrations/headless/interactions.css",
+            "package/metadata/css-contract.v1.json",
+            "package/metadata/component-gallery.v1.json",
+            "package/dist/syntyr.animate.mjs",
+            "package/dist/syntyr.animate.d.mts",
+            "package/dist/syntyr.copy.mjs",
+            "package/dist/syntyr.copy.d.mts",
+        ):
+            self.assertIn(path, package_files)
+
+    def test_rejects_missing_conditional_js_export(self):
+        errors = self.check(archive_with(changes={"package/dist/syntyr.animate.mjs": None}))
+        self.assertTrue(any("missing" in err.lower() and "syntyr.animate.mjs" in err
+                            for err in errors), errors)
+
     def test_missing_exported_stylesheet_fails(self):
         errors = self.check(archive_with(changes={"package/dist/syntyr.core.css": None}))
         self.assertTrue(any("missing" in err.lower() and "syntyr.core.css" in err for err in errors), errors)
