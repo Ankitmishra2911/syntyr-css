@@ -67,6 +67,7 @@ stylesheets.
 - [Native HTML elements demo](examples/native-elements.html): lists, code, media, forms, progress, and native overlays with optional semantic CSS
 - [20 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
 - [Practical installation, integration and performance guides](https://syntyr-css.pages.dev/docs/guides.html)
+- [Task-based How-To tutorials](docs/how-to.html): search 10 native HTML workflows and edit 20 existing MIT blocks in the sandboxed CodeMirror playground (unreleased alpha.5 source candidate)
 - [Searchable, copyable component catalog](docs/catalog.html) with theme and width previews; [generated, portable gallery manifest](metadata/component-gallery.v1.json) for visual builders
 - [Shared design principles, component-state matrix and native composition patterns](docs/design-principles.md) ([dependency-free 84-pair contrast audit](scripts/design_conformance.py)).
 - [Canonical DESIGN.md contract](DESIGN.md): Google-compatible Studio tokens generated from CSS, component states, accessibility rules, and AI implementation guidance ([sync/check tool](scripts/sync_design_md.py)).
