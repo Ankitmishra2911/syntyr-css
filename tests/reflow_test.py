@@ -75,6 +75,12 @@ def check_page(browser, path: str, width: int, scale: float) -> None:
                  Math.round(e.getBoundingClientRect().left),Math.round(e.getBoundingClientRect().right)]);
             return {scrollWidth:root.scrollWidth, clientWidth:root.clientWidth, clipped};
         }"""
+        if path == 'examples/native-elements.html' and width == 320:
+            # Native file-picker shadow content must not stretch the grid,
+            # including WebKit at 2x/200% enlarged text.
+            fieldset = page.get_by_role('group', name='Native inputs')
+            dims = fieldset.evaluate('e => ({client: e.clientWidth, scroll: e.scrollWidth})')
+            assert dims['scroll'] <= dims['client'] + 1, (path, width, scale, dims)
         data = page.evaluate(inspect_overflow)
         assert data["scrollWidth"] <= data["clientWidth"] + 1 and not data["clipped"], (
             f"{path}: viewport={width}px, font scale={scale}x: {data}"

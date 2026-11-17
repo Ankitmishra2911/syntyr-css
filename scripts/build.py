@@ -7,6 +7,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +21,31 @@ COMPONENTS = (
 
 def assemble(paths):
     return '\n'.join((SOURCE / path).read_text(encoding='utf-8').strip() for path in paths) + '\n'
+
+def assemble_embed(paths):
+    '''Generate unlayered scoped CSS for CSS-in-CMS integration.
+
+    Unlayered CMS theme declarations take precedence over all normal
+    declarations in CSS cascade layers. Reuse the same source components
+    but remove their outer layers for sites with an existing theme.
+    '''
+    parts = []
+    for path in paths:
+        source = (SOURCE / path).read_text(encoding='utf-8').strip()
+        source = re.sub(
+            r'(?m)^@layer syn\.[\w-]+(?:, syn\.[\w-]+)*;\s*\n',
+            '', source,
+        )
+        matches = list(re.finditer(r'(?m)^@layer syn\.[\w-]+\s*\{', source))
+        if len(matches) != 1 or not source.endswith('}'):
+            raise ValueError(f'Expected exactly one outer CSS layer in {path}')
+        match = matches[0]
+        content = source[:match.start()] + source[match.end():source.rfind('}')]
+        if re.search(r'@layer\b', re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)):
+            raise ValueError(f'Unexpected nested layer in {path}')
+        parts.append(content.strip())
+    return '\n'.join(parts) + '\n'
+
 
 def preset_distributions():
     """Named standalone presets, assembled from existing CSS; never runtime imports.
@@ -65,11 +91,13 @@ def distributions():
     core = ('tokens.css', 'base.css') + COMPONENTS
     primary = {
         'syntyr.core.css': core,
+        'syntyr.embed.css': core,  # Unlayered scoped core for existing host themes.
         'syntyr.semantic.css': ('semantic.css',),
         'syntyr.server.css': ('server.css',),
         'syntyr.semantic-bundle.css': core + ('semantic.css',),
         'syntyr.recipes.css': ('recipes.css',),
         'syntyr.native-recipes.css': ('native-recipes.css',),
+        'syntyr.email.css': ('email.css',),
         'syntyr.effects.css': ('effects.css',),
         'syntyr.motion.css': ('motion.css',),
         'syntyr.geometry.css': ('geometry.css',),
@@ -79,7 +107,7 @@ def distributions():
         'syntyr.utilities.css': ('utilities.css',),
         'syntyr.print.css': ('print.css',),
         'syntyr.css': core + ('effects.css',),
-        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'native-recipes.css', 'geometry.css', 'symbols.css', 'effects.css', 'motion.css', 'viz.css', 'data-grid.css', 'utilities.css', 'print.css', 'server.css'),
+        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'native-recipes.css', 'email.css', 'geometry.css', 'symbols.css', 'effects.css', 'motion.css', 'viz.css', 'data-grid.css', 'utilities.css', 'print.css', 'server.css'),
         **preset_distributions(),
     }
     return primary
@@ -100,13 +128,18 @@ def all_distributions():
     return {**distributions(), **component_distributions()}
 
 
+def javascript_distributions():
+    # Optional native ESM. Distributed unchanged, never imported by CSS.
+    return {'syntyr.animate.mjs': 'animate.mjs', 'syntyr.animate.d.mts': 'animate.d.mts'}
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--check', action='store_true', help='fail if committed dist is stale')
     args = parser.parse_args()
     failed = False
     for name, inputs in all_distributions().items():
-        output = assemble(inputs).encode('utf-8')
+        output = (assemble_embed(inputs) if name == 'syntyr.embed.css' else assemble(inputs)).encode('utf-8')
         path = DIST / name
         zipped = len(gzip.compress(output, mtime=0))
         if args.check:
@@ -117,6 +150,19 @@ def main():
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(output)
             print(f'WROTE {name}: {len(output)} raw / {zipped} gzip')
+    for name, source in javascript_distributions().items():
+        output = (SOURCE / source).read_bytes()
+        path = DIST / name
+        zipped = len(gzip.compress(output, mtime=0))
+        if args.check:
+            match = path.exists() and path.read_bytes() == output
+            print(f'{"OK" if match else "STALE"} {name}: {len(output)} raw / {zipped} gzip')
+            failed |= not match
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(output)
+            print(f'WROTE {name}: {len(output)} raw / {zipped} gzip')
+
     contract_path = ROOT / 'metadata' / 'css-contract.v1.json'
     contract_bytes = (json.dumps(css_contract(), indent=2, sort_keys=True) + '\n').encode('utf-8')
     if args.check:
