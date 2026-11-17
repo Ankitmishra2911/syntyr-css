@@ -27,7 +27,7 @@
       <section class="syn-stage builder-intro" aria-labelledby="builder-title">
         <span class="syn-eyebrow">FREE EXPERIMENT / LOCAL-FIRST</span>
         <h1 id="builder-title" class="syn-title">Visual page builder</h1>
-        <p class="syn-lede">Compose real Syntyr blocks, edit content, rearrange sections, preview themes and export portable HTML and JSON. No account or build tool.</p>
+        <p class="syn-lede">Compose real Syntyr blocks and catalog components, edit content, rearrange sections, preview themes and export portable HTML and JSON. No account or build tool.</p>
       </section>
 
       <section class="syn-panel builder-toolbar" aria-label="Page settings and export">
@@ -68,6 +68,14 @@
           <h2 class="syn-heading" id="builder-blocks-title">Add a block</h2>
           <p class="syn-caption">Choose a semantic section from Syntyr's core patterns.</p>
           <div id="builder-palette" class="builder-palette" role="group" aria-label="Available blocks"></div>
+          <section aria-labelledby="builder-gallery-title" class="builder-gallery">
+            <h3 id="builder-gallery-title" class="syn-heading">Component gallery</h3>
+            <p class="syn-caption">Generated from the canonical Syntyr component manifest. Text, placeholders and links can be edited. No arbitrary HTML import.</p>
+            <label class="syn-label" for="builder-gallery-search">Find a component</label>
+            <input id="builder-gallery-search" class="syn-input" type="search" placeholder="Buttons, forms, tables…">
+            <p id="builder-gallery-count" class="syn-caption" role="status">Loading gallery examples…</p>
+            <div id="builder-gallery-palette" class="builder-palette builder-gallery-palette" role="group" aria-label="Catalog components"></div>
+          </section>
           <div class="builder-outline-heading">
             <h2 class="syn-heading" id="builder-outline-title">Page structure</h2>
             <div class="syn-inline">
@@ -100,7 +108,7 @@
       <p class="syn-caption builder-status" id="builder-status" role="status" aria-live="polite">Ready to compose.</p>
       <section class="syn-panel builder-notes" aria-labelledby="builder-notes-title">
         <h2 class="syn-heading" id="builder-notes-title">Own your output</h2>
-        <p>The HTML export references <code>syntyr.all.css</code> in the same directory. Download both files to publish a static site, or replace that stylesheet with a self-hosted Syntyr build. Save a JSON project to edit it later. A standalone HTML file is not a lossless project backup.</p>
+        <p>The HTML export references <code>syntyr.all.css</code> in the same directory. Download both files to publish a static site, or replace that stylesheet with a self-hosted Syntyr build. Save a JSON project to edit it later. A standalone HTML file is not a lossless project backup. Gallery components reference the versioned component catalog, so retain the matching stylesheet and project JSON for future editing.</p>
         <p>This early composer intentionally provides content-first sections rather than arbitrary pixel positioning or a hosted CMS. It adds no JavaScript to Syntyr's distributed CSS core.</p>
       </section>
     </main>

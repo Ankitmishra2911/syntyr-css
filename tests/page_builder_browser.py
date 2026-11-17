@@ -4,6 +4,7 @@ Run from repository root: python3 tests/page_builder_browser.py
 """
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+import os
 import json
 import threading
 from playwright.sync_api import sync_playwright, expect
@@ -110,9 +111,99 @@ def verify(browser, base_url, width):
     expect(page.locator("#builder-status")).to_contain_text("Cannot open project")
     expect(page.locator("#builder-outline > li")).to_have_count(5)
 
+    # A gallery-backed block uses the generated manifest and editable strings.
+    gallery_count = len(json.loads((ROOT / "metadata/component-gallery.v1.json").read_text())["examples"])
+    expect(page.locator("#builder-gallery-count")).to_have_text(f"{gallery_count} gallery examples.")
+    page.locator("#builder-gallery-search").fill("buttons")
+    assert page.locator("#builder-gallery-palette [data-block-type]").count() == 1
+    page.locator('[data-block-type="gallery:catalog-buttons-title"]').click()
+    assert page.locator("#builder-outline > li").count() == 6
+    page.locator('#builder-inspector [data-field="text1"]').fill("Custom gallery action")
+    assert preview.locator('[data-syntyr-block-id] .syn-button--primary').last.inner_text() == "Custom gallery action"
+    with page.expect_download() as download_info:
+        page.locator("#builder-export-html").click()
+    assert download_info.value.suggested_filename == "index.html"
+    html = page.evaluate("async () => await window.__lastBuilderBlob.text()")
+    assert "Custom gallery action" in html
+    assert 'href="syntyr.all.css"' in html
+    assert "<script" not in html
+
+    with page.expect_download() as download_info:
+        page.locator("#builder-export-json").click()
+    assert download_info.value.suggested_filename == "syntyr-page.json"
+    gallery_project = json.loads(page.evaluate("async () => await window.__lastBuilderBlob.text()"))
+    verify_manifest_import_order(browser, base_url, data, gallery_project)
+
     assert page.locator("body").evaluate("e => e.scrollWidth <= innerWidth + 1")
     assert not errors, errors
     context.close()
+
+
+def verify_manifest_import_order(browser, base_url, native_project, gallery_project):
+    """Native imports must not depend on fetching optional gallery metadata."""
+    native_context = browser.new_context()
+    native_context.add_init_script("""(() => {
+        const original = window.fetch.bind(window);
+        window.fetch = (url, options) => String(url).includes("component-gallery.v1.json")
+            ? new Promise(() => {}) : original(url, options);
+    })()""")
+    try:
+        native_page = native_context.new_page()
+        native_page.goto(base_url + "/docs/page-builder.html", wait_until="load")
+        native_page.locator("#builder-import").set_input_files({
+            "name": "native-project.json", "mimeType": "application/json",
+            "buffer": json.dumps(native_project).encode()
+        })
+        expect(native_page.locator("#builder-status")).to_contain_text("Project opened.", timeout=2000)
+        expect(native_page.locator("#builder-outline > li")).to_have_count(len(native_project["blocks"]))
+    finally:
+        native_context.close()
+
+    gallery_context = browser.new_context()
+    gallery_context.add_init_script("""(() => {
+        const original = window.fetch.bind(window);
+        window.fetch = (url, options) => String(url).includes("component-gallery.v1.json")
+            ? new Promise(resolve => setTimeout(resolve, 750)).then(() => original(url, options))
+            : original(url, options);
+    })()""")
+    try:
+        gallery_page = gallery_context.new_page()
+        gallery_page.goto(base_url + "/docs/page-builder.html", wait_until="load")
+        gallery_page.locator("#builder-import").set_input_files({
+            "name": "gallery-project.json", "mimeType": "application/json",
+            "buffer": json.dumps(gallery_project).encode()
+        })
+        expect(gallery_page.locator("#builder-status")).to_contain_text("Project opened.", timeout=6000)
+        expect(gallery_page.locator("#builder-outline > li")).to_have_count(len(gallery_project["blocks"]))
+    finally:
+        gallery_context.close()
+
+    # A slow gallery import must never overwrite a newer native-only import.
+    overlap_context = browser.new_context()
+    overlap_context.add_init_script("""(() => {
+        const original = window.fetch.bind(window);
+        window.fetch = (url, options) => String(url).includes("component-gallery.v1.json")
+            ? new Promise(resolve => setTimeout(resolve, 1400)).then(() => original(url, options))
+            : original(url, options);
+    })()""")
+    try:
+        overlap = overlap_context.new_page()
+        overlap.goto(base_url + "/docs/page-builder.html", wait_until="load")
+        overlap.locator("#builder-import").set_input_files({
+            "name": "older-gallery.json", "mimeType": "application/json",
+            "buffer": json.dumps(gallery_project).encode()
+        })
+        overlap.wait_for_timeout(150)
+        overlap.locator("#builder-import").set_input_files({
+            "name": "newer-native.json", "mimeType": "application/json",
+            "buffer": json.dumps(native_project).encode()
+        })
+        expect(overlap.locator("#builder-status")).to_contain_text("Project opened.", timeout=2000)
+        overlap.wait_for_timeout(1650)
+        expect(overlap.locator("#builder-page-title")).to_have_value(native_project["title"])
+        expect(overlap.locator("#builder-outline > li")).to_have_count(len(native_project["blocks"]))
+    finally:
+        overlap_context.close()
 
 
 def main():
@@ -121,7 +212,7 @@ def main():
     thread.start()
     try:
         with sync_playwright() as pw:
-            browser = pw.chromium.launch(headless=True)
+            browser = pw.chromium.launch(headless=True, executable_path=os.environ.get("SYNTYR_CHROMIUM_EXECUTABLE"))
             try:
                 for width in (390, 1280):
                     verify(browser, "http://127.0.0.1:" + str(server.server_port), width)
