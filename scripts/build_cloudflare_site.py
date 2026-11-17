@@ -180,6 +180,9 @@ HEADERS = """/*
   Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
 
+/metadata/component-gallery.v1.json
+  Access-Control-Allow-Origin: *
+
 /_assets/css/*
   Cache-Control: public, max-age=31536000, immutable
 """
@@ -271,6 +274,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "llms.txt",
         ROOT / "llms-full.txt",
         ROOT / "metadata/components.json",
+        ROOT / "metadata/component-gallery.v1.json",
         # Public, generated, dependency-free mobile design tokens and copy-owned source.
         ROOT / "metadata/mobile/syntyr.tokens.json",
         ROOT / "integrations/react-native/tokens.ts",
