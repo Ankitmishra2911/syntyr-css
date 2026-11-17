@@ -117,3 +117,14 @@ test('cleanup invalidates pending clipboard completion before remount', async ()
   assert.equal(f.elements.get('copy-status').textContent, 'Copied to clipboard.');
   detachNew();
 });
+
+test('a button enabled after mounting stays enabled after a completed copy', async () => {
+  const f = fixture();
+  f.button.disabled = true;
+  const detach = enhanceCopyButtons(f.document, f.clipboard);
+  f.button.disabled = false; // The host enabled its own control after mount.
+  await f.click();
+  assert.equal(f.button.disabled, false);
+  assert.equal(f.elements.get('copy-status').textContent, 'Copied to clipboard.');
+  detach();
+});

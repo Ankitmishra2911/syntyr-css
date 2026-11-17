@@ -39,11 +39,12 @@ export function enhanceCopyButtons(root = globalThis.document, clipboard = globa
     if (!document?.getElementById?.(targetId) || !document.getElementById(statusId)) continue;
 
     const wasHidden = button.hidden;
-    const mount = { busy: false, originalDisabled: button.disabled };
+    const mount = { busy: false, disabledBeforeCopy: false };
     const isCurrent = () => bound.get(button) === mount;
     async function onClick(event) {
       event?.preventDefault(); // A copy action must not submit its enclosing form.
       if (button.disabled) return;
+      mount.disabledBeforeCopy = button.disabled;
       mount.busy = true;
       button.disabled = true;
       const status = document.getElementById(statusId);
@@ -60,7 +61,7 @@ export function enhanceCopyButtons(root = globalThis.document, clipboard = globa
         // A previous mount must never mutate a remounted button or status.
         if (isCurrent()) {
           mount.busy = false;
-          button.disabled = mount.originalDisabled;
+          button.disabled = mount.disabledBeforeCopy;
         }
       }
     }
@@ -78,7 +79,7 @@ export function enhanceCopyButtons(root = globalThis.document, clipboard = globa
       // Release our in-flight disabled state before another mount attaches.
       if (mount.busy) {
         mount.busy = false;
-        button.disabled = mount.originalDisabled;
+        button.disabled = mount.disabledBeforeCopy;
       }
       button.hidden = wasHidden;
     }
