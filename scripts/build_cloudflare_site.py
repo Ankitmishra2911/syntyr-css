@@ -19,9 +19,11 @@ import tempfile
 if __package__:
     from .build import all_distributions, javascript_distributions
     from .build_shadcn_registry import generate as universal_registry_files
+    from .build_playground_catalog import generate as playground_catalog
 else:
     from build import all_distributions, javascript_distributions
     from build_shadcn_registry import generate as universal_registry_files
+    from build_playground_catalog import generate as playground_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -115,7 +117,7 @@ def add_seo_metadata(files: dict[str, bytes]) -> None:
 # These headers protect the static docs; they are NOT application security
 # middleware and do not follow the distributed CSS into consumer applications.
 HEADERS = """/*
-  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'self' https://github.com/dporkka/syntyr-css/issues; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000
   Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=()
   X-Frame-Options: DENY
@@ -246,7 +248,7 @@ PUBLIC_DOCS = (
     "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "framework-integrations.md", "mobile-frameworks.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
-    "index.html", "animation.md", "lit-integration.md", "playground.html", "playground.css", "playground.js",
+    "index.html", "animation.md", "clipboard.md", "lit-integration.md", "playground.html", "playground.css", "playground.js", "playground-catalog.js", "playground-editor.js", "playground-editor.licenses.txt", "page-builder-guide.md", "page-builder.html", "page-builder.css", "page-builder.js", "page-builder-model.mjs",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
     "site-generator-decision.md", "site-builders.md", "tailwind-research.md",
     "wordpress.md", "shopify.md", "wix.md", "webflow.md", "framer.md", "squarespace.md", "ghost.md", "hubspot.md", "drupal.md", "joomla.md", "carrd.md", "duda.md", "tilda.md",
@@ -256,6 +258,9 @@ PUBLIC_DOCS = (
 
 
 def source_files() -> dict[str, bytes]:
+    # Fail closed on stale generated examples; the static catalog owns the HTML.
+    if (ROOT / "docs/playground-catalog.js").read_text(encoding="utf-8") != playground_catalog():
+        raise ValueError("Stale playground examples: run scripts/build_playground_catalog.py")
     files: dict[str, bytes] = {}
     paths = [
         ROOT / "index.html",
@@ -291,6 +296,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "integrations/headless/interactions.css",
         ROOT / "examples/ansi_cli.py",
         ROOT / "examples/animation-demo.mjs",
+        ROOT / "examples/copy-demo.mjs",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
@@ -301,7 +307,7 @@ def source_files() -> dict[str, bytes]:
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
-        "viz.html", "data-grid.html", "animation.html",
+        "viz.html", "data-grid.html", "animation.html", "copy.html",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.

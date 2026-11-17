@@ -87,6 +87,34 @@ def css_contract():
     }
 
 
+
+def css_contract_matches(expected: dict, stored: object) -> bool:
+    """Verify stable release metadata without requiring identical zlib output.
+
+    gzip_bytes is an informational size estimate: zlib versions can yield
+    different lengths for identical source. Validate its shape/range but keep
+    source inventory, raw byte count, and SHA256 byte-exact.
+    """
+    if not isinstance(stored, dict) or stored.keys() != expected.keys():
+        return False
+    if {k: v for k, v in stored.items() if k != "presets"} != {
+            k: v for k, v in expected.items() if k != "presets"}:
+        return False
+    presets = stored.get("presets")
+    if not isinstance(presets, dict) or presets.keys() != expected["presets"].keys():
+        return False
+    for name, reference in expected["presets"].items():
+        actual = presets[name]
+        if not isinstance(actual, dict) or actual.keys() != reference.keys():
+            return False
+        zipped = actual.get("gzip_bytes")
+        if type(zipped) is not int or not (0 < zipped <= reference["raw_bytes"]):
+            return False
+        if {k: v for k, v in actual.items() if k != "gzip_bytes"} != {
+                k: v for k, v in reference.items() if k != "gzip_bytes"}:
+            return False
+    return True
+
 def distributions():
     core = ('tokens.css', 'base.css') + COMPONENTS
     primary = {
@@ -130,7 +158,10 @@ def all_distributions():
 
 def javascript_distributions():
     # Optional native ESM. Distributed unchanged, never imported by CSS.
-    return {'syntyr.animate.mjs': 'animate.mjs', 'syntyr.animate.d.mts': 'animate.d.mts'}
+    return {
+        'syntyr.animate.mjs': 'animate.mjs', 'syntyr.animate.d.mts': 'animate.d.mts',
+        'syntyr.copy.mjs': 'copy.mjs', 'syntyr.copy.d.mts': 'copy.d.mts',
+    }
 
 
 def main():
@@ -166,7 +197,11 @@ def main():
     contract_path = ROOT / 'metadata' / 'css-contract.v1.json'
     contract_bytes = (json.dumps(css_contract(), indent=2, sort_keys=True) + '\n').encode('utf-8')
     if args.check:
-        match = contract_path.exists() and contract_path.read_bytes() == contract_bytes
+        try:
+            stored_contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        except (FileNotFoundError, OSError, UnicodeError, ValueError):
+            stored_contract = None
+        match = css_contract_matches(css_contract(), stored_contract)
         print(f'{"OK" if match else "STALE"} metadata/css-contract.v1.json')
         failed |= not match
     else:
