@@ -112,6 +112,80 @@ Prefer removing duplicate rules and simplifying variants before adding new
 features. Do not add a CSS compiler, framework runtime, NPM dependency,
 custom widget system or site generator without measured demand.
 
+## Composition-first review and replaceable integrations
+
+Treat **existing HTML and CSS primitives as the default implementation**. Before
+adding a class, variant, token, module or abstraction, demonstrate a real use
+case that cannot be expressed cleanly and accessibly with existing elements,
+`--syn-*` tokens, layout primitives, native states, and documented composition.
+Prefer a short documented composition over a special-purpose selector. A new
+primitive needs a distinct reusable responsibility, not just a repeated visual
+arrangement. Avoid adding aliases for a second way to express an existing API.
+
+Review proposals in this order:
+
+1. Compose semantic HTML and existing core classes/tokens.
+2. Use an existing opt-in recipe or a local application style if the need is
+   application-specific.
+3. Add an optional, independently versionable adapter for framework-specific
+   presentation or behavior. Keep behavior owned by the host framework.
+4. Expand the core API only for an independently reusable, accessible primitive
+   with evidence that composition is insufficient and clear lifecycle ownership.
+
+**Integration direction is always outward:** `src/` -> generated distributions ->
+optional adapters -> consumer apps. React wrappers, Tailwind directives, shadcn
+aliases, Figma exports, and AI-agent/editor tooling may read the public CSS
+contract but must never be inputs to core CSS generation or prerequisites for
+installing or consuming core. Adapter-specific selectors, proprietary CSS
+syntax, and vendor state hooks belong under `integrations/`, not `src/`.
+Native HTML states, ARIA and Syntyr's own documented `data-syn-*` attributes
+are not vendor integrations. Removing any adapter must leave the same core
+CSS bytes and public contract intact.
+
+The deterministic maintenance policy rejects known framework-specific CSS
+constructs in `src/`; package contracts reject install-time/runtime framework
+dependencies. These checks cannot judge whether a new class was necessary:
+that **composition decision remains a required human PR review**, not a
+pretense of automated design quality.
+
+## Maintenance surface and test ownership
+
+CSS source under `src/` and the manifest in `scripts/build.py` are the canonical
+implementation. `dist/`, editor metadata, HTML renderings of Markdown guides,
+and `llms-full.txt` are reproducible outputs: **never manually fork them**.
+Keep `docs/components.md` authoritative for component usage,
+`docs/api-stability.md` for compatibility, `docs/theme-customization.md` for
+tokens, and `docs/framework-integrations.md` for shared adapter rules. A
+framework-specific guide should explain only what is distinct and link to
+these canonical references rather than duplicating the whole CSS contract.
+
+Regression tests should protect **current behavior**, independent of the alpha
+release that first introduced it. Consolidate obsolete version-named tests
+into behavior-oriented suites as they are touched; preserve unique regressions
+and release immutability tests. Commercial pricing and internal business notes
+are not part of the CSS API; their tests belong with commercial publication
+safeguards, not the core compatibility suite. Avoid adding a separate test
+module for every minor visual variation.
+
+Validation is proportional to impact, never weaker for a release:
+
+- **All PRs and main pushes:** deterministic CSS, contract, site, packaging,
+  security and standard-library test checks remain in the universal Woodpecker
+  quality workflow, plus merge-candidate validation for PRs.
+- **Relevant CSS/consumer changes:** the existing Node/React/Next adoption
+  workflow keeps its status context but conditionally runs its npm step only
+  for changed CSS, adapter, build, or consumer-fixture paths. Manual execution
+  is always available. A skipped step is **not** evidence of executed tests.
+- **Release candidates:** run the full three-engine browser/reflow matrix,
+  accessibility checks and all relevant consumer builds, including any
+  path-skipped PR tests. Manual screen-reader, contrast, native forced-colors,
+  real zoom, and release-owner approval cannot be replaced with green CI.
+
+When optional tooling becomes unmaintained, retire its documentation and tests
+only alongside a recorded replacement or removal decision; do not introduce
+another generator, manifest or CI runtime merely to track maintenance metrics.
+Review API additions, duplicated docs, and test scope in normal PR review.
+
 ## Zero-runtime presets and distribution integrity
 
 Named presets (`minimal`, `saas`, `cinematic`) are **preassembled, full CSS

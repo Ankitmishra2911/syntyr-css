@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr is a styling system, not a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser&#x27;s built-in semantics and…">
-  <meta name="syntyr-source-sha256" content="83a945680ae863bad2e7490d73896c7090b1ed415649af5d356530cc338615ce">
+  <meta name="syntyr-source-sha256" content="9c4ad414e18ba9a1579063cc19e2a4651dc915e838f165a392014ea168d37364">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native browser APIs in Syntyr — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-browser-apis">
@@ -36,6 +36,10 @@
         <article class="docs-prose" aria-label="Native browser APIs in Syntyr">
 <h1 id="native-browser-apis-in-syntyr">Native browser APIs in Syntyr</h1>
 <p>Syntyr is a styling system, <strong>not</strong> a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser's built-in semantics and state before adding host-owned JavaScript. See the <a href="https://syntyr-css.pages.dev/examples/native-apis.html">scriptless integration demo</a> (source: <code>examples/native-apis.html</code>).</p>
+<p>For framework-free custom elements and server-rendered Shadow DOM, see the
+<a href="https://github.com/dporkka/syntyr-css/tree/main/examples/web-components">native Web Components fixture</a> and
+<a href="component-authoring.html">component-authoring contract</a>. Syntyr still requires
+no Custom Elements runtime for ordinary HTML components.</p>
 <h2 id="supported-integrations">Supported integrations</h2>
 <table>
 <thead>
@@ -107,11 +111,13 @@
 </code></pre>
 <p>The invoker creates an implicit CSS anchor. Do not apply <code>position-anchor: auto</code> to unrelated floating elements; supply an explicit anchor relationship or use normal document positioning. The default <code>.syn-popover</code> remains visible in browsers without anchor positioning. Make sure production menus have sensible keyboard navigation and screen-reader labeling.</p>
 <h2 id="example-a-dialog-without-an-event-handler">Example: a dialog without an event handler</h2>
-<pre><code class="language-html">&lt;button type=&quot;button&quot; commandfor=&quot;confirm-dialog&quot; command=&quot;show-modal&quot;&gt;Review&lt;/button&gt;
-&lt;dialog id=&quot;confirm-dialog&quot; class=&quot;syn-dialog&quot; aria-labelledby=&quot;confirm-title&quot;&gt;
-  &lt;h2 id=&quot;confirm-title&quot;&gt;Review changes&lt;/h2&gt;
-  &lt;form method=&quot;dialog&quot;&gt;&lt;button type=&quot;submit&quot;&gt;Close&lt;/button&gt;&lt;/form&gt;
-&lt;/dialog&gt;
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;button type=&quot;button&quot; commandfor=&quot;confirm-dialog&quot; command=&quot;show-modal&quot;&gt;Review&lt;/button&gt;
+  &lt;dialog id=&quot;confirm-dialog&quot; class=&quot;syn-dialog&quot; aria-labelledby=&quot;confirm-title&quot;&gt;
+    &lt;h2 id=&quot;confirm-title&quot;&gt;Review changes&lt;/h2&gt;
+    &lt;form method=&quot;dialog&quot;&gt;&lt;button type=&quot;submit&quot;&gt;Close&lt;/button&gt;&lt;/form&gt;
+  &lt;/dialog&gt;
+&lt;/section&gt;
 </code></pre>
 <p>The HTML Invoker Commands API is progressively available; don't assume the opener works in legacy browsers. A normal link to a review page or a <code>&lt;details&gt;</code> fallback gives users an accessible path even without it. Use <code>dialog.requestClose()</code> from host JavaScript when a cancelable close request is needed; unlike <code>dialog.close()</code>, <code>requestClose()</code> fires <code>cancel</code> first.</p>
 <h2 id="application-owned-javascript-optional">Application-owned JavaScript (optional)</h2>
