@@ -38,6 +38,9 @@ class ClipboardDistribution(unittest.TestCase):
         self.assertIn('docs/clipboard.html', source_files())
         self.assertIn('clipboard.html', (ROOT / 'docs/index.html').read_text())
         self.assertIn('docs/clipboard.md', (ROOT / 'README.md').read_text())
+        guide = (ROOT / 'docs/clipboard.md').read_text()
+        self.assertIn("from '/js/syntyr.copy.mjs'", guide)
+        self.assertIn("from '@syntyr/css/copy'", guide)
 
     def test_demo_retains_useful_no_script_content_and_announcement(self):
         html = (ROOT / 'examples/copy.html').read_text()

@@ -25,9 +25,17 @@ fully usable without JavaScript. Only import this module for a real copy action.
 
 ```js
 // enable-copy.js (only when the optional module is explicitly imported)
-import { enhanceCopyButtons } from '@syntyr/css/copy';
+// Copy dist/syntyr.copy.mjs to /js/syntyr.copy.mjs on your site.
+import { enhanceCopyButtons } from '/js/syntyr.copy.mjs';
 const detach = enhanceCopyButtons();
 // In an SPA teardown or component unmount: detach().
+```
+
+For applications with a bundler, the same module is exported from the npm
+package (once the release containing the optional module is published):
+
+```js
+import { enhanceCopyButtons } from '@syntyr/css/copy';
 ```
 
 Copy buttons should start with `hidden` and the scoped guard above so older

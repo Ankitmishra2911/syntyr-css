@@ -88,3 +88,32 @@ test('copy activation prevents accidental form submission even during async writ
   assert.equal(prevented, 1);
   assert.equal(f.writes[0], f.elements.get('copy-source').textContent);
 });
+
+test('cleanup invalidates pending clipboard completion before remount', async () => {
+  const f = fixture();
+  let finishOld;
+  let finishNew;
+  const oldClipboard = { writeText: () => new Promise(resolve => { finishOld = resolve; }) };
+  const newClipboard = { writeText: () => new Promise(resolve => { finishNew = resolve; }) };
+  const detachOld = enhanceCopyButtons(f.document, oldClipboard);
+  const oldClick = f.click();
+  assert.equal(f.button.disabled, true);
+
+  detachOld();
+  assert.equal(f.button.disabled, false, 'cleanup must unlock its pending button');
+  assert.equal(f.button.hidden, true);
+
+  const detachNew = enhanceCopyButtons(f.document, newClipboard);
+  const newClick = f.click();
+  assert.equal(f.button.disabled, true);
+  finishOld();
+  await oldClick;
+  assert.equal(f.button.disabled, true, 'stale finally must not unlock current copy');
+  assert.equal(f.elements.get('copy-status').textContent, '', 'stale success must not announce');
+
+  finishNew();
+  await newClick;
+  assert.equal(f.button.disabled, false);
+  assert.equal(f.elements.get('copy-status').textContent, 'Copied to clipboard.');
+  detachNew();
+});

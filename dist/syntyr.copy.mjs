@@ -39,9 +39,12 @@ export function enhanceCopyButtons(root = globalThis.document, clipboard = globa
     if (!document?.getElementById?.(targetId) || !document.getElementById(statusId)) continue;
 
     const wasHidden = button.hidden;
+    const mount = { busy: false, originalDisabled: button.disabled };
+    const isCurrent = () => bound.get(button) === mount;
     async function onClick(event) {
       event?.preventDefault(); // A copy action must not submit its enclosing form.
       if (button.disabled) return;
+      mount.busy = true;
       button.disabled = true;
       const status = document.getElementById(statusId);
       try {
@@ -50,24 +53,33 @@ export function enhanceCopyButtons(root = globalThis.document, clipboard = globa
         const tag = target.tagName?.toUpperCase?.();
         const value = tag === 'INPUT' || tag === 'TEXTAREA' ? target.value : target.textContent;
         await copyText(value ?? '', clipboard);
-        if (status) status.textContent = 'Copied to clipboard.';
+        if (isCurrent() && status) status.textContent = 'Copied to clipboard.';
       } catch {
-        if (status) status.textContent = 'Copy failed. Select and copy the text manually.';
+        if (isCurrent() && status) status.textContent = 'Copy failed. Select and copy the text manually.';
       } finally {
-        button.disabled = false;
+        // A previous mount must never mutate a remounted button or status.
+        if (isCurrent()) {
+          mount.busy = false;
+          button.disabled = mount.originalDisabled;
+        }
       }
     }
     button.addEventListener('click', onClick);
     button.hidden = false;
-    bound.set(button, onClick);
-    added.push({ button, onClick, wasHidden });
+    bound.set(button, mount);
+    added.push({ button, onClick, wasHidden, mount });
   }
 
   return () => {
-    for (const { button, onClick, wasHidden } of added) {
-      if (bound.get(button) !== onClick) continue;
+    for (const { button, onClick, wasHidden, mount } of added) {
+      if (bound.get(button) !== mount) continue;
       button.removeEventListener('click', onClick);
       bound.delete(button);
+      // Release our in-flight disabled state before another mount attaches.
+      if (mount.busy) {
+        mount.busy = false;
+        button.disabled = mount.originalDisabled;
+      }
       button.hidden = wasHidden;
     }
   };
