@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="The visual builder is a local-first, optional editing tool in the public Syntyr documentation. It assembles a small set of existing Syntyr CSS/HTML…">
-  <meta name="syntyr-source-sha256" content="5d689fdc73349bfb11b0465dcee63ea06eccb7f9bc5b96f06980c057f6d6b0a1">
+  <meta name="syntyr-source-sha256" content="90338566d5843ccc227bff706c38cc3dc6232d721f353c8929afa134b717bb5f">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr visual page builder (experimental) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/page-builder-guide">
@@ -39,8 +39,8 @@
 <h2 id="what-works">What works</h2>
 <ul>
 <li>Add hero, feature-card, split-text, testimonial, FAQ, CTA, site header and footer sections from the palette.</li>
-<li>Select sections in the outline or preview, edit their text and links, reorder with buttons or drag-and-drop, and remove sections.</li>
-<li>Switch among themes available to the unreleased source candidate and preview desktop/tablet/mobile widths.</li>
+<li>Select sections in the outline or preview, edit their text and links, reorder with buttons or drag-and-drop, and remove sections. Keyboard focus remains in the outline during reordering; native FAQ disclosures open in the preview.</li>
+<li>Switch among themes available to the unreleased source candidate and preview true 1200px desktop, 760px tablet, and 390px mobile iframe viewports. Narrow canvases scroll rather than silently scaling the device viewport.</li>
 <li>Undo and redo editing changes (limited in-memory history).</li>
 <li>Export an HTML file and matching Syntyr CSS as separate files and host them alongside each other.</li>
 <li>Download a JSON project and reopen that JSON to restore editability.</li>
@@ -51,7 +51,7 @@
 <p>The exported index.html uses ordinary HTML sections, anchors, buttons-styled links, native FAQ disclosures, and existing syn-* classes. The local syntyr.all.css stylesheet must be hosted next to it; the page does not contain React, a builder script, or Syntyr editor dependencies. You can instead load CSS modules required by your chosen components using the <a href="distribution.html">distribution guide</a>.</p>
 <p>An HTML export does <strong>not</strong> preserve editor metadata sufficiently for arbitrary HTML import; the JSON project is the editable source of truth. Proprietary embeds, CMS integrations, React/Vue/Svelte code generation, hosting, and collaboration are not yet implemented.</p>
 <h2 id="security-boundaries">Security boundaries</h2>
-<p>Imported project data is strictly validated: only recognized block types and string fields, unique safe IDs, a known theme, up to 50 blocks, and bounded property lengths. Every user-controlled text value is HTML escaped, and unsupported href protocols (including javascript: and data:) are rendered as #. The preview is inside a sandboxed iframe without script or form-submission permissions. The exported result is still <strong>static HTML</strong>, not a backend application.</p>
+<p>Imported project data is strictly validated: only recognized string block types and string fields, unique safe IDs, a known theme, up to 50 blocks, bounded property lengths, and a 16 MiB UTF-8 JSON import cap compatible with the maximum valid exported project size. Every user-controlled text value is HTML escaped, and unsupported href protocols (including javascript: and data:) are rendered as #. The preview is inside a sandboxed iframe without script or form-submission permissions. The exported result is still <strong>static HTML</strong>, not a backend application.</p>
 <p>This experimental tool is deliberately separate from the MIT CSS core. It uses only small first-party documentation scripts; adopting a heavyweight editor engine such as GrapesJS should be justified through comparative testing, not as a mandatory dependency.</p>
 <h2 id="maintainer-verification">Maintainer verification</h2>
 <p>Run from repository root:</p>

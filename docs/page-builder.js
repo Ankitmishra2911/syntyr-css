@@ -1,6 +1,6 @@
 /* Docs-only, dependency-free visual composition. The shipped Syntyr CSS stays JS-free. */
 import {
-  BLOCK_TYPES, BLOCK_DEFINITIONS, THEMES,
+  BLOCK_TYPES, BLOCK_DEFINITIONS, THEMES, MAX_PROJECT_BYTES,
   createBlock, createDefaultDocument, parseDocument, moveBlock, exportHtml
 } from "./page-builder-model.mjs";
 
@@ -70,11 +70,18 @@ function renderPalette() {
   }
 }
 function renderOutline() {
+  const focusedButton = outline.contains(document.activeElement)
+    ? document.activeElement.closest("button[data-action]") : null;
+  const priorRow = focusedButton?.closest("[data-block-id]");
+  const focusedId = priorRow?.dataset.blockId;
+  const priorIndex = priorRow ? Number(priorRow.dataset.index) : 0;
+  const focusedAction = focusedButton?.dataset.action;
   outline.replaceChildren();
   page.blocks.forEach((block, index) => {
     const item = makeElement("li", null, "builder-outline-item");
     item.draggable = true;
     item.dataset.index = String(index);
+    item.dataset.blockId = block.id;
     item.dataset.selected = String(block.id === selectedId);
     const name = makeButton((index + 1) + ". " + BLOCK_DEFINITIONS[block.type].label, "select");
     name.className = "builder-outline-select";
@@ -88,6 +95,16 @@ function renderOutline() {
     item.append(name, actions);
     outline.append(item);
   });
+  if (focusedButton) {
+    const moved = page.blocks.findIndex(block => block.id === focusedId);
+    const position = moved < 0 ? Math.min(priorIndex, page.blocks.length - 1) : moved;
+    const row = outline.children[position];
+    const replacement = [...(row?.querySelectorAll("button[data-action]") || [])]
+      .find(button => button.dataset.action === focusedAction && !button.disabled)
+      || row?.querySelector('button[data-action="select"]')
+      || palette.querySelector("button");
+    replacement?.focus();
+  }
   updateHistoryButtons();
 }
 function renderInspector() {
@@ -139,24 +156,28 @@ function renderPreview() {
     .replace('href="syntyr.all.css"', 'href="../dist/syntyr.all.css"')
     .replace("</head>", csp + "</head>");
 }
+function highlightPreviewSelection(frameDoc) {
+  for (const block of frameDoc.querySelectorAll("[data-syntyr-block-id]")) {
+    const active = block.dataset.syntyrBlockId === selectedId;
+    block.style.outline = active ? "2px solid var(--syn-accent)" : "";
+    block.style.outlineOffset = active ? "3px" : "";
+  }
+}
 preview.addEventListener("load", () => {
   try {
     const frameDoc = preview.contentDocument;
     if (!frameDoc) return;
-    for (const block of frameDoc.querySelectorAll("[data-syntyr-block-id]")) {
-      if (block.dataset.syntyrBlockId === selectedId) {
-        block.style.outline = "2px solid var(--syn-accent)";
-        block.style.outlineOffset = "3px";
-      }
-    }
+    highlightPreviewSelection(frameDoc);
     frameDoc.addEventListener("click", (event) => {
-      event.preventDefault();
+      // Prevent navigation; preserve details/summary native disclosure behavior.
+      if (event.target.closest("a[href]")) event.preventDefault();
       const block = event.target.closest("[data-syntyr-block-id]");
       if (block && block.dataset.syntyrBlockId !== selectedId) {
         selectedId = block.dataset.syntyrBlockId;
         renderOutline();
         renderInspector();
-        renderPreview();
+        // Do not replace the iframe: that would close native FAQ disclosures.
+        highlightPreviewSelection(frameDoc);
       }
     });
   } catch {
@@ -306,7 +327,7 @@ byId("builder-import").addEventListener("change", async (event) => {
   const file = event.target.files?.[0];
   if (!file) return;
   try {
-    if (file.size > 500000) throw new Error("Project file exceeds 500 KB");
+    if (file.size > MAX_PROJECT_BYTES) throw new Error("Project file exceeds 16 MiB");
     const imported = parseDocument(await file.text());
     commit(imported, "Project opened.");
     sequence = Math.max(sequence, imported.blocks.length + 5);

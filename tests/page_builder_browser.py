@@ -6,7 +6,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import json
 import threading
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -27,26 +27,42 @@ def verify(browser, base_url, width):
     page.goto(base_url + "/docs/page-builder.html", wait_until="load")
     preview = page.frame_locator("#builder-preview")
     preview.locator(".syn-stage h1").wait_for()
-    assert preview.locator(".syn-stage h1").inner_text() == "Build your next website visually."
+    expect(preview.locator(".syn-stage h1")).to_have_text("Build your next website visually.")
     assert page.locator("#builder-outline > li").count() == 3
 
     page.locator('[data-block-type="quote"]').click()
     assert page.locator("#builder-outline > li").count() == 4
     page.locator("#builder-inspector [data-field='quote']").fill("Testimonial from browser smoke test")
-    assert preview.locator("blockquote p").inner_text() == "Testimonial from browser smoke test"
+    expect(preview.locator("blockquote p")).to_have_text("Testimonial from browser smoke test")
 
     page.locator("#builder-undo").click()
-    assert preview.locator("blockquote p").inner_text() != "Testimonial from browser smoke test"
+    expect(preview.locator("blockquote p")).not_to_have_text("Testimonial from browser smoke test")
     page.locator("#builder-redo").click()
-    assert preview.locator("blockquote p").inner_text() == "Testimonial from browser smoke test"
+    expect(preview.locator("blockquote p")).to_have_text("Testimonial from browser smoke test")
     page.locator('#builder-outline [data-index="3"] [data-action="up"]').click()
     assert page.locator('#builder-outline [data-index="2"] [data-action="select"]').get_attribute("aria-label").startswith("Edit Testimonial")
     page.locator('#builder-outline [data-index="2"] [data-action="down"]').click()
 
     page.locator("#builder-theme").select_option("grid")
-    assert preview.locator('body[data-syn-theme="grid"]').count() == 1
-    page.locator("#builder-viewport").select_option("mobile")
-    assert "builder-viewport--mobile" in page.locator("#builder-viewport-frame").get_attribute("class")
+    expect(preview.locator("body")).to_have_attribute("data-syn-theme", "grid")
+    for preset, pixels in (("desktop", 1200), ("tablet", 760), ("mobile", 390)):
+        page.locator("#builder-viewport").select_option(preset)
+        expect(page.locator("#builder-viewport-frame")).to_have_class(
+            "builder-viewport builder-viewport--" + preset
+        )
+        assert preview.locator("body").evaluate("() => innerWidth") == pixels
+
+    page.locator('[data-block-type="faq"]').click()
+    expect(page.locator("#builder-outline > li")).to_have_count(5)
+    preview.locator("details summary").first.click()
+    expect(preview.locator("details").first).to_have_attribute("open", "")
+    expect(preview.locator("details p").first).to_be_visible()
+    page.locator("#builder-undo").click()
+    expect(page.locator("#builder-outline > li")).to_have_count(4)
+    page.locator("#builder-redo").click()
+    expect(page.locator("#builder-outline > li")).to_have_count(5)
+    page.locator('#builder-outline [data-index="4"] [data-action="up"]').click()
+    expect(page.locator('#builder-outline [data-index="3"] [data-action="up"]')).to_be_focused()
 
     # Some remote headless browsers cancel file downloads at the OS boundary.
     # Capture the actual Blob payload without mocking the builder's export code.
@@ -77,13 +93,22 @@ def verify(browser, base_url, width):
     page.locator("#builder-import").set_input_files({
         "name": "page.json", "mimeType": "application/json", "buffer": project_bytes,
     })
-    assert "Project opened." in page.locator("#builder-status").inner_text()
-    assert page.locator("#builder-outline > li").count() == 4
+    expect(page.locator("#builder-status")).to_contain_text("Project opened.")
+    expect(page.locator("#builder-outline > li")).to_have_count(5)
     page.locator("#builder-import").set_input_files({
         "name": "bad.json", "mimeType": "application/json", "buffer": b'{"schema":"invalid"}',
     })
-    assert "Cannot open project" in page.locator("#builder-status").inner_text()
-    assert page.locator("#builder-outline > li").count() == 4
+    expect(page.locator("#builder-status")).to_contain_text("Cannot open project")
+    expect(page.locator("#builder-outline > li")).to_have_count(5)
+
+    invalid = json.loads(json.dumps(data))
+    invalid["blocks"][0]["type"] = ["hero"]
+    page.locator("#builder-import").set_input_files({
+        "name": "invalid-type.json", "mimeType": "application/json",
+        "buffer": json.dumps(invalid).encode(),
+    })
+    expect(page.locator("#builder-status")).to_contain_text("Cannot open project")
+    expect(page.locator("#builder-outline > li")).to_have_count(5)
 
     assert page.locator("body").evaluate("e => e.scrollWidth <= innerWidth + 1")
     assert not errors, errors

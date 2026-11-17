@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   BLOCK_TYPES,
   SCHEMA_VERSION,
+  MAX_PROJECT_BYTES,
   createBlock,
   createDefaultDocument,
   parseDocument,
@@ -97,4 +98,40 @@ test("repeated section types generate unique HTML ids", () => {
   assert.ok(ids.includes("top"));
   assert.ok(ids.includes("features"));
   assert.ok(ids.includes("contact"));
+});
+
+test("rejects array-valued or object-valued block types instead of coercing keys", () => {
+  for (const type of [["hero"], { toString: () => "hero" }, null, 12]) {
+    const page = createDefaultDocument();
+    page.blocks[0].type = type;
+    assert.throws(() => parseDocument(page), /Unknown block|block type/i);
+    assert.throws(() => parseDocument(JSON.stringify(page)), /Unknown block|block type/i);
+  }
+});
+
+test("all valid editor projects, including large and multibyte text, can be reopened", () => {
+  const page = createDefaultDocument();
+  page.blocks = Array.from({ length: 50 }, (_, i) => {
+    const block = createBlock("features", "features-" + i);
+    for (const key of Object.keys(block.props)) block.props[key] = "á".repeat(5000);
+    return block;
+  });
+  const normalized = parseDocument(page);
+  const saved = JSON.stringify(normalized);
+  assert.ok(new TextEncoder().encode(saved).length > 500000);
+  assert.ok(new TextEncoder().encode(saved).length < MAX_PROJECT_BYTES);
+  assert.deepEqual(parseDocument(saved), normalized);
+  const longestEscaped = structuredClone(page);
+  for (const block of longestEscaped.blocks) {
+    for (const key of Object.keys(block.props)) block.props[key] = String.fromCharCode(0).repeat(5000);
+  }
+  const escapedProject = JSON.stringify(parseDocument(longestEscaped));
+  assert.ok(new TextEncoder().encode(escapedProject).length < MAX_PROJECT_BYTES);
+  assert.deepEqual(parseDocument(escapedProject), parseDocument(longestEscaped));
+});
+
+test("JSON import is bounded by the same UTF-8 byte limit as the file picker", () => {
+  assert.equal(MAX_PROJECT_BYTES, 16 * 1024 * 1024);
+  const huge = JSON.stringify(createDefaultDocument()) + " ".repeat(MAX_PROJECT_BYTES);
+  assert.throws(() => parseDocument(huge), /too large/i);
 });

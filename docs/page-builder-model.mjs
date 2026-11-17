@@ -70,6 +70,9 @@ export const BLOCK_TYPES = Object.freeze(Object.keys(DEFINITIONS));
 export const BLOCK_DEFINITIONS = Object.freeze(DEFINITIONS);
 const MAX_BLOCKS = 50;
 const MAX_FIELD = 5000;
+// 50 blocks x at most seven 5,000-code-unit fields fit even when JSON escaping
+// expands control characters to six bytes each. Same byte cap on file and parser.
+export const MAX_PROJECT_BYTES = 16 * 1024 * 1024;
 
 function plainObject(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -104,7 +107,8 @@ function paragraph(value) {
 }
 
 export function createBlock(type, id = type + "-1") {
-  if (!own(DEFINITIONS, type)) throw new Error("Unknown block: " + type);
+  if (typeof type !== "string" || !own(DEFINITIONS, type))
+    throw new Error("Unknown block: " + String(type));
   if (!/^[a-zA-Z0-9_-]{1,64}$/.test(id)) throw new Error("Invalid block id");
   return { id, type, props: { ...DEFINITIONS[type].fields } };
 }
@@ -125,7 +129,8 @@ export function createDefaultDocument() {
 export function parseDocument(input) {
   let page;
   if (typeof input === "string") {
-    if (input.length > 500000) throw new Error("Project JSON is too large");
+    if (new TextEncoder().encode(input).byteLength > MAX_PROJECT_BYTES)
+      throw new Error("Project JSON is too large");
     try { page = JSON.parse(input); }
     catch { throw new Error("Invalid project JSON"); }
   } else {
@@ -139,7 +144,8 @@ export function parseDocument(input) {
     throw new Error("Page must contain at most 50 blocks");
   const ids = new Set();
   const blocks = page.blocks.map((block) => {
-    if (!plainObject(block) || !own(DEFINITIONS, block.type))
+    if (!plainObject(block) || typeof block.type !== "string" ||
+        !own(DEFINITIONS, block.type))
       throw new Error("Unknown block: " + String(block?.type));
     if (typeof block.id !== "string" || !/^[a-zA-Z0-9_-]{1,64}$/.test(block.id))
       throw new Error("Invalid block id");

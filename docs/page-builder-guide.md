@@ -5,8 +5,8 @@ The [visual builder](page-builder.html) is a local-first, optional editing tool 
 ## What works
 
 - Add hero, feature-card, split-text, testimonial, FAQ, CTA, site header and footer sections from the palette.
-- Select sections in the outline or preview, edit their text and links, reorder with buttons or drag-and-drop, and remove sections.
-- Switch among themes available to the unreleased source candidate and preview desktop/tablet/mobile widths.
+- Select sections in the outline or preview, edit their text and links, reorder with buttons or drag-and-drop, and remove sections. Keyboard focus remains in the outline during reordering; native FAQ disclosures open in the preview.
+- Switch among themes available to the unreleased source candidate and preview true 1200px desktop, 760px tablet, and 390px mobile iframe viewports. Narrow canvases scroll rather than silently scaling the device viewport.
 - Undo and redo editing changes (limited in-memory history).
 - Export an HTML file and matching Syntyr CSS as separate files and host them alongside each other.
 - Download a JSON project and reopen that JSON to restore editability.
@@ -23,7 +23,7 @@ An HTML export does **not** preserve editor metadata sufficiently for arbitrary 
 
 ## Security boundaries
 
-Imported project data is strictly validated: only recognized block types and string fields, unique safe IDs, a known theme, up to 50 blocks, and bounded property lengths. Every user-controlled text value is HTML escaped, and unsupported href protocols (including javascript: and data:) are rendered as #. The preview is inside a sandboxed iframe without script or form-submission permissions. The exported result is still **static HTML**, not a backend application.
+Imported project data is strictly validated: only recognized string block types and string fields, unique safe IDs, a known theme, up to 50 blocks, bounded property lengths, and a 16 MiB UTF-8 JSON import cap compatible with the maximum valid exported project size. Every user-controlled text value is HTML escaped, and unsupported href protocols (including javascript: and data:) are rendered as #. The preview is inside a sandboxed iframe without script or form-submission permissions. The exported result is still **static HTML**, not a backend application.
 
 This experimental tool is deliberately separate from the MIT CSS core. It uses only small first-party documentation scripts; adopting a heavyweight editor engine such as GrapesJS should be justified through comparative testing, not as a mandatory dependency.
 
