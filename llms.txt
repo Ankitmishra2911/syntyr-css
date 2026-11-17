@@ -33,6 +33,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Cloudflare hosting and cache contract](https://syntyr-css.pages.dev/docs/cloudflare-hosting.md): Content-addressed website CSS, mutable preview URLs and immutable consumer releases.
 - [Release freeze and exact-commit approval procedure](https://syntyr-css.pages.dev/docs/release-freeze.md): Maintainer-only human approval and evidence gates before freezing the unreleased alpha.5 candidate; technical preflight is not release authorization.
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary, including a proposed minimum v1 contract (not yet approved); alpha.5 remains experimental.
+- [Optional framework-neutral copy interaction](https://syntyr-css.pages.dev/docs/clipboard.md): Native ESM Clipboard API enhancement for HTML/HTMX/React/Vue, progressive fallback and accessible status feedback; experimental alpha.5 source only.
 - [Optional native animation companion](https://syntyr-css.pages.dev/docs/animation.md): Opt-in CSS-only scroll block effects, parallax and hover zoom, plus separate Web Animations API, stagger and viewport reveal helpers with reduced-motion support; **unreleased alpha.5**, never required by CSS core.
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
 - [Opt-in data-grid presentation](https://syntyr-css.pages.dev/docs/data-grid.md): Styling for host-owned data-grid behavior, ARIA states, and density (unreleased alpha.5 candidate).
