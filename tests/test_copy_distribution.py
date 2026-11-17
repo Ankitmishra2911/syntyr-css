@@ -51,12 +51,23 @@ class ClipboardDistribution(unittest.TestCase):
         self.assertNotIn('http://', html)
         self.assertNotIn('https://', html)
 
+    def test_python_only_quality_gate_does_not_require_node(self):
+        import os
+        import sys
+        # The production quality job runs Python without a Node executable.
+        env = {**os.environ, "PATH": "/nonexistent"}
+        proc = subprocess.run([
+            sys.executable, "-m", "unittest", "discover", "-s", "tests",
+            "-p", "test_copy_distribution.py", "-k",
+            "test_existing_js_ci_runs_native_clipboard_tests", "-q",
+        ], cwd=ROOT, env=env, capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+
     def test_existing_js_ci_runs_native_clipboard_tests(self):
         config = (ROOT / '.woodpecker/js-adoption.yaml').read_text()
         self.assertIn('node --test tests/animate.test.mjs tests/copy.test.mjs', config)
-        proc = subprocess.run(['node', '--test', 'tests/copy.test.mjs'],
-                              cwd=ROOT, capture_output=True, text=True)
-        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        # Native JavaScript tests run in the optional Node CI job, not the
+        # Python-only quality gate.
 
 
 if __name__ == '__main__':
