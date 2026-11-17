@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 from html import escape
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -50,6 +51,9 @@ def build() -> str:
     for block in blocks:
         ident = block["id"]
         snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text(encoding="utf-8").strip()
+        # Static gallery preview: never submit example forms, even with JS off.
+        # Preserve the canonical snippet and copyable HTML source unchanged.
+        preview = re.sub(r"<form(?=\s|>)", "<form inert", snippet, flags=re.IGNORECASE)
         modules = " + ".join(f"syntyr.{module}.css" for module in block["modules"])
         tags = " ".join([block["title"], block["description"], *block["tags"]])
         cards.append(f"""
@@ -64,7 +68,7 @@ def build() -> str:
         </div>
         <p class="syn-muted">{escape(block['description'])}</p>
         <div class="blocks-preview">
-{snippet}
+{preview}
         </div>
         <details class="blocks-details">
           <summary data-block-source>View HTML source for {escape(block['title'])}</summary>

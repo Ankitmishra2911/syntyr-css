@@ -71,6 +71,21 @@ class BlocksAssetsTests(unittest.TestCase):
         self.assertIn('id="blocks-theme"', page)
         self.assertIn("without JavaScript", page)
 
+    def test_gallery_preview_forms_cannot_submit_but_copyable_source_is_unchanged(self):
+        from html import escape
+        page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
+        forms = re.findall(r"<form\b[^>]*>", page)
+        self.assertGreaterEqual(len(forms), 6, "expected preview forms")
+        self.assertTrue(all(re.search(r"\binert(?:\s|>)", form) for form in forms),
+                        "preview form submissions must be disabled without JavaScript")
+        script = (ROOT / "docs/blocks.js").read_text(encoding="utf-8")
+        self.assertIn('addEventListener("submit"', script)
+        self.assertIn('event.preventDefault()', script)
+        for ident in ("auth-sign-in", "auth-recovery"):
+            source = (ROOT / "blocks/snippets" / f"{ident}.html").read_text().strip()
+            self.assertIn(escape(source), page)
+            self.assertNotIn("<form inert", source)
+
     def test_repeated_source_and_copy_controls_have_contextual_names(self):
         page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
         parser = InspectHTML()

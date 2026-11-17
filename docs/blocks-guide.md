@@ -10,6 +10,11 @@ The 47 copy-owned HTML compositions cover marketing, editorial, services, portfo
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.
 
+Gallery preview forms are inert to prevent accidental submissions to illustrative
+authentication, contact and newsletter routes, including when JavaScript is
+disabled. The copyable HTML source and block registry retain the original real
+form actions and methods; host applications must implement them securely.
+
 The gallery script powers optional documentation search, theme switching and copy
 buttons. Disable JavaScript and all forty static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in

@@ -452,7 +452,7 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-filter-heading">
   <h2 id="syn-filter-heading" class="syn-heading">Find a request</h2>
-  <form class="syn-panel syn-form" method="get" action="/requests">
+  <form inert class="syn-panel syn-form" method="get" action="/requests">
     <label class="syn-label" for="syn-block-query">Search by name</label>
     <input class="syn-input" id="syn-block-query" name="query" type="search" placeholder="Search requests">
     <label class="syn-label" for="syn-block-status">Status</label>
@@ -494,7 +494,7 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-settings-heading">
   <h2 id="syn-settings-heading" class="syn-heading">Workspace settings</h2>
-  <form class="syn-panel syn-form" method="post" action="/settings">
+  <form inert class="syn-panel syn-form" method="post" action="/settings">
     <label class="syn-label" for="syn-block-name">Workspace name</label>
     <input class="syn-input" id="syn-block-name" name="name" autocomplete="organization" value="Northstar Operations" required>
     <label class="syn-label" for="syn-block-timezone">Timezone</label>
@@ -1382,7 +1382,7 @@
   <div class="syn-panel">
     <p class="syn-eyebrow">STAY IN THE LOOP</p><h2 id="syn-newsletter" class="syn-heading">A useful note, once a month</h2>
     <p>Design patterns, maintenance tips and new articles. Unsubscribe at any time.</p>
-    <form class="syn-form" action="/newsletter/subscribe" method="post">
+    <form inert class="syn-form" action="/newsletter/subscribe" method="post">
       <div class="syn-field"><label class="syn-label" for="syn-newsletter-email">Email address</label>
         <input class="syn-input" type="email" id="syn-newsletter-email" name="email" autocomplete="email" required></div>
       <button class="syn-button syn-button--primary" type="submit">Subscribe</button>
@@ -1422,7 +1422,7 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-inquiry">
   <h2 id="syn-inquiry" class="syn-heading">Tell us about your project</h2>
-  <form class="syn-panel syn-form" action="/contact/request" method="post">
+  <form inert class="syn-panel syn-form" action="/contact/request" method="post">
     <div class="syn-field"><label class="syn-label" for="syn-inquiry-name">Your name</label>
       <input class="syn-input" id="syn-inquiry-name" name="name" autocomplete="name" required></div>
     <div class="syn-field"><label class="syn-label" for="syn-inquiry-email">Email address</label>
@@ -1570,7 +1570,7 @@
   <div class="syn-panel">
     <h2 class="syn-heading" id="syn-signin-heading">Sign in to Northstar</h2>
     <p class="syn-muted">Use your account credentials. Authentication is implemented by your application.</p>
-    <form class="syn-form" method="post" action="/sign-in">
+    <form inert class="syn-form" method="post" action="/sign-in">
       <label class="syn-label" for="syn-signin-email">Email address</label>
       <input class="syn-input" id="syn-signin-email" name="email" type="email" autocomplete="username" required>
       <label class="syn-label" for="syn-signin-password">Password</label>
@@ -1616,7 +1616,7 @@
   <div class="syn-panel">
     <h2 class="syn-heading" id="syn-recovery-heading">Recover account access</h2>
     <p>Enter the email address associated with your account. If eligible, the service will send a recovery link.</p>
-    <form class="syn-form" method="post" action="/password/forgot">
+    <form inert class="syn-form" method="post" action="/password/forgot">
       <label class="syn-label" for="syn-recovery-email">Email address</label>
       <input class="syn-input" id="syn-recovery-email" name="email" type="email" autocomplete="email" required>
       <button class="syn-button syn-button--primary" type="submit">Request recovery link</button>
@@ -1786,7 +1786,7 @@
     <h2 class="syn-section-heading" id="syn-collection-heading">Ideas for practical teams</h2>
     <p class="syn-muted">A reusable archive: the host server supplies matching items and pagination.</p>
   </header>
-  <form class="syn-filter-bar" method="get" action="/journal" role="search" aria-label="Filter articles">
+  <form inert class="syn-filter-bar" method="get" action="/journal" role="search" aria-label="Filter articles">
     <div class="syn-filter-field syn-filter-field--query">
       <label class="syn-label" for="syn-collection-search">Search articles</label>
       <input class="syn-input" id="syn-collection-search" type="search" name="q" placeholder="Search the journal">
