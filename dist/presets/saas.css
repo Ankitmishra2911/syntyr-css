@@ -1453,6 +1453,43 @@
       color: var(--syn-accent); background: var(--syn-accent-soft);
     }
     &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
+
+    /* Native disclosure navigation: links and details, not an ARIA tree widget.
+       Browser-owned keyboard interaction; no script, roving tabindex or fake selection. */
+    &.syn-tree-nav {
+      min-inline-size: 0; padding: var(--syn-space-2);
+      border: 1px solid var(--syn-border-subtle);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+    }
+    &.syn-tree-nav :is(ul, ol) { list-style: none; margin: 0; padding: 0; }
+    &.syn-tree-nav :is(ul, ol) :is(ul, ol) {
+      margin-inline-start: var(--syn-space-2);
+      padding-inline-start: var(--syn-space-2);
+      border-inline-start: 1px solid var(--syn-border-subtle);
+    }
+    &.syn-tree-nav :is(summary, a) {
+      min-block-size: 44px; padding: .6rem;
+      border-radius: var(--syn-radius); overflow-wrap: anywhere;
+    }
+    &.syn-tree-nav summary { cursor: pointer; }
+    &.syn-tree-nav a { display: block; color: var(--syn-text); text-decoration: none; }
+    &.syn-tree-nav a[aria-current="page"] {
+      background: var(--syn-accent-soft); color: var(--syn-accent); font-weight: 650;
+      box-shadow: inset 3px 0 var(--syn-accent);
+    }
+    &.syn-tree-nav :is(a, summary):focus-visible {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      &.syn-tree-nav :is(a, summary):hover { background: var(--syn-surface-hover); }
+    }
+    @media (forced-colors: active) {
+      &.syn-tree-nav { border-color: CanvasText; }
+      &.syn-tree-nav a[aria-current="page"] {
+        color: LinkText; border: 1px solid Highlight; box-shadow: inset 3px 0 Highlight;
+      }
+    }
     &.syn-workspace { width: 100%; min-width: 0; overflow-wrap: anywhere; padding: clamp(1rem, 3vw, 2.5rem); }
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
     &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-kpi-min, 13rem)), 1fr)); gap: var(--syn-kpi-gap, var(--syn-space-2)); }

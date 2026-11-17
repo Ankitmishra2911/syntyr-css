@@ -44,6 +44,7 @@ CLASS_DOCS = {
     "syn-view-switcher": "Server-selected view links or host-controlled view buttons; the host owns selection and navigation.",
     "syn-sheet": "Native popover or dialog side-sheet presentation; browser and host own opening, focus, and close behavior.",
     "syn-evidence-card": "Semantic figure-based evidence review presentation with captions and metadata, not a media viewer.",
+    "syn-tree-nav": "Native disclosure navigation for nested links and details; not an ARIA tree widget.",
     "syn-grid": "Responsive grid composition.",
     "syn-stats": "Container-responsive metric composition.",
     "syn-semantic": "Opt-in styling of native HTML elements.",

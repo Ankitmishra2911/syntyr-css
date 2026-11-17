@@ -3524,6 +3524,17 @@
       ]
     },
     {
+      "name": "syn-tree-nav",
+      "module": "recipes.css",
+      "description": "Native disclosure navigation for nested links and details; not an ARIA tree widget.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-u-between",
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",

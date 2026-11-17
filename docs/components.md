@@ -62,6 +62,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
 | Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--nowrap`, `.syn-cell--numeric` | unclassed `table` |
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
+| Native disclosure navigation (alpha.5 candidate) | `.syn-tree-nav` in optional recipes | labeled `<nav>` with nested lists, `<details>`/`<summary>`, and real links; **not** an ARIA tree widget |
 | Workflow (unreleased) | `.syn-steps`, `.syn-step`, `.syn-steps--vertical` | ordered `<ol>` and `aria-current="step"` |
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |

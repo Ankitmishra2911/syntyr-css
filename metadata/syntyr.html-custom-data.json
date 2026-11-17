@@ -1102,6 +1102,10 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-tree-nav",
+          "description": "Native disclosure navigation for nested links and details; not an ARIA tree widget."
+        },
+        {
           "name": "syn-u-between",
           "description": "Syntyr CSS class (utilities.css)."
         },

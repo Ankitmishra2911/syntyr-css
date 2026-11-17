@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Native disclosure navigation — Syntyr CSS</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+</head>
+<body>
+  <div class="syn-root syn-shell" data-syn-theme="studio">
+    <header class="syn-panel">
+      <p class="syn-eyebrow">Unreleased alpha.5 source-candidate</p>
+      <h1 class="syn-heading">Workspace navigation</h1>
+      <p class="syn-muted">A tree-shaped navigation layout using native disclosure and real links: no JavaScript, not an ARIA tree widget.</p>
+      <p><a class="syn-button" href="#workspace">Skip to workspace content</a></p>
+    </header>
+    <div class="syn-sidebar">
+      <nav class="syn-tree-nav" aria-label="Workspace sections">
+        <h2 class="syn-section-heading">Sections</h2>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li>
+            <details open>
+              <summary>Operations</summary>
+              <ul>
+                <li><a href="native-disclosure-navigation.html" aria-current="page">Resource overview (current)</a></li>
+                <li><a href="#campaigns">Campaigns</a></li>
+                <li><a href="#work-orders">Work orders</a></li>
+                <li>
+                  <details>
+                    <summary>Inventory</summary>
+                    <ul>
+                      <li><a href="#assets">Static assets</a></li>
+                      <li><a href="#assets">Digital assets</a></li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="#permissions">Permissions</a></li>
+        </ul>
+      </nav>
+      <main id="workspace" class="syn-panel" tabindex="-1">
+        <h2 id="overview" class="syn-heading">Resource overview</h2>
+        <p>This is a static navigation example. The current page is represented by one real self-link; other links jump to local sections.</p>
+        <section id="campaigns"><h3>Campaigns</h3><p>Campaign overview placeholder.</p></section>
+        <section id="work-orders"><h3>Work orders</h3><p>Work order overview placeholder.</p></section>
+        <section id="assets"><h3>Inventory</h3><p>Asset overview placeholder.</p></section>
+        <section id="permissions"><h3>Permissions</h3><p>Permission overview placeholder.</p></section>
+      </main>
+    </div>
+    <footer class="syn-muted">
+      <p><strong>Implementation boundary:</strong> Hosts supply real authorized URLs and current-page state. This pattern uses native details/summary and links; it does not implement roving focus, selection management, server authorization or a custom ARIA tree.</p>
+      <p><a href="../docs/recipes.html">Read the integration recipe</a></p>
+    </footer>
+  </div>
+</body>
+</html>

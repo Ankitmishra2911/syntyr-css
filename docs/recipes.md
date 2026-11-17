@@ -145,6 +145,42 @@ Load `syntyr.core.css` and then optional `syntyr.recipes.css`. See the [complete
 
 The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.
 
+## Native disclosure navigation for workspaces (alpha.5 source candidate)
+
+[Open the disclosure navigation example](../examples/native-disclosure-navigation.html).
+Use `.syn-tree-nav` on a named `nav` containing normal nested lists, links and
+`details`/`summary` for expandable sections. Use the existing `.syn-sidebar`
+to lay out the navigation beside content and wrap it at narrow widths.
+This is **not an ARIA tree widget**: do not add `role="tree"`, `treeitem`,
+`aria-selected`, or roving `tabindex` without a full tested keyboard controller.
+The browser already supports Tab, Enter, Space and native disclosure.
+
+```html
+<div class="syn-root syn-sidebar" data-syn-theme="studio">
+  <nav class="syn-tree-nav" aria-label="Workspace sections">
+    <ul>
+      <li><details open>
+        <summary>Operations</summary>
+        <ul>
+          <li><a href="/resources" aria-current="page">Resources</a></li>
+          <li><a href="/campaigns">Campaigns</a></li>
+        </ul>
+      </details></li>
+    </ul>
+  </nav>
+  <main id="workspace"><h1>Resources</h1></main>
+</div>
+```
+
+Styling stays in the **optional** `syntyr.recipes.css`, not the immutable
+published alpha.4 core. Targets maintain a 44 CSS-pixel minimum block size,
+focused links and summaries remain visibly outlined, logical inline margins
+respect RTL, and forced-colors mode preserves the current-page indicator.
+Do not fake routes: servers must supply actual authorized links, active page
+state and safe content. For a composite file-browser tree with multi-selection,
+keyboard arrows and roving focus, use an independently tested headless widget
+instead of extending this native navigation recipe.
+
 ## Reusing recipes across stacks
 
 - **Go / templ, PHP, Django, Rust templates:** Make recipes server-rendered partials and pass content as arguments.

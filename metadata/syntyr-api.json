@@ -1372,6 +1372,11 @@
       "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
+      "name": "syn-tree-nav",
+      "module": "recipes.css",
+      "description": "Native disclosure navigation for nested links and details; not an ARIA tree widget."
+    },
+    {
       "name": "syn-u-between",
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css)."

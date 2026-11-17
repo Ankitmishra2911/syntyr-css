@@ -65,6 +65,7 @@ stylesheets.
 - [Component gallery](https://syntyr-css.pages.dev/docs/)
 - [Common HTML and UI example](examples/common-ui.html): navigation links, avatars, chips, list groups, notices and native form controls; no JavaScript
 - [Native HTML elements demo](examples/native-elements.html): lists, code, media, forms, progress, and native overlays with optional semantic CSS
+- [Native disclosure navigation](examples/native-disclosure-navigation.html): responsive workspace hierarchy using real links and details/summary, not a custom ARIA tree (unreleased alpha.5)
 - [20 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
 - [Practical installation, integration and performance guides](https://syntyr-css.pages.dev/docs/guides.html)
 - [Task-based How-To tutorials](docs/how-to.html): search 10 native HTML workflows and edit 20 existing MIT blocks in the sandboxed CodeMirror playground (unreleased alpha.5 source candidate)
