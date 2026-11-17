@@ -86,6 +86,7 @@ class PermissionMatrixContract(unittest.TestCase):
         self.assertIn("permission-matrix.html", (ROOT / "scripts/build_cloudflare_site.py").read_text())
         self.assertIn("permission-matrix.css", (ROOT / "scripts/build_cloudflare_site.py").read_text())
         self.assertIn("Permission matrix", (ROOT / "docs/recipes.md").read_text())
+        self.assertIn("examples/permission-matrix.html", (ROOT / "llms.txt").read_text())
 
 
 if __name__ == "__main__":
