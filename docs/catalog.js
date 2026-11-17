@@ -27,6 +27,20 @@
     results.textContent = `Showing ${count} of ${cards.length} examples.`;
   }
 
+  const theme = document.getElementById('catalog-theme');
+  const previewSize = document.getElementById('catalog-preview-size');
+  const grid = document.getElementById('catalog-items');
+  const root = document.querySelector('.syn-root');
+  if (theme && root) {
+    theme.addEventListener("change", () => {
+      root.dataset.synTheme = theme.value;
+    });
+  }
+  if (previewSize && grid) {
+    previewSize.addEventListener("change", () => {
+      grid.setAttribute('data-catalog-preview', previewSize.value);
+    });
+  }
   controls.hidden = false;
   search.addEventListener("input", updateResults);
   category.addEventListener("change", updateResults);
