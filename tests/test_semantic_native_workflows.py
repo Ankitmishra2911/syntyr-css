@@ -50,6 +50,23 @@ class NativeWorkflows(unittest.TestCase):
         for tag in ("fieldset", "legend", "optgroup", "option", "label", "button"):
             self.assertIn(tag, [t for t, _ in self.dom.tags])
 
+    def test_published_csp_explicitly_allows_only_issues_form_target(self):
+        from scripts.build_cloudflare_site import source_files
+        headers = source_files()["_headers"].decode("utf-8")
+        policy = next(line.strip() for line in headers.splitlines()
+                      if line.strip().startswith("Content-Security-Policy:"))
+        self.assertIn(
+            "form-action 'self' https://github.com/dporkka/syntyr-css/issues;",
+            policy,
+        )
+
+    def test_semantic_guide_is_in_agent_index_and_consolidated_reference(self):
+        from scripts.build_agent_docs import SOURCES
+        path = "docs/semantic-components.md"
+        self.assertIn(path, SOURCES)
+        self.assertIn(path, (ROOT / "llms.txt").read_text(encoding="utf-8"))
+        self.assertIn(path, (ROOT / "llms-full.txt").read_text(encoding="utf-8"))
+
     def test_progress_and_meter_are_distinct_accessible_measures(self):
         vals = [attrs for tag, attrs in self.dom.tags if tag == "progress"]
         measures = [attrs for tag, attrs in self.dom.tags if tag == "meter"]

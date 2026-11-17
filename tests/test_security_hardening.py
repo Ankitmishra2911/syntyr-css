@@ -36,7 +36,7 @@ class SecurityHardeningTests(unittest.TestCase):
             "frame-ancestors": ["'none'"],
             "script-src": ["'self'"],
             "connect-src": ["'self'"],
-            "form-action": ["'self'"],
+            "form-action": ["'self'", "https://github.com/dporkka/syntyr-css/issues"],
             # The documentation playground uses an about:srcdoc iframe.
             "frame-src": ["'self'"],
             "style-src": ["'self'", "'unsafe-inline'"],
