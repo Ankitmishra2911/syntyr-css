@@ -37,6 +37,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Pico.css migration and semantic starter](https://syntyr-css.pages.dev/docs/from-pico.md): Candidate-only one-file semantic bundle and migration cautions (not in alpha.4).
 - [Optional Radix adapter](https://syntyr-css.pages.dev/docs/radix-integration.md): State-only styling for projects that already use Radix Primitives.
 - [Framework integrations](https://syntyr-css.pages.dev/docs/framework-integrations.md): HTMX, server templates, React and other stacks.
+- [Runnable Rust Axum / Askama starter](https://github.com/dporkka/syntyr-css/tree/main/examples/rust-axum): Read-only server-rendered SaaS dashboard with native GET search, validation and no client JavaScript (unreleased alpha.5 source example; not an authentication or production starter).
 - [Theme tokens and customization](https://syntyr-css.pages.dev/docs/theme-customization.md): Supported design token overrides.
 - [Visual-intensity and frame-composition guide](https://syntyr-css.pages.dev/docs/visual-intensity.md): Quiet, standard and cinematic effects; zero-JavaScript geometry rules (alpha.5 candidate).
 - [Visual composition and flagship showcases](https://syntyr-css.pages.dev/docs/visual-composition.md): Premium restraint, accessible surfaces and responsive Studio, Noir and Grid page examples (alpha.5 candidate).
