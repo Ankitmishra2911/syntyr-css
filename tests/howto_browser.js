@@ -53,6 +53,27 @@ const doc = file => pathToFileURL(path.join(root, "docs", file)).href;
                    "Outer wrapper and canonical inner block should both adopt Grid");
       assert.equal(copied.includes('data-syn-theme="studio"'), false,
                    "Copy must not accidentally reset the block theme");
+      // CodeRabbit regression: valid edited single-quoted HTML must continue
+      // honoring the selected theme in preview and export without mutation.
+      await page.locator("#playground-markup").evaluate(el => {
+        const original = el.value;
+        el.value = original.replace(
+          'class="syn-root syn-region" data-syn-theme="studio"',
+          "class='syn-root syn-region' data-syn-theme='studio'"
+        );
+        if (el.value === original) throw Error("Expected canonical Studio root");
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+      await frame.locator("section.syn-root[data-syn-theme=grid]").first().waitFor();
+      assert.ok((await page.locator("#playground-markup").inputValue()).includes("data-syn-theme='studio'"),
+        "Edited source must remain single-quoted Studio");
+      await page.locator("#playground-copy").click();
+      const editedCopy = await page.evaluate(() => window.__blockCopied);
+      assert.equal(editedCopy.includes("data-syn-theme='studio'"), false,
+        "Configured export must not restore the nested Studio theme");
+      assert.ok(editedCopy.includes("data-syn-theme='grid'"),
+        "Configured export must apply the selected theme to edited single-quoted roots");
+
       await page.locator("#playground-source-link").click();
       assert.ok(page.url().includes("blocks.html#block-title-pricing-trio"));
       await page.locator(".blocks-edit").first().waitFor();

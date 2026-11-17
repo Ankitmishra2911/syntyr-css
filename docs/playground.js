@@ -85,8 +85,11 @@
     // editable source or the generated MIT gallery snippets.
     if (catalogMap.get(example.value)?.kind !== "block") return markup.value;
     return markup.value.replace(/<[a-z][a-z0-9-]*\b[^>]*>/gi, (tag) => {
-      if (!/\bclass="[^"]*\bsyn-root\b[^"]*"/.test(tag)) return tag;
-      return tag.replace(/\bdata-syn-theme="[^"]*"/g, `data-syn-theme="${theme.value}"`);
+      // Recognize equivalent quoted attribute syntax from edited HTML.
+      const classAttribute = /(?:^|\s)class\s*=\s*(["'])(.*?)\1/i.exec(tag);
+      if (!classAttribute || !/(?:^|\s)syn-root(?:\s|$)/.test(classAttribute[2])) return tag;
+      return tag.replace(/(\s)data-syn-theme\s*=\s*(["'])(.*?)\2/gi,
+        (_, whitespace, quote) => whitespace + "data-syn-theme=" + quote + theme.value + quote);
     });
   }
 
