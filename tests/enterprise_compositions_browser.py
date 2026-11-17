@@ -36,6 +36,21 @@ def check(browser, engine: str, width: int, font_px: int) -> None:
     assert rect is not None
     assert rect["x"] >= -1 and rect["x"] + rect["width"] <= width + 1, (engine, width, rect)
     assert sheet.evaluate("e => getComputedStyle(e).gridTemplateRows") != "none"
+    # At extreme text zoom, the complete sheet (including footer actions) must
+    # remain scroll-reachable even if the header alone consumes most of the height.
+    if width == 320 and font_px == 64:
+        assert sheet.evaluate("e => getComputedStyle(e).overflowY") in ("auto", "scroll"), (
+            engine, "sheet lacks a user-scrollable fallback"
+        )
+        page.mouse.move(rect["x"] + min(16, rect["width"] / 2), rect["y"] + 12)
+        page.mouse.wheel(0, 5000)
+        page.wait_for_function("document.querySelector('#record-preview').scrollTop > 0")
+        footer_bounds = sheet.locator(".syn-sheet-footer").bounding_box()
+        assert footer_bounds is not None
+        assert 0 <= footer_bounds["y"] and footer_bounds["y"] + footer_bounds["height"] <= 781, (
+            engine, "sheet footer clipped at extreme zoom", footer_bounds
+        )
+        sheet.evaluate("e => { e.scrollTop = 0; }")
     assert not errors, (engine, width, errors)
     page.keyboard.press("Escape")
     assert not sheet.is_visible(), (engine, width, "escape did not dismiss")

@@ -1378,7 +1378,7 @@
       position: fixed; inset: 0 0 0 auto; margin: 0 0 0 auto;
       box-sizing: border-box; inline-size: min(100%, var(--syn-sheet-width, 30rem));
       max-inline-size: 100%; block-size: 100dvh; max-block-size: 100dvh;
-      padding: 0; overflow: hidden;
+      padding: 0; overflow-x: hidden; overflow-y: auto;
       border: 1px solid var(--syn-border-default); border-inline-start-width: 2px;
       border-radius: 0; background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-overlay);
