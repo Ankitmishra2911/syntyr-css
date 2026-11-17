@@ -30,6 +30,10 @@ def css_code_only(content: str) -> str:
         if content.startswith("/*", i):
             end = content.find("*/", i + 2)
             stop = len(content) if end < 0 else end + 2
+        elif content[i] == "\\":
+            # Escapes outside strings must not turn an escaped quote into a string.
+            i += 2
+            continue
         elif content[i] in ("\"", "'"):
             quote = content[i]
             stop = i + 1
@@ -53,7 +57,7 @@ def css_code_only(content: str) -> str:
 
 
 THEME_ATTRIBUTE = re.compile(r"\[\s*data-syn-theme\b")
-CUSTOM_PROPERTY = re.compile(r"(?<=[{;])\s*(--syn-[a-zA-Z0-9_-]+)\s*:")
+CUSTOM_PROPERTY = re.compile(r"(?<=[{;}])\s*(--syn-[a-zA-Z0-9_-]+)\s*:")
 VAR_REFERENCE = re.compile(r"\b(?i:var)\(\s*(--syn-[a-zA-Z0-9_-]+)\s*([,)])")
 IMPORTANT = re.compile(r"!\s*important\b", re.IGNORECASE)
 BLOCK_OR_IMPORTANT = re.compile(r"[{}]|!\s*important\b", re.IGNORECASE)

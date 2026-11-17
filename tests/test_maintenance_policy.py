@@ -178,6 +178,24 @@ class VariableResolutionPolicyTests(unittest.TestCase):
             self.assertEqual(find_issues(source, {"css": ("buttons.css",)}), [])
 
 
+    def test_unquoted_escaped_quote_does_not_hide_missing_variable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-icon { background: url(icon" + chr(92) + '".svg); color: var(--syn-missing); }'
+            )
+            issues = find_issues(source, {"css": ("buttons.css",)})
+            self.assertTrue(any("--syn-missing" in issue for issue in issues), issues)
+
+    def test_custom_property_after_nested_rule_is_detected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-root { &:hover { color: red; } --syn-local: blue; color: var(--syn-local); }"
+            )
+            self.assertEqual(find_issues(source, {"css": ("buttons.css",)}), [])
+
+
 class ImportantExceptionPolicyTests(unittest.TestCase):
     def test_important_outside_reduced_motion_is_rejected_in_base(self):
         with tempfile.TemporaryDirectory() as directory:
