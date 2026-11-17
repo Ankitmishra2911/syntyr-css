@@ -42,6 +42,15 @@ class TagCollector(HTMLParser):
 
 
 class HtmlElementGalleryTests(unittest.TestCase):
+    def test_native_popover_uses_overlay_class_in_preview_and_source(self):
+        html = (ROOT / "docs/catalog.html").read_text(encoding="utf-8")
+        self.assertIn('<div id="catalog-help-popover" popover class="syn-popover">', html)
+        self.assertIn(
+            'id=&quot;catalog-help-popover&quot; popover class=&quot;syn-popover&quot;',
+            html,
+        )
+        self.assertNotIn('id="catalog-help-popover" popover class="syn-panel"', html)
+
     def test_gallery_exposes_complete_free_categories(self):
         html = (ROOT / "docs/catalog.html").read_text(encoding="utf-8")
         gallery = GalleryParser()

@@ -62,6 +62,20 @@ const engines = {chromium, firefox, webkit};
         assert.equal(await page.locator('.catalog-card:not([hidden]) .catalog-code-details').evaluate(el => el.open), true);
         assert.ok((await page.evaluate(() => window.getSelection()?.toString() || '')).includes('syn-button--primary'));
         assert.equal(await page.locator('#catalog-results').innerText(), 'HTML selected. Use your keyboard to copy it.');
+        // A native popover must stay within the viewport after scrolling.
+        await page.locator('#catalog-search').fill('popover');
+        const popoverInvoker = page.locator('button[popovertarget="catalog-help-popover"]').first();
+        await popoverInvoker.scrollIntoViewIfNeeded();
+        await popoverInvoker.click();
+        const popover = page.locator('#catalog-help-popover');
+        assert.equal(await popover.evaluate(el => el.matches(':popover-open')), true);
+        const bounds = await popover.boundingBox();
+        assert.ok(bounds && bounds.y >= -1 && bounds.y + bounds.height <= 801,
+          `Popover should open within the viewport at ${width}px: ${JSON.stringify(bounds)}`);
+        await popover.locator('button[popovertargetaction="hide"]').click();
+        assert.equal(await popover.evaluate(el => el.matches(':popover-open')), false);
+        await page.locator('#catalog-search').fill('');
+
         const dimensions = await page.evaluate(() => ({scroll: document.documentElement.scrollWidth, inner: window.innerWidth}));
         assert.ok(dimensions.scroll <= dimensions.inner + 1, `Unexpected horizontal overflow at ${width}: ${JSON.stringify(dimensions)}`);
         await page.close();

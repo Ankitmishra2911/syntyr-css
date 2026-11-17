@@ -1269,9 +1269,9 @@
       ],
       "classes": [
         "syn-button",
-        "syn-panel"
+        "syn-popover"
       ],
-      "html": "<button type=\"button\" class=\"syn-button\" popovertarget=\"catalog-help-popover\">More information</button>\n<div id=\"catalog-help-popover\" popover class=\"syn-panel\">\n  <p>Browser-native popover; no JavaScript component required.</p>\n  <button type=\"button\" class=\"syn-button\" popovertarget=\"catalog-help-popover\" popovertargetaction=\"hide\">Close</button>\n</div>"
+      "html": "<button type=\"button\" class=\"syn-button\" popovertarget=\"catalog-help-popover\">More information</button>\n<div id=\"catalog-help-popover\" popover class=\"syn-popover\">\n  <p>Browser-native popover; no JavaScript component required.</p>\n  <button type=\"button\" class=\"syn-button\" popovertarget=\"catalog-help-popover\" popovertargetaction=\"hide\">Close</button>\n</div>"
     }
   ]
 }
