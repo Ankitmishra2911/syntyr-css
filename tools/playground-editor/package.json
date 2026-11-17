@@ -5,7 +5,7 @@
   "description": "Maintainer-only pinned CodeMirror 6 build for the static Syntyr documentation playground",
   "type": "module",
   "scripts": {
-    "build": "esbuild src/editor.mjs --bundle --minify --format=iife --target=es2022 --legal-comments=eof --outfile=../../docs/playground-editor.js"
+    "build": "node patch-rectangular-selection.mjs && esbuild src/editor.mjs --bundle --minify --format=iife --target=es2022 --legal-comments=eof --outfile=../../docs/playground-editor.js"
   },
   "dependencies": {
     "codemirror": "6.0.2",
