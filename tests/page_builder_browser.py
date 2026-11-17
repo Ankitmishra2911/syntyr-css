@@ -110,6 +110,22 @@ def verify(browser, base_url, width):
     expect(page.locator("#builder-status")).to_contain_text("Cannot open project")
     expect(page.locator("#builder-outline > li")).to_have_count(5)
 
+    # A gallery-backed block uses the generated manifest and editable strings.
+    page.locator('#builder-gallery-count').get_by_text("16 gallery examples.").wait_for()
+    page.locator("#builder-gallery-search").fill("buttons")
+    assert page.locator("#builder-gallery-palette [data-block-type]").count() == 1
+    page.locator('[data-block-type="gallery:catalog-buttons-title"]').click()
+    assert page.locator("#builder-outline > li").count() == 5
+    page.locator('#builder-inspector [data-field="text1"]').fill("Custom gallery action")
+    assert preview.locator('[data-syntyr-block-id] .syn-button--primary').last.inner_text() == "Custom gallery action"
+    with page.expect_download() as download_info:
+        page.locator("#builder-export-html").click()
+    assert download_info.value.suggested_filename == "index.html"
+    html = page.evaluate("async () => await window.__lastBuilderBlob.text()")
+    assert "Custom gallery action" in html
+    assert 'href="syntyr.all.css"' in html
+    assert "<script" not in html
+
     assert page.locator("body").evaluate("e => e.scrollWidth <= innerWidth + 1")
     assert not errors, errors
     context.close()

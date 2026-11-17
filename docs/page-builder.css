@@ -28,6 +28,11 @@
 .builder-workspace > * { min-width: 0; }
 .builder-sidebar, .builder-inspector-panel { display: grid; align-content: start; gap: .85rem; }
 .builder-palette { display: grid; gap: .45rem; }
+.builder-gallery { display: grid; gap: .55rem; border-top: 1px solid var(--syn-border-subtle); padding-block-start: .85rem; }
+.builder-gallery h3 { font-size: var(--syn-type-md, 1rem); margin: 0; }
+.builder-gallery-palette { max-height: 22rem; overflow-y: auto; overscroll-behavior: contain; }
+.builder-gallery-palette:focus-within { outline-offset: .2rem; }
+
 .builder-add {
   display: grid;
   justify-items: start;

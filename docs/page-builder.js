@@ -1,11 +1,14 @@
 /* Docs-only, dependency-free visual composition. The shipped Syntyr CSS stays JS-free. */
 import {
-  BLOCK_TYPES, BLOCK_DEFINITIONS, THEMES, MAX_PROJECT_BYTES,
+  BLOCK_TYPES, THEMES, MAX_PROJECT_BYTES,
+  registerGalleryManifest, galleryBlockTypes, getBlockDefinition,
   createBlock, createDefaultDocument, parseDocument, moveBlock, exportHtml
 } from "./page-builder-model.mjs";
 
 const byId = (id) => document.getElementById(id);
 const palette = byId("builder-palette");
+const galleryPalette = byId("builder-gallery-palette");
+const gallerySearch = byId("builder-gallery-search");
 const outline = byId("builder-outline");
 const inspector = byId("builder-inspector");
 const preview = byId("builder-preview");
@@ -59,14 +62,44 @@ function makeButton(label, action, disabled = false) {
   return element;
 }
 
+function appendPaletteButton(target, type) {
+  const def = getBlockDefinition(type);
+  const button = makeElement("button", null, "builder-add");
+  button.type = "button";
+  button.dataset.blockType = type;
+  button.append(makeElement("strong", "+ " + def.label), makeElement("small", def.description));
+  target.append(button);
+}
 function renderPalette() {
-  for (const type of BLOCK_TYPES) {
-    const def = BLOCK_DEFINITIONS[type];
-    const button = makeElement("button", null, "builder-add");
-    button.type = "button";
-    button.dataset.blockType = type;
-    button.append(makeElement("strong", "+ " + def.label), makeElement("small", def.description));
-    palette.append(button);
+  palette.replaceChildren();
+  for (const type of BLOCK_TYPES) appendPaletteButton(palette, type);
+}
+function renderGalleryPalette() {
+  galleryPalette.replaceChildren();
+  const terms = gallerySearch.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+  let count = 0;
+  for (const type of galleryBlockTypes()) {
+    const def = getBlockDefinition(type);
+    const searchable = (def.label + " " + def.description + " " + type).toLocaleLowerCase();
+    if (!terms.every(term => searchable.includes(term))) continue;
+    appendPaletteButton(galleryPalette, type);
+    count += 1;
+  }
+  byId("builder-gallery-count").textContent = count + " gallery examples.";
+}
+gallerySearch.addEventListener("input", renderGalleryPalette);
+async function loadGallery() {
+  try {
+    const url = new URL("../metadata/component-gallery.v1.json", import.meta.url);
+    const response = await fetch(url, { credentials: "same-origin" });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const manifest = await response.json();
+    const count = registerGalleryManifest(manifest);
+    renderGalleryPalette();
+    notify(count + " manifest-backed gallery examples available.");
+  } catch {
+    byId("builder-gallery-count").textContent = "Gallery unavailable; native page sections still work.";
+    notify("Optional gallery could not load. The basic page composer remains usable.");
   }
 }
 function renderOutline() {
@@ -83,9 +116,9 @@ function renderOutline() {
     item.dataset.index = String(index);
     item.dataset.blockId = block.id;
     item.dataset.selected = String(block.id === selectedId);
-    const name = makeButton((index + 1) + ". " + BLOCK_DEFINITIONS[block.type].label, "select");
+    const name = makeButton((index + 1) + ". " + getBlockDefinition(block.type).label, "select");
     name.className = "builder-outline-select";
-    name.setAttribute("aria-label", "Edit " + BLOCK_DEFINITIONS[block.type].label + ", block " + (index + 1));
+    name.setAttribute("aria-label", "Edit " + getBlockDefinition(block.type).label + ", block " + (index + 1));
     const actions = makeElement("div", null, "builder-outline-actions");
     actions.append(
       makeButton("↑ Up", "up", index === 0),
@@ -115,18 +148,21 @@ function renderInspector() {
     byId("builder-inspector-help").textContent = "No block selected.";
     return;
   }
-  const def = BLOCK_DEFINITIONS[block.type];
+  const def = getBlockDefinition(block.type);
   byId("builder-inspector-help").textContent = def.description;
   inspector.append(makeElement("p", def.label, "builder-block-name"));
   for (const name of Object.keys(def.fields)) {
     const label = makeElement("label", null, "syn-label");
-    const friendlyName = name.replace(/([A-Z])/g, " $1").toUpperCase();
+    const fieldKind = def.fieldKinds?.[name];
+    const friendlyName = fieldKind
+      ? name.replace(/(\d+)$/, " $1").toUpperCase() + " · " + String(block.props[name]).slice(0, 28)
+      : name.replace(/([A-Z])/g, " $1").toUpperCase();
     label.append(document.createTextNode(friendlyName));
     const value = block.props[name];
     const multi = value.length > 65 || /description|answer|quote|Text$/i.test(name);
     const control = makeElement(multi ? "textarea" : "input", null, "syn-input");
     if (multi) control.rows = 3;
-    else control.type = "text";
+    else control.type = "text"; // Also supports #anchors and /relative paths.
     control.value = value;
     control.maxLength = 5000;
     control.dataset.field = name;
@@ -193,7 +229,7 @@ function redraw() {
 }
 function nextBlockId(type) {
   let id;
-  do { id = type + "-" + sequence++; }
+  do { id = type.replace(/^gallery:/, "").slice(0, 42) + "-" + sequence++; }
   while (page.blocks.some(block => block.id === id));
   return id;
 }
@@ -205,20 +241,22 @@ function shift(from, to) {
   renderOutline();
   renderInspector();
 }
-palette.addEventListener("click", (event) => {
+function addFromPalette(event) {
   const button = event.target.closest("[data-block-type]");
   if (!button) return;
   try {
     const block = createBlock(button.dataset.blockType, nextBlockId(button.dataset.blockType));
     const next = structuredClone(page);
     next.blocks.push(block);
-    commit(next, BLOCK_DEFINITIONS[block.type].label + " added.");
+    commit(next, getBlockDefinition(block.type).label + " added.");
     selectedId = block.id;
     redraw();
   } catch (error) {
     notify(error.message);
   }
-});
+}
+palette.addEventListener("click", addFromPalette);
+galleryPalette.addEventListener("click", addFromPalette);
 outline.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
   const item = event.target.closest("[data-index]");
@@ -340,3 +378,4 @@ byId("builder-import").addEventListener("change", async (event) => {
 
 renderPalette();
 redraw();
+void loadGallery();

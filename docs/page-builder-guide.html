@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="The visual builder is a local-first, optional editing tool in the public Syntyr documentation. It assembles a small set of existing Syntyr CSS/HTML…">
-  <meta name="syntyr-source-sha256" content="90338566d5843ccc227bff706c38cc3dc6232d721f353c8929afa134b717bb5f">
+  <meta name="syntyr-source-sha256" content="0ca97507378df12fed452f5f245539897f3426a6440d0077572fae83882db0df">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr visual page builder (experimental) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/page-builder-guide">
@@ -39,6 +39,8 @@
 <h2 id="what-works">What works</h2>
 <ul>
 <li>Add hero, feature-card, split-text, testimonial, FAQ, CTA, site header and footer sections from the palette.</li>
+<li>Search and insert <strong>gallery components</strong> from the generated <code>metadata/component-gallery.v1.json</code> contract (16 curated examples in the current source candidate). Edit their visible text, placeholders and safe links; examples carry the CSS modules needed and can be repeated without duplicate input IDs.</li>
+<li>The gallery is loaded from the same origin as the builder. If the JSON is missing, the original eight semantic page sections remain available; no external API or build service is required.</li>
 <li>Select sections in the outline or preview, edit their text and links, reorder with buttons or drag-and-drop, and remove sections. Keyboard focus remains in the outline during reordering; native FAQ disclosures open in the preview.</li>
 <li>Switch among themes available to the unreleased source candidate and preview true 1200px desktop, 760px tablet, and 390px mobile iframe viewports. Narrow canvases scroll rather than silently scaling the device viewport.</li>
 <li>Undo and redo editing changes (limited in-memory history).</li>
@@ -47,15 +49,26 @@
 </ul>
 <p>The builder runs entirely in your browser. It does not upload projects or require a server account. Save the JSON file before closing the page: unsaved edits are not persisted.</p>
 <h2 id="framework-independent-output">Framework-independent output</h2>
+<p>Gallery-backed blocks use a <code>gallery:&lt;catalog-example-id&gt;</code> type with only typed,
+string-valued editable properties. The trusted native HTML fragment comes from
+the generated, publicly published manifest, <strong>never from imported project JSON</strong>.
+Imported projects referencing missing or changed gallery definitions fail
+validation rather than executing or injecting arbitrary markup. Keep an
+exported HTML copy for long-term rendering if the optional source catalog
+changes. The manifest is an <strong>unreleased alpha.5 source candidate</strong>; these
+examples are not promised in the published alpha.4 release.</p>
 <p>The document schema is syntyr.page.v1, with schema, title, theme, and an ordered array of id, type, and props blocks. The canonical validation and renderer are in page-builder-model.mjs, a dependency-free ESM module with no browser globals.</p>
 <p>The exported index.html uses ordinary HTML sections, anchors, buttons-styled links, native FAQ disclosures, and existing syn-* classes. The local syntyr.all.css stylesheet must be hosted next to it; the page does not contain React, a builder script, or Syntyr editor dependencies. You can instead load CSS modules required by your chosen components using the <a href="distribution.html">distribution guide</a>.</p>
 <p>An HTML export does <strong>not</strong> preserve editor metadata sufficiently for arbitrary HTML import; the JSON project is the editable source of truth. Proprietary embeds, CMS integrations, React/Vue/Svelte code generation, hosting, and collaboration are not yet implemented.</p>
 <h2 id="security-boundaries">Security boundaries</h2>
-<p>Imported project data is strictly validated: only recognized string block types and string fields, unique safe IDs, a known theme, up to 50 blocks, bounded property lengths, and a 16 MiB UTF-8 JSON import cap compatible with the maximum valid exported project size. Every user-controlled text value is HTML escaped, and unsupported href protocols (including javascript: and data:) are rendered as #. The preview is inside a sandboxed iframe without script or form-submission permissions. The exported result is still <strong>static HTML</strong>, not a backend application.</p>
+<p>Imported project data is strictly validated: only recognized string block types and string fields, unique safe IDs, a known theme, up to 50 blocks, bounded property lengths, and a 16 MiB UTF-8 JSON import cap compatible with the maximum valid exported project size. Repeating gallery snippets scopes internal HTML IDs and their <code>for</code>,
+<code>list</code>, <code>commandfor</code>, and ARIA references to each block instance.
+The gallery manifest is restricted to checked-in, validated markup; links
+are normalized to local anchors/paths or HTTPS. Every user-controlled text value is HTML escaped, and unsupported href protocols (including javascript: and data:) are rendered as #. The preview is inside a sandboxed iframe without script or form-submission permissions. The exported result is still <strong>static HTML</strong>, not a backend application.</p>
 <p>This experimental tool is deliberately separate from the MIT CSS core. It uses only small first-party documentation scripts; adopting a heavyweight editor engine such as GrapesJS should be justified through comparative testing, not as a mandatory dependency.</p>
 <h2 id="maintainer-verification">Maintainer verification</h2>
 <p>Run from repository root:</p>
-<pre><code>node --test tests/page_builder_model.test.mjs
+<pre><code>node --test tests/page_builder_model.test.mjs tests/page_builder_gallery.test.mjs
 python3 -m unittest tests.test_cloudflare_site -v
 python3 scripts/build_cloudflare_site.py --check
 </code></pre>
