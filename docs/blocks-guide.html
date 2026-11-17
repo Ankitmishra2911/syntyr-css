@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: Experimental alpha.5 source gallery, not an immutable release or published npm package.">
-  <meta name="syntyr-source-sha256" content="a1efa213a518e7cde0636345b5e51a240a3b006793a41264bccf70e2b29e0aa2">
+  <meta name="syntyr-source-sha256" content="da0e0653142bef63eba5d666d3c8ef707eeb54d6440abf9557c84061bac07fa7">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide">
@@ -70,6 +70,24 @@ event handlers in the host app, not in Syntyr.</li>
 <p>Routes like /settings and /checkout/team are example host-app routes. Replace
 them before using in production. Static samples do not implement authentication,
 filtering, payments, sorting, persistence or actual monitoring.</p>
+<h2 id="optional-scroll-parallax-and-hover-effects">Optional scroll, parallax, and hover effects</h2>
+<p>Any copied block can opt into decorative animation by loading
+<a href="animation.html#website-block-effects-css-only">syntyr.motion.css</a> alongside its
+existing CSS. Add <code>data-syn-scroll=&quot;rise&quot;</code> or <code>data-syn-scroll=&quot;fade&quot;</code> directly
+to a heading or card in its original HTML; do not clone the block to create
+an animation variant. A decorative background can use <code>data-syn-parallax</code>
+with a separate media layer, and image tiles can use <code>data-syn-hover=&quot;zoom&quot;</code>.</p>
+<p>These are CSS-first progressive enhancements: unsupported browser versions
+and users requesting reduced motion retain visible, static content. See the
+<a href="animation.html#website-block-effects-css-only">block effects guide and examples</a>
+and the <a href="../examples/animation.html">live animation gallery</a>.</p>
+<p>Use the existing static gradient wash with the optional motion module to
+add a gentle animated background without inventing a new block variant.
+<code>data-syn-gradient=&quot;drift&quot;</code> works on <code>syn-gradient-wash</code> with a
+<code>data-syn-gradient-content</code> foreground wrapper. Short editorial headings
+may opt into <code>data-syn-text=&quot;underline&quot;</code> or
+<code>data-syn-text=&quot;glint&quot;</code>. Motion and high-contrast fallbacks are explained
+in the <a href="animation.html#animated-gradient-wash-composable-css">animation guide</a>.</p>
 <h2 id="12-original-optional-css-asset-recipes">12 original, optional CSS asset recipes</h2>
 <p>The complete source is <a href="blocks-assets.css">blocks-assets.css</a>. It includes:
 fine-grid, dot-field, radar, ambient-glow, glass, blueprint, signal-stripes,
@@ -144,6 +162,7 @@ source-candidate Syntyr version and must not be confused with a tagged release.<
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#contract">Contract</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-html-and-framework-integration">Native HTML and framework integration</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-scroll-parallax-and-hover-effects">Optional scroll, parallax, and hover effects</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#12-original-optional-css-asset-recipes">12 original, optional CSS asset recipes</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#six-font-recipes-and-24-original-svg-icons">Six font recipes and 24 original SVG icons</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#source-build-and-maintenance">Source, build and maintenance</a>

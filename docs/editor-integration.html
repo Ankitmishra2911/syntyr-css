@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s editor integration is optional . Applications still consume ordinary prebuilt CSS, HTML, and custom properties without Node, JavaScript, or a…">
-  <meta name="syntyr-source-sha256" content="bf504ec8233c1e67da4b9e89f022992ea03e5420e5289e185bb176838f895a9d">
+  <meta name="syntyr-source-sha256" content="33e3a1bcfb6c0241aa8d10d5283dfdd82caad1bf81a8b9e785f3edb0461e070a">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr editor autocomplete and metadata — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/editor-integration">
@@ -76,6 +76,34 @@ are curated for core APIs and source-file-derived for others.</p>
 A class being present in the metadata does not mean its optional stylesheet
 is already loaded. Check each item's <code>module</code> in the generated catalog and
 load the corresponding Syntyr CSS distribution.</p>
+<h2 id="generated-portable-component-gallery-for-builders">Generated portable component gallery for builders</h2>
+<p>The source-tree candidate also ships <a href="../metadata/component-gallery.v1.json">component-gallery.v1.json</a>,
+an <strong>optional, framework-neutral</strong> static contract for documentation,
+visual editors and AI-assisted composition. It is derived automatically from
+the curated <code>metadata/components.json</code> and the actual native HTML examples
+in <code>docs/catalog.html</code>, not another manually authored component registry.</p>
+<p>The manifest also carries the curated <code>recipes[]</code> with slots and variants,
+plus theme names from the generated CSS API metadata (not a new theme
+registry). Each <code>components[]</code> entry is the existing curated metadata. Each
+<code>examples[]</code> entry has a stable <code>id</code>, title, description, searchable
+keywords, native HTML, semantic element names, actual <code>syn-*</code> classes, and
+<code>required_stylesheets</code>. The stylesheet list can include the separately opt-in
+semantic CSS module; loading <code>syntyr.core.css</code> alone is not always sufficient.
+The <code>module</code> field preserves the primary stylesheet shown in the gallery.</p>
+<p>From a source checkout, regenerate and verify with:</p>
+<pre><code class="language-sh">python3 scripts/build_component_gallery.py
+python3 scripts/build_component_gallery.py --check
+</code></pre>
+<p>The public documentation catalog adds optional theme and compact-width preview
+controls. Without JavaScript, all previews and visible source snippets remain
+available. None of these controls or generator scripts ships in core CSS.</p>
+<p><strong>Safety and compatibility:</strong> the JSON is a library of trusted, checked-in
+examples, not an HTML sanitizer or a guarantee that examples implement business
+behavior. Treat incoming user markup separately. Component classes require a
+<code>.syn-root</code> ancestor, the installed release must provide the listed CSS
+modules, and the <strong>unreleased alpha.5 source candidate</strong> must not be mistaken
+for the published alpha.4 release. HTML form actions, billing, data, dialogs,
+and application state are controlled by the host platform.</p>
 <h2 id="optional-static-html-diagnostics">Optional static HTML diagnostics</h2>
 <p>The generated <code>metadata/syntyr-contract.json</code> is Syntyr's machine-readable
 development contract. It combines the <strong>full source-discovered</strong> class and token
@@ -169,6 +197,7 @@ to the browser by this integration.</p>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#vs-code-and-compatible-editors">VS Code and compatible editors</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#regenerate-after-css-changes">Regenerate after CSS changes</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#generated-portable-component-gallery-for-builders">Generated portable component gallery for builders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-static-html-diagnostics">Optional static HTML diagnostics</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#agent-ready-composition-recipes">Agent-ready composition recipes</a>
         </nav></aside>
