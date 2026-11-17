@@ -50,6 +50,10 @@
     "./animate": {
       "types": "./dist/syntyr.animate.d.mts",
       "default": "./dist/syntyr.animate.mjs"
+    },
+    "./copy": {
+      "types": "./dist/syntyr.copy.d.mts",
+      "default": "./dist/syntyr.copy.mjs"
     }
   },
   "sideEffects": [

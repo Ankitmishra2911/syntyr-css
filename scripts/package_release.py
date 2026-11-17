@@ -24,6 +24,7 @@ FILES = (
     "docs/distribution.md",
     "docs/api-stability.md",
     "docs/animation.md",
+    "docs/clipboard.md",
     "docs/ai-quickstart.md",
     "docs/agent-integration.md",
     "docs/components.md",
@@ -35,6 +36,8 @@ FILES = (
     "examples/preset-preview.html",
     "examples/animation.html",
     "examples/animation-demo.mjs",  # One local CSS file per named preset.
+    "examples/copy.html",
+    "examples/copy-demo.mjs",
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
