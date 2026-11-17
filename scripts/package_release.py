@@ -80,6 +80,8 @@ def package(output: Path) -> None:
                    cwd=ROOT, check=True, capture_output=True, text=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/export_api_metadata.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_component_gallery.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
     output.parent.mkdir(parents=True, exist_ok=True)
     with ZipFile(output, mode="w", compression=ZIP_DEFLATED, compresslevel=9) as archive:
         for relative in FILES:

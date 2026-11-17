@@ -55,6 +55,20 @@ class GalleryManifestTests(unittest.TestCase):
         self.assertIn(name, pkg["files"])
         self.assertIn("component-gallery.v1.json", (ROOT / "docs/editor-integration.md").read_text())
 
+    def test_published_manifest_has_cross_origin_read_header(self):
+        from scripts.build_cloudflare_site import HEADERS
+        self.assertIn(
+            "/metadata/component-gallery.v1.json\n  Access-Control-Allow-Origin: *",
+            HEADERS,
+        )
+
+    def test_release_package_refuses_stale_gallery(self):
+        from scripts import package_release
+        import inspect
+        source = inspect.getsource(package_release.package)
+        self.assertIn('scripts/build_component_gallery.py', source)
+        self.assertIn('"--check"', source)
+
     def test_gallery_theme_and_preview_controls_preserve_no_js_examples(self):
         page = (ROOT / "docs/catalog.html").read_text(encoding="utf-8")
         script = (ROOT / "docs/catalog.js").read_text(encoding="utf-8")
