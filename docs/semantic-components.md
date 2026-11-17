@@ -150,6 +150,140 @@ the existing `.syn-panel` class when a visual callout is desirable.
 </aside>
 ~~~
 
+## In-page navigation
+
+A `nav` landmark with an accessible name and a real ordered list doubles as
+an in-page table of contents. Anchor destinations must exist. Do not substitute
+a fake tab interface or JavaScript scrolling for ordinary document navigation.
+
+~~~html
+<nav aria-label="On this page">
+  <ol>
+    <li><a href="#offer">Current offer</a></li>
+    <li><a href="#notes">Reference notes</a></li>
+  </ol>
+</nav>
+<section id="offer" aria-labelledby="offer-heading">
+  <h2 id="offer-heading">Current offer</h2>
+  <p>Native content, no client-side routing required.</p>
+</section>
+<section id="notes" aria-labelledby="notes-heading">
+  <h2 id="notes-heading">Reference notes</h2>
+  <p>Each anchor points to a real heading section.</p>
+</section>
+~~~
+
+## Previous price versus revision
+
+Use `s` for content that is no longer accurate or relevant, such as a
+superseded advertised price; `del` and `ins` instead describe **actual
+document edits**. Use `data[value]` when the application needs a
+machine-readable number, not to indicate currency on its own. Provide the
+currency and billing period in visible text. Price, stock and promotion
+eligibility must still be verified by the server before any transaction.
+
+~~~html
+<article>
+  <h2>Team plan (example only)</h2>
+  <p>Example price:
+    <s><data value="39">US$39 per month</data></s>
+    <strong><data value="29">US$29 per month</data></strong>
+  </p>
+  <p><small>Illustrative pricing, not a live Syntyr offer.</small></p>
+</article>
+~~~
+
+Syntyr's optional semantic layer lightly de-emphasizes `s` but keeps its
+native strikethrough. This rule remains scoped to classless or explicitly
+opted-in elements inside `.syn-semantic`.
+
+## Footnotes and return links
+
+Use a normal `sup` with an anchor to a numbered `ol`, then include a
+return link to the reference. This approach works with keyboard navigation,
+screen readers, server-rendered HTML and no custom event handlers. Do not
+put footnote bodies in an inaccessible hover-only tooltip.
+
+~~~html
+<p>Native links are keyboard accessible
+  <sup id="note-ref-1"><a href="#note-1" aria-label="Footnote 1">1</a></sup>.
+</p>
+<section aria-labelledby="footnotes-title">
+  <h2 id="footnotes-title">Notes</h2>
+  <ol>
+    <li id="note-1">A normal anchor connects the note and reference.
+      <a href="#note-ref-1">Return to reference 1</a>
+    </li>
+  </ol>
+</section>
+~~~
+
+Both IDs must be unique to the page, and links must resolve when fragments
+are loaded directly. Keep the note text in the document, not generated solely
+with CSS `content`.
+
+## Technical notation and long identifiers
+
+Prefer the HTML elements that convey meaning: `var` names a variable,
+`samp` names program output, `kbd` represents keyboard input,
+`sub` and `sup` retain native baseline notation, and `wbr` allows
+line breaks within long identifiers. Syntyr deliberately leaves `sub`,
+`sup` and `wbr` layout to the browser.
+
+~~~html
+<p>Area = <var>width</var> × <var>height</var>.
+  Water is H<sub>2</sub>O; the formula is E = mc<sup>2</sup>.
+</p>
+<p>Press <kbd>Enter</kbd>. The program prints <samp>Ready</samp>.</p>
+<p>Example endpoint: <code>api.example.test/<wbr>v1/<wbr>document-exports</code></p>
+~~~
+
+The domain and endpoint above are placeholders only, not production services.
+
+## Grouped table headings
+
+Use `colgroup` with a real `th scope="colgroup"` and subcolumn headings.
+For simple tables, use `scope="col"` and `scope="row"` instead. Syntyr
+already provides native cell borders and table captions; the optional
+semantic styling adds a subtle `thead` background and preserves
+high-contrast borders. It does not replace table accessibility semantics.
+
+~~~html
+<table>
+  <caption>Example monthly accounts</caption>
+  <colgroup><col></colgroup>
+  <colgroup span="2"></colgroup>
+  <thead>
+    <tr><th scope="col" rowspan="2">Plan</th>
+        <th scope="colgroup" colspan="2">Accounts</th></tr>
+    <tr><th scope="col">Paid</th><th scope="col">Trial</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Starter</th><td>8</td><td>3</td></tr>
+    <tr><th scope="row">Growth</th><td>4</td><td>2</td></tr>
+  </tbody>
+  <tfoot><tr><th scope="row">Total</th><td>12</td><td>5</td></tr></tfoot>
+</table>
+~~~
+
+## Contact details
+
+An `address` identifies contact information for a document or its nearest
+`article` context; it is **not** a generic container for any street
+address. Use a genuine support link or known contact method rather than an
+invented email address. The example below uses the project's actual issue
+tracker.
+
+~~~html
+<footer>
+  <address>Questions about this guide?
+    <a href="https://github.com/dporkka/syntyr-css/issues">
+      Contact the Syntyr maintainers through Issues
+    </a>.
+  </address>
+</footer>
+~~~
+
 **Accessibility and maintenance:** Keep real heading order and link destinations,
 avoid adding redundant ARIA roles to native elements, test browser reflow and
 right-to-left content, and do not add JavaScript just to imitate HTML controls.

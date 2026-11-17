@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Copy Syntyr semantic HTML component recipes for articles, metadata, quotations, revision history, ruby annotations and accessible tables.">
-  <meta name="syntyr-source-sha256" content="5739a343c215a0cccb4a041342d14bd2205cac02302e9145362a797732d82aab">
+  <meta name="description" content="Copy semantic HTML recipes for footnotes, pricing, technical notation, article metadata, grouped tables and native document navigation.">
+  <meta name="syntyr-source-sha256" content="915fc4efb68c650ac3f0e9511f43f77cf6d19d0d0e03b7086c21f55a0c976595">
   <meta name="theme-color" content="#f5f7fb">
   <title>Semantic HTML component recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/semantic-components">
@@ -145,6 +145,113 @@ the existing <code>.syn-panel</code> class when a visual callout is desirable.</
   &lt;p&gt;Keep routing, translations, and data validation in the host application.&lt;/p&gt;
 &lt;/aside&gt;
 </code></pre>
+<h2 id="in-page-navigation">In-page navigation</h2>
+<p>A <code>nav</code> landmark with an accessible name and a real ordered list doubles as
+an in-page table of contents. Anchor destinations must exist. Do not substitute
+a fake tab interface or JavaScript scrolling for ordinary document navigation.</p>
+<pre><code class="language-html">&lt;nav aria-label=&quot;On this page&quot;&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href=&quot;#offer&quot;&gt;Current offer&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;#notes&quot;&gt;Reference notes&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+&lt;section id=&quot;offer&quot; aria-labelledby=&quot;offer-heading&quot;&gt;
+  &lt;h2 id=&quot;offer-heading&quot;&gt;Current offer&lt;/h2&gt;
+  &lt;p&gt;Native content, no client-side routing required.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&quot;notes&quot; aria-labelledby=&quot;notes-heading&quot;&gt;
+  &lt;h2 id=&quot;notes-heading&quot;&gt;Reference notes&lt;/h2&gt;
+  &lt;p&gt;Each anchor points to a real heading section.&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<h2 id="previous-price-versus-revision">Previous price versus revision</h2>
+<p>Use <code>s</code> for content that is no longer accurate or relevant, such as a
+superseded advertised price; <code>del</code> and <code>ins</code> instead describe <strong>actual
+document edits</strong>. Use <code>data[value]</code> when the application needs a
+machine-readable number, not to indicate currency on its own. Provide the
+currency and billing period in visible text. Price, stock and promotion
+eligibility must still be verified by the server before any transaction.</p>
+<pre><code class="language-html">&lt;article&gt;
+  &lt;h2&gt;Team plan (example only)&lt;/h2&gt;
+  &lt;p&gt;Example price:
+    &lt;s&gt;&lt;data value=&quot;39&quot;&gt;US$39 per month&lt;/data&gt;&lt;/s&gt;
+    &lt;strong&gt;&lt;data value=&quot;29&quot;&gt;US$29 per month&lt;/data&gt;&lt;/strong&gt;
+  &lt;/p&gt;
+  &lt;p&gt;&lt;small&gt;Illustrative pricing, not a live Syntyr offer.&lt;/small&gt;&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+<p>Syntyr's optional semantic layer lightly de-emphasizes <code>s</code> but keeps its
+native strikethrough. This rule remains scoped to classless or explicitly
+opted-in elements inside <code>.syn-semantic</code>.</p>
+<h2 id="footnotes-and-return-links">Footnotes and return links</h2>
+<p>Use a normal <code>sup</code> with an anchor to a numbered <code>ol</code>, then include a
+return link to the reference. This approach works with keyboard navigation,
+screen readers, server-rendered HTML and no custom event handlers. Do not
+put footnote bodies in an inaccessible hover-only tooltip.</p>
+<pre><code class="language-html">&lt;p&gt;Native links are keyboard accessible
+  &lt;sup id=&quot;note-ref-1&quot;&gt;&lt;a href=&quot;#note-1&quot; aria-label=&quot;Footnote 1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
+&lt;/p&gt;
+&lt;section aria-labelledby=&quot;footnotes-title&quot;&gt;
+  &lt;h2 id=&quot;footnotes-title&quot;&gt;Notes&lt;/h2&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;note-1&quot;&gt;A normal anchor connects the note and reference.
+      &lt;a href=&quot;#note-ref-1&quot;&gt;Return to reference 1&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Both IDs must be unique to the page, and links must resolve when fragments
+are loaded directly. Keep the note text in the document, not generated solely
+with CSS <code>content</code>.</p>
+<h2 id="technical-notation-and-long-identifiers">Technical notation and long identifiers</h2>
+<p>Prefer the HTML elements that convey meaning: <code>var</code> names a variable,
+<code>samp</code> names program output, <code>kbd</code> represents keyboard input,
+<code>sub</code> and <code>sup</code> retain native baseline notation, and <code>wbr</code> allows
+line breaks within long identifiers. Syntyr deliberately leaves <code>sub</code>,
+<code>sup</code> and <code>wbr</code> layout to the browser.</p>
+<pre><code class="language-html">&lt;p&gt;Area = &lt;var&gt;width&lt;/var&gt; × &lt;var&gt;height&lt;/var&gt;.
+  Water is H&lt;sub&gt;2&lt;/sub&gt;O; the formula is E = mc&lt;sup&gt;2&lt;/sup&gt;.
+&lt;/p&gt;
+&lt;p&gt;Press &lt;kbd&gt;Enter&lt;/kbd&gt;. The program prints &lt;samp&gt;Ready&lt;/samp&gt;.&lt;/p&gt;
+&lt;p&gt;Example endpoint: &lt;code&gt;api.example.test/&lt;wbr&gt;v1/&lt;wbr&gt;document-exports&lt;/code&gt;&lt;/p&gt;
+</code></pre>
+<p>The domain and endpoint above are placeholders only, not production services.</p>
+<h2 id="grouped-table-headings">Grouped table headings</h2>
+<p>Use <code>colgroup</code> with a real <code>th scope=&quot;colgroup&quot;</code> and subcolumn headings.
+For simple tables, use <code>scope=&quot;col&quot;</code> and <code>scope=&quot;row&quot;</code> instead. Syntyr
+already provides native cell borders and table captions; the optional
+semantic styling adds a subtle <code>thead</code> background and preserves
+high-contrast borders. It does not replace table accessibility semantics.</p>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;caption&gt;Example monthly accounts&lt;/caption&gt;
+  &lt;colgroup&gt;&lt;col&gt;&lt;/colgroup&gt;
+  &lt;colgroup span=&quot;2&quot;&gt;&lt;/colgroup&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th scope=&quot;col&quot; rowspan=&quot;2&quot;&gt;Plan&lt;/th&gt;
+        &lt;th scope=&quot;colgroup&quot; colspan=&quot;2&quot;&gt;Accounts&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Paid&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Trial&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Starter&lt;/th&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Growth&lt;/th&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;&lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Total&lt;/th&gt;&lt;td&gt;12&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+<h2 id="contact-details">Contact details</h2>
+<p>An <code>address</code> identifies contact information for a document or its nearest
+<code>article</code> context; it is <strong>not</strong> a generic container for any street
+address. Use a genuine support link or known contact method rather than an
+invented email address. The example below uses the project's actual issue
+tracker.</p>
+<pre><code class="language-html">&lt;footer&gt;
+  &lt;address&gt;Questions about this guide?
+    &lt;a href=&quot;https://github.com/dporkka/syntyr-css/issues&quot;&gt;
+      Contact the Syntyr maintainers through Issues
+    &lt;/a&gt;.
+  &lt;/address&gt;
+&lt;/footer&gt;
+</code></pre>
 <p><strong>Accessibility and maintenance:</strong> Keep real heading order and link destinations,
 avoid adding redundant ARIA roles to native elements, test browser reflow and
 right-to-left content, and do not add JavaScript just to imitate HTML controls.
@@ -160,6 +267,12 @@ right-to-left content, and do not add JavaScript just to imitate HTML controls.
 <a class="docs-article-toc-link docs-article-toc-2" href="#multilingual-pronunciation-and-bidi-isolation">Multilingual pronunciation and bidi isolation</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#tabular-totals-with-a-real-footer">Tabular totals with a real footer</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#complementary-content">Complementary content</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#in-page-navigation">In-page navigation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#previous-price-versus-revision">Previous price versus revision</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#footnotes-and-return-links">Footnotes and return links</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#technical-notation-and-long-identifiers">Technical notation and long identifiers</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#grouped-table-headings">Grouped table headings</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#contact-details">Contact details</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="semantic-components.md">Markdown source</a></nav>
