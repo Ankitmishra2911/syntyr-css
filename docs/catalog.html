@@ -28,7 +28,29 @@
       <div id="catalog-controls" class="catalog-controls" hidden>
         <label class="syn-label" for="catalog-search">Find a component</label>
         <input id="catalog-search" class="syn-input" type="search" autocomplete="off" placeholder="Search buttons, tables, alerts…" aria-controls="catalog-items">
+        <div class="catalog-preview-controls">
+          <div>
+            <label class="syn-label" for="catalog-theme">Preview theme</label>
+            <select id="catalog-theme" class="syn-input">
+              <option value="studio" selected>Studio</option>
+              <option value="grid">Grid</option>
+              <option value="noir">Noir</option>
+              <option value="industrial">Industrial</option>
+              <option value="terminal">Terminal</option>
+              <option value="corporate">Corporate</option>
+              <option value="minimal">Minimal</option>
+            </select>
+          </div>
+          <div>
+            <label class="syn-label" for="catalog-preview-size">Example width</label>
+            <select id="catalog-preview-size" class="syn-input">
+              <option value="fluid" selected>Fluid (container)</option>
+              <option value="compact">Compact (23rem)</option>
+            </select>
+          </div>
+        </div>
       </div>
+      <p class="syn-caption">For editors and page builders, use the <a href="../metadata/component-gallery.v1.json">generated component and example JSON</a>. It is sourced from these copyable previews and the curated component contract, and describes an unreleased source candidate.</p>
       <p id="catalog-results" class="syn-caption" role="status" aria-live="polite">16 examples available.</p>
       <p id="catalog-empty" class="syn-alert" hidden>No components match your search. Try a different term.</p>
       <div id="catalog-items" class="catalog-grid">

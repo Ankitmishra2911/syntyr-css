@@ -52,6 +52,7 @@ FILES = (
     "llms.txt",
     "llms-full.txt",
     "metadata/components.json",
+    "metadata/component-gallery.v1.json",
     "metadata/css-contract.v1.json",
     "agents/syntyr/SKILL.md",
     "docs/editor-integration.md",
