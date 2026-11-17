@@ -74,6 +74,7 @@ class WorkflowOperationsContract(unittest.TestCase):
                 self.assertIn(href[1:], self.html.ids)
         self.assertIn("examples/workflow-operations.html", (ROOT / "README.md").read_text())
         self.assertIn("workflow-operations.html", (ROOT / "docs/recipes.md").read_text())
+        self.assertIn("examples/workflow-operations.html", (ROOT / "llms.txt").read_text())
         publisher = (ROOT / "scripts/build_cloudflare_site.py").read_text()
         for item in ("workflow-operations.html", "workflow-operations.css"):
             self.assertIn(item, publisher)
