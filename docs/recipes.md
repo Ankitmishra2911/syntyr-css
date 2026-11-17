@@ -273,7 +273,12 @@ recipes, **not a port of Adacavo's application code**. See the
   `commandfor`/`command="show-modal"` and retain a direct-page fallback.
   The `--syn-sheet-width` CSS property defaults to `30rem`; set it on the
   sheet to adjust width. When closed, neither element is forced visible by
-  the grid display rules.
+  the grid display rules. At extreme text zoom or short viewport heights,
+  the whole sheet scrolls so its footer actions remain reachable; the body
+  retains a minimum scroll region. When the body can overflow independently,
+  make that region keyboard-focusable (`tabindex="0"`) and name it with
+  `aria-labelledby` referencing a visible heading, as the example does.
+  Check both record details and each footer action at 320px and 400% text.
   Don't set `aria-modal="true"` on the nonmodal popover.
 - `.syn-evidence-grid`, `.syn-evidence-card`, `.syn-evidence-media`,
   `.syn-evidence-body`, `.syn-evidence-meta` and `.syn-evidence-actions`

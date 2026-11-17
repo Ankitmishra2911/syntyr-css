@@ -10,8 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 URL = (ROOT / "examples/enterprise-compositions.html").as_uri()
 
 
-def check(browser, engine: str, width: int, font_px: int) -> None:
-    context = browser.new_context(viewport={"width": width, "height": 780}, reduced_motion="reduce")
+def check(browser, engine: str, width: int, font_px: int, height: int = 780) -> None:
+    context = browser.new_context(viewport={"width": width, "height": height}, reduced_motion="reduce")
     page = context.new_page()
     errors = []
     page.on("pageerror", lambda err: errors.append(str(err)))
@@ -45,12 +45,33 @@ def check(browser, engine: str, width: int, font_px: int) -> None:
         page.mouse.move(rect["x"] + min(16, rect["width"] / 2), rect["y"] + 12)
         page.mouse.wheel(0, 5000)
         page.wait_for_function("document.querySelector('#record-preview').scrollTop > 0")
-        footer_bounds = sheet.locator(".syn-sheet-footer").bounding_box()
-        assert footer_bounds is not None
-        assert 0 <= footer_bounds["y"] and footer_bounds["y"] + footer_bounds["height"] <= 781, (
-            engine, "sheet footer clipped at extreme zoom", footer_bounds
-        )
+        # The footer may itself exceed a short viewport at 400% text zoom.
+        # Each individual control, not the entire footer, must be scroll-reachable.
+        for control in (sheet.get_by_role("link", name="Return to collection"),
+                        sheet.get_by_role("button", name="Done")):
+            control.scroll_into_view_if_needed()
+            bounds = control.bounding_box()
+            assert bounds and bounds["height"] > 0
+            assert bounds["y"] >= -1 and bounds["y"] + bounds["height"] <= height + 1, (
+                engine, "footer action unreachable", bounds
+            )
         sheet.evaluate("e => { e.scrollTop = 0; }")
+        body = sheet.locator(".syn-sheet-body")
+        # Regression: a nonzero, keyboard-scrollable body must be reachable
+        # even after the header/footer consume the available block space.
+        assert body.evaluate("e => e.clientHeight") >= 100, (
+            engine, "sheet body collapsed at extreme zoom"
+        )
+        assert body.get_attribute("tabindex") == "0", (engine, "body not keyboard focusable")
+        body.focus()
+        assert body.evaluate("e => document.activeElement === e")
+        assert body.evaluate("e => e.scrollHeight > e.clientHeight"), (
+            engine, "expected overflow content at extreme zoom"
+        )
+        page.keyboard.press("PageDown")
+        page.wait_for_function(
+            "document.querySelector('#record-preview .syn-sheet-body').scrollTop > 0"
+        )
     assert not errors, (engine, width, errors)
     page.keyboard.press("Escape")
     assert not sheet.is_visible(), (engine, width, "escape did not dismiss")
@@ -74,7 +95,7 @@ def check(browser, engine: str, width: int, font_px: int) -> None:
     assert not modal.is_visible()
     assert not errors, (engine, width, errors)
     context.close()
-    print(f"PASS {engine}: {width}px, {font_px}px root, native popover open/escape, no overflow")
+    print(f"PASS {engine}: {width}x{height}px, {font_px}px root, native popover open/escape, no overflow")
 
 
 def main():
@@ -88,8 +109,8 @@ def main():
                 blocked.append((engine, str(error).splitlines()[0]))
                 continue
             try:
-                for width, font_px in ((1280, 16), (390, 16), (320, 32), (320, 64)):
-                    check(browser, engine, width, font_px)
+                for width, font_px, height in ((1280, 16, 780), (390, 16, 780), (320, 32, 780), (320, 64, 780), (320, 64, 420)):
+                    check(browser, engine, width, font_px, height)
                     passed += 1
             finally:
                 browser.close()

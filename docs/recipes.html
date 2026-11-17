@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="1eaa8b4b033945456d8ace978c4638d2d5421d085d0e18b50fb13118277ad158">
+  <meta name="syntyr-source-sha256" content="a368eae09cd7f65764977b6c83db05cb558b40a505235daa17b9fd6fc4d4938c">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -251,7 +251,12 @@ the page inert. For modal editing, call <code>showModal()</code> or use supporte
 <code>commandfor</code>/<code>command=&quot;show-modal&quot;</code> and retain a direct-page fallback.
 The <code>--syn-sheet-width</code> CSS property defaults to <code>30rem</code>; set it on the
 sheet to adjust width. When closed, neither element is forced visible by
-the grid display rules.
+the grid display rules. At extreme text zoom or short viewport heights,
+the whole sheet scrolls so its footer actions remain reachable; the body
+retains a minimum scroll region. When the body can overflow independently,
+make that region keyboard-focusable (<code>tabindex=&quot;0&quot;</code>) and name it with
+<code>aria-labelledby</code> referencing a visible heading, as the example does.
+Check both record details and each footer action at 320px and 400% text.
 Don't set <code>aria-modal=&quot;true&quot;</code> on the nonmodal popover.</li>
 <li><code>.syn-evidence-grid</code>, <code>.syn-evidence-card</code>, <code>.syn-evidence-media</code>,
 <code>.syn-evidence-body</code>, <code>.syn-evidence-meta</code> and <code>.syn-evidence-actions</code>
