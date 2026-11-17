@@ -53,6 +53,16 @@ const gallery = pathToFileURL(path.join(root, 'docs/catalog.html')).href;
       assert.equal(await page.locator('#playground-panel-radius-value').innerText(), '22px');
       await page.locator('#playground-viewport').selectOption('390');
       assert.ok(await page.locator('#playground-preview').evaluate(el => el.getBoundingClientRect().width <= 391));
+      await page.locator('#playground-viewport').selectOption('1200');
+      const dimensions = await page.locator('.playground-canvas').evaluate(canvas => ({
+        frame: canvas.querySelector('#playground-preview').getBoundingClientRect().width,
+        view: canvas.clientWidth,
+        scroll: canvas.scrollWidth
+      }));
+      assert.ok(Math.abs(dimensions.frame - 1200) < 2, `Desktop preview should be 1200px: ${JSON.stringify(dimensions)}`);
+      assert.ok(dimensions.scroll > dimensions.view, 'Fixed desktop preview should scroll horizontally');
+      await page.locator('#playground-viewport').selectOption('fluid');
+      assert.ok(await page.locator('#playground-preview').evaluate(el => el.getBoundingClientRect().width <= el.parentElement.clientWidth));
       await page.locator('#playground-theme').selectOption('grid');
       await frame.locator('body[data-syn-theme="grid"]').waitFor();
 
@@ -72,6 +82,13 @@ const gallery = pathToFileURL(path.join(root, 'docs/catalog.html')).href;
       assert.ok(copiedHTML.includes('data-syn-theme="grid"'));
       assert.ok(copiedHTML.includes('--syn-panel-radius: 22px'));
       assert.ok(copiedHTML.includes('<p id="sandbox-check">Safe</p>'));
+      await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', {configurable: true, value: undefined}));
+      await page.locator('#playground-copy').click();
+      const manualFallback = page.locator('#playground-copy-fallback');
+      assert.equal(await manualFallback.isVisible(), true, 'Manual copy fallback must be exposed');
+      const fallbackHTML = await manualFallback.inputValue();
+      assert.equal(fallbackHTML, copiedHTML, 'Manual copy must include the complete configured HTML');
+      assert.equal(await manualFallback.evaluate(el => el.selectionStart === 0 && el.selectionEnd === el.value.length), true);
       await editor.click();
       await page.keyboard.press('ControlOrMeta+Z');
       await page.waitForFunction(() => document.querySelector('#playground-markup')?.value.includes('Deployment ready'));

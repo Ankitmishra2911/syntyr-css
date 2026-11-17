@@ -54,6 +54,7 @@
   const status = byId("playground-status");
   const renderButton = byId("playground-render");
   const copyButton = byId("playground-copy");
+  const copyFallback = byId("playground-copy-fallback");
   const catalog = Array.isArray(window.SYNTYR_PLAYGROUND_CATALOG)
     ? window.SYNTYR_PLAYGROUND_CATALOG : [];
   const catalogMap = new Map(catalog.map(item => [item.id, item]));
@@ -106,6 +107,7 @@ ${markup.value}
   }
 
   function scheduleRender() {
+    copyFallback.hidden = true;
     if (framePending) return;
     framePending = true;
     requestAnimationFrame(() => { framePending = false; render(); });
@@ -159,17 +161,16 @@ ${markup.value}
     try {
       if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
       await navigator.clipboard.writeText(configuredHTML());
+      copyFallback.hidden = true;
       status.textContent = "Configured HTML copied.";
     } catch {
-      // The native fallback must be visible/focusable if CodeMirror is mounted.
-      const editorMount = byId("playground-editor-mount");
-      if (editorMount && !editorMount.hidden) {
-        editorMount.hidden = true;
-        markup.hidden = false;
-      }
-      markup.focus();
-      markup.select();
-      status.textContent = "HTML selected in the fallback textarea. Copy with your keyboard; configured theme tokens appear above.";
+      // Keep CodeMirror (or the native editor) intact: manual copy must include
+      // the complete configured wrapper, not only the editable inner HTML.
+      copyFallback.value = configuredHTML();
+      copyFallback.hidden = false;
+      copyFallback.focus();
+      copyFallback.select();
+      status.textContent = "Configured HTML selected. Copy it with your keyboard.";
     }
   });
   populateCatalog();
