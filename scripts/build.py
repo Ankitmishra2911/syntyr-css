@@ -130,7 +130,10 @@ def all_distributions():
 
 def javascript_distributions():
     # Optional native ESM. Distributed unchanged, never imported by CSS.
-    return {'syntyr.animate.mjs': 'animate.mjs', 'syntyr.animate.d.mts': 'animate.d.mts'}
+    return {
+        'syntyr.animate.mjs': 'animate.mjs', 'syntyr.animate.d.mts': 'animate.d.mts',
+        'syntyr.copy.mjs': 'copy.mjs', 'syntyr.copy.d.mts': 'copy.d.mts',
+    }
 
 
 def main():
