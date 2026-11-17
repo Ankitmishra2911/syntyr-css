@@ -72,6 +72,15 @@ class SecurityHardeningTests(unittest.TestCase):
         self.assertIn("form-action 'none'", js)
         self.assertNotIn("allow-scripts", html)
 
+    def test_playground_preview_loads_only_local_host_images_and_data_urls(self):
+        js = (ROOT / "docs/playground.js").read_text(encoding="utf-8")
+        self.assertIn("img-src data: ${localStyleOrigin}", js,
+                      "Site-hosted responsive image examples must load in the sandbox preview")
+        self.assertIn("form-action 'none'", js,
+                      "Allowing same-origin images must not enable form submission")
+        self.assertNotIn("script-src 'unsafe-inline'", js,
+                         "The srcdoc preview must not run arbitrary JavaScript")
+
     def test_ci_images_are_pinned_and_optional_locks_audited(self):
         for name in ("quality", "pr-merge", "browser", "security"):
             config = (ROOT / ".woodpecker" / f"{name}.yaml").read_text(encoding="utf-8")
