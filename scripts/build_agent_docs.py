@@ -18,6 +18,7 @@ SOURCES = (
     "docs/recipes.md",
     "docs/component-recipes.md",
     "docs/native-patterns.md",
+    "docs/semantic-components.md",
     "docs/composition-adoption.md",
     "docs/radix-integration.md",
     "docs/distribution.md",

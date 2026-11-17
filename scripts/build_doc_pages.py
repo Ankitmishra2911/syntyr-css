@@ -94,7 +94,7 @@ DESCRIPTION_OVERRIDES = {
     "compare-native-css.md": "Syntyr CSS vs plain CSS: decide when a reusable design system pays off versus native browser CSS, custom properties and a smaller dependency surface.",
     "design-principles.md": "Learn shared UI design principles, accessible component states, semantic HTML compositions, and static palette contrast checks in Syntyr CSS.",
     "ai-quickstart.md": "Install Syntyr CSS with AI coding agents using semantic HTML, real component classes, and version-aware, framework-neutral examples.",
-    "semantic-components.md": "Copy semantic HTML recipes for footnotes, pricing, technical notation, article metadata, grouped tables and native document navigation.",
+    "semantic-components.md": "Copy HTML patterns for native suggestions, glossaries, highlights, ordered timelines, MathML, resources, disclosures, search, forms and responsive images.",
     "components.md": "Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.",
     "framework-integrations.md": "Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.",
     "from-pico.md": "Migrate from Pico CSS to Syntyr with semantic HTML, explicit component styling, theme tokens, and minimal runtime dependencies.",

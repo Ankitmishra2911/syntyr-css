@@ -1,7 +1,8 @@
 # Semantic HTML component recipes
 
 Build article previews, breadcrumbs, citations, metadata lists, change histories,
-internationalized labels, and summary tables with **native HTML**. Syntyr styles
+internationalized labels, tables, FAQs, search forms, measured status, and
+responsive media with **native HTML**. Syntyr styles
 these elements without replacing browser semantics or adding a JavaScript runtime.
 These are copy-owned markup compositions in the free MIT core—not new JS widgets.
 
@@ -283,6 +284,287 @@ tracker.
   </address>
 </footer>
 ~~~
+
+## Native FAQ disclosure
+
+Use a `details` element and its **first child** `summary` for
+disclosures. Give related items the same `name` for a browser-native
+single-open accordion. A single group member may start with `open`; browsers
+close its peers when another member opens. This is an interaction, not a
+tablist, so do not add `role="tab"` or extra JavaScript. Keep answers present
+in the document for users and search engines. The optional stylesheet
+distinguishes an opened panel with a soft border.
+
+~~~html
+<section aria-labelledby="faq-heading">
+  <h2 id="faq-heading">FAQ</h2>
+  <details name="syn-semantic-faq" open>
+    <summary>Does this need JavaScript?</summary>
+    <p>No. The browser handles open and closed state and keyboard use.</p>
+  </details>
+  <details name="syn-semantic-faq">
+    <summary>Can I use it in a server-rendered app?</summary>
+    <p>Yes. Keep the markup on the page and the group name unique.</p>
+  </details>
+</section>
+~~~
+
+For content that should be visible simultaneously, omit the shared `name`.
+Do not hide legal, essential or time-critical information behind an unannounced
+disclosure.
+
+## Semantic issue search
+
+Use `search` for the page's search landmark and a native GET form, with a
+visible label and an actual endpoint. This example searches the public Syntyr
+GitHub issue tracker; it works without client-side JavaScript, although
+submitting navigates away to GitHub.
+
+~~~html
+<search>
+  <form action="https://github.com/dporkka/syntyr-css/issues" method="get">
+    <label for="issues-query">Search Syntyr issues</label>
+    <input id="issues-query" type="search" name="q" required
+           placeholder="Example: accessibility">
+    <button type="submit">Find issues</button>
+  </form>
+</search>
+~~~
+
+The host application is responsible for providing a real backend for any
+site-local search. Do not present a demo-only search box as functional.
+
+## Grouped choice form
+
+Use `fieldset` and `legend` for the shared form prompt, `label` for
+control identification, and `optgroup` to group related `option`
+elements. Native select popup appearance is browser-owned. Here the chosen
+topic is sent as a GET query to the real public issue tracker.
+
+~~~html
+<form action="https://github.com/dporkka/syntyr-css/issues" method="get">
+  <fieldset>
+    <legend>Browse a topic</legend>
+    <label for="issue-topic">Issue topic</label>
+    <select name="q" id="issue-topic" required>
+      <option value="">Choose a topic</option>
+      <optgroup label="HTML">
+        <option value="semantic">Semantic HTML</option>
+        <option value="accessibility">Accessibility</option>
+      </optgroup>
+      <optgroup label="Styles">
+        <option value="css">CSS</option>
+        <option value="themes">Themes</option>
+      </optgroup>
+    </select>
+    <button type="submit">View matching issues</button>
+  </fieldset>
+</form>
+~~~
+
+Do not replace `fieldset` with a visually similar generic container where
+controls genuinely share a question.
+
+## Progress and measurement
+
+Use `progress[value][max]` for progress **toward completion**. Use
+`meter[value][min][max]` for a bounded measurement such as utilization or a
+rating. The `low`, `high` and `optimum` attributes describe value
+quality, not completion progress. Include an actual `label` (or equivalent
+accessible name) and visible readable value. `output` can display a
+server-computed result; it does **not** recalculate automatically in response
+to changing inputs without host logic.
+
+~~~html
+<section aria-labelledby="status-heading">
+  <h2 id="status-heading">Illustrative status</h2>
+  <label for="review-progress">Review progress: 7 of 10 complete</label>
+  <progress id="review-progress" value="7" max="10">7 of 10</progress>
+  <label for="capacity-meter">Sample capacity: 68%</label>
+  <meter id="capacity-meter" value="68" min="0" max="100"
+         low="30" high="85" optimum="70">68%</meter>
+  <p>Calculated review total:
+    <output name="review-total">7 completed reviews</output>
+  </p>
+</section>
+~~~
+
+All figures in this example are illustrative rather than live metrics.
+For indeterminate progress, omit `value` and provide an accompanying
+status message.
+
+## Responsive captioned media
+
+Use `picture` and `source[media][srcset]` for browser-driven responsive
+art direction, `img` with meaningful alternative text and intrinsic
+dimensions to prevent layout shifts, and `figure` with `figcaption` when a
+caption belongs to the media. This example switches between two actual
+Syntyr Studio screenshots at narrow widths. There is no carousel or script.
+
+~~~html
+<figure>
+  <picture>
+    <source media="(max-width: 600px)"
+            srcset="../docs/previews/studio-settings.webp">
+    <img src="../docs/previews/studio-editor.webp"
+         width="1120" height="700" loading="lazy" decoding="async"
+         alt="Syntyr Studio interface: settings on small screens and editor on larger screens">
+  </picture>
+  <figcaption>Two Syntyr Studio views, selected by viewport width.</figcaption>
+</figure>
+~~~
+
+Supply valid paths relative to the **published page**, not the Markdown
+document location. These paths assume the snippet runs in the examples
+directory as in the live component gallery. If there is no meaningful
+art-direction change, prefer a single responsive `img` instead.
+
+## Native suggestions with datalist
+
+Use `input[list]` with an associated `datalist` when you want to
+**suggest** common text entries without restricting what the user can type.
+Unlike `select`, it does not create an exhaustive set of choices. The
+`input` still needs a visible `label`, a real `name` for submission, and
+server-side validation. The browser owns how suggestions appear; do not try
+to skin a datalist popup.
+
+This working example submits a GET query to Syntyr's public issue tracker.
+
+~~~html
+<form action="https://github.com/dporkka/syntyr-css/issues" method="get">
+  <label for="topic-suggest">Search issues (try a suggested topic)</label>
+  <input id="topic-suggest" name="q" type="search"
+         list="reference-topic-suggestions" required
+         placeholder="Type a topic">
+  <datalist id="reference-topic-suggestions">
+    <option value="semantic"></option>
+    <option value="accessibility"></option>
+    <option value="themes"></option>
+    <option value="typography"></option>
+  </datalist>
+  <button type="submit">Search issues on GitHub</button>
+</form>
+~~~
+
+**No JavaScript is required** for suggestions. Use `select` instead when
+the submitted value must come from a finite set.
+
+## Glossary and abbreviations
+
+Use a real definition list for a collection of terms and their definitions.
+`dfn` identifies the term being defined, and `abbr[title]` expands an
+abbreviation the first time it matters. Do not use `dfn` as a decorative
+italic treatment or `dl` as an arbitrary two-column layout.
+
+~~~html
+<section aria-labelledby="glossary-heading">
+  <h2 id="glossary-heading">Glossary</h2>
+  <dl>
+    <dt><dfn>Native semantics</dfn></dt>
+    <dd>Meaning provided by HTML elements without custom roles.</dd>
+    <dt><dfn>ARIA</dfn></dt>
+    <dd><abbr title="Accessible Rich Internet Applications">ARIA</abbr>
+        extends accessibility semantics only where native HTML is insufficient.</dd>
+  </dl>
+</section>
+~~~
+
+## Highlighted excerpts and quotations
+
+`mark` indicates a relevant excerpt in its current context, such as a
+search match, while `q` denotes an inline quotation. The `cite` element
+names the cited **work**, rather than the author or a source URL. Do not
+manually insert quote-mark characters around `q` when the browser already
+provides them. Syntyr already styles `mark`, `q`, and `cite`; no extra
+components or runtime are necessary.
+
+~~~html
+<article aria-labelledby="excerpt-heading">
+  <h2 id="excerpt-heading">Highlighted documentation excerpt</h2>
+  <p><mark>Native HTML</mark> allows browser-owned focus and semantics.</p>
+  <p><q>Syntyr styles these elements without replacing browser semantics</q>
+     — <cite><a href="../docs/semantic-components.html">
+       Semantic HTML component recipes</a></cite>.</p>
+</article>
+~~~
+
+The quoted line comes from this guide's introduction. For search results,
+the server supplies the real match and safely escaped text; never inject
+untrusted HTML into highlighted excerpts.
+
+## Chronological ordered list
+
+Use `ol` for genuinely ordered events and `time[datetime]` for dates
+that machines can parse. `reversed` and `start` preserve native
+numbering for newest-first sequences; they are not substitutes for sorting
+the data server-side. This checklist is illustrative, **not** an actual
+Syntyr release history.
+
+~~~html
+<section aria-labelledby="history-heading">
+  <h2 id="history-heading">Illustrative release steps</h2>
+  <ol reversed start="3">
+    <li><time datetime="2026-11-16">16 November 2026</time>: Publish examples</li>
+    <li><time datetime="2026-11-15">15 November 2026</time>: Validate HTML</li>
+    <li><time datetime="2026-11-14">14 November 2026</time>: Draft content</li>
+  </ol>
+</section>
+~~~
+
+Use normal `ol` without `reversed` for a conventional chronological
+timeline or instructions progressing from step one.
+
+## Mathematical notation with MathML
+
+Native **MathML** gives equations structural meaning: `math`, `mrow`,
+`mi`, `mn`, `mo`, and `msup` identify the formula and its parts.
+Include readable explanatory text in a `figcaption`; avoid images of
+math without meaningful text alternatives. Annotation may preserve
+source notation for compatible tools, but browsers own layout.
+
+~~~html
+<figure>
+  <math display="block">
+    <semantics>
+      <mrow>
+        <msup><mi>a</mi><mn>2</mn></msup>
+        <mo>+</mo>
+        <msup><mi>b</mi><mn>2</mn></msup>
+        <mo>=</mo>
+        <msup><mi>c</mi><mn>2</mn></msup>
+      </mrow>
+      <annotation encoding="application/x-tex">a^2 + b^2 = c^2</annotation>
+    </semantics>
+  </math>
+  <figcaption>Example Pythagorean identity: a squared plus b squared equals c squared.</figcaption>
+</figure>
+~~~
+
+MathML is browser-native, **not styled by the optional semantic sheet**.
+Test presentation and accessibility with the actual browsers your users
+need to support.
+
+## Resource command list
+
+A native `menu` is an unordered list of **commands/actions**, not an ARIA
+application menu with arrow-key behavior. Use actual links for navigation
+actions and `button` only when it performs an implemented action. Do not
+add `role="menu"` unless you intend to implement its complete keyboard
+interaction contract.
+
+~~~html
+<section aria-labelledby="resources-heading">
+  <h2 id="resources-heading">Reference actions</h2>
+  <menu>
+    <li><a href="../docs/semantic-components.html">Read semantic recipes</a></li>
+    <li><a href="native-elements.html">Browse native controls</a></li>
+    <li><a href="https://github.com/dporkka/syntyr-css/issues">Report an issue</a></li>
+  </menu>
+</section>
+~~~
+
+All destinations are real links. Ordinary `ul` remains preferable for
+a list of information rather than actions.
 
 **Accessibility and maintenance:** Keep real heading order and link destinations,
 avoid adding redundant ARIA roles to native elements, test browser reflow and
