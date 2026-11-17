@@ -52,6 +52,7 @@ FILES = (
     "llms.txt",
     "llms-full.txt",
     "metadata/components.json",
+    "metadata/component-gallery.v1.json",
     "metadata/css-contract.v1.json",
     "agents/syntyr/SKILL.md",
     "docs/editor-integration.md",
@@ -78,6 +79,8 @@ def package(output: Path) -> None:
     subprocess.run([sys.executable, str(ROOT / "scripts/sync_design_md.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/export_api_metadata.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_component_gallery.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     output.parent.mkdir(parents=True, exist_ok=True)
     with ZipFile(output, mode="w", compression=ZIP_DEFLATED, compresslevel=9) as archive:
