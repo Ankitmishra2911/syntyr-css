@@ -3,7 +3,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   registerGalleryManifest, galleryBlockTypes, getBlockDefinition,
-  createBlock, createDefaultDocument, parseDocument, exportHtml, renderSections
+  createBlock, createDefaultDocument, parseDocument, exportHtml, renderSections,
+  projectNeedsGalleryManifest
 } from "../docs/page-builder-model.mjs";
 
 const manifest = JSON.parse(readFileSync(new URL("../metadata/component-gallery.v1.json", import.meta.url), "utf8"));
@@ -107,4 +108,29 @@ test("an edited gallery HTTPS link is allowed but unsupported schemes are neutra
   block.props[hrefField] = "javascript:alert(1)";
   assert.doesNotMatch(renderSections(page), /href="javascript:/);
   assert.match(renderSections(page), /href="#"/);
+});
+
+test("native popover triggers reference the scoped popover ID for each block", () => {
+  registerGalleryManifest(manifest);
+  const page = createDefaultDocument();
+  page.blocks = [
+    createBlock("gallery:catalog-native-popover-title", "help-one"),
+    createBlock("gallery:catalog-native-popover-title", "help-two")
+  ];
+  const html = renderSections(page);
+  for (const id of ["help-one", "help-two"]) {
+    assert.match(html, new RegExp('id="' + id + '--catalog-help-popover"'));
+    assert.equal((html.match(new RegExp('popovertarget="' + id + '--catalog-help-popover"', 'g')) || []).length, 2);
+  }
+});
+
+
+test("native-only projects do not depend on an optional gallery fetch", () => {
+  const native = createDefaultDocument();
+  assert.equal(projectNeedsGalleryManifest(native), false);
+  const mixed = structuredClone(native);
+  mixed.blocks.push({ id: "g1", type: "gallery:catalog-buttons-title", props: {} });
+  assert.equal(projectNeedsGalleryManifest(mixed), true);
+  assert.equal(projectNeedsGalleryManifest({ blocks: [{ type: "hero" }] }), false);
+  assert.equal(projectNeedsGalleryManifest({ blocks: "invalid" }), false);
 });

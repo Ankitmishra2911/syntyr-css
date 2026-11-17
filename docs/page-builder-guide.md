@@ -20,10 +20,11 @@ The builder runs entirely in your browser. It does not upload projects or requir
 Gallery-backed blocks use a `gallery:<catalog-example-id>` type with only typed,
 string-valued editable properties. The trusted native HTML fragment comes from
 the generated, publicly published manifest, **never from imported project JSON**.
-Imported projects referencing missing or changed gallery definitions fail
-validation rather than executing or injecting arbitrary markup. Keep an
-exported HTML copy for long-term rendering if the optional source catalog
-changes. The manifest is an **unreleased alpha.5 source candidate**; these
+Imported projects referencing missing gallery definitions or incompatible
+editable-field schemas fail validation rather than executing arbitrary markup.
+A changed definition with the same field names can still import, potentially
+placing saved strings in different locations. Preserve an exported HTML copy
+for long-term rendering when the optional source catalog changes. The manifest is an **unreleased alpha.5 source candidate**; these
 examples are not promised in the published alpha.4 release.
 
 The document schema is syntyr.page.v1, with schema, title, theme, and an ordered array of id, type, and props blocks. The canonical validation and renderer are in page-builder-model.mjs, a dependency-free ESM module with no browser globals.

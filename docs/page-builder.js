@@ -2,7 +2,8 @@
 import {
   BLOCK_TYPES, THEMES, MAX_PROJECT_BYTES,
   registerGalleryManifest, galleryBlockTypes, getBlockDefinition,
-  createBlock, createDefaultDocument, parseDocument, moveBlock, exportHtml
+  createBlock, createDefaultDocument, parseDocument, moveBlock, exportHtml,
+  projectNeedsGalleryManifest
 } from "./page-builder-model.mjs";
 
 const byId = (id) => document.getElementById(id);
@@ -366,7 +367,26 @@ byId("builder-import").addEventListener("change", async (event) => {
   if (!file) return;
   try {
     if (file.size > MAX_PROJECT_BYTES) throw new Error("Project file exceeds 16 MiB");
-    const imported = parseDocument(await file.text());
+    const text = await file.text();
+    let candidate;
+    try { candidate = JSON.parse(text); }
+    catch { throw new Error("Invalid project JSON"); }
+    if (projectNeedsGalleryManifest(candidate)) {
+      // Native projects import immediately even if the optional manifest
+      // request has failed or stalled. Gallery imports wait only briefly.
+      let timeout;
+      try {
+        await Promise.race([
+          galleryLoadPromise,
+          new Promise(resolve => { timeout = setTimeout(resolve, 4000); })
+        ]);
+      } finally {
+        clearTimeout(timeout);
+      }
+      if (!galleryBlockTypes().length)
+        throw new Error("Gallery definitions unavailable. Try again after the gallery loads.");
+    }
+    const imported = parseDocument(candidate);
     commit(imported, "Project opened.");
     sequence = Math.max(sequence, imported.blocks.length + 5);
   } catch (error) {
@@ -378,4 +398,4 @@ byId("builder-import").addEventListener("change", async (event) => {
 
 renderPalette();
 redraw();
-void loadGallery();
+const galleryLoadPromise = loadGallery();

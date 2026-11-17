@@ -196,7 +196,7 @@ function scopeGalleryIds(html, blockId) {
   if (!ids.size) return html;
   const prefixed = value => ids.has(value) ? blockId + "--" + value : value;
   return html.replace(/<[^>]*>/g, tag => tag.replace(
-    /(^|\s)(id|for|list|commandfor|aria-labelledby|aria-describedby|href)="([^"]*)"/g,
+    /(^|\s)(id|for|list|commandfor|popovertarget|aria-labelledby|aria-describedby|href)="([^"]*)"/g,
     (match, whitespace, attribute, value) => {
       let updated = value;
       if (attribute === "href" && value.startsWith("#")) {
@@ -254,6 +254,12 @@ export function createDefaultDocument() {
       createBlock("cta", "cta-1")
     ]
   };
+}
+
+export function projectNeedsGalleryManifest(candidate) {
+  return plainObject(candidate) && Array.isArray(candidate.blocks) &&
+    candidate.blocks.some(block => plainObject(block) &&
+      typeof block.type === "string" && block.type.startsWith(GALLERY_PREFIX));
 }
 
 export function parseDocument(input) {
