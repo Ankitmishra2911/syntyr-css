@@ -190,6 +190,50 @@
     &.syn-record-fields dt { color: var(--syn-muted); }
     &.syn-record-fields dd { min-inline-size: 0; margin: 0; overflow-wrap: anywhere; }
 
+    /* Transaction feedback is presentation only. Hosts supply actual state,
+       announcements, recovery links and authorization for retry actions. */
+    &.syn-operation-feedback {
+      --syn-operation-edge: var(--syn-border-default);
+      display: grid; gap: var(--syn-space-1); min-inline-size: 0;
+      padding: var(--syn-space-2) var(--syn-space-3);
+      border: 1px solid var(--syn-border-default);
+      border-inline-start: 4px solid var(--syn-operation-edge);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-operation-feedback > :where(h2, h3, p) { margin-block: 0; }
+    &.syn-operation-feedback[data-syn-state="pending"] { --syn-operation-edge: var(--syn-accent); }
+    &.syn-operation-feedback[data-syn-state="saved"] { --syn-operation-edge: var(--syn-success); }
+    &.syn-operation-feedback[data-syn-state="failed"] { --syn-operation-edge: var(--syn-danger); }
+    &.syn-operation-feedback[data-syn-state="conflict"] { --syn-operation-edge: var(--syn-warning); }
+    &.syn-operation-feedback[data-syn-state="unsaved"] { --syn-operation-edge: var(--syn-muted); }
+
+    /* Before/after pairs nest in an existing dd, table cell or review panel.
+       Textual labels and native del/ins semantics carry meaning without color. */
+    &.syn-change-pair {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+      gap: var(--syn-space-2); min-inline-size: 0;
+    }
+    &.syn-change-before, &.syn-change-after {
+      display: grid; align-content: start; gap: .25rem;
+      min-inline-size: 0; padding: .55rem .7rem;
+      border: 1px solid var(--syn-border-subtle);
+      border-inline-start: 3px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-change-after { border-inline-start-color: var(--syn-accent); }
+    &.syn-change-pair :is(del, ins) { text-decoration: none; overflow-wrap: anywhere; }
+    &.syn-change-pair small { color: var(--syn-muted); font-size: var(--syn-type-xs); }
+    @media (forced-colors: active) {
+      &.syn-operation-feedback { border-color: CanvasText; border-inline-start-color: Highlight; }
+      &.syn-change-before { border-color: CanvasText; }
+      &.syn-change-after { border-color: CanvasText; border-inline-start-color: Highlight; }
+    }
+
     /* Business/marketing: typography and hierarchy without forcing a dark look. */
     &.syn-site-hero {
       position: relative; isolation: isolate; overflow: hidden;

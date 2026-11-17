@@ -145,6 +145,54 @@ Load `syntyr.core.css` and then optional `syntyr.recipes.css`. See the [complete
 
 The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.
 
+## Operation feedback and record revisions (alpha.5 source candidate)
+
+The optional `syntyr.recipes.css` provides **two presentation patterns**, not a
+transaction state machine or history service. [View the static example](../examples/operation-revisions.html).
+
+- **Operation feedback:** use `.syn-operation-feedback` and an actual
+  `data-syn-state="unsaved|pending|saved|failed|conflict"`. All five states use
+  explicit textual headings and supporting details, not color alone.
+  `--syn-operation-edge` can be overridden per instance if the host's palette
+  needs a different border; do not interpret these colors as business results.
+- **Record revisions:** keep the existing `dl.syn-record-fields` and place
+  `.syn-change-pair` inside a `dd`. Its optional `.syn-change-before` and
+  `.syn-change-after` children wrap at narrow widths, including when embedded
+  in a sidebar. Use visible "Previous", "Updated", "Added" or "Removed" labels
+  with native `del`/`ins` elements. Omit the absent side for additions/removals;
+  don't manufacture a previous value. The same pair may appear in a table cell
+  or review panel; no duplicate definition-list component is needed.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <section class="syn-operation-feedback" data-syn-state="conflict"
+       aria-labelledby="revision-conflict">
+    <h2 id="revision-conflict">Someone updated this record</h2>
+    <p>Review their changes before submitting a new version.</p>
+  </section>
+  <dl class="syn-record-fields">
+    <div><dt>Campaign name</dt><dd><div class="syn-change-pair">
+      <span class="syn-change-before"><small>Previous</small><del>Fall</del></span>
+      <span class="syn-change-after"><small>Updated</small><ins>Winter</ins></span>
+    </div></dd></div>
+  </dl>
+</section>
+```
+
+**Host behavior contract:** Render the state **only when it is true**. A pending
+request requires the host to manage loading and submission controls; "saved"
+requires a confirmed server response, not an optimistic assumption. On
+failure preserve inputs; on conflict enforce record version checking
+(e.g., ETag/If-Match or an optimistic lock), offer a real comparison/reload
+path, and never overwrite concurrently edited data without policy checks.
+Authorize mutations, protect against CSRF where applicable, and record audit
+history on the server. For asynchronous updates, create a persistent
+`role="status"` region before updating its content, and use `role="alert"`
+only when immediate interruption is justified; **the static gallery does not
+claim any live announcements**. CSS cannot retry requests, manage focus,
+detect stale versions, or persist records. Test the integration at 320 CSS
+pixels, 400% zoom, keyboard-only navigation, screen readers and forced colors.
+
 ## Reusing recipes across stacks
 
 - **Go / templ, PHP, Django, Rust templates:** Make recipes server-rendered partials and pass content as arguments.
