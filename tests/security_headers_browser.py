@@ -90,7 +90,11 @@ def verify(browser, origin):
         frame.locator("body[data-syn-theme='grid']").wait_for()
         grid = frame.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()")
         assert grid == "#76e7f7", f"External playground script blocked by CSP: {grid}"
-        page.locator("#playground-markup").fill('<div id="safe-csp">Safe content</div><script>parent.document.body.dataset.injected="yes"</script>')
+        editor = page.locator('#playground-editor-mount .cm-content[contenteditable="true"]')
+        editor.wait_for()
+        editor.click()
+        page.keyboard.press('ControlOrMeta+A')
+        page.keyboard.insert_text('<div id="safe-csp">Safe content</div><script>parent.document.body.dataset.injected="yes"</script>')
         frame.locator("#safe-csp").wait_for()
         assert page.locator("body").get_attribute("data-injected") is None, "Sandbox escaped"
         # Injecting a DOM script with text content should be blocked by CSP.

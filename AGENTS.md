@@ -39,5 +39,6 @@ The Python standard library is the only mandatory build requirement. Browser che
 - Never publish `business/`, `.env`, credentials, internal working notes, `tests/` or the repo root wholesale.
 - Update `llms.txt` when public documentation changes. `llms-full.txt` is generated; never edit it directly.
 - `metadata/components.json` is a **curated, non-exhaustive** agent-facing catalog. Each class must exist in its declared CSS module; tests check this. Prefer expanding canonical docs over cloning them into multiple hand-maintained indexes.
+- The playground uses a separately pinned and self-hosted CodeMirror 6 editor bundle. Build it only when updating the editor: `npm ci --prefix tools/playground-editor && npm run build --prefix tools/playground-editor && python3 tools/playground-editor/build_licenses.py`. The root CSS build, publishing and consuming Syntyr do **not** install npm dependencies. Keep the native textarea fallback and update `docs/playground-editor.licenses.txt` when changing the dependency lockfile.
 - `docs/catalog.html` owns the copyable HTML gallery. If it changes, regenerate `docs/playground-catalog.js` via `python3 scripts/build_playground_catalog.py`; the static site build rejects stale generated snippets. Do not edit the generated JS by hand.
 - Work on a feature branch; do not commit generated local preview directories.

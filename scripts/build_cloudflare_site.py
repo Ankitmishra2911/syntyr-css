@@ -245,7 +245,7 @@ PUBLIC_DOCS = (
     "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "framework-integrations.md", "mobile-frameworks.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
-    "index.html", "animation.md", "lit-integration.md", "playground.html", "playground.css", "playground.js", "playground-catalog.js",
+    "index.html", "animation.md", "lit-integration.md", "playground.html", "playground.css", "playground.js", "playground-catalog.js", "playground-editor.js", "playground-editor.licenses.txt",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
     "site-generator-decision.md", "site-builders.md", "tailwind-research.md",
     "wordpress.md", "shopify.md", "wix.md", "webflow.md", "framer.md", "squarespace.md", "ghost.md", "hubspot.md", "drupal.md", "joomla.md", "carrd.md", "duda.md", "tilda.md",

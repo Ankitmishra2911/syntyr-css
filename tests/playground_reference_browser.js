@@ -28,6 +28,10 @@ const gallery = pathToFileURL(path.join(root, 'docs/catalog.html')).href;
       assert.equal(await page.locator('#playground-example').inputValue(), 'catalog-buttons-title');
       assert.equal(await page.locator('#playground-reference-module').innerText(), 'syntyr.core.css');
       assert.ok((await page.locator('#playground-markup').inputValue()).includes('syn-button--primary'));
+      const editor = page.locator('#playground-editor-mount .cm-content[contenteditable="true"]');
+      await editor.waitFor();
+      assert.equal(await page.locator('#playground-markup').isVisible(), false);
+      assert.equal(await page.locator('#playground-editor-mount').getAttribute('data-editor'), 'codemirror6');
 
       await page.locator('#playground-search').fill('breadcrumb');
       assert.ok((await page.locator('#playground-search-status').innerText()).includes('1 of'));
@@ -52,16 +56,39 @@ const gallery = pathToFileURL(path.join(root, 'docs/catalog.html')).href;
       await page.locator('#playground-theme').selectOption('grid');
       await frame.locator('body[data-syn-theme="grid"]').waitFor();
 
-      await page.locator('#playground-markup').fill(
-        '<p id="sandbox-check">Safe</p><script>parent.document.body.dataset.injected="yes"</script>'
-      );
+      await editor.click();
+      await page.keyboard.press('ControlOrMeta+A');
+      await page.keyboard.insertText('<p id="sandbox-check">Safe</p><script>parent.document.body.dataset.injected="yes"</script>');
+      await page.waitForFunction(() => document.querySelector('#playground-markup')?.value.includes('sandbox-check'));
       await frame.locator('#sandbox-check').waitFor();
       assert.equal(await page.locator('body').getAttribute('data-injected'), null);
+      assert.ok(await page.locator('#playground-editor-mount .cm-line span').count() > 0, 'HTML syntax highlighting is missing');
+      await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: {writeText: async text => { window.__copiedHTML = text; }}
+      }));
+      await page.locator('#playground-copy').click();
+      const copiedHTML = await page.evaluate(() => window.__copiedHTML);
+      assert.ok(copiedHTML.includes('data-syn-theme="grid"'));
+      assert.ok(copiedHTML.includes('--syn-panel-radius: 22px'));
+      assert.ok(copiedHTML.includes('<p id="sandbox-check">Safe</p>'));
+      await editor.click();
+      await page.keyboard.press('ControlOrMeta+Z');
+      await page.waitForFunction(() => document.querySelector('#playground-markup')?.value.includes('Deployment ready'));
+      await frame.locator('.syn-panel').first().waitFor();
       assert.equal(errors.length, 0, errors.join('\n'));
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
       assert.equal(overflow, false, `Horizontal overflow at ${width}px`);
-      console.log(`PASS chromium ${width}px gallery link / search / tokens / width / sandbox`);
+      console.log(`PASS chromium ${width}px CodeMirror / gallery link / search / tokens / width / sandbox`);
       await page.close();
+      const fallback = await browser.newContext({viewport: {width, height: 800}, javaScriptEnabled: false});
+      const fallbackPage = await fallback.newPage();
+      await fallbackPage.goto(pathToFileURL(path.join(root, 'docs/playground.html')).href);
+      assert.equal(await fallbackPage.locator('#playground-markup').isVisible(), true);
+      assert.equal(await fallbackPage.locator('#playground-editor-mount').isVisible(), false);
+      await fallbackPage.locator('#playground-markup').fill('<p>Native fallback</p>');
+      assert.equal(await fallbackPage.locator('#playground-markup').inputValue(), '<p>Native fallback</p>');
+      await fallback.close();
     }
   } finally {
     await browser.close();

@@ -139,6 +139,7 @@ ${markup.value}
   function loadExample() {
     const item = catalogMap.get(example.value);
     markup.value = item ? item.html : (examples[example.value] || examples.metrics);
+    markup.dispatchEvent(new Event("syntyr:load-example"));
     byId("playground-reference-title").textContent = item ? item.title : "Starter example";
     byId("playground-reference-module").textContent = item ? item.module : "syntyr.core.css";
     byId("playground-reference-description").textContent = item ? item.description : starterGuide[example.value];
@@ -160,10 +161,15 @@ ${markup.value}
       await navigator.clipboard.writeText(configuredHTML());
       status.textContent = "Configured HTML copied.";
     } catch {
-      // Fallback preserves the edited markup; no hidden clipboard permissions.
+      // The native fallback must be visible/focusable if CodeMirror is mounted.
+      const editorMount = byId("playground-editor-mount");
+      if (editorMount && !editorMount.hidden) {
+        editorMount.hidden = true;
+        markup.hidden = false;
+      }
       markup.focus();
       markup.select();
-      status.textContent = "HTML editor selected. Copy with your keyboard; theme tokens appear above.";
+      status.textContent = "HTML selected in the fallback textarea. Copy with your keyboard; configured theme tokens appear above.";
     }
   });
   populateCatalog();
