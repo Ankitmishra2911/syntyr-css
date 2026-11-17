@@ -362,12 +362,15 @@ byId("builder-export-json").addEventListener("click", () => {
   download("syntyr-page.json", JSON.stringify(parseDocument(page), null, 2) + "\n", "application/json");
   notify("Editable JSON project downloaded.");
 });
+let importGeneration = 0;
 byId("builder-import").addEventListener("change", async (event) => {
   const file = event.target.files?.[0];
   if (!file) return;
+  const generation = ++importGeneration;
   try {
     if (file.size > MAX_PROJECT_BYTES) throw new Error("Project file exceeds 16 MiB");
     const text = await file.text();
+    if (generation !== importGeneration) return;
     let candidate;
     try { candidate = JSON.parse(text); }
     catch { throw new Error("Invalid project JSON"); }
@@ -386,13 +389,17 @@ byId("builder-import").addEventListener("change", async (event) => {
       if (!galleryBlockTypes().length)
         throw new Error("Gallery definitions unavailable. Try again after the gallery loads.");
     }
+    // A previously selected gallery project may finish after a newer native
+    // file has already been imported. Never let stale async work overwrite it.
+    if (generation !== importGeneration) return;
     const imported = parseDocument(candidate);
     commit(imported, "Project opened.");
     sequence = Math.max(sequence, imported.blocks.length + 5);
   } catch (error) {
-    notify("Cannot open project: " + error.message);
+    if (generation === importGeneration)
+      notify("Cannot open project: " + error.message);
   } finally {
-    event.target.value = "";
+    if (generation === importGeneration) event.target.value = "";
   }
 });
 

@@ -178,6 +178,33 @@ def verify_manifest_import_order(browser, base_url, native_project, gallery_proj
     finally:
         gallery_context.close()
 
+    # A slow gallery import must never overwrite a newer native-only import.
+    overlap_context = browser.new_context()
+    overlap_context.add_init_script("""(() => {
+        const original = window.fetch.bind(window);
+        window.fetch = (url, options) => String(url).includes("component-gallery.v1.json")
+            ? new Promise(resolve => setTimeout(resolve, 1400)).then(() => original(url, options))
+            : original(url, options);
+    })()""")
+    try:
+        overlap = overlap_context.new_page()
+        overlap.goto(base_url + "/docs/page-builder.html", wait_until="load")
+        overlap.locator("#builder-import").set_input_files({
+            "name": "older-gallery.json", "mimeType": "application/json",
+            "buffer": json.dumps(gallery_project).encode()
+        })
+        overlap.wait_for_timeout(150)
+        overlap.locator("#builder-import").set_input_files({
+            "name": "newer-native.json", "mimeType": "application/json",
+            "buffer": json.dumps(native_project).encode()
+        })
+        expect(overlap.locator("#builder-status")).to_contain_text("Project opened.", timeout=2000)
+        overlap.wait_for_timeout(1650)
+        expect(overlap.locator("#builder-page-title")).to_have_value(native_project["title"])
+        expect(overlap.locator("#builder-outline > li")).to_have_count(len(native_project["blocks"]))
+    finally:
+        overlap_context.close()
+
 
 def main():
     server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
