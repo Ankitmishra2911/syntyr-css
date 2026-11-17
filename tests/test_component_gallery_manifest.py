@@ -31,10 +31,11 @@ class GalleryManifestTests(unittest.TestCase):
             self.assertIn(f'id="{example["id"]}"', page)
             self.assertTrue(example["title"])
             self.assertTrue(example["keywords"])
+            self.assertTrue(example["category"])
             self.assertIn(example["module"], {"syntyr.core.css", "syntyr.recipes.css", "syntyr.viz.css"})
             self.assertTrue(example["html"].strip())
             self.assertNotIn("<script", example["html"].lower())
-            self.assertTrue(example["classes"])
+            self.assertTrue(example["elements"])
             self.assertEqual(example["required_stylesheets"][0], example["module"])
             for cls in example["classes"]:
                 self.assertIn("." + cls, (ROOT / "dist/syntyr.all.css").read_text())

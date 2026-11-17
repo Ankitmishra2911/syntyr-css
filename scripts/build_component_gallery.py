@@ -70,6 +70,7 @@ def build_manifest() -> dict:
         attrs = card.group("attrs")
         label = re.search(r'aria-labelledby="([^"]+)"', attrs)
         keywords = re.search(r'data-catalog-keywords="([^"]+)"', attrs)
+        category = re.search(r'data-catalog-category="([^"]+)"', attrs)
         title = TITLE.search(block)
         module = MODULE.search(block)
         description = DESCRIPTION.search(block)
@@ -88,8 +89,8 @@ def build_manifest() -> dict:
             raise ValueError(f"Catalog preview and copyable HTML differ: {identifier}")
         parser = ExampleHTML()
         parser.feed(raw_html)
-        if not parser.elements or not parser.classes:
-            raise ValueError(f"Empty or non-Syntyr example: {identifier}")
+        if not parser.elements:
+            raise ValueError(f"Empty catalog example: {identifier}")
         css = (ROOT / "dist" / css_module).read_text(encoding="utf-8")
         semantic_css = (ROOT / "dist/syntyr.semantic.css").read_text(encoding="utf-8")
         required_modules = [css_module]
@@ -110,6 +111,7 @@ def build_manifest() -> dict:
             "required_stylesheets": required_modules,
             "description": unescape(re.sub(r"<[^>]+>", "", description[1])).strip(),
             "keywords": keywords[1].lower().split(),
+            "category": category[1] if category else "uncategorized",
             "elements": sorted(parser.elements),
             "classes": sorted(parser.classes),
             "html": raw_html,

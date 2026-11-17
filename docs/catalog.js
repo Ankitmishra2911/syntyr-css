@@ -2,11 +2,12 @@
 (() => {
   'use strict';
   const search = document.getElementById('catalog-search');
+  const category = document.getElementById('catalog-category');
   const controls = document.getElementById('catalog-controls');
   const results = document.getElementById('catalog-results');
   const empty = document.getElementById('catalog-empty');
   const cards = [...document.querySelectorAll('.catalog-card')];
-  if (!search || !controls || !results || !empty || !cards.length) return;
+  if (!search || !category || !controls || !results || !empty || !cards.length) return;
 
   const searchable = cards.map((card) => ({
     card,
@@ -17,7 +18,8 @@
     const terms = search.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
     let count = 0;
     for (const {card, terms: text} of searchable) {
-      const match = terms.every((term) => text.includes(term));
+      const match = (category.value === 'all' || card.dataset.catalogCategory === category.value)
+        && terms.every((term) => text.includes(term));
       card.hidden = !match;
       if (match) count += 1;
     }
@@ -41,6 +43,7 @@
   }
   controls.hidden = false;
   search.addEventListener("input", updateResults);
+  category.addEventListener("change", updateResults);
   updateResults();
 
   for (const card of cards) {
