@@ -50,6 +50,11 @@
     const button = card.querySelector('[data-catalog-copy]');
     const code = card.querySelector('.catalog-source code');
     if (!button || !code) continue;
+    const edit = document.createElement("a");
+    edit.className = "syn-button catalog-edit";
+    edit.href = `playground.html#component=${encodeURIComponent(card.getAttribute("aria-labelledby") || "")}`;
+    edit.textContent = "Edit in playground";
+    button.insertAdjacentElement("afterend", edit);
     button.hidden = false;
     button.addEventListener('click', async () => {
       const value = code.textContent.trim();
