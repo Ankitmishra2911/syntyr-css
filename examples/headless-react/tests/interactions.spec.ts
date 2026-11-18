@@ -133,3 +133,17 @@ test("inventory empty filter state remains truthful and non-actionable", async (
   await expect(page.getByRole("button", { name: "Select 0 matching assets" })).toBeDisabled();
   await expect(page.getByRole("button", { name: "Preview selection" })).toBeDisabled();
 });
+
+
+test("resource selection stays actionable at 320px with enlarged text", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 780 });
+  await page.goto("/");
+  await page.addStyleTag({ content: "html { font-size: 64px !important; }" });
+  await page.getByRole("searchbox", { name: "Filter inventory by asset name" }).fill("central");
+  await page.getByRole("button", { name: "Select 1 matching asset" }).click();
+  await expect(page.getByRole("status", { name: "Inventory selection scope" })).toContainText("1 selected");
+  await page.getByRole("button", { name: "View details for Central billboard" }).click();
+  await expect(page.getByRole("region", { name: "Asset details" })).toContainText("12 faces");
+  const overflows = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+  expect(overflows).toBe(false);
+});
