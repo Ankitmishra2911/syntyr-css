@@ -55,7 +55,7 @@
       <label class="syn-label" for="workspace-name">Workspace name</label>
       <input class="syn-input" type="text" id="workspace-name" name="name"
              autocomplete="organization"
-             required minlength="2" maxlength="80"
+             required readonly={submitting}
              value={form?.value ?? ''}
              aria-invalid={form?.errors?.name ? 'true' : undefined}
              aria-describedby={form?.errors?.name ? 'workspace-help workspace-error' : 'workspace-help'} />

@@ -35,8 +35,13 @@ Disable JavaScript and submit the same **POST** form to verify the fallback.
   while sending, and focuses the server-returned error summary. CSS alone
   does not prevent double submits or manage accessibility announcements.
 
-The server trims and limits submitted names to 80 characters and avoids
-echoing unbounded payloads. This is a **demo-only validation endpoint**:
+The server trims and limits submitted names to 2–80 Unicode code points,
+avoiding malformed surrogate-pair truncation and unbounded echoed payloads.
+Native HTML `minlength`/`maxlength` count UTF-16 units rather than Unicode
+code points, so this example leaves length checks to the server (while retaining
+native `required`). The input becomes read-only while an enhanced POST is
+pending to avoid overwriting newer edits with a stale server response.
+Malformed multipart/form data receives a recoverable HTTP 400 response. This is a **demo-only validation endpoint**:
 successful requests **do not persist anything**. Production code must
 add authentication, per-record authorization, CSRF safeguards (retain the
 framework's origin checking), persistent storage, rate limits, logging and

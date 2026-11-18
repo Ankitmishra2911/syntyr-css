@@ -27,3 +27,12 @@ test('bounds length and echoed values without truncating valid input', () => {
 test('rejects one-character values', () => {
   assert.equal(validateAccountName(' x ').error, 'Use at least 2 characters.');
 });
+
+test('counts supplementary Unicode code points without splitting a surrogate pair', () => {
+  assert.equal(validateAccountName('𠮷').error, 'Use at least 2 characters.');
+  assert.equal(validateAccountName('A𠮷').error, null);
+  assert.equal(validateAccountName('A'.repeat(79) + '𠮷').error, null);
+  const tooLong = validateAccountName('A'.repeat(79) + '𠮷B');
+  assert.equal(tooLong.error, 'Use 80 characters or fewer.');
+  assert.equal(tooLong.value, 'A'.repeat(79) + '𠮷');
+});

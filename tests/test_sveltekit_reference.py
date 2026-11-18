@@ -32,6 +32,11 @@ class SveltekitReferenceContracts(unittest.TestCase):
                 self.assertIn(fragment, page)
         self.assertNotIn("{@html", page)
         self.assertNotIn("fetch(", page)
+        self.assertIn("readonly={submitting}", page)
+        # Native maxlength uses UTF-16 code units; the server counts Unicode
+        # code points so the native limit would reject otherwise valid values.
+        self.assertNotIn('minlength="2"', page)
+        self.assertNotIn('maxlength="80"', page)
         actions = (APP / "src/routes/settings/+page.server.js").read_text()
         self.assertIn("request.formData()", actions)
         self.assertIn("fail(400", actions)

@@ -2,12 +2,52 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'vite';
 
+// Vite's port: 0 probes a free port before binding; another process may
+// claim it in between. Retry only that race with a fresh test server.
+async function startServer(makeServer = createServer) {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const server = await makeServer({
+      server: { host: '127.0.0.1', port: 0, strictPort: true }
+    });
+    try {
+      await server.listen();
+      return server;
+    } catch (error) {
+      await server.close();
+      if (error?.code !== 'EADDRINUSE' || attempt === 2) throw error;
+    }
+  }
+  throw new Error('Unexpected retry exhaustion');
+}
+
+test('ephemeral test listener retries EADDRINUSE only, closing each failed server', async () => {
+  let attempts = 0;
+  let closes = 0;
+  const server = await startServer(async () => ({
+    async listen() {
+      attempts++;
+      if (attempts === 1) throw Object.assign(new Error('port taken'), { code: 'EADDRINUSE' });
+    },
+    async close() { closes++; }
+  }));
+  assert.equal(attempts, 2);
+  assert.equal(closes, 1);
+  await server.close();
+
+  let fatalAttempts = 0;
+  await assert.rejects(
+    () => startServer(async () => ({
+      async listen() { fatalAttempts++; throw new Error('unrelated failure'); },
+      async close() {}
+    })),
+    /unrelated failure/
+  );
+  assert.equal(fatalAttempts, 1);
+});
+
 test('SvelteKit renders and handles native HTML form POSTs without client scripts', async () => {
-  const server = await createServer({
-    server: { host: '127.0.0.1', port: 0, strictPort: true }
-  });
+  const server = await startServer();
   try {
-    await server.listen();
     const { port } = server.httpServer.address();
     const url = `http://127.0.0.1:${port}/settings`;
 
@@ -37,6 +77,24 @@ test('SvelteKit renders and handles native HTML form POSTs without client script
     assert.match(invalid.html, /Use at least 2 characters/);
     assert.match(invalid.html, /aria-invalid="true"/);
     assert.match(invalid.html, /aria-describedby="workspace-help workspace-error"/);
+
+    const malformed = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Origin: new URL(url).origin,
+        Accept: 'text/html',
+        'Content-Type': 'multipart/form-data'
+      },
+      body: 'no-boundary'
+    });
+    assert.equal(malformed.status, 400);
+    assert.match(await malformed.text(), /Malformed form submission/);
+
+    const unicodeShort = await post('𠮷');
+    assert.equal(unicodeShort.status, 400);
+    assert.match(unicodeShort.html, /Use at least 2 characters/);
+    const unicodeLimit = await post('A'.repeat(79) + '𠮷');
+    assert.equal(unicodeLimit.status, 200);
 
     const valid = await post('  Example Workspace  ');
     assert.equal(valid.status, 200);
