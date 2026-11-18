@@ -539,5 +539,93 @@ window.SYNTYR_PLAYGROUND_CATALOG = [
     "kind": "block",
     "category": "Applications",
     "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-auth-sign-in",
+    "title": "Sign-in form",
+    "module": "syntyr.core.css",
+    "description": "Native authentication form with accessible labels and recovery link.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-signin-heading\">\n  \u003cdiv class=\"syn-panel\">\n    \u003ch2 class=\"syn-heading\" id=\"syn-signin-heading\">Sign in to Northstar\u003c/h2>\n    \u003cp class=\"syn-muted\">Use your account credentials. Authentication is implemented by your application.\u003c/p>\n    \u003cform class=\"syn-form\" method=\"post\" action=\"/sign-in\">\n      \u003clabel class=\"syn-label\" for=\"syn-signin-email\">Email address\u003c/label>\n      \u003cinput class=\"syn-input\" id=\"syn-signin-email\" name=\"email\" type=\"email\" autocomplete=\"username\" required>\n      \u003clabel class=\"syn-label\" for=\"syn-signin-password\">Password\u003c/label>\n      \u003cinput class=\"syn-input\" id=\"syn-signin-password\" name=\"password\" type=\"password\" autocomplete=\"current-password\" required>\n      \u003cbutton class=\"syn-button syn-button--primary\" type=\"submit\">Sign in\u003c/button>\n    \u003c/form>\n    \u003cp class=\"syn-caption\">\u003ca href=\"/password/forgot\">Forgot password?\u003c/a> \u00b7 \u003ca href=\"/sign-up\">Create account\u003c/a>\u003c/p>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Sign-in form Native authentication form with accessible labels and recovery link. authentication login form",
+    "kind": "block",
+    "category": "Applications",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-auth-recovery",
+    "title": "Account recovery",
+    "module": "syntyr.core.css",
+    "description": "Email recovery request presentation with security integration notes.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-recovery-heading\">\n  \u003cdiv class=\"syn-panel\">\n    \u003ch2 class=\"syn-heading\" id=\"syn-recovery-heading\">Recover account access\u003c/h2>\n    \u003cp>Enter the email address associated with your account. If eligible, the service will send a recovery link.\u003c/p>\n    \u003cform class=\"syn-form\" method=\"post\" action=\"/password/forgot\">\n      \u003clabel class=\"syn-label\" for=\"syn-recovery-email\">Email address\u003c/label>\n      \u003cinput class=\"syn-input\" id=\"syn-recovery-email\" name=\"email\" type=\"email\" autocomplete=\"email\" required>\n      \u003cbutton class=\"syn-button syn-button--primary\" type=\"submit\">Request recovery link\u003c/button>\n    \u003c/form>\n    \u003cp class=\"syn-help\">The server should return a non-enumerating response and enforce token expiry, rate limits and CSRF protection.\u003c/p>\n    \u003ca href=\"/sign-in\">Return to sign in\u003c/a>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Account recovery Email recovery request presentation with security integration notes. authentication recovery password",
+    "kind": "block",
+    "category": "Applications",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-error-recovery",
+    "title": "Error recovery view",
+    "module": "syntyr.core.css",
+    "description": "Actionable error state without fake success or client-side retry.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-error-heading\">\n  \u003cdiv class=\"syn-panel\">\n    \u003cp class=\"syn-eyebrow\">Unable to load / 503\u003c/p>\n    \u003ch2 id=\"syn-error-heading\" class=\"syn-heading\">This view is temporarily unavailable\u003c/h2>\n    \u003cp>No changes were submitted. You can retry or return to your dashboard.\u003c/p>\n    \u003cdiv class=\"syn-inline\">\u003ca class=\"syn-button syn-button--primary\" href=\"/dashboard\">Return to dashboard\u003c/a>\u003ca class=\"syn-button\" href=\"/status\">Service status\u003c/a>\u003c/div>\n    \u003cp class=\"syn-help\">The server must return the correct HTTP error status and provide a working retry route if available.\u003c/p>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Error recovery view Actionable error state without fake success or client-side retry. error recovery status",
+    "kind": "block",
+    "category": "Applications",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-empty-state",
+    "title": "Empty collection state",
+    "module": "syntyr.core.css",
+    "description": "Clear primary action and filter recovery guidance.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-empty-heading\">\n  \u003cdiv class=\"syn-panel syn-empty\">\n    \u003ch2 id=\"syn-empty-heading\" class=\"syn-heading\">No projects yet\u003c/h2>\n    \u003cp>Create a project to organize tasks and invite teammates.\u003c/p>\n    \u003ca class=\"syn-button syn-button--primary\" href=\"/projects/new\">Create a project\u003c/a>\n    \u003cp class=\"syn-caption\">Try clearing your filters if you expected existing projects.\u003c/p>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Empty collection state Clear primary action and filter recovery guidance. empty no-results onboarding",
+    "kind": "block",
+    "category": "Applications",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-comparison-table",
+    "title": "Features comparison table",
+    "module": "syntyr.core.css",
+    "description": "A semantic comparison matrix that can scroll within narrow containers.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-compare\">\n  \u003ch2 id=\"syn-compare\" class=\"syn-heading\">Compare plan capabilities\u003c/h2>\n  \u003cdiv class=\"syn-table-wrap\">\n    \u003ctable class=\"syn-table\">\n      \u003ccaption>Illustrative package feature comparison\u003c/caption>\n      \u003cthead>\u003ctr>\u003cth scope=\"col\">Capability\u003c/th>\u003cth scope=\"col\">Basic\u003c/th>\u003cth scope=\"col\">Team\u003c/th>\u003c/tr>\u003c/thead>\n      \u003ctbody>\n        \u003ctr>\u003cth scope=\"row\">Shared projects\u003c/th>\u003ctd>3\u003c/td>\u003ctd>Unlimited\u003c/td>\u003c/tr>\n        \u003ctr>\u003cth scope=\"row\">Email support\u003c/th>\u003ctd>Included\u003c/td>\u003ctd>Included\u003c/td>\u003c/tr>\n        \u003ctr>\u003cth scope=\"row\">Team permissions\u003c/th>\u003ctd>Not included\u003c/td>\u003ctd>Included\u003c/td>\u003c/tr>\n      \u003c/tbody>\n    \u003c/table>\n  \u003c/div>\n  \u003cp class=\"syn-caption\">Replace sample capabilities with real product entitlements.\u003c/p>\n\u003c/section>",
+    "keywords": "Features comparison table A semantic comparison matrix that can scroll within narrow containers. comparison features matrix",
+    "kind": "block",
+    "category": "Marketing",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-integrations-grid",
+    "title": "Integration directory grid",
+    "module": "syntyr.core.css",
+    "description": "A grid of documented integration entry points and benefits.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-integrations\">\n  \u003ch2 id=\"syn-integrations\" class=\"syn-heading\">Works with your workflow\u003c/h2>\n  \u003cdiv class=\"syn-grid\">\n    \u003carticle class=\"syn-panel\">\u003ch3>Calendar export\u003c/h3>\u003cp>Plan dates alongside existing schedules.\u003c/p>\u003ca href=\"/integrations/calendar\">Integration guide\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003ch3>Webhooks\u003c/h3>\u003cp>Send event data to systems you control.\u003c/p>\u003ca href=\"/integrations/webhooks\">Webhook guide\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003ch3>CSV import\u003c/h3>\u003cp>Move your records from a simple file.\u003c/p>\u003ca href=\"/integrations/csv\">CSV import guide\u003c/a>\u003c/article>\n  \u003c/div>\n  \u003cp class=\"syn-caption\">Example capabilities, not a claim of live integrations.\u003c/p>\n\u003c/section>",
+    "keywords": "Integration directory grid A grid of documented integration entry points and benefits. integrations directory apps",
+    "kind": "block",
+    "category": "Marketing",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-newsletter-signup",
+    "title": "Newsletter signup panel",
+    "module": "syntyr.core.css",
+    "description": "An accessible subscription form with a native server-backed fallback.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-newsletter\">\n  \u003cdiv class=\"syn-panel\">\n    \u003cp class=\"syn-eyebrow\">STAY IN THE LOOP\u003c/p>\u003ch2 id=\"syn-newsletter\" class=\"syn-heading\">A useful note, once a month\u003c/h2>\n    \u003cp>Design patterns, maintenance tips and new articles. Unsubscribe at any time.\u003c/p>\n    \u003cform class=\"syn-form\" action=\"/newsletter/subscribe\" method=\"post\">\n      \u003cdiv class=\"syn-field\">\u003clabel class=\"syn-label\" for=\"syn-newsletter-email\">Email address\u003c/label>\n        \u003cinput class=\"syn-input\" type=\"email\" id=\"syn-newsletter-email\" name=\"email\" autocomplete=\"email\" required>\u003c/div>\n      \u003cbutton class=\"syn-button syn-button--primary\" type=\"submit\">Subscribe\u003c/button>\n    \u003c/form>\n    \u003cp class=\"syn-caption\">Connect a real consent-aware endpoint, CSRF protection and confirmation flow before publishing.\u003c/p>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Newsletter signup panel An accessible subscription form with a native server-backed fallback. newsletter email lead",
+    "kind": "block",
+    "category": "Marketing",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-announcement-banner",
+    "title": "Site announcement strip",
+    "module": "syntyr.core.css",
+    "description": "A lightweight product or event announcement with a contextual destination.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-announcement\">\n  \u003cdiv class=\"syn-panel\">\n    \u003cp class=\"syn-eyebrow\">PRODUCT UPDATE\u003c/p>\n    \u003ch2 id=\"syn-announcement\" class=\"syn-heading\">A new set of guides is available\u003c/h2>\n    \u003cp>Explore recently published resources and discover what has changed.\u003c/p>\n    \u003ca class=\"syn-button syn-button--outline\" href=\"/updates\">Read the update\u003c/a>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Site announcement strip A lightweight product or event announcement with a contextual destination. announcement promotion notice",
+    "kind": "block",
+    "category": "Marketing",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
   }
 ];

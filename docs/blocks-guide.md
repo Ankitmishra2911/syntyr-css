@@ -2,22 +2,22 @@
 
 **Status:** Experimental alpha.5 source gallery, not an immutable release or published npm package.
 
-[Browse 23 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
+[Browse 31 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
 
 ## Contract
 
-The 23 copy-owned HTML compositions cover marketing, application and technical use
+The 31 copy-owned HTML compositions cover marketing, application and technical use
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.
 
 The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all 23 static previews remain visible, with
+buttons. Disable JavaScript and all 31 static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.
 
 ## Safe local registry installation (experimental alpha.5 source)
 
-The static [universal registry](../registry/registry.json) contains the 23 MIT
+The static [universal registry](../registry/registry.json) contains the 31 MIT
 HTML blocks and eight CSS module entries. Every item includes its exact
 source-tree version, SHA-256 content hashes, declared CSS dependencies, files,
 and destination paths. This is **not** a published immutable alpha.5 release.

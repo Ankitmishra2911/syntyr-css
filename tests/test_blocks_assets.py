@@ -26,7 +26,7 @@ class InspectHTML(HTMLParser):
 class BlocksAssetsTests(unittest.TestCase):
     def test_all_independent_copy_owned_blocks(self):
         blocks = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
-        self.assertEqual(len(blocks), 23)
+        self.assertEqual(len(blocks), 31)
         self.assertEqual(len({b["id"] for b in blocks}), len(blocks))
         self.assertGreaterEqual(len({b["category"] for b in blocks}), 3)
         for block in blocks:
@@ -50,6 +50,35 @@ class BlocksAssetsTests(unittest.TestCase):
                 self.assertIn("</", source)
                 self.assertNotIn("syntyr.all.css", source)
 
+    def test_first_tranche_covers_native_application_and_marketing_workflows(self):
+        blocks = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
+        by_id = {block["id"]: block for block in blocks}
+        new_blocks = {
+            "auth-sign-in", "auth-recovery", "error-recovery", "empty-state",
+            "comparison-table", "integrations-grid", "newsletter-signup",
+            "announcement-banner",
+        }
+        self.assertEqual(len(blocks), 31)
+        for ident in new_blocks:
+            with self.subTest(ident=ident):
+                self.assertIn(ident, by_id)
+                self.assertIn(by_id[ident]["category"], {"Marketing", "Applications"})
+                self.assertEqual(by_id[ident]["modules"], ["core"])
+
+    def test_form_previews_are_disabled_without_modifying_copyable_snippets(self):
+        from html import escape
+        page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
+        for ident in ("auth-sign-in", "auth-recovery", "newsletter-signup"):
+            with self.subTest(ident=ident):
+                card = page.split(f'data-block-id="{ident}"', 1)[1].split('      </article>', 1)[0]
+                self.assertIn('<fieldset class="blocks-preview-disabled" disabled>', card)
+                self.assertIn('</fieldset>', card)
+                snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text().strip()
+                self.assertIn(escape(snippet), card)
+        css = (ROOT / "docs/blocks.css").read_text()
+        self.assertIn('.syn-root .syn-form>.blocks-preview-disabled', css)
+        self.assertIn('.syn-root .syn-filter-bar>.blocks-preview-disabled', css)
+
     def test_gallery_is_generated_and_progressively_enhanced(self):
         result = subprocess.run(
             [sys.executable, "scripts/build_blocks.py", "--check"],
@@ -60,8 +89,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parsed = InspectHTML()
         parsed.feed(page)
         ids = [a["data-block-id"] for a in parsed.attributes if "data-block-id" in a]
-        self.assertEqual(len(ids), 23)
-        self.assertEqual(len(set(ids)), 23)
+        self.assertEqual(len(ids), 31)
+        self.assertEqual(len(set(ids)), 31)
         self.assertIn('src="blocks.js"', page)
         self.assertIn('href="blocks-assets.css"', page)
         self.assertIn('id="blocks-search"', page)
@@ -77,8 +106,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parser.feed(page)
         copy_labels = [attrs.get("aria-label", "") for attrs in parser.attributes
                        if "data-block-copy" in attrs]
-        self.assertEqual(len(copy_labels), 23)
-        self.assertEqual(len(set(copy_labels)), 23)
+        self.assertEqual(len(copy_labels), 31)
+        self.assertEqual(len(set(copy_labels)), 31)
         self.assertTrue(all(name.startswith("Copy HTML for ") for name in copy_labels))
         for block in json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]:
             self.assertIn("View HTML source for " + block["title"] + "</summary>", page)
