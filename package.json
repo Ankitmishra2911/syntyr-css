@@ -46,9 +46,14 @@
     "./presets/saas.css": "./dist/presets/saas.css",
     "./presets/cinematic.css": "./dist/presets/cinematic.css",
     "./contract.json": "./metadata/css-contract.v1.json",
+    "./gallery.json": "./metadata/component-gallery.v1.json",
     "./animate": {
       "types": "./dist/syntyr.animate.d.mts",
       "default": "./dist/syntyr.animate.mjs"
+    },
+    "./copy": {
+      "types": "./dist/syntyr.copy.d.mts",
+      "default": "./dist/syntyr.copy.mjs"
     }
   },
   "sideEffects": [
@@ -60,6 +65,7 @@
     "integrations/shadcn/",
     "integrations/headless/",
     "metadata/css-contract.v1.json",
+    "metadata/component-gallery.v1.json",
     "README.md",
     "LICENSE"
   ],

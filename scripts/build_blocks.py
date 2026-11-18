@@ -131,7 +131,7 @@ def build() -> str:
     <a class="syn-logo" href="index.html">SYNTYR / BLOCKS &amp; ASSETS</a>
     <nav class="syn-nav" aria-label="Documentation">
       <a href="index.html">Gallery</a><a href="catalog.html">Components</a>
-      <a href="blocks-guide.html">Integration guide</a>
+      <a href="blocks-guide.html">Integration guide</a><a href="how-to.html">How-To</a>
     </nav>
   </header>
   <main class="syn-shell" id="blocks-main">
