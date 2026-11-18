@@ -53,7 +53,7 @@ and destination paths. This is <strong>not</strong> a published immutable alpha.
 <p>A no-network, optional Python standard-library helper can preview a block's
 complete dependency plan (the core CSS, any optional modules, the HTML file and
 one MIT license notice) without modifying a project:</p>
-<pre><code class="language-sh">python3 scripts/registry_install.py resource-workspace --project /path/to/app
+<pre tabindex="0"><code class="language-sh">python3 scripts/registry_install.py resource-workspace --project /path/to/app
 # After reviewing every path/digest, opt in to copying missing files only:
 python3 scripts/registry_install.py resource-workspace --project /path/to/app --apply
 </code></pre>
@@ -81,7 +81,7 @@ validation and persistence. See <a href="component-recipes.html">form state cont
 <h2 id="native-html-and-framework-integration">Native HTML and framework integration</h2>
 <p>Load the specific CSS modules shown on each block, from the same pinned version.
 For example, blocks using both core and recipes:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
 &lt;!-- Paste a copied HTML block here. --&gt;
 </code></pre>
@@ -146,7 +146,7 @@ names. See <a href="symbols.html">symbols</a> for supported integration patterns
 <p>Editable fragments live in the blocks/snippets directory. Metadata and module
 dependencies live in blocks/manifest.json. The gallery is generated, not hand
 edited, by the Python standard-library script:</p>
-<pre><code class="language-sh">python3 scripts/build_blocks.py
+<pre tabindex="0"><code class="language-sh">python3 scripts/build_blocks.py
 python3 scripts/build_blocks.py --check
 python3 -m unittest discover -s tests -p test_blocks_assets.py -v
 python3 -m unittest discover -s tests -v
@@ -170,7 +170,7 @@ shadcn-compatible universal-item registry from the same 20 MIT blocks and
 checked-in CSS distributions. It neither replaces nor duplicates the native
 block installer from PR #104. Universal files use explicit project-relative
 targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.</p>
-<pre><code class="language-sh">python3 scripts/build.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
 python3 scripts/build_shadcn_registry.py       # generate registry/registry.json and registry/r/*
 python3 scripts/build_shadcn_registry.py --check
 # Optional, developer-only shadcn 4.23.0 integration smoke (requires npm):

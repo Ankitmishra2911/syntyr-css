@@ -50,6 +50,9 @@ and authorization. The functions output only HTML strings using existing
 - `pagination` accepts only root-relative URLs, rejecting external,
   scheme-relative, or `javascript:` links. The server constructs its links
   through `URLSearchParams` and HTML escaping.
+- Invalid query encodings return HTTP **400**. Search terms longer than 80
+  characters keep only a bounded value for accessible error display;
+  **no results or pagination links** are rendered for rejected input.
 - The demo uses **GET-only** search. For write operations your application
   must add authentication, authorization, CSRF defenses, idempotency and
   structured server validation. The example is not production middleware.

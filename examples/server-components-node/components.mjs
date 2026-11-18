@@ -58,7 +58,7 @@ export function pagination({ page, total, prevURL = '', nextURL = '' }) {
 </nav>`;
 }
 
-export function renderPage({ query, notice: alert, searchButton, records, pager }) {
+export function renderPage({ query, notice: alert, searchButton, records, pager, showResults = true }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -75,10 +75,10 @@ export function renderPage({ query, notice: alert, searchButton, records, pager 
       ${field(query)}
       ${button(searchButton)}
     </form>
-    <section aria-label="Results" class="syn-stack">
+    ${showResults === false ? '' : `<section aria-label="Results" class="syn-stack">
       ${table(records)}
       ${pagination(pager)}
-    </section>
+    </section>`}
     <details><summary>How this works</summary>
       <p>The server renders and escapes content, validates input, and preserves query state. Syntyr only styles native HTML.</p>
     </details>

@@ -37,6 +37,10 @@ local fixture only. `-dist` can set another directory containing that file.
 - `Table`: caption and scoped row/column headings, or native empty state.
 - `Pagination`: server-generated links with current page marker.
 
+Malformed percent-encoded queries are rejected with HTTP **400**. Searches that
+exceed 80 characters preserve a bounded value for error display but render
+**no actionable results or pagination links**.
+
 Go templ escapes interpolated untrusted text and attributes, and sanitizes
 unsafe URL schemes. Do not bypass this protection by treating user input as
 trusted HTML/URLs. The GET-only example bounds queries, encodes pagination

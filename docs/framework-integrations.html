@@ -48,7 +48,7 @@ For an element that an interaction framework will add classes to, opt it in once
 with <code>data-syn-semantic</code>. This preserves semantic styling while host-managed
 classes such as <code>htmx-request</code> are added and removed.</li>
 </ol>
-<pre><code class="language-html">&lt;section class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;button data-syn-semantic hx-get=&quot;/status&quot; hx-target=&quot;#status&quot;&gt;Check status&lt;/button&gt;
   &lt;div id=&quot;status&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
 &lt;/section&gt;
@@ -78,7 +78,7 @@ or CSRF implementation.</p>
 <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.css">examples/htmx.css</a>.
 These links lead to source files, not a live Cloudflare demonstration.</p>
 <p>From the repository root:</p>
-<pre><code class="language-sh">python3 examples/htmx_server.py
+<pre tabindex="0"><code class="language-sh">python3 examples/htmx_server.py
 # open http://127.0.0.1:8765/examples/htmx.html
 </code></pre>
 <p>The optional demo loads <strong>pinned HTMX 2.0.8</strong> from a third-party CDN. The CSS
@@ -139,7 +139,7 @@ any application. Syntyr does not override these semantics.</li>
 </ul>
 <p>To exercise both versions against the real browser runtime without
 installing either into Syntyr:</p>
-<pre><code class="language-sh">curl -fsSL https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js -o /tmp/syntyr-htmx2.js
+<pre tabindex="0"><code class="language-sh">curl -fsSL https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js -o /tmp/syntyr-htmx2.js
 curl -fsSL https://cdn.jsdelivr.net/npm/htmx.org@4.0.1/dist/htmx.min.js -o /tmp/syntyr-htmx4.js
 HTMX_JS_PATH=/tmp/syntyr-htmx2.js HTMX4_JS_PATH=/tmp/syntyr-htmx4.js python3 tests/htmx_browser.py
 </code></pre>
@@ -157,7 +157,7 @@ status/error notice, button, result table and pagination. It includes a
 runnable GET-only example and tests for HTML escaping, server validation,
 <code>aria-describedby</code>, and encoded query-preserving links. No new stylesheet,
 JavaScript dependency, component protocol or Go library is introduced.</p>
-<pre><code class="language-go-html-template">&lt;form action=&quot;/&quot; method=&quot;get&quot; role=&quot;search&quot; class=&quot;syn-form&quot;&gt;
+<pre tabindex="0"><code class="language-go-html-template">&lt;form action=&quot;/&quot; method=&quot;get&quot; role=&quot;search&quot; class=&quot;syn-form&quot;&gt;
   {{template &quot;syn.field&quot; .Query}}
   {{template &quot;syn.button&quot; .SearchButton}}
 &lt;/form&gt;
@@ -229,7 +229,7 @@ contains reproducible HTTP and optional Chromium browser tests.</p>
 your application and output the same <code>syn-</code> classes in HEEx, Blade, ERB, templ,
 Jinja, Twig or Razor. You only need a second CSS file if you want native
 framework loading classes and attributes to show Syntyr's progress cursor:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.server.css&quot;&gt;
 </code></pre>
 <p>Or, when using a CSS-aware package build system, import
@@ -257,7 +257,7 @@ make styling survive framework patches.</p>
 <p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/liveview.heex">Copyable HEEx form</a>
 uses the normal <code>phx-change</code> and <code>phx-submit</code> handlers. Server assigns
 control the value and validation error:</p>
-<pre><code class="language-heex">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-heex">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;form id=&quot;campaign-form&quot; class=&quot;syn-form&quot; phx-change=&quot;validate&quot; phx-submit=&quot;save&quot;&gt;
     &lt;label class=&quot;syn-label&quot; for=&quot;campaign-name&quot;&gt;Campaign&lt;/label&gt;
     &lt;input id=&quot;campaign-name&quot; class=&quot;syn-input&quot; name=&quot;campaign[name]&quot;
@@ -275,7 +275,7 @@ JavaScript bootstrap in your Phoenix application, not in Syntyr.</p>
 <h2 id="laravel-livewire-blade">Laravel Livewire (Blade)</h2>
 <p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/livewire.blade.php">Copyable Blade form</a>
 uses <code>wire:submit</code>, <code>wire:model.live</code>, and Blade validation messages:</p>
-<pre><code class="language-blade">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-blade">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;form class=&quot;syn-form&quot; wire:submit=&quot;save&quot;&gt;
     &lt;label class=&quot;syn-label&quot; for=&quot;campaign-name&quot;&gt;Campaign&lt;/label&gt;
     &lt;input id=&quot;campaign-name&quot; class=&quot;syn-input&quot; wire:model.live=&quot;name&quot;
@@ -297,7 +297,7 @@ uses a normal GET form to update only a matching frame. For a running
 server-backed fixture with a real Turbo 8.0.23 browser integration,
 see <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/turbo.html">examples/turbo.html</a>
 and <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/hypertext_server.py">examples/hypertext_server.py</a>:</p>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;form action=&quot;/campaigns&quot; method=&quot;get&quot; data-turbo-frame=&quot;campaign-results&quot;&gt;
     &lt;label for=&quot;q&quot;&gt;Campaign&lt;/label&gt;
     &lt;input id=&quot;q&quot; class=&quot;syn-input&quot; name=&quot;q&quot;&gt;
@@ -323,7 +323,7 @@ in production. Syntyr never includes it.</p>
 <p>The same runnable Turbo 8 example now includes a <strong>GET stream form</strong> outside
 the frame. Add <code>data-turbo-stream=&quot;true&quot;</code> to the form, keep the target inside a
 stable <code>.syn-root</code>, and return an action targeting that element:</p>
-<pre><code class="language-html">&lt;form action=&quot;/customers/turbo-stream&quot; method=&quot;get&quot; data-turbo-stream=&quot;true&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;form action=&quot;/customers/turbo-stream&quot; method=&quot;get&quot; data-turbo-stream=&quot;true&quot;&gt;
   &lt;label for=&quot;stream-q&quot;&gt;Customers&lt;/label&gt;
   &lt;input id=&quot;stream-q&quot; class=&quot;syn-input&quot; name=&quot;q&quot;&gt;
   &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Update&lt;/button&gt;
@@ -379,7 +379,7 @@ not automatically style the inside of a shadow root. See the
 and <a href="component-authoring.html">component-authoring conventions</a>.</p>
 <h2 id="alpinejs">Alpine.js</h2>
 <p>Use native attributes for real state, and Syntyr classes for presentation:</p>
-<pre><code class="language-html">&lt;div class=&quot;syn-root&quot; x-data=&quot;{ selected: false }&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-root&quot; x-data=&quot;{ selected: false }&quot;&gt;
   &lt;button class=&quot;syn-button&quot; type=&quot;button&quot;
           :aria-pressed=&quot;String(selected)&quot; @click=&quot;selected = !selected&quot;&gt;
     Toggle details
@@ -393,13 +393,13 @@ Syntyr doesn't manage Alpine state.</p>
 <p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/datastar.html">Runnable Datastar example</a>
 and <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/datastar_server.py">stdlib HTTP server</a>
 demonstrate a real GET fallback and a Datastar SSE response:</p>
-<pre><code class="language-sh">python3 examples/datastar_server.py
+<pre tabindex="0"><code class="language-sh">python3 examples/datastar_server.py
 # open http://127.0.0.1:8766/examples/datastar.html
 </code></pre>
 <p>The demo opts into a <strong>pinned Datastar v1.0.5</strong> browser script. That is an
 application/demo dependency, not bundled or injected by Syntyr. Self-host the
 pinned script in production.</p>
-<pre><code class="language-html">&lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;form action=&quot;/customers/search&quot; method=&quot;get&quot;
         data-indicator:_fetching
         data-on:submit=&quot;!$_fetching &amp;&amp; @get('/customers/search')&quot;
@@ -466,7 +466,7 @@ to the targeted fragment. Syntyr's optional <code>syntyr.server.css</code> style
 progress cursor on an enabled <code>.syn-button.up-active</code> or the enabled
 submit button inside <code>form.up-active</code>, without hiding, dimming, or blocking
 the target. Unpoly owns response handling, loading feedback and morphing.</p>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;form action=&quot;/customers&quot; method=&quot;get&quot;
         up-target=&quot;#customer-results, #customer-search&quot; up-fail-target=&quot;#customer-search&quot;
         id=&quot;customer-search&quot;&gt;
@@ -485,7 +485,7 @@ outside any fragment Unpoly replaces; do not interpret <code>.up-loading</code> 
 reason to suppress keyboard interaction or hide results. Syntyr does not
 include Unpoly or override its default CSS.</p>
 <h2 id="react-nextjs">React / Next.js</h2>
-<pre><code class="language-jsx">import &quot;./syntyr.core.css&quot;;
+<pre tabindex="0"><code class="language-jsx">import &quot;./syntyr.core.css&quot;;
 
 export function StatusCard({ status }) {
   return (

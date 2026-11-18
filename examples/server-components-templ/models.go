@@ -23,6 +23,7 @@ type PaginationProps struct {
 	PrevURL, NextURL string
 }
 type PageData struct {
+	ShowResults  bool
 	Query        FieldProps
 	Notice       NoticeProps
 	SearchButton ButtonProps
@@ -77,6 +78,11 @@ func buildPage(query, pageText string) pageResult {
 		field.Value = string([]rune(field.Value)[:maxQueryRunes])
 		field.Error = "Search must be at most 80 characters."
 		status = 400
+		return pageResult{Status: status, Data: PageData{
+			Query:        field,
+			Notice:       NoticeProps{Message: "Correct the search field and try again.", Danger: true},
+			SearchButton: ButtonProps{Label: "Search", Primary: true, Submit: true},
+		}}
 	}
 	matches := make([]Record, 0, len(resources))
 	needle := strings.ToLower(strings.TrimSpace(field.Value))
@@ -116,11 +122,9 @@ func buildPage(query, pageText string) pageResult {
 	if invalidPage {
 		alert = NoticeProps{Message: "Page number is invalid for these results.", Danger: true}
 	}
-	if field.Error != "" {
-		alert = NoticeProps{Message: "Correct the search field and try again.", Danger: true}
-	}
 	return pageResult{Status: status, Data: PageData{
-		Query: field, Notice: alert, SearchButton: ButtonProps{Label: "Search", Primary: true, Submit: true},
+		ShowResults: !invalidPage,
+		Query:       field, Notice: alert, SearchButton: ButtonProps{Label: "Search", Primary: true, Submit: true},
 		Records: matches[start:end], Pager: pager,
 	}}
 }

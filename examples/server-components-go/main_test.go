@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 )
@@ -27,7 +28,7 @@ func TestEscapedNativeComponentComposition(t *testing.T) {
 	if strings.Contains(body, `<img src=x`) || strings.Contains(body, "<script") {
 		t.Fatal("unsafe or unexpected active markup")
 	}
-	if !strings.Contains(request(http.MethodGet, "/").Body.String(), `class="syn-table`) {
+	if !strings.Contains(request(http.MethodGet, "/").Body.String(), `<table class="syn-table"`) {
 		t.Fatal("expected table on unfiltered search")
 	}
 }
@@ -86,5 +87,52 @@ func TestInvalidPageAndMethods(t *testing.T) {
 	}
 	if res := request(http.MethodHead, "/"); res.Code != http.StatusOK {
 		t.Fatalf("HEAD: %d", res.Code)
+	}
+}
+
+func TestMalformedQueryDoesNotFallBackToValidSearch(t *testing.T) {
+	for _, path := range []string{"/?q=CRM&page=%ZZ", "/?q=%ZZ", "/?q=CRM%", "/?page=2&q=%ZZ"} {
+		res := request(http.MethodGet, path)
+		if res.Code != http.StatusBadRequest {
+			t.Errorf("%s: got %d, expected 400", path, res.Code)
+		}
+	}
+}
+
+func TestInvalidLengthDoesNotProduceValidPaginationOrResults(t *testing.T) {
+	invalid := "&" + strings.Repeat(" ", 79) + "X"
+	res := request(http.MethodGet, "/?q="+url.QueryEscape(invalid))
+	if res.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400, got %d", res.Code)
+	}
+	body := res.Body.String()
+	for _, forbidden := range []string{`<table class="syn-table"`, `aria-label="Resource pages"`, `rel="next"`} {
+		if strings.Contains(body, forbidden) {
+			t.Errorf("invalid search rendered %q", forbidden)
+		}
+	}
+	for _, expected := range []string{`aria-invalid="true"`, `id="resource-query-error"`, `value="&amp;`} {
+		if !strings.Contains(body, expected) {
+			t.Errorf("missing %q", expected)
+		}
+	}
+	valid := request(http.MethodGet, "/?q=%26")
+	if valid.Code != http.StatusOK || !strings.Contains(valid.Body.String(), `rel="next"`) {
+		t.Fatal("valid ampersand search lost pagination")
+	}
+}
+
+func TestAssetMethodsAreGETOrHEADOnly(t *testing.T) {
+	for _, method := range []string{http.MethodPost, http.MethodPut, http.MethodDelete} {
+		res := request(method, "/assets/syntyr.core.css")
+		if res.Code != http.StatusMethodNotAllowed || res.Header().Get("Allow") != "GET, HEAD" {
+			t.Errorf("%s asset: status=%d allow=%q", method, res.Code, res.Header().Get("Allow"))
+		}
+	}
+	for _, method := range []string{http.MethodGet, http.MethodHead} {
+		res := request(method, "/assets/syntyr.core.css")
+		if res.Code != http.StatusOK {
+			t.Errorf("%s asset: %d", method, res.Code)
+		}
 	}
 }

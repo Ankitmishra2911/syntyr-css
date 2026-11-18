@@ -14,8 +14,17 @@ go test ./...
 go run .  # http://127.0.0.1:8767/
 ```
 
-Use `go run . -dist /absolute/path/to/dist` when running from another working
-directory. Only the development server and `html/template` render HTML.
+The `go run .` command selects the package in **the current directory**.
+To launch from another directory, build the binary from this example first:
+
+```sh
+cd examples/server-components-go
+go build -o /tmp/syntyr-server-components-go .
+cd /your/application
+/tmp/syntyr-server-components-go -dist /absolute/path/to/syntyr-css/dist
+```
+
+Only the development server and `html/template` render HTML.
 Syntyr's existing `syntyr.core.css` supplies the styles, and `syn-*` selectors
 remain identical across renderers.
 
@@ -34,8 +43,11 @@ partials, called through the standard `{{template "name" .Data}}` syntax:
 
 `templates/page.html` shows how to compose the partials into a complete
 `<main>` without a component runtime. Copy and adapt the templates to your Go
-application. Use unique field IDs within each document; the sample is one
-search form, not an automatic ID generator.
+application. Reserve **all rendered IDs** across the document: the field ID
+and its derived `-help` and `-error` IDs must not collide with IDs belonging
+to any other field or component. For example, two fields with IDs `query` and
+`query-error` can collide when the first field renders its error paragraph.
+The sample is one search form, not an automatic ID generator.
 
 For other backends, reproduce the **rendered semantic HTML** with ERB, Jinja,
 Blade, HEEx, Razor, templ, Astro or an ordinary server-side renderer. The

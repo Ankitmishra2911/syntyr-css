@@ -101,3 +101,33 @@ func TestHTTPBoundaries(t *testing.T) {
 		}
 	}
 }
+
+func TestRejectedTemplSearchHidesResultsAndPagination(t *testing.T) {
+	invalid := "&" + strings.Repeat(" ", 79) + "X"
+	result := buildPage(invalid, "")
+	if result.Status != 400 {
+		t.Fatalf("expected 400, got %d", result.Status)
+	}
+	html := rendered(t, Page(result.Data))
+	for _, missing := range []string{`<table class="syn-table"`, `aria-label="Resource pages"`, `rel="next"`} {
+		if strings.Contains(html, missing) {
+			t.Errorf("rejected search rendered %q", missing)
+		}
+	}
+	if !strings.Contains(html, `aria-invalid="true"`) {
+		t.Fatal("missing linked field validation")
+	}
+	if valid := rendered(t, Page(buildPage("&", "").Data)); !strings.Contains(valid, `rel="next"`) {
+		t.Fatal("valid query lost pagination")
+	}
+}
+
+func TestMalformedTemplQueryReturns400(t *testing.T) {
+	for _, path := range []string{"/?q=CRM&page=%ZZ", "/?q=%ZZ", "/?q=CRM%"} {
+		rec := httptest.NewRecorder()
+		newHandler("../../dist").ServeHTTP(rec, httptest.NewRequest(http.MethodGet, path, nil))
+		if rec.Code != 400 {
+			t.Errorf("%s: got %d", path, rec.Code)
+		}
+	}
+}

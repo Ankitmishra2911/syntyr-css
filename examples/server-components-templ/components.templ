@@ -85,10 +85,12 @@ templ Page(data PageData) {
                     @Field(data.Query)
                     @Button(data.SearchButton)
                 </form>
-                <section aria-label="Results" class="syn-stack">
-                    @Table(data.Records)
-                    @Pagination(data.Pager)
-                </section>
+                if data.ShowResults {
+                    <section aria-label="Results" class="syn-stack">
+                        @Table(data.Records)
+                        @Pagination(data.Pager)
+                    </section>
+                }
                 <details><summary>How this works</summary><p>The server renders and escapes content, validates input, and preserves query state. Syntyr only styles native HTML.</p></details>
             </main>
         </body>

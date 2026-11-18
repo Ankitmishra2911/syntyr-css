@@ -87,7 +87,7 @@
 </table>
 <p>The no-JS example is <a href="https://syntyr-css.pages.dev/examples/dropdowns.html">examples/dropdowns.html</a>. The native Popover API provides light dismissal and Escape behavior in supporting browsers. Older browsers need an alternative if the actions are essential.</p>
 <h2 id="scriptless-action-panel">Scriptless action panel</h2>
-<pre><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;record-actions&quot;&gt;Actions&lt;/button&gt;
+<pre tabindex="0"><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;record-actions&quot;&gt;Actions&lt;/button&gt;
 &lt;div id=&quot;record-actions&quot; popover class=&quot;syn-popover syn-popover--anchored syn-dropdown&quot;&gt;
   &lt;p class=&quot;syn-dropdown__group-label&quot;&gt;Record&lt;/p&gt;
   &lt;a class=&quot;syn-dropdown__item&quot; href=&quot;/records/123&quot;&gt;View record&lt;/a&gt;
@@ -98,7 +98,7 @@
 <p><strong>Do not add <code>role=&quot;menu&quot;</code> to this pattern.</strong> The browser's normal Tab navigation is intentional. Use buttons for actions and links for navigation. <code>aria-disabled=&quot;true&quot;</code> alone does not suppress navigation or handlers; use real <code>disabled</code> buttons or enforce the disabled condition in the application.</p>
 <p>The dropdown CSS supplies compact rows, dividers, group headings, optional keyboard shortcut labels, selected and danger visual treatments, max-block-size scrolling, and a viewport-positioned fallback when anchor positioning is unsupported. Show shortcut hints only for real, implemented keybindings; use <code>aria-hidden=&quot;true&quot;</code> for redundant decorative key glyphs.</p>
 <h2 id="customizable-native-select-experimental">Customizable native select (experimental)</h2>
-<pre><code class="language-html">&lt;label class=&quot;syn-label&quot; for=&quot;region&quot;&gt;Region
+<pre tabindex="0"><code class="language-html">&lt;label class=&quot;syn-label&quot; for=&quot;region&quot;&gt;Region
   &lt;select id=&quot;region&quot; name=&quot;region&quot; class=&quot;syn-select syn-select--enhanced&quot;&gt;
     &lt;option value=&quot;north&quot;&gt;North&lt;/option&gt;&lt;option value=&quot;south&quot;&gt;South&lt;/option&gt;
   &lt;/select&gt;
@@ -107,7 +107,7 @@
 <p>The opt-in <code>base-select</code> appearance and <code>::picker(select)</code> styles are wrapped in <code>@supports (appearance: base-select)</code>. They do not replace the element or its value/submission semantics. Test the actual browser/OS/version you support; custom picker rendering is not uniform across engines. Do not expect arbitrary option markup to work everywhere.</p>
 <h2 id="optional-application-menu-adapter">Optional application menu adapter</h2>
 <p>Only enable this if an application needs WAI-ARIA menu keyboard interactions. This module is <strong>not loaded by the CSS</strong>, and importing it does not auto-initialize menus.</p>
-<pre><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;editor-menu&quot;&gt;Editor actions&lt;/button&gt;
+<pre tabindex="0"><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;editor-menu&quot;&gt;Editor actions&lt;/button&gt;
 &lt;div id=&quot;editor-menu&quot; popover data-syn-menu aria-label=&quot;Editor actions&quot;
      class=&quot;syn-popover syn-popover--anchored syn-dropdown&quot;&gt;
   &lt;button type=&quot;button&quot; class=&quot;syn-dropdown__item&quot; data-syn-menu-item&gt;Rename&lt;/button&gt;
