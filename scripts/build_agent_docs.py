@@ -33,6 +33,7 @@ SOURCES = (
     "docs/visual-composition.md",
     "docs/geometry-terminal.md",
     "docs/viz.md",
+    "docs/geo.md",
     "docs/accessibility.md",
     "docs/agent-integration.md",
     "docs/editor-integration.md",

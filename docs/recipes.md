@@ -2,6 +2,8 @@
 
 For copyable input groups, labeled fields, container-responsive settings forms and optional headless UI styling, see [form composition recipes](component-recipes.md) and the [Radix adapter](radix-integration.md). For layered depth, incident-detail layouts, command presentation, timelines, and editorial product sections, see [premium compositions](premium-compositions.md).
 
+For native file uploads, multi-action forms, and nested resource navigation, see [native business workflows](native-workflows.md) and the [script-free example](../examples/native-workflows.html). These compose the existing error-summary and detail-layout patterns without introducing a JavaScript dependency.
+
 These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see [the gallery](index.html), the [Grid console](../examples/console.html), and the [Noir pricing layout](../examples/pricing.html).
 
 ## Optional vertical flow
@@ -144,6 +146,51 @@ Load `syntyr.core.css` and then optional `syntyr.recipes.css`. See the [complete
 ```
 
 The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.
+
+## File selection and lifecycle presentation (alpha.5 source candidate)
+
+Use the existing native file input (`.syn-input[type="file"]`) with a real
+`label`, then load optional `syntyr.recipes.css` for an ordered
+`ol.syn-file-queue` containing `li.syn-file-item` entries. An optional
+`.syn-file-item-header` keeps names and textual status together without
+forcing a fixed width. Use only one truthfully rendered state per entry:
+`data-syn-state="queued|uploading|complete|failed"`.
+Preserve `role="list"` on the ordered queue when removing visual markers:
+Safari/VoiceOver can otherwise omit the list and its item count from
+accessibility announcements outside a navigation landmark.
+
+[Open the static file-lifecycle example](../examples/file-lifecycle.html).
+This recipe is **presentation only**, not a drag-and-drop zone, upload engine,
+retry handler, virus scanner, or file storage client. File choice works
+natively without JavaScript, but choosing a file does not upload it.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <label class="syn-label" for="attachments">Attachments</label>
+  <input id="attachments" class="syn-input" type="file" multiple>
+  <ol class="syn-file-queue" role="list">
+    <li class="syn-file-item" data-syn-state="uploading">
+      <div class="syn-file-item-header">
+        <strong>report.pdf</strong><span>Uploading · 42%</span>
+      </div>
+      <progress class="syn-meter" value="42" max="100"
+                aria-label="Report upload progress">42%</progress>
+    </li>
+  </ol>
+</section>
+```
+
+**Host application contract:** Do not render completion until the server
+confirms durable storage. Compute actual byte-based progress if available;
+omit `value` on `<progress>` only when an upload is genuinely indeterminate.
+Honor file size/type limits, authorization, CSRF protections when applicable,
+safe filenames, cancellation, retries, and server-side scanning as required.
+Retain selected files after recoverable errors when the browser permits,
+and expose real error details with field associations. Create a persistent
+live status region in the host if asynchronous changes require announcements;
+CSS and a static snapshot cannot announce an update. No automatic drag/drop
+or upload happens with these classes. Test responsive zoom, forced colors,
+keyboard navigation, real upload failure and assistive technology in the host.
 
 ## Reusing recipes across stacks
 
@@ -329,6 +376,18 @@ The example is illustrative, **not a configured server**. Avoid relying on color
 
 For a **runnable, zero-JavaScript reference**, see the [Go resource workbench](https://github.com/dporkka/syntyr-css/tree/main/examples/go-resource-workbench). It composes the existing filter, table, bulk-action and inspector classes with real server-side GET filtering, status filters, sorting, column and theme settings, record links and read-only bulk-selection previews. Unlike the static markup, the Go example actually constrains result sets. An empty checked selection never means all matching records: selecting the full matching set is an explicit separate link. The example has no writes, accounts, tenant isolation or durable authorization; production apps must supply those behaviors.
 
+## Native query filters and record review (alpha.5 source candidate)
+
+The [copy-owned filter and review composition](../examples/query-review.html)
+reuses `.syn-filter-bar`, `.syn-filter-choices`, `.syn-chip`,
+and `dl.syn-record-fields`. The example is a **static server-rendered snapshot**;
+it does not filter results or perform edits without a host application.
+
+- Submit labelled controls with a native `method="get"` form. The server must validate the query and re-render selected values, counts, and the matching results.
+- Render each removable filter as a real link that drops exactly one encoded query parameter while preserving the others. Use descriptive accessible names, not icon-only removal affordances. The server must generate these URLs from validated state.
+- Review record details as `dl` / `dt` / `dd` pairs and use Edit links to disabled example fields in this static snapshot; hosts must substitute real, authorized edit routes. Never style a static text value as a working editable field.
+- Filtering, authorization, permissions, mutations, and persistence belong to the host. These composition classes add **no new core CSS or mandatory JavaScript**.
+
 ## Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)
 
 The optional `syntyr.recipes.css` also includes reusable patterns tested against
@@ -368,3 +427,29 @@ excluded from `syntyr.core.css`. The illustration uses labeled placeholders,
 not real customer evidence. Test keyboard and touch interactions, actual
 screen-reader focus behavior, 400% zoom, forced colors, RTL, and lengthy
 translated metadata in the consuming app before production use.
+
+## Permission matrix — role/capability review
+
+The [copy-owned permissions example](../examples/permission-matrix.html) combines
+Syntyr core and recipes with a small application-local stylesheet. It takes
+enterprise-table and accessible-form ideas from mature design systems without
+adding a component to Syntyr's core or introducing JavaScript.
+
+- Real \`table\`, \`caption\`, column/row headers and visible \`input type="checkbox"\`
+  controls communicate the role/capability intersection to assistive technology.
+  Every checkbox has an explicit, role-and-capability-specific label.
+- A named, keyboard-focusable scroll region preserves the wide matrix at mobile
+  widths and large zoom levels. Test scrolling with a keyboard and screen reader.
+- Viewer/Editor inputs are an unsaved local demonstration. The disabled
+  Administrator column demonstrates a system-fixed role, not a policy imposed
+  by Syntyr. Browser-disabled fields will not submit in a real form.
+- To make this a working settings page, render it from trusted server policy,
+  wrap it in an authenticated mutation form with CSRF protection and a policy
+  version, then validate every capability server-side before an atomic update.
+  Audit the actor and changes; never trust a checked box or a hidden role field
+  for authorization.
+- Do not present a static demo as a live access-control feature, persist changes
+  in browser storage, or claim accessibility compliance without manual testing.
+
+The markup belongs to the host application; this is an integration pattern,
+not a JavaScript permissions widget or a substitute for authorization.

@@ -118,6 +118,7 @@ stylesheets.
 - [Agent-readable composition recipes with validated slots, variants and stylesheet requirements](docs/editor-integration.md#agent-ready-composition-recipes)
 - [Editor autocomplete, full component contract and optional static HTML diagnostics](docs/editor-integration.md) (`metadata/syntyr-contract.json`, `scripts/syntyr_check.py`)
 - [Tailwind v4 interoperability, local VS Code extension, and Figma token exports](docs/ecosystem-integrations.md) (opt-in alpha.5 source adapters)
+- [Static-site generators: Astro, Eleventy, Hugo, Jekyll, Zola and Next.js export](docs/static-site-generators.md) ([runnable Eleventy example](examples/eleventy/))
 - [Runnable Tailwind v4, Astro and shadcn-token adoption projects](docs/adoption-starters.md) and [editable Figma component kit pilot](docs/figma-component-kit.md)
 - [Opt-in shadcn/ui semantic token bridge](docs/shadcn-integration.md), [official CLI-generated React/Radix example](examples/syntyr-shadcn-react/), [Chromium visual regression](docs/visual-regression.md), and [release readiness](docs/release-readiness-ecosystem.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
@@ -136,12 +137,15 @@ stylesheets.
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md) and [interactive geometry mixer](docs/playground.html#geometry-title)
 - [Quiet / standard / cinematic intensity comparison](examples/intensity-geometry.html) with [composability guide](docs/visual-intensity.md): independent effect controls, composable frame accents, and nested presets without JavaScript
 - [Optional SVG icons, Unicode markers and ASCII/box-drawing demo](examples/symbols.html) with [copy-paste guide](docs/symbols.md)
+- [CSS-only geospatial schematic demo](examples/geo.html) and [renderer-neutral GIS styling guide](docs/geo.md): optional `syntyr.geo.css` map/list/inspector workspace, markers, legends, layers and attribution with no bundled map engine (unreleased source candidate)
 - [Opt-in enterprise data-grid CSS module](docs/data-grid.md), with [static styling example](examples/data-grid.html): framework-neutral, no JavaScript, reusable ARIA states, density and aligned column primitives.
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
 - [Three flagship visual compositions](docs/visual-composition.md): [Studio operations](examples/flagship-studio.html), [Noir editorial](examples/flagship-noir.html), and [Grid control](examples/flagship-grid.html); original, static, zero-JavaScript showcases.
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
 - [Search, filtering, settings and pagination SaaS workflow demonstration](examples/saas-workflows.html): server-ready semantic HTML, static illustrative data, zero JavaScript
+- [Role-permissions review matrix](examples/permission-matrix.html): accessible native checkbox/table composition for enterprise authorization UIs; local preview only, no real permissions or JavaScript
 - [Workflow operations compositions](examples/workflow-operations.html): progress steps, expandable activity diagnostics, and human approval queue using existing Syntyr classes; no backend or JavaScript
+- [Native file lifecycle presentation](examples/file-lifecycle.html): file picker, queued/uploading/completed/failed snapshots, and host-owned upload boundaries (unreleased alpha.5 source)
 - [Vertigo-inspired four-stage resource lifecycle reference](examples/vertigo-resource-workflow.html): schema-driven CRUD visual patterns (index, detail, editor, settings) with zero runtime JavaScript and disabled mutations.
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Optional Rust SaaS Foundation / Askama / HTMX integration guide](docs/rust-saas-integration.md)
