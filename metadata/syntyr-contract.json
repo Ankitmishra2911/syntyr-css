@@ -2406,6 +2406,50 @@
       ]
     },
     {
+      "name": "syn-resizable-workspace",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__pane",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__panes",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__separator",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-result-state",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
@@ -5456,6 +5500,17 @@
         "syntyr.css",
         "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     }
   ],

@@ -947,6 +947,26 @@
       "description": "Container query boundary for responsive compositions."
     },
     {
+      "name": "syn-resizable-workspace",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__pane",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__panes",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__separator",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-result-state",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -2112,6 +2132,11 @@
       "name": "--syn-wash-secondary-alpha",
       "module": "tokens.css",
       "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
     }
   ],
   "themes": [

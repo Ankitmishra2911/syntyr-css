@@ -34,6 +34,8 @@ FILES = (
     "examples/email.html",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
     "examples/preset-preview.html",
+    "examples/resizable-workspace.html",
+    "examples/resizable-workspace.mjs",
     "examples/animation.html",
     "examples/animation-demo.mjs",  # One local CSS file per named preset.
     "examples/copy.html",

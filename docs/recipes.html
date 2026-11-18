@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="7a3c3997c3d83a24dfee7ca8b5963fa00a5074c52b3f9cb80ed2c1bad80cd7e0">
+  <meta name="syntyr-source-sha256" content="da2a3abba989ee83268e15d34acda329778a79ef33b1804b4ce64a2da0848758">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -150,6 +150,30 @@ All spacing remains controlled by ordinary CSS custom properties.</p>
 &lt;/section&gt;
 </code></pre>
 <p>The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.</p>
+<h2 id="resizable-workspace-optional-behavior">Resizable workspace (optional behavior)</h2>
+<p>The <strong>Resizable workspace</strong> composition is separate from the existing
+<code>.syn-split</code> (which is simply a responsive two-column grid). Load
+<code>syntyr.core.css</code> and <code>syntyr.recipes.css</code> for
+<code>.syn-resizable-workspace</code>, <code>.syn-resizable-workspace__panes</code>,
+<code>.syn-resizable-workspace__pane</code> and
+<code>.syn-resizable-workspace__separator</code>. The <code>--syn-workspace-leading</code> CSS
+property expresses the first pane's share. Without JavaScript the two panes
+remain readable and the inert separator is hidden.</p>
+<p><a href="../examples/resizable-workspace.html">Runnable example</a> includes a
+<strong>copy-owned, optional</strong> module with pointer capture and keyboard support.
+It enables the separator only after initialization and keeps
+<code>aria-valuenow</code> synchronized with the visible split. Arrow Left/Right move
+by 2 percentage points (Shift: 10), with Home/End for bounds (20–70).
+The example respects RTL and stacks its panes when its <strong>own container</strong>
+is narrow; the separator is hidden in the stacked layout. No storage,
+network requests or global event listeners are required.</p>
+<p>The resize value and user preference are <strong>application-owned</strong>: persistence,
+server rendering, saved layouts, authorization, and responsive restoration
+belong to the consuming application. A live client must keep the
+separator's ARIA bounds, visible panel sizes and keyboard/pointer behavior in
+sync. The script is demonstrative, <strong>not</strong> part of the zero-JS CSS runtime.
+Test real zoom, touch, forced colors, keyboard and screen-reader support
+before production use.</p>
 <h2 id="reusing-recipes-across-stacks">Reusing recipes across stacks</h2>
 <ul>
 <li><strong>Go / templ, PHP, Django, Rust templates:</strong> Make recipes server-rendered partials and pass content as arguments.</li>
@@ -302,6 +326,7 @@ application CSS. Keep real document headings and reading order.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-stateful-native-button-host-controlled">4. Stateful native button (host controlled)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#token-only-custom-theme">Token-only custom theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#crm-and-vertical-saas-patterns-alpha5-source-candidate">CRM and vertical SaaS patterns (alpha.5 source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#resizable-workspace-optional-behavior">Resizable workspace (optional behavior)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reusing-recipes-across-stacks">Reusing recipes across stacks</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>
