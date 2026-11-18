@@ -143,6 +143,28 @@ class SemanticHTMLContract(unittest.TestCase):
             "invalid-dialog-target", "missing-native-target",
         ])
 
+    def test_builtin_commands_match_ascii_case_insensitively(self):
+        html = ('<html><body>'
+                '<button commandfor="ordinary" command="SHOW-MODAL">Wrong dialog</button>'
+                '<button commandfor="ordinary" command="REQUEST-CLOSE">Wrong close</button>'
+                '<button commandfor="ordinary" command="TOGGLE-POPOVER">Popover event</button>'
+                '<div id="ordinary"></div>'
+                '<button commandfor="real-dialog" command="ShOw-MoDaL">Open</button>'
+                '<dialog id="real-dialog"></dialog>'
+                '</body></html>')
+        self.assertEqual([f["code"] for f in self.check(html)],
+                         ["invalid-dialog-target", "invalid-dialog-target"])
+
+    def test_popover_commands_on_non_popover_html_targets_dispatch_command_event(self):
+        html = ('<html><body>'
+                '<button commandfor="panel" command="show-popover">Show</button>'
+                '<button commandfor="panel" command="HIDE-POPOVER">Hide</button>'
+                '<button commandfor="panel" command="toggle-popover">Toggle</button>'
+                '<div id="panel"></div>'
+                '<button popovertarget="panel">Invalid real popovertarget</button>'
+                '</body></html>')
+        self.assertEqual([f["code"] for f in self.check(html)], ["invalid-popover-target"])
+
     def test_custom_commands_and_dynamic_targets_are_not_false_positives(self):
         markup = ("<html><body>"
                   '<button type="button" commandfor="panel" command="--refresh">Refresh</button>'

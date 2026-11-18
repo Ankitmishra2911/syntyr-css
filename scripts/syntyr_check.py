@@ -218,16 +218,15 @@ class _SemanticParser(HTMLParser):
                 target = attrs.get("commandfor") if tag == "button" else None
                 if target is not None and not _is_dynamic(target):
                     destination = ids.get(target)
-                    command = attrs.get("command") or ""
+                    command = (attrs.get("command") or "").lower()  # ASCII-insensitive HTML keywords
                     if destination is None:
                         result.append(self._finding(node, "missing-native-target",
                             f"commandfor='{target}' does not reference an element."))
                     elif command in self._DIALOG_COMMANDS and destination["tag"] != "dialog":
                         result.append(self._finding(node, "invalid-dialog-target",
                             f"command='{command}' requires a dialog target."))
-                    elif command in self._POPOVER_COMMANDS and "popover" not in destination["attrs"]:
-                        result.append(self._finding(node, "invalid-popover-target",
-                            f"command='{command}' requires a popover target."))
+                    # Popover command events can dispatch on HTML targets without
+                    # a popover attribute; only popovertarget requires one.
             if tag in ("input", "textarea", "select"):
                 if tag == "input" and (attrs.get("type") or "text").lower() in self._UNLABELED_INPUT_TYPES:
                     continue

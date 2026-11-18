@@ -88,8 +88,10 @@ python3 scripts/syntyr_check.py --semantic examples/native-apis.html
 ```
 
 In complete, literal HTML documents it verifies explicit `<label for>` targets
-are labelable, native `popovertarget`/`commandfor` targets exist and support the
-invoked action, and `input[list]` points to `<datalist>`. It also catches
+are labelable, native `popovertarget`/`commandfor` targets exist, and
+`input[list]` points to `<datalist>`. Built-in dialog commands must target
+`<dialog>`. Popover command events may dispatch on HTML targets without a
+`popover` attribute; unlike `popovertarget`, this is not an error. It also catches
 `<summary>` outside a direct `<details>` parent and image submit controls
 without useful `alt` text. These are **HTML correctness** checks; no Syntyr
 class is necessary. The checker deliberately leaves references in fragments
@@ -103,8 +105,6 @@ validation for server-rendered templates. For a popover, use the declarative
 invoker rather than manually adding ARIA expansion state that the browser
 already manages; for modal content, use `<dialog>` and a real accessible name.
 
-
-## Browser-compatibility policy
 
 ## Browser-compatibility policy
 
