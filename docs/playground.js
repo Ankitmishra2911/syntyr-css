@@ -79,10 +79,24 @@
     return `--syn-panel-radius: ${corner}px; --syn-panel-padding: ${inset}px;`;
   }
 
+  function themedMarkup() {
+    // The 20 canonical free blocks have their own Studio root. The playground
+    // theme controls the rendered/exported composition, but never rewrites the
+    // editable source or the generated MIT gallery snippets.
+    if (catalogMap.get(example.value)?.kind !== "block") return markup.value;
+    return markup.value.replace(/<[a-z][a-z0-9-]*\b[^>]*>/gi, (tag) => {
+      // Recognize equivalent quoted attribute syntax from edited HTML.
+      const classAttribute = /(?:^|\s)class\s*=\s*(["'])(.*?)\1/i.exec(tag);
+      if (!classAttribute || !/(?:^|\s)syn-root(?:\s|$)/.test(classAttribute[2])) return tag;
+      return tag.replace(/(\s)data-syn-theme\s*=\s*(["'])(.*?)\2/gi,
+        (_, whitespace, quote) => whitespace + "data-syn-theme=" + quote + theme.value + quote);
+    });
+  }
+
   function configuredHTML() {
     return `<!-- Load syntyr.core.css and any optional modules listed in the reference. -->
 <div class="syn-root" data-syn-theme="${theme.value}" style="${tokens()}">
-${markup.value}
+${themedMarkup()}
 </div>`;
   }
 
@@ -101,7 +115,7 @@ ${markup.value}
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' ${localStyleOrigin}; img-src data: ${localStyleOrigin}; base-uri 'none'; form-action 'none'">
 <link rel="stylesheet" href="../dist/syntyr.all.css">
 <style>html,body{min-height:100%;} body.syn-root{margin:0;padding:1.5rem;} *,*::before,*::after{box-sizing:border-box;}</style>
-</head><body class="syn-root syn-page" data-syn-theme="${theme.value}" style="${tokens()}">${markup.value}</body></html>`;
+</head><body class="syn-root syn-page" data-syn-theme="${theme.value}" style="${tokens()}">${themedMarkup()}</body></html>`;
     preview.srcdoc = shell;
     status.textContent = `Preview updated: ${theme.options[theme.selectedIndex].text} theme.`;
   }
@@ -115,10 +129,14 @@ ${markup.value}
 
   function populateCatalog() {
     const selected = example.value;
-    example.querySelector("[data-playground-catalog]")?.remove();
-    const group = document.createElement("optgroup");
-    group.label = "Component catalog";
-    group.dataset.playgroundCatalog = "";
+    example.querySelectorAll("[data-playground-catalog]").forEach(group => group.remove());
+    const groups = new Map();
+    for (const title of ["Component catalog", "Site & application blocks"]) {
+      const group = document.createElement("optgroup");
+      group.label = title;
+      group.dataset.playgroundCatalog = "";
+      groups.set(title, group);
+    }
     const terms = search.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
     let matching = 0;
     for (const item of catalog) {
@@ -130,12 +148,12 @@ ${markup.value}
       const option = document.createElement("option");
       option.value = item.id;
       option.textContent = item.title;
-      group.append(option);
+      groups.get(item.kind === "block" ? "Site & application blocks" : "Component catalog").append(option);
     }
-    example.append(group);
+    for (const group of groups.values()) if (group.children.length) example.append(group);
     if ([...example.options].some(option => option.value === selected)) example.value = selected;
     byId("playground-search-status").textContent =
-      `${matching} of ${catalog.length} catalog examples match. Pick one from Example above.`;
+      `${matching} of ${catalog.length} examples match. Pick one from Example above.`;
   }
 
   function loadExample() {
@@ -147,6 +165,10 @@ ${markup.value}
     byId("playground-reference-description").textContent = item ? item.description : starterGuide[example.value];
     byId("playground-reference-guidance").textContent = item ? item.guidance :
       "The documentation examples are illustrative. Implement real application actions yourself.";
+    const source = byId("playground-source-link");
+    source.href = item?.kind === "block" ? `blocks.html#block-title-${item.id.slice(6)}` :
+      item ? `catalog.html#${item.id}` : "catalog.html";
+    source.textContent = item?.kind === "block" ? "View original block" : "View original component";
     scheduleRender();
   }
 
