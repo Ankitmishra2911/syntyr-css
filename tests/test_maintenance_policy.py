@@ -147,6 +147,63 @@ class MaintenancePolicyTests(unittest.TestCase):
                          'background: url(data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=); }', encoding="utf-8")
             self.assertEqual(find_issues(src, registry), [])
 
+    def test_css_escape_asset_paths_and_fragments_are_decoded_before_validation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            target = src / "tokens.css"
+            registry = {"syntyr.core.css": ("tokens.css",)}
+            invalid = (
+                r"url(icons/my\ icon.svg)",
+                r"url(icons/my\20 icon.svg)",
+                r'url("icons/my\20 icon.svg")',
+                r"url(\2f assets/icon.svg)",
+                r"url(https\3a //example.test/icon.svg)",
+                r'url(" #contrast")',
+                r'url(" data:image/png;base64,ABC=")',
+                r'url(\20 #contrast)',
+            )
+            for reference in invalid:
+                with self.subTest(reference=reference):
+                    target.write_text(f'.syn-root {{ background: {reference}; }}', encoding='utf-8')
+                    issues = find_issues(src, registry)
+                    self.assertTrue(any('external CSS asset' in issue for issue in issues), issues)
+            valid = (
+                r"url(\#contrast)",
+                r'url("\23 contrast")',
+                r"url(\64 ata:image/svg+xml;base64,PHN2Zz4=)",
+            )
+            for reference in valid:
+                with self.subTest(reference=reference):
+                    target.write_text(f'.syn-root {{ filter: {reference}; }}', encoding='utf-8')
+                    self.assertEqual(find_issues(src, registry), [])
+
+    def test_import_after_charset_on_same_line_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            (src / "tokens.css").write_text(
+                '@charset "UTF-8";@import "https://example.test/theme.css";', encoding='utf-8')
+            issues = find_issues(src, {"syntyr.core.css": ("tokens.css",)})
+            self.assertTrue(any('CSS import' in issue for issue in issues), issues)
+
+    def test_css_escaped_import_and_url_function_names_cannot_bypass_policy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            target = src / "tokens.css"
+            registry = {"syntyr.core.css": ("tokens.css",)}
+            for css in (r'@\69mport "theme.css";',
+                        r'@im\70ort "theme.css";',
+                        r'@charset "UTF-8";@\69mport url("theme.css");'):
+                with self.subTest(css=css):
+                    target.write_text(css, encoding="utf-8")
+                    self.assertTrue(any('CSS import' in issue for issue in find_issues(src, registry)))
+            for css in (r'.syn-root { background: u\72l(/icons/asset.svg); }',
+                        r'.syn-root { background: \75rl(icons/asset.svg); }'):
+                with self.subTest(css=css):
+                    target.write_text(css, encoding="utf-8")
+                    self.assertTrue(any('external CSS asset' in issue for issue in find_issues(src, registry)))
+            target.write_text(r'.syn-root { filter: u\72l(\#contrast); }', encoding="utf-8")
+            self.assertEqual(find_issues(src, registry), [])
+
     def test_important_declarations_outside_accessibility_base_are_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             src = Path(directory)

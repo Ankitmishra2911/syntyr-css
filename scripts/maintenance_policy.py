@@ -57,14 +57,129 @@ def css_code_only(content: str) -> str:
 
 
 THEME_ATTRIBUTE = re.compile(r"\[\s*data-syn-theme\b")
-# Check actual CSS syntax, not string values or comments. A same-line @layer
-# preamble can legally precede @import, so do not anchor imports to line starts.
-CSS_IMPORT = re.compile(r"@import\b", re.IGNORECASE)
-CSS_URL_CALL = re.compile(r"\burl\s*\(", re.IGNORECASE)
-CSS_URL = re.compile(
-    r"\burl\s*\(\s*(?:\"([^\"\n]*)\"|'([^'\n]*)'|([^\s)]*))\s*\)",
-    re.IGNORECASE,
-)
+CSS_WHITESPACE = " \t\r\n\f"
+
+
+def css_escape(content: str, pos: int) -> tuple[str, int] | None:
+    """Decode one CSS escape at pos; reject invalid raw URL escapes.
+
+    Hex escapes consume up to six digits and one optional whitespace character.
+    This preserves the actual network/fragment destination for policy checks.
+    """
+    pos += 1  # backslash
+    if pos >= len(content) or content[pos] in "\r\n\f":
+        return None
+    start = pos
+    while pos < len(content) and pos - start < 6 and content[pos] in "0123456789abcdefABCDEF":
+        pos += 1
+    if pos > start:
+        scalar = int(content[start:pos], 16)
+        if pos < len(content) and content[pos] in CSS_WHITESPACE:
+            if content[pos:pos + 2] == "\r\n":
+                pos += 2
+            else:
+                pos += 1
+        decoded = chr(scalar) if 0 < scalar <= 0x10ffff and not 0xd800 <= scalar <= 0xdfff else "\ufffd"
+        return decoded, pos
+    return content[pos], pos + 1
+
+
+def css_url_argument(content: str, pos: int) -> tuple[str, int] | None:
+    """Extract a literal CSS url() argument, honoring quoted/unquoted escapes.
+
+    The caller finds only genuine url() tokens in comment/string-masked CSS.
+    This intentionally rejects invalid syntax instead of silently allowing it.
+    """
+    size = len(content)
+    while pos < size and content[pos] in CSS_WHITESPACE:
+        pos += 1
+    quoted = pos < size and content[pos] in ("'", '"')
+    quote = content[pos] if quoted else ""
+    if quoted:
+        pos += 1
+    value = []
+    while pos < size:
+        char = content[pos]
+        if char == "\\":
+            decoded = css_escape(content, pos)
+            if decoded is None:
+                return None
+            chunk, pos = decoded
+            value.append(chunk)
+            continue
+        if quoted and char == quote:
+            pos += 1
+            break
+        if not quoted and (char == ")" or char in CSS_WHITESPACE):
+            break
+        if char in "\r\n\f" or (not quoted and char in "('\""):
+            return None
+        value.append(char)
+        pos += 1
+    else:
+        return None
+    while pos < size and content[pos] in CSS_WHITESPACE:
+        pos += 1
+    if pos >= size or content[pos] != ")":
+        return None
+    return "".join(value), pos + 1
+
+
+def css_identifier(content: str, pos: int) -> tuple[str, int]:
+    """Read a CSS identifier with escapes; callers inspect decoded keywords."""
+    chars = []
+    while pos < len(content):
+        char = content[pos]
+        if char == "\\":
+            escaped = css_escape(content, pos)
+            if escaped is None:
+                break
+            decoded, pos = escaped
+            chars.append(decoded)
+        elif char.isalnum() or char in "_-":
+            chars.append(char)
+            pos += 1
+        else:
+            break
+    return "".join(chars), pos
+
+
+def css_references(masked: str, raw: str) -> tuple[bool, list[str | None]]:
+    """Find import at-rules and URL functions, including escaped CSS names.
+
+    Masked strings/comments avoid false positives. Parsed URL arguments are
+    skipped so their text cannot masquerade as CSS tokens.
+    """
+    imports = False
+    urls = []
+    pos = 0
+    while pos < len(masked):
+        char = masked[pos]
+        if char == "@":
+            name, end = css_identifier(masked, pos + 1)
+            if name.lower() == "import":
+                imports = True
+            pos = max(pos + 1, end)
+            continue
+        if char.isalpha() or char in "_-\\":
+            name, end = css_identifier(masked, pos)
+            if end <= pos:
+                pos += 1
+                continue
+            next_pos = end
+            while next_pos < len(masked) and masked[next_pos] in CSS_WHITESPACE:
+                next_pos += 1
+            if name.lower() == "url" and next_pos < len(masked) and masked[next_pos] == "(":
+                parsed = css_url_argument(raw, next_pos + 1)
+                urls.append(None if parsed is None else parsed[0])
+                pos = next_pos + 1 if parsed is None else parsed[1]
+            else:
+                pos = end
+            continue
+        pos += 1
+    return imports, urls
+
+
 # Native hidden is a tightly-scoped accessibility exception to the normal
 # prohibition on !important in base.css. Never allow generic display overrides.
 NATIVE_HIDDEN_GUARD = re.compile(
@@ -153,16 +268,15 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
         raw_content = path.read_text(encoding="utf-8")
         content = css_code_only(raw_content)
         cleaned_sources[name] = content
-        if CSS_IMPORT.search(content):
+        imports, urls = css_references(content, raw_content)
+        if imports:
             issues.append(f"{name}: CSS import; bundle the source at build time")
-        # The masked source locates genuine url(...) tokens. Parse the argument
-        # from the original text so quoted URLs retain their values.
-        for call in CSS_URL_CALL.finditer(content):
-            match = CSS_URL.match(raw_content, call.start())
-            if match is None:
+        for asset in urls:
+            if asset is None:
                 issues.append(f"{name}: invalid CSS url() token")
                 break
-            asset = next((value for value in match.groups() if value is not None), "").strip()
+            # Do not strip decoded whitespace: an escaped/quoted leading space
+            # is part of the URL, not harmless syntax around its argument.
             if not asset.lower().startswith("data:") and not asset.startswith("#"):
                 issues.append(f"{name}: external CSS asset; embed or own it in the host application")
                 break
