@@ -81,6 +81,9 @@ class PermissionMatrixContract(unittest.TestCase):
         self.assertNotIn("@import", self.css)
         self.assertNotIn("!important", self.css)
         self.assertIn("overflow", self.css)
+        # Screen-reader-only text must be positioned relative to each label,
+        # otherwise it can leak page-level horizontal scroll outside the grid.
+        self.assertRegex(self.css, r"\.matrix-choice\s*\{[^}]*position:\s*relative")
         self.assertIn("permission-matrix.html", (ROOT / "README.md").read_text())
         self.assertIn("permission-matrix.html", (ROOT / "docs/index.html").read_text())
         self.assertIn("permission-matrix.html", (ROOT / "scripts/build_cloudflare_site.py").read_text())
