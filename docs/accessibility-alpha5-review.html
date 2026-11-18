@@ -427,7 +427,7 @@ verified</strong>.</li>
 </table>
 <p>These are axe-core <em>incomplete</em> element entries rather than proven defects.
 Regenerate the exact selector-level evidence with:</p>
-<pre><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+<pre tabindex="0"><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
   --report /tmp/syntyr-axe-manual-review.json
 </code></pre>
 <p>The earlier pixel-sampling results below were collected against <code>4a623d0</code>,
@@ -524,7 +524,7 @@ involving pseudo-elements, four too-short text cases, four non-text-only cases,
 and one partially obscured element. They are <strong>not</strong> 325 proven defects.
 Generate a reproducible node-by-node triage report (selectors, HTML snippets,
 rule and failure summaries) in a local file using the developer-only audit:</p>
-<pre><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+<pre tabindex="0"><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
   --report /tmp/syntyr-axe-manual-review.json
 </code></pre>
 <p>The automated checker cannot establish the effective paint underneath these foregrounds where gradients and pseudo-elements overlap text. Contrast-token unit tests are useful but do not certify composited backgrounds.</p>
