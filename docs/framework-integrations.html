@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="cb7b715b385877e1b708cb7430028ac2378c3bb98239f5d5d49fb41890c0fd5c">
+  <meta name="syntyr-source-sha256" content="7c06995a96da7018ec3d17a4f4f3d7fc6254b326fa8b94ea83fe480270d27a0c">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -193,6 +193,37 @@ runtime packages. They reuse <code>syntyr.core.css</code> and the same semantic 
 none adds a JavaScript controller, hydration requirement, new <code>syn-*</code> class,
 CSS module or runtime to Syntyr's core. Each server must still handle its own
 user permissions, CSRF defenses for mutations, status codes, and navigation.</p>
+<h3 id="htmx-and-datastar-fragments-built-from-the-same-components">HTMX and Datastar fragments built from the same components</h3>
+<p>The <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-node/fragments">Node.js HTML fragment demo</a>
+reuses the <strong>same copy-owned</strong> <code>field</code>, <code>notice</code>, <code>button</code>, <code>table</code> and
+<code>pagination</code> functions from the Node.js adapter for both initial HTML pages
+and optional HTMX/Datastar updates. It requires no npm packages or new
+Syntyr component runtime. Run <code>node examples/server-components-node/fragments/server.mjs</code>
+from the repo root, after building CSS, to open <code>/htmx</code> and <code>/datastar</code>.</p>
+<ul>
+<li><strong>HTMX 2.0.8:</strong> native GET fallback, fragments targeting a stable
+<code>#resource-workspace</code>, <code>hx-push-url</code> for searchable history, and complete
+HTML for <code>HX-History-Restore-Request</code>. A tiny app-owned external script
+explicitly permits swapping <em>only</em> server-marked HTTP 422 validation
+fragments, while normal GET errors retain HTTP 400. Cache output varies
+by the HTMX request/history headers.</li>
+<li><strong>Datastar v1.0.5:</strong> ordinary GET fallback and a pinned, optional
+enhancement that sends <code>datastar</code> JSON signals, receives
+<code>event: datastar-patch-elements</code> through SSE and morphs the same component
+HTML. Signal input is bounded and type-checked; the serialized SSE patch
+is flattened to a single <code>data:</code> line <em>after</em> HTML escaping. <code>Vary: Accept</code>
+distinguishes ordinary pages from SSE. Bad signals receive HTTP 400;
+field-validation errors for valid SSE requests are represented accessibly
+inside a successful event response.</li>
+</ul>
+<p>In both modes, <code>.syn-root</code> persists outside the replaceable fragment;
+existing <code>syn-*</code> selectors and tokens are unchanged. Browser scripts belong
+solely to the <strong>demo app</strong> (pinned external URLs in the example), not to
+Syntyr Core. Self-host your browser dependencies and set an appropriate CSP
+before production use. The example handles <strong>read-only GET requests only</strong>;
+server authorization and CSRF protections for writes remain application-owned.
+The <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-components-node/fragments/README.md">example README</a>
+contains reproducible HTTP and optional Chromium browser tests.</p>
 <h2 id="server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</h2>
 <p><strong>No adapter is necessary to render Syntyr components.</strong> Serve core CSS from
 your application and output the same <code>syn-</code> classes in HEEx, Blade, ERB, templ,
@@ -509,6 +540,7 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
 <a class="docs-article-toc-link docs-article-toc-3" href="#htmx-4-migration-separate-from-syntyr">HTMX 4 migration (separate from Syntyr)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#composable-server-html-components-go-standard-library">Composable server HTML components (Go standard library)</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#additional-copy-owned-server-component-adapters">Additional copy-owned server component adapters</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#htmx-and-datastar-fragments-built-from-the-same-components">HTMX and Datastar fragments built from the same components</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#phoenix-liveview-heex">Phoenix LiveView (HEEx)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#laravel-livewire-blade">Laravel Livewire (Blade)</a>

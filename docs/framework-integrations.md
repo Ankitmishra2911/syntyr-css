@@ -188,6 +188,39 @@ none adds a JavaScript controller, hydration requirement, new `syn-*` class,
 CSS module or runtime to Syntyr's core. Each server must still handle its own
 user permissions, CSRF defenses for mutations, status codes, and navigation.
 
+### HTMX and Datastar fragments built from the same components
+
+The [Node.js HTML fragment demo](https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-node/fragments)
+reuses the **same copy-owned** `field`, `notice`, `button`, `table` and
+`pagination` functions from the Node.js adapter for both initial HTML pages
+and optional HTMX/Datastar updates. It requires no npm packages or new
+Syntyr component runtime. Run `node examples/server-components-node/fragments/server.mjs`
+from the repo root, after building CSS, to open `/htmx` and `/datastar`.
+
+- **HTMX 2.0.8:** native GET fallback, fragments targeting a stable
+  `#resource-workspace`, `hx-push-url` for searchable history, and complete
+  HTML for `HX-History-Restore-Request`. A tiny app-owned external script
+  explicitly permits swapping *only* server-marked HTTP 422 validation
+  fragments, while normal GET errors retain HTTP 400. Cache output varies
+  by the HTMX request/history headers.
+- **Datastar v1.0.5:** ordinary GET fallback and a pinned, optional
+  enhancement that sends `datastar` JSON signals, receives
+  `event: datastar-patch-elements` through SSE and morphs the same component
+  HTML. Signal input is bounded and type-checked; the serialized SSE patch
+  is flattened to a single `data:` line *after* HTML escaping. `Vary: Accept`
+  distinguishes ordinary pages from SSE. Bad signals receive HTTP 400;
+  field-validation errors for valid SSE requests are represented accessibly
+  inside a successful event response.
+
+In both modes, `.syn-root` persists outside the replaceable fragment;
+existing `syn-*` selectors and tokens are unchanged. Browser scripts belong
+solely to the **demo app** (pinned external URLs in the example), not to
+Syntyr Core. Self-host your browser dependencies and set an appropriate CSP
+before production use. The example handles **read-only GET requests only**;
+server authorization and CSRF protections for writes remain application-owned.
+The [example README](https://github.com/dporkka/syntyr-css/blob/main/examples/server-components-node/fragments/README.md)
+contains reproducible HTTP and optional Chromium browser tests.
+
 ## Server-driven HTML: optional request-state bridge
 
 **No adapter is necessary to render Syntyr components.** Serve core CSS from
