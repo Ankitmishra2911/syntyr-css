@@ -42,7 +42,7 @@ legacy <code>execCommand</code>, or clipboard write on import</strong>.</p>
 <p><a href="../examples/copy.html">Try the runnable demonstration</a>. The MIT CSS remains
 fully usable without JavaScript. Only import this module for a real copy action.</p>
 <h2 id="plain-html">Plain HTML</h2>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;style&gt;[data-syn-copy-target][hidden] { display: none; }&lt;/style&gt;
 &lt;section class=&quot;syn-root&quot;&gt;
   &lt;pre&gt;&lt;code id=&quot;install-command&quot;&gt;npm install @syntyr/css&lt;/code&gt;&lt;/pre&gt;
@@ -53,7 +53,7 @@ fully usable without JavaScript. Only import this module for a real copy action.
 &lt;/section&gt;
 &lt;script type=&quot;module&quot; src=&quot;/js/enable-copy.js&quot;&gt;&lt;/script&gt;
 </code></pre>
-<pre><code class="language-js">// enable-copy.js (only when the optional module is explicitly imported)
+<pre tabindex="0"><code class="language-js">// enable-copy.js (only when the optional module is explicitly imported)
 // Copy dist/syntyr.copy.mjs to /js/syntyr.copy.mjs on your site.
 import { enhanceCopyButtons } from '/js/syntyr.copy.mjs';
 const detach = enhanceCopyButtons();
@@ -61,7 +61,7 @@ const detach = enhanceCopyButtons();
 </code></pre>
 <p>For applications with a bundler, the same module is exported from the npm
 package (once the release containing the optional module is published):</p>
-<pre><code class="language-js">import { enhanceCopyButtons } from '@syntyr/css/copy';
+<pre tabindex="0"><code class="language-js">import { enhanceCopyButtons } from '@syntyr/css/copy';
 </code></pre>
 <p>Copy buttons should start with <code>hidden</code> and the scoped guard above so older
 component CSS cannot accidentally override the browser's hidden state. A blocked script or missing Clipboard

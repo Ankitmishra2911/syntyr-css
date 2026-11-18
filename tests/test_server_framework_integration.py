@@ -78,7 +78,8 @@ class ServerFrameworkIntegrationTests(unittest.TestCase):
         page = (base / "templates/page.html").read_text()
         handler = (base / "main.go").read_text()
         guide = (ROOT / "docs/framework-integrations.md").read_text()
-        self.assertNotIn("require ", mod)
+        # Go module files permit tabs, newlines, and parenthesized directives.
+        self.assertNotRegex(mod, r"(?m)^\s*require(?:\s|\()")
         self.assertIn('"html/template"', handler)
         self.assertIn('"net/url"', handler)
         self.assertIn('template.ParseFS', handler)

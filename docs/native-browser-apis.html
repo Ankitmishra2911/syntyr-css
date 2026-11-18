@@ -100,7 +100,7 @@ no Custom Elements runtime for ordinary HTML components.</p>
 <p>All new classes are <strong>opt-in</strong>. Core styles only add the anchor and textarea declarations; optional motion requires <code>syntyr.motion.css</code> (included in <code>syntyr.all.css</code>). Do not load <code>syntyr.all.css</code> alongside component files.</p>
 <p>For practical scriptless action panels and an optional enhanced menu adapter, see <a href="dropdowns.html">dropdown patterns</a>.</p>
 <h2 id="example-popover-near-its-invoker">Example: popover near its invoker</h2>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.motion.css&quot;&gt;
 &lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;account-menu&quot;&gt;Account&lt;/button&gt;
@@ -112,7 +112,7 @@ no Custom Elements runtime for ordinary HTML components.</p>
 </code></pre>
 <p>The invoker creates an implicit CSS anchor. Do not apply <code>position-anchor: auto</code> to unrelated floating elements; supply an explicit anchor relationship or use normal document positioning. The default <code>.syn-popover</code> remains visible in browsers without anchor positioning. Make sure production menus have sensible keyboard navigation and screen-reader labeling.</p>
 <h2 id="example-a-dialog-without-an-event-handler">Example: a dialog without an event handler</h2>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;button type=&quot;button&quot; commandfor=&quot;confirm-dialog&quot; command=&quot;show-modal&quot;&gt;Review&lt;/button&gt;
   &lt;dialog id=&quot;confirm-dialog&quot; class=&quot;syn-dialog&quot; aria-labelledby=&quot;confirm-title&quot;&gt;
     &lt;h2 id=&quot;confirm-title&quot;&gt;Review changes&lt;/h2&gt;
@@ -133,7 +133,7 @@ no Custom Elements runtime for ordinary HTML components.</p>
 <li><strong>Navigation API</strong>: potentially helpful to app routers, but it changes navigation ownership. Do not add it to Syntyr just to style links; ordinary links work without it.</li>
 </ul>
 <p>A safe view transition wrapper in application code, not the Syntyr library:</p>
-<pre><code class="language-js">function updateWithViewTransition(updateDOM) {
+<pre tabindex="0"><code class="language-js">function updateWithViewTransition(updateDOM) {
   if (!document.startViewTransition ||
       matchMedia('(prefers-reduced-motion: reduce)').matches) {
     updateDOM();
@@ -144,7 +144,7 @@ no Custom Elements runtime for ordinary HTML components.</p>
 </code></pre>
 <h2 id="static-semantic-validation-for-native-controls">Static semantic validation for native controls</h2>
 <p>The opt-in Syntyr checker can catch broken HTML relationships before browser testing:</p>
-<pre><code class="language-sh">python3 scripts/syntyr_check.py --semantic examples/native-apis.html
+<pre tabindex="0"><code class="language-sh">python3 scripts/syntyr_check.py --semantic examples/native-apis.html
 </code></pre>
 <p>In complete, literal HTML documents it verifies explicit <code>&lt;label for&gt;</code> targets
 are labelable, native <code>popovertarget</code>/<code>commandfor</code> targets exist, and

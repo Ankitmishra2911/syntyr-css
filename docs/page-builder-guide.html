@@ -69,12 +69,12 @@ are normalized to local anchors/paths or HTTPS. Every user-controlled text value
 <p>This experimental tool is deliberately separate from the MIT CSS core. It uses only small first-party documentation scripts; adopting a heavyweight editor engine such as GrapesJS should be justified through comparative testing, not as a mandatory dependency.</p>
 <h2 id="maintainer-verification">Maintainer verification</h2>
 <p>Run from repository root:</p>
-<pre><code>node --test tests/page_builder_model.test.mjs tests/page_builder_gallery.test.mjs
+<pre tabindex="0"><code>node --test tests/page_builder_model.test.mjs tests/page_builder_gallery.test.mjs
 python3 -m unittest tests.test_cloudflare_site -v
 python3 scripts/build_cloudflare_site.py --check
 </code></pre>
 <p>For the optional browser smoke test:</p>
-<pre><code>python3 tests/page_builder_browser.py
+<pre tabindex="0"><code>python3 tests/page_builder_browser.py
 </code></pre>
 <p>The browser smoke test requires Playwright and a local browser installation. Validate keyboard access, small screens, malicious imported JSON, and download/export before treating this as a stable product.</p>
         </article>

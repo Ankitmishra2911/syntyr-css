@@ -45,12 +45,12 @@
 <li>Self-host the candidate <code>syntyr.embed.css</code> at a versioned HTTPS asset URL or another approved asset endpoint.</li>
 <li>In <strong>Site settings → Custom code → Head</strong>, add a single stylesheet link. Alternatively, use the page-level custom Head field if only one page needs the bundle. Save and publish.</li>
 </ol>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://YOUR-ASSET-HOST.example/syntyr.embed.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://YOUR-ASSET-HOST.example/syntyr.embed.css&quot;&gt;
 </code></pre>
 <ol start="3">
 <li>In Webflow Designer, add a <strong>Code Embed</strong> element where the feature belongs. Paste ordinary content markup—<strong>not</strong> an entire HTML page:</li>
 </ol>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;wf-offer&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;wf-offer&quot;&gt;
   &lt;div class=&quot;syn-panel&quot;&gt;
     &lt;h2 class=&quot;syn-heading&quot; id=&quot;wf-offer&quot;&gt;Compare plans&lt;/h2&gt;
     &lt;p class=&quot;syn-muted&quot;&gt;Use a portable component alongside Webflow sections.&lt;/p&gt;

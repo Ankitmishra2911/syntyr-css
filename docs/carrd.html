@@ -45,12 +45,12 @@
 <li>Check whether your Carrd subscription supports <strong>Embed</strong> elements and custom HTML. The free plan should not be assumed to support these features.</li>
 <li>Host the alpha.5 candidate <code>syntyr.embed.css</code> on an HTTPS origin you control. In an allowed custom-code Embed positioned in the document <strong>Head</strong>, load that asset:</li>
 </ol>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://YOUR-ASSET-HOST.example/syntyr.embed.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://YOUR-ASSET-HOST.example/syntyr.embed.css&quot;&gt;
 </code></pre>
 <ol start="3">
 <li>Add an inline, <strong>visible Embed</strong> element where your custom feature should appear. Use normal HTML instead of trying to apply Syntyr classes to Carrd's generated native element markup:</li>
 </ol>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;carrd-pricing&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;carrd-pricing&quot;&gt;
   &lt;div class=&quot;syn-panel&quot;&gt;
     &lt;h2 id=&quot;carrd-pricing&quot; class=&quot;syn-heading&quot;&gt;Simple pricing&lt;/h2&gt;
     &lt;p class=&quot;syn-muted&quot;&gt;A clear product offer on a Carrd page.&lt;/p&gt;

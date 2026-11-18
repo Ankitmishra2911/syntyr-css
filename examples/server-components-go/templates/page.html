@@ -15,10 +15,12 @@
       {{template "syn.field" .Query}}
       {{template "syn.button" .SearchButton}}
     </form>
+    {{if .ShowResults}}
     <section aria-label="Results" class="syn-stack">
       {{template "syn.table" .Records}}
       {{template "syn.pagination" .Pager}}
     </section>
+    {{end}}
     <details><summary>How this works</summary>
       <p>The server renders and escapes content, validates input, and preserves query state. Syntyr only styles native HTML.</p>
     </details>

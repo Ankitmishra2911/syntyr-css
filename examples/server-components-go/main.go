@@ -44,6 +44,7 @@ type pagination struct {
 }
 
 type pageData struct {
+	ShowResults  bool
 	Query        textField
 	Notice       notice
 	SearchButton button
@@ -79,6 +80,7 @@ func pageHref(query string, page int) string {
 
 func makePage(query, rawPage string) (pageData, int) {
 	data := pageData{
+		ShowResults:  true,
 		Query:        textField{ID: "resource-query", Name: "q", Label: "Find a resource", Value: query, Help: "Search titles and descriptions."},
 		SearchButton: button{Label: "Search", Submit: true, Primary: true},
 		Notice:       notice{Message: "Filtered on the server. No browser JavaScript required."},
@@ -112,6 +114,10 @@ func makePage(query, rawPage string) (pageData, int) {
 	}
 	if data.Query.Error != "" {
 		data.Notice = notice{Message: "Correct the search field and try again.", Danger: true}
+		// Invalid input is for error display only; truncated input is never
+		// silently treated as a new, valid search with actionable pagination.
+		data.ShowResults = false
+		return data, status
 	}
 	start := (page - 1) * pageSize
 	end := start + pageSize
@@ -133,16 +139,16 @@ func newHandler(distDir string) http.Handler {
 	mux := http.NewServeMux()
 	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(distDir))))
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet && r.Method != http.MethodHead {
-			w.Header().Set("Allow", "GET, HEAD")
-			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-			return
-		}
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
 			return
 		}
-		data, status := makePage(r.URL.Query().Get("q"), r.URL.Query().Get("page"))
+		params, err := url.ParseQuery(r.URL.RawQuery)
+		if err != nil {
+			http.Error(w, "Invalid query encoding", http.StatusBadRequest)
+			return
+		}
+		data, status := makePage(params.Get("q"), params.Get("page"))
 		var html bytes.Buffer
 		if err := views.ExecuteTemplate(&html, "page", data); err != nil {
 			log.Printf("render: %v", err)
@@ -157,7 +163,16 @@ func newHandler(distDir string) http.Handler {
 			_, _ = w.Write(html.Bytes())
 		}
 	})
-	return mux
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// A shared method gate also covers the static stylesheet route, which
+		// the standard library FileServer does not restrict on its own.
+		if r.Method != http.MethodGet && r.Method != http.MethodHead {
+			w.Header().Set("Allow", "GET, HEAD")
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		mux.ServeHTTP(w, r)
+	})
 }
 
 func main() {
