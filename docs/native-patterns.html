@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="6f5b64b44cd0c8b9ac04590fe6848882ba504714468f9b799835e19fc4699191">
+  <meta name="syntyr-source-sha256" content="34f08e4b308849d3a239c8bc4ac40aa9c64d9b523d7931a7b8111c4c798ef5b5">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -105,7 +105,10 @@ and drop, the <strong>application</strong> must implement authorized behavior. N
 state alone conveys permission to move an item.</p>
 <p>See <a href="../examples/resource-outline.html">the script-free resource outline example</a>.
 The nesting uses logical inline spacing to work in both LTR and RTL;
-long names wrap rather than being silently truncated. Keep the
+after three visual indentation levels it stops adding horizontal offset so
+very deep folders remain readable at narrow widths and 400% zoom; semantic
+list hierarchy and native disclosures remain intact. Long names wrap rather
+than being silently truncated. Keep the
 selected location visible, ensure all links have real destinations,
 and test browser focus, high zoom, and forced colors in the host app.</p>
 <h2 id="individually-importable-css">Individually importable CSS</h2>

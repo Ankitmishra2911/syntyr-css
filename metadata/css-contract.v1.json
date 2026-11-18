@@ -47,9 +47,9 @@
     },
     "saas": {
       "file": "dist/presets/saas.css",
-      "gzip_bytes": 22694,
-      "raw_bytes": 121183,
-      "sha256": "e5c9e48ec078a480913b77e27f62afa4ebeda170503d6c63b798b6edc4a1f240",
+      "gzip_bytes": 22813,
+      "raw_bytes": 121580,
+      "sha256": "afc7a7a5ac1d4002024abd4fe9d6ce023337d7c3e98f1c6c808e462f3ffd347e",
       "sources": [
         "tokens.css",
         "base.css",

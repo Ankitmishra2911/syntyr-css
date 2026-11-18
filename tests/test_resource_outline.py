@@ -25,6 +25,18 @@ class ResourceOutlineContract(unittest.TestCase):
         self.assertIn("margin-inline-start: min(var(--syn-outline-indent, .8rem), 2vw);", css)
         self.assertIn("padding-inline-start: min(var(--syn-space-2), 2vw);", css)
 
+    def test_deep_resource_hierarchies_stop_accumulating_indentation(self):
+        # Per-level 2vw can still consume the viewport after 20+ nested lists.
+        selector = (":where(.syn-root.syn-resource-outline, .syn-root .syn-resource-outline) "
+                    + " ".join(["ul"] * 5))
+        for file in ("src/native-recipes.css", "dist/syntyr.native-recipes.css"):
+            css = source(file)
+            self.assertIn(selector + " {", css)
+            rule = css.split(selector + " {", 1)[1].split("}", 1)[0]
+            self.assertIn("margin-inline-start: 0", rule)
+            self.assertIn("padding-inline-start: 0", rule)
+            self.assertIn("border-inline-start: 0", rule)
+
     def test_native_no_js_hierarchy_and_link_navigation(self):
         html = source("examples/resource-outline.html")
         self.assertIn('class="syn-root"', html)
