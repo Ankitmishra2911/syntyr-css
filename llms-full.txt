@@ -1378,6 +1378,32 @@ not real customer evidence. Test keyboard and touch interactions, actual
 screen-reader focus behavior, 400% zoom, forced colors, RTL, and lengthy
 translated metadata in the consuming app before production use.
 
+## Permission matrix — role/capability review
+
+The [copy-owned permissions example](../examples/permission-matrix.html) combines
+Syntyr core and recipes with a small application-local stylesheet. It takes
+enterprise-table and accessible-form ideas from mature design systems without
+adding a component to Syntyr's core or introducing JavaScript.
+
+- Real \`table\`, \`caption\`, column/row headers and visible \`input type="checkbox"\`
+  controls communicate the role/capability intersection to assistive technology.
+  Every checkbox has an explicit, role-and-capability-specific label.
+- A named, keyboard-focusable scroll region preserves the wide matrix at mobile
+  widths and large zoom levels. Test scrolling with a keyboard and screen reader.
+- Viewer/Editor inputs are an unsaved local demonstration. The disabled
+  Administrator column demonstrates a system-fixed role, not a policy imposed
+  by Syntyr. Browser-disabled fields will not submit in a real form.
+- To make this a working settings page, render it from trusted server policy,
+  wrap it in an authenticated mutation form with CSRF protection and a policy
+  version, then validate every capability server-side before an atomic update.
+  Audit the actor and changes; never trust a checked box or a hidden role field
+  for authorization.
+- Do not present a static demo as a live access-control feature, persist changes
+  in browser storage, or claim accessibility compliance without manual testing.
+
+The markup belongs to the host application; this is an integration pattern,
+not a JavaScript permissions widget or a substitute for authorization.
+
 ---
 
 ## Source: docs/component-recipes.md
@@ -1594,6 +1620,35 @@ Test keyboard interaction, forced colors, zoom/reflow, and real product
 copy in the target browsers. **Application-owned behavior** includes
 search filtering, validation on the server, destructive action
 authorization, and live calculations; none are provided by CSS.
+
+## Resource outline (nested native navigation)
+
+A **Resource outline** is a CSS-only, progressively enhanced way to browse
+hierarchical folders, account groups and assets. Load `syntyr.core.css` and
+the optional `syntyr.native-recipes.css`; put `.syn-resource-outline`
+on a labeled `<nav>` within `.syn-root`. Use nested unordered lists,
+native disclosure via `<details><summary>` for expandable groups, and real
+links for destinations. Mark exactly the current destination with
+`aria-current="page"`. Use `open` on parent details when the current
+record is nested inside them. Lists remain navigable when JavaScript is off.
+
+This is **not an ARIA tree** widget: it deliberately avoids `role="tree"`,
+roving tabindex, arrow-key claims or JS-managed selection. The browser
+provides native disclosure keyboard semantics (Tab, Enter/Space).
+A full WAI-ARIA treeview requires additional headless interaction logic
+and real assistive-technology testing; it does not belong in CSS.
+For moving resources, permissions, lazy loading, remote filtering, and drag
+and drop, the **application** must implement authorized behavior. No CSS
+state alone conveys permission to move an item.
+
+See [the script-free resource outline example](../examples/resource-outline.html).
+The nesting uses logical inline spacing to work in both LTR and RTL;
+after three visual indentation levels it stops adding horizontal offset so
+very deep folders remain readable at narrow widths and 400% zoom; semantic
+list hierarchy and native disclosures remain intact. Long names wrap rather
+than being silently truncated. Keep the
+selected location visible, ensure all links have real destinations,
+and test browser focus, high zoom, and forced colors in the host app.
 
 ## Individually importable CSS
 
