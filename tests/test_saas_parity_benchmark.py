@@ -180,7 +180,8 @@ class SaaSParityContract(unittest.TestCase):
                                                  tolerance=.05)[0]["issue"], "missing anchor")
 
     def test_framework_benchmark_lockfile_picomatch_advisory_bounded_to_devtools(self):
-        """GHSA-fc5q-39xc-vjpf affects picomatch <= 4.0.7 with no upstream fixed release.
+        """GHSA-fc5q-39xc-vjpf / CVE-2026-112366 originally reported picomatch <= 4.0.7 ReDoS
+        (withdrawn by GitHub on November 18, 2026).
 
         Assert benchmarks/frameworks is private dev-only tooling, does not leak
         into root package.json or production CSS, and has picomatch pinned to 4.0.7.
