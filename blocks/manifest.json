@@ -341,6 +341,118 @@
         "invoices",
         "forms"
       ]
+    },
+    {
+      "id": "auth-sign-in",
+      "category": "Applications",
+      "title": "Sign-in form",
+      "description": "Native authentication form with accessible labels and recovery link.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "authentication",
+        "login",
+        "form"
+      ]
+    },
+    {
+      "id": "auth-recovery",
+      "category": "Applications",
+      "title": "Account recovery",
+      "description": "Email recovery request presentation with security integration notes.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "authentication",
+        "recovery",
+        "password"
+      ]
+    },
+    {
+      "id": "error-recovery",
+      "category": "Applications",
+      "title": "Error recovery view",
+      "description": "Actionable error state without fake success or client-side retry.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "error",
+        "recovery",
+        "status"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "category": "Applications",
+      "title": "Empty collection state",
+      "description": "Clear primary action and filter recovery guidance.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "empty",
+        "no-results",
+        "onboarding"
+      ]
+    },
+    {
+      "id": "comparison-table",
+      "category": "Marketing",
+      "title": "Features comparison table",
+      "description": "A semantic comparison matrix that can scroll within narrow containers.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "comparison",
+        "features",
+        "matrix"
+      ]
+    },
+    {
+      "id": "integrations-grid",
+      "category": "Marketing",
+      "title": "Integration directory grid",
+      "description": "A grid of documented integration entry points and benefits.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "integrations",
+        "directory",
+        "apps"
+      ]
+    },
+    {
+      "id": "newsletter-signup",
+      "category": "Marketing",
+      "title": "Newsletter signup panel",
+      "description": "An accessible subscription form with a native server-backed fallback.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "newsletter",
+        "email",
+        "lead"
+      ]
+    },
+    {
+      "id": "announcement-banner",
+      "category": "Marketing",
+      "title": "Site announcement strip",
+      "description": "A lightweight product or event announcement with a contextual destination.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "announcement",
+        "promotion",
+        "notice"
+      ]
     }
   ]
 }
