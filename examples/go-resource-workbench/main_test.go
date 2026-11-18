@@ -43,7 +43,7 @@ func TestNoResultsWithFilter(t *testing.T) {
 
 func TestInspectorTracksOnlyVisibleFilteredRecord(t *testing.T) {
 	code, body := request(t, "/resources?q=harbor&status=review&id=RS-204")
-	if code != http.StatusOK || !strings.Contains(body, "Record details") || !strings.Contains(body, "Harbor East") {
+	if code != http.StatusOK || !strings.Contains(body, "<h3>Selected record: Harbor East</h3>") {
 		t.Fatal("visible record not shown in inspector")
 	}
 	_, body = request(t, "/resources?q=harbor&status=active&id=RS-204")
@@ -69,7 +69,9 @@ func TestColumnSettingsAndSorting(t *testing.T) {
 func TestBulkPreviewCheckedIdsMustMatchFilter(t *testing.T) {
 	params := url.Values{"ids": {"RS-204", "RS-088"}, "q": {"harbor"}, "status": {"review"}}
 	code, body := request(t, "/preview?"+params.Encode())
-	if code != http.StatusOK || !strings.Contains(body, "1 selected") || !strings.Contains(body, "Harbor East") || strings.Contains(body, "Civic Center") {
+	if code != http.StatusOK || !strings.Contains(body, "<p>1 selected.</p>") ||
+		!strings.Contains(body, "<li>RS-204 — Harbor East (review)</li>") ||
+		strings.Contains(body, "<li>RS-088 — Civic Center (active)</li>") {
 		t.Fatal("checked-selection preview must intersect the active search results")
 	}
 	if !strings.Contains(body, "Preview only") {
@@ -79,7 +81,11 @@ func TestBulkPreviewCheckedIdsMustMatchFilter(t *testing.T) {
 
 func TestMatchingScopeComputedOnServer(t *testing.T) {
 	code, body := request(t, "/preview?scope=matching&status=review")
-	if code != http.StatusOK || !strings.Contains(body, "matching search") || !strings.Contains(body, "Harbor East") {
+	if code != http.StatusOK || !strings.Contains(body, "matching search") ||
+		!strings.Contains(body, "<p>2 selected.</p>") ||
+		!strings.Contains(body, "<li>RS-204 — Harbor East (review)</li>") ||
+		!strings.Contains(body, "<li>RS-144 — Riverside Digital (review)</li>") ||
+		strings.Contains(body, "<li>RS-088 — Civic Center (active)</li>") {
 		t.Fatal("matching-scope preview must use server-filtered results")
 	}
 	_, body = request(t, "/preview?status=review")
