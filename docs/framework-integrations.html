@@ -157,7 +157,7 @@ status/error notice, button, result table and pagination. It includes a
 runnable GET-only example and tests for HTML escaping, server validation,
 <code>aria-describedby</code>, and encoded query-preserving links. No new stylesheet,
 JavaScript dependency, component protocol or Go library is introduced.</p>
-<pre><code class="language-go-html-template">&lt;form action=&quot;/&quot; method=&quot;get&quot; role=&quot;search&quot; class=&quot;syn-form&quot;&gt;
+<pre tabindex="0"><code class="language-go-html-template">&lt;form action=&quot;/&quot; method=&quot;get&quot; role=&quot;search&quot; class=&quot;syn-form&quot;&gt;
   {{template &quot;syn.field&quot; .Query}}
   {{template &quot;syn.button&quot; .SearchButton}}
 &lt;/form&gt;
