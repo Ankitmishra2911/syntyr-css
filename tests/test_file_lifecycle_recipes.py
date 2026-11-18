@@ -59,6 +59,10 @@ class FileLifecycleRecipesTest(unittest.TestCase):
         self.assertIn(input_files[0]["id"], p.label_targets)
         self.assertGreaterEqual(sum(t == "progress" for t, _ in p.tags), 2)
         self.assertGreaterEqual(sum(t == "li" for t, _ in p.tags), 4)
+        queue_roles = [a.get("role") for tag, a in p.tags
+                       if tag == "ol" and "syn-file-queue" in a.get("class", "").split()]
+        self.assertEqual(queue_roles, ["list"],
+                         "Marker-free file queues must keep list semantics in Safari/VoiceOver")
         states = {a.get("data-syn-state") for _, a in p.tags}
         self.assertTrue({"queued", "uploading", "complete", "failed"} <= states)
         self.assertEqual(p.scripts, 0)
@@ -72,6 +76,9 @@ class FileLifecycleRecipesTest(unittest.TestCase):
         docs = read("docs/recipes.md")
         self.assertIn("file-lifecycle.html", docs)
         self.assertIn("syn-file-queue", docs)
+        self.assertIn('<ol class="syn-file-queue" role="list">', docs,
+                      "Copyable queue must explicitly retain list semantics")
+        self.assertIn("Safari", docs, "Explain role=list when list markers are removed")
         self.assertIn("host application", docs.lower())
         self.assertIn("file-lifecycle.html", read("README.md"))
         self.assertIn("file-lifecycle.html", read("docs/index.html"))

@@ -153,6 +153,9 @@ Use the existing native file input (`.syn-input[type="file"]`) with a real
 `.syn-file-item-header` keeps names and textual status together without
 forcing a fixed width. Use only one truthfully rendered state per entry:
 `data-syn-state="queued|uploading|complete|failed"`.
+Preserve `role="list"` on the ordered queue when removing visual markers:
+Safari/VoiceOver can otherwise omit the list and its item count from
+accessibility announcements outside a navigation landmark.
 
 [Open the static file-lifecycle example](../examples/file-lifecycle.html).
 This recipe is **presentation only**, not a drag-and-drop zone, upload engine,
@@ -163,7 +166,7 @@ natively without JavaScript, but choosing a file does not upload it.
 <section class="syn-root" data-syn-theme="studio">
   <label class="syn-label" for="attachments">Attachments</label>
   <input id="attachments" class="syn-input" type="file" multiple>
-  <ol class="syn-file-queue">
+  <ol class="syn-file-queue" role="list">
     <li class="syn-file-item" data-syn-state="uploading">
       <div class="syn-file-item-header">
         <strong>report.pdf</strong><span>Uploading · 42%</span>
