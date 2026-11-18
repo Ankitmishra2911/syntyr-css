@@ -1453,7 +1453,7 @@ Only render `aria-invalid="true"` and the error message when the form is actuall
       <label class="syn-label" for="account-query">Account name</label>
       <div class="syn-input-group">
         <input class="syn-input" id="account-query" name="q"
-               type="search" placeholder="Search accounts">
+               type="search" enterkeyhint="search" placeholder="Search accounts">
         <button class="syn-button syn-button--primary" type="submit">Search</button>
       </div>
     </div>
@@ -1464,6 +1464,15 @@ Only render `aria-invalid="true"` and the error message when the form is actuall
 This is **progressive enhancement**: the GET form submits with **No JavaScript**. An HTMX application may add `hx-get` and `hx-target` while preserving `action`, `method`, and a server-rendered fallback. The application must implement the endpoint and return actual search results.
 
 At narrow available widths (12rem or less relative to the current text size), a connected input and submit button stack instead of squeezing the input into a tall, narrow strip. The `.syn-input-group` itself determines the breakpoint through a CSS container query; no viewport breakpoint, JavaScript, or additional component class is needed. Input groups containing only currency/unit addons keep their existing inline layout. Test long button labels, translations and browser zoom in consuming applications.
+
+### Search results, accessibility, and enhancement contract
+
+- **Result counts:** On the server, preserve the submitted query, show truthful matches, and use an empty state only when no records match. When an optional live enhancement updates results, announce a concise count in a dedicated `role="status"` element with `aria-live="polite"`; keep clipboard and other action feedback separate.
+- **Loading/errors:** Host applications own network cancellation, request ordering, actual loading indicators, error recovery, URL/history state, authorization and pagination. A static composition never claims to filter records.
+- **IME composition:** Debounced or incremental search must not submit intermediate East Asian input while the user is composing; handle `compositionstart` / `compositionend` in the behavior owner. Do not turn native form submission into an inaccessible custom widget.
+- **Fallbacks:** For simple suggestions, `datalist` can add browser-provided values, but its rendering and assistive-technology behavior vary across browsers. Use an optional tested combobox adapter for async suggestions, controlled selection, or custom keyboard navigation.
+- **Reflow and RTL:** Test long translated labels, 320 CSS-pixel widths, 200% and 400% zoom, keyboard focus, forced colors, and `dir="rtl"`. Keep the native search clear affordance and never rely on a placeholder as the accessible name.
+- **Command palettes:** Visual command rows are not working shortcuts or listbox options. Use actual links for destinations; if your application adds a keyboard command index, the behavior owner supplies focus, Escape, selection, permissions, and accessible announcements.
 
 ## 3. Input addon (currency and unit)
 
