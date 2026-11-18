@@ -165,6 +165,29 @@ adapter for every backend language. See the
 [copyable template README](https://github.com/dporkka/syntyr-css/blob/main/examples/server-components-go/README.md)
 for the complete contract and setup instructions.
 
+### Additional copy-owned server component adapters
+
+The [Go templ adapter](https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-templ)
+uses the same five native HTML component contracts as the Go standard-library
+example, with independent `Field`, `Notice`, `Button`, `Table` and
+`Pagination` components. It has an isolated, pinned `github.com/a-h/templ`
+build-time/runtime module dependency (Go 1.26+); run `templ generate` before
+tests or starting the example. Generated Go code is not checked in.
+
+The [Node.js standard-library adapter](https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-node)
+exposes corresponding composable HTML functions. It requires no npm packages;
+Node owns request routing and escaping, and the example serves a single
+allowlisted CSS asset. Pagination links are root-relative and use
+`URLSearchParams`, not interpolation of arbitrary URLs. Run its built-in
+`node --test` suite to exercise escaped values, safe links, error linkage,
+HTTP methods and GET fallback.
+
+These integrations are **copy-owned examples**, not npm exports or shipped
+runtime packages. They reuse `syntyr.core.css` and the same semantic HTML;
+none adds a JavaScript controller, hydration requirement, new `syn-*` class,
+CSS module or runtime to Syntyr's core. Each server must still handle its own
+user permissions, CSRF defenses for mutations, status codes, and navigation.
+
 ## Server-driven HTML: optional request-state bridge
 
 **No adapter is necessary to render Syntyr components.** Serve core CSS from
