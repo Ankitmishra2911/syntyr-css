@@ -1126,6 +1126,13 @@ transaction state machine or history service. [View the static example](../examp
   don't manufacture a previous value. The same pair may appear in a table cell
   or review panel; no duplicate definition-list component is needed.
 
+At extreme user text sizes, the `syn-page-header` and `syn-app-card`
+compositions allow long words and dates to wrap instead of expanding the viewport.
+The optional developer-only browser smoke test (tests/operation_revisions_browser.js)
+covers reflow, keyboard focus and forced colors in Playwright. Enlarging root
+text is a stress test, **not** proof of native 400% browser zoom or a manual
+screen-reader audit.
+
 ```html
 <section class="syn-root" data-syn-theme="studio">
   <section class="syn-operation-feedback" data-syn-state="conflict"

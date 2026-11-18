@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="5881fb4790ef777c4578c7d89313e67f14d2b0cb36d899615ec09db2b71f33f1">
+  <meta name="syntyr-source-sha256" content="71704d65c49eafb47f02755ff74943eeb8ffce9bc3ee088d50e9ac95fbd42800">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -167,6 +167,12 @@ with native <code>del</code>/<code>ins</code> elements. Omit the absent side for
 don't manufacture a previous value. The same pair may appear in a table cell
 or review panel; no duplicate definition-list component is needed.</li>
 </ul>
+<p>At extreme user text sizes, the <code>syn-page-header</code> and <code>syn-app-card</code>
+compositions allow long words and dates to wrap instead of expanding the viewport.
+The optional developer-only browser smoke test (tests/operation_revisions_browser.js)
+covers reflow, keyboard focus and forced colors in Playwright. Enlarging root
+text is a stress test, <strong>not</strong> proof of native 400% browser zoom or a manual
+screen-reader audit.</p>
 <pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;section class=&quot;syn-operation-feedback&quot; data-syn-state=&quot;conflict&quot;
        aria-labelledby=&quot;revision-conflict&quot;&gt;

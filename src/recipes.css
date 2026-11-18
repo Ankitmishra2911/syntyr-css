@@ -46,7 +46,7 @@
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
     &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-kpi-min, 13rem)), 1fr)); gap: var(--syn-kpi-gap, var(--syn-space-2)); }
     &.syn-app-card {
-      min-width: 0; padding: var(--syn-card-padding);
+      min-width: 0; overflow-wrap: anywhere; padding: var(--syn-card-padding);
       border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius);
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-sm);
@@ -366,7 +366,7 @@
     &.syn-page-header {
       display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between;
       gap: var(--syn-space-2) var(--syn-space-4); margin-block-end: var(--syn-space-4);
-      min-width: 0;
+      min-width: 0; overflow-wrap: anywhere;
     }
     &.syn-page-header > :first-child { min-width: min(100%, 18rem); flex: 1 1 24rem; }
     &.syn-page-header__meta {

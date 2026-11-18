@@ -87,6 +87,21 @@ class OperationRevisionRecipes(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertIn('"examples/operation-revisions.html"', read(path))
 
+    def test_text_overflow_guards_and_optional_browser_regression(self):
+        css = read("src/recipes.css")
+        for name in ("syn-app-card", "syn-page-header"):
+            with self.subTest(name=name):
+                selector = f"&.{name} {{"
+                self.assertIn(selector, css)
+                rule = css.split(selector, 1)[1].split("}", 1)[0]
+                self.assertIn("overflow-wrap: anywhere", rule)
+        browser = read("tests/operation_revisions_browser.js")
+        self.assertIn("textScale", browser)
+        self.assertIn("[320, 4]", browser)
+        self.assertIn("forcedColors", browser)
+        self.assertIn("playwright", browser)
+        self.assertIn("operation_revisions_browser.js", read("docs/recipes.md"))
+
     def test_docs_publishing_and_api_discovery(self):
         docs = read("docs/recipes.md")
         self.assertIn("operation-revisions.html", docs)
