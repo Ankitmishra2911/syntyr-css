@@ -4,6 +4,7 @@ Runs against the actual CSS without adding runtime dependencies. Example:
   python tests/accessibility_regression_browser.py --browsers chromium firefox
 """
 import argparse
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,9 +51,21 @@ def check(browser, engine):
     try:
         page.goto((ROOT / 'examples/native-recipes.html').as_uri())
         label = page.locator('label[for="example-email"]')
-        page.locator('#example-email').fill('dev@example.com')
+        field = page.locator('#example-email')
+        field.fill('dev@example.com')
         assert label.evaluate('e => getComputedStyle(e).transform') != 'none', (
             f"{engine}: floating enhancement unexpectedly disabled on wide fields")
+        page.locator('body').evaluate("e => e.setAttribute('dir', 'rtl')")
+        field.fill('')
+        field.blur()
+        before = label.bounding_box()
+        field.fill('dev@example.com')
+        after = label.bounding_box()
+        right_before = before['x'] + before['width']
+        right_after = after['x'] + after['width']
+        assert abs(right_before - right_after) <= 2, (
+            f"{engine}: RTL floating label must shrink toward inline-start, "
+            f"not move away from its right edge", before, after)
     finally:
         page.close()
 
@@ -131,7 +144,10 @@ def main():
     args = parser.parse_args()
     with sync_playwright() as playwright:
         for engine in args.browsers:
-            browser = getattr(playwright, engine).launch(headless=True)
+            options = {"headless": True}
+            if engine == "webkit" and os.environ.get("SYNTYR_WEBKIT_EXECUTABLE"):
+                options["executable_path"] = os.environ["SYNTYR_WEBKIT_EXECUTABLE"]
+            browser = getattr(playwright, engine).launch(**options)
             try:
                 check(browser, engine)
             finally:
