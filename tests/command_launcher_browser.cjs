@@ -36,7 +36,7 @@ const server = createServer(async (req, res) => {
         await trigger.click();
         assert.equal(await page.locator('[data-command-dialog]').isVisible(), true);
         assert.equal(await page.locator('[data-command-query]').evaluate((el) => el === document.activeElement), true);
-        await page.locator('[data-command-query]').fill('KEYboard CONTRAST');
+        await page.locator('[data-command-query]').fill('NATIVE hTmL');
         assert.equal(await page.locator('[data-command-item]:visible').count(), 1);
         assert.match(await page.locator('[data-command-status]').textContent(), /1 destination/);
         await page.locator('[data-command-query]').fill('not-a-destination');

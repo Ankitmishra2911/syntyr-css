@@ -42,6 +42,38 @@ class CommandLauncherRecipeTests(unittest.TestCase):
         self.assertIn('.syn-command-row', css)
         self.assertNotIn('.syn-command-launcher', css)
 
+    def test_both_command_destinations_resolve_inside_offline_zip(self):
+        from html.parser import HTMLParser
+        from pathlib import PurePosixPath
+        from scripts.package_release import FILES
+        class Links(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.destinations = []
+            def handle_starttag(self, tag, attrs):
+                if tag == "a":
+                    target = dict(attrs).get("href", "")
+                    if target.startswith("./") or target.startswith("../"):
+                        self.destinations.append(target)
+        links = Links()
+        links.feed(read("examples/command-launcher.html"))
+        self.assertEqual(len(links.destinations), 6)
+        self.assertEqual(links.destinations[:3], links.destinations[3:])
+        self.assertIn("python3 -m http.server 8000 --bind 127.0.0.1", read("docs/distribution.md"))
+        for href in links.destinations:
+            # Parent of examples/command-launcher.html within release ZIP.
+            target = PurePosixPath("examples").joinpath(href)
+            parts = []
+            for part in target.parts:
+                if part == "..":
+                    parts.pop()
+                elif part != ".":
+                    parts.append(part)
+            packaged = "/".join(parts)
+            with self.subTest(href=href):
+                self.assertIn(packaged, FILES)
+                self.assertTrue((ROOT / packaged).is_file())
+
     def test_example_is_allowlisted_and_documented(self):
         site = read("scripts/build_cloudflare_site.py")
         zip_script = read("scripts/package_release.py")
