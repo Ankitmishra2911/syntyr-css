@@ -1110,6 +1110,101 @@ Load `syntyr.core.css` and then optional `syntyr.recipes.css`. See the [complete
 
 The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.
 
+## Resizable workspace (optional behavior)
+
+The **Resizable workspace** composition is separate from the existing
+`.syn-split` (which is simply a responsive two-column grid). Load
+`syntyr.core.css` and `syntyr.recipes.css` for
+`.syn-resizable-workspace`, `.syn-resizable-workspace__panes`,
+`.syn-resizable-workspace__pane` and
+`.syn-resizable-workspace__separator`. The `--syn-workspace-leading` CSS
+property expresses the first pane's share. Without JavaScript the two panes
+remain readable and the inert separator is hidden.
+
+[Runnable example](../examples/resizable-workspace.html) includes a
+**copy-owned, optional** module with pointer capture and keyboard support.
+It enables the separator only after initialization and keeps
+`aria-valuenow` synchronized with the visible split. Arrow Left/Right move
+by 2 percentage points (Shift: 10), with Home/End for bounds (20–70).
+The example respects RTL and stacks its panes when its **own container**
+is narrow; the separator is hidden in the stacked layout. No storage,
+network requests or global event listeners are required.
+
+**Running the packaged interactive demo:** Extract the ZIP, change into its
+top-level `syntyr-css-<version>` directory, and serve the local assets over
+HTTP (not `file://`, which blocks relative module scripts in browsers):
+
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open `http://127.0.0.1:8000/examples/resizable-workspace.html`.
+A `file://` launch still shows the static two-pane fallback; drag and
+keyboard resizing require the local module to load over HTTP. Stop the
+server with Ctrl-C. No external network requests are needed.
+
+The resize value and user preference are **application-owned**: persistence,
+server rendering, saved layouts, authorization, and responsive restoration
+belong to the consuming application. A live client must keep the
+separator's ARIA bounds, visible panel sizes and keyboard/pointer behavior in
+sync. The script is demonstrative, **not** part of the zero-JS CSS runtime.
+Test real zoom, touch, forced colors, keyboard and screen-reader support
+before production use.
+
+## Operation feedback and record revisions (alpha.5 source candidate)
+
+The optional `syntyr.recipes.css` provides **two presentation patterns**, not a
+transaction state machine or history service. [View the static example](../examples/operation-revisions.html).
+
+- **Operation feedback:** use `.syn-operation-feedback` and an actual
+  `data-syn-state="unsaved|pending|saved|failed|conflict"`. All five states use
+  explicit textual headings and supporting details, not color alone.
+  `--syn-operation-edge` can be overridden per instance if the host's palette
+  needs a different border; do not interpret these colors as business results.
+- **Record revisions:** keep the existing `dl.syn-record-fields` and place
+  `.syn-change-pair` inside a `dd`. Its optional `.syn-change-before` and
+  `.syn-change-after` children wrap at narrow widths, including when embedded
+  in a sidebar. Use visible "Previous", "Updated", "Added" or "Removed" labels
+  with native `del`/`ins` elements. Omit the absent side for additions/removals;
+  don't manufacture a previous value. The same pair may appear in a table cell
+  or review panel; no duplicate definition-list component is needed.
+
+At extreme user text sizes, the `syn-page-header` and `syn-app-card`
+compositions allow long words and dates to wrap instead of expanding the viewport.
+The optional developer-only browser smoke test (tests/operation_revisions_browser.js)
+covers reflow, keyboard focus and forced colors in Playwright. Enlarging root
+text is a stress test, **not** proof of native 400% browser zoom or a manual
+screen-reader audit.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <section class="syn-operation-feedback" data-syn-state="conflict"
+       aria-labelledby="revision-conflict">
+    <h2 id="revision-conflict">Someone updated this record</h2>
+    <p>Review their changes before submitting a new version.</p>
+  </section>
+  <dl class="syn-record-fields">
+    <div><dt>Campaign name</dt><dd><div class="syn-change-pair">
+      <span class="syn-change-before"><small>Previous</small><del>Fall</del></span>
+      <span class="syn-change-after"><small>Updated</small><ins>Winter</ins></span>
+    </div></dd></div>
+  </dl>
+</section>
+```
+
+**Host behavior contract:** Render the state **only when it is true**. A pending
+request requires the host to manage loading and submission controls; "saved"
+requires a confirmed server response, not an optimistic assumption. On
+failure preserve inputs; on conflict enforce record version checking
+(e.g., ETag/If-Match or an optimistic lock), offer a real comparison/reload
+path, and never overwrite concurrently edited data without policy checks.
+Authorize mutations, protect against CSRF where applicable, and record audit
+history on the server. For asynchronous updates, create a persistent
+`role="status"` region before updating its content, and use `role="alert"`
+only when immediate interruption is justified; **the static gallery does not
+claim any live announcements**. CSS cannot retry requests, manage focus,
+detect stale versions, or persist records. Test the integration at 320 CSS
+pixels, 400% zoom, keyboard-only navigation, screen readers and forced colors.
 ## File selection and lifecycle presentation (alpha.5 source candidate)
 
 Use the existing native file input (`.syn-input[type="file"]`) with a real
@@ -1154,6 +1249,7 @@ live status region in the host if asynchronous changes require announcements;
 CSS and a static snapshot cannot announce an update. No automatic drag/drop
 or upload happens with these classes. Test responsive zoom, forced colors,
 keyboard navigation, real upload failure and assistive technology in the host.
+
 
 ## Reusing recipes across stacks
 
@@ -1336,6 +1432,8 @@ The optional recipes stylesheet contains `.syn-collection-toolbar`, `.syn-collec
 - Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.
 
 The example is illustrative, **not a configured server**. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.
+
+For a **runnable, zero-JavaScript reference**, see the [Go resource workbench](https://github.com/dporkka/syntyr-css/tree/main/examples/go-resource-workbench). It composes the existing filter, table, bulk-action and inspector classes with real server-side GET filtering, status filters, sorting, column and theme settings, record links and read-only bulk-selection previews. Unlike the static markup, the Go example actually constrains result sets. An empty checked selection never means all matching records: selecting the full matching set is an explicit separate link. The example has no writes, accounts, tenant isolation or durable authorization; production apps must supply those behaviors.
 
 ## Native query filters and record review (alpha.5 source candidate)
 
@@ -1589,6 +1687,18 @@ Original: https://syntyr-css.pages.dev/docs/native-patterns.md
 This prerelease Syntyr example uses original CSS, not upstream Blades source.
 All patterns retain native HTML semantics and need **no runtime JavaScript**.
 For a live static preview, see [the native recipe example (live alpha.5 source preview)](https://syntyr-css.pages.dev/examples/native-recipes.html).
+
+## Native visibility is authoritative
+
+Inside `.syn-root`, use the browser's `hidden` attribute to remove an element
+from layout even when it also has `.syn-button`, `.syn-grid`, or semantic styles.
+Syntyr's base layer preserves that native state. For find-in-page reveals, use
+`hidden="until-found"`: the browser retains the element in layout and may
+reveal it on search or fragment navigation. Use a layout-containing box:
+do not force `display: none`, `display: inline`, or
+`display: contents`. Those values prevent find-in-page reveal;
+prefer a block, grid, or flex container. Do not replace these states with
+`aria-hidden`, which does not hide an element visually or from keyboard focus.
 
 ## Native interaction recipes
 
@@ -2697,6 +2807,24 @@ it in an application, replace sample values with server-rendered data and wire
 navigation and mutations to your own server. The already published **alpha.4**
 release does *not* contain this packaged example; the next alpha.5 release
 has not been published yet.
+
+## Command launcher ZIP example (unreleased alpha.5)
+
+The optional command launcher example points to three standalone HTML
+examples included in the release ZIP: the preset preview, native resource
+outline, and SaaS dashboard. Both the script-free navigation and enhanced
+native-dialog links resolve without fetching any unbundled docs assets.
+
+For the interactive Ctrl/Command+K module, serve the extracted alpha.5
+release directory over local HTTP, as explained for the resizable workspace
+above. From the extracted ZIP's top-level folder, run:
+
+    python3 -m http.server 8000 --bind 127.0.0.1
+
+Open http://127.0.0.1:8000/examples/command-launcher.html.
+The native navigation stays usable without JavaScript on a file:// URL, but
+the optional module may be blocked by browser file-origin restrictions.
+No server is necessary for the static examples/saas.html preview.
 
 ## One-file semantic starter (unreleased alpha.5 source)
 
@@ -4949,6 +5077,103 @@ Try the [seven-theme static Viz gallery](../examples/viz.html).
 
 ---
 
+## Source: docs/geo.md
+
+Original: https://syntyr-css.pages.dev/docs/geo.md
+
+# Syntyr Geo — renderer-neutral geospatial interface styles
+
+**Status:** experimental and unreleased. The MIT-licensed `syntyr.geo.css` module styles geospatial application **chrome**: map workspaces, filters, layers, marker hit targets, selected states, clusters, legends, callouts, scale bars and attribution. No JavaScript, tiles, mapping SDK, fonts, or network assets are included in Syntyr Geo. Load `syntyr.core.css` first.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.geo.css">
+```
+
+Or, in a package-manager application consuming the **unpublished** alpha.5 candidate, import `@syntyr/css/geo.css`. The `syntyr.all.css` bundle already contains Geo; **do not load both**. Neither `syntyr.core.css` nor `syntyr.viz.css` includes it.
+
+**[Open the synthetic, offline Geo demo](../examples/geo.html)**. It is a Schematic illustration, **Not to scale**, with fictional records, no tile provider or API keys, and disabled zoom controls. It is not a map renderer.
+
+## The boundary: cartographic behavior is an application concern
+
+**Syntyr does not** calculate geographic coordinates, distances, bearings, geodesics, clustering, projections, antimeridian handling, routing or point-in-polygon queries. It cannot fetch or display basemap data, style vector tiles, perform hit testing, handle map keyboard navigation, or ensure geospatial measurement accuracy. Supply your own GIS data, map engine, and attribution. Syntyr only styles HTML around the actual map.
+
+For interactive maps, integrate an engine such as [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) (vector tiles / WebGL), [Leaflet](https://leafletjs.com/reference) (lightweight tiled/DOM maps), or [OpenLayers](https://openlayers.org/) (specialized GIS interactions and projections). They are **application dependencies**, not dependencies of Syntyr. Engine-native attribution and copyright/license requirements still apply; never remove provider credits. A decorative CSS attribution surface cannot replace legally required renderer attribution.
+
+Choose and disclose the projection and coordinate reference system that your data needs (for example WGS 84 longitude/latitude for position inputs); do not assume a visual pixel distance equals a ground distance. Compute scale from the actual renderer viewport, latitude and zoom. Only set `data-syn-measured="true"` on `.syn-geo-scale` when the application has supplied a truthful measured label and bar length. Static examples deliberately say “Not to scale.”
+
+## A map-ready, responsive shell
+
+```html
+<section class="syn-root syn-geo-shell" data-syn-theme="studio">
+  <div class="syn-geo-workspace">
+    <aside class="syn-geo-sidebar" aria-labelledby="locations-title">
+      <h2 id="locations-title">Locations</h2>
+      <ul class="syn-geo-data-list">
+        <li><a href="#location-1">Site M-12 — operational</a></li>
+      </ul>
+    </aside>
+
+    <div class="syn-geo-viewport" role="region"
+         aria-label="Interactive site map; location details are also in the list">
+      <div id="site-map" class="syn-geo-map"></div>
+      <div class="syn-geo-overlay">
+        <!-- Optional app-owned, functional controls and legend go here. -->
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+The map mount fills the viewport, while `.syn-geo-overlay` lets pointer events pass through to the renderer except on Syntyr controls, legends and other interactive children. The workspace uses a **named container query** (`syn-geo`), so it stacks at narrow *container* sizes, including in a split dashboard. Set `--syn-geo-height`, `--syn-geo-compact-height` and `--syn-geo-sidebar-width` on an ancestor to customize its dimensions.
+
+### Markers: use the renderer to position them
+
+`.syn-geo-marker` styles a 44 × 44 CSS-pixel target with a smaller visible glyph. With MapLibre, provide a real native `button` to `new maplibregl.Marker({ element: button })`, then set the exact `LngLat` using `.setLngLat([longitude, latitude]).addTo(map)`. MapLibre owns the marker's geographic positioning; **do not place engine-managed marker elements inside `.syn-geo-marker-layer`**.
+
+The pure HTML demo instead places links within `.syn-geo-marker-layer`; only those children use `--syn-geo-x` and `--syn-geo-y` for *diagram* coordinates, not GIS coordinates. These CSS percentages are expressly not a geographic coordinate API.
+
+Use `data-syn-geo-kind="route"` for square markers or `"zone"` for rotated-square markers; ordinary sites remain round. `data-syn-selected="true"` and `aria-current="location"` provide a visible selection ring. `.syn-geo-cluster` styles an already-computed cluster count; **Syntyr never computes clustering**. An app must wire marker activation and popups, synchronize selection with the detail panel, and support keyboard navigation.
+
+### Map controls and overlays
+
+- `.syn-geo-controls`, `.syn-geo-control-group`, `.syn-geo-control` style the application's real `button` controls. A displayed control must work: wire zoom/pan to the map SDK, otherwise disable it.
+- `.syn-geo-bottom`, `.syn-geo-legend`, `.syn-geo-legend-list`, `.syn-geo-swatch` style legends for points, routes, and zones. Always include text labels; swatch shape must not be the only source of meaning.
+- `.syn-geo-callout` styles the body of an engine-positioned popup. Use safe DOM APIs and text nodes for untrusted feature labels instead of passing unsafe strings into HTML.
+- `.syn-geo-scale` presents a scale label. A measured bar only appears for `data-syn-measured="true"` and a renderer-provided `--syn-geo-scale-length`.
+- `.syn-geo-attribution` is a surface treatment for attribution you supply, not a replacement for engine-provided credits.
+- `.syn-geo-layer-list` styles labeled checkboxes; connect state to the renderer's visible layer set. Checking a box alone does not change map data.
+- `.syn-geo-data-list` provides a navigable, semantic fallback for locations and map features.
+
+MapLibre and Leaflet already offer their own zoom, scale and attribution controls. Prefer their functional native versions instead of overlaying duplicate, inert Syntyr controls. Avoid covering copyright or the map's navigation affordances.
+
+## Theming and accessibility
+
+All seven Syntyr palettes resolve the nested tokens `--syn-geo-land`, `--syn-geo-water`, `--syn-geo-road`, `--syn-geo-parcel`, `--syn-geo-point`, `--syn-geo-route` and `--syn-geo-zone`, as well as `--syn-geo-floating`. These are UI/documentation defaults, **not** standardized GIS symbology, hazard categories or validated cartographic color scales. In a real map, assign purpose-specific and contrast-checked symbology to rendered geospatial layers.
+
+For screen reader access, keep the meaningful asset list, labels, live states and a real HTML table or equivalent structured alternative **outside** the map canvas. Give every interactive marker an accessible name, make popup actions usable via keyboard, show an explicit focus ring, and announce state changes where appropriate. SVG diagrams used only as illustration may be `aria-hidden="true"` when the same information exists in text. Do not rely on hue alone for status or selection.
+
+Touch targets are at least 44 CSS pixels in the provided controls and markers. Reflow should be audited at 320px and 400% zoom; verify that map overlays do not obscure attribution or details. Forced-colors users get native system-color surfaces and selected-marker outlines. Reduced-motion settings should also be respected by the **map renderer**, including camera transitions and animated geospatial layers.
+
+## Product fit
+
+Geo deliberately stays in its own CSS module rather than bloating core. Use it for OOH asset inventory maps, real-estate site selection, logistics fleet screens, field operations, municipal dashboards, parcel analysis and geospatial intelligence consoles. Any paid Syntyr Pro templates can compose this free MIT foundation while keeping premium implementation, integrations and domain-specific workflows in a separate licensed product.
+
+## Optional real-MapLibre browser smoke (maintainers)
+
+The repository also includes an intentionally **unpublished, developer-only** MapLibre smoke harness. It loads a locally installed MapLibre, Playwright and esbuild from a separate host application, bundles them only for the temporary browser page, and supplies a **synthetic offline map style** with no third-party tiles or credentials. This verifies the renderer, a MapLibre-managed DOM marker, pointer activation, keyboard activation, zoom control wiring, overlay click-through, named container reflow and 44 px targets. It also checks 2× and 4× **root text-size stress**, which is not a substitute for browser-level zoom testing or screen reader review.
+
+~~~sh
+SYNTYR_VENDOR_NODE_MODULES=/path/to/installed/node_modules \
+  node tests/geo_maplibre_browser.mjs
+~~~
+
+Set `SYNTYR_GEO_CHROMIUM_PATH` if the locally installed Playwright browser revision differs from Playwright's default, or `SYNTYR_GEO_SCREENSHOT_DIR` to save developer-only screenshots. The harness never runs as a Syntyr consumer dependency. Its static fixture and scripts are **not** published on Cloudflare or in the release ZIP.
+
+**Adacavo integration decision:** prefer borrowing Syntyr Geo layout, legend and accessible map-chrome patterns into the existing MapLibre inventory view **without importing an unreleased Syntyr CSS package**. Retain Adacavo's tenant-safe APIs, actual inventory status colors, source clustering, positioning, map controls and map attribution. Reevaluate package-level integration only after Syntyr's CSS is released and proven stable.
+
+---
+
 ## Source: docs/accessibility.md
 
 Original: https://syntyr-css.pages.dev/docs/accessibility.md
@@ -5590,9 +5815,16 @@ supply the root; dynamic ancestor classes and inert `<template>` contents are
 also exempt because their rendered scope is unknown.
 
 With `--semantic`, a second standard-library pass checks literal HTML for
-duplicate static IDs, missing form labels, unmatched `label for` and
+duplicate static IDs, missing form labels (including an unnamed `input
+type="image"` or `type="button"`), unmatched `label for` and
 `aria-labelledby`/`aria-describedby` ID references (the latter two only in
-complete documents). It advises when an ordinary table row uses
+complete documents). For complete HTML it also detects missing `popovertarget`
+or `commandfor` IDs and popover triggers that point to elements without a
+`popover` attribute. Controls in a `hidden` subtree are exempt from
+accessible-name checks, but still have literal invoker targets validated.
+A nonempty `title` is accepted as an accessible-name fallback for native
+button/image inputs; dynamic names do not suppress static target validation.
+It advises when an ordinary table row uses
 `aria-selected` instead of `data-syn-state`, or when a headed data table
 lacks a caption or other accessible name. Errors produce exit code 1; advisory
 warnings are included in text/JSON output but do not fail the command.

@@ -154,6 +154,18 @@
           "description": "Syntyr CSS class (components/data.css)."
         },
         {
+          "name": "syn-change-after",
+          "description": "Updated or added revision value with visible text label."
+        },
+        {
+          "name": "syn-change-before",
+          "description": "Previous or removed revision value with visible text label."
+        },
+        {
+          "name": "syn-change-pair",
+          "description": "Responsive before/after value pair for existing semantic record fields."
+        },
+        {
           "name": "syn-chart",
           "description": "Syntyr CSS class (viz.css)."
         },
@@ -594,6 +606,94 @@
           "description": "Optional square-stepped top-right and bottom-left frame."
         },
         {
+          "name": "syn-geo-attribution",
+          "description": "Optional attribution surface; preserve map provider credits."
+        },
+        {
+          "name": "syn-geo-bottom",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-callout",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-cluster",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-control",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-control-group",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-controls",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-data-list",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-layer-list",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-legend",
+          "description": "Readable, labeled map legend; host must provide layer semantics."
+        },
+        {
+          "name": "syn-geo-legend-list",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-legend-title",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-map",
+          "description": "Map renderer mount surface; actual projection and map behavior belong to host."
+        },
+        {
+          "name": "syn-geo-marker",
+          "description": "44px visual marker target; renderer-managed marker positions stay renderer-managed."
+        },
+        {
+          "name": "syn-geo-marker-layer",
+          "description": "Static diagram overlay for percentage-positioned markers, not for renderer-managed markers."
+        },
+        {
+          "name": "syn-geo-overlay",
+          "description": "Pointer-transparent overlay for application-owned map controls and legends."
+        },
+        {
+          "name": "syn-geo-scale",
+          "description": "Scale presentation; actual scale and bar width require a real map renderer."
+        },
+        {
+          "name": "syn-geo-shell",
+          "description": "Named CSS container for map-based workspace layouts; use with core plus optional geo CSS."
+        },
+        {
+          "name": "syn-geo-sidebar",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-swatch",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-viewport",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-workspace",
+          "description": "Responsive GIS sidebar plus map viewport; stacks based on container width."
+        },
+        {
           "name": "syn-glow",
           "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity."
         },
@@ -710,6 +810,10 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-operation-feedback",
+          "description": "Optional host-managed operation feedback with truthful state text."
+        },
+        {
           "name": "syn-page",
           "description": "Syntyr CSS class (base.css)."
         },
@@ -808,6 +912,22 @@
         {
           "name": "syn-region",
           "description": "Container query boundary for responsive compositions."
+        },
+        {
+          "name": "syn-resizable-workspace",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__pane",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__panes",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__separator",
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-resource-outline",
@@ -1355,6 +1475,9 @@
           "name": "complete"
         },
         {
+          "name": "conflict"
+        },
+        {
           "name": "degraded"
         },
         {
@@ -1373,13 +1496,22 @@
           "name": "loading"
         },
         {
+          "name": "pending"
+        },
+        {
           "name": "queued"
+        },
+        {
+          "name": "saved"
         },
         {
           "name": "selected"
         },
         {
           "name": "unknown"
+        },
+        {
+          "name": "unsaved"
         },
         {
           "name": "uploading"

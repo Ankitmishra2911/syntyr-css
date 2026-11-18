@@ -43,8 +43,9 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states, including native GET query/filter removal and semantic record review, candidate-only record sheets, workflow progress, diagnostics and approval queues (not in published alpha.4).
 - [Filter and record review example](https://syntyr-css.pages.dev/examples/query-review.html): Copy-owned native HTML using existing Syntyr classes; static illustration only, not a working backend.
 - [Opt-in data-grid presentation](https://syntyr-css.pages.dev/docs/data-grid.md): Styling for host-owned data-grid behavior, ARIA states, and density (unreleased alpha.5 candidate).
-- [Machine-readable composition recipe contracts](https://syntyr-css.pages.dev/docs/editor-integration.md): Validated component slots, variant values, stylesheet modules, and required application-owned behavior for AI agents and editors (unreleased alpha.5 source candidate).
+- [Machine-readable composition recipe contracts](https://syntyr-css.pages.dev/docs/editor-integration.md): Validated component slots, variants, stylesheet modules, and application-owned behavior; opt-in `--semantic` lint checks native input names and literal invoker targets (unreleased alpha.5 source candidate).
 - [Collection workspace and form-recovery example](https://syntyr-css.pages.dev/examples/resource-workspace.html): Native GET filtering, tabular records and linked field errors; server actions and validation require integration (alpha.5 candidate).
+- [Runnable Go resource workbench](https://github.com/dporkka/syntyr-css/tree/main/examples/go-resource-workbench): Server-rendered resource search, sorting, column preferences, Studio/Grid/Noir themes, contextual inspector and read-only selection-scope previews; fixed fictional data and no production authorization (unreleased alpha.5 source candidate).
 - [Permission matrix enterprise example](https://syntyr-css.pages.dev/examples/permission-matrix.html): Native accessible role/capability review table with labeled checkboxes, keyboard scroll, and server authorization guidance; preview-only, not an access-control implementation (alpha.5 candidate).
 - [Workflow operations example](https://syntyr-css.pages.dev/examples/workflow-operations.html): Three native, copy-owned compositions for server-authoritative progress, sanitized activity logs and approval queues; no live actions or application JavaScript (alpha.5 source candidate).
 - [Vertigo-inspired resource workflow HTML example](https://syntyr-css.pages.dev/examples/vertigo-resource-workflow.html): Copyable index, detail, editor, and settings UI with fictional data and no runtime JavaScript.
@@ -59,6 +60,8 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Optional Radix adapter](https://syntyr-css.pages.dev/docs/radix-integration.md): State-only styling for projects that already use Radix Primitives.
 - [Optional React Aria resource-selection workflow](https://syntyr-css.pages.dev/docs/headless-interactions.md): Opt-in React Aria and Radix integration, with local-only inventory filtering, explicit keyboard-accessible selection scope, non-mutating bulk previews and read-only details; server-side selection, authorization and persistence remain application responsibilities (unreleased alpha.5 source candidate).
 - [Framework integrations](https://syntyr-css.pages.dev/docs/framework-integrations.md): HTMX, server templates, React and other stacks.
+- [Runnable Rust Axum / Askama starter](https://github.com/dporkka/syntyr-css/tree/main/examples/rust-axum): Read-only server-rendered SaaS dashboard with native GET search, validation and no client JavaScript (unreleased alpha.5 source example; not an authentication or production starter).
+- [Portable Git-backed CMS starter](https://syntyr-css.pages.dev/docs/cms-integration.md): static HTML renderer, Sveltia/Pages CMS shared JSON blocks, stable anchors, and editor security boundaries.
 - [Static-site generator compatibility](https://syntyr-css.pages.dev/docs/static-site-generators.md): Eleventy, Astro, Hugo, Jekyll and Zola self-hosting, deploy-prefix verification, source-candidate release boundaries and zero-required-browser-JavaScript guidance.
 - [Mobile and native UI integrations](https://syntyr-css.pages.dev/docs/mobile-frameworks.md): Opt-in source adapters for React Native / Expo and portable tokens for Flutter, SwiftUI, Compose, Ionic / Capacitor.
 - [Theme tokens and customization](https://syntyr-css.pages.dev/docs/theme-customization.md): Supported design token overrides.
@@ -72,6 +75,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Progressive CSS loading](https://syntyr-css.pages.dev/docs/progressive-loading.md): Selective CSS, critical CSS tradeoffs, and measured loading approaches.
 - [Deployed mobile performance audit](https://syntyr-css.pages.dev/docs/live-performance-audit.md): Reproducible LCP, caching, CSP and accessibility evidence for the hosted business and SaaS examples.
 - [Optional visualization styles](https://syntyr-css.pages.dev/docs/viz.md): SVG/HTML rendering and boundaries.
+- [Optional geospatial map UI](https://syntyr-css.pages.dev/docs/geo.md): Responsive GIS panels, renderer-neutral markers, legends and accessibility, alpha.5 source only.
 - [How to use Syntyr with coding agents](https://syntyr-css.pages.dev/docs/agent-integration.md): Recommended prompts, retrieval and validation.
 
 ## Commercial research (not for sale)
@@ -83,7 +87,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 ## Assets
 
 - [Pinned v0.3.0-alpha.4 core stylesheet](https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css)
-- [Expanded 27-example native HTML component catalog](https://syntyr-css.pages.dev/docs/catalog.html): Category-filtered copyable examples for typography, forms, navigation, data tables, media, semantic content and interactive HTML (unreleased alpha.5 source candidate).
+- [Expanded 32-example native HTML component catalog](https://syntyr-css.pages.dev/docs/catalog.html): Category-filtered copyable examples for typography, forms, navigation, data tables, media, semantic content and interactive HTML, including optional recipes, geometry and visualization modules (unreleased alpha.5 source candidate; load the indicated CSS module for each example).
 - [Current experimental component gallery](https://syntyr-css.pages.dev/docs/)
 
 - [Intrinsic composition and adoption](docs/composition-adoption.md) — wrapping clusters and sidecars without JavaScript.

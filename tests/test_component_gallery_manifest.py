@@ -32,11 +32,15 @@ class GalleryManifestTests(unittest.TestCase):
             self.assertTrue(example["title"])
             self.assertTrue(example["keywords"])
             self.assertTrue(example["category"])
-            self.assertIn(example["module"], {"syntyr.core.css", "syntyr.recipes.css", "syntyr.viz.css"})
+            self.assertIn(example["module"], {"syntyr.core.css", "syntyr.recipes.css", "syntyr.geometry.css", "syntyr.viz.css"})
             self.assertTrue(example["html"].strip())
             self.assertNotIn("<script", example["html"].lower())
             self.assertTrue(example["elements"])
-            self.assertEqual(example["required_stylesheets"][0], example["module"])
+            if example["module"] == "syntyr.core.css":
+                self.assertEqual(example["required_stylesheets"][0], "syntyr.core.css")
+            else:
+                self.assertEqual(example["required_stylesheets"][:2],
+                                 ["syntyr.core.css", example["module"]])
             for cls in example["classes"]:
                 self.assertIn("." + cls, (ROOT / "dist/syntyr.all.css").read_text())
         result = subprocess.run(

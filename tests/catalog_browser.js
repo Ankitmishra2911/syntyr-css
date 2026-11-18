@@ -23,7 +23,11 @@ const engines = {chromium, firefox, webkit};
         await page.goto(catalog, {waitUntil: 'load'});
         await page.waitForFunction(() => document.getElementById('catalog-controls').hidden === false);
         const total = await page.locator('.catalog-card').count();
-        assert.ok(total >= 27);
+        assert.ok(total >= 32);
+        for (const id of ['catalog-input-group-title', 'catalog-crm-filters-title',
+          'catalog-recovery-state-title', 'catalog-geometry-frame-title', 'catalog-viz-bars-title']) {
+          assert.equal(await page.locator(`.catalog-card[aria-labelledby="${id}"]`).count(), 1);
+        }
         assert.equal(await page.locator(".catalog-edit").count(), total);
         assert.equal(await page.locator('.catalog-card:not([hidden])').count(), total);
         assert.equal(await page.locator('.catalog-copy:not([hidden])').count(), total);

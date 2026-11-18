@@ -17,6 +17,10 @@ test("registers existing generated gallery examples as optional composer blocks"
   assert.equal(galleryBlockTypes().includes(type), true);
   assert.equal(getBlockDefinition(type).label, "Buttons");
   assert.equal(getBlockDefinition(type).requiredStylesheets[0], "syntyr.core.css");
+  assert.deepEqual(
+    getBlockDefinition("gallery:catalog-geometry-frame-title").requiredStylesheets.slice(0, 2),
+    ["syntyr.core.css", "syntyr.geometry.css"]
+  );
   assert.ok(Object.keys(createBlock(type, "buttons-1").props).length > 0);
   assert.equal(createBlock(type).id, "catalog-buttons-title-1");
 });
@@ -133,4 +137,13 @@ test("native-only projects do not depend on an optional gallery fetch", () => {
   assert.equal(projectNeedsGalleryManifest(mixed), true);
   assert.equal(projectNeedsGalleryManifest({ blocks: [{ type: "hero" }] }), false);
   assert.equal(projectNeedsGalleryManifest({ blocks: "invalid" }), false);
+});
+
+
+test("recovery example keeps its functioning destination on export", () => {
+  registerGalleryManifest(manifest);
+  const page = createDefaultDocument();
+  page.blocks = [createBlock("gallery:catalog-recovery-state-title", "recover-1")];
+  const html = exportHtml(page);
+  assert.match(html, /href="https:\/\/syntyr-css\.pages\.dev\/docs\/guides\.html"/);
 });

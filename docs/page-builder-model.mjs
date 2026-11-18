@@ -114,7 +114,7 @@ function buildGalleryDefinition(entry) {
       typeof entry.html !== "string" || entry.html.length > 30000 ||
       !Array.isArray(entry.required_stylesheets) || !entry.required_stylesheets.length ||
       entry.required_stylesheets.some(name => ![
-        "syntyr.core.css", "syntyr.recipes.css", "syntyr.viz.css", "syntyr.semantic.css"
+        "syntyr.core.css", "syntyr.recipes.css", "syntyr.geometry.css", "syntyr.viz.css", "syntyr.semantic.css"
       ].includes(name)))
     throw new Error("Invalid gallery example metadata");
   // The static manifest is maintained with the repo, not imported from project
