@@ -42,10 +42,16 @@
     /* Nested-theme-aware overlay roles; no hardcoded light/dark surface colors. */
     --syn-surface-floating: color-mix(in srgb, var(--syn-surface) 45%, var(--syn-surface-hi));
     --syn-border-floating: var(--syn-frame-strong);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
+    /* Inherit only the contrast mode, not a resolved parent-palette color:
+       nested themes must recalculate borders from their own frame tokens. */
+    --syn-border-subtle: color-mix(in srgb,
+      var(--syn-frame-strong) var(--_syn-contrast-strong, 0%),
+      color-mix(in srgb, var(--syn-frame) 60%, transparent));
     /* These aliases recompute in nested themed regions. */
     --syn-text-subtle: var(--syn-muted);
-    --syn-border-default: var(--syn-frame);
+    --syn-border-default: color-mix(in srgb,
+      var(--syn-frame-strong) var(--_syn-contrast-strong, 0%),
+      var(--syn-frame));
     --syn-border-hover: var(--syn-frame-strong);
     --syn-border-focus: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
@@ -282,12 +288,14 @@
   /* Explicit contrast is independent of palette and density. A nested 'normal'
      region may opt out of manual contrast, but never the OS preference. */
   :where(.syn-root[data-syn-contrast="normal"], .syn-root [data-syn-contrast="normal"]) {
+    --_syn-contrast-strong: 0%;
     --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     --syn-border-default: var(--syn-frame);
     --syn-shadow-raised: 0 8px 24px rgb(0 0 0 / 12%);
     --syn-shadow-overlay: 0 20px 70px rgb(0 0 0 / 45%);
   }
   :where(.syn-root[data-syn-contrast="more"], .syn-root [data-syn-contrast="more"]) {
+    --_syn-contrast-strong: 100%;
     --syn-border-subtle: var(--syn-frame-strong);
     --syn-border-default: var(--syn-frame-strong);
     --syn-shadow-raised: none;
@@ -300,6 +308,7 @@
       --syn-border-subtle: var(--syn-frame-strong);
       --syn-border-default: var(--syn-frame-strong);
       --syn-shadow-raised: 0 0 0 transparent;
+      --syn-shadow-overlay: none;
       --syn-grid-alpha: 0%;
       --syn-glow-alpha: 0%;
       --syn-wash-alpha: 0%;
@@ -1497,6 +1506,9 @@
       min-height: 4rem; max-height: 16rem; resize: vertical;
     }
     &.syn-composer .syn-textarea:where(:focus, :hover) { border-color: transparent; }
+    &.syn-composer .syn-textarea:where(:user-invalid, [aria-invalid="true"]) {
+      border-color: var(--syn-danger);
+    }
     &.syn-composer-actions {
       display: flex; flex-wrap: wrap; align-items: center;
       justify-content: space-between; gap: var(--syn-space-1);

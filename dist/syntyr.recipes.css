@@ -300,6 +300,9 @@
       min-height: 4rem; max-height: 16rem; resize: vertical;
     }
     &.syn-composer .syn-textarea:where(:focus, :hover) { border-color: transparent; }
+    &.syn-composer .syn-textarea:where(:user-invalid, [aria-invalid="true"]) {
+      border-color: var(--syn-danger);
+    }
     &.syn-composer-actions {
       display: flex; flex-wrap: wrap; align-items: center;
       justify-content: space-between; gap: var(--syn-space-1);

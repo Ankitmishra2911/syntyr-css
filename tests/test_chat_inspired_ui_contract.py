@@ -27,6 +27,27 @@ class ChatInspiredUIContract(unittest.TestCase):
         self.assertIn('.syn-root [data-syn-contrast]', system)
         self.assertIn('--syn-border-subtle: var(--syn-frame-strong);', system)
 
+    def test_contrast_weight_inherits_across_palette_boundaries(self):
+        tokens = (ROOT / "src/tokens.css").read_text()
+        derived = tokens.split("/* Derived surfaces", 1)[1].split("/* Compact presentation", 1)[0]
+        manual = tokens.split("/* Explicit contrast", 1)[1].split("/* Higher contrast", 1)[0]
+        # An inherited numeric mode lets each nested palette recompute borders
+        # from its own frame tokens without losing the nearest contrast opt-out.
+        self.assertIn("var(--_syn-contrast-strong, 0%)", derived)
+        self.assertIn("--_syn-contrast-strong: 100%;", manual)
+        self.assertIn("--_syn-contrast-strong: 0%;", manual)
+
+    def test_system_high_contrast_suppresses_overlay_shadow(self):
+        system = (ROOT / "src/tokens.css").read_text().split(
+            "@media (prefers-contrast: more)", 1)[1]
+        self.assertIn("--syn-shadow-overlay: none;", system)
+
+    def test_invalid_composer_never_loses_its_error_border(self):
+        recipe = (ROOT / "src/recipes.css").read_text().split(
+            "/* Conversational UI", 1)[1].split("/* End conversational UI */", 1)[0]
+        self.assertIn('&.syn-composer .syn-textarea:where(:user-invalid, [aria-invalid="true"])', recipe)
+        self.assertIn("border-color: var(--syn-danger);", recipe)
+
     def test_studio_and_minimal_have_quiet_rounded_panels_not_theme_forks(self):
         tokens = (ROOT / "src/tokens.css").read_text()
         for theme in ("studio", "minimal"):
