@@ -152,6 +152,7 @@ stylesheets.
 - [Vertigo-inspired four-stage resource lifecycle reference](examples/vertigo-resource-workflow.html): schema-driven CRUD visual patterns (index, detail, editor, settings) with zero runtime JavaScript and disabled mutations.
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Optional Rust SaaS Foundation / Askama / HTMX integration guide](docs/rust-saas-integration.md)
+- [Runnable Rust Axum / Askama dashboard starter](examples/rust-axum/README.md) — same-origin embedded CSS, real search and validation, no client JavaScript
 - [Static vs Hugo vs Zola decision](docs/site-generator-decision.md) and [isolated Hugo preview](experiments/hugo/README.md)
 
 The linked alpha.4 release is already published; it does not include the four additional palettes or the optional utilities module. These are in the unreleased alpha.5 source candidate.

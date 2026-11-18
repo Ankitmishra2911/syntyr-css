@@ -258,7 +258,7 @@ PUBLIC_DOCS = (
     "cms-integration.md", "site-generator-decision.md", "static-site-generators.md", "site-builders.md", "tailwind-research.md",
     "wordpress.md", "shopify.md", "wix.md", "webflow.md", "framer.md", "squarespace.md", "ghost.md", "hubspot.md", "drupal.md", "joomla.md", "carrd.md", "duda.md", "tilda.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
-    "vertigo-integration.md", "viz.md", "geo.md",
+    "vertigo-integration.md", "rust-saas-integration.md", "viz.md", "geo.md",
 )
 
 
@@ -314,7 +314,7 @@ def source_files() -> dict[str, bytes]:
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "semantic-compositions.html", "native-interactions.html", "native-recipes.html", "resource-outline.html", "query-review.html", "command-launcher.html", "command-launcher.mjs", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
-        "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "permission-matrix.html", "permission-matrix.css", "crm.html", "resource-workspace.html", "native-workflows.html", "file-lifecycle.html", "resizable-workspace.html", "operation-revisions.html", "saas-workflows.css", "workflow-operations.html", "workflow-operations.css", "premium-compositions.html",
+        "rust-axum/README.md", "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "permission-matrix.html", "permission-matrix.css", "crm.html", "resource-workspace.html", "native-workflows.html", "file-lifecycle.html", "resizable-workspace.html", "operation-revisions.html", "saas-workflows.css", "workflow-operations.html", "workflow-operations.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
         "viz.html", "geo.html", "data-grid.html", "animation.html", "copy.html",
     )
