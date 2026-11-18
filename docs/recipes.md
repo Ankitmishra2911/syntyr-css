@@ -147,6 +147,47 @@ Load `syntyr.core.css` and then optional `syntyr.recipes.css`. See the [complete
 
 The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.
 
+## Resizable workspace (optional behavior)
+
+The **Resizable workspace** composition is separate from the existing
+`.syn-split` (which is simply a responsive two-column grid). Load
+`syntyr.core.css` and `syntyr.recipes.css` for
+`.syn-resizable-workspace`, `.syn-resizable-workspace__panes`,
+`.syn-resizable-workspace__pane` and
+`.syn-resizable-workspace__separator`. The `--syn-workspace-leading` CSS
+property expresses the first pane's share. Without JavaScript the two panes
+remain readable and the inert separator is hidden.
+
+[Runnable example](../examples/resizable-workspace.html) includes a
+**copy-owned, optional** module with pointer capture and keyboard support.
+It enables the separator only after initialization and keeps
+`aria-valuenow` synchronized with the visible split. Arrow Left/Right move
+by 2 percentage points (Shift: 10), with Home/End for bounds (20–70).
+The example respects RTL and stacks its panes when its **own container**
+is narrow; the separator is hidden in the stacked layout. No storage,
+network requests or global event listeners are required.
+
+**Running the packaged interactive demo:** Extract the ZIP, change into its
+top-level `syntyr-css-<version>` directory, and serve the local assets over
+HTTP (not `file://`, which blocks relative module scripts in browsers):
+
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open `http://127.0.0.1:8000/examples/resizable-workspace.html`.
+A `file://` launch still shows the static two-pane fallback; drag and
+keyboard resizing require the local module to load over HTTP. Stop the
+server with Ctrl-C. No external network requests are needed.
+
+The resize value and user preference are **application-owned**: persistence,
+server rendering, saved layouts, authorization, and responsive restoration
+belong to the consuming application. A live client must keep the
+separator's ARIA bounds, visible panel sizes and keyboard/pointer behavior in
+sync. The script is demonstrative, **not** part of the zero-JS CSS runtime.
+Test real zoom, touch, forced colors, keyboard and screen-reader support
+before production use.
+
 ## Operation feedback and record revisions (alpha.5 source candidate)
 
 The optional `syntyr.recipes.css` provides **two presentation patterns**, not a
@@ -245,6 +286,7 @@ live status region in the host if asynchronous changes require announcements;
 CSS and a static snapshot cannot announce an update. No automatic drag/drop
 or upload happens with these classes. Test responsive zoom, forced colors,
 keyboard navigation, real upload failure and assistive technology in the host.
+
 
 ## Reusing recipes across stacks
 

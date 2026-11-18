@@ -544,6 +544,10 @@
     {
       "name": "--syn-wash-secondary-alpha",
       "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "description": "Syntyr CSS property (recipes.css)."
     }
   ]
 }

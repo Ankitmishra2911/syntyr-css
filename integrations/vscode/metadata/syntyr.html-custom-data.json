@@ -914,6 +914,22 @@
           "description": "Container query boundary for responsive compositions."
         },
         {
+          "name": "syn-resizable-workspace",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__pane",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__panes",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__separator",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-resource-outline",
           "description": "Syntyr CSS class (native-recipes.css)."
         },
