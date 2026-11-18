@@ -265,7 +265,7 @@ window.SYNTYR_PLAYGROUND_CATALOG = [
     "title": "Empty and recovery state",
     "module": "syntyr.recipes.css",
     "description": "Optional app-state composition. Provide a working destination for any recovery action.",
-    "html": "\u003csection class=\"syn-result-state\" aria-labelledby=\"catalog-recovery-title\">\n  \u003ch3 id=\"catalog-recovery-title\">No matching records\u003c/h3>\n  \u003cp>Try a broader search or review the documentation.\u003c/p>\n  \u003ca class=\"syn-button syn-button--outline\" href=\"guides.html\">Browse guides\u003c/a>\n\u003c/section>",
+    "html": "\u003csection class=\"syn-result-state\" aria-labelledby=\"catalog-recovery-title\">\n  \u003ch3 id=\"catalog-recovery-title\">No matching records\u003c/h3>\n  \u003cp>Try a broader search or review the documentation.\u003c/p>\n  \u003ca class=\"syn-button syn-button--outline\" href=\"https://syntyr-css.pages.dev/docs/guides.html\">Browse guides\u003c/a>\n\u003c/section>",
     "keywords": "empty no results recovery error reset action",
     "guidance": "See the component API reference for compatible classes and CSS modules."
   },
