@@ -7,6 +7,7 @@ import argparse
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 import sys
 from threading import Thread
@@ -36,6 +37,13 @@ def layout_check(browser, engine, width, scale):
                 const r = el.getBoundingClientRect(), s = getComputedStyle(el);
                 if (s.display === 'none' || s.visibility === 'hidden' || !r.width || !r.height) return false;
                 if (el.closest('.blocks-source, .blocks-icon-card pre, .syn-table-wrap')) return false;
+                // An internally scrollable pipeline is reachable via its own
+                // horizontal scroll, without widening the document viewport.
+                for (let p = el.parentElement; p; p = p.parentElement) {
+                  const overflow = getComputedStyle(p).overflowX;
+                  if ((overflow === 'auto' || overflow === 'scroll') &&
+                      p.scrollWidth > p.clientWidth + 1) return false;
+                }
                 return r.left < -1 || r.right > innerWidth + 1;
               }).slice(0, 6).map(el => [
                 el.tagName, (el.textContent || el.getAttribute('aria-label') || '').slice(0, 32),
@@ -84,6 +92,29 @@ def progressive_checks(browser, engine, screenshots):
             f"Screen-reader source disclosure lacks block context: {block_ax[-350:]}")
     require("SVG source for Search" in icon_ax,
             f"Screen-reader SVG source disclosure lacks icon context: {icon_ax}")
+    # Demo forms must be safely disabled, with the same grid/flex layout as
+    # the copyable original forms. The fieldset wrapper is preview-only.
+    for ident, layout in (
+        ("auth-sign-in", "grid"), ("auth-recovery", "grid"),
+        ("newsletter-signup", "grid"), ("resource-workspace", "flex"),
+    ):
+        fieldset = page.locator(
+            f'[data-block-id="{ident}"] .blocks-preview form > fieldset.blocks-preview-disabled'
+        )
+        require(fieldset.count() == 1, f"{engine}: {ident} missing safe preview fieldset")
+        require(fieldset.get_attribute("disabled") is not None,
+                f"{engine}: {ident} preview fieldset is not disabled")
+        display = fieldset.evaluate("e => getComputedStyle(e).display")
+        require(display == layout, f"{engine}: {ident} preview layout {display}, expected {layout}")
+        control = fieldset.locator("input,select,button").first
+        require(control.count() == 1 and control.is_disabled(),
+                f"{engine}: {ident} demo controls not disabled")
+    # Long pipeline lanes are intentionally horizontally scrollable; confirm
+    # a keyboard target in the last lane can still be scrolled into the viewport.
+    deal_link = page.get_by_role("link", name="Cedar Labs")
+    deal_link.scroll_into_view_if_needed()
+    deal_right = deal_link.evaluate("e => e.getBoundingClientRect().right")
+    require(deal_right <= 391, f"{engine}: horizontal pipeline link unreachable")
     context.close()
 
     context = browser.new_context(viewport={"width": 1280, "height": 900})
@@ -121,7 +152,7 @@ def progressive_checks(browser, engine, screenshots):
     )
     status = page.locator("#blocks-feedback").inner_text().lower()
     require("copied" in status or "selected" in status, "JS: copy/fallback failed")
-    require("20 of 20" in page.locator("#blocks-results").inner_text(), "JS: count overwritten by copy feedback")
+    require(f"{BLOCK_COUNT} of {BLOCK_COUNT}" in page.locator("#blocks-results").inner_text(), "JS: count overwritten by copy feedback")
     require(not console_errors, f"{engine}: script errors {console_errors}")
     context.close()
 
@@ -193,7 +224,7 @@ def main():
     with sync_playwright() as pw:
         for engine in args.browsers:
             try:
-                browser = getattr(pw, engine).launch(headless=True)
+                browser = getattr(pw, engine).launch(headless=True, executable_path=os.getenv(f"SYNTYR_{engine.upper()}_EXECUTABLE"))
             except Exception as exc:
                 failures.append(f"BLOCKED {engine}: {str(exc)[:240]}")
                 continue
