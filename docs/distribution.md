@@ -21,6 +21,17 @@ The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See [the framework integration guide](framework-integrations.md) for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add `syn-page` to the root only if you want full-page min-height.
 
+## Embed inside an existing CMS theme (unreleased alpha.5)
+
+The alpha.5 source builds a separate `dist/syntyr.embed.css` entrypoint
+from the canonical core CSS, removing its outer CSS cascade layers to avoid
+the normal layered-versus-unlayered theme-precedence trap. Load it **instead
+of** `syntyr.core.css` for self-hosted Syntyr sections on WordPress, Shopify,
+Webflow or similar themes. This file is not in published alpha.4 releases;
+the CSS still uses the same `.syn-root` namespace and no runtime JavaScript.
+See the [site-builder integration guide](site-builders.md) for platform limits
+and copyable snippets.
+
 ## Offline SaaS preview in the next release ZIP (unreleased alpha.5)
 
 The alpha.5 source candidate now packages `examples/saas.html` together with
@@ -36,6 +47,24 @@ it in an application, replace sample values with server-rendered data and wire
 navigation and mutations to your own server. The already published **alpha.4**
 release does *not* contain this packaged example; the next alpha.5 release
 has not been published yet.
+
+## Command launcher ZIP example (unreleased alpha.5)
+
+The optional command launcher example points to three standalone HTML
+examples included in the release ZIP: the preset preview, native resource
+outline, and SaaS dashboard. Both the script-free navigation and enhanced
+native-dialog links resolve without fetching any unbundled docs assets.
+
+For the interactive Ctrl/Command+K module, serve the extracted alpha.5
+release directory over local HTTP, as explained for the resizable workspace
+above. From the extracted ZIP's top-level folder, run:
+
+    python3 -m http.server 8000 --bind 127.0.0.1
+
+Open http://127.0.0.1:8000/examples/command-launcher.html.
+The native navigation stays usable without JavaScript on a file:// URL, but
+the optional module may be blocked by browser file-origin restrictions.
+No server is necessary for the static examples/saas.html preview.
 
 ## One-file semantic starter (unreleased alpha.5 source)
 
@@ -100,6 +129,14 @@ This is present in the alpha.5 source candidate, **not published alpha.4**.
 ## Optional npm/package-manager distribution
 
 A CSS-only `@syntyr/css` manifest is available in the alpha.5 repository candidate, but **it has not been published to npm**. See [package-manager installation and local tarball testing](package-managers.md) for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.
+
+## Optional native animation companion
+
+Syntyr remains CSS-only by default. Applications that need *programmatic* motion
+can separately import `dist/syntyr.animate.mjs` (native Web Animations API and
+IntersectionObserver only). No script is included in core or `syntyr.all.css`.
+See the [animation API guide](animation.md) and the
+[runnable example](../examples/animation.html).
 
 ## Optional themes and semantic HTML
 

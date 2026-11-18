@@ -67,6 +67,15 @@ This must produce **no output**. A successful `build.py --check` run after
 `build.py` alone is insufficient: the first command may have already
 rewritten files you forgot to commit.
 
+The core Python and packaging contracts run for every PR. The Node/React/Next
+adoption workflow runs its npm step on relevant CSS, integration or consumer
+changes (or by manual request); documentation-only PRs do not need npm builds.
+Before an alpha release, run **all** relevant consumer and browser/accessibility
+checks regardless of any path-scoped PR skips. A skipped check is not a pass.
+Prefer editing existing canonical guides over introducing overlapping guides,
+and prefer enduring behavior tests over alpha-version-named test files. See
+[architecture maintenance policy](ARCHITECTURE.md#maintenance-surface-and-test-ownership).
+
 If you changed optional integrations, also check the relevant export scripts
 and tests documented in their guides. Browser tests use optional Playwright
 and browser engines **only in development or CI**; consumers do not install

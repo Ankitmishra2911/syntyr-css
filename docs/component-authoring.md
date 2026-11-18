@@ -80,6 +80,11 @@ behavior in browser tests.
 For an essential workflow, either provide meaningful static content
 that is valid without JavaScript or provide an independent native form/link
 fallback. Server-rendered text must match the initial attributes/state.
+A JavaScript-only action rendered into Declarative Shadow DOM should begin
+**disabled** and be enabled only after its event listener is installed, so a
+failed module load does not leave a misleading, apparently working control.
+Only rewrite a live region when its announced message actually changes,
+not when unrelated attributes (such as a heading) change.
 Do not claim that a JavaScript-only toggle provides a no-script mutation path.
 
 ### Custom state and form association (optional application concerns)
@@ -102,6 +107,17 @@ labels, error text, and focus. Implement applicable
 `FormData`, reset, disabled fieldsets, and native validation in browsers.
 **Ordinary `input`, `select`, `textarea`, and `button` should
 remain the default**; Syntyr does not ship a custom form-control runtime.
+
+The [form-associated integration fixture](https://github.com/dporkka/syntyr-css/blob/main/examples/web-components/form-associated.html)
+demonstrates a justified narrow use case: two native inputs treated as a
+single form-associated *range* with cross-field validity and a two-entry
+`FormData` submission. With JavaScript disabled, the original named fields
+remain usable. The enhancement removes those native `name` attributes so
+`setFormValue(FormData, state)` remains the sole submission source. Test
+`form.reset()`, ancestor `fieldset disabled`, direct host `disabled`,
+`FormData` cardinality, restoration, reconnection and validation across
+browsers. Server-side validation remains mandatory; this example is **not**
+a distributed Syntyr component or a reason to replace ordinary controls.
 
 References: [Custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements),
 [ElementInternals](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals),

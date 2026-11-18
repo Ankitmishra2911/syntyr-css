@@ -305,6 +305,12 @@
     color: var(--syn-text);
     background: var(--syn-bg);
   }
+  /* Keep native [hidden] authoritative over author-level component display rules.
+     hidden=until-found must retain the browser's find-in-page reveal behavior. */
+  :where(.syn-root[hidden]:not([hidden="until-found" i]),
+         .syn-root [hidden]:not([hidden="until-found" i])) {
+    display: none !important;
+  }
   .syn-root :where([data-syn-theme]) { color: var(--syn-text); background-color: var(--syn-bg); }
   .syn-root.syn-page { min-height: 100svh; }
   .syn-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
@@ -480,6 +486,12 @@
     &.syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
     &.syn-input:where(:focus), &.syn-select:where(:focus), &.syn-textarea:where(:focus) { border-color: var(--syn-border-focus); }
     &.syn-input:disabled, &.syn-select:disabled, &.syn-textarea:disabled { background: var(--syn-surface-recessed); }
+    /* Native readonly text remains focusable, selectable and included in FormData.
+       Distinguish it from a disabled control without dimming readable text. */
+    &.syn-input[readonly], &.syn-textarea[readonly] {
+      background: var(--syn-surface-recessed);
+      border-style: dashed;
+    }
     &.syn-input:where(:user-invalid, [aria-invalid="true"]),
     &.syn-select:where(:user-invalid, [aria-invalid="true"]),
     &.syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
@@ -540,6 +552,12 @@
     /* Progressive native feedback; focus outlines and error text remain authoritative. */
     &.syn-field:focus-within > .syn-label { color: var(--syn-accent); }
     &.syn-field:has(:user-invalid, [aria-invalid="true"]) > .syn-label { color: var(--syn-danger); }
+    /* A host-rendered server error must remain visible even when native
+       :user-invalid has not fired (or the browser considers the value valid). */
+    &.syn-field[data-syn-state="error"] > .syn-label { color: var(--syn-danger); }
+    &.syn-field[data-syn-state="error"] :where(.syn-input, .syn-select, .syn-textarea) {
+      border-color: var(--syn-danger);
+    }
     &.syn-field-row {
       display: grid;
       gap: var(--syn-space-2);
@@ -572,7 +590,15 @@
     }
     &.syn-input-group > .syn-button {
       flex: 0 0 auto;
+      max-inline-size: 100%;
+      overflow-wrap: anywhere;
+      white-space: normal;
       border-radius: 0;
+    }
+    /* Keep a readable query field if a translated submit label is long.
+       Addon-only groups retain their original intrinsic sizing. */
+    &.syn-input-group:has(> .syn-button) > :where(.syn-input, .syn-select) {
+      min-inline-size: min(100%, 9rem);
     }
     &.syn-input-addon {
       display: inline-flex;
@@ -594,6 +620,11 @@
       border-end-end-radius: var(--syn-radius);
     }
     &.syn-input-group > :not(:first-child) { border-inline-start: 0; }
+    /* Maintain a real border when long labels move the button to a new row. */
+    &.syn-input-group:has(> .syn-button) > .syn-button {
+      border-inline-start: 1px solid var(--syn-border-default);
+      margin-inline-start: -1px;
+    }
     /* Stack connected submit controls only when the group's own space is too
        narrow for enlarged text. Addon-only currency/units stay inline. */
     @container (max-width: 12rem) {
@@ -622,12 +653,23 @@
   /* All component rules match the root itself or a descendant, never a host sibling. */
   :where(.syn-root, .syn-root *) {
     &.syn-popover, &.syn-dialog {
+      box-sizing: border-box;
+      /* Viewport axes are physical, including under vertical writing modes. */
+      max-width: calc(100vw - 2rem);
+      max-height: min(80vh, 40rem);
+      max-height: min(80dvh, 40rem);
+      overflow: auto;
       width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
       border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-overlay);
     }
     &.syn-popover { margin: .75rem; inset: auto;
+      /* Reserve the fixed corner's 1rem bottom inset and .75rem margin,
+         including on very short viewports. Anchored popovers inherit a
+         conservative cap without introducing separate component classes. */
+      max-height: max(0px, min(80vh, 40rem, calc(100vh - 1.75rem)));
+      max-height: max(0px, min(80dvh, 40rem, calc(100dvh - 1.75rem)));
       inset-block-end: 1rem; inset-inline-end: 1rem;
     }
     /* The ordinary corner popover remains the fallback if anchors are unsupported. */
@@ -662,7 +704,7 @@
         position-try-fallbacks: flip-block, flip-inline;
         inset: auto;
         margin: .5rem 0;
-        max-inline-size: calc(100vw - 2rem);
+        /* Base overlay max-width/max-height already bound physical axes. */
       }
     }
   }
@@ -854,6 +896,64 @@
     &.syn-chip:is(a, button) { min-block-size: var(--syn-control-height); }
     &.syn-chip:is(a, button):where(:hover, :focus-visible) { border-color: var(--syn-border-hover); }
 
+    /* Native radio/checkbox filters: scoped to the explicit composition.
+       The input remains a real, focusable form control and submits normally. */
+    &.syn-filter-choices {
+      display: flex; flex-wrap: wrap; align-items: stretch;
+      gap: .375rem; min-inline-size: 0;
+    }
+    &.syn-filter-choices > .syn-chip {
+      position: relative; min-block-size: var(--syn-control-height); cursor: pointer;
+    }
+    /* Progressive enhancement: keep the native input visible, focusable,
+       and selectable if the browser cannot style the parent via :has(). */
+    &.syn-filter-choices > .syn-chip > input:is([type="radio"], [type="checkbox"]) {
+      flex: none; inline-size: 1.5rem; block-size: 1.5rem;
+      margin: 0; margin-inline-end: .375rem; accent-color: var(--syn-accent);
+    }
+    @supports selector(:has(*)) {
+      /* Only hide the native control when the chip can display checked and
+         focus-visible states through :has() in this same browser. */
+      &.syn-filter-choices > .syn-chip > input:is([type="radio"], [type="checkbox"]) {
+        position: absolute; inline-size: 1px; block-size: 1px;
+        margin: 0; padding: 0; opacity: 0; pointer-events: none;
+      }
+    }
+    &.syn-filter-choices > .syn-chip:has(> input:checked) {
+      border-color: var(--syn-accent); background: var(--syn-accent-soft);
+    }
+    &.syn-filter-choices > .syn-chip:has(> input:focus-visible) {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    &.syn-filter-choices > .syn-chip:has(> input:disabled) {
+      border-style: dashed; color: var(--syn-muted); cursor: not-allowed;
+    }
+
+    /* Label-wrapped choice cards reuse native fieldsets and syn-grid.
+       Keep the input visible; checked, disabled, and focus states are CSS only. */
+    &.syn-choice-card {
+      display: grid; grid-template-columns: max-content minmax(0, 1fr);
+      align-items: start; gap: var(--syn-space-2); min-inline-size: 0;
+      min-block-size: var(--syn-control-height);
+      padding: var(--syn-space-2); border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); background: var(--syn-surface);
+      color: var(--syn-text); cursor: pointer; overflow-wrap: anywhere;
+    }
+    &.syn-choice-card > .syn-input:is([type="radio"], [type="checkbox"]) {
+      margin: .1rem 0 0; flex: none;
+    }
+    &.syn-choice-card > span { display: grid; min-inline-size: 0; gap: .15rem; }
+    &.syn-choice-card > span > small { color: var(--syn-muted); font-size: var(--syn-type-sm); }
+    &.syn-choice-card:has(> .syn-input:checked) {
+      border-color: var(--syn-accent); background: var(--syn-accent-soft);
+    }
+    &.syn-choice-card:has(> .syn-input:focus-visible) {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    &.syn-choice-card:has(> .syn-input:disabled) {
+      border-style: dashed; cursor: not-allowed;
+    }
+
     /* Navigation links, not an ARIA tab widget. aria-current=page is only for
        the actual current destination, and does not imply JS-managed panels. */
     &.syn-nav-tabs {
@@ -896,6 +996,22 @@
       background: var(--syn-accent-soft); font-weight: 650;
     }
     &.syn-list-row:where(a, button):hover { background: var(--syn-surface-hover); }
+    /* A row can be a single link OR a noninteractive li with multiple links.
+       Never nest links or buttons inside a linked row. */
+    &.syn-list-row:has(> .syn-list-row__body) { flex-wrap: wrap; }
+    &.syn-list-row__media { flex: 0 0 auto; }
+    &.syn-list-row__body {
+      display: grid; gap: .125rem; flex: 1 1 12rem;
+      min-inline-size: min(100%, 9rem); overflow-wrap: anywhere;
+    }
+    &.syn-list-row__body > small { color: var(--syn-muted); }
+    &.syn-list-row__actions {
+      display: inline-flex; flex: 0 1 auto; flex-wrap: wrap;
+      align-items: center; gap: .375rem; margin-inline-start: auto;
+    }
+    &.syn-list-row__actions :is(a, button) {
+      display: inline-flex; align-items: center; min-block-size: var(--syn-control-height);
+    }
 
     &.syn-button-group {
       display: inline-flex; flex-wrap: wrap; align-items: stretch;
@@ -961,6 +1077,15 @@
 
       &.syn-stat, &.syn-empty, &.syn-price-card, &.syn-price-card[data-syn-featured] { border-color: CanvasText; }
       &.syn-avatar, &.syn-chip, &.syn-list-group, &.syn-divider-label::before, &.syn-divider-label::after { border-color: CanvasText; }
+      &.syn-choice-card { border-color: CanvasText; }
+      &.syn-choice-card:has(> .syn-input:checked),
+      &.syn-filter-choices > .syn-chip:has(> input:checked) {
+        border-color: Highlight; outline-color: Highlight;
+      }
+      &.syn-choice-card:has(> .syn-input:focus-visible),
+      &.syn-filter-choices > .syn-chip:has(> input:focus-visible) {
+        outline-color: Highlight;
+      }
       &.syn-nav-tabs [aria-current="page"], &.syn-list-row[aria-current="page"] { border-color: Highlight; }
     }
   }
@@ -994,6 +1119,11 @@
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input:not([class]), input[data-syn-semantic]):is(:not([type]), [type="text"], [type="email"], [type="search"], [type="password"], [type="url"], [type="tel"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic])):where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input:not([class]), input[data-syn-semantic]):is(:not([type]), [type="text"], [type="email"], [type="search"], [type="password"], [type="url"], [type="tel"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic])):where(:focus) { border-color: var(--syn-border-focus); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input:not([class]), input[data-syn-semantic]):is(:not([type]), [type="text"], [type="email"], [type="search"], [type="password"], [type="url"], [type="tel"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic])):disabled { background: var(--syn-surface-recessed); }
+  /* Only real [readonly] attributes; :read-only also matches noneditable
+     controls that do not support the readonly attribute. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(input:not([class])[readonly], input[data-syn-semantic][readonly], textarea:not([class])[readonly], textarea[data-syn-semantic][readonly]) {
+    background: var(--syn-surface-recessed); border-style: dashed;
+  }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input:not([class]), input[data-syn-semantic]), :is(select:not([class]), select[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic])):where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="range"]:not([class]), input[type="range"][data-syn-semantic])) { width: 100%; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input:not([class]), input[data-syn-semantic]), :is(textarea:not([class]), textarea[data-syn-semantic]))::placeholder { color: var(--syn-text-subtle); opacity: 1; }
@@ -1007,7 +1137,8 @@
   /* Native checkbox/radio labels stay inline, even when HTMX adds classes. */
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(label:not([class]):has(> input[type="checkbox"], > input[type="radio"]), label[data-syn-semantic]:has(> input[type="checkbox"], > input[type="radio"])) { display: block; cursor: pointer; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(fieldset:not([class]), fieldset[data-syn-semantic])) {
-    display: grid; gap: var(--syn-space-2); border: 1px solid var(--syn-frame); min-width: 0; padding: 1rem;
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-2);
+    border: 1px solid var(--syn-frame); min-width: 0; padding: 1rem;
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(legend:not([class]), legend[data-syn-semantic])) { padding-inline: .4rem; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(article:not([class]), article[data-syn-semantic])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
@@ -1018,6 +1149,12 @@
     padding-block: .5rem; text-align: start; font-weight: 650; color: var(--syn-text);
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(details:not([class]), details[data-syn-semantic])) { padding-block: .75rem; border-block-start: 1px solid var(--syn-frame); }
+  /* Open native disclosures receive a gentle visual boundary without
+     replacing summary markers, the name-group accordion, or focus handling. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(details[open]:not([class]), details[open][data-syn-semantic])) {
+    padding-block-end: var(--syn-space-2);
+    border-block-end: 1px solid var(--syn-frame);
+  }
   /* Keep the browser's disclosure marker, keyboard interaction and focus. */
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(summary:not([class]), summary[data-syn-semantic])) {
     cursor: pointer; font-weight: 600; min-block-size: 2.75rem;
@@ -1187,6 +1324,8 @@
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="file"]:not([class]), input[type="file"][data-syn-semantic]))::file-selector-button {
     min-block-size: var(--syn-control-height);
+    /* Let the native chooser label wrap rather than leak beyond a narrow input. */
+    max-inline-size: 100%; white-space: normal; overflow-wrap: anywhere;
     margin-inline-end: .75rem;
     padding-inline: .75rem;
     border: 1px solid var(--syn-border-default);
@@ -1258,7 +1397,38 @@
     min-block-size: 7rem;
     resize: vertical;
   }
+  /* Extended document semantics: leave ruby annotations and table row grouping
+     native. Style only the table summary and optional quote attribution. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(tfoot:not([class]), tfoot[data-syn-semantic])) {
+    border-block-start: 2px solid var(--syn-border-default);
+    font-weight: 650;
+  }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(
+    blockquote:not([class]) > footer:not([class]),
+    blockquote[data-syn-semantic] > footer[data-syn-semantic]
+  ) {
+    margin-block-start: var(--syn-space-2);
+    color: var(--syn-text-subtle);
+    font-size: var(--syn-type-sm);
+  }
+  /* Outdated offers are not editorial deletions: retain the browser's
+     native strikethrough on s, while de-emphasizing it within semantic mode. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(s:not([class]), s[data-syn-semantic])) {
+    color: var(--syn-text-subtle);
+    text-decoration-color: currentColor;
+  }
+  /* Grouped column headers stay true table headers; only their surface changes. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(thead:not([class]), thead[data-syn-semantic])) {
+    background: var(--syn-surface-recessed);
+  }
   @media (forced-colors: active) {
+    :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(details[open]:not([class]), details[open][data-syn-semantic])) {
+      border-color: CanvasText;
+    }
+    :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(thead:not([class]), thead[data-syn-semantic])) {
+      background: Canvas;
+      border-block-end: 2px solid CanvasText;
+    }
     :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(mark:not([class]), mark[data-syn-semantic])) {
       background: Highlight; color: HighlightText;
     }
@@ -1313,10 +1483,80 @@
     }
     &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
     &.syn-workspace { width: 100%; min-width: 0; overflow-wrap: anywhere; padding: clamp(1rem, 3vw, 2.5rem); }
+    /* Optional resizable split workspace. CSS owns only layout and state
+       presentation; a copied application module owns input and ARIA values.
+       Fallback without JS is two readable columns, without a fake handle. */
+    &.syn-resizable-workspace {
+      container-name: syn-resizable-workspace;
+      container-type: inline-size;
+      min-inline-size: 0;
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__panes {
+      --syn-workspace-leading: 35%;
+      display: grid;
+      grid-template-columns: minmax(0, var(--syn-workspace-leading)) minmax(0, 1fr);
+      min-inline-size: 0;
+      align-items: stretch;
+      gap: 0;
+    }
+    &.syn-resizable-workspace[data-syn-interactive] .syn-resizable-workspace__panes {
+      grid-template-columns: minmax(0, var(--syn-workspace-leading)) 2.75rem minmax(0, 1fr);
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__pane {
+      min-inline-size: 0;
+      padding: min(var(--syn-space-3), 3vw);
+      overflow-wrap: anywhere;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface);
+      color: var(--syn-text);
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__pane > :first-child { margin-block-start: 0; }
+    &.syn-resizable-workspace .syn-resizable-workspace__separator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-inline-size: 2.75rem;
+      cursor: col-resize;
+      touch-action: none;
+      color: var(--syn-muted);
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__separator[hidden] { display: none; }
+    &.syn-resizable-workspace .syn-resizable-workspace__separator::before {
+      content: "";
+      display: block;
+      inline-size: 3px;
+      block-size: min(4rem, 65%);
+      border-radius: 1rem;
+      background: currentColor;
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__separator:focus-visible {
+      outline: 3px solid var(--syn-focus-ring);
+      outline-offset: -3px;
+      border-radius: var(--syn-radius);
+    }
+    @container syn-resizable-workspace (max-width: 44rem) {
+      &.syn-resizable-workspace .syn-resizable-workspace__panes {
+        display: block;
+      }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator + .syn-resizable-workspace__pane {
+        margin-block-start: var(--syn-space-2);
+      }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator {
+        display: none;
+      }
+    }
+    @media (forced-colors: active) {
+      &.syn-resizable-workspace .syn-resizable-workspace__pane { border-color: CanvasText; }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator { color: CanvasText; }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator::before { background: CanvasText; }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator:focus-visible { outline-color: Highlight; }
+    }
+
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
     &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-kpi-min, 13rem)), 1fr)); gap: var(--syn-kpi-gap, var(--syn-space-2)); }
     &.syn-app-card {
-      min-width: 0; padding: var(--syn-card-padding);
+      min-width: 0; overflow-wrap: anywhere; padding: var(--syn-card-padding);
       border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius);
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-sm);
@@ -1377,6 +1617,38 @@
     }
     &.syn-result-state > :first-child { margin-block-start: 0; }
     &.syn-result-state > :last-child { margin-block-end: 0; }
+
+    /* Optional file lifecycle presentation. Native input[type=file] remains in
+       core. State, transport, progress, retries, validation and authorization
+       belong exclusively to the host application. */
+    &.syn-file-queue {
+      display: grid; gap: var(--syn-space-2); min-inline-size: 0;
+      padding: 0; margin: 0; list-style: none;
+    }
+    &.syn-file-item {
+      --syn-file-edge: var(--syn-border-default);
+      display: grid; gap: .45rem; min-inline-size: 0;
+      padding: var(--syn-space-2); overflow-wrap: anywhere;
+      background: var(--syn-surface); color: var(--syn-text);
+      border: 1px solid var(--syn-border-subtle);
+      border-inline-start: 3px solid var(--syn-file-edge);
+      border-radius: var(--syn-radius);
+    }
+    &.syn-file-item-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: .25rem var(--syn-space-2); flex-wrap: wrap; min-inline-size: 0;
+    }
+    &.syn-file-item-header > * { min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-file-item :is(progress, .syn-meter) { inline-size: 100%; max-inline-size: 100%; }
+    &.syn-file-item > :where(p, small) { margin-block: 0; }
+    &.syn-file-item[data-syn-state="queued"] { --syn-file-edge: var(--syn-muted); }
+    &.syn-file-item[data-syn-state="uploading"] { --syn-file-edge: var(--syn-accent); }
+    &.syn-file-item[data-syn-state="complete"] { --syn-file-edge: var(--syn-success); }
+    &.syn-file-item[data-syn-state="failed"] { --syn-file-edge: var(--syn-danger); }
+    @media (forced-colors: active) {
+      &.syn-file-item { border-color: CanvasText; border-inline-start-color: Highlight; }
+    }
+
     /* Link each summary item to a field id; the server supplies actual errors
        and must manage focus after a failed POST. */
     &.syn-error-summary {
@@ -1393,6 +1665,34 @@
     &.syn-error-summary:focus-visible { outline: 3px solid var(--syn-focus-ring); outline-offset: 2px; }
     @media (forced-colors: active) {
       &.syn-error-summary, &.syn-result-state, &.syn-bulk-actions { border-color: CanvasText; }
+    }
+
+    /* Native form workflows: keep file input browser-owned and form actions
+       bound by the HTML form attribute, including when the footer is outside. */
+    &.syn-upload-field {
+      display: grid; gap: var(--syn-space-2); min-inline-size: 0;
+      padding: min(var(--syn-space-3), 2vw); border: 1px dashed var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-upload-field :where(input[type="file"]) { max-inline-size: 100%; min-inline-size: 0; }
+    &.syn-upload-field :where(ul) { margin: 0; padding-inline-start: min(1.25rem, 3vw); }
+    &.syn-form-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--syn-space-2);
+      position: sticky; inset-block-end: 0; z-index: 1; min-inline-size: 0;
+      margin-block-start: var(--syn-space-3); padding: var(--syn-space-2);
+      border-block-start: 1px solid var(--syn-border-default);
+      background: var(--syn-surface); color: var(--syn-text);
+    }
+    &.syn-form-actions__buttons {
+      display: flex; flex-wrap: wrap; gap: var(--syn-space-1);
+      align-items: center; min-inline-size: 0;
+    }
+
+    @media (forced-colors: active) {
+      &.syn-upload-field, &.syn-form-actions { border-color: CanvasText; }
     }
 
     /* Native pipeline view: horizontal scroll only on the board, not the page.
@@ -1459,6 +1759,50 @@
     &.syn-record-fields > div:last-child { border-block-end: 0; }
     &.syn-record-fields dt { color: var(--syn-muted); }
     &.syn-record-fields dd { min-inline-size: 0; margin: 0; overflow-wrap: anywhere; }
+
+    /* Transaction feedback is presentation only. Hosts supply actual state,
+       announcements, recovery links and authorization for retry actions. */
+    &.syn-operation-feedback {
+      --syn-operation-edge: var(--syn-border-default);
+      display: grid; gap: var(--syn-space-1); min-inline-size: 0;
+      padding: var(--syn-space-2) var(--syn-space-3);
+      border: 1px solid var(--syn-border-default);
+      border-inline-start: 4px solid var(--syn-operation-edge);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-operation-feedback > :where(h2, h3, p) { margin-block: 0; }
+    &.syn-operation-feedback[data-syn-state="pending"] { --syn-operation-edge: var(--syn-accent); }
+    &.syn-operation-feedback[data-syn-state="saved"] { --syn-operation-edge: var(--syn-success); }
+    &.syn-operation-feedback[data-syn-state="failed"] { --syn-operation-edge: var(--syn-danger); }
+    &.syn-operation-feedback[data-syn-state="conflict"] { --syn-operation-edge: var(--syn-warning); }
+    &.syn-operation-feedback[data-syn-state="unsaved"] { --syn-operation-edge: var(--syn-muted); }
+
+    /* Before/after pairs nest in an existing dd, table cell or review panel.
+       Textual labels and native del/ins semantics carry meaning without color. */
+    &.syn-change-pair {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+      gap: var(--syn-space-2); min-inline-size: 0;
+    }
+    &.syn-change-before, &.syn-change-after {
+      display: grid; align-content: start; gap: .25rem;
+      min-inline-size: 0; padding: .55rem .7rem;
+      border: 1px solid var(--syn-border-subtle);
+      border-inline-start: 3px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-change-after { border-inline-start-color: var(--syn-accent); }
+    &.syn-change-pair :is(del, ins) { text-decoration: none; overflow-wrap: anywhere; }
+    &.syn-change-pair small { color: var(--syn-muted); font-size: var(--syn-type-xs); }
+    @media (forced-colors: active) {
+      &.syn-operation-feedback { border-color: CanvasText; border-inline-start-color: Highlight; }
+      &.syn-change-before { border-color: CanvasText; }
+      &.syn-change-after { border-color: CanvasText; border-inline-start-color: Highlight; }
+    }
 
     /* Business/marketing: typography and hierarchy without forcing a dark look. */
     &.syn-site-hero {
@@ -1560,7 +1904,7 @@
     &.syn-page-header {
       display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between;
       gap: var(--syn-space-2) var(--syn-space-4); margin-block-end: var(--syn-space-4);
-      min-width: 0;
+      min-width: 0; overflow-wrap: anywhere;
     }
     &.syn-page-header > :first-child { min-width: min(100%, 18rem); flex: 1 1 24rem; }
     &.syn-page-header__meta {
@@ -1592,6 +1936,13 @@
       border-radius: var(--syn-radius); background: var(--syn-surface-floating);
       color: var(--syn-text); box-shadow: var(--syn-shadow-overlay);
     }
+    /* Reuse visual command styles in an opt-in native dialog. No default JS. */
+    &.syn-command-panel:where(dialog) {
+      box-sizing: border-box; max-inline-size: calc(100% - 2rem);
+      max-block-size: min(80dvh, 44rem); overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    &.syn-command-panel:where(dialog)::backdrop { background: rgb(0 0 0 / .55); }
     &.syn-command-panel .syn-command-search {
       padding: var(--syn-space-2); border-block-end: 1px solid var(--syn-border-subtle);
     }
@@ -1703,6 +2054,128 @@
       &.syn-surface--accent { box-shadow: none; border-block-start: 3px solid Highlight; background: Canvas; }
       &.syn-surface--lift:where(:hover, :focus-within) { box-shadow: none; }
       &.syn-terminal { forced-color-adjust: auto; }
+    }
+
+    /* Native collection-view navigation: server owns which view is current. */
+    &.syn-view-switcher {
+      display: inline-flex; flex-wrap: wrap; align-items: center;
+      gap: .2rem; min-inline-size: 0; padding: .2rem;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); background: var(--syn-surface-recessed);
+    }
+    &.syn-view-switcher > :is(a, button) {
+      display: inline-flex; justify-content: center; align-items: center;
+      min-inline-size: 0; overflow-wrap: anywhere;
+      min-block-size: 2.75rem; padding: .45rem .8rem;
+      border: 1px solid transparent; border-radius: var(--syn-radius);
+      background: transparent; color: var(--syn-muted);
+      font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui);
+      text-align: center; text-decoration: none; cursor: pointer;
+    }
+    &.syn-view-switcher > :is(a[aria-current="page"], button[aria-pressed="true"]) {
+      border-color: var(--syn-border-default); background: var(--syn-surface);
+      color: var(--syn-text); box-shadow: var(--syn-shadow-sm);
+    }
+    &.syn-view-switcher > :is(a, button):focus-visible {
+      outline: 3px solid var(--syn-focus-ring); outline-offset: 1px;
+    }
+    &.syn-view-switcher > button:disabled { cursor: not-allowed; opacity: .55; }
+
+    /* Off-canvas presentation for native popover or dialog. No JS focus trap. */
+    &.syn-sheet {
+      position: fixed; inset: 0 0 0 auto; margin: 0 0 0 auto;
+      box-sizing: border-box; inline-size: min(100%, var(--syn-sheet-width, 30rem));
+      max-inline-size: 100%; block-size: 100dvh; max-block-size: 100dvh;
+      padding: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior-y: contain;
+      border: 1px solid var(--syn-border-default); border-inline-start-width: 2px;
+      border-radius: 0; background: var(--syn-surface); color: var(--syn-text);
+      box-shadow: var(--syn-shadow-overlay);
+    }
+    &.syn-sheet:is(dialog:not([open]), [popover]:not(:popover-open)) { display: none; }
+    &.syn-sheet:is(dialog[open], :popover-open) {
+      /* Reserve a usable scroll region even when zoomed header/footer exceed the viewport.
+         The sheet itself scrolls to keep the footer reachable in that case. */
+      display: grid; grid-template-rows: auto minmax(min(12rem, 50dvh), 1fr) auto;
+    }
+    &.syn-sheet::backdrop { background: rgb(0 0 0 / .5); }
+    &.syn-sheet-header, &.syn-sheet-footer {
+      display: flex; align-items: start; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--syn-space-2);
+      padding: var(--syn-space-3); min-inline-size: 0;
+      background: var(--syn-surface); color: var(--syn-text);
+    }
+    &.syn-sheet-header { border-block-end: 1px solid var(--syn-border-subtle); }
+    &.syn-sheet-header > :first-child { min-inline-size: 0; flex: 1 1 12rem; }
+    &.syn-sheet-header :is(h2, h3, p) { margin-block: 0 .3rem; overflow-wrap: anywhere; }
+    &.syn-sheet-body {
+      overflow-y: auto; min-block-size: 0; min-inline-size: 0;
+      padding: var(--syn-space-3);
+    }
+    &.syn-sheet-body:focus-visible {
+      outline: 3px solid var(--syn-focus-ring); outline-offset: -3px;
+    }
+    &.syn-sheet-footer {
+      align-items: center; border-block-start: 1px solid var(--syn-border-subtle);
+    }
+
+    /* Evidence records: useful for inspections, reviews and asset previews. */
+    &.syn-evidence-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+      align-items: stretch; gap: var(--syn-space-3); min-inline-size: 0;
+    }
+    &.syn-evidence-card {
+      display: flex; flex-direction: column; min-inline-size: 0; margin: 0;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); background: var(--syn-surface);
+      color: var(--syn-text); overflow: hidden;
+    }
+    &.syn-evidence-card:focus-within {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    &.syn-evidence-media {
+      display: grid; place-items: center; aspect-ratio: 16 / 9;
+      min-inline-size: 0; overflow: hidden;
+      overflow-wrap: anywhere; background: var(--syn-surface-recessed);
+      color: var(--syn-muted); text-align: center; font-size: var(--syn-type-sm);
+    }
+    &.syn-evidence-media--placeholder {
+      aspect-ratio: auto; min-block-size: 8rem;
+      padding: clamp(.5rem, 2vw, var(--syn-space-2));
+      overflow-wrap: anywhere; box-sizing: border-box;
+    }
+    &.syn-evidence-media :is(img, svg) {
+      display: block; inline-size: 100%; block-size: 100%; object-fit: cover;
+    }
+    &.syn-evidence-body {
+      display: grid; gap: var(--syn-space-2); min-inline-size: 0;
+      padding: clamp(.5rem, 2vw, var(--syn-space-3)); overflow-wrap: anywhere;
+    }
+    &.syn-evidence-body .syn-status { white-space: normal; overflow-wrap: anywhere; }
+    &.syn-evidence-body > :first-child { margin-block-start: 0; }
+    &.syn-evidence-body > :last-child { margin-block-end: 0; }
+    &.syn-evidence-meta { display: grid; gap: .4rem; min-inline-size: 0; margin: 0; }
+    &.syn-evidence-meta > div {
+      display: grid; grid-template-columns: minmax(0, 6rem) minmax(0, 1fr);
+      gap: var(--syn-space-1); min-inline-size: 0; overflow-wrap: anywhere;
+    }
+    &.syn-evidence-meta dt { color: var(--syn-muted); }
+    &.syn-evidence-meta dd { min-inline-size: 0; margin: 0; font-weight: 600; }
+    &.syn-evidence-actions { display: flex; flex-wrap: wrap; gap: var(--syn-space-1); }
+    @media (max-width: 30rem) {
+      &.syn-sheet { inline-size: 100%; }
+      &.syn-evidence-meta > div { grid-template-columns: minmax(0, 1fr); }
+      &.syn-view-switcher { max-inline-size: 100%; }
+      &.syn-view-switcher > :is(a, button) {
+        flex: 1 1 100%; padding-inline: min(.8rem, 10px);
+      }
+    }
+    @media (forced-colors: active) {
+      &.syn-sheet, &.syn-evidence-card, &.syn-view-switcher {
+        border-color: CanvasText; box-shadow: none;
+      }
+      &.syn-view-switcher > :is(a[aria-current="page"], button[aria-pressed="true"]) {
+        border-color: Highlight; box-shadow: inset 0 -3px Highlight;
+      }
     }
   }
 }
@@ -2036,6 +2509,181 @@
           }
         }
       }
+    }
+  }
+
+  /* Website-block effects: baseline remains visible and motion is opt-in. */
+  @keyframes syn-block-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes syn-block-rise {
+    from { opacity: 0; translate: 0 var(--syn-block-reveal-distance, 1.5rem); }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes syn-block-slide-left {
+    from { opacity: 0; translate: var(--syn-block-reveal-distance, 1.5rem) 0; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes syn-block-slide-right {
+    from { opacity: 0; translate: calc(-1 * var(--syn-block-reveal-distance, 1.5rem)) 0; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes syn-block-zoom {
+    from { opacity: 0; scale: var(--syn-block-reveal-scale, .94); }
+    to { opacity: 1; scale: 1; }
+  }
+  @keyframes syn-parallax-shift {
+    from { translate: 0 var(--syn-parallax-travel, 2.5rem); }
+    to { translate: 0 calc(-1 * var(--syn-parallax-travel, 2.5rem)); }
+  }
+
+  /* Overscan the media inside a clipped stacking context; keep text in flow. */
+  :where(.syn-root[data-syn-parallax], .syn-root [data-syn-parallax]) {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+  :where(.syn-root[data-syn-parallax], .syn-root [data-syn-parallax]) > [data-syn-parallax-layer] {
+    position: absolute;
+    inset-inline: 0;
+    inset-block: calc(-1 * var(--syn-parallax-travel, 2.5rem));
+    inline-size: 100%;
+    block-size: calc(100% + 2 * var(--syn-parallax-travel, 2.5rem));
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+  :where(.syn-root[data-syn-parallax], .syn-root [data-syn-parallax]) > [data-syn-parallax-content] {
+    position: relative;
+    z-index: 1;
+  }
+  :where(.syn-root[data-syn-hover="zoom"], .syn-root [data-syn-hover="zoom"]) {
+    overflow: clip;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Native view timelines only: older browsers keep visible static content. */
+    @supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%) {
+      :where(.syn-root[data-syn-scroll], .syn-root [data-syn-scroll]) {
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+      :where(.syn-root[data-syn-scroll="fade"], .syn-root [data-syn-scroll="fade"]) {
+        animation-name: syn-block-fade;
+      }
+      :where(.syn-root[data-syn-scroll="rise"], .syn-root [data-syn-scroll="rise"]) {
+        animation-name: syn-block-rise;
+      }
+      :where(.syn-root[data-syn-scroll="slide-left"], .syn-root [data-syn-scroll="slide-left"]) {
+        animation-name: syn-block-slide-left;
+      }
+      :where(.syn-root[data-syn-scroll="slide-right"], .syn-root [data-syn-scroll="slide-right"]) {
+        animation-name: syn-block-slide-right;
+      }
+      :where(.syn-root[data-syn-scroll="zoom"], .syn-root [data-syn-scroll="zoom"]) {
+        animation-name: syn-block-zoom;
+      }
+    }
+    @supports (view-timeline-name: --syn-parallax) and (animation-timeline: --syn-parallax) {
+      :where(.syn-root[data-syn-parallax], .syn-root [data-syn-parallax]) {
+        view-timeline-name: --syn-parallax;
+        view-timeline-axis: block;
+      }
+      :where(.syn-root[data-syn-parallax], .syn-root [data-syn-parallax]) > [data-syn-parallax-layer] {
+        animation: syn-parallax-shift 1s linear both;
+        animation-timeline: --syn-parallax;
+        animation-range: cover 0% cover 100%;
+      }
+    }
+    @media (hover: hover) and (pointer: fine) {
+      :where(.syn-root[data-syn-hover="zoom"], .syn-root [data-syn-hover="zoom"]) [data-syn-hover-media] {
+        transition: scale var(--syn-motion-duration, 220ms) var(--syn-ease-out, ease-out);
+      }
+      :where(.syn-root[data-syn-hover="zoom"]:hover, .syn-root[data-syn-hover="zoom"]:focus-within,
+             .syn-root [data-syn-hover="zoom"]:hover, .syn-root [data-syn-hover="zoom"]:focus-within) [data-syn-hover-media] {
+        scale: var(--syn-hover-zoom, 1.06);
+      }
+    }
+  }
+
+  /* Reuse the static syn-gradient-wash from effects.css; never animate core. */
+  @keyframes syn-gradient-drift {
+    from { translate: -4% 0; }
+    to { translate: 4% 0; }
+  }
+  @keyframes syn-text-glint {
+    from { background-position: 100% 50%; }
+    to { background-position: 0 50%; }
+  }
+  @keyframes syn-text-underline {
+    from { text-decoration-color: transparent; }
+    to { text-decoration-color: var(--syn-accent); }
+  }
+
+  :where(.syn-root.syn-gradient-wash[data-syn-gradient="drift"],
+         .syn-root .syn-gradient-wash[data-syn-gradient="drift"]) {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+  /* Position ordinary content above the decorative gradient overlay. */
+  :where(.syn-root.syn-gradient-wash[data-syn-gradient="drift"],
+         .syn-root .syn-gradient-wash[data-syn-gradient="drift"]) > [data-syn-gradient-content] {
+    position: relative;
+    z-index: 1;
+  }
+  :where(.syn-root[data-syn-text="underline"], .syn-root [data-syn-text="underline"]) {
+    text-decoration-line: underline;
+    text-decoration-thickness: .1em;
+    text-decoration-color: var(--syn-accent);
+    text-underline-offset: .18em;
+  }
+  @media (prefers-reduced-motion: no-preference) and (prefers-contrast: no-preference) and (forced-colors: none) {
+    :where(.syn-root.syn-gradient-wash[data-syn-gradient="drift"],
+           .syn-root .syn-gradient-wash[data-syn-gradient="drift"])::before {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 30% 40%,
+          color-mix(in srgb, var(--syn-accent) 14%, transparent), transparent 55%),
+        radial-gradient(ellipse at 70% 65%,
+          color-mix(in srgb, var(--syn-accent-2) 12%, transparent), transparent 58%);
+      animation: syn-gradient-drift var(--syn-gradient-drift-duration, 14s) ease-in-out infinite alternate;
+    }
+    @supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%) {
+      :where(.syn-root[data-syn-text="underline"], .syn-root [data-syn-text="underline"]) {
+        animation: syn-text-underline 1s linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    }
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+      :where(.syn-root[data-syn-text="glint"], .syn-root [data-syn-text="glint"]) {
+        background-image: linear-gradient(105deg,
+          var(--syn-text) 28%, var(--syn-accent) 48%, var(--syn-text) 68%);
+        background-size: 240% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: syn-text-glint var(--syn-text-glint-duration, 9s) linear infinite alternate;
+      }
+    }
+  }
+  /* Do not leave text transparent or override contrast-enhanced browser colors. */
+  @media (forced-colors: active) {
+    :where(.syn-root[data-syn-text="glint"], .syn-root [data-syn-text="glint"]) {
+      background: none;
+      color: CanvasText;
+    }
+    :where(.syn-root[data-syn-text="underline"], .syn-root [data-syn-text="underline"]) {
+      text-decoration-color: CanvasText;
     }
   }
 }

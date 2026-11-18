@@ -8,6 +8,9 @@ smallest working application must need only a local stylesheet and HTML.
 
 1. **Zero CSS runtime dependencies:** no required JavaScript, package manager,
    network fonts, icons, CDN, server, or compiler for consumers.
+   Shipped CSS source cannot use `@import` or reference host/network assets via
+   `url(...)`; bundled data URLs and local SVG fragment references are permitted.
+   These constraints make a pinned, self-hosted stylesheet truly standalone.
 2. **One styling contract:** public selectors use `syn-*`, custom properties
    `--syn-*`, and state/theme attributes `data-syn-*` (with semantic ARIA and
    native HTML states where appropriate). Avoid competing ways to express the
@@ -104,9 +107,12 @@ source inclusion inside a bundle. Components and optional recipes cannot branch 
 `data-syn-theme` or rely on `!important`; palette variations belong in token
 declarations and cascade layers resolve normal precedence. Only tokens and
 existing base, print, and viz theme-context rules may select themed regions. The existing
-`base.css` reduced-motion accessibility exception remains intact.
-`maintenance_policy.py` enforces these rules without CSS compilation or byte
-ceilings.
+`base.css` reduced-motion accessibility exception is confined to the three
+approved scroll/transition/animation overrides inside the reduced-motion media
+query. Every `var(--syn-*)` reference must either resolve to a declared source
+property or supply its own fallback, so a typo does not silently invalidate a
+component declaration. `maintenance_policy.py` enforces these rules without CSS
+compilation or byte ceilings.
 
 Prefer removing duplicate rules and simplifying variants before adding new
 features. Do not add a CSS compiler, framework runtime, NPM dependency,
@@ -147,6 +153,44 @@ constructs in `src/`; package contracts reject install-time/runtime framework
 dependencies. These checks cannot judge whether a new class was necessary:
 that **composition decision remains a required human PR review**, not a
 pretense of automated design quality.
+
+## Maintenance surface and test ownership
+
+CSS source under `src/` and the manifest in `scripts/build.py` are the canonical
+implementation. `dist/`, editor metadata, HTML renderings of Markdown guides,
+and `llms-full.txt` are reproducible outputs: **never manually fork them**.
+Keep `docs/components.md` authoritative for component usage,
+`docs/api-stability.md` for compatibility, `docs/theme-customization.md` for
+tokens, and `docs/framework-integrations.md` for shared adapter rules. A
+framework-specific guide should explain only what is distinct and link to
+these canonical references rather than duplicating the whole CSS contract.
+
+Regression tests should protect **current behavior**, independent of the alpha
+release that first introduced it. Consolidate obsolete version-named tests
+into behavior-oriented suites as they are touched; preserve unique regressions
+and release immutability tests. Commercial pricing and internal business notes
+are not part of the CSS API; their tests belong with commercial publication
+safeguards, not the core compatibility suite. Avoid adding a separate test
+module for every minor visual variation.
+
+Validation is proportional to impact, never weaker for a release:
+
+- **All PRs and main pushes:** deterministic CSS, contract, site, packaging,
+  security and standard-library test checks remain in the universal Woodpecker
+  quality workflow, plus merge-candidate validation for PRs.
+- **Relevant CSS/consumer changes:** the existing Node/React/Next adoption
+  workflow keeps its status context but conditionally runs its npm step only
+  for changed CSS, adapter, build, or consumer-fixture paths. Manual execution
+  is always available. A skipped step is **not** evidence of executed tests.
+- **Release candidates:** run the full three-engine browser/reflow matrix,
+  accessibility checks and all relevant consumer builds, including any
+  path-skipped PR tests. Manual screen-reader, contrast, native forced-colors,
+  real zoom, and release-owner approval cannot be replaced with green CI.
+
+When optional tooling becomes unmaintained, retire its documentation and tests
+only alongside a recorded replacement or removal decision; do not introduce
+another generator, manifest or CI runtime merely to track maintenance metrics.
+Review API additions, duplicated docs, and test scope in normal PR review.
 
 ## Zero-runtime presets and distribution integrity
 

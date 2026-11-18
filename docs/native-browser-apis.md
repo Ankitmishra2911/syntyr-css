@@ -93,7 +93,7 @@ are labelable, native `popovertarget`/`commandfor` targets exist, and
 `<dialog>`. Popover command events may dispatch on HTML targets without a
 `popover` attribute; unlike `popovertarget`, this is not an error. It also catches
 `<summary>` outside a direct `<details>` parent and image submit controls
-without useful `alt` text. These are **HTML correctness** checks; no Syntyr
+without an accessible name. These are **HTML correctness** checks; no Syntyr
 class is necessary. The checker deliberately leaves references in fragments
 and dynamic templates to the consuming application, and allows custom-element
 commands without guessing their behavior.
