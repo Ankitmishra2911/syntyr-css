@@ -500,5 +500,7 @@ implement step navigation, eligibility checks or server-side transitions.
 Long step descriptions and translated text keep numbered markers aligned at the
 block start so vertical connectors do not cross the marker or its numeral.
 
-See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
-are not included in the published immutable alpha.4 release.
+See [the zero-JavaScript example](../examples/workflow-steps.html) and the
+[composed operations workflow gallery](../examples/workflow-operations.html), which
+reuses these steps with existing activity timelines and approval surfaces.
+These classes are not included in the published immutable alpha.4 release.
