@@ -20,6 +20,11 @@ class ResourceOutlineContract(unittest.TestCase):
         self.assertIn("min-block-size: 2.75rem;", css)
         self.assertNotIn(".syn-resource-outline", source("dist/syntyr.core.css"))
 
+    def test_nested_indent_is_capped_for_high_zoom(self):
+        css = source("src/native-recipes.css")
+        self.assertIn("margin-inline-start: min(var(--syn-outline-indent, .8rem), 2vw);", css)
+        self.assertIn("padding-inline-start: min(var(--syn-space-2), 2vw);", css)
+
     def test_native_no_js_hierarchy_and_link_navigation(self):
         html = source("examples/resource-outline.html")
         self.assertIn('class="syn-root"', html)
@@ -31,6 +36,28 @@ class ResourceOutlineContract(unittest.TestCase):
         self.assertIn('href="#campaign-402"', html)
         self.assertNotIn('role="tree"', html)
         self.assertNotIn("<script", html)
+
+    def test_mobile_navigation_exposes_the_same_resource_route(self):
+        from html.parser import HTMLParser
+        class NavLinks(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.nav = None
+                self.routes = {"Main navigation": [], "Mobile navigation": []}
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if tag == "nav" and attrs.get("aria-label") in self.routes:
+                    self.nav = attrs["aria-label"]
+                if tag == "a" and self.nav and attrs.get("href"):
+                    self.routes[self.nav].append(attrs["href"])
+            def handle_endtag(self, tag):
+                if tag == "nav":
+                    self.nav = None
+        parser = NavLinks()
+        parser.feed(source("docs/index.html"))
+        href = "../examples/resource-outline.html"
+        self.assertIn(href, parser.routes["Main navigation"])
+        self.assertIn(href, parser.routes["Mobile navigation"])
 
     def test_offline_release_contains_linked_demo(self):
         from scripts.package_release import FILES

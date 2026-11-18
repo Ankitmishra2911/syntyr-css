@@ -1989,8 +1989,10 @@
     list-style: none;
   }
   :where(.syn-root.syn-resource-outline, .syn-root .syn-resource-outline) ul ul {
-    margin-inline-start: var(--syn-outline-indent, .8rem);
-    padding-inline-start: var(--syn-space-2);
+    /* Cap nesting at narrow/zoomed viewports; rem-only indents overflow
+       when a user enlarges root text and navigates deeply nested records. */
+    margin-inline-start: min(var(--syn-outline-indent, .8rem), 2vw);
+    padding-inline-start: min(var(--syn-space-2), 2vw);
     border-inline-start: 1px solid var(--syn-frame);
   }
   :where(.syn-root.syn-resource-outline, .syn-root .syn-resource-outline) li {
