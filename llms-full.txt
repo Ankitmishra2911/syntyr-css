@@ -1337,6 +1337,18 @@ The optional recipes stylesheet contains `.syn-collection-toolbar`, `.syn-collec
 
 The example is illustrative, **not a configured server**. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.
 
+## Native query filters and record review (alpha.5 source candidate)
+
+The [copy-owned filter and review composition](../examples/query-review.html)
+reuses `.syn-filter-bar`, `.syn-filter-choices`, `.syn-chip`,
+and `dl.syn-record-fields`. The example is a **static server-rendered snapshot**;
+it does not filter results or perform edits without a host application.
+
+- Submit labelled controls with a native `method="get"` form. The server must validate the query and re-render selected values, counts, and the matching results.
+- Render each removable filter as a real link that drops exactly one encoded query parameter while preserving the others. Use descriptive accessible names, not icon-only removal affordances. The server must generate these URLs from validated state.
+- Review record details as `dl` / `dt` / `dd` pairs and use Edit links to disabled example fields in this static snapshot; hosts must substitute real, authorized edit routes. Never style a static text value as a working editable field.
+- Filtering, authorization, permissions, mutations, and persistence belong to the host. These composition classes add **no new core CSS or mandatory JavaScript**.
+
 ## Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)
 
 The optional `syntyr.recipes.css` also includes reusable patterns tested against
