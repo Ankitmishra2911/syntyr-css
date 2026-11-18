@@ -124,6 +124,14 @@ class GeoContract(unittest.TestCase):
         self.assertIn("--syn-geo-point", (ROOT / "metadata/syntyr.css-custom-data.json").read_text())
         self.assertIn("docs/geo.md", (ROOT / "llms.txt").read_text())
 
+    def test_packaged_demo_integration_guide_link_is_present_in_release(self):
+        from scripts.package_release import FILES
+        html = (ROOT / "examples/geo.html").read_text()
+        self.assertIn("examples/geo.html", FILES)
+        self.assertIn("docs/geo.md", FILES)
+        self.assertIn('href="../docs/geo.md"', html)
+        self.assertNotIn('href="../docs/geo.html"', html)
+
     def test_live_maplibre_smoke_is_dev_only(self):
         harness = (ROOT / "tests/geo_maplibre_browser.mjs").read_text()
         fixture = (ROOT / "tests/fixtures/geo-maplibre.html").read_text()
