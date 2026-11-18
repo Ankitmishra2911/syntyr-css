@@ -506,6 +506,8 @@
       overflow-y: auto;
     }
     /* Preserve native pickers and keyboard behavior; no replacement controls. */
+    /* Leave sufficient inline-end room for native search clear controls. */
+    &.syn-input[type="search"] { min-inline-size: 0; padding-inline-end: 2.25rem; }
     &.syn-input[type="range"] {
       padding: 0; border: 0; background: transparent;
       accent-color: var(--syn-accent); cursor: pointer;
@@ -1321,6 +1323,17 @@
     max-inline-size: 100%;
     color: var(--syn-text);
     font: inherit;
+  }
+  /* Browsers often paint file inputs without a visible border: ensure the
+     invalid indication survives as a full logical border around the control. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="file"]:not([class]), input[type="file"][data-syn-semantic])):where(:user-invalid, [aria-invalid="true"]) {
+    border: 1px solid var(--syn-danger);
+    border-radius: var(--syn-radius);
+  }
+  /* Preserve native search clear affordances with direction-aware spacing. */
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="search"]:not([class]), input[type="search"][data-syn-semantic])) {
+    min-inline-size: 0;
+    padding-inline-end: 2.25rem;
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="file"]:not([class]), input[type="file"][data-syn-semantic]))::file-selector-button {
     min-block-size: var(--syn-control-height);

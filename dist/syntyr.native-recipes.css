@@ -30,7 +30,11 @@
   :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating):dir(rtl) > .syn-floating-label {
     transform-origin: right top;
   }
-  :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)) + .syn-floating-label {
+  /* Keep input-first markup as a fallback, and use :has() to support
+     label-first order without duplicating an accessible label. */
+  :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)) + .syn-floating-label,
+  :where(.syn-root.syn-field--floating:has(> :is(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown))),
+         .syn-root .syn-field--floating:has(> :is(.syn-input, .syn-textarea):is(:focus, :not(:placeholder-shown)))) > .syn-floating-label {
     transform: translateY(-.62rem) scale(.82);
     color: var(--syn-text);
   }
@@ -38,8 +42,8 @@
 
   /* At narrow container sizes (including enlarged root text), restore a
      persistent full-width label above the input. No JS or aria changes.
-     The label follows the input in source for :placeholder-shown support;
-     grid placement makes the visible order match a conventional form. */
+     Named grid rows work with both label-first and input-first markup;
+     browsers without :has() retain input-first animation. */
   @container syn-floating-field (max-width: 21rem) {
     :where(.syn-root.syn-field--floating, .syn-root .syn-field--floating) > :where(.syn-input, .syn-textarea) {
       grid-row: 2;
