@@ -358,6 +358,10 @@
       "description": "Foreground color for the primary accent."
     },
     {
+      "name": "--syn-operation-edge",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
       "name": "--syn-panel-border-width",
       "description": "Per-panel border width; defaults to 1px."
     },
@@ -540,6 +544,10 @@
     {
       "name": "--syn-wash-secondary-alpha",
       "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "description": "Syntyr CSS property (recipes.css)."
     }
   ]
 }

@@ -187,6 +187,21 @@
       "description": "Syntyr CSS class (components/data.css)."
     },
     {
+      "name": "syn-change-after",
+      "module": "recipes.css",
+      "description": "Updated or added revision value with visible text label."
+    },
+    {
+      "name": "syn-change-before",
+      "module": "recipes.css",
+      "description": "Previous or removed revision value with visible text label."
+    },
+    {
+      "name": "syn-change-pair",
+      "module": "recipes.css",
+      "description": "Responsive before/after value pair for existing semantic record fields."
+    },
+    {
       "name": "syn-chart",
       "module": "viz.css",
       "description": "Syntyr CSS class (viz.css)."
@@ -992,6 +1007,11 @@
       "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
+      "name": "syn-operation-feedback",
+      "module": "recipes.css",
+      "description": "Optional host-managed operation feedback with truthful state text."
+    },
+    {
       "name": "syn-page",
       "module": "base.css",
       "description": "Syntyr CSS class (base.css)."
@@ -1115,6 +1135,26 @@
       "name": "syn-region",
       "module": "components/patterns.css",
       "description": "Container query boundary for responsive compositions."
+    },
+    {
+      "name": "syn-resizable-workspace",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__pane",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__panes",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__separator",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-resource-outline",
@@ -2144,6 +2184,11 @@
       "description": "Foreground color for the primary accent."
     },
     {
+      "name": "--syn-operation-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
       "name": "--syn-panel-border-width",
       "module": "components/layout.css",
       "description": "Per-panel border width; defaults to 1px."
@@ -2372,6 +2417,11 @@
       "name": "--syn-wash-secondary-alpha",
       "module": "tokens.css",
       "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
     }
   ],
   "themes": [

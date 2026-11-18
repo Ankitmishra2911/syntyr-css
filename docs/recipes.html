@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="2697325fb5f58e7786b853e780d3da67a7f0c2bddee5564008fed4208634af6b">
+  <meta name="syntyr-source-sha256" content="93e318a1699b00de773dd779946b029c33450c84901f165a6e5f746740930e53">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -151,6 +151,89 @@ All spacing remains controlled by ordinary CSS custom properties.</p>
 &lt;/section&gt;
 </code></pre>
 <p>The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.</p>
+<h2 id="resizable-workspace-optional-behavior">Resizable workspace (optional behavior)</h2>
+<p>The <strong>Resizable workspace</strong> composition is separate from the existing
+<code>.syn-split</code> (which is simply a responsive two-column grid). Load
+<code>syntyr.core.css</code> and <code>syntyr.recipes.css</code> for
+<code>.syn-resizable-workspace</code>, <code>.syn-resizable-workspace__panes</code>,
+<code>.syn-resizable-workspace__pane</code> and
+<code>.syn-resizable-workspace__separator</code>. The <code>--syn-workspace-leading</code> CSS
+property expresses the first pane's share. Without JavaScript the two panes
+remain readable and the inert separator is hidden.</p>
+<p><a href="../examples/resizable-workspace.html">Runnable example</a> includes a
+<strong>copy-owned, optional</strong> module with pointer capture and keyboard support.
+It enables the separator only after initialization and keeps
+<code>aria-valuenow</code> synchronized with the visible split. Arrow Left/Right move
+by 2 percentage points (Shift: 10), with Home/End for bounds (20–70).
+The example respects RTL and stacks its panes when its <strong>own container</strong>
+is narrow; the separator is hidden in the stacked layout. No storage,
+network requests or global event listeners are required.</p>
+<p><strong>Running the packaged interactive demo:</strong> Extract the ZIP, change into its
+top-level <code>syntyr-css-&lt;version&gt;</code> directory, and serve the local assets over
+HTTP (not <code>file://</code>, which blocks relative module scripts in browsers):</p>
+<pre><code class="language-sh">python3 -m http.server 8000 --bind 127.0.0.1
+</code></pre>
+<p>Open <code>http://127.0.0.1:8000/examples/resizable-workspace.html</code>.
+A <code>file://</code> launch still shows the static two-pane fallback; drag and
+keyboard resizing require the local module to load over HTTP. Stop the
+server with Ctrl-C. No external network requests are needed.</p>
+<p>The resize value and user preference are <strong>application-owned</strong>: persistence,
+server rendering, saved layouts, authorization, and responsive restoration
+belong to the consuming application. A live client must keep the
+separator's ARIA bounds, visible panel sizes and keyboard/pointer behavior in
+sync. The script is demonstrative, <strong>not</strong> part of the zero-JS CSS runtime.
+Test real zoom, touch, forced colors, keyboard and screen-reader support
+before production use.</p>
+<h2 id="operation-feedback-and-record-revisions-alpha5-source-candidate">Operation feedback and record revisions (alpha.5 source candidate)</h2>
+<p>The optional <code>syntyr.recipes.css</code> provides <strong>two presentation patterns</strong>, not a
+transaction state machine or history service. <a href="../examples/operation-revisions.html">View the static example</a>.</p>
+<ul>
+<li><strong>Operation feedback:</strong> use <code>.syn-operation-feedback</code> and an actual
+<code>data-syn-state=&quot;unsaved|pending|saved|failed|conflict&quot;</code>. All five states use
+explicit textual headings and supporting details, not color alone.
+<code>--syn-operation-edge</code> can be overridden per instance if the host's palette
+needs a different border; do not interpret these colors as business results.</li>
+<li><strong>Record revisions:</strong> keep the existing <code>dl.syn-record-fields</code> and place
+<code>.syn-change-pair</code> inside a <code>dd</code>. Its optional <code>.syn-change-before</code> and
+<code>.syn-change-after</code> children wrap at narrow widths, including when embedded
+in a sidebar. Use visible &quot;Previous&quot;, &quot;Updated&quot;, &quot;Added&quot; or &quot;Removed&quot; labels
+with native <code>del</code>/<code>ins</code> elements. Omit the absent side for additions/removals;
+don't manufacture a previous value. The same pair may appear in a table cell
+or review panel; no duplicate definition-list component is needed.</li>
+</ul>
+<p>At extreme user text sizes, the <code>syn-page-header</code> and <code>syn-app-card</code>
+compositions allow long words and dates to wrap instead of expanding the viewport.
+The optional developer-only browser smoke test (tests/operation_revisions_browser.js)
+covers reflow, keyboard focus and forced colors in Playwright. Enlarging root
+text is a stress test, <strong>not</strong> proof of native 400% browser zoom or a manual
+screen-reader audit.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;section class=&quot;syn-operation-feedback&quot; data-syn-state=&quot;conflict&quot;
+       aria-labelledby=&quot;revision-conflict&quot;&gt;
+    &lt;h2 id=&quot;revision-conflict&quot;&gt;Someone updated this record&lt;/h2&gt;
+    &lt;p&gt;Review their changes before submitting a new version.&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;dl class=&quot;syn-record-fields&quot;&gt;
+    &lt;div&gt;&lt;dt&gt;Campaign name&lt;/dt&gt;&lt;dd&gt;&lt;div class=&quot;syn-change-pair&quot;&gt;
+      &lt;span class=&quot;syn-change-before&quot;&gt;&lt;small&gt;Previous&lt;/small&gt;&lt;del&gt;Fall&lt;/del&gt;&lt;/span&gt;
+      &lt;span class=&quot;syn-change-after&quot;&gt;&lt;small&gt;Updated&lt;/small&gt;&lt;ins&gt;Winter&lt;/ins&gt;&lt;/span&gt;
+    &lt;/div&gt;&lt;/dd&gt;&lt;/div&gt;
+  &lt;/dl&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Host behavior contract:</strong> Render the state <strong>only when it is true</strong>. A pending
+request requires the host to manage loading and submission controls; &quot;saved&quot;
+requires a confirmed server response, not an optimistic assumption. On
+failure preserve inputs; on conflict enforce record version checking
+(e.g., ETag/If-Match or an optimistic lock), offer a real comparison/reload
+path, and never overwrite concurrently edited data without policy checks.
+Authorize mutations, protect against CSRF where applicable, and record audit
+history on the server. For asynchronous updates, create a persistent
+<code>role=&quot;status&quot;</code> region before updating its content, and use <code>role=&quot;alert&quot;</code>
+only when immediate interruption is justified; <strong>the static gallery does not
+claim any live announcements</strong>. CSS cannot retry requests, manage focus,
+detect stale versions, or persist records. Test the integration at 320 CSS
+pixels, 400% zoom, keyboard-only navigation, screen readers and forced colors.</p>
 <h2 id="file-selection-and-lifecycle-presentation-alpha5-source-candidate">File selection and lifecycle presentation (alpha.5 source candidate)</h2>
 <p>Use the existing native file input (<code>.syn-input[type=&quot;file&quot;]</code>) with a real
 <code>label</code>, then load optional <code>syntyr.recipes.css</code> for an ordered
@@ -416,6 +499,8 @@ not a JavaScript permissions widget or a substitute for authorization.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-stateful-native-button-host-controlled">4. Stateful native button (host controlled)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#token-only-custom-theme">Token-only custom theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#crm-and-vertical-saas-patterns-alpha5-source-candidate">CRM and vertical SaaS patterns (alpha.5 source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#resizable-workspace-optional-behavior">Resizable workspace (optional behavior)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#operation-feedback-and-record-revisions-alpha5-source-candidate">Operation feedback and record revisions (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#file-selection-and-lifecycle-presentation-alpha5-source-candidate">File selection and lifecycle presentation (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reusing-recipes-across-stacks">Reusing recipes across stacks</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
