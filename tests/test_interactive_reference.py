@@ -22,9 +22,12 @@ class InteractiveReferenceTests(unittest.TestCase):
         self.assertEqual(len({entry["id"] for entry in entries}), len(entries))
         self.assertTrue(any(item["title"] == "Buttons" for item in entries))
         catalog = (ROOT / "docs/catalog.html").read_text()
+        blocks = (ROOT / "docs/blocks.html").read_text()
         for entry in entries:
-            self.assertIn(entry["id"], catalog)
-            self.assertIn(entry["html"].replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;").splitlines()[0], catalog)
+            original = blocks if entry.get("kind") == "block" else catalog
+            identifier = entry["id"].removeprefix("block-") if entry.get("kind") == "block" else entry["id"]
+            self.assertIn(identifier, original)
+            self.assertIn(entry["html"].replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;").splitlines()[0], original)
             self.assertTrue(entry["module"].startswith("syntyr."))
             self.assertTrue(entry["description"])
 
