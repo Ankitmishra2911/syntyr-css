@@ -722,7 +722,9 @@
       gap: .65rem;
       inline-size: 100%;
       min-block-size: 2.75rem;
-      padding: .65rem .75rem;
+      padding-block: .65rem;
+      /* Cap horizontal padding when enlarged text consumes the narrow menu. */
+      padding-inline: min(.75rem, 4vw);
       margin: 0;
       border: 1px solid transparent;
       border-radius: var(--syn-radius);

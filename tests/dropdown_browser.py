@@ -61,6 +61,8 @@ def main():
                     panel = popover.bounding_box()
                     assert panel is not None and panel['x'] >= -1 and panel['x'] + panel['width'] <= 321, (name, panel)
                     for item in popover.locator('.syn-dropdown__item').all():
+                        bounds = item.bounding_box()
+                        assert bounds is not None and bounds['x'] >= -1 and bounds['x'] + bounds['width'] <= 321, (name, bounds)
                         assert item.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), (name, item.text_content())
                     page.keyboard.press('Escape')
                     assert not popover.evaluate('e => e.matches(":popover-open")')
