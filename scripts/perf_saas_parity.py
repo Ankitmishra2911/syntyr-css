@@ -202,13 +202,21 @@ def input_fingerprints(output: Path) -> dict:
     }
 
 
+def visual_anchors_for_rows(rows: int) -> tuple[str, ...]:
+    """The empty-state fixture has no table element to measure."""
+    if not 0 <= rows <= ROWS_MAX:
+        raise ValueError("invalid row count")
+    return ANCHORS if rows else ANCHORS[:-1]
+
+
 def visual_deviations(anchors: dict, *, reference: str = "plain",
-                      tolerance: float = .05) -> list[dict]:
+                      tolerance: float = .05,
+                      required: tuple[str, ...] = ANCHORS) -> list[dict]:
     if not 0 <= tolerance < 1:
         raise ValueError("invalid tolerance")
     baseline = anchors.get(reference, {})
     findings = []
-    missing = [name for name in ANCHORS if name not in baseline]
+    missing = [name for name in required if name not in baseline]
     for name in missing:
         findings.append({"framework": reference, "anchor": name, "issue": "reference missing"})
     for framework, readings in anchors.items():
@@ -247,6 +255,10 @@ def _browser_check(page, base: str, framework: str, *, rows: int,
     page.get_by_label("Search campaigns").fill("Customer 0004")
     page.get_by_label("Search campaigns").press("Enter")
     expect(page.locator('tbody tr')).to_have_count(1 if rows > 4 else 0)
+    if rows > 4:
+        row = page.locator('tbody tr').first
+        expect(row).to_contain_text("Customer 0004")
+        expect(row).to_contain_text("Campaign 0004")
     expect(page.locator('[data-bench-role="count"]')).to_contain_text(
         f"{1 if rows > 4 else 0} of {rows}")
     page.get_by_label("Search campaigns").fill("no-such-customer")
@@ -306,8 +318,11 @@ def benchmark(output: Path, *, rows: int, runs: int, browsers: list[str],
             ("chromium", "firefox", "webkit") for b in browsers):
         raise ValueError("Unknown browser or viewport")
     for name in (*FRAMEWORKS, "saas-parity"):
-        if not (output / f"{name}.css").is_file():
+        stylesheet = output / f"{name}.css"
+        if not stylesheet.is_file():
             raise FileNotFoundError(f"Missing genuine stylesheet {name}.css")
+        if stylesheet.stat().st_size == 0:
+            raise ValueError(f"empty framework stylesheet: {name}.css")
     for framework in FRAMEWORKS:
         page = output / framework / "saas.html"
         if not page.is_file() or page.read_text(encoding="utf8") != render_html(
@@ -382,7 +397,7 @@ def benchmark(output: Path, *, rows: int, runs: int, browsers: list[str],
                                         geometry[f] = behavior[f]["anchors"]
                                     finally:
                                         context.close()
-                        deviations = visual_deviations(geometry)
+                        deviations = visual_deviations(geometry, required=visual_anchors_for_rows(rows))
                         failures = [
                             f for f, result in behavior.items()
                             if result["functional_parity"] != "pass" or

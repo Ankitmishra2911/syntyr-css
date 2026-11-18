@@ -100,6 +100,39 @@ class SaaSParityContract(unittest.TestCase):
                 tool.benchmark(output, rows=21, runs=1, browsers=["chromium"],
                                viewports=["mobile"], axe_script=None, screenshots=None)
 
+    def test_empty_framework_css_is_rejected_before_benchmark(self):
+        tool = load()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            tool.generate_pages(root, rows=8)
+            for name in tool.FRAMEWORKS:
+                (root / f"{name}.css").write_text("/* fixture */")
+            (root / "syntyr.css").write_text("")
+            with self.assertRaisesRegex(ValueError, "empty|zero"):
+                tool.benchmark(root, rows=8, runs=1, browsers=["chromium"],
+                               viewports=["mobile"], axe_script=None, screenshots=None)
+
+    def test_zero_row_visual_gate_requires_only_present_anchors(self):
+        tool = load()
+        metrics = {"width": 900, "height": 80, "background": "rgb(0, 0, 0)", "font": "16px"}
+        base = {name: metrics.copy() for name in ("header", "metrics", "search")}
+        variants = {f: base.copy() for f in tool.FRAMEWORKS}
+        self.assertEqual(tool.visual_deviations(variants, required=("header", "metrics", "search")), [])
+        self.assertTrue(tool.visual_deviations(variants))  # A nonempty fixture still needs a table.
+        self.assertEqual(tool.visual_anchors_for_rows(0), ("header", "metrics", "search"))
+        self.assertEqual(tool.visual_anchors_for_rows(5), tool.ANCHORS)
+
+    def test_browser_parity_verifies_customer_and_campaign_content(self):
+        tool = load()
+        code = MODULE.read_text(encoding="utf8")
+        self.assertIn('to_contain_text("Customer 0004")', code)
+        self.assertIn('to_contain_text("Campaign 0004")', code)
+        for framework in tool.FRAMEWORKS:
+            html = tool.render_html(framework, query="Customer 0004", rows=12)
+            self.assertIn("Customer 0004", html)
+            self.assertIn("Campaign 0004", html)
+            self.assertNotIn("Customer 0005", html)
+
     def test_input_fingerprints_cover_lock_and_fixture_sources(self):
         tool = load()
         with tempfile.TemporaryDirectory() as tmp:
