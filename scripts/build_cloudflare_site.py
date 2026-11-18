@@ -21,11 +21,13 @@ if __package__:
     from .build_shadcn_registry import generate as universal_registry_files
     from .build_playground_catalog import generate as playground_catalog
     from .build_blocks import build as blocks_gallery
+    from .static_deploy import validate_site_url
 else:
     from build import all_distributions, javascript_distributions
     from build_shadcn_registry import generate as universal_registry_files
     from build_playground_catalog import generate as playground_catalog
     from build_blocks import build as blocks_gallery
+    from static_deploy import validate_site_url
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -44,33 +46,60 @@ CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
 ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
 
 
-def canonical_path(name: str) -> str:
+def canonical_path(name: str, *, portable: bool = False) -> str:
     """Match Cloudflare Pages' 200-status clean URLs (not .html redirect URLs)."""
     if name == "index.html":
         return "/"
     if name.endswith("/index.html"):
         return "/" + name.removesuffix("index.html")
-    return "/" + name.removesuffix(".html")
+    return "/" + (name if portable else name.removesuffix(".html"))
 
 
-def add_seo_metadata(files: dict[str, bytes]) -> None:
+def add_seo_metadata(files: dict[str, bytes], site_url: str = SITE_URL, *, portable: bool = False) -> None:
     """Build-time-only SEO: preserve readable sources and avoid browser JS."""
     for name, data in tuple(files.items()):
         if not name.endswith(".html"):
             continue
         html = data.decode("utf-8")
+        if site_url != SITE_URL:
+            # Replace only first-party machine-readable metadata. Preserve
+            # ordinary content, public source links and external destinations.
+            html = re.sub(
+                r'<(?:meta|link)\b[^>]*>',
+                lambda match: match.group().replace(SITE_URL, site_url),
+                html, flags=re.IGNORECASE,
+            )
+            html = re.sub(
+                r'<script\b[^>]*\btype="application/ld\+json"[^>]*>.*?</script>',
+                lambda match: match.group().replace(SITE_URL, site_url),
+                html, flags=re.IGNORECASE | re.DOTALL,
+            )
         if name in NOINDEX_HTML:
             if not ROBOTS_META.search(html):
                 html = html.replace("</head>", '  <meta name="robots" content="noindex,follow">\n</head>', 1)
             # Excluded pages should not claim canonical index URLs.
             html = CANONICAL_LINK.sub("", html)
         else:
-            url = SITE_URL + canonical_path(name)
+            url = site_url + canonical_path(name, portable=portable)
             tag = f'<link rel="canonical" href="{url}">'
             if CANONICAL_LINK.search(html):
                 html = CANONICAL_LINK.sub(tag, html, count=1)
             else:
                 html = html.replace("</head>", f"  {tag}\n</head>", 1)
+            # Existing OG URLs may use Cloudflare clean paths. Portable sites
+            # require a directly servable .html URL, even with the default origin.
+            if portable:
+                def replace_existing_og_url(tag):
+                    raw = tag.group()
+                    if not re.search(r"""\bproperty\s*=\s*(["'])og:url\1""", raw, flags=re.I):
+                        return raw
+                    content = re.search(r"""\bcontent\s*=\s*(["']).*?\1""", raw, flags=re.I | re.S)
+                    if content is None:
+                        return raw[:-1] + f' content="{url}">'
+                    return raw[:content.start()] + f'content="{url}"' + raw[content.end():]
+
+                html = re.sub(r"""<meta\b(?:[^>"']|"[^"]*"|'[^']*')*>""",
+                              replace_existing_og_url, html, flags=re.I)
             # Author pages can include Open Graph data already; don't duplicate it.
             if 'property="og:url"' not in html:
                 html = html.replace("</head>", f'  <meta property="og:url" content="{url}">\n</head>', 1)
@@ -101,8 +130,8 @@ def add_seo_metadata(files: dict[str, bytes]) -> None:
                 title = re.search(r"<title[^>]*>(.*?)</title>", html, re.IGNORECASE | re.DOTALL)
                 label = unescape_html(title.group(1)).removesuffix(" — Syntyr CSS docs") if title else "Documentation"
                 items = [
-                    {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
-                    {"@type": "ListItem", "position": 2, "name": "Documentation", "item": SITE_URL + "/docs/"},
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": site_url + "/"},
+                    {"@type": "ListItem", "position": 2, "name": "Documentation", "item": site_url + "/docs/"},
                 ]
                 if name not in {"docs/index.html"}:
                     items.append({"@type": "ListItem", "position": 3, "name": label, "item": url})
@@ -243,7 +272,7 @@ def immutable_site_css(files: dict[str, bytes]) -> None:
 
 PUBLIC_DOCS = (
     "ai-quickstart.md", "agent-integration.md", "design-principles.md",
-    "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md",
+    "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "nulang-cloud-hosting.md",
     "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
     "console-kit.html", "component-recipes.md", "email-components.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
     "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
@@ -262,7 +291,8 @@ PUBLIC_DOCS = (
 )
 
 
-def source_files() -> dict[str, bytes]:
+def source_files(site_url: str = SITE_URL, *, include_cloudflare_headers: bool = True) -> dict[str, bytes]:
+    site_url = validate_site_url(site_url)
     # Both galleries are generated from reviewed, MIT-owned source fragments.
     if (ROOT / "docs/blocks.html").read_text(encoding="utf-8") != blocks_gallery():
         raise ValueError("Stale blocks gallery: run scripts/build_blocks.py")
@@ -384,9 +414,9 @@ def source_files() -> dict[str, bytes]:
     # Keep the sitemap confined to HTML that is useful as a search result.
     # Cloudflare Pages redirects *.html -> clean paths, so only list final 200 URLs.
     from xml.sax.saxutils import escape as escape_xml
-    add_seo_metadata(files)
+    add_seo_metadata(files, site_url, portable=not include_cloudflare_headers)
     indexable = sorted(
-        SITE_URL + canonical_path(name)
+        site_url + canonical_path(name, portable=not include_cloudflare_headers)
         for name in files if name.endswith(".html") and name not in NOINDEX_HTML
     )
     files["sitemap.xml"] = ('<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -394,17 +424,19 @@ def source_files() -> dict[str, bytes]:
                             + "".join(f"  <url><loc>{escape_xml(url)}</loc></url>\n"
                                       for url in indexable)
                             + "</urlset>\n").encode("utf-8")
-    files["robots.txt"] = (f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n").encode("utf-8")
+    files["robots.txt"] = (f"User-agent: *\nAllow: /\n\nSitemap: {site_url}/sitemap.xml\n").encode("utf-8")
     immutable_site_css(files)
-    files["_headers"] = HEADERS.encode("utf-8")
+    if include_cloudflare_headers:
+        files["_headers"] = HEADERS.encode("utf-8")
     return files
 
 
-def build(out: Path, check: bool) -> int:
+def build(out: Path, check: bool, *, site_url: str = SITE_URL,
+          include_cloudflare_headers: bool = True) -> int:
     out = out.resolve()
     if out == ROOT or out in ROOT.parents:
         raise ValueError("Refusing to publish into the source root or its parents")
-    files = source_files()
+    files = source_files(site_url, include_cloudflare_headers=include_cloudflare_headers)
     index = {path: hashlib.sha256(data).hexdigest() for path, data in sorted(files.items())}
     files[MARKER] = (json.dumps(index, indent=2, sort_keys=True) + "\n").encode("utf-8")
     if check:
@@ -432,8 +464,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--site-url", default=SITE_URL, help="Canonical HTTPS origin for SEO metadata")
+    parser.add_argument("--portable", action="store_true", help="Omit Cloudflare-specific _headers for other static hosts")
     args = parser.parse_args()
-    return build(args.output, args.check)
+    return build(args.output, args.check, site_url=args.site_url,
+                 include_cloudflare_headers=not args.portable)
 
 
 if __name__ == "__main__":
