@@ -2,8 +2,10 @@
 
 Requires Playwright Python, headed browsers, DISPLAY and xdotool.
 Run under a virtual display: xvfb-run -a python tests/dropdown_real_zoom_browser.py
-WebKit MiniBrowser is checked at 200%: its tested zoom controls do not reach
-400%. This does not certify Safari at 400% or manual assistive technology.
+WebKit MiniBrowser is checked against a 640px CSS-viewport threshold;
+its zoom steps can overshoot the nominal 200% target and did not reach the
+320px threshold. This is not a precise 200%/400% measurement or Safari
+assistive-technology certification.
 """
 from pathlib import Path
 from subprocess import run
@@ -74,7 +76,11 @@ def main():
                     width = page.evaluate('innerWidth')
                     assert width <= target, (name, zoom, width)
                     check_popover(page, name, zoom)
-                    print(f'PASS {name}: actual UI zoom {zoom}% ({width}px CSS viewport)', flush=True)
+                    print(
+                        f'PASS {name}: measured CSS viewport {width}px <= {target}px '
+                        f'(nominal {zoom}% target; browser zoom steps may overshoot)',
+                        flush=True,
+                    )
                 assert not errors, (name, errors)
             finally:
                 browser.close()
