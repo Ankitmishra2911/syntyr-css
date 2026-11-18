@@ -70,6 +70,29 @@ class SemanticHTMLContract(unittest.TestCase):
         self.assertEqual(self.check('<input type="button" aria-label="Add another">'), [])
         self.assertEqual(self.check('<input type="submit"><input type="reset">'), [])
 
+    def test_hidden_controls_skip_name_checks_but_not_target_integrity(self):
+        html = ('<html><body><section hidden><input type="button" popovertarget="missing">'
+                '<div><input type="image" src="/send.png"></div></section></body></html>')
+        self.assertEqual([f["code"] for f in self.check(html)], ["missing-native-target"])
+        self.assertEqual([f["code"] for f in self.check('<input type="button">')],
+                         ["missing-form-label"])
+
+    def test_title_supplies_native_accessible_name_fallback(self):
+        self.assertEqual(self.check('<input type="button" title="Add item">'), [])
+        self.assertEqual(self.check('<input type="image" src="/send.png" title="Submit image">'), [])
+        self.assertEqual([f["code"] for f in self.check('<input type="button" title="   ">')],
+                         ["missing-form-label"])
+
+    def test_native_invoker_targets_checked_even_when_input_name_exempt(self):
+        html = ('<html><body>'
+                '<input type="button" aria-label="{{ label }}" popovertarget="missing">'
+                '<input type="submit" commandfor="absent">'
+                '<input type="reset" popovertarget="missing">'
+                '<input type="hidden" commandfor="absent">'
+                '</body></html>')
+        self.assertEqual([f["code"] for f in self.check(html)],
+                         ["missing-native-target"] * 4)
+
     def test_native_invoker_targets_must_exist_in_complete_html(self):
         html = ('<html><body><button popovertarget="missing">Open</button>'
                 '<button commandfor="absent" command="show-modal">Dialog</button></body></html>')

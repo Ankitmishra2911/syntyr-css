@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s editor integration is optional . Applications still consume ordinary prebuilt CSS, HTML, and custom properties without Node, JavaScript, or a…">
-  <meta name="syntyr-source-sha256" content="1d90ad413a9a4a3ef132cef260cdfc03d7dbf311dcb2123682a8840eda9cb058">
+  <meta name="syntyr-source-sha256" content="4a7d02a775dfe5cb90eea159531e3e60bb5d742574b889be5cafa61befcbc2e0">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr editor autocomplete and metadata — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/editor-integration">
@@ -132,7 +132,11 @@ duplicate static IDs, missing form labels (including an unnamed <code>input type
 <code>aria-labelledby</code>/<code>aria-describedby</code> ID references (the latter two only in
 complete documents). For complete HTML it also detects missing <code>popovertarget</code>
 or <code>commandfor</code> IDs and popover triggers that point to elements without a
-<code>popover</code> attribute. It advises when an ordinary table row uses
+<code>popover</code> attribute. Controls in a <code>hidden</code> subtree are exempt from
+accessible-name checks, but still have literal invoker targets validated.
+A nonempty <code>title</code> is accepted as an accessible-name fallback for native
+button/image inputs; dynamic names do not suppress static target validation.
+It advises when an ordinary table row uses
 <code>aria-selected</code> instead of <code>data-syn-state</code>, or when a headed data table
 lacks a caption or other accessible name. Errors produce exit code 1; advisory
 warnings are included in text/JSON output but do not fail the command.
