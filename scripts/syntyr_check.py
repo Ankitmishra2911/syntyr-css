@@ -123,6 +123,18 @@ class _SemanticParser(HTMLParser):
 
     # Image submits need alt text; type=button needs a value or another name.
     _UNLABELED_INPUT_TYPES = frozenset(("hidden", "submit", "reset"))
+    _LABELABLE_TAGS = frozenset(("button", "input", "meter", "output",
+                                 "progress", "select", "textarea"))
+    _DIALOG_COMMANDS = frozenset(("show-modal", "close", "request-close"))
+
+    @classmethod
+    def _is_labelable(cls, node):
+        tag, attrs = node["tag"], node["attrs"]
+        # Static HTML cannot tell whether a custom element is form-associated.
+        if "-" in tag or "is" in attrs:
+            return True
+        return tag in cls._LABELABLE_TAGS and not (
+            tag == "input" and (attrs.get("type") or "").lower() == "hidden")
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -173,6 +185,20 @@ class _SemanticParser(HTMLParser):
         for node in self.nodes:
             tag, attrs = node["tag"], node["attrs"]
             identifier = attrs.get("id") or ""
+            if tag == "summary" and (not node["parents"] or
+                                     node["parents"][-1]["tag"] != "details"):
+                result.append(self._finding(node, "summary-outside-details",
+                    "summary must be a direct child of details to be an interactive disclosure."))
+            if complete_document and tag == "input":
+                target = attrs.get("list")
+                if target is not None and not _is_dynamic(target):
+                    destination = ids.get(target)
+                    if destination is None:
+                        result.append(self._finding(node, "missing-native-target",
+                            f"input list='{target}' does not reference an element."))
+                    elif destination["tag"] != "datalist":
+                        result.append(self._finding(node, "invalid-datalist-target",
+                            f"input list='{target}' must reference a datalist element."))
             if complete_document:
                 # Target integrity is independent of the input's accessible name.
                 # Exempt controls still need valid literal native invoker targets.
@@ -187,6 +213,14 @@ class _SemanticParser(HTMLParser):
                     elif attr == "popovertarget" and "popover" not in destination["attrs"]:
                         result.append(self._finding(node, "invalid-popover-target",
                             f"popovertarget='{target}' must point to an element with a popover attribute."))
+                    elif attr == "commandfor" and tag == "button":
+                        # The HTML command keyword is ASCII case-insensitive.
+                        command = (attrs.get("command") or "").lower()
+                        if command in self._DIALOG_COMMANDS and destination["tag"] != "dialog":
+                            result.append(self._finding(node, "invalid-dialog-target",
+                                f"command='{command}' requires a dialog target."))
+                        # Popover commands dispatch command events on any HTML
+                        # target, even without a popover attribute. Do not flag.
             if tag in ("input", "textarea", "select"):
                 input_type = (attrs.get("type") or "text").lower() if tag == "input" else ""
                 # Hidden controls are absent from the accessibility tree; their
@@ -215,9 +249,14 @@ class _SemanticParser(HTMLParser):
                                                     f"{tag} needs a visible label or accessible name."))
             if complete_document and tag == "label":
                 target = attrs.get("for") or ""
-                if target and not _is_dynamic(target) and target not in ids:
-                    result.append(self._finding(node, "missing-label-target",
-                                                f"label for='{target}' has no matching id."))
+                if target and not _is_dynamic(target):
+                    destination = ids.get(target)
+                    if destination is None:
+                        result.append(self._finding(node, "missing-label-target",
+                                                    f"label for='{target}' has no matching id."))
+                    elif not self._is_labelable(destination):
+                        result.append(self._finding(node, "invalid-label-target",
+                            f"label for='{target}' does not reference a labelable element."))
             if complete_document:
                 for attr in ("aria-labelledby", "aria-describedby"):
                     references = attrs.get(attr) or ""
