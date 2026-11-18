@@ -824,6 +824,27 @@
         max-inline-size: min(22rem, calc(100vw - 2rem));
       }
     }
+    /* At browser zoom or in a short landscape viewport, neither side of
+       the trigger may have room for a menu. Center the scrollable native
+       popover instead of clipping its bottom actions outside the viewport. */
+    @media (max-height: 30rem) {
+      &.syn-popover.syn-dropdown.syn-popover--anchored {
+        position-area: none;
+        position-try-fallbacks: none;
+        inset: .5rem;
+        margin: auto;
+        block-size: fit-content;
+        /* Keep the viewport caps on physical axes after the logical sizing
+           above. max-inline-size maps to max-height in vertical-rl, so using
+           viewport width for that value can expose a tall offscreen panel. */
+        max-width: max(0px, min(22rem, calc(100vw - 1rem)));
+        /* The dropdown's 13rem min-inline-size maps to physical min-height
+           in vertical writing; release that floor only for short viewports. */
+        min-height: 0;
+        max-height: max(0px, calc(100vh - 1rem));
+        max-height: max(0px, calc(100dvh - 1rem));
+      }
+    }
   }
 }
 @layer syn.components {
@@ -3811,7 +3832,9 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  :where(.syn-root .syn-data-grid__cell[aria-selected="true"]) {
+  /* Actual interactive grids use aria-selected; this static read-only
+     table example uses a purely presentational data-syn-selected hook. */
+  :where(.syn-root .syn-data-grid__cell:is([aria-selected="true"], [data-syn-selected="true"])) {
     background: var(--syn-grid-selected);
     box-shadow: inset 3px 0 var(--syn-accent);
   }
@@ -3877,7 +3900,7 @@
     font-variant-numeric: tabular-nums;
   }
   @media (forced-colors: active) {
-    :where(.syn-root .syn-data-grid__cell[aria-selected="true"]) {
+    :where(.syn-root .syn-data-grid__cell:is([aria-selected="true"], [data-syn-selected="true"])) {
       outline: 2px solid Highlight;
       outline-offset: -2px;
       box-shadow: none;

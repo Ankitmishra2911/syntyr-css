@@ -36,14 +36,14 @@
         <article class="docs-prose" aria-label="Syntyr Geo — renderer-neutral geospatial interface styles">
 <h1 id="syntyr-geo-renderer-neutral-geospatial-interface-styles">Syntyr Geo — renderer-neutral geospatial interface styles</h1>
 <p><strong>Status:</strong> experimental and unreleased. The MIT-licensed <code>syntyr.geo.css</code> module styles geospatial application <strong>chrome</strong>: map workspaces, filters, layers, marker hit targets, selected states, clusters, legends, callouts, scale bars and attribution. No JavaScript, tiles, mapping SDK, fonts, or network assets are included in Syntyr Geo. Load <code>syntyr.core.css</code> first.</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.geo.css&quot;&gt;
 </code></pre>
 <p>Or, in a package-manager application consuming the <strong>unpublished</strong> alpha.5 candidate, import <code>@syntyr/css/geo.css</code>. The <code>syntyr.all.css</code> bundle already contains Geo; <strong>do not load both</strong>. Neither <code>syntyr.core.css</code> nor <code>syntyr.viz.css</code> includes it.</p>
 <p><strong><a href="../examples/geo.html">Open the synthetic, offline Geo demo</a></strong>. It is a Schematic illustration, <strong>Not to scale</strong>, with fictional records, no tile provider or API keys, and disabled zoom controls. It is not a map renderer.</p>
 <h3 id="optional-python-standard-library-operations-demo-repository-source">Optional Python standard-library operations demo (repository source)</h3>
 <p>The <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/geo_operations_server.py">runnable Geo operations server</a> illustrates <strong>actual server-owned GET filtering and selection</strong> without JavaScript or additional CSS APIs. From a repository checkout run:</p>
-<pre><code class="language-sh">python3 examples/geo_operations_server.py --port 8765
+<pre tabindex="0"><code class="language-sh">python3 examples/geo_operations_server.py --port 8765
 </code></pre>
 <p>Open <code>http://127.0.0.1:8765/</code>. It composes the existing <code>syntyr.core.css</code>, <code>syntyr.recipes.css</code> and <code>syntyr.geo.css</code> files into a responsive inventory search, accessible results/inspector, and fictional map schematic. Map coordinates are <strong>illustrative pixel percentages</strong>, not geographic coordinates. The Python file is a <strong>source-only reference</strong> and is not included in the distributable release ZIP. The server binds to localhost and contains fictional in-memory records; it has no credentials, accounts, tenant isolation, authorization, persistence or booking capability. Never expose this sample on a public interface as a production service.</p>
 <p>Maintainers can optionally verify Chromium/Firefox native GET interaction, 320px reflow, enlarged text, RTL markers and forced colors with <code>node tests/geo_operations_server_browser.cjs</code> after installing Playwright <strong>outside</strong> the Syntyr runtime. The script starts and shuts down the localhost Python server automatically. This does not replace manual screen-reader or real browser-zoom review.</p>
@@ -52,7 +52,7 @@
 <p>For interactive maps, integrate an engine such as <a href="https://maplibre.org/maplibre-gl-js/docs/">MapLibre GL JS</a> (vector tiles / WebGL), <a href="https://leafletjs.com/reference">Leaflet</a> (lightweight tiled/DOM maps), or <a href="https://openlayers.org/">OpenLayers</a> (specialized GIS interactions and projections). They are <strong>application dependencies</strong>, not dependencies of Syntyr. Engine-native attribution and copyright/license requirements still apply; never remove provider credits. A decorative CSS attribution surface cannot replace legally required renderer attribution.</p>
 <p>Choose and disclose the projection and coordinate reference system that your data needs (for example WGS 84 longitude/latitude for position inputs); do not assume a visual pixel distance equals a ground distance. Compute scale from the actual renderer viewport, latitude and zoom. Only set <code>data-syn-measured=&quot;true&quot;</code> on <code>.syn-geo-scale</code> when the application has supplied a truthful measured label and bar length. Static examples deliberately say “Not to scale.”</p>
 <h2 id="a-map-ready-responsive-shell">A map-ready, responsive shell</h2>
-<pre><code class="language-html">&lt;section class=&quot;syn-root syn-geo-shell&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root syn-geo-shell&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-geo-workspace&quot;&gt;
     &lt;aside class=&quot;syn-geo-sidebar&quot; aria-labelledby=&quot;locations-title&quot;&gt;
       &lt;h2 id=&quot;locations-title&quot;&gt;Locations&lt;/h2&gt;
@@ -95,7 +95,7 @@
 <p>Geo deliberately stays in its own CSS module rather than bloating core. Use it for OOH asset inventory maps, real-estate site selection, logistics fleet screens, field operations, municipal dashboards, parcel analysis and geospatial intelligence consoles. Any paid Syntyr Pro templates can compose this free MIT foundation while keeping premium implementation, integrations and domain-specific workflows in a separate licensed product.</p>
 <h2 id="optional-real-maplibre-browser-smoke-maintainers">Optional real-MapLibre browser smoke (maintainers)</h2>
 <p>The repository also includes an intentionally <strong>unpublished, developer-only</strong> MapLibre smoke harness. It loads a locally installed MapLibre, Playwright and esbuild from a separate host application, bundles them only for the temporary browser page, and supplies a <strong>synthetic offline map style</strong> with no third-party tiles or credentials. This verifies the renderer, a MapLibre-managed DOM marker, pointer activation, keyboard activation, zoom control wiring, overlay click-through, named container reflow and 44 px targets. It also checks 2× and 4× <strong>root text-size stress</strong>, which is not a substitute for browser-level zoom testing or screen reader review.</p>
-<pre><code class="language-sh">SYNTYR_VENDOR_NODE_MODULES=/path/to/installed/node_modules \
+<pre tabindex="0"><code class="language-sh">SYNTYR_VENDOR_NODE_MODULES=/path/to/installed/node_modules \
   node tests/geo_maplibre_browser.mjs
 </code></pre>
 <p>Set <code>SYNTYR_GEO_CHROMIUM_PATH</code> if the locally installed Playwright browser revision differs from Playwright's default, or <code>SYNTYR_GEO_SCREENSHOT_DIR</code> to save developer-only screenshots. The harness never runs as a Syntyr consumer dependency. Its static fixture and scripts are <strong>not</strong> published on Cloudflare or in the release ZIP.</p>

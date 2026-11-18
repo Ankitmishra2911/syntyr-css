@@ -27,6 +27,26 @@ class CodeMirrorPlaygroundTests(unittest.TestCase):
         self.assertIn("dispatchEvent", source)
         self.assertTrue((ROOT / "docs/playground-editor.js").is_file())
 
+    def test_html_tag_highlighting_uses_semantic_contrast_token(self):
+        source = (ROOT / "tools/playground-editor/src/editor.mjs").read_text()
+        manifest = json.loads((ROOT / "tools/playground-editor/package.json").read_text())
+        self.assertIn('from "@codemirror/language"', source)
+        self.assertIn('from "@lezer/highlight"', source)
+        self.assertIn('syntaxHighlighting(', source)
+        self.assertIn('tags.tagName', source)
+        self.assertIn('color: "var(--syn-text)"', source)
+        self.assertIn('fontWeight: "600"', source)
+        self.assertEqual(manifest["dependencies"]["@codemirror/language"], "6.13.1")
+        self.assertEqual(manifest["dependencies"]["@lezer/highlight"], "1.2.5")
+
+    def test_editor_scroller_is_keyboard_reachable_without_competing_highlighters(self):
+        source = (ROOT / "tools/playground-editor/src/editor.mjs").read_text()
+        self.assertNotIn("syntaxHighlighting(defaultHighlightStyle)", source)
+        self.assertIn("view.scrollDOM.tabIndex = 0", source)
+        self.assertIn('view.scrollDOM.setAttribute("role", "region")', source)
+        self.assertIn('view.scrollDOM.setAttribute("aria-label"', source)
+        self.assertIn('".cm-scroller:focus-visible"', source)
+
     def test_textarea_remains_source_of_truth_and_progressive_fallback(self):
         page = (ROOT / "docs/playground.html").read_text()
         controller = (ROOT / "docs/playground.js").read_text()

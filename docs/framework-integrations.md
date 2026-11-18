@@ -134,6 +134,93 @@ This is not a claim that every HTMX extension or version-specific behavior
 is drop-in compatible.
 
 
+## Composable server HTML components (Go standard library)
+
+Syntyr components do not require a browser runtime or React-style hydration.
+To make server-side **composition** concrete, the
+[Go standard-library component example](https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-go)
+provides five copy-owned `html/template` partials: labeled search field,
+status/error notice, button, result table and pagination. It includes a
+runnable GET-only example and tests for HTML escaping, server validation,
+`aria-describedby`, and encoded query-preserving links. No new stylesheet,
+JavaScript dependency, component protocol or Go library is introduced.
+
+```go-html-template
+<form action="/" method="get" role="search" class="syn-form">
+  {{template "syn.field" .Query}}
+  {{template "syn.button" .SearchButton}}
+</form>
+{{template "syn.table" .Records}}
+{{template "syn.pagination" .Pager}}
+```
+
+The input values come from your server. Each component emits ordinary HTML
+with classes already in `syntyr.core.css`, and `html/template` contextually
+escapes untrusted data. The app owns distinct IDs, request validation, query
+encoding, CSRF for mutation forms, authorization and error status codes.
+For HTMX/Datastar/Turbo responses, render the same partials into fragments,
+but retain full-page rendering for direct navigation and history restoration.
+This is an **example**, not a new Syntyr runtime API or a claim of an official
+adapter for every backend language. See the
+[copyable template README](https://github.com/dporkka/syntyr-css/blob/main/examples/server-components-go/README.md)
+for the complete contract and setup instructions.
+
+### Additional copy-owned server component adapters
+
+The [Go templ adapter](https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-templ)
+uses the same five native HTML component contracts as the Go standard-library
+example, with independent `Field`, `Notice`, `Button`, `Table` and
+`Pagination` components. It has an isolated, pinned `github.com/a-h/templ`
+build-time/runtime module dependency (Go 1.26+); run `templ generate` before
+tests or starting the example. Generated Go code is not checked in.
+
+The [Node.js standard-library adapter](https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-node)
+exposes corresponding composable HTML functions. It requires no npm packages;
+Node owns request routing and escaping, and the example serves a single
+allowlisted CSS asset. Pagination links are root-relative and use
+`URLSearchParams`, not interpolation of arbitrary URLs. Run its built-in
+`node --test` suite to exercise escaped values, safe links, error linkage,
+HTTP methods and GET fallback.
+
+These integrations are **copy-owned examples**, not npm exports or shipped
+runtime packages. They reuse `syntyr.core.css` and the same semantic HTML;
+none adds a JavaScript controller, hydration requirement, new `syn-*` class,
+CSS module or runtime to Syntyr's core. Each server must still handle its own
+user permissions, CSRF defenses for mutations, status codes, and navigation.
+
+### HTMX and Datastar fragments built from the same components
+
+The [Node.js HTML fragment demo](https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-node/fragments)
+reuses the **same copy-owned** `field`, `notice`, `button`, `table` and
+`pagination` functions from the Node.js adapter for both initial HTML pages
+and optional HTMX/Datastar updates. It requires no npm packages or new
+Syntyr component runtime. Run `node examples/server-components-node/fragments/server.mjs`
+from the repo root, after building CSS, to open `/htmx` and `/datastar`.
+
+- **HTMX 2.0.8:** native GET fallback, fragments targeting a stable
+  `#resource-workspace`, `hx-push-url` for searchable history, and complete
+  HTML for `HX-History-Restore-Request`. A tiny app-owned external script
+  explicitly permits swapping *only* server-marked HTTP 422 validation
+  fragments, while normal GET errors retain HTTP 400. Cache output varies
+  by the HTMX request/history headers.
+- **Datastar v1.0.5:** ordinary GET fallback and a pinned, optional
+  enhancement that sends `datastar` JSON signals, receives
+  `event: datastar-patch-elements` through SSE and morphs the same component
+  HTML. Signal input is bounded and type-checked; the serialized SSE patch
+  is flattened to a single `data:` line *after* HTML escaping. `Vary: Accept`
+  distinguishes ordinary pages from SSE. Bad signals receive HTTP 400;
+  field-validation errors for valid SSE requests are represented accessibly
+  inside a successful event response.
+
+In both modes, `.syn-root` persists outside the replaceable fragment;
+existing `syn-*` selectors and tokens are unchanged. Browser scripts belong
+solely to the **demo app** (pinned external URLs in the example), not to
+Syntyr Core. Self-host your browser dependencies and set an appropriate CSP
+before production use. The example handles **read-only GET requests only**;
+server authorization and CSRF protections for writes remain application-owned.
+The [example README](https://github.com/dporkka/syntyr-css/blob/main/examples/server-components-node/fragments/README.md)
+contains reproducible HTTP and optional Chromium browser tests.
+
 ## Server-driven HTML: optional request-state bridge
 
 **No adapter is necessary to render Syntyr components.** Serve core CSS from
