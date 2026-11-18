@@ -33,6 +33,8 @@
       overflow-y: auto;
     }
     /* Preserve native pickers and keyboard behavior; no replacement controls. */
+    /* Leave sufficient inline-end room for native search clear controls. */
+    &.syn-input[type="search"] { min-inline-size: 0; padding-inline-end: 2.25rem; }
     &.syn-input[type="range"] {
       padding: 0; border: 0; background: transparent;
       accent-color: var(--syn-accent); cursor: pointer;

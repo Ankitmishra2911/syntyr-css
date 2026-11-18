@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="34f08e4b308849d3a239c8bc4ac40aa9c64d9b523d7931a7b8111c4c798ef5b5">
+  <meta name="syntyr-source-sha256" content="2c3cc94f97d68b57adff5bfbf2ae5c52a36605a9707e436ff0bd5db027cafd63">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -188,6 +188,30 @@ in consuming applications.</p>
 <p>Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast
 and long translated labels in the actual application.</p>
+<h3 id="label-first-floating-fields">Label-first floating fields</h3>
+<p>Use the same native label and input in either source order:</p>
+<pre><code class="language-html">&lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
+  &lt;label class=&quot;syn-floating-label&quot; for=&quot;company&quot;&gt;Company&lt;/label&gt;
+  &lt;input class=&quot;syn-input&quot; id=&quot;company&quot; name=&quot;company&quot; placeholder=&quot; &quot; autocomplete=&quot;organization&quot;&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Modern browsers use :has() to float label-first markup when the input is
+focused or filled. Input-first markup remains the fallback for older engines.
+Keep a real for/id association; placeholder text is not an accessible label.
+At narrow container widths, both orders become a traditional stacked field.</p>
+<h3 id="native-file-feedback-and-search-controls">Native file feedback and search controls</h3>
+<p>Plain file inputs in .syn-semantic preserve their native file picker.
+For aria-invalid=&quot;true&quot;, Syntyr adds a visible error border to the file
+input even when the user-agent default has no border. Use a real explanation
+associated with aria-describedby; CSS does not perform validation or upload.
+The native search clear affordance is preserved with inline-end padding
+in both explicit .syn-input and scoped classless modes.</p>
+<pre><code class="language-html">&lt;div class=&quot;syn-semantic&quot;&gt;
+  &lt;label for=&quot;proof&quot;&gt;Proof-of-posting photo&lt;/label&gt;
+  &lt;input type=&quot;file&quot; id=&quot;proof&quot; aria-invalid=&quot;true&quot; aria-describedby=&quot;proof-error&quot;&gt;
+  &lt;small id=&quot;proof-error&quot; class=&quot;syn-error&quot;&gt;Upload a photo to continue.&lt;/small&gt;
+&lt;/div&gt;
+</code></pre>
 <h2 id="semantic-timelines-and-captioned-code">Semantic timelines and captioned code</h2>
 <pre><code class="language-html">&lt;ol class=&quot;syn-timeline&quot; role=&quot;list&quot;&gt;
   &lt;li&gt;&lt;time datetime=&quot;2026-11-15&quot;&gt;15 November&lt;/time&gt;Published&lt;/li&gt;
@@ -278,6 +302,8 @@ and fallbacks.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-anchored-popovers-and-modal-commands">Native anchored popovers and modal commands</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-direction-aware-presentation">Native direction-aware presentation</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#floating-labels">Floating labels</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#label-first-floating-fields">Label-first floating fields</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#native-file-feedback-and-search-controls">Native file feedback and search controls</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#semantic-timelines-and-captioned-code">Semantic timelines and captioned code</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendering-and-framework-use">Server-rendering and framework use</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#go-htmltemplate">Go html/template</a>
