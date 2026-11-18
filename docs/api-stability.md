@@ -9,6 +9,7 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | Surface | Current policy | Intent for v1 |
 | --- | --- | --- |
 | `syntyr.core.css`, `.syn-root`, stable component classes | Public prerelease API | Stable selectors and behavior |
+| Classed `.syn-dialog` and `.syn-popover` physical viewport overflow constraints (also in vertical writing modes) | Alpha.5 bugfix, no new class names | Preserve keyboard-scrollable content at zoom and on short viewports |
 | Specialized native `range`, `file` and `color` controls via the existing `.syn-input` selector | Experimental alpha.5 appearance improvement; no new classes or runtime | Keep native controls and browser-driven behavior |
 | New `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` form compositions | Experimental prerelease core additions | Evaluate for v1 stabilization after browser/accessibility review |
 | Documented `--syn-*` design-token names | Public prerelease API | Stable names, not fixed default values |
@@ -36,6 +37,38 @@ finite utilities are explicit overrides in their own final `syn.utilities`
 cascade layer. Do not load a convenience bundle and its component modules
 simultaneously.
 
+## Proposed minimum v1 contract (not yet approved)
+
+**Proposal only.** The source is still `0.3.0-alpha.5` and the published
+`0.3.0-alpha.4` files remain immutable. This shortlist is for v1 API review,
+not a declaration that 1.0 is released or that other current APIs are removed.
+Do not promise every prerelease class, token, optional stylesheet or theme name
+as a permanent compatibility commitment by default.
+
+| v1 candidate | Intended stable responsibility | Outside the initial freeze |
+| --- | --- | --- |
+| `syntyr.core.css`, `.syn-root` | Self-hosted, scoped CSS without framework or runtime requirements | Adapter, preset and convenience-bundle inclusion details |
+| `.syn-shell`, `.syn-stack`, `.syn-grid`, `.syn-inline`, `.syn-panel` | Basic layout and surfaces assembled with HTML | Specialized dashboard, geometry and cinematic compositions |
+| `.syn-button`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-table`, `.syn-table-wrap` | Common native controls and readable tabular content | Advanced widget behavior, grid interaction and framework states |
+| `.syn-heading`, `.syn-muted`, `.syn-badge` | Small portable typographic affordances | Theme-specific graphic treatments and decorative variants |
+| `--syn-bg`, `--syn-surface`, `--syn-text`, `--syn-muted`, `--syn-accent`, `--syn-on-accent`, `--syn-frame` | Minimal semantic palette roles; values may change for contrast fixes | Internal derived shades and theme-specific effect tokens |
+| `--syn-font`, `--syn-radius`, `--syn-space-1` through `--syn-space-4` | Basic typography, shape and spacing customization | Experimental component-local layout overrides |
+| `data-syn-theme`, native HTML and semantic ARIA states | Token-based theme boundaries and state presentation | Freezing every named palette, intensity and density profile |
+
+The list is deliberately small and **not exhaustive**. Additional existing
+public alpha selectors remain available as documented for their particular
+version; deciding which belong in v1 requires evidence rather than an automatic
+rename or removal. Before stabilizing an entry, verify it is used in at least
+two independent, non-showcase consumer contexts, has documented composition and
+extension behavior, passes browser/accessibility review, and has no necessary
+framework-specific coupling. Consider opt-in `.syn-semantic` independently
+once the accessibility and scope review is complete.
+
+Versioned release assets and pre-v1 compatibility rules remain unchanged.
+Removal of unnecessary experimental aliases is possible **before** the v1
+freeze; after stabilization, semver and migration documentation apply. Do not
+add core API solely to make an optional integration easier.
+
 ### Alpha.5 opt-in CRM compositions and density profiles
 
 The source-only `syntyr.recipes.css` adds optional `.syn-filter-bar`,
@@ -58,6 +91,20 @@ The experimental `data-syn-color-space="oklch"` attribute changes only the
 surface-hover color-mix role on explicitly opted-in regions. Default palettes,
 semantic foreground pairs and fallback colors are unchanged. It is not a new
 default theme or a stability commitment; see the [theme customization guide](theme-customization.md).
+
+### Alpha.5 native readonly form presentation
+
+In the unreleased alpha.5 source candidate, classed `syn-input` and
+`syn-textarea` and opt-in semantic native text fields with a real `readonly`
+attribute use a recessed background and dashed border. This visual distinction
+does not disable controls, remove focus, suppress browser autofill, or change
+native form submission. No new public class, state attribute, JavaScript
+dependency, or validation machinery is introduced. Do not use `readonly` for
+native controls that do not support it (such as `select` or checkboxes).
+
+The [server-error recovery recipe](component-recipes.md) composes existing
+`syn-error-summary` (from the *optional* recipes sheet) with core field
+primitives; it is a documentation contract, not a new core component.
 
 ### Alpha.5 semantic HTML authoring changes
 
@@ -115,3 +162,11 @@ See [`ARCHITECTURE.md`](../ARCHITECTURE.md) for feature-admission criteria,
 layer ownership and dependency boundaries. Optional package integrations may
 provide additional contracts but must never introduce a mandatory core
 runtime dependency.
+
+## Enterprise presentation recipes (unreleased alpha.5)
+
+The optional `syntyr.recipes.css` source candidate adds `.syn-view-switcher`,
+`.syn-sheet` and `.syn-evidence-*` classes. These are experimental opt-in
+CSS selectors, not part of the immutable alpha.4 package and not a guarantee
+of application-level selection, dialog focus management, image verification
+or review workflows. See [recipe contracts](recipes.md).

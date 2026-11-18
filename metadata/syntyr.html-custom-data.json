@@ -194,6 +194,10 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-choice-card",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
           "name": "syn-code",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -334,6 +338,78 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-email-body",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-code",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-compose",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-inbox",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-item",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-layout",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-main",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-message",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-message-header",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-meta",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-preferences",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-preview",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-recipient-list",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-sidebar",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-signup",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-subject",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-time",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-workspace",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
           "name": "syn-empty",
           "description": "Syntyr CSS class (components/patterns.css)."
         },
@@ -343,6 +419,34 @@
         },
         {
           "name": "syn-error-summary",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-actions",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-body",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-card",
+          "description": "Semantic figure-based evidence review presentation with captions and metadata, not a media viewer."
+        },
+        {
+          "name": "syn-evidence-grid",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-media",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-media--placeholder",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-meta",
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
@@ -382,12 +486,28 @@
           "description": "Syntyr CSS class (components/forms.css)."
         },
         {
+          "name": "syn-file-item",
+          "description": "File queue entry with host-owned queued, uploading, complete or failed state."
+        },
+        {
+          "name": "syn-file-item-header",
+          "description": "Flexible file name and visible status header for queue entries."
+        },
+        {
+          "name": "syn-file-queue",
+          "description": "Optional ordered file lifecycle list; not an upload engine."
+        },
+        {
           "name": "syn-filter-actions",
           "description": "Wrapping submit and reset action group for CRM filters."
         },
         {
           "name": "syn-filter-bar",
           "description": "Optional wrapping CRM GET filter form; host applies query parameters."
+        },
+        {
+          "name": "syn-filter-choices",
+          "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
           "name": "syn-filter-field",
@@ -416,6 +536,14 @@
         {
           "name": "syn-form",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-form-actions",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-form-actions__buttons",
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-frame",
@@ -539,6 +667,18 @@
         },
         {
           "name": "syn-list-row",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-list-row__actions",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-list-row__body",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-list-row__media",
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
@@ -670,6 +810,10 @@
           "description": "Container query boundary for responsive compositions."
         },
         {
+          "name": "syn-resource-outline",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
           "name": "syn-result-state",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -696,6 +840,22 @@
         {
           "name": "syn-semantic",
           "description": "Opt-in styling of native HTML elements."
+        },
+        {
+          "name": "syn-sheet",
+          "description": "Native popover or dialog side-sheet presentation; browser and host own opening, focus, and close behavior."
+        },
+        {
+          "name": "syn-sheet-body",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-sheet-footer",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-sheet-header",
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-shell",
@@ -1054,6 +1214,14 @@
           "description": "Syntyr CSS class (utilities.css)."
         },
         {
+          "name": "syn-upload-field",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-view-switcher",
+          "description": "Server-selected view links or host-controlled view buttons; the host owns selection and navigation."
+        },
+        {
           "name": "syn-viz-bar",
           "description": "Syntyr CSS class (viz.css)."
         },
@@ -1196,16 +1364,25 @@
           "name": "error"
         },
         {
+          "name": "failed"
+        },
+        {
           "name": "healthy"
         },
         {
           "name": "loading"
         },
         {
+          "name": "queued"
+        },
+        {
           "name": "selected"
         },
         {
           "name": "unknown"
+        },
+        {
+          "name": "uploading"
         }
       ]
     },

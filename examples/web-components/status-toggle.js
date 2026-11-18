@@ -39,11 +39,11 @@ export class DemoNativeStatus extends HTMLElement {
         <p part="status" role="status"></p>`;
       root.append(stylesheet, panel);
     }
-    this._render();
     this._listeners?.abort();
     this._listeners = new AbortController();
     this.shadowRoot.querySelector('[part="toggle"]')?.addEventListener(
       "click", this._toggle, { signal: this._listeners.signal });
+    this._render();
   }
 
   disconnectedCallback() {
@@ -62,13 +62,20 @@ export class DemoNativeStatus extends HTMLElement {
     const button = panel?.querySelector('[part="toggle"]');
     const busyRegion = panel?.querySelector("[data-busy-region]");
     if (!title || !status || !button || !busyRegion) return;
-    title.textContent = this.service;
+    if (title.textContent !== this.service) title.textContent = this.service;
     busyRegion.setAttribute("aria-busy", String(this.busy));
-    status.textContent = this.busy ? "Updating status…" : this.online ? "Online" : "Offline";
+    // Avoid re-announcing an unchanged live region when unrelated attributes change.
+    const nextStatus = this.busy ? "Updating status…" : this.online ? "Online" : "Offline";
+    if (status.textContent !== nextStatus) status.textContent = nextStatus;
+    // The SSR button starts disabled and becomes interactive only after upgrade.
     button.disabled = this.busy;
     // Changing action text makes this a normal button, not an aria-pressed toggle.
-    button.textContent = this.busy ? "Updating…" : this.online ? "Mark offline" : "Mark online";
+    const nextAction = this.busy ? "Updating…" : this.online ? "Mark offline" : "Mark online";
+    if (button.textContent !== nextAction) button.textContent = nextAction;
   }
 }
 
-customElements.define("syn-demo-native-status", DemoNativeStatus);
+// Repeated imports (e.g. different bundler URLs) must not define the same tag twice.
+if (!customElements.get("syn-demo-native-status")) {
+  customElements.define("syn-demo-native-status", DemoNativeStatus);
+}

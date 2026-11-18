@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "esbuild main.js --bundle --format=esm --minify --target=es2022 --outfile=dist/demo.js && esbuild react-interop.jsx --bundle --format=esm --minify --target=es2022 --outfile=dist/react-demo.js && esbuild htmx-interop.js --bundle --format=esm --minify --target=es2022 --outfile=dist/htmx-demo.js",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:progressive": "playwright test --config playwright.progressive.config.mjs"
   },
   "dependencies": {
     "htmx.org": "2.0.8",

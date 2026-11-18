@@ -18,6 +18,7 @@ test.describe("native Custom Elements without JavaScript", () => {
     await expect(element.locator('[part="status"]')).toHaveText("Online");
     await expect(element.locator('[part="status"]')).toBeVisible();
     expect(await element.locator('[part="toggle"]').getAttribute("aria-pressed")).toBeNull();
+    await expect(element.locator('[part="toggle"]')).toBeDisabled();
     expect(await element.evaluate(host => Boolean(host.shadowRoot))).toBe(true);
   });
 });
@@ -100,4 +101,75 @@ test("native Custom Element retains keyboard focus and controls at narrow width 
   await expect(button).toHaveCSS("outline-style", "solid");
   await page.keyboard.press("Enter");
   await expect(page.locator("#native-status").locator('[part="status"]')).toHaveText("Offline");
+});
+
+
+test("server-rendered control becomes actionable only after successful upgrade", async ({ page }) => {
+  await page.goto(serverPage);
+  const element = page.locator("syn-demo-native-status");
+  const button = element.locator('[part="toggle"]');
+  await expect(button).toBeEnabled();
+  await button.click();
+  await expect(element.locator('[part="status"]')).toHaveText("Offline");
+});
+
+test("server-rendered control remains disabled when its module fails to load", async ({ page }) => {
+  await page.route("**/web-components/status-toggle.js", route => route.abort());
+  await page.goto(serverPage);
+  const element = page.locator("syn-demo-native-status");
+  await expect(element.locator('[part="status"]')).toHaveText("Online");
+  await expect(element.locator('[part="toggle"]')).toBeDisabled();
+});
+
+test("updating a service name does not reannounce unchanged live status", async ({ page }) => {
+  await page.goto(nativePage);
+  const element = page.locator("#native-status");
+  const count = await element.evaluate(async host => {
+    const region = host.shadowRoot.querySelector('[part="status"]');
+    let mutations = 0;
+    const observer = new MutationObserver(records => { mutations += records.length; });
+    observer.observe(region, { childList: true, characterData: true, subtree: true });
+    host.service = "Updated service";
+    await Promise.resolve();
+    observer.disconnect();
+    return mutations;
+  });
+  await expect(element.locator('[part="title"]')).toHaveText("Updated service");
+  expect(count).toBe(0);
+});
+
+test("the native example tolerates loading its registration code through two URLs", async ({ page }) => {
+  await page.goto(nativePage);
+  await expect(page.locator("#native-status").locator('[part="status"]')).toHaveText("Online");
+  await expect(page.evaluate(async () => {
+    await import("./status-toggle.js?second-load");
+    return customElements.get("syn-demo-native-status") !== undefined;
+  })).resolves.toBeTruthy();
+  await page.locator("#native-status").locator('[part="toggle"]').click();
+  await expect(page.locator("#native-event-output")).toHaveText("Relay: offline");
+});
+
+test("two native instances maintain independent state and emit one event per activation", async ({ page }) => {
+  await page.goto(nativePage);
+  await page.locator("#native-container").evaluate(container => {
+    const second = document.createElement("syn-demo-native-status");
+    second.id = "backup-status";
+    second.service = "Backup";
+    container.append(second);
+    window.__nativeEvents = [];
+    document.addEventListener("syn-demo-native-status-change",
+      event => window.__nativeEvents.push(event.detail));
+  });
+
+  await page.locator("#backup-status").locator('[part="toggle"]').click();
+  await expect(page.locator("#backup-status").locator('[part="status"]')).toHaveText("Online");
+  await expect(page.locator("#native-status").locator('[part="status"]')).toHaveText("Online");
+
+  await page.locator("#native-status").locator('[part="toggle"]').click();
+  await expect(page.locator("#native-status").locator('[part="status"]')).toHaveText("Offline");
+  await expect(page.locator("#backup-status").locator('[part="status"]')).toHaveText("Online");
+  expect(await page.evaluate(() => window.__nativeEvents)).toEqual([
+    { service: "Backup", online: true },
+    { service: "Relay", online: false },
+  ]);
 });
