@@ -300,6 +300,12 @@
     color: var(--syn-text);
     background: var(--syn-bg);
   }
+  /* Keep native [hidden] authoritative over author-level component display rules.
+     hidden=until-found must retain the browser's find-in-page reveal behavior. */
+  :where(.syn-root[hidden]:not([hidden="until-found" i]),
+         .syn-root [hidden]:not([hidden="until-found" i])) {
+    display: none !important;
+  }
   .syn-root :where([data-syn-theme]) { color: var(--syn-text); background-color: var(--syn-bg); }
   .syn-root.syn-page { min-height: 100svh; }
   .syn-root :where(h1,h2,h3,h4,p) { margin-block-start: 0; }
@@ -986,9 +992,19 @@
     &.syn-filter-choices > .syn-chip {
       position: relative; min-block-size: var(--syn-control-height); cursor: pointer;
     }
+    /* Progressive enhancement: keep the native input visible, focusable,
+       and selectable if the browser cannot style the parent via :has(). */
     &.syn-filter-choices > .syn-chip > input:is([type="radio"], [type="checkbox"]) {
-      position: absolute; inline-size: 1px; block-size: 1px;
-      margin: 0; padding: 0; opacity: 0; pointer-events: none;
+      flex: none; inline-size: 1.5rem; block-size: 1.5rem;
+      margin: 0; margin-inline-end: .375rem; accent-color: var(--syn-accent);
+    }
+    @supports selector(:has(*)) {
+      /* Only hide the native control when the chip can display checked and
+         focus-visible states through :has() in this same browser. */
+      &.syn-filter-choices > .syn-chip > input:is([type="radio"], [type="checkbox"]) {
+        position: absolute; inline-size: 1px; block-size: 1px;
+        margin: 0; padding: 0; opacity: 0; pointer-events: none;
+      }
     }
     &.syn-filter-choices > .syn-chip:has(> input:checked) {
       border-color: var(--syn-accent); background: var(--syn-accent-soft);

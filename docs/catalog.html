@@ -24,7 +24,7 @@
       <p class="syn-eyebrow">NATIVE HTML / COPY AND CUSTOMIZE</p>
       <h1 class="syn-title" id="catalog-title">Component catalog</h1>
       <p class="syn-lede">Browse common HTML elements by category, inspect their source, and copy into any Syntyr-styled page. Every preview and HTML snippet works without JavaScript; optional search and clipboard controls enhance this documentation page only.</p>
-      <p class="syn-caption">Load <code>syntyr.core.css</code> and place components within a <code>syn-root</code> scope. The examples below use the existing component API—no hydration or framework wrappers.</p>
+      <p class="syn-caption">Load <code>syntyr.core.css</code> and place components within a <code>syn-root</code> scope. The examples below use the existing component API—no hydration or framework wrappers. Optional recipe, geometry and visualization examples require the named CSS module after core, or the all-in-one stylesheet.</p>
       <p class="syn-caption">For additional native patterns see <a href="../examples/native-elements.html">all HTML controls</a>, <a href="../examples/semantic-compositions.html">semantic compositions</a>, and <a href="../examples/native-apis.html">browser-native overlays</a>. Advanced page compositions are <a href="premium-compositions.html">documented separately</a>.</p>
       <div id="catalog-controls" class="catalog-controls" hidden>
         <label class="syn-label" for="catalog-search">Find a component</label>
@@ -64,7 +64,7 @@
         </div>
       </div>
       <p class="syn-caption">For editors and page builders, use the <a href="../metadata/component-gallery.v1.json">generated component and example JSON</a>. It is sourced from these copyable previews and the curated component contract, and describes an unreleased source candidate.</p>
-      <p id="catalog-results" class="syn-caption" role="status" aria-live="polite">27 examples available.</p>
+      <p id="catalog-results" class="syn-caption" role="status" aria-live="polite">32 examples available.</p>
       <p id="catalog-feedback" class="syn-caption" role="status" aria-live="polite" aria-atomic="true"></p>
       <p id="catalog-empty" class="syn-alert" hidden>No components match your search. Try a different term.</p>
       <div id="catalog-items" class="catalog-grid">
@@ -746,6 +746,149 @@
   &lt;p&gt;Browser-native popover; no JavaScript component required.&lt;/p&gt;
   &lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;catalog-help-popover&quot; popovertargetaction=&quot;hide&quot;&gt;Close&lt;/button&gt;
 &lt;/div&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-category="forms" data-catalog-keywords="form composition prefix addon connected input" aria-labelledby="catalog-input-group-title">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-input-group-title">Connected input groups</h2>
+            <span class="syn-badge">syntyr.core.css</span>
+          </div>
+          <p class="syn-muted">Native text input with a connected visual prefix and an accessible field label.</p>
+          <div class="catalog-preview">
+<div class="syn-field">
+  <label class="syn-label" for="catalog-website">Website URL</label>
+  <div class="syn-input-group">
+    <span class="syn-input-addon" aria-hidden="true">https://</span>
+    <input class="syn-input" id="catalog-website" name="website" type="text" inputmode="url" placeholder="example.com">
+  </div>
+  <p class="syn-help">Enter the host name; validate the full URL in your app.</p>
+</div>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;div class=&quot;syn-field&quot;&gt;
+  &lt;label class=&quot;syn-label&quot; for=&quot;catalog-website&quot;&gt;Website URL&lt;/label&gt;
+  &lt;div class=&quot;syn-input-group&quot;&gt;
+    &lt;span class=&quot;syn-input-addon&quot; aria-hidden=&quot;true&quot;&gt;https://&lt;/span&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;catalog-website&quot; name=&quot;website&quot; type=&quot;text&quot; inputmode=&quot;url&quot; placeholder=&quot;example.com&quot;&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;syn-help&quot;&gt;Enter the host name; validate the full URL in your app.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-category="forms" data-catalog-keywords="search crm filter bar stage records toolbar" aria-labelledby="catalog-crm-filters-title">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-crm-filters-title">CRM filter toolbar</h2>
+            <span class="syn-badge">syntyr.recipes.css</span>
+          </div>
+          <p class="syn-muted">Optional responsive filter layout. The linked static demo does not implement server-side filtering.</p>
+          <div class="catalog-preview">
+<form class="syn-filter-bar" action="../examples/crm.html#pipeline" method="get">
+  <label class="syn-label syn-filter-field syn-filter-field--query" for="catalog-account-query">Account
+    <input class="syn-input" id="catalog-account-query" name="query" type="search" placeholder="Search accounts">
+  </label>
+  <label class="syn-label syn-filter-field" for="catalog-stage">Stage
+    <select class="syn-select" id="catalog-stage" name="status">
+      <option value="">All stages</option>
+      <option value="qualified">Qualified</option>
+    </select>
+  </label>
+  <div class="syn-filter-actions"><button class="syn-button syn-button--primary" type="submit">Apply</button></div>
+</form>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;form class=&quot;syn-filter-bar&quot; action=&quot;../examples/crm.html#pipeline&quot; method=&quot;get&quot;&gt;
+  &lt;label class=&quot;syn-label syn-filter-field syn-filter-field--query&quot; for=&quot;catalog-account-query&quot;&gt;Account
+    &lt;input class=&quot;syn-input&quot; id=&quot;catalog-account-query&quot; name=&quot;query&quot; type=&quot;search&quot; placeholder=&quot;Search accounts&quot;&gt;
+  &lt;/label&gt;
+  &lt;label class=&quot;syn-label syn-filter-field&quot; for=&quot;catalog-stage&quot;&gt;Stage
+    &lt;select class=&quot;syn-select&quot; id=&quot;catalog-stage&quot; name=&quot;status&quot;&gt;
+      &lt;option value=&quot;&quot;&gt;All stages&lt;/option&gt;
+      &lt;option value=&quot;qualified&quot;&gt;Qualified&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/label&gt;
+  &lt;div class=&quot;syn-filter-actions&quot;&gt;&lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Apply&lt;/button&gt;&lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-category="interactive" data-catalog-keywords="empty no results recovery error reset action" aria-labelledby="catalog-recovery-state-title">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-recovery-state-title">Empty and recovery state</h2>
+            <span class="syn-badge">syntyr.recipes.css</span>
+          </div>
+          <p class="syn-muted">Optional app-state composition. Provide a working destination for any recovery action.</p>
+          <div class="catalog-preview">
+<section class="syn-result-state" aria-labelledby="catalog-recovery-title">
+  <h3 id="catalog-recovery-title">No matching records</h3>
+  <p>Try a broader search or review the documentation.</p>
+  <a class="syn-button syn-button--outline" href="https://syntyr-css.pages.dev/docs/guides.html">Browse guides</a>
+</section>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;section class=&quot;syn-result-state&quot; aria-labelledby=&quot;catalog-recovery-title&quot;&gt;
+  &lt;h3 id=&quot;catalog-recovery-title&quot;&gt;No matching records&lt;/h3&gt;
+  &lt;p&gt;Try a broader search or review the documentation.&lt;/p&gt;
+  &lt;a class=&quot;syn-button syn-button--outline&quot; href=&quot;https://syntyr-css.pages.dev/docs/guides.html&quot;&gt;Browse guides&lt;/a&gt;
+&lt;/section&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-category="layout" data-catalog-keywords="decorative frame bracket accent geometry visual" aria-labelledby="catalog-geometry-frame-title">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-geometry-frame-title">Geometry frame</h2>
+            <span class="syn-badge">syntyr.geometry.css</span>
+          </div>
+          <p class="syn-muted">An optional decorative bracket frame; content stays semantic HTML.</p>
+          <div class="catalog-preview">
+<article class="syn-panel syn-frame syn-frame--bracket" aria-labelledby="catalog-frame-title">
+  <h3 class="syn-heading" id="catalog-frame-title">Connection established</h3>
+  <p>Geometry changes presentation, not meaning.</p>
+</article>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;article class=&quot;syn-panel syn-frame syn-frame--bracket&quot; aria-labelledby=&quot;catalog-frame-title&quot;&gt;
+  &lt;h3 class=&quot;syn-heading&quot; id=&quot;catalog-frame-title&quot;&gt;Connection established&lt;/h3&gt;
+  &lt;p&gt;Geometry changes presentation, not meaning.&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+          </details>
+          <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
+        </article>
+        <article class="catalog-card syn-panel" data-catalog-category="data" data-catalog-keywords="visualization graph chart ranked bars percentages data" aria-labelledby="catalog-viz-bars-title">
+          <div class="catalog-card-top">
+            <h2 class="syn-heading" id="catalog-viz-bars-title">Accessible data bars</h2>
+            <span class="syn-badge">syntyr.viz.css</span>
+          </div>
+          <p class="syn-muted">Optional CSS-only bars with visible values; your app supplies real measurements.</p>
+          <div class="catalog-preview">
+<ol class="syn-viz-bars" aria-label="Illustrative channel share">
+  <li class="syn-viz-bar">
+    <div class="syn-viz-bar-label"><span>Direct</span><data value="54">54%</data></div>
+    <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 54"></span></div>
+  </li>
+  <li class="syn-viz-bar">
+    <div class="syn-viz-bar-label"><span>Agency</span><data value="31">31%</data></div>
+    <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 31"></span></div>
+  </li>
+</ol>
+          </div>
+          <details class="catalog-code-details">
+            <summary>View HTML source</summary>
+            <pre class="catalog-source"><code>&lt;ol class=&quot;syn-viz-bars&quot; aria-label=&quot;Illustrative channel share&quot;&gt;
+  &lt;li class=&quot;syn-viz-bar&quot;&gt;
+    &lt;div class=&quot;syn-viz-bar-label&quot;&gt;&lt;span&gt;Direct&lt;/span&gt;&lt;data value=&quot;54&quot;&gt;54%&lt;/data&gt;&lt;/div&gt;
+    &lt;div class=&quot;syn-viz-bar-track&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;syn-viz-bar-fill&quot; style=&quot;--syn-viz-value: 54&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;syn-viz-bar&quot;&gt;
+    &lt;div class=&quot;syn-viz-bar-label&quot;&gt;&lt;span&gt;Agency&lt;/span&gt;&lt;data value=&quot;31&quot;&gt;31%&lt;/data&gt;&lt;/div&gt;
+    &lt;div class=&quot;syn-viz-bar-track&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;syn-viz-bar-fill&quot; style=&quot;--syn-viz-value: 31&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre>
           </details>
           <button type="button" class="syn-button catalog-copy" hidden data-catalog-copy>Copy HTML</button>
         </article>

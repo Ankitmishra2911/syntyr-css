@@ -50,6 +50,9 @@ class CloudflareSiteTests(unittest.TestCase):
             self.assertTrue((out / "examples/themes.html").is_file())
             self.assertTrue((out / "docs/native-browser-apis.md").is_file())
             self.assertTrue((out / "examples/native-apis.html").is_file())
+            self.assertTrue((out / "examples/dropdowns.html").is_file())
+            self.assertTrue((out / "docs/dropdowns.md").is_file())
+            self.assertTrue((out / "docs/dropdowns.html").is_file())
             self.assertTrue((out / "dist/syntyr.utilities.css").is_file())
             contract = json.loads((out / "metadata/syntyr-contract.json").read_text())
             self.assertEqual(contract["schema_version"], 1)
@@ -90,6 +93,8 @@ class CloudflareSiteTests(unittest.TestCase):
                     "docs/playground.html", "docs/page-builder.html", "docs/blocks.html",
                     "docs/how-to.html",  # Docs-only search, same CSP as the catalog.
                     "examples/animation.html", "examples/copy.html",
+                    "examples/resizable-workspace.html",
+                    "examples/command-launcher.html",
                     # Explicitly opted-in first-party ESM examples only.
                 }
             ))

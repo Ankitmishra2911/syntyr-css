@@ -74,6 +74,11 @@ class DropdownContract(unittest.TestCase):
         self.assertIn('<select class="syn-select" multiple', guide)
         self.assertIn('Autocomplete or hierarchical menu', guide)
 
+    def test_dropdown_guide_and_demo_are_in_public_site_allowlist(self):
+        site = (ROOT / "scripts/build_cloudflare_site.py").read_text()
+        self.assertIn('"dropdowns.md"', site)
+        self.assertIn('"dropdowns.html"', site)
+
     def test_guidance_distinguishes_action_panel_and_aria_menu(self):
         guide = (ROOT / "docs/dropdowns.md").read_text()
         for phrase in ("native", "Tab", "Escape", "role=\"menu\"", "ArrowDown",

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="34f08e4b308849d3a239c8bc4ac40aa9c64d9b523d7931a7b8111c4c798ef5b5">
+  <meta name="syntyr-source-sha256" content="14744632b708687fd4c505e6a95c1787e08754d23d60dc408b435976af6372b5">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -38,6 +38,16 @@
 <p>This prerelease Syntyr example uses original CSS, not upstream Blades source.
 All patterns retain native HTML semantics and need <strong>no runtime JavaScript</strong>.
 For a live static preview, see <a href="https://syntyr-css.pages.dev/examples/native-recipes.html">the native recipe example (live alpha.5 source preview)</a>.</p>
+<h2 id="native-visibility-is-authoritative">Native visibility is authoritative</h2>
+<p>Inside <code>.syn-root</code>, use the browser's <code>hidden</code> attribute to remove an element
+from layout even when it also has <code>.syn-button</code>, <code>.syn-grid</code>, or semantic styles.
+Syntyr's base layer preserves that native state. For find-in-page reveals, use
+<code>hidden=&quot;until-found&quot;</code>: the browser retains the element in layout and may
+reveal it on search or fragment navigation. Use a layout-containing box:
+do not force <code>display: none</code>, <code>display: inline</code>, or
+<code>display: contents</code>. Those values prevent find-in-page reveal;
+prefer a block, grid, or flex container. Do not replace these states with
+<code>aria-hidden</code>, which does not hide an element visually or from keyboard focus.</p>
 <h2 id="native-interaction-recipes">Native interaction recipes</h2>
 <p>The standard library includes the following <strong>five native interaction
 compositions</strong>, using existing core classes plus normal HTML. They do <strong>not</strong>
@@ -272,6 +282,7 @@ Refer to <a href="framework-integrations.html">framework integrations</a> and th
 and fallbacks.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-visibility-is-authoritative">Native visibility is authoritative</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-interaction-recipes">Native interaction recipes</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#resource-outline-nested-native-navigation">Resource outline (nested native navigation)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#individually-importable-css">Individually importable CSS</a>

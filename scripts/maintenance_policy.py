@@ -57,6 +57,22 @@ def css_code_only(content: str) -> str:
 
 
 THEME_ATTRIBUTE = re.compile(r"\[\s*data-syn-theme\b")
+# Check actual CSS syntax, not string values or comments. A same-line @layer
+# preamble can legally precede @import, so do not anchor imports to line starts.
+CSS_IMPORT = re.compile(r"@import\b", re.IGNORECASE)
+CSS_URL_CALL = re.compile(r"\burl\s*\(", re.IGNORECASE)
+CSS_URL = re.compile(
+    r"\burl\s*\(\s*(?:\"([^\"\n]*)\"|'([^'\n]*)'|([^\s)]*))\s*\)",
+    re.IGNORECASE,
+)
+# Native hidden is a tightly-scoped accessibility exception to the normal
+# prohibition on !important in base.css. Never allow generic display overrides.
+NATIVE_HIDDEN_GUARD = re.compile(
+    r':where\(\s*\.syn-root\[hidden\]:not\(\[hidden="until-found" i\]\)\s*,\s*'
+    r'\.syn-root \[hidden\]:not\(\[hidden="until-found" i\]\)\s*\)\s*'
+    r'\{\s*display\s*:\s*none\s*!important\s*;\s*\}',
+    re.IGNORECASE | re.DOTALL,
+)
 CUSTOM_PROPERTY = re.compile(r"(?<=[{;}])\s*(--syn-[a-zA-Z0-9_-]+)\s*:")
 VAR_REFERENCE = re.compile(r"\b(?i:var)\(\s*(--syn-[a-zA-Z0-9_-]+)\s*([,)])")
 IMPORTANT = re.compile(r"!\s*important\b", re.IGNORECASE)
@@ -134,8 +150,22 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
         name = path.relative_to(source_root).as_posix()
         if name not in referenced:
             issues.append(f"unregistered source: {name}")
-        content = css_code_only(path.read_text(encoding="utf-8"))
+        raw_content = path.read_text(encoding="utf-8")
+        content = css_code_only(raw_content)
         cleaned_sources[name] = content
+        if CSS_IMPORT.search(content):
+            issues.append(f"{name}: CSS import; bundle the source at build time")
+        # The masked source locates genuine url(...) tokens. Parse the argument
+        # from the original text so quoted URLs retain their values.
+        for call in CSS_URL_CALL.finditer(content):
+            match = CSS_URL.match(raw_content, call.start())
+            if match is None:
+                issues.append(f"{name}: invalid CSS url() token")
+                break
+            asset = next((value for value in match.groups() if value is not None), "").strip()
+            if not asset.lower().startswith("data:") and not asset.startswith("#"):
+                issues.append(f"{name}: external CSS asset; embed or own it in the host application")
+                break
         # Theme palette variants must live in tokens, not in copied components.
         if name not in {"tokens.css", "base.css", "print.css", "viz.css"} and THEME_ATTRIBUTE.search(content):
             label = "component theme fork" if name.startswith("components/") else "theme fork"
@@ -143,7 +173,10 @@ def find_issues(source_root: Path = SOURCE, bundles: dict | None = None) -> list
         if INTEGRATION_LEAK.search(content):
             issues.append(f"{name}: integration leak; keep vendor-specific syntax, selectors and tokens in integrations/")
         if name == "base.css":
-            issues.extend(base_important_issues(content))
+            # Strip only the exact native-hidden accessibility declaration
+            # before applying the existing strict reduced-motion allowlist.
+            audited = NATIVE_HIDDEN_GUARD.sub("", raw_content)
+            issues.extend(base_important_issues(css_code_only(audited)))
         elif IMPORTANT.search(content):
             issues.append(f"{name}: !important outside base.css; use cascade layers")
 

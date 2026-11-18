@@ -243,6 +243,51 @@ window.SYNTYR_PLAYGROUND_CATALOG = [
     "guidance": "Use button for actions and a for navigation. ARIA states describe real application state."
   },
   {
+    "id": "catalog-input-group-title",
+    "title": "Connected input groups",
+    "module": "syntyr.core.css",
+    "description": "Native text input with a connected visual prefix and an accessible field label.",
+    "html": "\u003cdiv class=\"syn-field\">\n  \u003clabel class=\"syn-label\" for=\"catalog-website\">Website URL\u003c/label>\n  \u003cdiv class=\"syn-input-group\">\n    \u003cspan class=\"syn-input-addon\" aria-hidden=\"true\">https://\u003c/span>\n    \u003cinput class=\"syn-input\" id=\"catalog-website\" name=\"website\" type=\"text\" inputmode=\"url\" placeholder=\"example.com\">\n  \u003c/div>\n  \u003cp class=\"syn-help\">Enter the host name; validate the full URL in your app.\u003c/p>\n\u003c/div>",
+    "keywords": "form composition prefix addon connected input",
+    "guidance": "Unreleased alpha.5 candidate only. Native form behavior, associated labels, server validation; use syn-region for container-responsive rows. The Radix adapter is separately optional."
+  },
+  {
+    "id": "catalog-crm-filters-title",
+    "title": "CRM filter toolbar",
+    "module": "syntyr.recipes.css",
+    "description": "Optional responsive filter layout. The linked static demo does not implement server-side filtering.",
+    "html": "\u003cform class=\"syn-filter-bar\" action=\"../examples/crm.html#pipeline\" method=\"get\">\n  \u003clabel class=\"syn-label syn-filter-field syn-filter-field--query\" for=\"catalog-account-query\">Account\n    \u003cinput class=\"syn-input\" id=\"catalog-account-query\" name=\"query\" type=\"search\" placeholder=\"Search accounts\">\n  \u003c/label>\n  \u003clabel class=\"syn-label syn-filter-field\" for=\"catalog-stage\">Stage\n    \u003cselect class=\"syn-select\" id=\"catalog-stage\" name=\"status\">\n      \u003coption value=\"\">All stages\u003c/option>\n      \u003coption value=\"qualified\">Qualified\u003c/option>\n    \u003c/select>\n  \u003c/label>\n  \u003cdiv class=\"syn-filter-actions\">\u003cbutton class=\"syn-button syn-button--primary\" type=\"submit\">Apply\u003c/button>\u003c/div>\n\u003c/form>",
+    "keywords": "search crm filter bar stage records toolbar",
+    "guidance": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+  },
+  {
+    "id": "catalog-recovery-state-title",
+    "title": "Empty and recovery state",
+    "module": "syntyr.recipes.css",
+    "description": "Optional app-state composition. Provide a working destination for any recovery action.",
+    "html": "\u003csection class=\"syn-result-state\" aria-labelledby=\"catalog-recovery-title\">\n  \u003ch3 id=\"catalog-recovery-title\">No matching records\u003c/h3>\n  \u003cp>Try a broader search or review the documentation.\u003c/p>\n  \u003ca class=\"syn-button syn-button--outline\" href=\"https://syntyr-css.pages.dev/docs/guides.html\">Browse guides\u003c/a>\n\u003c/section>",
+    "keywords": "empty no results recovery error reset action",
+    "guidance": "See the component API reference for compatible classes and CSS modules."
+  },
+  {
+    "id": "catalog-geometry-frame-title",
+    "title": "Geometry frame",
+    "module": "syntyr.geometry.css",
+    "description": "An optional decorative bracket frame; content stays semantic HTML.",
+    "html": "\u003carticle class=\"syn-panel syn-frame syn-frame--bracket\" aria-labelledby=\"catalog-frame-title\">\n  \u003ch3 class=\"syn-heading\" id=\"catalog-frame-title\">Connection established\u003c/h3>\n  \u003cp>Geometry changes presentation, not meaning.\u003c/p>\n\u003c/article>",
+    "keywords": "decorative frame bracket accent geometry visual",
+    "guidance": "Load optional geometry CSS. One shape per frame; accent emphasis is additive. Refer to visual-intensity.md for pseudo-element ownership and backgrounds."
+  },
+  {
+    "id": "catalog-viz-bars-title",
+    "title": "Accessible data bars",
+    "module": "syntyr.viz.css",
+    "description": "Optional CSS-only bars with visible values; your app supplies real measurements.",
+    "html": "\u003col class=\"syn-viz-bars\" aria-label=\"Illustrative channel share\">\n  \u003cli class=\"syn-viz-bar\">\n    \u003cdiv class=\"syn-viz-bar-label\">\u003cspan>Direct\u003c/span>\u003cdata value=\"54\">54%\u003c/data>\u003c/div>\n    \u003cdiv class=\"syn-viz-bar-track\" aria-hidden=\"true\">\u003cspan class=\"syn-viz-bar-fill\" style=\"--syn-viz-value: 54\">\u003c/span>\u003c/div>\n  \u003c/li>\n  \u003cli class=\"syn-viz-bar\">\n    \u003cdiv class=\"syn-viz-bar-label\">\u003cspan>Agency\u003c/span>\u003cdata value=\"31\">31%\u003c/data>\u003c/div>\n    \u003cdiv class=\"syn-viz-bar-track\" aria-hidden=\"true\">\u003cspan class=\"syn-viz-bar-fill\" style=\"--syn-viz-value: 31\">\u003c/span>\u003c/div>\n  \u003c/li>\n\u003c/ol>",
+    "keywords": "visualization graph chart ranked bars percentages data",
+    "guidance": "See the component API reference for compatible classes and CSS modules."
+  },
+  {
     "id": "block-hero-product",
     "title": "Product launch hero",
     "module": "syntyr.core.css + syntyr.recipes.css",

@@ -8,6 +8,9 @@ smallest working application must need only a local stylesheet and HTML.
 
 1. **Zero CSS runtime dependencies:** no required JavaScript, package manager,
    network fonts, icons, CDN, server, or compiler for consumers.
+   Shipped CSS source cannot use `@import` or reference host/network assets via
+   `url(...)`; bundled data URLs and local SVG fragment references are permitted.
+   These constraints make a pinned, self-hosted stylesheet truly standalone.
 2. **One styling contract:** public selectors use `syn-*`, custom properties
    `--syn-*`, and state/theme attributes `data-syn-*` (with semantic ARIA and
    native HTML states where appropriate). Avoid competing ways to express the
