@@ -584,7 +584,15 @@
     }
     &.syn-input-group > .syn-button {
       flex: 0 0 auto;
+      max-inline-size: 100%;
+      overflow-wrap: anywhere;
+      white-space: normal;
       border-radius: 0;
+    }
+    /* Keep a readable query field if a translated submit label is long.
+       Addon-only groups retain their original intrinsic sizing. */
+    &.syn-input-group:has(> .syn-button) > :where(.syn-input, .syn-select) {
+      min-inline-size: min(100%, 9rem);
     }
     &.syn-input-addon {
       display: inline-flex;
@@ -606,6 +614,11 @@
       border-end-end-radius: var(--syn-radius);
     }
     &.syn-input-group > :not(:first-child) { border-inline-start: 0; }
+    /* Maintain a real border when long labels move the button to a new row. */
+    &.syn-input-group:has(> .syn-button) > .syn-button {
+      border-inline-start: 1px solid var(--syn-border-default);
+      margin-inline-start: -1px;
+    }
     /* Stack connected submit controls only when the group's own space is too
        narrow for enlarged text. Addon-only currency/units stay inline. */
     @container (max-width: 12rem) {
@@ -886,9 +899,19 @@
     &.syn-filter-choices > .syn-chip {
       position: relative; min-block-size: var(--syn-control-height); cursor: pointer;
     }
+    /* Progressive enhancement: keep the native input visible, focusable,
+       and selectable if the browser cannot style the parent via :has(). */
     &.syn-filter-choices > .syn-chip > input:is([type="radio"], [type="checkbox"]) {
-      position: absolute; inline-size: 1px; block-size: 1px;
-      margin: 0; padding: 0; opacity: 0; pointer-events: none;
+      flex: none; inline-size: 1.5rem; block-size: 1.5rem;
+      margin: 0; margin-inline-end: .375rem; accent-color: var(--syn-accent);
+    }
+    @supports selector(:has(*)) {
+      /* Only hide the native control when the chip can display checked and
+         focus-visible states through :has() in this same browser. */
+      &.syn-filter-choices > .syn-chip > input:is([type="radio"], [type="checkbox"]) {
+        position: absolute; inline-size: 1px; block-size: 1px;
+        margin: 0; padding: 0; opacity: 0; pointer-events: none;
+      }
     }
     &.syn-filter-choices > .syn-chip:has(> input:checked) {
       border-color: var(--syn-accent); background: var(--syn-accent-soft);

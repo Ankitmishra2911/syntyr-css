@@ -47,3 +47,6 @@ examples/preact-jsx/dist/
 examples/solid-tsx/dist/
 examples/next-app-router/.next/
 *.tsbuildinfo
+
+# Generated optional portable CMS starter website.
+examples/cms-starter/_site/

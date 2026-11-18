@@ -187,6 +187,21 @@
       "description": "Syntyr CSS class (components/data.css)."
     },
     {
+      "name": "syn-change-after",
+      "module": "recipes.css",
+      "description": "Updated or added revision value with visible text label."
+    },
+    {
+      "name": "syn-change-before",
+      "module": "recipes.css",
+      "description": "Previous or removed revision value with visible text label."
+    },
+    {
+      "name": "syn-change-pair",
+      "module": "recipes.css",
+      "description": "Responsive before/after value pair for existing semantic record fields."
+    },
+    {
       "name": "syn-chart",
       "module": "viz.css",
       "description": "Syntyr CSS class (viz.css)."
@@ -602,6 +617,21 @@
       "description": "Syntyr CSS class (components/forms.css)."
     },
     {
+      "name": "syn-file-item",
+      "module": "recipes.css",
+      "description": "File queue entry with host-owned queued, uploading, complete or failed state."
+    },
+    {
+      "name": "syn-file-item-header",
+      "module": "recipes.css",
+      "description": "Flexible file name and visible status header for queue entries."
+    },
+    {
+      "name": "syn-file-queue",
+      "module": "recipes.css",
+      "description": "Optional ordered file lifecycle list; not an upload engine."
+    },
+    {
       "name": "syn-filter-actions",
       "module": "recipes.css",
       "description": "Wrapping submit and reset action group for CRM filters."
@@ -650,6 +680,16 @@
       "name": "syn-form",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-form-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-form-actions__buttons",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-frame",
@@ -710,6 +750,116 @@
       "name": "syn-frame--step",
       "module": "geometry.css",
       "description": "Optional square-stepped top-right and bottom-left frame."
+    },
+    {
+      "name": "syn-geo-attribution",
+      "module": "geo.css",
+      "description": "Optional attribution surface; preserve map provider credits."
+    },
+    {
+      "name": "syn-geo-bottom",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-callout",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-cluster",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-control",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-control-group",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-controls",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-data-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-layer-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-legend",
+      "module": "geo.css",
+      "description": "Readable, labeled map legend; host must provide layer semantics."
+    },
+    {
+      "name": "syn-geo-legend-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-legend-title",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-map",
+      "module": "geo.css",
+      "description": "Map renderer mount surface; actual projection and map behavior belong to host."
+    },
+    {
+      "name": "syn-geo-marker",
+      "module": "geo.css",
+      "description": "44px visual marker target; renderer-managed marker positions stay renderer-managed."
+    },
+    {
+      "name": "syn-geo-marker-layer",
+      "module": "geo.css",
+      "description": "Static diagram overlay for percentage-positioned markers, not for renderer-managed markers."
+    },
+    {
+      "name": "syn-geo-overlay",
+      "module": "geo.css",
+      "description": "Pointer-transparent overlay for application-owned map controls and legends."
+    },
+    {
+      "name": "syn-geo-scale",
+      "module": "geo.css",
+      "description": "Scale presentation; actual scale and bar width require a real map renderer."
+    },
+    {
+      "name": "syn-geo-shell",
+      "module": "geo.css",
+      "description": "Named CSS container for map-based workspace layouts; use with core plus optional geo CSS."
+    },
+    {
+      "name": "syn-geo-sidebar",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-swatch",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-viewport",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-workspace",
+      "module": "geo.css",
+      "description": "Responsive GIS sidebar plus map viewport; stacks based on container width."
     },
     {
       "name": "syn-glow",
@@ -857,6 +1007,11 @@
       "description": "Syntyr CSS class (components/patterns.css)."
     },
     {
+      "name": "syn-operation-feedback",
+      "module": "recipes.css",
+      "description": "Optional host-managed operation feedback with truthful state text."
+    },
+    {
       "name": "syn-page",
       "module": "base.css",
       "description": "Syntyr CSS class (base.css)."
@@ -980,6 +1135,26 @@
       "name": "syn-region",
       "module": "components/patterns.css",
       "description": "Container query boundary for responsive compositions."
+    },
+    {
+      "name": "syn-resizable-workspace",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__pane",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__panes",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-resizable-workspace__separator",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-resource-outline",
@@ -1487,6 +1662,11 @@
       "description": "Syntyr CSS class (utilities.css)."
     },
     {
+      "name": "syn-upload-field",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-view-switcher",
       "module": "recipes.css",
       "description": "Server-selected view links or host-controlled view buttons; the host owns selection and navigation."
@@ -1729,6 +1909,11 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-file-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
       "name": "--syn-filter-field-min",
       "module": "recipes.css",
       "description": "Filter field basis and minimum; defaults to 11rem."
@@ -1832,6 +2017,51 @@
       "name": "--syn-frame-strong",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-geo-floating",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-land",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-point",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-road",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-route",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-water",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-zone",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
     },
     {
       "name": "--syn-glow-alpha",
@@ -1952,6 +2182,11 @@
       "name": "--syn-on-accent",
       "module": "tokens.css",
       "description": "Foreground color for the primary accent."
+    },
+    {
+      "name": "--syn-operation-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
     },
     {
       "name": "--syn-panel-border-width",
@@ -2182,6 +2417,11 @@
       "name": "--syn-wash-secondary-alpha",
       "module": "tokens.css",
       "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
     }
   ],
   "themes": [

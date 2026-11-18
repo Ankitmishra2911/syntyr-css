@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="d2091cf2f4316d6a16d4ad0c8de0e9b201200e393332e45739a72d7af3b35de9">
+  <meta name="syntyr-source-sha256" content="93e318a1699b00de773dd779946b029c33450c84901f165a6e5f746740930e53">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -36,6 +36,7 @@
         <article class="docs-prose" aria-label="MIT-licensed composition recipes">
 <h1 id="mit-licensed-composition-recipes">MIT-licensed composition recipes</h1>
 <p>For copyable input groups, labeled fields, container-responsive settings forms and optional headless UI styling, see <a href="component-recipes.html">form composition recipes</a> and the <a href="radix-integration.html">Radix adapter</a>. For layered depth, incident-detail layouts, command presentation, timelines, and editorial product sections, see <a href="premium-compositions.html">premium compositions</a>.</p>
+<p>For native file uploads, multi-action forms, and nested resource navigation, see <a href="native-workflows.html">native business workflows</a> and the <a href="../examples/native-workflows.html">script-free example</a>. These compose the existing error-summary and detail-layout patterns without introducing a JavaScript dependency.</p>
 <p>These original Syntyr recipes are free to copy, edit, commercialize, and distribute under MIT. No Tailwind Plus source or premium assets were copied. For live examples see <a href="index.html">the gallery</a>, the <a href="../examples/console.html">Grid console</a>, and the <a href="../examples/pricing.html">Noir pricing layout</a>.</p>
 <h2 id="optional-vertical-flow">Optional vertical flow</h2>
 <p>Use <code>.syn-flow</code> from <code>syntyr.recipes.css</code> on a content group to add
@@ -150,6 +151,128 @@ All spacing remains controlled by ordinary CSS custom properties.</p>
 &lt;/section&gt;
 </code></pre>
 <p>The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.</p>
+<h2 id="resizable-workspace-optional-behavior">Resizable workspace (optional behavior)</h2>
+<p>The <strong>Resizable workspace</strong> composition is separate from the existing
+<code>.syn-split</code> (which is simply a responsive two-column grid). Load
+<code>syntyr.core.css</code> and <code>syntyr.recipes.css</code> for
+<code>.syn-resizable-workspace</code>, <code>.syn-resizable-workspace__panes</code>,
+<code>.syn-resizable-workspace__pane</code> and
+<code>.syn-resizable-workspace__separator</code>. The <code>--syn-workspace-leading</code> CSS
+property expresses the first pane's share. Without JavaScript the two panes
+remain readable and the inert separator is hidden.</p>
+<p><a href="../examples/resizable-workspace.html">Runnable example</a> includes a
+<strong>copy-owned, optional</strong> module with pointer capture and keyboard support.
+It enables the separator only after initialization and keeps
+<code>aria-valuenow</code> synchronized with the visible split. Arrow Left/Right move
+by 2 percentage points (Shift: 10), with Home/End for bounds (20–70).
+The example respects RTL and stacks its panes when its <strong>own container</strong>
+is narrow; the separator is hidden in the stacked layout. No storage,
+network requests or global event listeners are required.</p>
+<p><strong>Running the packaged interactive demo:</strong> Extract the ZIP, change into its
+top-level <code>syntyr-css-&lt;version&gt;</code> directory, and serve the local assets over
+HTTP (not <code>file://</code>, which blocks relative module scripts in browsers):</p>
+<pre><code class="language-sh">python3 -m http.server 8000 --bind 127.0.0.1
+</code></pre>
+<p>Open <code>http://127.0.0.1:8000/examples/resizable-workspace.html</code>.
+A <code>file://</code> launch still shows the static two-pane fallback; drag and
+keyboard resizing require the local module to load over HTTP. Stop the
+server with Ctrl-C. No external network requests are needed.</p>
+<p>The resize value and user preference are <strong>application-owned</strong>: persistence,
+server rendering, saved layouts, authorization, and responsive restoration
+belong to the consuming application. A live client must keep the
+separator's ARIA bounds, visible panel sizes and keyboard/pointer behavior in
+sync. The script is demonstrative, <strong>not</strong> part of the zero-JS CSS runtime.
+Test real zoom, touch, forced colors, keyboard and screen-reader support
+before production use.</p>
+<h2 id="operation-feedback-and-record-revisions-alpha5-source-candidate">Operation feedback and record revisions (alpha.5 source candidate)</h2>
+<p>The optional <code>syntyr.recipes.css</code> provides <strong>two presentation patterns</strong>, not a
+transaction state machine or history service. <a href="../examples/operation-revisions.html">View the static example</a>.</p>
+<ul>
+<li><strong>Operation feedback:</strong> use <code>.syn-operation-feedback</code> and an actual
+<code>data-syn-state=&quot;unsaved|pending|saved|failed|conflict&quot;</code>. All five states use
+explicit textual headings and supporting details, not color alone.
+<code>--syn-operation-edge</code> can be overridden per instance if the host's palette
+needs a different border; do not interpret these colors as business results.</li>
+<li><strong>Record revisions:</strong> keep the existing <code>dl.syn-record-fields</code> and place
+<code>.syn-change-pair</code> inside a <code>dd</code>. Its optional <code>.syn-change-before</code> and
+<code>.syn-change-after</code> children wrap at narrow widths, including when embedded
+in a sidebar. Use visible &quot;Previous&quot;, &quot;Updated&quot;, &quot;Added&quot; or &quot;Removed&quot; labels
+with native <code>del</code>/<code>ins</code> elements. Omit the absent side for additions/removals;
+don't manufacture a previous value. The same pair may appear in a table cell
+or review panel; no duplicate definition-list component is needed.</li>
+</ul>
+<p>At extreme user text sizes, the <code>syn-page-header</code> and <code>syn-app-card</code>
+compositions allow long words and dates to wrap instead of expanding the viewport.
+The optional developer-only browser smoke test (tests/operation_revisions_browser.js)
+covers reflow, keyboard focus and forced colors in Playwright. Enlarging root
+text is a stress test, <strong>not</strong> proof of native 400% browser zoom or a manual
+screen-reader audit.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;section class=&quot;syn-operation-feedback&quot; data-syn-state=&quot;conflict&quot;
+       aria-labelledby=&quot;revision-conflict&quot;&gt;
+    &lt;h2 id=&quot;revision-conflict&quot;&gt;Someone updated this record&lt;/h2&gt;
+    &lt;p&gt;Review their changes before submitting a new version.&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;dl class=&quot;syn-record-fields&quot;&gt;
+    &lt;div&gt;&lt;dt&gt;Campaign name&lt;/dt&gt;&lt;dd&gt;&lt;div class=&quot;syn-change-pair&quot;&gt;
+      &lt;span class=&quot;syn-change-before&quot;&gt;&lt;small&gt;Previous&lt;/small&gt;&lt;del&gt;Fall&lt;/del&gt;&lt;/span&gt;
+      &lt;span class=&quot;syn-change-after&quot;&gt;&lt;small&gt;Updated&lt;/small&gt;&lt;ins&gt;Winter&lt;/ins&gt;&lt;/span&gt;
+    &lt;/div&gt;&lt;/dd&gt;&lt;/div&gt;
+  &lt;/dl&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Host behavior contract:</strong> Render the state <strong>only when it is true</strong>. A pending
+request requires the host to manage loading and submission controls; &quot;saved&quot;
+requires a confirmed server response, not an optimistic assumption. On
+failure preserve inputs; on conflict enforce record version checking
+(e.g., ETag/If-Match or an optimistic lock), offer a real comparison/reload
+path, and never overwrite concurrently edited data without policy checks.
+Authorize mutations, protect against CSRF where applicable, and record audit
+history on the server. For asynchronous updates, create a persistent
+<code>role=&quot;status&quot;</code> region before updating its content, and use <code>role=&quot;alert&quot;</code>
+only when immediate interruption is justified; <strong>the static gallery does not
+claim any live announcements</strong>. CSS cannot retry requests, manage focus,
+detect stale versions, or persist records. Test the integration at 320 CSS
+pixels, 400% zoom, keyboard-only navigation, screen readers and forced colors.</p>
+<h2 id="file-selection-and-lifecycle-presentation-alpha5-source-candidate">File selection and lifecycle presentation (alpha.5 source candidate)</h2>
+<p>Use the existing native file input (<code>.syn-input[type=&quot;file&quot;]</code>) with a real
+<code>label</code>, then load optional <code>syntyr.recipes.css</code> for an ordered
+<code>ol.syn-file-queue</code> containing <code>li.syn-file-item</code> entries. An optional
+<code>.syn-file-item-header</code> keeps names and textual status together without
+forcing a fixed width. Use only one truthfully rendered state per entry:
+<code>data-syn-state=&quot;queued|uploading|complete|failed&quot;</code>.
+Preserve <code>role=&quot;list&quot;</code> on the ordered queue when removing visual markers:
+Safari/VoiceOver can otherwise omit the list and its item count from
+accessibility announcements outside a navigation landmark.</p>
+<p><a href="../examples/file-lifecycle.html">Open the static file-lifecycle example</a>.
+This recipe is <strong>presentation only</strong>, not a drag-and-drop zone, upload engine,
+retry handler, virus scanner, or file storage client. File choice works
+natively without JavaScript, but choosing a file does not upload it.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;label class=&quot;syn-label&quot; for=&quot;attachments&quot;&gt;Attachments&lt;/label&gt;
+  &lt;input id=&quot;attachments&quot; class=&quot;syn-input&quot; type=&quot;file&quot; multiple&gt;
+  &lt;ol class=&quot;syn-file-queue&quot; role=&quot;list&quot;&gt;
+    &lt;li class=&quot;syn-file-item&quot; data-syn-state=&quot;uploading&quot;&gt;
+      &lt;div class=&quot;syn-file-item-header&quot;&gt;
+        &lt;strong&gt;report.pdf&lt;/strong&gt;&lt;span&gt;Uploading · 42%&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;progress class=&quot;syn-meter&quot; value=&quot;42&quot; max=&quot;100&quot;
+                aria-label=&quot;Report upload progress&quot;&gt;42%&lt;/progress&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Host application contract:</strong> Do not render completion until the server
+confirms durable storage. Compute actual byte-based progress if available;
+omit <code>value</code> on <code>&lt;progress&gt;</code> only when an upload is genuinely indeterminate.
+Honor file size/type limits, authorization, CSRF protections when applicable,
+safe filenames, cancellation, retries, and server-side scanning as required.
+Retain selected files after recoverable errors when the browser permits,
+and expose real error details with field associations. Create a persistent
+live status region in the host if asynchronous changes require announcements;
+CSS and a static snapshot cannot announce an update. No automatic drag/drop
+or upload happens with these classes. Test responsive zoom, forced colors,
+keyboard navigation, real upload failure and assistive technology in the host.</p>
 <h2 id="reusing-recipes-across-stacks">Reusing recipes across stacks</h2>
 <ul>
 <li><strong>Go / templ, PHP, Django, Rust templates:</strong> Make recipes server-rendered partials and pass content as arguments.</li>
@@ -293,6 +416,18 @@ application CSS. Keep real document headings and reading order.</p>
 <li>Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.</li>
 </ul>
 <p>The example is illustrative, <strong>not a configured server</strong>. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.</p>
+<p>For a <strong>runnable, zero-JavaScript reference</strong>, see the <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/go-resource-workbench">Go resource workbench</a>. It composes the existing filter, table, bulk-action and inspector classes with real server-side GET filtering, status filters, sorting, column and theme settings, record links and read-only bulk-selection previews. Unlike the static markup, the Go example actually constrains result sets. An empty checked selection never means all matching records: selecting the full matching set is an explicit separate link. The example has no writes, accounts, tenant isolation or durable authorization; production apps must supply those behaviors.</p>
+<h2 id="native-query-filters-and-record-review-alpha5-source-candidate">Native query filters and record review (alpha.5 source candidate)</h2>
+<p>The <a href="../examples/query-review.html">copy-owned filter and review composition</a>
+reuses <code>.syn-filter-bar</code>, <code>.syn-filter-choices</code>, <code>.syn-chip</code>,
+and <code>dl.syn-record-fields</code>. The example is a <strong>static server-rendered snapshot</strong>;
+it does not filter results or perform edits without a host application.</p>
+<ul>
+<li>Submit labelled controls with a native <code>method=&quot;get&quot;</code> form. The server must validate the query and re-render selected values, counts, and the matching results.</li>
+<li>Render each removable filter as a real link that drops exactly one encoded query parameter while preserving the others. Use descriptive accessible names, not icon-only removal affordances. The server must generate these URLs from validated state.</li>
+<li>Review record details as <code>dl</code> / <code>dt</code> / <code>dd</code> pairs and use Edit links to disabled example fields in this static snapshot; hosts must substitute real, authorized edit routes. Never style a static text value as a working editable field.</li>
+<li>Filtering, authorization, permissions, mutations, and persistence belong to the host. These composition classes add <strong>no new core CSS or mandatory JavaScript</strong>.</li>
+</ul>
 <h2 id="enterprise-collection-sheet-and-evidence-compositions-alpha5-source-candidate">Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)</h2>
 <p>The optional <code>syntyr.recipes.css</code> also includes reusable patterns tested against
 Adacavo-style resource workflows. They are original MIT-licensed presentation
@@ -364,6 +499,9 @@ not a JavaScript permissions widget or a substitute for authorization.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-stateful-native-button-host-controlled">4. Stateful native button (host controlled)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#token-only-custom-theme">Token-only custom theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#crm-and-vertical-saas-patterns-alpha5-source-candidate">CRM and vertical SaaS patterns (alpha.5 source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#resizable-workspace-optional-behavior">Resizable workspace (optional behavior)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#operation-feedback-and-record-revisions-alpha5-source-candidate">Operation feedback and record revisions (alpha.5 source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#file-selection-and-lifecycle-presentation-alpha5-source-candidate">File selection and lifecycle presentation (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reusing-recipes-across-stacks">Reusing recipes across stacks</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>
@@ -373,6 +511,7 @@ not a JavaScript permissions widget or a substitute for authorization.</p>
 <a class="docs-article-toc-link docs-article-toc-3" href="#3-approval-honest-actions-and-durable-outcomes">3. Approval: honest actions and durable outcomes</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#collection-workspaces-and-error-recovery-source-candidate">Collection workspaces and error recovery (source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-query-filters-and-record-review-alpha5-source-candidate">Native query filters and record review (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#enterprise-collection-sheet-and-evidence-compositions-alpha5-source-candidate">Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#permission-matrix-rolecapability-review">Permission matrix — role/capability review</a>
         </nav></aside>
