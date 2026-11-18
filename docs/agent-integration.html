@@ -55,7 +55,7 @@
 release-pinned CSS, and a small verified selector reference into an existing app.
 It runs from a Syntyr source checkout and does <strong>not</strong> install any application
 runtime dependencies, connect to services, or publish a package:</p>
-<pre><code class="language-sh">python3 scripts/syntyr_agent.py init --project /path/to/my-app --json
+<pre tabindex="0"><code class="language-sh">python3 scripts/syntyr_agent.py init --project /path/to/my-app --json
 python3 scripts/syntyr_agent.py check --project /path/to/my-app --json /path/to/my-app/page.html
 </code></pre>
 <p><code>init</code> defaults to the <strong>published, immutable alpha.4 CSS</strong> and writes
@@ -105,7 +105,7 @@ checked-in CSS rather than presenting candidate-only selectors as fixes.</p>
 <p>When adding a guide for public consumption, review the explicit <code>PUBLIC_DOCS</code> allowlist in <code>scripts/build_cloudflare_site.py</code>. Regenerate the committed HTML with the maintainer-only generator (<code>python3 scripts/build_doc_pages.py</code>), and verify it with <code>--check</code>. The core static-site and CI builds require no Markdown parsing package or client runtime.</p>
 <h2 id="validation-and-maintenance">Validation and maintenance</h2>
 <p>The repository uses Python standard-library scripts:</p>
-<pre><code class="language-sh">python3 scripts/build_agent_docs.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build_agent_docs.py --check
 python3 scripts/build.py --check
 python3 -m unittest discover -s tests -v
 python3 scripts/build_cloudflare_site.py --check
