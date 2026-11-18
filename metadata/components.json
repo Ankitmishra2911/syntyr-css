@@ -263,6 +263,41 @@
       "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
     },
     {
+      "name": "Operation feedback",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "div",
+        "section",
+        "h2",
+        "h3",
+        "p"
+      ],
+      "classes": [
+        "syn-operation-feedback"
+      ],
+      "notes": "Experimental alpha.5 static presentation only. Host must set true pending, saved, failed, conflict or unsaved state, manage requests, announcements, retry and authorization."
+    },
+    {
+      "name": "Record change pair",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "dl",
+        "div",
+        "dt",
+        "dd",
+        "span",
+        "del",
+        "ins"
+      ],
+      "classes": [
+        "syn-record-fields",
+        "syn-change-pair",
+        "syn-change-before",
+        "syn-change-after"
+      ],
+      "notes": "Experimental alpha.5 semantic before/after styling nested in existing record fields. Text labels and native del/ins convey changes; backend supplies true revision values and conflict policy."
+    },
+    {
       "name": "File lifecycle",
       "module": "syntyr.recipes.css",
       "elements": [
