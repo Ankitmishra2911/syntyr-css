@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental and unreleased. The MIT-licensed syntyr.geo.css module styles geospatial application chrome : map workspaces, filters, layers, marker…">
-  <meta name="syntyr-source-sha256" content="e93d72941d66d48e04cabcf67b2a828232ae215ce026a48f7231473a11561c9b">
+  <meta name="syntyr-source-sha256" content="d447790dcce860b1c863af3860a0fc624981f0be71ab4632e89d661514f56151">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Geo — renderer-neutral geospatial interface styles — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/geo">
@@ -41,6 +41,12 @@
 </code></pre>
 <p>Or, in a package-manager application consuming the <strong>unpublished</strong> alpha.5 candidate, import <code>@syntyr/css/geo.css</code>. The <code>syntyr.all.css</code> bundle already contains Geo; <strong>do not load both</strong>. Neither <code>syntyr.core.css</code> nor <code>syntyr.viz.css</code> includes it.</p>
 <p><strong><a href="../examples/geo.html">Open the synthetic, offline Geo demo</a></strong>. It is a Schematic illustration, <strong>Not to scale</strong>, with fictional records, no tile provider or API keys, and disabled zoom controls. It is not a map renderer.</p>
+<h3 id="optional-python-standard-library-operations-demo-repository-source">Optional Python standard-library operations demo (repository source)</h3>
+<p>The <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/geo_operations_server.py">runnable Geo operations server</a> illustrates <strong>actual server-owned GET filtering and selection</strong> without JavaScript or additional CSS APIs. From a repository checkout run:</p>
+<pre><code class="language-sh">python3 examples/geo_operations_server.py --port 8765
+</code></pre>
+<p>Open <code>http://127.0.0.1:8765/</code>. It composes the existing <code>syntyr.core.css</code>, <code>syntyr.recipes.css</code> and <code>syntyr.geo.css</code> files into a responsive inventory search, accessible results/inspector, and fictional map schematic. Map coordinates are <strong>illustrative pixel percentages</strong>, not geographic coordinates. The Python file is a <strong>source-only reference</strong> and is not included in the distributable release ZIP. The server binds to localhost and contains fictional in-memory records; it has no credentials, accounts, tenant isolation, authorization, persistence or booking capability. Never expose this sample on a public interface as a production service.</p>
+<p>Maintainers can optionally verify Chromium/Firefox native GET interaction, 320px reflow, enlarged text, RTL markers and forced colors with <code>node tests/geo_operations_server_browser.cjs</code> after installing Playwright <strong>outside</strong> the Syntyr runtime. The script starts and shuts down the localhost Python server automatically. This does not replace manual screen-reader or real browser-zoom review.</p>
 <h2 id="the-boundary-cartographic-behavior-is-an-application-concern">The boundary: cartographic behavior is an application concern</h2>
 <p><strong>Syntyr does not</strong> calculate geographic coordinates, distances, bearings, geodesics, clustering, projections, antimeridian handling, routing or point-in-polygon queries. It cannot fetch or display basemap data, style vector tiles, perform hit testing, handle map keyboard navigation, or ensure geospatial measurement accuracy. Supply your own GIS data, map engine, and attribution. Syntyr only styles HTML around the actual map.</p>
 <p>For interactive maps, integrate an engine such as <a href="https://maplibre.org/maplibre-gl-js/docs/">MapLibre GL JS</a> (vector tiles / WebGL), <a href="https://leafletjs.com/reference">Leaflet</a> (lightweight tiled/DOM maps), or <a href="https://openlayers.org/">OpenLayers</a> (specialized GIS interactions and projections). They are <strong>application dependencies</strong>, not dependencies of Syntyr. Engine-native attribution and copyright/license requirements still apply; never remove provider credits. A decorative CSS attribution surface cannot replace legally required renderer attribution.</p>
@@ -96,6 +102,7 @@
 <p><strong>Adacavo integration decision:</strong> prefer borrowing Syntyr Geo layout, legend and accessible map-chrome patterns into the existing MapLibre inventory view <strong>without importing an unreleased Syntyr CSS package</strong>. Retain Adacavo's tenant-safe APIs, actual inventory status colors, source clustering, positioning, map controls and map attribution. Reevaluate package-level integration only after Syntyr's CSS is released and proven stable.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-3" href="#optional-python-standard-library-operations-demo-repository-source">Optional Python standard-library operations demo (repository source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#the-boundary-cartographic-behavior-is-an-application-concern">The boundary: cartographic behavior is an application concern</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#a-map-ready-responsive-shell">A map-ready, responsive shell</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#markers-use-the-renderer-to-position-them">Markers: use the renderer to position them</a>
