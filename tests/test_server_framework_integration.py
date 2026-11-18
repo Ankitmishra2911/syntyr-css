@@ -71,6 +71,34 @@ class ServerFrameworkIntegrationTests(unittest.TestCase):
         self.assertTrue(any(tag == "turbo-frame" for tag, _ in turbo.tags))
         self.assertTrue(any(tag == "form" and a.get("method") == "get" for tag, a in turbo.tags))
 
+    def test_copy_owned_go_server_components_reuse_core_without_runtime(self):
+        base = ROOT / "examples/server-components-go"
+        mod = (base / "go.mod").read_text()
+        component = (base / "templates/components.html").read_text()
+        page = (base / "templates/page.html").read_text()
+        handler = (base / "main.go").read_text()
+        guide = (ROOT / "docs/framework-integrations.md").read_text()
+        self.assertNotIn("require ", mod)
+        self.assertIn('"html/template"', handler)
+        self.assertIn('"net/url"', handler)
+        self.assertIn('template.ParseFS', handler)
+        self.assertNotIn("template.HTML(", handler)
+        self.assertIn("examples/server-components-go", guide)
+        self.assertIn("examples/server-components-go", (ROOT / "llms.txt").read_text())
+        for name in ("syn.field", "syn.notice", "syn.button", "syn.table", "syn.pagination"):
+            self.assertIn('{{define "' + name + '"}}', component)
+            self.assertIn('{{template "' + name + '"', page)
+        for attr in ('aria-invalid="true"', 'aria-describedby=', 'role="alert"', 'scope="col"', 'scope="row"'):
+            if attr == 'role="alert"':
+                self.assertIn('role="{{if .Danger}}alert', component)
+            else:
+                self.assertIn(attr, component)
+        for css_class in ("syn-field", "syn-input", "syn-alert", "syn-button", "syn-table"):
+            self.assertIn(css_class, component)
+        self.assertIn("syntyr.core.css", page)
+        self.assertNotIn("<script", page.lower())
+        self.assertNotIn("<script", component.lower())
+
     def test_docs_cover_versions_and_dom_ownership_without_claiming_runtime(self):
         guide = (ROOT / "docs/framework-integrations.md").read_text()
         for name in ("LiveView", "Livewire", "Turbo", "HTMX", "Go templ",
