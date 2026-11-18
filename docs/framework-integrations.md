@@ -567,6 +567,28 @@ Import the same CSS once. Bind native classes, `aria-*`, and
 Do not wrap simple visual classes in additional runtime components unless the
 application benefits from reusable semantic component boundaries.
 
+### Runnable SvelteKit 3 form-action and nested-layout reference
+
+[examples/sveltekit](https://github.com/dporkka/syntyr-css/tree/main/examples/sveltekit)
+is a self-contained SvelteKit 3 app with a native HTML POST form and optional
+`use:enhance`. It uses existing Syntyr `syn-field`, `syn-error-summary`,
+`syn-operation-feedback`, `syn-app-shell`, `syn-detail-layout`, and
+`syn-panel` classes rather than introducing framework-specific CSS.
+
+The root `+layout.svelte` provides the persistent application shell, while
+`settings/+layout.svelte` composes a nested content and inspector layout.
+A small `AppPanel.svelte` shows Svelte 5 named `actions` and `footer`
+snippets; they are owned by SvelteKit, not by a new Syntyr templating runtime.
+`settings/+page.server.js` handles server validation and sends either
+an action failure or a success acknowledgement. A normal browser POST is
+functional without JavaScript; enhancement only adds in-flight feedback
+and error-summary focus management. The example **does not persist data**
+and is not a production authentication or CSRF implementation.
+
+From the repository root, first generate CSS with `python3 scripts/build.py`,
+then run `cd examples/sveltekit && npm install && npm run test && npm run build`.
+The root Syntyr package still has zero required JavaScript dependencies.
+
 ## Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates
 
 Serve `syntyr.core.css` as a normal static asset. Write HTML partials
