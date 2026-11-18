@@ -82,7 +82,7 @@ def build_manifest() -> dict:
             raise ValueError(f"Invalid or duplicate catalog example id: {identifier}")
         seen.add(identifier)
         css_module = module[1]
-        if css_module not in {"syntyr.core.css", "syntyr.recipes.css", "syntyr.viz.css"}:
+        if css_module not in {"syntyr.core.css", "syntyr.recipes.css", "syntyr.geometry.css", "syntyr.viz.css"}:
             raise ValueError(f"Unexpected CSS module: {css_module}")
         raw_html = unescape(snippet["source"]).strip()
         if raw_html != snippet["preview"].strip():
@@ -92,12 +92,18 @@ def build_manifest() -> dict:
         if not parser.elements:
             raise ValueError(f"Empty catalog example: {identifier}")
         css = (ROOT / "dist" / css_module).read_text(encoding="utf-8")
+        core_css = (ROOT / "dist/syntyr.core.css").read_text(encoding="utf-8")
         semantic_css = (ROOT / "dist/syntyr.semantic.css").read_text(encoding="utf-8")
         required_modules = [css_module]
         for cls in parser.classes:
             selector = r'\.' + re.escape(cls) + r'(?![\w-])'
             if not re.search(selector, css):
-                if re.search(selector, semantic_css):
+                if re.search(selector, core_css):
+                    # Optional recipes often reuse core controls and panels.
+                    # Preserve cascade order: load core before optional modules.
+                    if "syntyr.core.css" not in required_modules:
+                        required_modules.insert(0, "syntyr.core.css")
+                elif re.search(selector, semantic_css):
                     if "syntyr.semantic.css" not in required_modules:
                         required_modules.append("syntyr.semantic.css")
                 else:

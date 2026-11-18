@@ -32,11 +32,13 @@ class GalleryManifestTests(unittest.TestCase):
             self.assertTrue(example["title"])
             self.assertTrue(example["keywords"])
             self.assertTrue(example["category"])
-            self.assertIn(example["module"], {"syntyr.core.css", "syntyr.recipes.css", "syntyr.viz.css"})
+            self.assertIn(example["module"], {"syntyr.core.css", "syntyr.recipes.css", "syntyr.geometry.css", "syntyr.viz.css"})
             self.assertTrue(example["html"].strip())
             self.assertNotIn("<script", example["html"].lower())
             self.assertTrue(example["elements"])
-            self.assertEqual(example["required_stylesheets"][0], example["module"])
+            self.assertIn(example["module"], example["required_stylesheets"])
+            if "syntyr.core.css" in example["required_stylesheets"]:
+                self.assertEqual(example["required_stylesheets"][0], "syntyr.core.css")
             for cls in example["classes"]:
                 self.assertIn("." + cls, (ROOT / "dist/syntyr.all.css").read_text())
         result = subprocess.run(
@@ -44,6 +46,25 @@ class GalleryManifestTests(unittest.TestCase):
             cwd=ROOT, capture_output=True, text=True,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_composed_enterprise_cards_declare_minimal_stylesheets(self):
+        from scripts.build_component_gallery import build_manifest
+        by_id = {item["id"]: item for item in build_manifest()["examples"]}
+        expectations = {
+            "catalog-input-group-title": ("syntyr.core.css", ["syntyr.core.css"]),
+            "catalog-crm-filters-title": (
+                "syntyr.recipes.css", ["syntyr.core.css", "syntyr.recipes.css"]),
+            "catalog-recovery-state-title": (
+                "syntyr.recipes.css", ["syntyr.core.css", "syntyr.recipes.css"]),
+            "catalog-geometry-frame-title": (
+                "syntyr.geometry.css", ["syntyr.core.css", "syntyr.geometry.css"]),
+            "catalog-viz-bars-title": ("syntyr.viz.css", ["syntyr.viz.css"]),
+        }
+        for identifier, (primary, stylesheets) in expectations.items():
+            with self.subTest(identifier=identifier):
+                item = by_id[identifier]
+                self.assertEqual(item["module"], primary)
+                self.assertEqual(item["required_stylesheets"], stylesheets)
 
     def test_gallery_is_discoverable_in_both_distributions_and_npm(self):
         from scripts.build_cloudflare_site import source_files

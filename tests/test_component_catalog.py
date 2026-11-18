@@ -55,6 +55,29 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(preview_html.strip(), unescape(escaped_source).strip())
 
 
+    def test_enterprise_recipe_examples_are_additive_and_discoverable(self):
+        page = (ROOT / 'docs/catalog.html').read_text()
+        parsed = CatalogHTML()
+        parsed.feed(page)
+        self.assertGreaterEqual(len(parsed.items), 32)
+        self.assertIn('32 examples available.', page)
+        titles = (
+            'Connected input groups',
+            'CRM filter toolbar',
+            'Empty and recovery state',
+            'Geometry frame',
+            'Accessible data bars',
+        )
+        for title in titles:
+            with self.subTest(title=title):
+                self.assertIn('>' + title + '</h2>', page)
+        self.assertEqual(len(parsed.ids), len(set(parsed.ids)))
+        allowed = set(re.findall(r'<option value="([^"]+)"', page))
+        for card in parsed.items:
+            self.assertIn(card['data-catalog-category'], allowed)
+        index = (ROOT / 'llms.txt').read_text()
+        self.assertIn('enterprise examples', index.lower())
+
     def test_search_and_copy_behaviour_is_documentation_only(self):
         js = (ROOT / 'docs/catalog.js').read_text()
         self.assertIn('addEventListener("input"', js)

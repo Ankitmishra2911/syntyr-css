@@ -21,6 +21,22 @@ test("registers existing generated gallery examples as optional composer blocks"
   assert.equal(createBlock(type).id, "catalog-buttons-title-1");
 });
 
+test("enterprise gallery cards preserve their modular stylesheet requirements", () => {
+  registerGalleryManifest(manifest);
+  assert.deepEqual(
+    getBlockDefinition("gallery:catalog-crm-filters-title").requiredStylesheets,
+    ["syntyr.core.css", "syntyr.recipes.css"],
+  );
+  assert.deepEqual(
+    getBlockDefinition("gallery:catalog-geometry-frame-title").requiredStylesheets,
+    ["syntyr.core.css", "syntyr.geometry.css"],
+  );
+  assert.deepEqual(
+    getBlockDefinition("gallery:catalog-viz-bars-title").requiredStylesheets,
+    ["syntyr.viz.css"],
+  );
+});
+
 test("edits gallery text safely and exports framework-neutral HTML/CSS references", () => {
   registerGalleryManifest(manifest);
   const page = createDefaultDocument();
