@@ -1395,6 +1395,39 @@
       ]
     },
     {
+      "name": "syn-file-item",
+      "module": "recipes.css",
+      "description": "File queue entry with host-owned queued, uploading, complete or failed state.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-file-item-header",
+      "module": "recipes.css",
+      "description": "Flexible file name and visible status header for queue entries.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-file-queue",
+      "module": "recipes.css",
+      "description": "Optional ordered file lifecycle list; not an upload engine.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-filter-actions",
       "module": "recipes.css",
       "description": "Wrapping submit and reset action group for CRM filters.",
@@ -4208,6 +4241,17 @@
       ]
     },
     {
+      "name": "--syn-file-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "--syn-filter-field-min",
       "module": "recipes.css",
       "description": "Filter field basis and minimum; defaults to 11rem.",
@@ -5499,10 +5543,13 @@
       "degraded",
       "down",
       "error",
+      "failed",
       "healthy",
       "loading",
+      "queued",
       "selected",
-      "unknown"
+      "unknown",
+      "uploading"
     ]
   },
   "components": [
@@ -5731,6 +5778,24 @@
         "syn-record-fields"
       ],
       "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+    },
+    {
+      "name": "File lifecycle",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "ol",
+        "li",
+        "div",
+        "span",
+        "strong",
+        "progress"
+      ],
+      "classes": [
+        "syn-file-queue",
+        "syn-file-item",
+        "syn-file-item-header"
+      ],
+      "notes": "Unreleased alpha.5 CSS-only queue snapshots. Native input lives in core; host owns upload progress, failure and completion truth, validation, retry, status announcements and storage."
     }
   ],
   "recipes": [
