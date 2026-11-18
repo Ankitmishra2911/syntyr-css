@@ -1,8 +1,10 @@
 """Optional command launcher enhances the existing styling without core JS."""
 from pathlib import Path
+import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 
 def read(path):
