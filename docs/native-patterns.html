@@ -124,7 +124,7 @@ and test browser focus, high zoom, and forced colors in the host app.</p>
 <h2 id="individually-importable-css">Individually importable CSS</h2>
 <p>Use the following <strong>source-tree alpha.5 candidate</strong> entrypoints after this PR
 is merged and released; they are not available in the published alpha.4 package:</p>
-<pre><code class="language-css">@import &quot;@syntyr/css/components/tokens.css&quot;;
+<pre tabindex="0"><code class="language-css">@import &quot;@syntyr/css/components/tokens.css&quot;;
 @import &quot;@syntyr/css/components/base.css&quot;;
 @import &quot;@syntyr/css/components/buttons.css&quot;;
 @import &quot;@syntyr/css/components/forms.css&quot;;
@@ -140,11 +140,11 @@ duplicated. Runtime CSS dependencies, imports and JavaScript are not included in
 these distributables. In plain HTML, link the equivalent checked-in files under
 the dist directory. Use version-pinned self-hosted assets in production.</p>
 <p>If no selective loading is needed, use core plus the optional recipe sheet:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.native-recipes.css&quot;&gt;
 </code></pre>
 <h2 id="native-anchored-popovers-and-modal-commands">Native anchored popovers and modal commands</h2>
-<pre><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;actions&quot;&gt;Actions&lt;/button&gt;
+<pre tabindex="0"><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;actions&quot;&gt;Actions&lt;/button&gt;
 &lt;div id=&quot;actions&quot; popover class=&quot;syn-popover syn-popover--anchored&quot;&gt;
   &lt;a href=&quot;/settings&quot;&gt;Settings&lt;/a&gt;
 &lt;/div&gt;
@@ -178,7 +178,7 @@ browser's native block/inline positioning and flip candidates when available.
 Optional activity timelines also place their markers on inline-start. Native
 <code>dir=&quot;rtl&quot;</code> controls direction; components keep semantic document order.</p>
 <h2 id="floating-labels">Floating labels</h2>
-<pre><code class="language-html">&lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
   &lt;input id=&quot;name&quot; name=&quot;name&quot; class=&quot;syn-input&quot; placeholder=&quot; &quot; required&gt;
   &lt;label for=&quot;name&quot; class=&quot;syn-floating-label&quot;&gt;Full name&lt;/label&gt;
 &lt;/div&gt;
@@ -200,7 +200,7 @@ date, color, select, checkbox, radio and unsupported types. Validate contrast
 and long translated labels in the actual application.</p>
 <h3 id="label-first-floating-fields">Label-first floating fields</h3>
 <p>Use the same native label and input in either source order:</p>
-<pre><code class="language-html">&lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
   &lt;label class=&quot;syn-floating-label&quot; for=&quot;company&quot;&gt;Company&lt;/label&gt;
   &lt;input class=&quot;syn-input&quot; id=&quot;company&quot; name=&quot;company&quot; placeholder=&quot; &quot; autocomplete=&quot;organization&quot;&gt;
 &lt;/div&gt;
@@ -216,14 +216,14 @@ input even when the user-agent default has no border. Use a real explanation
 associated with aria-describedby; CSS does not perform validation or upload.
 The native search clear affordance is preserved with inline-end padding
 in both explicit .syn-input and scoped classless modes.</p>
-<pre><code class="language-html">&lt;div class=&quot;syn-semantic&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-semantic&quot;&gt;
   &lt;label for=&quot;proof&quot;&gt;Proof-of-posting photo&lt;/label&gt;
   &lt;input type=&quot;file&quot; id=&quot;proof&quot; aria-invalid=&quot;true&quot; aria-describedby=&quot;proof-error&quot;&gt;
   &lt;small id=&quot;proof-error&quot; class=&quot;syn-error&quot;&gt;Upload a photo to continue.&lt;/small&gt;
 &lt;/div&gt;
 </code></pre>
 <h2 id="semantic-timelines-and-captioned-code">Semantic timelines and captioned code</h2>
-<pre><code class="language-html">&lt;ol class=&quot;syn-timeline&quot; role=&quot;list&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;ol class=&quot;syn-timeline&quot; role=&quot;list&quot;&gt;
   &lt;li&gt;&lt;time datetime=&quot;2026-11-15&quot;&gt;15 November&lt;/time&gt;Published&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -247,7 +247,7 @@ HTML, and use Astro islands only for behaviors that require application state.</
 that mutate data, use real forms/links and HTMX only as progressive enhancement.</li>
 </ul>
 <h3 id="go-htmltemplate">Go html/template</h3>
-<pre><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;&gt;
   &lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
     &lt;input class=&quot;syn-input&quot; id=&quot;profile-email&quot; name=&quot;email&quot;
            type=&quot;email&quot; value=&quot;{{ .Email }}&quot; placeholder=&quot; &quot; required&gt;
@@ -258,7 +258,7 @@ that mutate data, use real forms/links and HTMX only as progressive enhancement.
 </code></pre>
 <p>The standard Go html/template engine escapes the Email value by context.</p>
 <h3 id="rust-askama">Rust Askama</h3>
-<pre><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;&gt;
   &lt;div class=&quot;syn-field syn-field--floating&quot;&gt;
     &lt;input class=&quot;syn-input&quot; id=&quot;profile-email&quot; name=&quot;email&quot;
            type=&quot;email&quot; value=&quot;{{ email }}&quot; placeholder=&quot; &quot; required&gt;
@@ -270,7 +270,7 @@ that mutate data, use real forms/links and HTMX only as progressive enhancement.
 <p>Use Askama's HTML autoescaping, unique IDs when rendering multiple forms, and
 normal server-side validation.</p>
 <h3 id="astro">Astro</h3>
-<pre><code class="language-astro">---
+<pre tabindex="0"><code class="language-astro">---
 import &quot;@syntyr/css/components/tokens.css&quot;;
 import &quot;@syntyr/css/components/base.css&quot;;
 import &quot;@syntyr/css/components/buttons.css&quot;;
@@ -290,7 +290,7 @@ import &quot;@syntyr/css/native-recipes.css&quot;;
 as in this form. Package imports
 are source candidate features until a corresponding npm release is published.</p>
 <h3 id="htmx-optional-enhancement">HTMX (optional enhancement)</h3>
-<pre><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;
+<pre tabindex="0"><code class="language-html">&lt;form class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; action=&quot;/profile&quot; method=&quot;post&quot;
       hx-post=&quot;/profile&quot; hx-target=&quot;#profile-result&quot; hx-swap=&quot;outerHTML&quot;&gt;
   &lt;label for=&quot;profile-email&quot;&gt;Email address&lt;/label&gt;
   &lt;input class=&quot;syn-input&quot; id=&quot;profile-email&quot; name=&quot;email&quot; type=&quot;email&quot; required&gt;

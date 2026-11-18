@@ -49,7 +49,7 @@ your project, e.g. <code>./vendor/syntyr/metadata/</code>:</p>
 </ul>
 <p>Add the following to your <strong>workspace</strong> <code>.vscode/settings.json</code> (not required
 for Syntyr consumers using other editors):</p>
-<pre><code class="language-json">{
+<pre tabindex="0"><code class="language-json">{
   &quot;html.customData&quot;: [&quot;./vendor/syntyr/metadata/syntyr.html-custom-data.json&quot;],
   &quot;css.customData&quot;: [&quot;./vendor/syntyr/metadata/syntyr.css-custom-data.json&quot;]
 }
@@ -64,7 +64,7 @@ property autocomplete also depends on the editor's CSS language support.</p>
 can consume <code>syntyr-api.json</code> directly.</p>
 <h2 id="regenerate-after-css-changes">Regenerate after CSS changes</h2>
 <p>From the Syntyr source repository:</p>
-<pre><code class="language-sh">python3 scripts/export_api_metadata.py
+<pre tabindex="0"><code class="language-sh">python3 scripts/export_api_metadata.py
 python3 scripts/export_api_metadata.py --check
 </code></pre>
 <p>The Python standard-library exporter scans <code>src/**/*.css</code>, strips comments,
@@ -91,7 +91,7 @@ keywords, native HTML, semantic element names, actual <code>syn-*</code> classes
 semantic CSS module; loading <code>syntyr.core.css</code> alone is not always sufficient.
 The <code>module</code> field preserves the primary stylesheet shown in the gallery.</p>
 <p>From a source checkout, regenerate and verify with:</p>
-<pre><code class="language-sh">python3 scripts/build_component_gallery.py
+<pre tabindex="0"><code class="language-sh">python3 scripts/build_component_gallery.py
 python3 scripts/build_component_gallery.py --check
 </code></pre>
 <p>The public documentation catalog adds optional theme and compact-width preview
@@ -113,7 +113,7 @@ by <code>python3 scripts/export_api_metadata.py</code> and checked by <code>--ch
 not edit it directly. The existing <code>metadata/components.json</code> remains a
 curated subset and is not a complete list of classes.</p>
 <p>To validate static HTML during development (Python 3.10+, standard library only):</p>
-<pre><code class="language-sh">python3 scripts/syntyr_check.py index.html examples/saas.html
+<pre tabindex="0"><code class="language-sh">python3 scripts/syntyr_check.py index.html examples/saas.html
 python3 scripts/syntyr_check.py --format json index.html
 # Opt-in, conservative native HTML checks (warnings do not fail the CLI):
 python3 scripts/syntyr_check.py --semantic --format json examples/semantic-starter.html

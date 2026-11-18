@@ -64,13 +64,13 @@ a production Nulang Cloud static-hosting service.</p>
 allowlist; licensing and private assets remain separate from hosting.</p>
 <h2 id="publish-the-syntyr-documentation-site">Publish the Syntyr documentation site</h2>
 <p>The existing Cloudflare path is unchanged:</p>
-<pre><code class="language-sh">python3 scripts/build.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
 python3 -m unittest discover -s tests -q
 python3 scripts/build_cloudflare_site.py
 python3 scripts/build_cloudflare_site.py --check
 </code></pre>
 <p>To stage those files for Cloudflare from an already-reviewed output directory:</p>
-<pre><code class="language-sh">python3 scripts/static_deploy.py \
+<pre tabindex="0"><code class="language-sh">python3 scripts/static_deploy.py \
   --provider cloudflare \
   --site-dir .cloudflare-public \
   --site-url https://syntyr-css.pages.dev \
@@ -83,7 +83,7 @@ result; it does not authenticate, upload, configure domains, or change DNS.</p>
 the intended production HTTPS origin. The <code>--portable</code> switch omits
 Cloudflare-only <code>_headers</code> (whose security rules would otherwise be lost on
 another provider) and rewrites canonical, sitemap, and robots URLs.</p>
-<pre><code class="language-sh">python3 scripts/build_cloudflare_site.py \
+<pre tabindex="0"><code class="language-sh">python3 scripts/build_cloudflare_site.py \
   --portable \
   --site-url https://example.com \
   --output /tmp/syntyr-portable-public

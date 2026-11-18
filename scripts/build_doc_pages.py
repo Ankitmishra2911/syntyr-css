@@ -190,6 +190,10 @@ def render_guide(name: str, allowed: set[str]) -> str:
                 child.attrSet("href", urlunsplit(("https", "github.com", f"/dporkka/syntyr-css/blob/main/{repo_path}", parsed.query, parsed.fragment)))
 
     article = renderer().renderer.render(tokens, renderer().options, {})
+    # Any fenced code block can overflow on narrow or zoomed viewports.
+    # Preserve native pre/code semantics while making horizontal scrolling
+    # keyboard reachable without a documentation runtime or ARIA role.
+    article = article.replace("<pre><code", '<pre tabindex="0"><code')
     toc = "\n".join(
         f'<a class="docs-article-toc-link docs-article-toc-{level}" href="#{escape(anchor)}">{escape(label)}</a>'
         for level, anchor, label in headings

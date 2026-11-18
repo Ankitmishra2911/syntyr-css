@@ -56,7 +56,7 @@
 <p>Copy <code>docs/release-approval-template.json</code> to the intentionally untracked <code>release/release-approval.json</code>. Fill the exact release version from <code>VERSION</code> and the complete immutable SHA from <code>git rev-parse HEAD</code>. For <strong>every</strong> required check, change status from <code>pending</code> to <code>pass</code> only after direct assessment, and provide a named <code>reviewer</code> and a specific <code>evidence</code> reference (e.g. a controlled report or issue URL). Do not fill pass statuses just to make a release script succeed.</p>
 <p>The script checks presence, status, version and SHA, <strong>not</strong> the truth of a human attestation or validity of an external link. Retain the approval JSON and referenced artifacts in restricted release records before publication. A reviewer must assess them independently. Do not commit private reports or customer details into the public MIT repository.</p>
 <h2 id="candidate-check-then-freeze">Candidate check, then freeze</h2>
-<pre><code class="language-sh">python3 -m unittest discover -s tests -q
+<pre tabindex="0"><code class="language-sh">python3 -m unittest discover -s tests -q
 python3 scripts/build.py --check
 python3 scripts/build_cloudflare_site.py --check
 python3 scripts/freeze_site_release.py --check

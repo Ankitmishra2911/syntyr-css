@@ -105,6 +105,17 @@ ${themedMarkup()}
     preview.dataset.viewport = viewport.value;
   }
 
+  function previewSafeMarkup() {
+    // Preview-only: keep original destinations in editable/copied HTML, but
+    // never allow illustrative links to navigate the sandboxed iframe.
+    // Parse a detached document instead of rewriting HTML attribute strings.
+    const detached = new DOMParser().parseFromString(themedMarkup(), "text/html");
+    for (const link of detached.querySelectorAll("a[href], area[href]")) {
+      link.removeAttribute("href");
+    }
+    return detached.body.innerHTML;
+  }
+
   function render() {
     // No script or form permissions, even if an editor pastes arbitrary markup.
     // allow-same-origin permits the local stylesheet but not script execution.
@@ -115,7 +126,7 @@ ${themedMarkup()}
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' ${localStyleOrigin}; img-src data: ${localStyleOrigin}; base-uri 'none'; form-action 'none'">
 <link rel="stylesheet" href="../dist/syntyr.all.css">
 <style>html,body{min-height:100%;} body.syn-root{margin:0;padding:1.5rem;} *,*::before,*::after{box-sizing:border-box;}</style>
-</head><body class="syn-root syn-page" data-syn-theme="${theme.value}" style="${tokens()}">${themedMarkup()}</body></html>`;
+</head><body class="syn-root syn-page" data-syn-theme="${theme.value}" style="${tokens()}">${previewSafeMarkup()}</body></html>`;
     preview.srcdoc = shell;
     status.textContent = `Preview updated: ${theme.options[theme.selectedIndex].text} theme.`;
   }

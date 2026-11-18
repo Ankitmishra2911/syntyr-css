@@ -6,7 +6,9 @@ from __future__ import annotations
 
 import argparse
 from html import escape
+from html.parser import HTMLParser
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -38,6 +40,99 @@ TYPOGRAPHY = (
 )
 
 
+# Only presentation in the documentation gallery is transformed. Copyable
+# source and universal registry snippets retain the real host-owned routes.
+# Use parsed token positions instead of regex substitutions on whole HTML.
+# For example, </form> in a textarea value must not close the preview wrapper.
+ATTR_TOKEN = re.compile(
+    r"""(?P<ws>\s+)(?P<name>[^\s=/>]+)(?:\s*=\s*(?P<value>"[^"]*"|'[^']*'|[^\s>]+))?"""
+)
+
+
+def _without_link_target(tag_text: str) -> str:
+    """Remove a genuine href attribute, never href-looking text in another value."""
+    element_name = re.match(r"<\s*[a-z][a-z0-9-]*", tag_text, re.IGNORECASE)
+    if element_name is None:
+        return tag_text
+    pos = element_name.end()
+    pieces = [tag_text[:pos]]
+    while pos < len(tag_text):
+        matched = ATTR_TOKEN.match(tag_text, pos)
+        if matched is None:
+            pieces.append(tag_text[pos:])
+            break
+        if matched.group("name").lower() != "href":
+            pieces.append(matched.group())
+        pos = matched.end()
+    return "".join(pieces)
+
+
+def preview_markup(source: str) -> str:
+    """Render inert HTML previews while leaving source and copy exports unchanged."""
+    # HTMLParser handles quoted attributes, multiline tags, and actual end-tag
+    # boundaries. Textarea/title are HTML raw-text-ish contexts here: literal
+    # fake </form> strings must never trigger wrapper substitutions.
+    class PreviewParser(HTMLParser):
+        CDATA_CONTENT_ELEMENTS = ("script", "style", "textarea", "title")
+
+        def __init__(self):
+            super().__init__(convert_charrefs=False)
+            self.line_offsets = [0]
+            for line in source.splitlines(keepends=True):
+                self.line_offsets.append(self.line_offsets[-1] + len(line))
+            self.edits = []
+            self.form_ids = set()
+            self.associated_controls = []
+
+        def source_offset(self):
+            line, column = self.getpos()
+            return self.line_offsets[line - 1] + column
+
+        def handle_starttag(self, tag, attrs):
+            attributes = dict(attrs)
+            raw = self.get_starttag_text()
+            start = self.source_offset()
+            if tag == "form":
+                self.edits.append((start + len(raw), start + len(raw),
+                                   '<fieldset class="blocks-preview-disabled" disabled>'))
+                if attributes.get("id"):
+                    self.form_ids.add(attributes["id"])
+            elif tag == "a":
+                safe = _without_link_target(raw)
+                if safe != raw:
+                    self.edits.append((start, start + len(raw), safe))
+            elif tag in {"button", "input", "select", "textarea"}:
+                if attributes.get("form") and "disabled" not in attributes:
+                    self.associated_controls.append((start, raw, attributes["form"]))
+
+        def handle_startendtag(self, tag, attrs):
+            self.handle_starttag(tag, attrs)
+
+        def handle_endtag(self, tag):
+            if tag == "form":
+                start = self.source_offset()
+                self.edits.append((start, start, "</fieldset>"))
+
+    parser = PreviewParser()
+    parser.feed(source)
+    parser.close()
+
+    # A submit control associated by form=id can live outside the form tree:
+    # disabling only descendant fieldsets does not disable such controls.
+    for start, raw, form_id in parser.associated_controls:
+        if form_id in parser.form_ids:
+            closing = re.search(r"\s*/?>$", raw)
+            if closing is None:
+                raise ValueError("Invalid associated form control markup")
+            safe = raw[:closing.start()] + " disabled" + raw[closing.start():]
+            parser.edits.append((start, start + len(raw), safe))
+
+    preview = source
+    for start, end, replacement in sorted(parser.edits, key=lambda edit: edit[0], reverse=True):
+        preview = preview[:start] + replacement + preview[end:]
+    return preview
+
+
 def build() -> str:
     blocks = json.loads((ROOT / "blocks/manifest.json").read_text(encoding="utf-8"))["blocks"]
     count = len(blocks)
@@ -45,6 +140,9 @@ def build() -> str:
     for block in blocks:
         ident = block["id"]
         snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text(encoding="utf-8").strip()
+        # Preview-only fieldset prevents accidental submissions to fictional
+        # endpoints; preserve the original HTML in the copyable code sample.
+        preview = preview_markup(snippet)
         modules = " + ".join(f"syntyr.{module}.css" for module in block["modules"])
         tags = " ".join([block["title"], block["description"], *block["tags"]])
         cards.append(f"""
@@ -59,7 +157,7 @@ def build() -> str:
         </div>
         <p class="syn-muted">{escape(block['description'])}</p>
         <div class="blocks-preview">
-{snippet}
+{preview}
         </div>
         <details class="blocks-details">
           <summary data-block-source>View HTML source for {escape(block['title'])}</summary>

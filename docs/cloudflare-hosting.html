@@ -39,7 +39,7 @@
 database, JavaScript runtime, Node install, NPM install, or a CDN SDK.</p>
 <h2 id="reproducible-allowlisted-output">Reproducible, allowlisted output</h2>
 <p>From the repository root:</p>
-<pre><code class="language-sh">python3 scripts/build.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
 python3 -m unittest discover -s tests -v
 python3 scripts/build_cloudflare_site.py
 python3 scripts/build_cloudflare_site.py --check
@@ -93,7 +93,7 @@ server-side authentication, authorization, CSRF, and billing protections.
 The CSP also does not make user-controlled HTML safe; applications still
 need contextual escaping and safe DOM APIs.</p>
 <p>Validate the deployed origin after every production publish:</p>
-<pre><code class="language-sh">curl -fsSI https://syntyr-css.pages.dev/docs/playground | grep -iE 'content-security-policy|strict-transport-security|permissions-policy|x-frame-options'
+<pre tabindex="0"><code class="language-sh">curl -fsSI https://syntyr-css.pages.dev/docs/playground | grep -iE 'content-security-policy|strict-transport-security|permissions-policy|x-frame-options'
 </code></pre>
 <p>An HTTP header check must inspect the <strong>deployed</strong> site, not just <code>_headers</code>
 in the built artifact. Avoid making security claims based only on configuration
@@ -132,7 +132,7 @@ The build refuses mismatched hashes, and the <code>_headers</code> file marks on
 A separate CDN hostname can cost an additional DNS lookup, connection, and
 TLS negotiation even when Cloudflare serves it from a nearby edge.</p>
 <h2 id="http-validation-after-deploy">HTTP validation after deploy</h2>
-<pre><code class="language-sh">BASE=https://&lt;your-cloudflare-site&gt;
+<pre tabindex="0"><code class="language-sh">BASE=https://&lt;your-cloudflare-site&gt;
 curl -fsSI &quot;$BASE/&quot;
 curl -fsSI &quot;$BASE/docs/&quot;
 curl -fsSI &quot;$BASE/dist/syntyr.core.css&quot;
@@ -173,7 +173,7 @@ Cloudflare reduces distance to content but does not fix CSS render costs.</p>
 <h2 id="safe-immutable-release-preflight">Safe immutable-release preflight</h2>
 <p>An unfrozen source candidate is <strong>not</strong> a published CDN release.
 Run these read-only checks before preparing a release:</p>
-<pre><code class="language-sh">python3 scripts/build.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
 python3 -m unittest discover -s tests -q
 python3 scripts/freeze_site_release.py --check
 python3 scripts/package_release.py /tmp/syntyr-release-candidate.zip
