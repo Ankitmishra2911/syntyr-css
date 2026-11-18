@@ -12,7 +12,7 @@ from scripts.audit_npm_package import audit_archive, expected_files
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def archive_with(changes=None, extra=None, *, duplicate=None, symlink=None):
+def archive_with(changes=None, extra=None, *, duplicate=None, symlink=None, directory_collision=None):
     payloads = {name: source.read_bytes() for name, source in expected_files(ROOT).items()}
     for name, value in (changes or {}).items():
         if value is None:
@@ -23,10 +23,18 @@ def archive_with(changes=None, extra=None, *, duplicate=None, symlink=None):
         payloads.update(extra)
     out = io.BytesIO()
     with tarfile.open(fileobj=out, mode="w:gz") as tar:
+        def add_colliding_directory():
+            info = tarfile.TarInfo("package/dist/syntyr.core.css")
+            info.type = tarfile.DIRTYPE
+            tar.addfile(info)
+        if directory_collision == "before":
+            add_colliding_directory()
         for name, data in payloads.items():
             info = tarfile.TarInfo(name)
             info.size = len(data)
             tar.addfile(info, io.BytesIO(data))
+        if directory_collision == "after":
+            add_colliding_directory()
         if duplicate:
             data = payloads[duplicate]
             info = tarfile.TarInfo(duplicate)
@@ -84,9 +92,29 @@ class NpmTarballAuditTests(unittest.TestCase):
         errors = self.check(archive_with(duplicate="package/package.json"))
         self.assertTrue(any("duplicate" in err.lower() for err in errors), errors)
 
-    def test_rejects_symlink_and_traversal(self):
-        errors = self.check(archive_with(extra={"package/../private.txt": b"unsafe"}, symlink="package/dist/evil.css"))
-        self.assertTrue(any("unsafe" in err.lower() or "symlink" in err.lower() for err in errors), errors)
+    def test_rejects_symlink(self):
+        errors = self.check(archive_with(symlink="package/dist/evil.css"))
+        self.assertTrue(any("symlink" in err.lower() for err in errors), errors)
+
+    def test_rejects_traversal(self):
+        errors = self.check(archive_with(extra={"package/../private.txt": b"unsafe"}))
+        self.assertTrue(any("unsafe archive path" in err.lower() for err in errors), errors)
+
+    def test_rejects_corrupt_gzip_crc(self):
+        data = bytearray(archive_with())
+        data[-8] ^= 0xFF
+        errors = self.check(bytes(data))
+        self.assertTrue(any("invalid npm archive" in err for err in errors), errors)
+
+    def test_rejects_truncated_gzip_trailer(self):
+        errors = self.check(archive_with()[:-6])
+        self.assertTrue(any("invalid npm archive" in err for err in errors), errors)
+
+    def test_rejects_file_directory_collision_both_orders(self):
+        for order in ("before", "after"):
+            with self.subTest(order=order):
+                errors = self.check(archive_with(directory_collision=order))
+                self.assertTrue(any("collision" in err for err in errors), errors)
 
     def test_rejects_non_object_export_map_without_crashing(self):
         errors = self.check(archive_with(changes={

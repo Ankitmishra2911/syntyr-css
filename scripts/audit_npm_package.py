@@ -44,6 +44,7 @@ def audit_archive(archive: Path, root: Path = ROOT) -> list[str]:
     expected = expected_files(root)
     errors: list[str] = []
     found: dict[str, bytes] = {}
+    seen_members: dict[str, str] = {}
     try:
         with tarfile.open(archive, mode="r:gz") as package:
             for member in package:
@@ -56,13 +57,20 @@ def audit_archive(archive: Path, root: Path = ROOT) -> list[str]:
                 if member.issym() or member.islnk():
                     errors.append(f"unsafe symlink or hardlink: {member.name}")
                     continue
+                name = member.name.rstrip("/") if member.isdir() else member.name
+                kind = "directory" if member.isdir() else "file" if member.isfile() else "other"
+                previous = seen_members.get(name)
+                if previous is not None:
+                    if previous != kind:
+                        errors.append(f"file/directory collision: {name}")
+                    else:
+                        errors.append(f"duplicate archive entry: {name}")
+                    continue
+                seen_members[name] = kind
                 if member.isdir():
                     continue
                 if not member.isfile():
                     errors.append(f"unsafe archive entry type: {member.name}")
-                    continue
-                if member.name in found:
-                    errors.append(f"duplicate archive entry: {member.name}")
                     continue
                 if member.name not in expected:
                     errors.append(f"unexpected archive file: {member.name}")
@@ -72,7 +80,10 @@ def audit_archive(archive: Path, root: Path = ROOT) -> list[str]:
                     errors.append(f"unreadable archive file: {member.name}")
                     continue
                 found[member.name] = stream.read()
-    except (OSError, tarfile.TarError) as exc:
+            # tarfile iteration stops at the tar end marker, before the gzip
+            # trailer. Consume the stream to validate gzip CRC and ISIZE.
+            package.fileobj.read()
+    except (EOFError, OSError, tarfile.TarError) as exc:
         return [f"invalid npm archive: {exc}"]
 
     for name in sorted(expected.keys() - found.keys()):
