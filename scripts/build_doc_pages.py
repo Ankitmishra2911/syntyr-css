@@ -32,7 +32,7 @@ SECTIONS = (
                     "adoption-starters", "components", "data-tables", "data-grid",
                     "recipes", "native-patterns", "native-workflows", "semantic-components", "composition-adoption", "component-recipes",
                     "email-components")),
-    ("Design system", ("design-principles", "theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),
+    ("Design system", ("design-principles", "theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "geo", "blocks-guide", "premium-compositions", "component-authoring")),
     ("Integrations", ("framework-integrations", "site-builders", "wordpress", "shopify", "wix", "webflow", "framer", "squarespace", "ghost", "hubspot", "drupal", "joomla", "carrd", "duda", "tilda", "mobile-frameworks", "headless-interactions", "clipboard", "lit-integration", "radix-integration", "shadcn-integration", "ecosystem-integrations", "editor-integration", "figma-component-kit", "vertigo-integration", "rust-saas-integration", "saas-cli-business")),
     ("Accessibility and performance", ("accessibility", "accessibility-alpha5-review", "progressive-enhancement", "native-browser-apis", "progressive-loading", "performance-and-polish", "performance-validation", "live-performance-audit", "visual-regression")),
     ("Maintainer and reference", ("agent-integration", "api-stability", "cloudflare-hosting", "site-generator-decision", "design-research-linear-resend", "tailwind-research", "selective-builds", "release-readiness-ecosystem")),

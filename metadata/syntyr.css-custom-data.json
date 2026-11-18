@@ -226,6 +226,42 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-geo-floating",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-land",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-point",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-road",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-route",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-water",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-zone",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
       "name": "--syn-glow-alpha",
       "description": "Glow accent share; varies by scoped data-syn-intensity."
     },

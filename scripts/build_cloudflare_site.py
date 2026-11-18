@@ -35,7 +35,7 @@ SITE_URL = "https://syntyr-css.pages.dev"
 # landing pages. Their HTML remains publicly available and linkable.
 NOINDEX_HTML = frozenset({
     "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html", "examples/preset-preview.html",
-    "examples/resource-workspace.html",
+    "examples/resource-workspace.html", "examples/geo.html",
     "examples/permission-matrix.html",
     "examples/query-review.html",
 })
@@ -257,7 +257,7 @@ PUBLIC_DOCS = (
     "site-generator-decision.md", "static-site-generators.md", "site-builders.md", "tailwind-research.md",
     "wordpress.md", "shopify.md", "wix.md", "webflow.md", "framer.md", "squarespace.md", "ghost.md", "hubspot.md", "drupal.md", "joomla.md", "carrd.md", "duda.md", "tilda.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
-    "vertigo-integration.md", "viz.md",
+    "vertigo-integration.md", "viz.md", "geo.md",
 )
 
 
@@ -314,7 +314,7 @@ def source_files() -> dict[str, bytes]:
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "permission-matrix.html", "permission-matrix.css", "crm.html", "resource-workspace.html", "native-workflows.html", "file-lifecycle.html", "saas-workflows.css", "workflow-operations.html", "workflow-operations.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
-        "viz.html", "data-grid.html", "animation.html", "copy.html",
+        "viz.html", "geo.html", "data-grid.html", "animation.html", "copy.html",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.

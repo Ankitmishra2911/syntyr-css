@@ -54,6 +54,8 @@ FILES = (
     "docs/visual-intensity.md",
     "docs/accessibility.md",
     "docs/viz.md",
+    "docs/geo.md",
+    "examples/geo.html",
     "llms.txt",
     "llms-full.txt",
     "metadata/components.json",
