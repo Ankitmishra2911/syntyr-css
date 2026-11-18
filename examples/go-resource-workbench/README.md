@@ -13,6 +13,18 @@ go run . -addr 127.0.0.1:8767
 
 Open http://127.0.0.1:8767/resources. The demo serves the repository's already-built CSS from `../../dist`. Run from `examples/go-resource-workbench/`; if your CSS is elsewhere, pass `-dist /absolute/path/to/dist`.
 
+## Optional browser verification
+
+A maintainer-only Playwright smoke test covers Chromium and Firefox at 320px, 390px and desktop widths, plus 400%-equivalent text size, forced-colors, native no-JS forms, inspector links and bulk previews. Playwright is **not** a runtime dependency of Syntyr CSS or of this Go example.
+
+From `examples/go-resource-workbench/`, with Playwright installed independently:
+
+```sh
+node browser-smoke.cjs
+```
+
+The test compiles and runs the Go app on localhost, allocates a temporary binary, and cleans it up. Browser executable overrides `SYNTYR_TEST_CHROMIUM_EXECUTABLE` and `SYNTYR_TEST_FIREFOX_EXECUTABLE` are supported for non-standard installs. Text reflow and keyboard/semantic checks are not a substitute for human screen-reader review.
+
 ## Working behaviors
 
 - Native GET search over resource name, ID, owner and region; status filtering; explicit name or updated-date sort.
