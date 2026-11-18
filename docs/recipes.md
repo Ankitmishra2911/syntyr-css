@@ -366,3 +366,29 @@ excluded from `syntyr.core.css`. The illustration uses labeled placeholders,
 not real customer evidence. Test keyboard and touch interactions, actual
 screen-reader focus behavior, 400% zoom, forced colors, RTL, and lengthy
 translated metadata in the consuming app before production use.
+
+## Permission matrix — role/capability review
+
+The [copy-owned permissions example](../examples/permission-matrix.html) combines
+Syntyr core and recipes with a small application-local stylesheet. It takes
+enterprise-table and accessible-form ideas from mature design systems without
+adding a component to Syntyr's core or introducing JavaScript.
+
+- Real \`table\`, \`caption\`, column/row headers and visible \`input type="checkbox"\`
+  controls communicate the role/capability intersection to assistive technology.
+  Every checkbox has an explicit, role-and-capability-specific label.
+- A named, keyboard-focusable scroll region preserves the wide matrix at mobile
+  widths and large zoom levels. Test scrolling with a keyboard and screen reader.
+- Viewer/Editor inputs are an unsaved local demonstration. The disabled
+  Administrator column demonstrates a system-fixed role, not a policy imposed
+  by Syntyr. Browser-disabled fields will not submit in a real form.
+- To make this a working settings page, render it from trusted server policy,
+  wrap it in an authenticated mutation form with CSRF protection and a policy
+  version, then validate every capability server-side before an atomic update.
+  Audit the actor and changes; never trust a checked box or a hidden role field
+  for authorization.
+- Do not present a static demo as a live access-control feature, persist changes
+  in browser storage, or claim accessibility compliance without manual testing.
+
+The markup belongs to the host application; this is an integration pattern,
+not a JavaScript permissions widget or a substitute for authorization.
