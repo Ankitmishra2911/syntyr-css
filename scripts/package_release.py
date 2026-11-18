@@ -30,9 +30,11 @@ FILES = (
     "docs/components.md",
     "docs/recipes.md",
     "docs/component-recipes.md",
+    "docs/component-recipes.html",  # Offline integration guide for packaged form-state example.
     "docs/email-components.md",
     "examples/email.html",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
+    "examples/form-state-contracts.html",  # Native server-supplied form states.
     "examples/preset-preview.html",
     "examples/resource-outline.html",  # Script-free native navigation demo.
     "examples/command-launcher.html",

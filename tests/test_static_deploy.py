@@ -1,6 +1,7 @@
 """Portable static-site deployment adapters: deterministic and fail-closed."""
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -57,7 +58,10 @@ class StaticDeployTests(unittest.TestCase):
                 self.assertEqual(manifest["schema"], "syntyr.static-site.bundle/v1")
                 self.assertEqual(manifest["origin"], "https://demo.example")
                 self.assertEqual(manifest["files"][0]["path"], "css/site.css")
-                self.assertEqual(len(manifest["files"][0]["sha256"]), 64)
+                for entry in manifest["files"]:
+                    archived = archive.read("site/" + entry["path"])
+                    self.assertEqual(entry["bytes"], len(archived))
+                    self.assertEqual(entry["sha256"], hashlib.sha256(archived).hexdigest())
                 self.assertEqual(archive.read("site/index.html"), b"<h1>Syntyr</h1>")
 
     def test_nulang_refuses_cloudflare_specific_headers(self):
@@ -156,7 +160,36 @@ class StaticDeployTests(unittest.TestCase):
                     'https://-bad.example'):
             with self.subTest(url=url), self.assertRaises(DeploymentError):
                 validate_site_url(url)
+        for origin in ('https://demo.example/?', 'https://demo.example/#',
+                       'https://[fe80::1%25"x]', 'https://[fe80::1%25eth0]'):
+            with self.subTest(origin=origin), self.assertRaises(DeploymentError):
+                validate_site_url(origin)
         self.assertEqual(validate_site_url('https://[::1]/'), 'https://[::1]')
+
+    def test_scandir_failure_cannot_silently_omit_static_assets(self):
+        import os
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            site = self.sample(root)
+            scan = os.scandir
+            def broken_scan(path):
+                if Path(path) == site / "css":
+                    raise PermissionError("cannot list assets directory")
+                return scan(path)
+            with patch("static_deploy.os.scandir", side_effect=broken_scan):
+                with self.assertRaisesRegex(PermissionError, "cannot list"):
+                    StaticSite.load(site)
+
+    def test_failed_archive_write_does_not_leave_partial_final_zip(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            site = StaticSite.load(self.sample(root))
+            target = root / "site.zip"
+            with patch("static_deploy._write_zip", side_effect=OSError("simulated disk full")):
+                with self.assertRaisesRegex(OSError, "disk full"):
+                    NulangCloudBundleProvider().prepare(site, target, "https://demo.example")
+            self.assertFalse(target.exists())
+            self.assertEqual(sorted(root.glob(".syntyr-*.tmp")), [])
 
     def test_cli_is_experimental_and_refuses_live_publish(self):
         with TemporaryDirectory() as temp:
@@ -181,6 +214,23 @@ class StaticDeployTests(unittest.TestCase):
 
 
 class PortableBuildTests(unittest.TestCase):
+    def test_portable_canonical_and_sitemap_paths_are_directly_servable(self):
+        from build_cloudflare_site import source_files
+        from urllib.parse import urlsplit
+        portable = source_files(site_url="https://demo.example", include_cloudflare_headers=False)
+        html = portable["docs/reference.html"].decode("utf-8")
+        self.assertIn('<link rel="canonical" href="https://demo.example/docs/reference.html">', html)
+        self.assertIn(b'https://demo.example/docs/reference.html', portable["sitemap.xml"])
+        self.assertIn(b'https://demo.example/docs/', portable["sitemap.xml"])
+        for entry in __import__('re').findall(r'<loc>([^<]+)</loc>', portable['sitemap.xml'].decode()):
+            path = urlsplit(entry).path.lstrip('/')
+            if not path or path.endswith('/'):
+                path += 'index.html'
+            self.assertIn(path, portable)
+        cloudflare = source_files()
+        self.assertIn(b'https://syntyr-css.pages.dev/docs/reference<', cloudflare['sitemap.xml'])
+        self.assertNotIn(b'https://syntyr-css.pages.dev/docs/reference.html<', cloudflare['sitemap.xml'])
+
     def test_portable_origin_rewrites_first_party_open_graph_and_structured_metadata(self):
         from build_cloudflare_site import source_files
         files = source_files(site_url="https://demo.example", include_cloudflare_headers=False)

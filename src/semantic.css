@@ -225,8 +225,13 @@
     color: inherit;
   }
   /* Browser-native file and color controls (no custom pickers or runtime JS). */
+  /* Native chooser stays functional, but must not force a narrow fieldset
+     or 400%-enlarged document wider than its containing grid track. */
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="file"]:not([class]), input[type="file"][data-syn-semantic])) {
+    inline-size: 100%;
+    min-inline-size: 0;
     max-inline-size: 100%;
+    overflow: clip;
     color: var(--syn-text);
     font: inherit;
   }
@@ -255,7 +260,9 @@
     cursor: pointer;
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="color"]:not([class]), input[type="color"][data-syn-semantic])) {
-    inline-size: 4rem;
+    inline-size: min(4rem, 100%);
+    min-inline-size: 0;
+    max-inline-size: 100%;
     min-block-size: var(--syn-control-height);
     padding: .25rem;
     border: 1px solid var(--syn-border-default);
@@ -339,6 +346,16 @@
   /* Grouped column headers stay true table headers; only their surface changes. */
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(thead:not([class]), thead[data-syn-semantic])) {
     background: var(--syn-surface-recessed);
+  }
+  /* Enlarged root text must not let rem-based card padding consume
+     the entire 320px viewport. Preserve normal padding on wider screens. */
+  @media (max-width: 40rem) {
+    :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(
+      :is(article:not([class]), article[data-syn-semantic]),
+      :is(fieldset:not([class]), fieldset[data-syn-semantic])
+    ) {
+      padding: min(1rem, 5vw);
+    }
   }
   @media (forced-colors: active) {
     :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(details[open]:not([class]), details[open][data-syn-semantic])) {

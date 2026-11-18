@@ -37,7 +37,7 @@ SITE_URL = "https://syntyr-css.pages.dev"
 # landing pages. Their HTML remains publicly available and linkable.
 NOINDEX_HTML = frozenset({
     "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html", "examples/preset-preview.html",
-    "examples/resource-workspace.html", "examples/geo.html",
+    "examples/resource-workspace.html", "examples/form-state-contracts.html", "examples/geo.html",
     "examples/permission-matrix.html",
     "examples/query-review.html",
     "examples/command-launcher.html",
@@ -46,16 +46,16 @@ CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
 ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
 
 
-def canonical_path(name: str) -> str:
+def canonical_path(name: str, *, portable: bool = False) -> str:
     """Match Cloudflare Pages' 200-status clean URLs (not .html redirect URLs)."""
     if name == "index.html":
         return "/"
     if name.endswith("/index.html"):
         return "/" + name.removesuffix("index.html")
-    return "/" + name.removesuffix(".html")
+    return "/" + (name if portable else name.removesuffix(".html"))
 
 
-def add_seo_metadata(files: dict[str, bytes], site_url: str = SITE_URL) -> None:
+def add_seo_metadata(files: dict[str, bytes], site_url: str = SITE_URL, *, portable: bool = False) -> None:
     """Build-time-only SEO: preserve readable sources and avoid browser JS."""
     for name, data in tuple(files.items()):
         if not name.endswith(".html"):
@@ -80,7 +80,7 @@ def add_seo_metadata(files: dict[str, bytes], site_url: str = SITE_URL) -> None:
             # Excluded pages should not claim canonical index URLs.
             html = CANONICAL_LINK.sub("", html)
         else:
-            url = site_url + canonical_path(name)
+            url = site_url + canonical_path(name, portable=portable)
             tag = f'<link rel="canonical" href="{url}">'
             if CANONICAL_LINK.search(html):
                 html = CANONICAL_LINK.sub(tag, html, count=1)
@@ -326,7 +326,7 @@ def source_files(site_url: str = SITE_URL, *, include_cloudflare_headers: bool =
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
     public_examples = (
-        "business.html", "email.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
+        "business.html", "form-state-contracts.html", "email.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "semantic-compositions.html", "native-interactions.html", "native-recipes.html", "resource-outline.html", "query-review.html", "command-launcher.html", "command-launcher.mjs", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "dropdowns.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
@@ -400,9 +400,9 @@ def source_files(site_url: str = SITE_URL, *, include_cloudflare_headers: bool =
     # Keep the sitemap confined to HTML that is useful as a search result.
     # Cloudflare Pages redirects *.html -> clean paths, so only list final 200 URLs.
     from xml.sax.saxutils import escape as escape_xml
-    add_seo_metadata(files, site_url)
+    add_seo_metadata(files, site_url, portable=not include_cloudflare_headers)
     indexable = sorted(
-        site_url + canonical_path(name)
+        site_url + canonical_path(name, portable=not include_cloudflare_headers)
         for name in files if name.endswith(".html") and name not in NOINDEX_HTML
     )
     files["sitemap.xml"] = ('<?xml version="1.0" encoding="UTF-8"?>\n'

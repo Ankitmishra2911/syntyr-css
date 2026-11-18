@@ -24,9 +24,9 @@ class InspectHTML(HTMLParser):
 
 
 class BlocksAssetsTests(unittest.TestCase):
-    def test_twenty_independent_copy_owned_blocks(self):
+    def test_all_independent_copy_owned_blocks(self):
         blocks = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
-        self.assertEqual(len(blocks), 20)
+        self.assertEqual(len(blocks), 23)
         self.assertEqual(len({b["id"] for b in blocks}), len(blocks))
         self.assertGreaterEqual(len({b["category"] for b in blocks}), 3)
         for block in blocks:
@@ -60,8 +60,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parsed = InspectHTML()
         parsed.feed(page)
         ids = [a["data-block-id"] for a in parsed.attributes if "data-block-id" in a]
-        self.assertEqual(len(ids), 20)
-        self.assertEqual(len(set(ids)), 20)
+        self.assertEqual(len(ids), 23)
+        self.assertEqual(len(set(ids)), 23)
         self.assertIn('src="blocks.js"', page)
         self.assertIn('href="blocks-assets.css"', page)
         self.assertIn('id="blocks-search"', page)
@@ -77,8 +77,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parser.feed(page)
         copy_labels = [attrs.get("aria-label", "") for attrs in parser.attributes
                        if "data-block-copy" in attrs]
-        self.assertEqual(len(copy_labels), 20)
-        self.assertEqual(len(set(copy_labels)), 20)
+        self.assertEqual(len(copy_labels), 23)
+        self.assertEqual(len(set(copy_labels)), 23)
         self.assertTrue(all(name.startswith("Copy HTML for ") for name in copy_labels))
         for block in json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]:
             self.assertIn("View HTML source for " + block["title"] + "</summary>", page)
@@ -96,6 +96,18 @@ class BlocksAssetsTests(unittest.TestCase):
         self.assertNotIn("url(", css)
         self.assertNotIn("@font-face", css)
         self.assertIn("prefers-reduced-motion", css)
+
+    def test_fine_grid_caption_has_opaque_backplate(self):
+        # The fine grid crosses small caption glyphs unless the caption is
+        # painted over an opaque semantic surface, unlike decorative patterns.
+        css = (ROOT / "docs/blocks-assets.css").read_text(encoding="utf-8")
+        self.assertRegex(
+            css,
+            r"\.syn-root :is\([^)]*\.syn-block-asset--fine-grid[^)]*\)>span\s*\{"
+            r"\s*background:var\(--syn-surface\);"
+        )
+        self.assertIn(".syn-block-asset--dot-field", css)
+        self.assertIn(".syn-block-asset--diagonal", css)
 
     def test_radar_asset_caption_uses_high_contrast_theme_text(self):
         # The decorative radar ring crossed muted caption text at 390px;

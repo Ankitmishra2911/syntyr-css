@@ -9,11 +9,13 @@ import argparse
 from dataclasses import dataclass
 import hashlib
 import ipaddress
+import os
 import json
 import re
 from pathlib import Path
 import shutil
 import sys
+import tempfile
 from typing import Protocol
 from urllib.parse import urlsplit
 from zipfile import ZIP_STORED, ZipFile, ZipInfo
@@ -40,7 +42,8 @@ _PRIVATE_SOURCE_DIRS = frozenset({
 
 
 def _safe_hostname(hostname: str | None) -> bool:
-    if not hostname:
+    if not hostname or "%" in hostname:
+        # Scoped IPv6 addresses may contain characters unsafe in HTML attrs.
         return False
     try:
         ipaddress.ip_address(hostname)
@@ -65,6 +68,7 @@ def validate_site_url(value: str) -> str:
             and not parsed.username and not parsed.password
             and parsed.path in ("", "/") and not parsed.query and not parsed.fragment
             and parsed.port in (None, 443)
+            and "?" not in value and "#" not in value
             and not any(char.isspace() for char in value)
         )
     except ValueError:
@@ -87,6 +91,17 @@ def _validate_output(site_dir: Path, output: Path) -> Path:
     return destination
 
 
+def _site_paths(directory: Path):
+    """Yield source entries in sorted order and propagate every scan error."""
+    with os.scandir(directory) as entries:
+        children = sorted(entries, key=lambda entry: entry.name)
+    for entry in children:
+        path = Path(entry.path)
+        yield path
+        if entry.is_dir(follow_symlinks=False):
+            yield from _site_paths(path)
+
+
 @dataclass(frozen=True)
 class StaticSite:
     source: Path
@@ -98,7 +113,7 @@ class StaticSite:
             raise DeploymentError(f"not a real static site directory: {directory}")
         directory = directory.resolve()
         assets: list[tuple[str, bytes]] = []
-        for path in sorted(directory.rglob("*")):
+        for path in _site_paths(directory):
             relative = path.relative_to(directory)
             if path.is_symlink():
                 raise DeploymentError(f"site includes symlink: {relative}")
@@ -176,13 +191,26 @@ class NulangCloudBundleProvider:
                 for name, data in site.files
             ],
         }
-        # Archive is stable regardless of source directory timestamps and permissions.
-        # Exclusive creation closes the check-then-open overwrite race.
-        with ZipFile(destination, "x") as zipped:
-            for name, payload in site.files:
-                _write_zip(zipped, f"site/{name}", payload)
-            _write_zip(zipped, "syntyr-deploy.json",
-                       (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode("utf-8"))
+        # Build privately in the destination filesystem. An exclusive hard link
+        # publishes only a complete archive and never replaces a competing file.
+        temporary_path = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="w+b", prefix=".syntyr-", suffix=".tmp",
+                dir=destination.parent, delete=False,
+            ) as temporary:
+                temporary_path = Path(temporary.name)
+                with ZipFile(temporary, "w") as zipped:
+                    for name, payload in site.files:
+                        _write_zip(zipped, f"site/{name}", payload)
+                    _write_zip(zipped, "syntyr-deploy.json",
+                               (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode("utf-8"))
+                temporary.flush()
+                os.fsync(temporary.fileno())
+            os.link(temporary_path, destination)  # Fails atomically if present.
+        finally:
+            if temporary_path is not None:
+                temporary_path.unlink(missing_ok=True)
         return {"provider": "nulang-cloud", "status": "prepared_only",
                 "origin": origin, "output": str(destination)}
 
