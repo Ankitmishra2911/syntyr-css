@@ -1,0 +1,48 @@
+"""Resource outline is a native, optional navigation recipe, not an ARIA tree widget."""
+from pathlib import Path
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def source(name):
+    return (ROOT / name).read_text(encoding="utf-8")
+
+
+class ResourceOutlineContract(unittest.TestCase):
+    def test_optional_scoped_css_and_accessible_selection(self):
+        css = source("src/native-recipes.css")
+        self.assertIn(".syn-resource-outline", css)
+        self.assertIn(":where(.syn-root.syn-resource-outline, .syn-root .syn-resource-outline)", css)
+        self.assertIn('a[aria-current="page"]', css)
+        self.assertIn(":focus-visible", css)
+        self.assertIn("padding-inline-start:", css)
+        self.assertIn("min-block-size: 2.75rem;", css)
+        self.assertNotIn(".syn-resource-outline", source("dist/syntyr.core.css"))
+
+    def test_native_no_js_hierarchy_and_link_navigation(self):
+        html = source("examples/resource-outline.html")
+        self.assertIn('class="syn-root"', html)
+        self.assertIn('class="syn-resource-outline"', html)
+        self.assertIn("<nav ", html)
+        self.assertIn("<details", html)
+        self.assertIn("<summary", html)
+        self.assertIn('aria-current="page"', html)
+        self.assertIn('href="#campaign-402"', html)
+        self.assertNotIn('role="tree"', html)
+        self.assertNotIn("<script", html)
+
+    def test_offline_release_contains_linked_demo(self):
+        from scripts.package_release import FILES
+        self.assertIn("examples/resource-outline.html", FILES)
+
+    def test_host_owns_behavior_and_semantics_are_explained(self):
+        docs = source("docs/native-patterns.md")
+        self.assertIn("Resource outline", docs)
+        self.assertIn("native disclosure", docs)
+        self.assertIn("not an ARIA tree", docs)
+        self.assertIn("application", docs)
+
+
+if __name__ == "__main__":
+    unittest.main()
