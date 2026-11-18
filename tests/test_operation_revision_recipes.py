@@ -82,6 +82,11 @@ class OperationRevisionRecipes(unittest.TestCase):
         self.assertIn("../dist/syntyr.core.css", html)
         self.assertIn("../dist/syntyr.recipes.css", html)
 
+    def test_example_is_in_browser_reflow_and_axe_audit_matrices(self):
+        for path in ('tests/browser_matrix.py', 'tests/reflow_test.py', 'tests/axe_audit.py'):
+            with self.subTest(path=path):
+                self.assertIn('"examples/operation-revisions.html"', read(path))
+
     def test_docs_publishing_and_api_discovery(self):
         docs = read("docs/recipes.md")
         self.assertIn("operation-revisions.html", docs)
