@@ -1150,6 +1150,61 @@ separator's ARIA bounds, visible panel sizes and keyboard/pointer behavior in
 sync. The script is demonstrative, **not** part of the zero-JS CSS runtime.
 Test real zoom, touch, forced colors, keyboard and screen-reader support
 before production use.
+
+## Operation feedback and record revisions (alpha.5 source candidate)
+
+The optional `syntyr.recipes.css` provides **two presentation patterns**, not a
+transaction state machine or history service. [View the static example](../examples/operation-revisions.html).
+
+- **Operation feedback:** use `.syn-operation-feedback` and an actual
+  `data-syn-state="unsaved|pending|saved|failed|conflict"`. All five states use
+  explicit textual headings and supporting details, not color alone.
+  `--syn-operation-edge` can be overridden per instance if the host's palette
+  needs a different border; do not interpret these colors as business results.
+- **Record revisions:** keep the existing `dl.syn-record-fields` and place
+  `.syn-change-pair` inside a `dd`. Its optional `.syn-change-before` and
+  `.syn-change-after` children wrap at narrow widths, including when embedded
+  in a sidebar. Use visible "Previous", "Updated", "Added" or "Removed" labels
+  with native `del`/`ins` elements. Omit the absent side for additions/removals;
+  don't manufacture a previous value. The same pair may appear in a table cell
+  or review panel; no duplicate definition-list component is needed.
+
+At extreme user text sizes, the `syn-page-header` and `syn-app-card`
+compositions allow long words and dates to wrap instead of expanding the viewport.
+The optional developer-only browser smoke test (tests/operation_revisions_browser.js)
+covers reflow, keyboard focus and forced colors in Playwright. Enlarging root
+text is a stress test, **not** proof of native 400% browser zoom or a manual
+screen-reader audit.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <section class="syn-operation-feedback" data-syn-state="conflict"
+       aria-labelledby="revision-conflict">
+    <h2 id="revision-conflict">Someone updated this record</h2>
+    <p>Review their changes before submitting a new version.</p>
+  </section>
+  <dl class="syn-record-fields">
+    <div><dt>Campaign name</dt><dd><div class="syn-change-pair">
+      <span class="syn-change-before"><small>Previous</small><del>Fall</del></span>
+      <span class="syn-change-after"><small>Updated</small><ins>Winter</ins></span>
+    </div></dd></div>
+  </dl>
+</section>
+```
+
+**Host behavior contract:** Render the state **only when it is true**. A pending
+request requires the host to manage loading and submission controls; "saved"
+requires a confirmed server response, not an optimistic assumption. On
+failure preserve inputs; on conflict enforce record version checking
+(e.g., ETag/If-Match or an optimistic lock), offer a real comparison/reload
+path, and never overwrite concurrently edited data without policy checks.
+Authorize mutations, protect against CSRF where applicable, and record audit
+history on the server. For asynchronous updates, create a persistent
+`role="status"` region before updating its content, and use `role="alert"`
+only when immediate interruption is justified; **the static gallery does not
+claim any live announcements**. CSS cannot retry requests, manage focus,
+detect stale versions, or persist records. Test the integration at 320 CSS
+pixels, 400% zoom, keyboard-only navigation, screen readers and forced colors.
 ## File selection and lifecycle presentation (alpha.5 source candidate)
 
 Use the existing native file input (`.syn-input[type="file"]`) with a real

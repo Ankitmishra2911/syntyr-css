@@ -154,6 +154,18 @@
           "description": "Syntyr CSS class (components/data.css)."
         },
         {
+          "name": "syn-change-after",
+          "description": "Updated or added revision value with visible text label."
+        },
+        {
+          "name": "syn-change-before",
+          "description": "Previous or removed revision value with visible text label."
+        },
+        {
+          "name": "syn-change-pair",
+          "description": "Responsive before/after value pair for existing semantic record fields."
+        },
+        {
           "name": "syn-chart",
           "description": "Syntyr CSS class (viz.css)."
         },
@@ -796,6 +808,10 @@
         {
           "name": "syn-nav-tabs",
           "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-operation-feedback",
+          "description": "Optional host-managed operation feedback with truthful state text."
         },
         {
           "name": "syn-page",
@@ -1459,6 +1475,9 @@
           "name": "complete"
         },
         {
+          "name": "conflict"
+        },
+        {
           "name": "degraded"
         },
         {
@@ -1477,13 +1496,22 @@
           "name": "loading"
         },
         {
+          "name": "pending"
+        },
+        {
           "name": "queued"
+        },
+        {
+          "name": "saved"
         },
         {
           "name": "selected"
         },
         {
           "name": "unknown"
+        },
+        {
+          "name": "unsaved"
         },
         {
           "name": "uploading"

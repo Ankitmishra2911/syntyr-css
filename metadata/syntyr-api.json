@@ -187,6 +187,21 @@
       "description": "Syntyr CSS class (components/data.css)."
     },
     {
+      "name": "syn-change-after",
+      "module": "recipes.css",
+      "description": "Updated or added revision value with visible text label."
+    },
+    {
+      "name": "syn-change-before",
+      "module": "recipes.css",
+      "description": "Previous or removed revision value with visible text label."
+    },
+    {
+      "name": "syn-change-pair",
+      "module": "recipes.css",
+      "description": "Responsive before/after value pair for existing semantic record fields."
+    },
+    {
       "name": "syn-chart",
       "module": "viz.css",
       "description": "Syntyr CSS class (viz.css)."
@@ -990,6 +1005,11 @@
       "name": "syn-nav-tabs",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-operation-feedback",
+      "module": "recipes.css",
+      "description": "Optional host-managed operation feedback with truthful state text."
     },
     {
       "name": "syn-page",
@@ -2162,6 +2182,11 @@
       "name": "--syn-on-accent",
       "module": "tokens.css",
       "description": "Foreground color for the primary accent."
+    },
+    {
+      "name": "--syn-operation-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
     },
     {
       "name": "--syn-panel-border-width",
