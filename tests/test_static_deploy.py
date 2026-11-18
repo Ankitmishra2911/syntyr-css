@@ -166,6 +166,15 @@ class StaticDeployTests(unittest.TestCase):
                 validate_site_url(origin)
         self.assertEqual(validate_site_url('https://[::1]/'), 'https://[::1]')
 
+    def test_site_origin_rejects_raw_ascii_controls_before_url_parsing(self):
+        for char in (chr(0), chr(1), chr(12), chr(31), chr(127)):
+            for value in (char + "https://demo.example",
+                          "https://demo.example" + char):
+                with self.subTest(origin=repr(value)), self.assertRaises(DeploymentError):
+                    validate_site_url(value)
+        self.assertEqual(validate_site_url("https://demo.example/"),
+                         "https://demo.example")
+
     def test_scandir_failure_cannot_silently_omit_static_assets(self):
         import os
         with TemporaryDirectory() as temp:
@@ -190,6 +199,49 @@ class StaticDeployTests(unittest.TestCase):
                     NulangCloudBundleProvider().prepare(site, target, "https://demo.example")
             self.assertFalse(target.exists())
             self.assertEqual(sorted(root.glob(".syntyr-*.tmp")), [])
+
+    def test_completed_zip_reports_temp_cleanup_failure_without_losing_receipt(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            site = StaticSite.load(self.sample(root))
+            target = root / "complete.zip"
+            actual_unlink = Path.unlink
+
+            def fail_temp_cleanup(path, *args, **kwargs):
+                if path.name.startswith(".syntyr-"):
+                    raise PermissionError("temporary cleanup denied")
+                return actual_unlink(path, *args, **kwargs)
+
+            with patch.object(Path, "unlink", fail_temp_cleanup):
+                receipt = NulangCloudBundleProvider().prepare(
+                    site, target, "https://demo.example")
+            self.assertEqual(receipt["status"], "prepared_only")
+            self.assertIn("temporary cleanup denied", receipt.get("cleanup_warning", ""))
+            with ZipFile(target) as archive:
+                self.assertEqual(archive.read("site/index.html"), b"<h1>Syntyr</h1>")
+
+    def test_link_error_stays_primary_when_temp_cleanup_also_fails(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            site = StaticSite.load(self.sample(root))
+            target = root / "no.zip"
+            actual_unlink = Path.unlink
+
+            def fail_temp_cleanup(path, *args, **kwargs):
+                if path.name.startswith(".syntyr-"):
+                    raise PermissionError("temporary cleanup denied")
+                return actual_unlink(path, *args, **kwargs)
+
+            with patch("static_deploy.os.link", side_effect=OSError("link publication failed")), (
+                 patch.object(Path, "unlink", fail_temp_cleanup)):
+                with self.assertRaisesRegex(OSError, "link publication failed"):
+                    NulangCloudBundleProvider().prepare(site, target, "https://demo.example")
+            self.assertFalse(target.exists())
+
+    def test_hosting_guide_documents_atomic_bundle_filesystem_constraint(self):
+        guide = (ROOT / "docs/nulang-cloud-hosting.md").read_text()
+        self.assertIn("hard links", guide)
+        self.assertIn("exFAT", guide)
 
     def test_cli_is_experimental_and_refuses_live_publish(self):
         with TemporaryDirectory() as temp:
@@ -246,6 +298,20 @@ class PortableBuildTests(unittest.TestCase):
         scripts = findall(r'<script type="application/ld\+json">(.*?)</script>', blog, flags=__import__('re').S)
         self.assertTrue(scripts)
         self.assertFalse(any('https://syntyr-css.pages.dev/' in script for script in scripts))
+
+    def test_portable_existing_open_graph_url_matches_directly_servable_canonical(self):
+        from build_cloudflare_site import source_files
+        import re
+        for origin in ("https://demo.example", "https://syntyr-css.pages.dev"):
+            with self.subTest(origin=origin):
+                files = source_files(site_url=origin, include_cloudflare_headers=False)
+                html = files["docs/faq.html"].decode("utf-8")
+                canonical = re.search(r'<link rel="canonical" href="([^"]+)"', html)
+                og = re.search(r'<meta property="og:url" content="([^"]+)"', html)
+                self.assertIsNotNone(canonical)
+                self.assertIsNotNone(og)
+                self.assertEqual(og.group(1), canonical.group(1))
+                self.assertEqual(og.group(1), origin + "/docs/faq.html")
 
     def test_site_export_supports_custom_origin_without_cloudflare_headers(self):
         from build_cloudflare_site import source_files

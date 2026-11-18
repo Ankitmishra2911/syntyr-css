@@ -61,6 +61,10 @@ def _safe_hostname(hostname: str | None) -> bool:
 
 def validate_site_url(value: str) -> str:
     """Accept only an HTTPS origin, never paths, credentials or query data."""
+    # urlsplit strips some leading C0 controls before parsing, which can
+    # silently introduce invalid bytes into generated XML/HTML metadata.
+    if any(ord(char) < 0x20 or ord(char) == 0x7f for char in value):
+        raise DeploymentError("site URL contains ASCII control characters")
     try:
         parsed = urlsplit(value)
         valid = (
@@ -194,6 +198,7 @@ class NulangCloudBundleProvider:
         # Build privately in the destination filesystem. An exclusive hard link
         # publishes only a complete archive and never replaces a competing file.
         temporary_path = None
+        cleanup_warning = None
         try:
             with tempfile.NamedTemporaryFile(
                 mode="w+b", prefix=".syntyr-", suffix=".tmp",
@@ -210,9 +215,19 @@ class NulangCloudBundleProvider:
             os.link(temporary_path, destination)  # Fails atomically if present.
         finally:
             if temporary_path is not None:
-                temporary_path.unlink(missing_ok=True)
-        return {"provider": "nulang-cloud", "status": "prepared_only",
-                "origin": origin, "output": str(destination)}
+                try:
+                    temporary_path.unlink(missing_ok=True)
+                except OSError as exc:
+                    # The exclusive hard link may have already committed a
+                    # complete ZIP. Do not turn a successful publish-to-path
+                    # into a reported failure or mask an earlier ZIP error.
+                    cleanup_warning = f"temporary bundle cleanup failed for {temporary_path}: {exc}"
+                    print(f"Warning: {cleanup_warning}", file=sys.stderr)
+        receipt = {"provider": "nulang-cloud", "status": "prepared_only",
+                   "origin": origin, "output": str(destination)}
+        if cleanup_warning:
+            receipt["cleanup_warning"] = cleanup_warning
+        return receipt
 
 
 def main(argv: list[str] | None = None) -> int:

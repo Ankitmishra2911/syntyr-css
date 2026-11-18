@@ -69,6 +69,13 @@ Cloud HTTP API. It does not grant deployment capability or assert that Nulang
 Cloud can currently serve the bundle. There are no required dependencies,
 tokens, network requests, VM provisioning, or deployment charges.
 
+Atomic ZIP preparation requires an output filesystem supporting **hard links**.
+Filesystems such as exFAT may not support this operation: create the ZIP on a
+compatible local filesystem, verify the receipt, then copy the complete archive
+to the intended destination. If cleanup of the temporary filename fails after
+the hard link is created, the CLI still returns a successful preparation receipt
+with a separate cleanup warning; remove the leftover temporary file manually.
+
 For a **different Syntyr-based site**, point `--site-dir` at its reviewed
 static build output (for example, a generated `dist/` containing
 `index.html`), rather than at the Syntyr repository or an arbitrary source

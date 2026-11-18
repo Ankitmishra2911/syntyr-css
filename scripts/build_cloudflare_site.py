@@ -86,6 +86,20 @@ def add_seo_metadata(files: dict[str, bytes], site_url: str = SITE_URL, *, porta
                 html = CANONICAL_LINK.sub(tag, html, count=1)
             else:
                 html = html.replace("</head>", f"  {tag}\n</head>", 1)
+            # Existing OG URLs may use Cloudflare clean paths. Portable sites
+            # require a directly servable .html URL, even with the default origin.
+            if portable:
+                def replace_existing_og_url(tag):
+                    raw = tag.group()
+                    if not re.search(r"""\bproperty\s*=\s*(["'])og:url\1""", raw, flags=re.I):
+                        return raw
+                    content = re.search(r"""\bcontent\s*=\s*(["']).*?\1""", raw, flags=re.I | re.S)
+                    if content is None:
+                        return raw[:-1] + f' content="{url}">'
+                    return raw[:content.start()] + f'content="{url}"' + raw[content.end():]
+
+                html = re.sub(r"""<meta\b(?:[^>"']|"[^"]*"|'[^']*')*>""",
+                              replace_existing_og_url, html, flags=re.I)
             # Author pages can include Open Graph data already; don't duplicate it.
             if 'property="og:url"' not in html:
                 html = html.replace("</head>", f'  <meta property="og:url" content="{url}">\n</head>', 1)

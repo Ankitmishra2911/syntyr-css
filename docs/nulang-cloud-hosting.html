@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s MIT CSS, themes, and static HTML stay hosting-independent . This is an experimental deployment adapter , not a hosted website builder or a…">
-  <meta name="syntyr-source-sha256" content="8ad6f36dfd58476613216b449dada7980025a276cd75bec5b114b2c07253d740">
+  <meta name="syntyr-source-sha256" content="e75c3c5ebb41b8a2036816b39b1c081510773574998a543925d60ec33071739b">
   <meta name="theme-color" content="#f5f7fb">
   <title>Deploy Syntyr sites to Cloudflare and prepare for Nulang Cloud — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/nulang-cloud-hosting">
@@ -104,6 +104,12 @@ python3 scripts/static_deploy.py \
 Cloud HTTP API. It does not grant deployment capability or assert that Nulang
 Cloud can currently serve the bundle. There are no required dependencies,
 tokens, network requests, VM provisioning, or deployment charges.</p>
+<p>Atomic ZIP preparation requires an output filesystem supporting <strong>hard links</strong>.
+Filesystems such as exFAT may not support this operation: create the ZIP on a
+compatible local filesystem, verify the receipt, then copy the complete archive
+to the intended destination. If cleanup of the temporary filename fails after
+the hard link is created, the CLI still returns a successful preparation receipt
+with a separate cleanup warning; remove the leftover temporary file manually.</p>
 <p>For a <strong>different Syntyr-based site</strong>, point <code>--site-dir</code> at its reviewed
 static build output (for example, a generated <code>dist/</code> containing
 <code>index.html</code>), rather than at the Syntyr repository or an arbitrary source
