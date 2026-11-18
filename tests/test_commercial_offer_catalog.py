@@ -39,9 +39,10 @@ class CommercialOfferCatalogTests(unittest.TestCase):
     def test_private_prototype_inventory_is_consistent_with_product_cards(self):
         expected = {
             'console-kit': (12, 36),
-            'pro': (15, 45),
-            'studio': (30, 90),
+            'pro': (25, 75),
+            'studio': (42, 126),
         }
+        self.assertEqual(self.catalog['prototype_inventory_snapshot_date'], '2026-11-18')
         products = {product['id']: product for product in self.catalog['products']}
         for slug, (screens, variants) in expected.items():
             with self.subTest(product=slug):
@@ -59,6 +60,8 @@ class CommercialOfferCatalogTests(unittest.TestCase):
                 self.assertIsNotNone(card)
                 self.assertIn(f'{screens} screen types', card.group(1))
                 self.assertIn(f'{variants} static variants', card.group(1))
+        self.assertIn('Additional Pro application screen types</th><td>—</td><td>—</td><td>13</td><td>13</td>', self.html)
+        self.assertIn('November 18, 2026', self.html)
         self.assertNotIn('prototype_screen_types', products['agency'])
         self.assertNotIn('prototype_screen_types', products['core'])
 
@@ -71,7 +74,7 @@ class CommercialOfferCatalogTests(unittest.TestCase):
         self.assertIn('six-page B2B SaaS', self.html)
         self.assertIn('five-page professional-services', self.html)
         self.assertIn('four-page ecommerce', self.html)
-        self.assertIn('Marketing page types</th><td>Free examples</td><td>—</td><td>—</td><td>15</td>', self.html)
+        self.assertIn('Website page types (15 kit pages + 2 standalone previews)</th><td>Free examples</td><td>—</td><td>—</td><td>17</td>', self.html)
 
     def test_roadmap_is_clearly_not_a_storefront_or_payment_form(self):
         self.assertIn('NOT FOR SALE', self.html)
