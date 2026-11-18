@@ -19,7 +19,9 @@ The config directly copies `../../dist/syntyr.core.css` into the output
 (`/syntyr-eleventy/`). Change the prefix for your deployment, or use `/`
 for a root deployment. Serve `_site/` under that prefix and ensure the CSS
 is present. To test locally at the root, set `pathPrefix: "/"` in the config
-and rebuild. Never add Syntyr's bundle and its core stylesheet together.
+and rebuild. Also update the --base-path argument in the package.json verify
+script to match the new pathPrefix (including / for root deployment).
+Never add Syntyr's bundle and its core stylesheet together.
 
 The local example is not a Syntyr documentation-site migration and is not
 included in the published CSS package.

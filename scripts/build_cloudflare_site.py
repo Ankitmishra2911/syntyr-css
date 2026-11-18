@@ -236,7 +236,7 @@ PUBLIC_DOCS = (
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
     "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
-    "site-generator-decision.md", "tailwind-research.md",
+    "site-generator-decision.md", "static-site-generators.md", "tailwind-research.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
     "vertigo-integration.md", "viz.md",
 )

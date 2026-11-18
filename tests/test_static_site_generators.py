@@ -102,6 +102,59 @@ class StaticSiteGeneratorContract(unittest.TestCase):
             with self.assertRaisesRegex(AssertionError, "External stylesheet"):
                 verify_static_site(root, base_path="/my-site/")
 
+    def test_rejects_inline_event_handlers_without_script_tags(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self._site(root, "/my-site/assets/syntyr.core.css")
+            page = root / "guide/index.html"
+            page.write_text(page.read_text().replace("<body>", '<body onload="alert(1)">'))
+            with self.assertRaisesRegex(AssertionError, "JavaScript"):
+                verify_static_site(root, base_path="/my-site/")
+
+    def test_rejects_javascript_navigation_and_form_urls(self):
+        for html in ('<a href="javascript:alert(1)">Launch</a>',
+                     '<button formaction=" javascript:alert(1)">Launch</button>'):
+            with self.subTest(html=html), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                self._site(root, "/my-site/assets/syntyr.core.css")
+                page = root / "guide/index.html"
+                page.write_text(page.read_text().replace("</main>", html + "</main>"))
+                with self.assertRaisesRegex(AssertionError, "JavaScript"):
+                    verify_static_site(root, base_path="/my-site/")
+
+    def test_rejects_base_url_that_rewrites_relative_stylesheet(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self._site(root, "assets/syntyr.core.css")
+            local = root / "guide/assets"
+            local.mkdir(parents=True)
+            (local / "syntyr.core.css").write_text(".syn-root { color: black }")
+            self.assertEqual(verify_static_site(root, base_path="/my-site/"), 1)
+            page = root / "guide/index.html"
+            page.write_text(page.read_text().replace("<head>", '<head><base href="/other/">'))
+            with self.assertRaisesRegex(AssertionError, "base path"):
+                verify_static_site(root, base_path="/my-site/")
+
+    def test_accepts_local_reset_stylesheet_alongside_syntyr_css(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self._site(root, "/my-site/assets/syntyr.core.css")
+            (root / "assets/reset.css").write_text("* { box-sizing: border-box }")
+            page = root / "guide/index.html"
+            page.write_text(page.read_text().replace(
+                "</head>", '<link rel="stylesheet" href="/my-site/assets/reset.css"></head>'))
+            self.assertEqual(verify_static_site(root, base_path="/my-site/"), 1)
+
+    def test_public_generator_guide_is_published_and_indexed(self):
+        publisher = (ROOT / "scripts/build_cloudflare_site.py").read_text()
+        index = (ROOT / "llms.txt").read_text()
+        self.assertIn('"static-site-generators.md"', publisher)
+        self.assertIn("docs/static-site-generators.md", index)
+        eleventy = (ROOT / "examples/eleventy/README.md").read_text()
+        self.assertIn("--base-path", eleventy)
+        self.assertIn("pathPrefix", eleventy)
+
+
 
 if __name__ == "__main__":
     unittest.main()

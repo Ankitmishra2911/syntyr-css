@@ -16,9 +16,9 @@ package archive, or a self-hosted versioned CSS file.
 
 | Generator | Recommended CSS delivery | Base path / deployment concern | Example |
 | --- | --- | --- | --- |
-| **Astro** | `import '@syntyr/css/core.css'` in an Astro page/layout (local archive or published package) | Astro `base` controls generated asset paths; prefer imported CSS to hardcoded root URLs | [Runnable Astro fixture](../examples/astro/) |
-| **Eleventy (11ty)** | Copy `dist/syntyr.core.css` through `addPassthroughCopy` | Use `pathPrefix` and Eleventy's `url` filter | [Runnable Eleventy fixture](../examples/eleventy/) |
-| **Hugo** | Serve prebuilt CSS from `static/` or a Hugo filesystem mount | Use `relURL` for assets, not a bare `/css/` URL on project subpaths | [Isolated Hugo proof](../experiments/hugo/) |
+| **Astro** | `import '@syntyr/css/core.css'` in an Astro page/layout (local archive or published package) | Astro `base` controls generated asset paths; prefer imported CSS to hardcoded root URLs | [Runnable Astro fixture](https://github.com/dporkka/syntyr-css/tree/main/examples/astro/) |
+| **Eleventy (11ty)** | Copy `dist/syntyr.core.css` through `addPassthroughCopy` | Use `pathPrefix` and Eleventy's `url` filter | [Runnable Eleventy fixture](https://github.com/dporkka/syntyr-css/tree/main/examples/eleventy/) |
+| **Hugo** | Serve prebuilt CSS from `static/` or a Hugo filesystem mount | Use `relURL` for assets, not a bare `/css/` URL on project subpaths | [Isolated Hugo proof](https://github.com/dporkka/syntyr-css/tree/main/experiments/hugo/) |
 | **Jekyll** | Copy prebuilt CSS into `assets/css/`; do not process it as Sass | Use Liquid `relative_url` and configure `baseurl` for GitHub project pages | Snippet below |
 | **Zola** | Copy prebuilt CSS into `static/assets/` | Use `get_url` and a correctly configured `base_url` | Snippet below |
 | **Next.js static export** | Import package CSS once in `app/layout.tsx` or host CSS in `public/` | Configure `output: 'export'` and `basePath` for project subpaths | Notes below |
@@ -52,7 +52,7 @@ and [base-path configuration](https://docs.astro.build/en/reference/configuratio
 
 ## Eleventy
 
-The [Eleventy example](../examples/eleventy/) copies the current dist CSS
+The [Eleventy example](https://github.com/dporkka/syntyr-css/tree/main/examples/eleventy/) copies the current dist CSS
 directly to `_site/assets/syntyr.core.css`; its Nunjucks template uses:
 
 ```njk
@@ -70,7 +70,7 @@ documents subpath behavior.
 ## Hugo
 
 Copy `dist/syntyr.core.css` to `static/assets/syntyr.core.css`, or use a
-filesystem mount as in [the Hugo preview](../experiments/hugo/). In a Hugo
+filesystem mount as in [the Hugo preview](https://github.com/dporkka/syntyr-css/tree/main/experiments/hugo/). In a Hugo
 layout:
 
 ```html

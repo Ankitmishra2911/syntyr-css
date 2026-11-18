@@ -7,7 +7,7 @@ Python standard library only; this is an optional build-time QA tool.
 from argparse import ArgumentParser
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import unquote, urljoin, urlsplit
 import posixpath
 
 
@@ -17,9 +17,21 @@ class Page(HTMLParser):
         self.stylesheets = []
         self.has_script = False
         self.has_root = False
+        self.base_href = None
 
     def handle_starttag(self, tag, attrs):
         attributes = dict(attrs)
+        # A script-free page must also reject executable HTML attributes/URLs.
+        url_attributes = {"href", "src", "action", "formaction", "xlink:href",
+                          "srcset", "poster", "data", "background", "cite"}
+        for key, value in attrs:
+            value = value or ""
+            normalized = "".join(c for c in value if c not in "\t\r\n\f").strip().lower()
+            if key.startswith("on") or key == "srcdoc" or (
+                    key in url_attributes and "javascript:" in normalized):
+                self.has_script = True
+        if tag == "base" and self.base_href is None and "href" in attributes:
+            self.base_href = attributes["href"]
         if tag == "script":
             script_type = attributes.get("type", "").strip().lower()
             # JSON-LD and inert JSON data blocks are common on static SEO pages.
@@ -51,27 +63,40 @@ def verify_static_site(destination: Path, *, base_path: str = "/") -> int:
             raise AssertionError(f"Missing scoped syn-root in {name}")
         if not page.stylesheets:
             raise AssertionError(f"Missing stylesheet reference in {name}")
+        origin = "https://syntyr.invalid"
+        document_url = origin + base_path + name
+        base_url = document_url
+        if page.base_href is not None:
+            parsed_base = urlsplit(page.base_href)
+            if parsed_base.scheme or parsed_base.netloc or page.base_href.startswith("//"):
+                raise AssertionError(f"External document base URL in {name}")
+            base_url = urljoin(document_url, page.base_href)
+            base_path_on_site = posixpath.normpath(unquote(urlsplit(base_url).path))
+            if not (base_path_on_site == base_path.rstrip("/")
+                    or base_path_on_site.startswith(base_path)):
+                raise AssertionError(f"Document base URL ignores base path in {name}")
+        has_syntyr_css = False
         for url in page.stylesheets:
             parsed = urlsplit(url)
             if parsed.scheme or parsed.netloc or url.startswith("//"):
                 raise AssertionError(f"External stylesheet in {name}: {url}")
             if not parsed.path:
                 raise AssertionError(f"Empty stylesheet URL in {name}")
-            path = unquote(parsed.path)
+            resolved = urlsplit(urljoin(base_url, url))
+            if resolved.scheme != "https" or resolved.netloc != "syntyr.invalid":
+                raise AssertionError(f"External stylesheet in {name}: {url}")
+            path = posixpath.normpath(unquote(resolved.path))
             if "\\" in path:
                 raise AssertionError(f"Invalid stylesheet path in {name}: {url}")
-            if path.startswith("/"):
-                if not path.startswith(base_path):
-                    raise AssertionError(f"Stylesheet URL ignores base path in {name}: {url}")
-                output_name = path[len(base_path):]
-            else:
-                output_name = posixpath.join(posixpath.dirname(name), path)
-            output_name = posixpath.normpath(output_name)
+            if not path.startswith(base_path):
+                raise AssertionError(f"Stylesheet URL ignores base path in {name}: {url}")
+            output_name = path[len(base_path):]
             file_path = (root / output_name).resolve()
             if not file_path.is_relative_to(root) or not file_path.is_file():
                 raise AssertionError(f"Missing stylesheet in {name}: {url}")
-            if ".syn-root" not in file_path.read_text(encoding="utf-8"):
-                raise AssertionError(f"Syntyr CSS missing from {output_name}")
+            has_syntyr_css |= ".syn-root" in file_path.read_text(encoding="utf-8")
+        if not has_syntyr_css:
+            raise AssertionError(f"Syntyr CSS missing from stylesheets in {name}")
     return len(pages)
 
 
