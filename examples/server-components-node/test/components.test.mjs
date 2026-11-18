@@ -90,3 +90,21 @@ test('renderPage assembles component functions instead of injecting a browser ru
   assert.match(html, /<form[^>]*method="get"/);
   assert.ok(!html.includes('<script'));
 });
+
+test('rejected Node search does not expose results or actionable pagination', async () => {
+  const query = '&' + ' '.repeat(79) + 'X';
+  const res = await get('/?q=' + encodeURIComponent(query));
+  assert.equal(res.status, 400);
+  assert.match(res.body, /aria-invalid="true"/);
+  assert.match(res.body, /id="resource-query-error"/);
+  assert.doesNotMatch(res.body, /<table class="syn-table"|aria-label="Resource pages"|rel="next"/);
+  const valid = await get('/?q=%26');
+  assert.equal(valid.status, 200);
+  assert.match(valid.body, /rel="next"/);
+});
+
+test('malformed Node query percent sequences are rejected', async () => {
+  for (const path of ['/?q=CRM&page=%ZZ', '/?q=%ZZ', '/?q=CRM%', '/?page=2&q=%ZZ']) {
+    assert.equal((await get(path)).status, 400, path);
+  }
+});

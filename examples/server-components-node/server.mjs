@@ -40,6 +40,9 @@ export function pageData(query, rawPage = '') {
   };
   return {
     status: invalidQuery || invalidPage ? 400 : 200,
+    // Invalid search state is for display only; never expose derived results
+    // or links from a silently truncated, rejected filter.
+    showResults: !invalidQuery && !invalidPage,
     query: {
       id: 'resource-query', name: 'q', label: 'Find a resource', value: truncated,
       help: 'Search titles and descriptions.',
@@ -50,8 +53,8 @@ export function pageData(query, rawPage = '') {
       : invalidPage ? {message: 'Page number is invalid for these results.', danger: true}
         : {message: 'Filtered on the server. No browser JavaScript required.', danger: false},
     searchButton: {label: 'Search', primary: true, submit: true},
-    records: filtered.slice((page-1)*pageSize, page*pageSize),
-    pager,
+    records: invalidQuery || invalidPage ? [] : filtered.slice((page-1)*pageSize, page*pageSize),
+    pager: invalidQuery || invalidPage ? {page: 1, total: 1, prevURL: '', nextURL: ''} : pager,
   };
 }
 
@@ -69,6 +72,13 @@ export function createServer() {
     } catch {
       res.writeHead(400);
       res.end();
+      return;
+    }
+    // URLSearchParams tolerates bad percent sequences; reject them rather
+    // than silently changing the query's meaning on native GET requests.
+    if (/%(?![0-9a-f]{2})/i.test(url.search)) {
+      res.writeHead(400, {'Content-Type': 'text/plain; charset=utf-8'});
+      res.end(req.method === 'HEAD' ? undefined : 'Invalid query encoding');
       return;
     }
     if (url.pathname === '/assets/syntyr.core.css') {

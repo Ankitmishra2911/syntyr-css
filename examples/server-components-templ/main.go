@@ -5,6 +5,7 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"net/url"
 	"path/filepath"
 )
 
@@ -30,7 +31,12 @@ func newHandler(distDir string) http.Handler {
 			http.NotFound(w, r)
 			return
 		}
-		result := buildPage(r.URL.Query().Get("q"), r.URL.Query().Get("page"))
+		params, err := url.ParseQuery(r.URL.RawQuery)
+		if err != nil {
+			http.Error(w, "Invalid query encoding", http.StatusBadRequest)
+			return
+		}
+		result := buildPage(params.Get("q"), params.Get("page"))
 		var html bytes.Buffer
 		if err := Page(result.Data).Render(r.Context(), &html); err != nil {
 			log.Printf("render: %v", err)
