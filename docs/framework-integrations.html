@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="232047681fdb53f3ea30eb0d693dc58cc7eac77a483153e421bed77542b77589">
+  <meta name="syntyr-source-sha256" content="7128871e46911ab33bc80d4f54db7fcf1cff6339c1888891ae72d3027264e1cf">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -429,6 +429,24 @@ the framework). No Syntyr provider, hooks, hydration, or dependency on React.</p
 <code>data-syn-state</code> using each framework's built-in template syntax.
 Do not wrap simple visual classes in additional runtime components unless the
 application benefits from reusable semantic component boundaries.</p>
+<h3 id="runnable-sveltekit-3-form-action-and-nested-layout-reference">Runnable SvelteKit 3 form-action and nested-layout reference</h3>
+<p><a href="https://github.com/dporkka/syntyr-css/tree/main/examples/sveltekit">examples/sveltekit</a>
+is a self-contained SvelteKit 3 app with a native HTML POST form and optional
+<code>use:enhance</code>. It uses existing Syntyr <code>syn-field</code>, <code>syn-error-summary</code>,
+<code>syn-operation-feedback</code>, <code>syn-app-shell</code>, <code>syn-detail-layout</code>, and
+<code>syn-panel</code> classes rather than introducing framework-specific CSS.</p>
+<p>The root <code>+layout.svelte</code> provides the persistent application shell, while
+<code>settings/+layout.svelte</code> composes a nested content and inspector layout.
+A small <code>AppPanel.svelte</code> shows Svelte 5 named <code>actions</code> and <code>footer</code>
+snippets; they are owned by SvelteKit, not by a new Syntyr templating runtime.
+<code>settings/+page.server.js</code> handles server validation and sends either
+an action failure or a success acknowledgement. A normal browser POST is
+functional without JavaScript; enhancement only adds in-flight feedback
+and error-summary focus management. The example <strong>does not persist data</strong>
+and is not a production authentication or CSRF implementation.</p>
+<p>From the repository root, first generate CSS with <code>python3 scripts/build.py</code>,
+then run <code>cd examples/sveltekit &amp;&amp; npm install &amp;&amp; npm run test &amp;&amp; npm run build</code>.
+The root Syntyr package still has zero required JavaScript dependencies.</p>
 <h2 id="astro-hugo-zola-django-rails-gotempl-and-rust-templates">Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates</h2>
 <p>Serve <code>syntyr.core.css</code> as a normal static asset. Write HTML partials
 with real headings, forms and links. Optional interactive islands can use
@@ -474,6 +492,7 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
 <a class="docs-article-toc-link docs-article-toc-2" href="#unpoly">Unpoly</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#react-nextjs">React / Next.js</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#vue-nuxt-and-svelte-sveltekit">Vue / Nuxt and Svelte / SvelteKit</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#runnable-sveltekit-3-form-action-and-nested-layout-reference">Runnable SvelteKit 3 form-action and nested-layout reference</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#astro-hugo-zola-django-rails-gotempl-and-rust-templates">Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#existing-tailwind-or-component-library-applications">Existing Tailwind or component-library applications</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#performance-and-compatibility-contract">Performance and compatibility contract</a>
