@@ -44,7 +44,7 @@ are available in the <strong>unreleased alpha.5 source candidate</strong> under
 identical <code>.syn-cluster</code> alias. It wraps naturally and now exposes optional
 <code>--syn-inline-align</code>, <code>--syn-inline-justify</code>, and <code>--syn-inline-gap</code> custom
 properties.</p>
-<pre><code class="language-html">&lt;nav class=&quot;syn-inline&quot; aria-label=&quot;Contact filters&quot;
+<pre tabindex="0"><code class="language-html">&lt;nav class=&quot;syn-inline&quot; aria-label=&quot;Contact filters&quot;
      style=&quot;--syn-inline-justify:space-between&quot;&gt;
   &lt;a href=&quot;/contacts?status=active&quot;&gt;Active&lt;/a&gt;
   &lt;a href=&quot;/contacts?status=inactive&quot;&gt;Inactive&lt;/a&gt;
@@ -61,7 +61,7 @@ aside second in document and focus order. It wraps on available container width
 without viewport breakpoints, JavaScript, or an explicit container query.
 A lone child remains the main region and keeps the min-size and
 unbroken-text overflow protections.</p>
-<pre><code class="language-html">&lt;div class=&quot;syn-root syn-sidecar&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-root syn-sidecar&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;main class=&quot;syn-panel&quot;&gt;
     &lt;h1&gt;Campaigns&lt;/h1&gt;
     &lt;p&gt;The principal content remains first in the accessibility tree.&lt;/p&gt;

@@ -45,14 +45,14 @@
 <li>Duplicate the active theme before editing code in <strong>Online Store → Themes</strong>. In the theme code editor, upload the candidate <code>dist/syntyr.embed.css</code> into <strong>Assets</strong> as <code>syntyr.embed.css</code>.</li>
 <li>Add the following tag <strong>once</strong> inside the <code>&lt;head&gt;</code> of <code>layout/theme.liquid</code>. The asset URL is resolved by Shopify.</li>
 </ol>
-<pre><code class="language-liquid">{{ 'syntyr.embed.css' | asset_url | stylesheet_tag }}
+<pre tabindex="0"><code class="language-liquid">{{ 'syntyr.embed.css' | asset_url | stylesheet_tag }}
 </code></pre>
 <ol start="3">
 <li>Copy the <a href="https://github.com/dporkka/syntyr-css/blob/main/integrations/shopify/sections/syntyr-feature.liquid">Syntyr feature section for Shopify</a> into <strong>Sections</strong> as <code>syntyr-feature.liquid</code>. It uses Shopify <code>section.settings</code> for its heading, descriptive text, button label and URL, with escaped Liquid output.</li>
 <li>Add <strong>Syntyr feature</strong> to a template in the theme editor, fill in its settings, and inspect the storefront preview on desktop and mobile.</li>
 </ol>
 <p><strong>Example of the section's core content:</strong></p>
-<pre><code class="language-liquid">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-liquid">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-panel&quot;&gt;
     &lt;h2 class=&quot;syn-heading&quot;&gt;{{ section.settings.heading | escape }}&lt;/h2&gt;
     &lt;p class=&quot;syn-muted&quot;&gt;{{ section.settings.description | escape }}&lt;/p&gt;

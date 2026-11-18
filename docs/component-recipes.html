@@ -38,7 +38,7 @@
 <p>These are <strong>MIT-licensed, plain-HTML examples</strong>. Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime. Syntyr provides presentation; your browser and application provide behavior.</p>
 <p>Load <code>dist/syntyr.core.css</code> and apply <code>.syn-root</code> on a stable ancestor. Input groups and fields are included in core. The examples below also work in Go/templ, Askama, Django templates, Astro, React, and HTMX.</p>
 <h2 id="1-labeled-field-with-assistance-and-server-side-validation">1. Labeled field with assistance and server-side validation</h2>
-<pre><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-field&quot;&gt;
     &lt;label class=&quot;syn-label&quot; for=&quot;email&quot;&gt;Work email&lt;/label&gt;
     &lt;input class=&quot;syn-input&quot; id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot;
@@ -51,7 +51,7 @@
 </code></pre>
 <p>Only render <code>aria-invalid=&quot;true&quot;</code> and the error message when the form is actually invalid. Do not use CSS as a substitute for server-side validation. The field class groups presentation; the native <code>label for</code> association supplies the accessible name.</p>
 <h2 id="2-search-field-with-a-connected-button">2. Search field with a connected button</h2>
-<pre><code class="language-html">&lt;search class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-label=&quot;Search accounts&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;search class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-label=&quot;Search accounts&quot;&gt;
   &lt;form method=&quot;get&quot; action=&quot;/accounts&quot;&gt;
     &lt;div class=&quot;syn-field&quot;&gt;
       &lt;label class=&quot;syn-label&quot; for=&quot;account-query&quot;&gt;Account name&lt;/label&gt;
@@ -76,7 +76,7 @@
 <li><strong>Command palettes:</strong> Visual command rows are not working shortcuts or listbox options. Use actual links for destinations; if your application adds a keyboard command index, the behavior owner supplies focus, Escape, selection, permissions, and accessible announcements.</li>
 </ul>
 <h2 id="3-input-addon-currency-and-unit">3. Input addon (currency and unit)</h2>
-<pre><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-field&quot;&gt;
     &lt;label class=&quot;syn-label&quot; for=&quot;monthly-budget&quot;&gt;Monthly budget (USD)&lt;/label&gt;
     &lt;div class=&quot;syn-input-group&quot;&gt;
@@ -90,7 +90,7 @@
 </code></pre>
 <p>The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input. For monetary amounts, text plus <code>inputmode=&quot;decimal&quot;</code> avoids native number spinners and floating-point assumptions; the server must parse localized decimal input and validate exact precision. Use <code>type=&quot;number&quot;</code> for quantities where native numeric stepping is appropriate.</p>
 <h2 id="4-container-responsive-horizontal-form">4. Container-responsive horizontal form</h2>
-<pre><code class="language-html">&lt;form class=&quot;syn-root syn-region syn-form&quot; action=&quot;/settings&quot; method=&quot;post&quot;
+<pre tabindex="0"><code class="language-html">&lt;form class=&quot;syn-root syn-region syn-form&quot; action=&quot;/settings&quot; method=&quot;post&quot;
       data-syn-theme=&quot;corporate&quot;&gt;
   &lt;div class=&quot;syn-field-row&quot;&gt;
     &lt;label class=&quot;syn-label&quot; for=&quot;org-name&quot;&gt;Organization&lt;/label&gt;
@@ -109,7 +109,7 @@
 following HTML remains readable and operable without that stylesheet or any
 JavaScript. Render this response <strong>only after a failed submission</strong>, with the
 submitted value preserved and error messages associated with the field.</p>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;account-title&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;account-title&quot;&gt;
   &lt;h2 id=&quot;account-title&quot;&gt;Account settings&lt;/h2&gt;
   &lt;div class=&quot;syn-error-summary&quot; id=&quot;form-errors&quot; tabindex=&quot;-1&quot;
        role=&quot;region&quot; aria-labelledby=&quot;form-errors-title&quot;&gt;
@@ -142,7 +142,7 @@ does not prevent submission or execute server-side validation.</p>
 <h2 id="6-native-readonly-text-fields">6. Native readonly text fields</h2>
 <p>Use the real <code>readonly</code> attribute, not <code>aria-readonly</code> or <code>disabled</code>, when
 text must remain selectable and submit with the form:</p>
-<pre><code class="language-html">&lt;div class=&quot;syn-root syn-field&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-root syn-field&quot;&gt;
   &lt;label class=&quot;syn-label&quot; for=&quot;reference-id&quot;&gt;Reference ID&lt;/label&gt;
   &lt;input class=&quot;syn-input&quot; id=&quot;reference-id&quot; name=&quot;reference_id&quot;
          value=&quot;WS-1042&quot; readonly&gt;

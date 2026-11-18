@@ -107,7 +107,7 @@ and opt in with <code>class=&quot;syn-root syn-semantic&quot;</code>. For explic
 load <code>syntyr.core.css</code> once and use classes such as <code>syn-panel</code> and
 <code>syn-button</code>. Do not combine a bundle with its constituent CSS.</p>
 <h2 id="astro">Astro</h2>
-<pre><code class="language-astro">---
+<pre tabindex="0"><code class="language-astro">---
 // examples/astro uses a local file:../.. development dependency.
 import '@syntyr/css/core.css';
 ---
@@ -124,7 +124,7 @@ and <a href="https://docs.astro.build/en/reference/configuration-reference/">bas
 <h2 id="eleventy">Eleventy</h2>
 <p>The <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/eleventy/">Eleventy example</a> copies the current dist CSS
 directly to <code>_site/assets/syntyr.core.css</code>; its Nunjucks template uses:</p>
-<pre><code class="language-njk">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ '/assets/syntyr.core.css' | url }}&quot;&gt;
+<pre tabindex="0"><code class="language-njk">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ '/assets/syntyr.core.css' | url }}&quot;&gt;
 &lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;h1 class=&quot;syn-heading&quot;&gt;Static site&lt;/h1&gt;
 &lt;/main&gt;
@@ -137,22 +137,22 @@ documents subpath behavior.</p>
 <p>Copy <code>dist/syntyr.core.css</code> to <code>static/assets/syntyr.core.css</code>, or use a
 filesystem mount as in <a href="https://github.com/dporkka/syntyr-css/tree/main/experiments/hugo/">the Hugo preview</a>. In a Hugo
 layout:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ &quot;assets/syntyr.core.css&quot; | relURL }}&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ &quot;assets/syntyr.core.css&quot; | relURL }}&quot;&gt;
 &lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;...&lt;/main&gt;
 </code></pre>
 <p>Do not use an unprefixed <code>/assets/...</code> URL for GitHub Pages project sites.
 Hugo's own preview script validates its existing rendered Markdown pages
 and local links:</p>
-<pre><code class="language-sh">python3 scripts/verify_hugo_preview.py --hugo /path/to/hugo
+<pre tabindex="0"><code class="language-sh">python3 scripts/verify_hugo_preview.py --hugo /path/to/hugo
 </code></pre>
 <h2 id="jekyll-github-pages">Jekyll / GitHub Pages</h2>
 <p>Jekyll needs only a copied prebuilt asset and native Liquid URL filtering.
 In a consumer Jekyll site's root:</p>
-<pre><code class="language-sh">mkdir -p assets/css
+<pre tabindex="0"><code class="language-sh">mkdir -p assets/css
 cp /path/to/syntyr/dist/syntyr.core.css assets/css/syntyr.core.css
 </code></pre>
 <p>In a layout or page (not inside a verbatim Liquid/raw block):</p>
-<pre><code class="language-liquid">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ '/assets/css/syntyr.core.css' | relative_url }}&quot;&gt;
+<pre tabindex="0"><code class="language-liquid">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ '/assets/css/syntyr.core.css' | relative_url }}&quot;&gt;
 &lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;...&lt;/main&gt;
 </code></pre>
 <p>If the site lives at <code>https://user.github.io/project/</code>, set
@@ -162,11 +162,11 @@ Sass compiler. <a href="https://jekyllrb.com/docs/github-pages/">Jekyll's GitHub
 explains <code>relative_url</code>.</p>
 <h2 id="zola">Zola</h2>
 <p>In the consumer site's root:</p>
-<pre><code class="language-sh">mkdir -p static/assets
+<pre tabindex="0"><code class="language-sh">mkdir -p static/assets
 cp /path/to/syntyr/dist/syntyr.core.css static/assets/syntyr.core.css
 </code></pre>
 <p>In a Tera template:</p>
-<pre><code class="language-tera">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ get_url(path='assets/syntyr.core.css') }}&quot;&gt;
+<pre tabindex="0"><code class="language-tera">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ get_url(path='assets/syntyr.core.css') }}&quot;&gt;
 &lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;...&lt;/main&gt;
 </code></pre>
 <p>Set <code>base_url = &quot;https://example.com/project/&quot;</code> in <code>config.toml</code> for
@@ -184,7 +184,7 @@ style entrypoints; these are integration instructions, not verified build
 fixtures.</p>
 <h2 id="verification-and-failure-modes">Verification and failure modes</h2>
 <p>From the Syntyr repository root:</p>
-<pre><code class="language-sh">python3 scripts/build.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
 python3 -m unittest tests.test_static_site_generators tests.test_adoption_starters
 cd examples/eleventy
 npm install
@@ -196,7 +196,7 @@ templates. It rejects missing/local-unresolvable stylesheets, stylesheet URLs
 that ignore the deployment <strong>base path</strong>, unexpected browser scripts, missing
 <code>syn-root</code> scopes, and CSS output without Syntyr selectors. For a different
 generator, point it at its output and pass its exact mount prefix:</p>
-<pre><code class="language-sh">python3 scripts/verify_static_generators.py /path/to/site-output --base-path /my-project/
+<pre tabindex="0"><code class="language-sh">python3 scripts/verify_static_generators.py /path/to/site-output --base-path /my-project/
 </code></pre>
 <p>Only run it against pages deliberately built to be JavaScript-free and styled
 with Syntyr; it is not a general-purpose validator for unrelated application
