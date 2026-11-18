@@ -293,6 +293,8 @@ For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipe
 
 All additions are MIT licensed and do not change the core runtime dependency contract. The Studio theme, recipes and CLI palettes are included in the v0.3.0-alpha.4 release.
 
+For dropdowns and native selects, see the [dropdown patterns guide](docs/dropdowns.md) and [scriptless interactive example](examples/dropdowns.html). Action panels stay JavaScript-free; an optional, explicitly initialized ARIA menu adapter is available as `@syntyr/css/menu.mjs` for applications needing arrow-key navigation.
+
 For native platform integration, see the [browser API compatibility and progressive enhancement guide](docs/native-browser-apis.md) and the [script-free native API demo](examples/native-apis.html). The core stays JavaScript-free; native CSS anchors and content-sized textareas are opt-in, and scroll-progress / overlay transitions live in the dedicated motion module.
 
 ## Development and verification

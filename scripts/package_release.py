@@ -54,6 +54,7 @@ FILES = (
     "docs/headless-interactions.md",
     "integrations/headless/interactions.css",
     "docs/native-browser-apis.md",
+    "docs/dropdowns.md",
     "docs/theme-customization.md",
     "docs/visual-intensity.md",
     "docs/accessibility.md",
@@ -76,6 +77,7 @@ FILES = (
     f"dist/{name}" for name in javascript_distributions()
 ) + (
     "terminal/palettes.json",
+    "integrations/dropdown/menu.mjs",
 )
 
 

@@ -23,6 +23,8 @@ no Custom Elements runtime for ordinary HTML components.
 
 All new classes are **opt-in**. Core styles only add the anchor and textarea declarations; optional motion requires `syntyr.motion.css` (included in `syntyr.all.css`). Do not load `syntyr.all.css` alongside component files.
 
+For practical scriptless action panels and an optional enhanced menu adapter, see [dropdown patterns](dropdowns.md).
+
 ## Example: popover near its invoker
 
 ```html
