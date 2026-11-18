@@ -1318,6 +1318,46 @@ The optional recipes stylesheet contains `.syn-collection-toolbar`, `.syn-collec
 
 The example is illustrative, **not a configured server**. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.
 
+## Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)
+
+The optional `syntyr.recipes.css` also includes reusable patterns tested against
+Adacavo-style resource workflows. They are original MIT-licensed presentation
+recipes, **not a port of Adacavo's application code**. See the
+[zero-JavaScript example](../examples/enterprise-compositions.html).
+
+- `.syn-view-switcher` contains real links (`aria-current="page"`) for
+  server-selected views, or host-controlled toggle buttons
+  (`aria-pressed="true"`). A link doesn't implement filtering, and a button
+  needs a real event handler; never claim a view switched solely from CSS.
+- `.syn-sheet` and `.syn-sheet-header`, `.syn-sheet-body`,
+  `.syn-sheet-footer` style a native **nonmodal** `[popover]` panel, or a
+  native modal `<dialog>`. Native `popovertarget` works without JavaScript
+  in supported browsers. A popover **does not** trap focus or make the rest of
+  the page inert. For modal editing, call `showModal()` or use supported
+  `commandfor`/`command="show-modal"` and retain a direct-page fallback.
+  The `--syn-sheet-width` CSS property defaults to `30rem`; set it on the
+  sheet to adjust width. When closed, neither element is forced visible by
+  the grid display rules. At extreme text zoom or short viewport heights,
+  the whole sheet scrolls so its footer actions remain reachable; the body
+  retains a minimum scroll region. When the body can overflow independently,
+  make that region keyboard-focusable (`tabindex="0"`) and name it with
+  `aria-labelledby` referencing a visible heading, as the example does.
+  Check both record details and each footer action at 320px and 400% text.
+  Don't set `aria-modal="true"` on the nonmodal popover.
+- `.syn-evidence-grid`, `.syn-evidence-card`, `.syn-evidence-media`,
+  `.syn-evidence-body`, `.syn-evidence-meta` and `.syn-evidence-actions`
+  present `figure`, `figcaption`, `dl` and `time` records. Use
+  `.syn-evidence-media--placeholder` for text-only media fallbacks so
+  enlarged text can expand vertically rather than being clipped. Reuse the
+  existing `.syn-status` for server-validated textual status. Application
+  code owns uploads, verification, EXIF/GPS, image fallbacks, and approvals.
+
+All styles require a `.syn-root` ancestor, use semantic tokens, and are
+excluded from `syntyr.core.css`. The illustration uses labeled placeholders,
+not real customer evidence. Test keyboard and touch interactions, actual
+screen-reader focus behavior, 400% zoom, forced colors, RTL, and lengthy
+translated metadata in the consuming app before production use.
+
 ---
 
 ## Source: docs/component-recipes.md
@@ -2941,6 +2981,14 @@ See [`ARCHITECTURE.md`](../ARCHITECTURE.md) for feature-admission criteria,
 layer ownership and dependency boundaries. Optional package integrations may
 provide additional contracts but must never introduce a mandatory core
 runtime dependency.
+
+## Enterprise presentation recipes (unreleased alpha.5)
+
+The optional `syntyr.recipes.css` source candidate adds `.syn-view-switcher`,
+`.syn-sheet` and `.syn-evidence-*` classes. These are experimental opt-in
+CSS selectors, not part of the immutable alpha.4 package and not a guarantee
+of application-level selection, dialog focus management, image verification
+or review workflows. See [recipe contracts](recipes.md).
 
 ---
 
