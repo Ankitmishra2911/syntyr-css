@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: prepared for distribution, not published to npm. @syntyr/css is the intended package name, pending registry ownership/availability verification…">
-  <meta name="syntyr-source-sha256" content="e1c2c8bd9f77fd419ac3d6610ad73083600bf4bde7e506bfc40ebaeedcd10ab1">
+  <meta name="syntyr-source-sha256" content="f4730e4cbd7908fde0b43a3d6814fedd67066540e5f8481fcbf7f27d86386277">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional package-manager installation (alpha.5 candidate) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/package-managers">
@@ -43,8 +43,9 @@
 python3 -m unittest discover -s tests -v
 npm pack --dry-run --json --ignore-scripts
 npm pack --ignore-scripts
+python3 scripts/audit_npm_package.py  # verifies the real tarball, requires npm only for this check
 </code></pre>
-<p>The final command creates <code>syntyr-css-0.3.0-alpha.5.tgz</code> locally; it does not publish to a registry. For a real Vite/React/Astro/Next application using a package manager, install that local archive for testing:</p>
+<p>The <code>npm pack</code> command creates <code>syntyr-css-0.3.0-alpha.5.tgz</code> locally; it does not publish to a registry. The subsequent audit packs a <strong>separate temporary tarball</strong>, validates every exported CSS file and its bytes against source, rejects extra files (including secrets), links and archive traversal, and deletes the temporary archive. For an already-created tarball, run <code>python3 scripts/audit_npm_package.py --archive /path/to/package.tgz</code> without invoking npm. This maintainer check is not a consumer build step. For a real Vite/React/Astro/Next application using a package manager, install that local archive for testing:</p>
 <pre><code class="language-sh">npm install /path/to/syntyr-css-0.3.0-alpha.5.tgz
 </code></pre>
 <p>After the scoped name is verified, the release is approved, and the package is actually published, consumers can use <code>npm install @syntyr/css@&lt;published-version&gt;</code> instead.</p>

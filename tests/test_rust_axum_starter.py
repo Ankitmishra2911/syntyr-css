@@ -35,6 +35,14 @@ class RustAxumStarterTests(unittest.TestCase):
         self.assertNotIn("<script", template.lower())
         self.assertNotIn("cdn.", template.lower())
 
+    def test_public_guide_and_starter_readme_are_published_together(self):
+        from scripts.build_cloudflare_site import source_files
+        files = source_files()
+        self.assertTrue("docs/rust-saas-integration.md" in files, "missing published Rust guide source")
+        self.assertTrue("docs/rust-saas-integration.html" in files, "missing published Rust guide HTML")
+        self.assertTrue("examples/rust-axum/README.md" in files, "missing published starter README")
+        self.assertIn("rust-axum", (ROOT / "llms.txt").read_text())
+
     def test_docs_state_runtime_and_security_boundaries(self):
         readme = (STARTER / "README.md").read_text()
         self.assertIn("cargo run", readme)

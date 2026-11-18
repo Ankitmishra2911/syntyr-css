@@ -24,6 +24,7 @@ FILES = (
     "docs/distribution.md",
     "docs/api-stability.md",
     "docs/animation.md",
+    "docs/clipboard.md",
     "docs/ai-quickstart.md",
     "docs/agent-integration.md",
     "docs/components.md",
@@ -33,8 +34,16 @@ FILES = (
     "examples/email.html",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
     "examples/preset-preview.html",
+    "examples/resource-outline.html",  # Script-free native navigation demo.
+    "examples/command-launcher.html",
+    "examples/command-launcher.mjs",  # Optional copy-owned navigation adapter.
+    "examples/query-review.html",  # Native server-rendered filter/review composition.
+    "examples/resizable-workspace.html",
+    "examples/resizable-workspace.mjs",
     "examples/animation.html",
     "examples/animation-demo.mjs",  # One local CSS file per named preset.
+    "examples/copy.html",
+    "examples/copy-demo.mjs",
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
@@ -49,6 +58,8 @@ FILES = (
     "docs/visual-intensity.md",
     "docs/accessibility.md",
     "docs/viz.md",
+    "docs/geo.md",
+    "examples/geo.html",
     "llms.txt",
     "llms-full.txt",
     "metadata/components.json",

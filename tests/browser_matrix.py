@@ -21,7 +21,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
-         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
+         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/enterprise-compositions.html", "examples/premium-compositions.html", "examples/operation-revisions.html",
 )
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -104,6 +104,36 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert summary.evaluate("e => e.getBoundingClientRect().height") >= 44
         summary.click()
         assert page.locator("details").first.get_attribute("open") is not None
+        # Hidden must beat classed/semantic display rules; find-in-page reveal stays intact.
+        visibility = page.evaluate("""() => {
+          const root = document.querySelector('body.syn-root.syn-semantic');
+          const make = (tag, name, hidden) => {
+            const element = document.createElement(tag);
+            element.className = name;
+            element.setAttribute('hidden', hidden);
+            root.append(element);
+            return element;
+          };
+          const button = make('button', 'syn-button', '');
+          const semantic = make('button', '', '');
+          const grid = make('div', 'syn-grid', '');
+          const findable = make('div', 'syn-grid', 'until-found');
+          const display = element => getComputedStyle(element).display;
+          const initial = [display(button), display(semantic), display(grid),
+                           display(findable), getComputedStyle(findable).contentVisibility];
+          button.removeAttribute('hidden');
+          const shown = display(button);
+          root.setAttribute('hidden', '');
+          const rootHidden = display(root);
+          root.removeAttribute('hidden');
+          for (const element of [button, semantic, grid, findable]) element.remove();
+          return { initial, shown, rootHidden };
+        }""")
+        assert visibility["initial"][:3] == ["none"] * 3, visibility
+        assert visibility["initial"][3] != "none", visibility
+        assert visibility["initial"][4] == "hidden", visibility
+        assert visibility["shown"] == "inline-flex", visibility
+        assert visibility["rootHidden"] == "none", visibility
     if name == "docs/catalog.html":
         cards = page.locator(".catalog-card")
         total = cards.count()

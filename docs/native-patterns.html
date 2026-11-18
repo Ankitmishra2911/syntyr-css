@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="023a925db06511642aa2b096b7d9d7a5445120c036a500827fd6c32614e4a6a7">
+  <meta name="syntyr-source-sha256" content="14744632b708687fd4c505e6a95c1787e08754d23d60dc408b435976af6372b5">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -38,6 +38,16 @@
 <p>This prerelease Syntyr example uses original CSS, not upstream Blades source.
 All patterns retain native HTML semantics and need <strong>no runtime JavaScript</strong>.
 For a live static preview, see <a href="https://syntyr-css.pages.dev/examples/native-recipes.html">the native recipe example (live alpha.5 source preview)</a>.</p>
+<h2 id="native-visibility-is-authoritative">Native visibility is authoritative</h2>
+<p>Inside <code>.syn-root</code>, use the browser's <code>hidden</code> attribute to remove an element
+from layout even when it also has <code>.syn-button</code>, <code>.syn-grid</code>, or semantic styles.
+Syntyr's base layer preserves that native state. For find-in-page reveals, use
+<code>hidden=&quot;until-found&quot;</code>: the browser retains the element in layout and may
+reveal it on search or fragment navigation. Use a layout-containing box:
+do not force <code>display: none</code>, <code>display: inline</code>, or
+<code>display: contents</code>. Those values prevent find-in-page reveal;
+prefer a block, grid, or flex container. Do not replace these states with
+<code>aria-hidden</code>, which does not hide an element visually or from keyboard focus.</p>
 <h2 id="native-interaction-recipes">Native interaction recipes</h2>
 <p>The standard library includes the following <strong>five native interaction
 compositions</strong>, using existing core classes plus normal HTML. They do <strong>not</strong>
@@ -86,6 +96,31 @@ Test keyboard interaction, forced colors, zoom/reflow, and real product
 copy in the target browsers. <strong>Application-owned behavior</strong> includes
 search filtering, validation on the server, destructive action
 authorization, and live calculations; none are provided by CSS.</p>
+<h2 id="resource-outline-nested-native-navigation">Resource outline (nested native navigation)</h2>
+<p>A <strong>Resource outline</strong> is a CSS-only, progressively enhanced way to browse
+hierarchical folders, account groups and assets. Load <code>syntyr.core.css</code> and
+the optional <code>syntyr.native-recipes.css</code>; put <code>.syn-resource-outline</code>
+on a labeled <code>&lt;nav&gt;</code> within <code>.syn-root</code>. Use nested unordered lists,
+native disclosure via <code>&lt;details&gt;&lt;summary&gt;</code> for expandable groups, and real
+links for destinations. Mark exactly the current destination with
+<code>aria-current=&quot;page&quot;</code>. Use <code>open</code> on parent details when the current
+record is nested inside them. Lists remain navigable when JavaScript is off.</p>
+<p>This is <strong>not an ARIA tree</strong> widget: it deliberately avoids <code>role=&quot;tree&quot;</code>,
+roving tabindex, arrow-key claims or JS-managed selection. The browser
+provides native disclosure keyboard semantics (Tab, Enter/Space).
+A full WAI-ARIA treeview requires additional headless interaction logic
+and real assistive-technology testing; it does not belong in CSS.
+For moving resources, permissions, lazy loading, remote filtering, and drag
+and drop, the <strong>application</strong> must implement authorized behavior. No CSS
+state alone conveys permission to move an item.</p>
+<p>See <a href="../examples/resource-outline.html">the script-free resource outline example</a>.
+The nesting uses logical inline spacing to work in both LTR and RTL;
+after three visual indentation levels it stops adding horizontal offset so
+very deep folders remain readable at narrow widths and 400% zoom; semantic
+list hierarchy and native disclosures remain intact. Long names wrap rather
+than being silently truncated. Keep the
+selected location visible, ensure all links have real destinations,
+and test browser focus, high zoom, and forced colors in the host app.</p>
 <h2 id="individually-importable-css">Individually importable CSS</h2>
 <p>Use the following <strong>source-tree alpha.5 candidate</strong> entrypoints after this PR
 is merged and released; they are not available in the published alpha.4 package:</p>
@@ -247,7 +282,9 @@ Refer to <a href="framework-integrations.html">framework integrations</a> and th
 and fallbacks.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-visibility-is-authoritative">Native visibility is authoritative</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-interaction-recipes">Native interaction recipes</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#resource-outline-nested-native-navigation">Resource outline (nested native navigation)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#individually-importable-css">Individually importable CSS</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-anchored-popovers-and-modal-commands">Native anchored popovers and modal commands</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-direction-aware-presentation">Native direction-aware presentation</a>

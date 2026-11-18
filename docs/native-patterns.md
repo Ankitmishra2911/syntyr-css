@@ -4,6 +4,18 @@ This prerelease Syntyr example uses original CSS, not upstream Blades source.
 All patterns retain native HTML semantics and need **no runtime JavaScript**.
 For a live static preview, see [the native recipe example (live alpha.5 source preview)](https://syntyr-css.pages.dev/examples/native-recipes.html).
 
+## Native visibility is authoritative
+
+Inside `.syn-root`, use the browser's `hidden` attribute to remove an element
+from layout even when it also has `.syn-button`, `.syn-grid`, or semantic styles.
+Syntyr's base layer preserves that native state. For find-in-page reveals, use
+`hidden="until-found"`: the browser retains the element in layout and may
+reveal it on search or fragment navigation. Use a layout-containing box:
+do not force `display: none`, `display: inline`, or
+`display: contents`. Those values prevent find-in-page reveal;
+prefer a block, grid, or flex container. Do not replace these states with
+`aria-hidden`, which does not hide an element visually or from keyboard focus.
+
 ## Native interaction recipes
 
 The standard library includes the following **five native interaction
@@ -54,6 +66,35 @@ Test keyboard interaction, forced colors, zoom/reflow, and real product
 copy in the target browsers. **Application-owned behavior** includes
 search filtering, validation on the server, destructive action
 authorization, and live calculations; none are provided by CSS.
+
+## Resource outline (nested native navigation)
+
+A **Resource outline** is a CSS-only, progressively enhanced way to browse
+hierarchical folders, account groups and assets. Load `syntyr.core.css` and
+the optional `syntyr.native-recipes.css`; put `.syn-resource-outline`
+on a labeled `<nav>` within `.syn-root`. Use nested unordered lists,
+native disclosure via `<details><summary>` for expandable groups, and real
+links for destinations. Mark exactly the current destination with
+`aria-current="page"`. Use `open` on parent details when the current
+record is nested inside them. Lists remain navigable when JavaScript is off.
+
+This is **not an ARIA tree** widget: it deliberately avoids `role="tree"`,
+roving tabindex, arrow-key claims or JS-managed selection. The browser
+provides native disclosure keyboard semantics (Tab, Enter/Space).
+A full WAI-ARIA treeview requires additional headless interaction logic
+and real assistive-technology testing; it does not belong in CSS.
+For moving resources, permissions, lazy loading, remote filtering, and drag
+and drop, the **application** must implement authorized behavior. No CSS
+state alone conveys permission to move an item.
+
+See [the script-free resource outline example](../examples/resource-outline.html).
+The nesting uses logical inline spacing to work in both LTR and RTL;
+after three visual indentation levels it stops adding horizontal offset so
+very deep folders remain readable at narrow widths and 400% zoom; semantic
+list hierarchy and native disclosures remain intact. Long names wrap rather
+than being silently truncated. Keep the
+selected location visible, ensure all links have real destinations,
+and test browser focus, high zoom, and forced colors in the host app.
 
 ## Individually importable CSS
 
