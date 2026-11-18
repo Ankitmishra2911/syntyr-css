@@ -79,6 +79,18 @@ class NativeDisclosureNavigationTest(unittest.TestCase):
             self.assertIn("forced-colors: active", css)
         self.assertIn('href="../dist/syntyr.recipes.css"', EXAMPLE.read_text())
 
+    def test_deeply_nested_lists_cap_visual_indentation_for_reflow(self):
+        # Native disclosures remain structurally nested without spending
+        # more horizontal space at each level of a deep navigation.
+        cutoff = "&.syn-tree-nav " + " ".join([":is(ul, ol)"] * 5)
+        for css in ("src/recipes.css", "dist/syntyr.recipes.css"):
+            source = (ROOT / css).read_text(encoding="utf-8")
+            self.assertIn(cutoff + " {", source)
+            rule = source.split(cutoff + " {", 1)[1].split("}", 1)[0]
+            self.assertIn("margin-inline-start: 0", rule)
+            self.assertIn("padding-inline-start: 0", rule)
+            self.assertIn("border-inline-start: 0", rule)
+
     def test_discoverability_and_static_site_contract(self):
         self.assertIn("native-disclosure-navigation.html", (ROOT / "README.md").read_text())
         self.assertIn("native-disclosure-navigation.html", (ROOT / "docs/recipes.md").read_text())

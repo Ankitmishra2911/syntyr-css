@@ -154,6 +154,10 @@ to lay out the navigation beside content and wrap it at narrow widths.
 This is **not an ARIA tree widget**: do not add `role="tree"`, `treeitem`,
 `aria-selected`, or roving `tabindex` without a full tested keyboard controller.
 The browser already supports Tab, Enter, Space and native disclosure.
+Visual indentation stops after three nested levels so extremely deep
+navigation does not squeeze links to unreadable widths on small screens or
+at high zoom; the HTML list hierarchy and native disclosure still convey
+every level. Use a full accessible tree controller for complex file explorers.
 
 ```html
 <div class="syn-root" data-syn-theme="studio">
