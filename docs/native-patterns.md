@@ -11,8 +11,9 @@ from layout even when it also has `.syn-button`, `.syn-grid`, or semantic styles
 Syntyr's base layer preserves that native state. For find-in-page reveals, use
 `hidden="until-found"`: the browser retains the element in layout and may
 reveal it on search or fragment navigation. Use a layout-containing box:
-do not force `display: none`, `display: inline`, or `display: contents`, because those values prevent find-in-page reveal. Prefer a block, grid,
-or flex container. Do not replace these states with
+do not force `display: none`, `display: inline`, or
+`display: contents`. Those values prevent find-in-page reveal;
+prefer a block, grid, or flex container. Do not replace these states with
 `aria-hidden`, which does not hide an element visually or from keyboard focus.
 
 ## Native interaction recipes

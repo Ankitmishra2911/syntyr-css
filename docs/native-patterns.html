@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="ba970197af6686c7d04960c29ecfdec608d390b998bafade287adeaabb5d92e7">
+  <meta name="syntyr-source-sha256" content="14744632b708687fd4c505e6a95c1787e08754d23d60dc408b435976af6372b5">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -44,8 +44,9 @@ from layout even when it also has <code>.syn-button</code>, <code>.syn-grid</cod
 Syntyr's base layer preserves that native state. For find-in-page reveals, use
 <code>hidden=&quot;until-found&quot;</code>: the browser retains the element in layout and may
 reveal it on search or fragment navigation. Use a layout-containing box:
-do not force <code>display: none</code>, <code>display: inline</code>, or <code>display: contents</code>, because those values prevent find-in-page reveal. Prefer a block, grid,
-or flex container. Do not replace these states with
+do not force <code>display: none</code>, <code>display: inline</code>, or
+<code>display: contents</code>. Those values prevent find-in-page reveal;
+prefer a block, grid, or flex container. Do not replace these states with
 <code>aria-hidden</code>, which does not hide an element visually or from keyboard focus.</p>
 <h2 id="native-interaction-recipes">Native interaction recipes</h2>
 <p>The standard library includes the following <strong>five native interaction
