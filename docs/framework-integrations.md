@@ -134,6 +134,37 @@ This is not a claim that every HTMX extension or version-specific behavior
 is drop-in compatible.
 
 
+## Composable server HTML components (Go standard library)
+
+Syntyr components do not require a browser runtime or React-style hydration.
+To make server-side **composition** concrete, the
+[Go standard-library component example](https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-go)
+provides five copy-owned `html/template` partials: labeled search field,
+status/error notice, button, result table and pagination. It includes a
+runnable GET-only example and tests for HTML escaping, server validation,
+`aria-describedby`, and encoded query-preserving links. No new stylesheet,
+JavaScript dependency, component protocol or Go library is introduced.
+
+```go-html-template
+<form action="/" method="get" role="search" class="syn-form">
+  {{template "syn.field" .Query}}
+  {{template "syn.button" .SearchButton}}
+</form>
+{{template "syn.table" .Records}}
+{{template "syn.pagination" .Pager}}
+```
+
+The input values come from your server. Each component emits ordinary HTML
+with classes already in `syntyr.core.css`, and `html/template` contextually
+escapes untrusted data. The app owns distinct IDs, request validation, query
+encoding, CSRF for mutation forms, authorization and error status codes.
+For HTMX/Datastar/Turbo responses, render the same partials into fragments,
+but retain full-page rendering for direct navigation and history restoration.
+This is an **example**, not a new Syntyr runtime API or a claim of an official
+adapter for every backend language. See the
+[copyable template README](https://github.com/dporkka/syntyr-css/blob/main/examples/server-components-go/README.md)
+for the complete contract and setup instructions.
+
 ## Server-driven HTML: optional request-state bridge
 
 **No adapter is necessary to render Syntyr components.** Serve core CSS from

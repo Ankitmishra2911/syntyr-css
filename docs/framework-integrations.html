@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="232047681fdb53f3ea30eb0d693dc58cc7eac77a483153e421bed77542b77589">
+  <meta name="syntyr-source-sha256" content="ef13037c033669368831635ca87e25c8d758e21d9cd476d97056a2ec8ea4821c">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -148,6 +148,32 @@ the HTML response uses HTMX 4's external script and renamed controls
 while keeping the identical Syntyr CSS, class names, and stable theme root.
 This is not a claim that every HTMX extension or version-specific behavior
 is drop-in compatible.</p>
+<h2 id="composable-server-html-components-go-standard-library">Composable server HTML components (Go standard library)</h2>
+<p>Syntyr components do not require a browser runtime or React-style hydration.
+To make server-side <strong>composition</strong> concrete, the
+<a href="https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-go">Go standard-library component example</a>
+provides five copy-owned <code>html/template</code> partials: labeled search field,
+status/error notice, button, result table and pagination. It includes a
+runnable GET-only example and tests for HTML escaping, server validation,
+<code>aria-describedby</code>, and encoded query-preserving links. No new stylesheet,
+JavaScript dependency, component protocol or Go library is introduced.</p>
+<pre tabindex="0"><code class="language-go-html-template">&lt;form action=&quot;/&quot; method=&quot;get&quot; role=&quot;search&quot; class=&quot;syn-form&quot;&gt;
+  {{template &quot;syn.field&quot; .Query}}
+  {{template &quot;syn.button&quot; .SearchButton}}
+&lt;/form&gt;
+{{template &quot;syn.table&quot; .Records}}
+{{template &quot;syn.pagination&quot; .Pager}}
+</code></pre>
+<p>The input values come from your server. Each component emits ordinary HTML
+with classes already in <code>syntyr.core.css</code>, and <code>html/template</code> contextually
+escapes untrusted data. The app owns distinct IDs, request validation, query
+encoding, CSRF for mutation forms, authorization and error status codes.
+For HTMX/Datastar/Turbo responses, render the same partials into fragments,
+but retain full-page rendering for direct navigation and history restoration.
+This is an <strong>example</strong>, not a new Syntyr runtime API or a claim of an official
+adapter for every backend language. See the
+<a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-components-go/README.md">copyable template README</a>
+for the complete contract and setup instructions.</p>
 <h2 id="server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</h2>
 <p><strong>No adapter is necessary to render Syntyr components.</strong> Serve core CSS from
 your application and output the same <code>syn-</code> classes in HEEx, Blade, ERB, templ,
@@ -462,6 +488,7 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
 <a class="docs-article-toc-link docs-article-toc-2" href="#choose-one-styling-mode">Choose one styling mode</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#htmx-progressive-enhancement">HTMX: progressive enhancement</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#htmx-4-migration-separate-from-syntyr">HTMX 4 migration (separate from Syntyr)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#composable-server-html-components-go-standard-library">Composable server HTML components (Go standard library)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#phoenix-liveview-heex">Phoenix LiveView (HEEx)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#laravel-livewire-blade">Laravel Livewire (Blade)</a>
