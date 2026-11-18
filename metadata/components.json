@@ -264,6 +264,24 @@
         "syn-change-after"
       ],
       "notes": "Experimental alpha.5 semantic before/after styling nested in existing record fields. Text labels and native del/ins convey changes; backend supplies true revision values and conflict policy."
+    },
+    {
+      "name": "File lifecycle",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "ol",
+        "li",
+        "div",
+        "span",
+        "strong",
+        "progress"
+      ],
+      "classes": [
+        "syn-file-queue",
+        "syn-file-item",
+        "syn-file-item-header"
+      ],
+      "notes": "Unreleased alpha.5 CSS-only queue snapshots. Native input lives in core; host owns upload progress, failure and completion truth, validation, retry, status announcements and storage."
     }
   ],
   "recipes": [

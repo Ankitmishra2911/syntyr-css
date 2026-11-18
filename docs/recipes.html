@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="be29913e2ad20bf6404279589ae8e290aea67ea7fdb5726194da7d061a25e441">
+  <meta name="syntyr-source-sha256" content="5881fb4790ef777c4578c7d89313e67f14d2b0cb36d899615ec09db2b71f33f1">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -194,6 +194,45 @@ only when immediate interruption is justified; <strong>the static gallery does n
 claim any live announcements</strong>. CSS cannot retry requests, manage focus,
 detect stale versions, or persist records. Test the integration at 320 CSS
 pixels, 400% zoom, keyboard-only navigation, screen readers and forced colors.</p>
+<h2 id="file-selection-and-lifecycle-presentation-alpha5-source-candidate">File selection and lifecycle presentation (alpha.5 source candidate)</h2>
+<p>Use the existing native file input (<code>.syn-input[type=&quot;file&quot;]</code>) with a real
+<code>label</code>, then load optional <code>syntyr.recipes.css</code> for an ordered
+<code>ol.syn-file-queue</code> containing <code>li.syn-file-item</code> entries. An optional
+<code>.syn-file-item-header</code> keeps names and textual status together without
+forcing a fixed width. Use only one truthfully rendered state per entry:
+<code>data-syn-state=&quot;queued|uploading|complete|failed&quot;</code>.
+Preserve <code>role=&quot;list&quot;</code> on the ordered queue when removing visual markers:
+Safari/VoiceOver can otherwise omit the list and its item count from
+accessibility announcements outside a navigation landmark.</p>
+<p><a href="../examples/file-lifecycle.html">Open the static file-lifecycle example</a>.
+This recipe is <strong>presentation only</strong>, not a drag-and-drop zone, upload engine,
+retry handler, virus scanner, or file storage client. File choice works
+natively without JavaScript, but choosing a file does not upload it.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;label class=&quot;syn-label&quot; for=&quot;attachments&quot;&gt;Attachments&lt;/label&gt;
+  &lt;input id=&quot;attachments&quot; class=&quot;syn-input&quot; type=&quot;file&quot; multiple&gt;
+  &lt;ol class=&quot;syn-file-queue&quot; role=&quot;list&quot;&gt;
+    &lt;li class=&quot;syn-file-item&quot; data-syn-state=&quot;uploading&quot;&gt;
+      &lt;div class=&quot;syn-file-item-header&quot;&gt;
+        &lt;strong&gt;report.pdf&lt;/strong&gt;&lt;span&gt;Uploading · 42%&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;progress class=&quot;syn-meter&quot; value=&quot;42&quot; max=&quot;100&quot;
+                aria-label=&quot;Report upload progress&quot;&gt;42%&lt;/progress&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;
+</code></pre>
+<p><strong>Host application contract:</strong> Do not render completion until the server
+confirms durable storage. Compute actual byte-based progress if available;
+omit <code>value</code> on <code>&lt;progress&gt;</code> only when an upload is genuinely indeterminate.
+Honor file size/type limits, authorization, CSRF protections when applicable,
+safe filenames, cancellation, retries, and server-side scanning as required.
+Retain selected files after recoverable errors when the browser permits,
+and expose real error details with field associations. Create a persistent
+live status region in the host if asynchronous changes require announcements;
+CSS and a static snapshot cannot announce an update. No automatic drag/drop
+or upload happens with these classes. Test responsive zoom, forced colors,
+keyboard navigation, real upload failure and assistive technology in the host.</p>
 <h2 id="reusing-recipes-across-stacks">Reusing recipes across stacks</h2>
 <ul>
 <li><strong>Go / templ, PHP, Django, Rust templates:</strong> Make recipes server-rendered partials and pass content as arguments.</li>
@@ -409,6 +448,7 @@ not a JavaScript permissions widget or a substitute for authorization.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#token-only-custom-theme">Token-only custom theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#crm-and-vertical-saas-patterns-alpha5-source-candidate">CRM and vertical SaaS patterns (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#operation-feedback-and-record-revisions-alpha5-source-candidate">Operation feedback and record revisions (alpha.5 source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#file-selection-and-lifecycle-presentation-alpha5-source-candidate">File selection and lifecycle presentation (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reusing-recipes-across-stacks">Reusing recipes across stacks</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>

@@ -498,6 +498,18 @@
           "description": "Syntyr CSS class (components/forms.css)."
         },
         {
+          "name": "syn-file-item",
+          "description": "File queue entry with host-owned queued, uploading, complete or failed state."
+        },
+        {
+          "name": "syn-file-item-header",
+          "description": "Flexible file name and visible status header for queue entries."
+        },
+        {
+          "name": "syn-file-queue",
+          "description": "Optional ordered file lifecycle list; not an upload engine."
+        },
+        {
           "name": "syn-filter-actions",
           "description": "Wrapping submit and reset action group for CRM filters."
         },
@@ -1371,6 +1383,9 @@
           "name": "pending"
         },
         {
+          "name": "queued"
+        },
+        {
           "name": "saved"
         },
         {
@@ -1381,6 +1396,9 @@
         },
         {
           "name": "unsaved"
+        },
+        {
+          "name": "uploading"
         }
       ]
     },

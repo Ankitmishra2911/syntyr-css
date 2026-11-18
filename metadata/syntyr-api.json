@@ -617,6 +617,21 @@
       "description": "Syntyr CSS class (components/forms.css)."
     },
     {
+      "name": "syn-file-item",
+      "module": "recipes.css",
+      "description": "File queue entry with host-owned queued, uploading, complete or failed state."
+    },
+    {
+      "name": "syn-file-item-header",
+      "module": "recipes.css",
+      "description": "Flexible file name and visible status header for queue entries."
+    },
+    {
+      "name": "syn-file-queue",
+      "module": "recipes.css",
+      "description": "Optional ordered file lifecycle list; not an upload engine."
+    },
+    {
       "name": "syn-filter-actions",
       "module": "recipes.css",
       "description": "Wrapping submit and reset action group for CRM filters."
@@ -1747,6 +1762,11 @@
       "name": "--syn-ease-enter",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-file-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css)."
     },
     {
       "name": "--syn-filter-field-min",

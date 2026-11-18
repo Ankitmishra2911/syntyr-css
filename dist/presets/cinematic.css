@@ -1518,6 +1518,38 @@
     }
     &.syn-result-state > :first-child { margin-block-start: 0; }
     &.syn-result-state > :last-child { margin-block-end: 0; }
+
+    /* Optional file lifecycle presentation. Native input[type=file] remains in
+       core. State, transport, progress, retries, validation and authorization
+       belong exclusively to the host application. */
+    &.syn-file-queue {
+      display: grid; gap: var(--syn-space-2); min-inline-size: 0;
+      padding: 0; margin: 0; list-style: none;
+    }
+    &.syn-file-item {
+      --syn-file-edge: var(--syn-border-default);
+      display: grid; gap: .45rem; min-inline-size: 0;
+      padding: var(--syn-space-2); overflow-wrap: anywhere;
+      background: var(--syn-surface); color: var(--syn-text);
+      border: 1px solid var(--syn-border-subtle);
+      border-inline-start: 3px solid var(--syn-file-edge);
+      border-radius: var(--syn-radius);
+    }
+    &.syn-file-item-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: .25rem var(--syn-space-2); flex-wrap: wrap; min-inline-size: 0;
+    }
+    &.syn-file-item-header > * { min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-file-item :is(progress, .syn-meter) { inline-size: 100%; max-inline-size: 100%; }
+    &.syn-file-item > :where(p, small) { margin-block: 0; }
+    &.syn-file-item[data-syn-state="queued"] { --syn-file-edge: var(--syn-muted); }
+    &.syn-file-item[data-syn-state="uploading"] { --syn-file-edge: var(--syn-accent); }
+    &.syn-file-item[data-syn-state="complete"] { --syn-file-edge: var(--syn-success); }
+    &.syn-file-item[data-syn-state="failed"] { --syn-file-edge: var(--syn-danger); }
+    @media (forced-colors: active) {
+      &.syn-file-item { border-color: CanvasText; border-inline-start-color: Highlight; }
+    }
+
     /* Link each summary item to a field id; the server supplies actual errors
        and must manage focus after a failed POST. */
     &.syn-error-summary {
