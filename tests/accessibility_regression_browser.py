@@ -6,6 +6,7 @@ Runs against the actual CSS without adding runtime dependencies. Example:
 import argparse
 import os
 from pathlib import Path
+from contrast_pixel_triage import contrast_ratio, parse_rgb
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -106,9 +107,64 @@ def check(browser, engine):
                     assert height >= 24, f"{engine}: undersized {path} {selector} [{idx}]: {height}px"
         finally:
             page.close()
+    # Decorative line placement must never change caption contrast: the
+    # fine-grid caption has an opaque surface in every named theme.
+    for width in (320, 390, 1280):
+        page = browser.new_page(viewport={"width": width, "height": 820},
+                                reduced_motion='reduce')
+        try:
+            page.goto((ROOT / "docs/blocks.html").as_uri())
+            for theme in ('studio', 'grid', 'noir', 'industrial',
+                          'terminal', 'corporate', 'minimal'):
+                page.locator('body').evaluate(
+                    '(e, theme) => e.setAttribute("data-syn-theme", theme)', theme)
+                caption = page.locator('.syn-block-asset--fine-grid > span')
+                colors = caption.evaluate("""e => {
+                    const c = getComputedStyle(e);
+                    return {foreground: c.color, background: c.backgroundColor,
+                            backgroundImage: c.backgroundImage, opacity: c.opacity};
+                }""")
+                fg, bg = parse_rgb(colors['foreground']), parse_rgb(colors['background'])
+                assert fg is not None and bg is not None, (engine, theme, colors)
+                assert colors['backgroundImage'] == 'none' and colors['opacity'] == '1', colors
+                assert contrast_ratio(fg, bg) >= 5.0, (
+                    engine, width, theme, contrast_ratio(fg, bg), colors)
+        finally:
+            page.close()
+
+    # Actual placeholders are painted by the UA, not text nodes. Verify the
+    # real reference pages display opaque, above-threshold computed pairs.
+    for path, selector in (('docs/index.html', '#dispatch'),
+                           ('examples/native-apis.html', '#native-notes')):
+        page = browser.new_page(viewport={"width": 320, "height": 820})
+        try:
+            page.goto((ROOT / path).as_uri())
+            field = page.locator(selector)
+            colors = field.evaluate("""e => {
+                const c = getComputedStyle(e), p = getComputedStyle(e, '::placeholder');
+                return {foreground: p.color, background: c.backgroundColor,
+                        backgroundImage: c.backgroundImage, opacity: p.opacity,
+                        elementOpacity: c.opacity,
+                        visible: e.matches(':placeholder-shown'),
+                        text: e.placeholder};
+            }""")
+            fg, bg = parse_rgb(colors['foreground']), parse_rgb(colors['background'])
+            assert colors['visible'] and colors['text'], (engine, path, colors)
+            assert fg is not None and bg is not None, (engine, path, colors)
+            assert colors['backgroundImage'] == 'none', colors
+            assert colors['opacity'] == '1' and colors['elementOpacity'] == '1', colors
+            assert contrast_ratio(fg, bg) >= 4.5, (engine, path, colors)
+            # Populate a native input. The placeholder must no longer be treated
+            # as displayed; the triage must leave it unresolved.
+            field.fill('Existing response')
+            assert not field.evaluate("e => e.matches(':placeholder-shown')"), (engine, path)
+        finally:
+            page.close()
+
     # Browser forced-colors *emulation* is useful regression coverage, but it
     # does not stand in for a native OS high-contrast screen-reader review.
     for path, selector in (
+        ('docs/blocks.html', '.syn-block-asset--fine-grid > span'),
         ('docs/blocks.html', '.syn-block-asset--dot-field > span'),
         ('docs/blocks.html', '.syn-block-asset--diagonal > span'),
         ('examples/flagship-grid.html', '.flagship-lede'),
