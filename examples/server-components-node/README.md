@@ -18,6 +18,13 @@ node examples/server-components-node/server.mjs
 The server reads `dist/syntyr.core.css` and serves that **single explicit CSS
 asset**; it does not expose filesystem paths as routes.
 
+## Optional HTMX and Datastar fragments
+
+The [fragment-response demo](fragments/README.md) reuses these **same** five
+HTML component functions for HTMX partial responses and Datastar SSE patches.
+It maintains native GET fallback, history-safe documents, encoded pagination,
+and accessible server validation; no Syntyr runtime or CSS module is added.
+
 ## Copy-owned component contract
 
 `components.mjs` exports five functions, `field`, `notice`, `button`, `table`

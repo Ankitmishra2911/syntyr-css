@@ -133,6 +133,31 @@ class ServerFrameworkIntegrationTests(unittest.TestCase):
         self.assertNotIn("<script", templ_markup.lower())
         self.assertNotIn('"./server-components-node"', (ROOT / "package.json").read_text())
 
+    def test_opt_in_htmx_and_datastar_fragments_reuse_node_components(self):
+        base = ROOT / "examples/server-components-node/fragments"
+        server = (base / "server.mjs").read_text()
+        hook = (base / "htmx-validation.js").read_text()
+        guide = (ROOT / "docs/framework-integrations.md").read_text()
+        llms = (ROOT / "llms.txt").read_text()
+        self.assertIn("from '../components.mjs'", server)
+        self.assertIn("from '../server.mjs'", server)
+        for token in ("field, notice, button, table, pagination", "pageData",
+                      "renderWorkspace", "renderDocument", "HX-History-Restore-Request",
+                      "X-Syntyr-Validation", "Vary: 'Accept'", "datastar-patch-elements",
+                      "text/event-stream", "aria-live", "Cache-Control",
+                      "X-Content-Type-Options", "JSON.parse(raw)",
+                      "scopedPageHref", "ssePatch", "parseSignals"):
+            self.assertIn(token, server)
+        self.assertIn("htmx:beforeSwap", hook)
+        self.assertIn("status === 422", hook)
+        self.assertIn("X-Syntyr-Validation", hook)
+        self.assertIn("node:test", (base / "test/fragment-server.test.mjs").read_text())
+        self.assertIn("examples/server-components-node/fragments", guide)
+        self.assertIn("examples/server-components-node/fragments", llms)
+        self.assertTrue((ROOT / "tests/server_html_fragments_browser.py").is_file())
+        self.assertNotIn("server-components-node/fragments", (ROOT / "package.json").read_text())
+        self.assertNotIn("node_modules", (base / "README.md").read_text())
+
     def test_docs_cover_versions_and_dom_ownership_without_claiming_runtime(self):
         guide = (ROOT / "docs/framework-integrations.md").read_text()
         for name in ("LiveView", "Livewire", "Turbo", "HTMX", "Go templ",
