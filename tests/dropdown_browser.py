@@ -46,6 +46,29 @@ def main():
                         assert not errors, (name, errors)
                         context.close()
 
+                    # This is 400% *text enlargement* at a 320px CSS viewport,
+                    # not browser chrome zoom; both cases must be tested separately.
+                    context = browser.new_context(viewport={'width': 320, 'height': 800}, reduced_motion='reduce')
+                    page = context.new_page()
+                    errors = []
+                    page.on('pageerror', lambda e: errors.append(str(e)))
+                    page.goto(url)
+                    page.evaluate("document.documentElement.style.fontSize = '400%'")
+                    assert page.evaluate('parseFloat(getComputedStyle(document.documentElement).fontSize)') >= 60
+                    page.get_by_role('button', name='Record actions').click()
+                    popover = page.locator('#actions-panel')
+                    assert popover.evaluate('e => e.matches(":popover-open")')
+                    panel = popover.bounding_box()
+                    assert panel is not None and panel['x'] >= -1 and panel['x'] + panel['width'] <= 321, (name, panel)
+                    for item in popover.locator('.syn-dropdown__item').all():
+                        bounds = item.bounding_box()
+                        assert bounds is not None and bounds['x'] >= -1 and bounds['x'] + bounds['width'] <= 321, (name, bounds)
+                        assert item.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), (name, item.text_content())
+                    page.keyboard.press('Escape')
+                    assert not popover.evaluate('e => e.matches(":popover-open")')
+                    assert not errors, (name, errors)
+                    context.close()
+
                     context = browser.new_context(viewport={'width': 390, 'height': 800})
                     page = context.new_page()
                     page.goto(url)
@@ -96,7 +119,7 @@ def main():
                     assert menu.get_attribute('role') is None
                     assert menu.locator('[data-syn-menu-item]').first.get_attribute('tabindex') is None
                     context.close()
-                    print(f'PASS {name}: scriptless dropdown 320/1280 and opt-in menu keyboard', flush=True)
+                    print(f'PASS {name}: dropdown 320/1280, 400% root text stress and opt-in menu keyboard', flush=True)
                 finally:
                     browser.close()
     finally:
