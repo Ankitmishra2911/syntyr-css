@@ -42,7 +42,7 @@ canonical <code>/examples/business</code> and <code>/examples/saas</code> URLs. 
 <h2 id="reproduction">Reproduction</h2>
 <p>With optional, developer-only Playwright + Chromium installed, and a local
 copy of axe-core (the site never loads axe):</p>
-<pre><code class="language-sh">python3 scripts/audit_live_performance.py \
+<pre tabindex="0"><code class="language-sh">python3 scripts/audit_live_performance.py \
   --origin https://syntyr-css.pages.dev \
   --runs 7 --latency-ms 150 --download-kbps 1600 --cpu-rate 4 \
   --axe-file /tmp/axe.min.js \

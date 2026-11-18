@@ -39,13 +39,13 @@
 <p>Native elements such as <code>search</code>, <code>figure</code>, <code>figcaption</code>, <code>kbd</code>, <code>mark</code>, <code>output</code>, <code>meter</code>, and <code>pre</code> are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real <code>caption</code> elements, and disclosure summaries retain browser markers and comfortable pointer targets. See <a href="../examples/native-elements.html">the no-JS native example</a>. New <a href="semantic-components.html">semantic HTML composition recipes</a> show article metadata, native citations, change history, ruby annotations, and table footers, with a <a href="../examples/semantic-compositions.html">live gallery</a>. The regular component-class API and HTML outside <code>.syn-root</code> are unchanged.</p>
 <h2 id="loading-and-scoping">Loading and scoping</h2>
 <p>For the explicitly classed API (no automatic unclassed element styles):</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
 &lt;body class=&quot;syn-root syn-page&quot; data-syn-theme=&quot;grid&quot;&gt;
   &lt;button class=&quot;syn-button syn-button--primary&quot;&gt;Run&lt;/button&gt;
 &lt;/body&gt;
 </code></pre>
 <p>For Pico-like semantic markup, add the optional file <strong>after</strong> core and mark the subtree. Unclassed elements style automatically; opt in class-changing elements with <code>data-syn-semantic</code>:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.semantic.css&quot;&gt;
 &lt;section class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;article&gt;
@@ -172,7 +172,7 @@ The existing flex/grid/spacing helpers are unchanged. Load the optional
 module only when it is needed.</p>
 <p>Customize individual components with custom properties rather than a new
 set of modifiers:</p>
-<pre><code class="language-html">&lt;article class=&quot;syn-panel&quot;
+<pre tabindex="0"><code class="language-html">&lt;article class=&quot;syn-panel&quot;
          style=&quot;--syn-panel-padding:1.5rem; --syn-panel-radius:.75rem;
                 --syn-panel-border-width:2px&quot;&gt;
   &lt;button class=&quot;syn-button&quot;
@@ -298,7 +298,7 @@ opt-in, scoped under <code>.syn-root</code>, and use the existing theme tokens. 
 <p>Use <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> to give radio/checkbox groups a name.
 <code>.syn-choice-card</code> is a real <code>&lt;label&gt;</code>, not an ARIA radio substitute.
 Compose a responsive layout with existing <code>.syn-grid</code>:</p>
-<pre><code class="language-html">&lt;fieldset class=&quot;syn-fieldset&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;fieldset class=&quot;syn-fieldset&quot;&gt;
   &lt;legend&gt;Choose a plan&lt;/legend&gt;
   &lt;div class=&quot;syn-grid&quot;&gt;
     &lt;label class=&quot;syn-choice-card&quot;&gt;
@@ -320,7 +320,7 @@ Keep the actual radio visible and focusable. No manually synchronized
 Syntyr inputs and their field label. A server can additionally render
 <code>data-syn-state=&quot;error&quot;</code> on <code>.syn-field</code> to style the field consistently
 before user interaction, without changing browser validity or hiding the error:</p>
-<pre><code class="language-html">&lt;div class=&quot;syn-field&quot; data-syn-state=&quot;error&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-field&quot; data-syn-state=&quot;error&quot;&gt;
   &lt;label class=&quot;syn-label&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;
   &lt;input class=&quot;syn-input&quot; id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot; required
          aria-invalid=&quot;true&quot; aria-describedby=&quot;email-help email-error&quot;&gt;
@@ -337,7 +337,7 @@ This pattern works without JavaScript.</p>
 <p>Use <code>.syn-filter-choices</code> to display a group of <code>.syn-chip</code> labels backed by
 real named radio/checkbox inputs. A wrapping filter group should be inside a
 named fieldset in a normal GET form:</p>
-<pre><code class="language-html">&lt;form action=&quot;/campaigns&quot; method=&quot;get&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;form action=&quot;/campaigns&quot; method=&quot;get&quot;&gt;
   &lt;fieldset class=&quot;syn-fieldset&quot;&gt;
     &lt;legend&gt;Campaign status&lt;/legend&gt;
     &lt;div class=&quot;syn-filter-choices&quot;&gt;
@@ -409,7 +409,7 @@ forced colors, mobile overflow, and actual server form behavior in consumers.</p
 </table>
 <p>The selectors style <strong>unclassed elements only</strong>, or elements explicitly marked <code>data-syn-semantic</code>. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.</p>
 <p>For a copyable page covering the additions, see <a href="../examples/native-elements.html">native HTML element examples</a>. That example also shows labeled <code>datalist</code> suggestions, grouped <code>select</code>/<code>optgroup</code> options, and named <code>details</code> disclosures. Native suggestions do not validate accepted values; host applications validate them on the server. Named disclosures are exclusive-open in supporting browsers, with a usable ordinary-details fallback elsewhere. Semantic file/color inputs and fieldsets shrink at enlarged text sizes, while wide tables remain in labeled, keyboard-scrollable regions. The <code>commandfor</code> / <code>command=&quot;show-modal&quot;</code> dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.semantic.css&quot;&gt;
 &lt;main class=&quot;syn-root syn-semantic&quot;&gt;
   &lt;dl&gt;&lt;dt&gt;Availability&lt;/dt&gt;&lt;dd&gt;12 active screens&lt;/dd&gt;&lt;/dl&gt;
@@ -481,7 +481,7 @@ APIs. <strong>Not every HTML element benefits from a CSS reset.</strong></p>
 </table>
 <p>Try the <a href="../examples/common-ui.html">CSS-only common UI example</a> and the
 <a href="../examples/native-elements.html">existing native elements example</a>.</p>
-<pre><code class="language-html">&lt;nav class=&quot;syn-nav-tabs&quot; aria-label=&quot;Account sections&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;nav class=&quot;syn-nav-tabs&quot; aria-label=&quot;Account sections&quot;&gt;
   &lt;ul&gt;
     &lt;li&gt;&lt;a href=&quot;/settings&quot; aria-current=&quot;page&quot;&gt;Settings&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&quot;/billing&quot;&gt;Billing&lt;/a&gt;&lt;/li&gt;
@@ -538,7 +538,7 @@ toast lifecycles) belong to the host app, not a CSS runtime.</p>
 </tbody>
 </table>
 <p>Application CSS can override tokens:</p>
-<pre><code class="language-css">/* Unlayered CSS overrides the library's layered defaults. */
+<pre tabindex="0"><code class="language-css">/* Unlayered CSS overrides the library's layered defaults. */
 .my-surface { --syn-accent: #a9f890; }
 </code></pre>
 <h2 id="optional-charts-and-microvisualizations">Optional charts and microvisualizations</h2>
@@ -560,7 +560,7 @@ fetch data or require a renderer. Read <a href="viz.html">Syntyr Viz</a> and ope
 </ul>
 <h2 id="distribution-behavior">Distribution behavior</h2>
 <p>The repository now includes an <strong>optional CSS-only <code>package.json</code> for package-manager distribution</strong>; there is still no Node runtime requirement, bundling dependency, or mandatory package manager. A standard Python 3 build script creates deterministic concatenated CSS and validates exact committed outputs (see <a href="package-managers.html">optional package-manager guide</a>):</p>
-<pre><code class="language-sh">python3 scripts/build.py
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py
 python3 scripts/build.py --check
 python3 -m unittest discover -s tests -v
 </code></pre>
@@ -568,12 +568,12 @@ python3 -m unittest discover -s tests -v
 <p>MIT; this version is original work, not a fork or copy of Pico CSS, Chota or Open Props. If future work ports code from an upstream library, preserve that project's copyright and MIT notices and document the relevant files in <code>THIRD_PARTY_NOTICES.md</code>.</p>
 <h2 id="embedded-versus-full-page-usage">Embedded versus full-page usage</h2>
 <p><code>syn-root</code> provides a bounded styling context. Add <code>syn-page</code> <strong>only for full-page experiences</strong>. This separation prevents an embedded themed widget from unexpectedly forcing a viewport-height section.</p>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;noir&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;noir&quot;&gt;
   &lt;div class=&quot;syn-panel&quot;&gt;This can be embedded inside an existing application.&lt;/div&gt;
 &lt;/section&gt;
 </code></pre>
 <p>For invalid form controls, associate error text through native labeling and <code>aria-describedby</code>, and set <code>aria-invalid=&quot;true&quot;</code> for server-provided errors. <code>syn-error</code> changes text color; do not rely on color alone to communicate invalid state.</p>
-<pre><code class="language-html">&lt;label class=&quot;syn-label&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;
+<pre tabindex="0"><code class="language-html">&lt;label class=&quot;syn-label&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;
 &lt;input class=&quot;syn-input&quot; id=&quot;email&quot; type=&quot;email&quot; aria-invalid=&quot;true&quot; aria-describedby=&quot;email-error&quot;&gt;
 &lt;p class=&quot;syn-error&quot; id=&quot;email-error&quot;&gt;Enter a valid email address.&lt;/p&gt;
 </code></pre>
@@ -683,7 +683,7 @@ Classless checkbox and radio labels align their controls inline when
 <code>.syn-region</code> <strong>ancestor</strong> for a horizontal layout at wide <em>container</em> widths;
 the narrow presentation is vertical. Use <code>.syn-steps--vertical</code> to keep a
 vertical layout at every width.</p>
-<pre><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;h2&gt;Workspace setup&lt;/h2&gt;
   &lt;ol class=&quot;syn-steps&quot; role=&quot;list&quot; aria-label=&quot;Workspace setup progress&quot;&gt;
     &lt;li class=&quot;syn-step&quot; data-syn-state=&quot;complete&quot;&gt;

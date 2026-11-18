@@ -66,7 +66,7 @@ matches Syntyr-named classes and documented state hooks such as
 <p><a href="https://github.com/dporkka/syntyr-css/tree/main/examples/headless-react">Source</a> provides actual React, Radix and React
 Aria controls, not inert HTML copies. Its npm dependencies are optional
 <strong>application dependencies</strong>. They are not dependencies of Syntyr itself.</p>
-<pre><code class="language-sh">cd examples/headless-react
+<pre tabindex="0"><code class="language-sh">cd examples/headless-react
 npm ci
 npm run build
 npx playwright install chromium  # optional browser-test setup
@@ -76,7 +76,7 @@ npm run dev
 <p>The example imports both CSS files directly from the repository.
 In your own application, include the core stylesheet before the optional
 integration stylesheet:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/headless/interactions.css&quot;&gt;
 </code></pre>
 <p>Or import <code>@syntyr/css/core.css</code> followed by

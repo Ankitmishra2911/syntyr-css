@@ -91,6 +91,57 @@ def check(browser, engine):
     finally:
         page.close()
 
+    # Generated documentation code may scroll horizontally. Verify a real
+    # keyboard user can focus and scroll each overflowing pre element.
+    for width in (320, 1280):
+        page = browser.new_page(viewport={"width": width, "height": 800})
+        try:
+            page.goto((ROOT / "docs/design-principles.html").as_uri())
+            code_blocks = page.locator('.docs-prose pre')
+            assert code_blocks.count() == 4, (engine, width, "missing guide code")
+            scrollable = 0
+            for i in range(code_blocks.count()):
+                block = code_blocks.nth(i)
+                info = block.evaluate("e => ({tab:e.tabIndex, overflow:e.scrollWidth>e.clientWidth+1})")
+                assert info['tab'] == 0, (engine, width, i, info)
+                if info['overflow']:
+                    scrollable += 1
+                    block.focus()
+                    assert block.evaluate("e => document.activeElement === e")
+                    assert block.evaluate("e => getComputedStyle(e).outlineStyle !== 'none'")
+                    block.press('ArrowRight')
+                    page.wait_for_function(
+                        "(index) => document.querySelectorAll('.docs-prose pre')[index].scrollLeft > 0",
+                        arg=i, timeout=2000)
+            assert scrollable >= 2, (engine, width, "expected keyboard-scrollable samples")
+        finally:
+            page.close()
+
+    # Public integration guides need keyboard-scrollable code examples,\n    # not only the design-principles page already covered above.
+    for guide in ("docs/accessibility.html", "docs/components.html"):
+        page = browser.new_page(viewport={"width": 320, "height": 800})
+        try:
+            page.goto((ROOT / guide).as_uri())
+            blocks = page.locator(".docs-prose pre")
+            assert blocks.count() >= 2, (engine, guide, "missing code examples")
+            for idx in range(blocks.count()):
+                block = blocks.nth(idx)
+                assert block.evaluate("e => e.tabIndex === 0"), (engine, guide, idx)
+            first_scrollable = next((
+                idx for idx in range(blocks.count())
+                if blocks.nth(idx).evaluate("e => e.scrollWidth > e.clientWidth + 1")
+            ), None)
+            assert first_scrollable is not None, (engine, guide)
+            block = blocks.nth(first_scrollable)
+            block.focus()
+            assert block.evaluate("e => document.activeElement === e")
+            block.press("ArrowRight")
+            page.wait_for_function(
+                "(idx) => document.querySelectorAll('.docs-prose pre')[idx].scrollLeft > 0",
+                arg=first_scrollable, timeout=2000)
+        finally:
+            page.close()
+
     for path, selectors in [
         ('index.html', ['.site-brand', '.site-nav a', '.site-tertiary-link',
                         '.site-showcase-card > .site-secondary-link', '.site-footer a']),

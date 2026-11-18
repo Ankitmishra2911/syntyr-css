@@ -47,14 +47,14 @@ observe viewport entry; either add-on can be used without the other.</p>
 <p>Copy <code>dist/syntyr.animate.mjs</code> and, if desired, <code>dist/syntyr.core.css</code> to
 your own static directory. The module needs no bundler and runs in evergreen
 browsers that support ES modules.</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;main class=&quot;syn-root&quot;&gt;
   &lt;button id=&quot;show&quot; type=&quot;button&quot;&gt;Animate card&lt;/button&gt;
   &lt;article id=&quot;card&quot;&gt;Card content stays visible without JavaScript.&lt;/article&gt;
 &lt;/main&gt;
 &lt;script type=&quot;module&quot; src=&quot;/js/animation-demo.mjs&quot;&gt;&lt;/script&gt;
 </code></pre>
-<pre><code class="language-js">// /js/animation-demo.mjs
+<pre tabindex="0"><code class="language-js">// /js/animation-demo.mjs
 import { animate, stagger, observeReveals } from '/js/syntyr.animate.mjs';
 
 document.querySelector('#show')?.addEventListener('click', () =&gt; {
@@ -72,7 +72,7 @@ const disconnect = observeReveals(document);
 </code></pre>
 <p>When the experimental <code>@syntyr/css</code> npm package is published, the module
 also has a dedicated typed subpath:</p>
-<pre><code class="language-js">import { animate } from '@syntyr/css/animate';
+<pre tabindex="0"><code class="language-js">import { animate } from '@syntyr/css/animate';
 </code></pre>
 <p>That subpath exposes only the optional animation code and matching TypeScript
 declarations. The default package import remains the CSS entrypoint.</p>
@@ -122,13 +122,13 @@ without modifying the DOM. Prefer <code>animation?.cancel()</code> for interrupt
 rejects its promise). Animation properties are released at the end rather
 than persisting a hidden or transformed element.</p>
 <h2 id="viewport-reveals">Viewport reveals</h2>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot;&gt;
   &lt;h2&gt;Visible with CSS alone&lt;/h2&gt;
   &lt;p data-syn-reveal=&quot;enter&quot;&gt;Animate on first viewport entry.&lt;/p&gt;
   &lt;p data-syn-reveal=&quot;fade&quot;&gt;Fade when first seen.&lt;/p&gt;
 &lt;/section&gt;
 </code></pre>
-<pre><code class="language-js">import { observeReveals } from '/js/syntyr.animate.mjs';
+<pre tabindex="0"><code class="language-js">import { observeReveals } from '/js/syntyr.animate.mjs';
 const disconnect = observeReveals(document);
 </code></pre>
 <p>No <code>IntersectionObserver</code> is created automatically; call <code>observeReveals</code>
@@ -157,7 +157,7 @@ interactive scrubbing and complex timelines, use a specialized animation
 engine <em>outside</em> Syntyr instead of expanding this low-level module.</li>
 </ul>
 <h2 id="verification">Verification</h2>
-<pre><code class="language-sh">node --test tests/animate.test.mjs
+<pre tabindex="0"><code class="language-sh">node --test tests/animate.test.mjs
 python3 scripts/build.py --check
 python3 -m unittest discover -s tests -v
 </code></pre>
@@ -170,7 +170,7 @@ effects can be applied to existing Syntyr Blocks, sections, React-rendered
 markup, and CMS templates. No JavaScript, hydration, observer setup, or new
 framework is required. This section describes the <strong>unreleased alpha.5
 candidate</strong>, not the published alpha.4 assets.</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.motion.css&quot;&gt;
 
 &lt;section class=&quot;syn-root syn-region&quot; aria-labelledby=&quot;features-heading&quot;&gt;
@@ -196,7 +196,7 @@ understanding the page.</p>
 <p>Apply <code>data-syn-parallax</code> to a section with a natural or explicit height.
 Include one decorative media layer as a <strong>direct child</strong> marked
 <code>data-syn-parallax-layer</code>, plus a foreground <code>data-syn-parallax-content</code>.</p>
-<pre><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-parallax
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-parallax
          style=&quot;min-block-size: 26rem; --syn-parallax-travel: 2rem&quot;
          aria-labelledby=&quot;parallax-title&quot;&gt;
   &lt;img data-syn-parallax-layer src=&quot;/images/landscape.webp&quot;
@@ -217,7 +217,7 @@ or controls. When motion is reduced or view timelines are unsupported,
 the image is <strong>static</strong> and all foreground content remains visible.
 Avoid <code>background-attachment: fixed</code> and JavaScript scroll handlers.</p>
 <h3 id="media-hover-zoom-and-existing-hover-lift">Media hover zoom and existing hover lift</h3>
-<pre><code class="language-html">&lt;a class=&quot;syn-root syn-panel&quot; style=&quot;display: block&quot; href=&quot;/portfolio/project&quot; data-syn-hover=&quot;zoom&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;a class=&quot;syn-root syn-panel&quot; style=&quot;display: block&quot; href=&quot;/portfolio/project&quot; data-syn-hover=&quot;zoom&quot;&gt;
   &lt;img src=&quot;/images/project.webp&quot; alt=&quot;Project preview&quot;
        width=&quot;640&quot; height=&quot;420&quot; data-syn-hover-media&gt;
   &lt;span&gt;Explore the project&lt;/span&gt;
@@ -243,7 +243,7 @@ The optional <code>syntyr.motion.css</code> adds a decorative, slowly drifting
 gradient layer when <code>data-syn-gradient=&quot;drift&quot;</code> is present. The background
 remains static if motion is reduced or unsupported, and all content remains
 visible. The animated layer never accepts pointer events.</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.effects.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.motion.css&quot;&gt;
 
@@ -263,7 +263,7 @@ on every frame. Use modest sections and inspect contrast against actual
 photography or themes. Do not mix <code>data-syn-gradient</code> and <code>data-syn-parallax</code>
 on the same element; instead nest separate wrappers.</p>
 <h3 id="text-accents-no-splitting-or-javascript">Text accents (no splitting or JavaScript)</h3>
-<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; aria-labelledby=&quot;text-effects-title&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; aria-labelledby=&quot;text-effects-title&quot;&gt;
   &lt;h2 id=&quot;text-effects-title&quot; data-syn-text=&quot;underline&quot;&gt;
     A headline with an animated underline
   &lt;/h2&gt;

@@ -8,8 +8,10 @@
     "build": "node patch-rectangular-selection.mjs && esbuild src/editor.mjs --bundle --minify --format=iife --target=es2022 --legal-comments=eof --outfile=../../docs/playground-editor.js"
   },
   "dependencies": {
-    "codemirror": "6.0.2",
-    "@codemirror/lang-html": "6.4.12"
+    "@codemirror/lang-html": "6.4.12",
+    "@codemirror/language": "6.13.1",
+    "@lezer/highlight": "1.2.5",
+    "codemirror": "6.0.2"
   },
   "devDependencies": {
     "esbuild": "0.28.2"

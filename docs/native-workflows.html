@@ -46,7 +46,7 @@ Place the classes inside <code>.syn-root</code>, with an explicit theme when des
 The styles are opt-in and no JavaScript is required to expand folders, pick
 files, jump to records, or associate submit buttons with the form.</p>
 <h3 id="uploads-and-explicit-submit-intents">Uploads and explicit submit intents</h3>
-<pre><code class="language-html">&lt;form id=&quot;resource-editor&quot; action=&quot;/resources/42&quot; method=&quot;post&quot;
+<pre tabindex="0"><code class="language-html">&lt;form id=&quot;resource-editor&quot; action=&quot;/resources/42&quot; method=&quot;post&quot;
       enctype=&quot;multipart/form-data&quot;&gt;
   &lt;!-- Application supplies an actual CSRF token for this request. --&gt;
   &lt;label for=&quot;files&quot;&gt;Attachments&lt;/label&gt;
@@ -85,7 +85,7 @@ A real application may enable them only when its endpoint exists and handles
 both intents correctly. The browser owns the file chooser. Drag-and-drop can
 be added in an application but cannot replace the keyboard-operable file input.</p>
 <h3 id="resource-disclosure-navigation-and-master-detail-links">Resource disclosure navigation and master-detail links</h3>
-<pre><code class="language-html">&lt;div class=&quot;syn-detail-layout&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-detail-layout&quot;&gt;
   &lt;aside class=&quot;syn-detail-aside&quot;&gt;
     &lt;nav aria-label=&quot;Resources&quot;&gt;
       &lt;ul&gt;
