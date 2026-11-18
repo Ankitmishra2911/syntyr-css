@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
-  <meta name="syntyr-source-sha256" content="4d2bdd68d8bdaa9e3b01b73fb2b72809589452d5e02165abce867a5ce596dc75">
+  <meta name="syntyr-source-sha256" content="74e8285a71b8fd7d9a5968932b00d4af57265dae4debf5ed6a36ec347c9bea0a">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
@@ -255,6 +255,19 @@ to those cells. Numeric cells with <code>.syn-cell--numeric</code> remain no-wra
 Keep long prose wrapping whenever possible; if full columns require sideways
 scrolling, use <code>.syn-table-wrap</code> with keyboard reachability and an accessible
 table caption. The published immutable alpha.4 stylesheet is unchanged.</p>
+<h3 id="alpha5-component-local-styling-and-registry-installation">Alpha.5 component-local styling and registry installation</h3>
+<p>In unreleased alpha.5, buttons, panels and form controls add optional,
+inherited <code>--syn-button-*</code>, <code>--syn-panel-*</code> and <code>--syn-field-*</code>
+custom-property overrides with their existing theme tokens as fallback.
+Button variants do not require Sass or a separate compiled theme.
+Server-supplied <code>data-syn-validation=&quot;valid&quot;</code> is presentation-only; valid
+and invalid states do not create validation, focus management, or ARIA
+semantics. The existing opt-in <code>syn-error-summary</code> component remains
+the supported form-level error presentation.</p>
+<p>The source candidate includes an optional, <strong>local-only</strong> Python registry
+planner. It resolves declared CSS dependencies and checks the current
+source version, SHA-256 hashes and file collisions before any opt-in copy.
+It does not fetch remote code, install a runtime or promise v1 API stability.</p>
 <h2 id="compatibility-and-version-policy">Compatibility and version policy</h2>
 <ul>
 <li>Before v1: breaking prerelease changes are possible; document them in the
@@ -299,6 +312,7 @@ or review workflows. See <a href="recipes.html">recipe contracts</a>.</p>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-native-readonly-form-presentation">Alpha.5 native readonly form presentation</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-semantic-html-authoring-changes">Alpha.5 semantic HTML authoring changes</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-component-local-styling-and-registry-installation">Alpha.5 component-local styling and registry installation</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#compatibility-and-version-policy">Compatibility and version policy</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#pre-10-release-checklist">Pre-1.0 release checklist</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#enterprise-presentation-recipes-unreleased-alpha5">Enterprise presentation recipes (unreleased alpha.5)</a>
