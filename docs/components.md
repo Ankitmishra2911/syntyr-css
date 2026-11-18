@@ -2,7 +2,7 @@
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
-Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
+Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). New [semantic HTML composition recipes](semantic-components.md) show article metadata, native citations, change history, ruby annotations, and table footers, with a [live gallery](../examples/semantic-compositions.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
 
 ## Loading and scoping
 
@@ -500,5 +500,7 @@ implement step navigation, eligibility checks or server-side transitions.
 Long step descriptions and translated text keep numbered markers aligned at the
 block start so vertical connectors do not cross the marker or its numeral.
 
-See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
-are not included in the published immutable alpha.4 release.
+See [the zero-JavaScript example](../examples/workflow-steps.html) and the
+[composed operations workflow gallery](../examples/workflow-operations.html), which
+reuses these steps with existing activity timelines and approval surfaces.
+These classes are not included in the published immutable alpha.4 release.

@@ -56,10 +56,10 @@
       "billing_model": "one-time-proposed",
       "license_status": "draft-not-operative",
       "deliverable_ready": false,
-      "description": "Private source/preview candidate extending Pro to 18 screen types and 54 static variants, including original homepage, pricing and case study designs. Includes the same local-only Go resource reference, not a hosted service.",
+      "description": "Private source/preview candidate extending Pro to 30 screen types and 90 static variants, including three original website kits: six B2B SaaS pages, five professional-services pages, and four ecommerce storefront pages. Commerce and checkout are visual examples only; no live cart or payments. Includes the same local-only Go resource reference, not a hosted service.",
       "details_url": "../docs/products.html",
-      "prototype_screen_types": 18,
-      "prototype_theme_variants": 54,
+      "prototype_screen_types": 30,
+      "prototype_theme_variants": 90,
       "prototype_status": "private-source-candidate"
     },
     {

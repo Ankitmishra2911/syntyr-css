@@ -55,25 +55,30 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(preview_html.strip(), unescape(escaped_source).strip())
 
 
-    def test_gallery_covers_core_and_optional_modules_with_accessible_categories(self):
+    def test_optional_module_examples_are_discoverable_without_javascript(self):
         page = (ROOT / 'docs/catalog.html').read_text()
         parsed = CatalogHTML()
         parsed.feed(page)
-        self.assertGreaterEqual(len(parsed.items), 21)
-        categories = {'controls', 'forms', 'data', 'layout', 'feedback', 'navigation', 'visuals'}
-        self.assertTrue(all(item.get('data-catalog-category') in categories for item in parsed.items))
-        self.assertEqual({item['data-catalog-category'] for item in parsed.items}, categories)
-        self.assertIn('id="catalog-filters"', page)
-        for category in ('all', *sorted(categories)):
-            self.assertIn(f'data-catalog-filter="{category}"', page)
-        for cls in ('syn-input-group', 'syn-filter-bar', 'syn-result-state', 'syn-frame--bracket', 'syn-viz-bars'):
-            with self.subTest(class_name=cls):
-                self.assertIn(cls, page)
-        for module in ('syntyr.core.css', 'syntyr.recipes.css', 'syntyr.geometry.css', 'syntyr.viz.css'):
+        self.assertGreaterEqual(len(parsed.items), 32)
+        expected = {
+            'catalog-input-group-title': 'forms',
+            'catalog-crm-filters-title': 'forms',
+            'catalog-recovery-state-title': 'interactive',
+            'catalog-geometry-frame-title': 'layout',
+            'catalog-viz-bars-title': 'data',
+        }
+        for heading, category in expected.items():
+            with self.subTest(heading=heading):
+                self.assertEqual(
+                    sum(card.get('aria-labelledby') == heading and
+                        card.get('data-catalog-category') == category
+                        for card in parsed.items), 1)
+        for module in ('syntyr.recipes.css', 'syntyr.geometry.css', 'syntyr.viz.css'):
             self.assertIn(module, page)
-        js = (ROOT / 'docs/catalog.js').read_text()
-        self.assertIn('aria-pressed', js)
-        self.assertIn('catalogCategory', js)
+        self.assertIn(f'{len(parsed.items)} examples available.', page)
+        agent_index = (ROOT / 'llms.txt').read_text()
+        self.assertIn(f'{len(parsed.items)}-example native HTML component catalog', agent_index)
+        self.assertIn('optional recipes, geometry', agent_index)
 
     def test_search_and_copy_behaviour_is_documentation_only(self):
         js = (ROOT / 'docs/catalog.js').read_text()

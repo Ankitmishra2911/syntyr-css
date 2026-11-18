@@ -76,6 +76,8 @@ class CloudflareSiteTests(unittest.TestCase):
                     resolved = target / 'index.html' if target.is_dir() else target
                     self.assertTrue(resolved.is_file(), (page, url))
             self.assertTrue((out / "docs/theme-editor.js").is_file())
+            for name in ("page-builder.html", "page-builder.css", "page-builder.js", "page-builder-model.mjs", "page-builder-guide.md", "page-builder-guide.html"):
+                self.assertTrue((out / "docs" / name).is_file(), name)
             # JSON-LD is inert data, not browser-executed JavaScript.
             self.assertFalse(any(
                 "<script" in re.sub(
@@ -85,8 +87,12 @@ class CloudflareSiteTests(unittest.TestCase):
                 for page in out.rglob("*.html")
                 if page.relative_to(out).as_posix() not in {
                     "docs/theme-editor.html", "docs/catalog.html",
-                    "docs/playground.html", "docs/blocks.html",
-                    "examples/animation.html"  # Explicitly opted-in first-party ESM example only.
+                    "docs/playground.html", "docs/page-builder.html", "docs/blocks.html",
+                    "docs/how-to.html",  # Docs-only search, same CSP as the catalog.
+                    "examples/animation.html", "examples/copy.html",
+                    "examples/resizable-workspace.html",
+                    "examples/command-launcher.html",
+                    # Explicitly opted-in first-party ESM examples only.
                 }
             ))
 

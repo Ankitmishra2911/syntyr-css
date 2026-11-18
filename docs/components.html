@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="0e651b406defc797338c46ea8ec195557a84ade031fb0c24768f8522c3ea0305">
+  <meta name="syntyr-source-sha256" content="b74a902ff9a1345bafdd429dce943fe2e35dcbefd63f3e82214a5c68e4f1ae6a">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -36,7 +36,7 @@
         <article class="docs-prose" aria-label="Syntyr CSS component and token contract">
 <h1 id="syntyr-css-component-and-token-contract">Syntyr CSS component and token contract</h1>
 <p>Status: <strong>experimental v0.3-alpha</strong>, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.</p>
-<p>Native elements such as <code>search</code>, <code>figure</code>, <code>figcaption</code>, <code>kbd</code>, <code>mark</code>, <code>output</code>, <code>meter</code>, and <code>pre</code> are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real <code>caption</code> elements, and disclosure summaries retain browser markers and comfortable pointer targets. See <a href="../examples/native-elements.html">the no-JS native example</a>. The regular component-class API and HTML outside <code>.syn-root</code> are unchanged.</p>
+<p>Native elements such as <code>search</code>, <code>figure</code>, <code>figcaption</code>, <code>kbd</code>, <code>mark</code>, <code>output</code>, <code>meter</code>, and <code>pre</code> are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real <code>caption</code> elements, and disclosure summaries retain browser markers and comfortable pointer targets. See <a href="../examples/native-elements.html">the no-JS native example</a>. New <a href="semantic-components.html">semantic HTML composition recipes</a> show article metadata, native citations, change history, ruby annotations, and table footers, with a <a href="../examples/semantic-compositions.html">live gallery</a>. The regular component-class API and HTML outside <code>.syn-root</code> are unchanged.</p>
 <h2 id="loading-and-scoping">Loading and scoping</h2>
 <p>For the explicitly classed API (no automatic unclassed element styles):</p>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
@@ -699,8 +699,10 @@ Never use colors alone to communicate completion or failure. CSS cannot
 implement step navigation, eligibility checks or server-side transitions.
 Long step descriptions and translated text keep numbered markers aligned at the
 block start so vertical connectors do not cross the marker or its numeral.</p>
-<p>See <a href="../examples/workflow-steps.html">the zero-JavaScript example</a>. These classes
-are not included in the published immutable alpha.4 release.</p>
+<p>See <a href="../examples/workflow-steps.html">the zero-JavaScript example</a> and the
+<a href="../examples/workflow-operations.html">composed operations workflow gallery</a>, which
+reuses these steps with existing activity timelines and approval surfaces.
+These classes are not included in the published immutable alpha.4 release.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#loading-and-scoping">Loading and scoping</a>
