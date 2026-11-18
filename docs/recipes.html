@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="b36b73a1b6db33203840441b902de6daa539c6a5d300c7b8d7d0176903ef44f2">
+  <meta name="syntyr-source-sha256" content="aa49d2ddd156d4f0e803349b9d4563f364672c20c226931a462b7d1a3da00f48">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -167,6 +167,15 @@ by 2 percentage points (Shift: 10), with Home/End for bounds (20–70).
 The example respects RTL and stacks its panes when its <strong>own container</strong>
 is narrow; the separator is hidden in the stacked layout. No storage,
 network requests or global event listeners are required.</p>
+<p><strong>Running the packaged interactive demo:</strong> Extract the ZIP, change into its
+top-level <code>syntyr-css-&lt;version&gt;</code> directory, and serve the local assets over
+HTTP (not <code>file://</code>, which blocks relative module scripts in browsers):</p>
+<pre><code class="language-sh">python3 -m http.server 8000 --bind 127.0.0.1
+</code></pre>
+<p>Open <code>http://127.0.0.1:8000/examples/resizable-workspace.html</code>.
+A <code>file://</code> launch still shows the static two-pane fallback; drag and
+keyboard resizing require the local module to load over HTTP. Stop the
+server with Ctrl-C. No external network requests are needed.</p>
 <p>The resize value and user preference are <strong>application-owned</strong>: persistence,
 server rendering, saved layouts, authorization, and responsive restoration
 belong to the consuming application. A live client must keep the

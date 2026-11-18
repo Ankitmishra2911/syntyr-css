@@ -44,6 +44,14 @@ class ResizableWorkspaceContract(unittest.TestCase):
             self.assertIn(token, js)
         self.assertNotIn("localStorage", js)
 
+    def test_packaged_module_demo_documents_local_http_server(self):
+        docs = read("docs/recipes.md")
+        readme = read("README.md")
+        for text in (docs, readme):
+            self.assertIn("python3 -m http.server 8000 --bind 127.0.0.1", text)
+            self.assertIn("examples/resizable-workspace.html", text)
+            self.assertIn("file://", text)
+
     def test_recipe_docs_and_release_package_include_demo(self):
         docs = read("docs/recipes.md")
         self.assertIn("Resizable workspace", docs)

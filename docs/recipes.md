@@ -165,6 +165,19 @@ The example respects RTL and stacks its panes when its **own container**
 is narrow; the separator is hidden in the stacked layout. No storage,
 network requests or global event listeners are required.
 
+**Running the packaged interactive demo:** Extract the ZIP, change into its
+top-level `syntyr-css-<version>` directory, and serve the local assets over
+HTTP (not `file://`, which blocks relative module scripts in browsers):
+
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open `http://127.0.0.1:8000/examples/resizable-workspace.html`.
+A `file://` launch still shows the static two-pane fallback; drag and
+keyboard resizing require the local module to load over HTTP. Stop the
+server with Ctrl-C. No external network requests are needed.
+
 The resize value and user preference are **application-owned**: persistence,
 server rendering, saved layouts, authorization, and responsive restoration
 belong to the consuming application. A live client must keep the
