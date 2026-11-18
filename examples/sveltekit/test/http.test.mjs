@@ -14,7 +14,10 @@ async function startServer(makeServer = createServer) {
       return server;
     } catch (error) {
       await server.close();
-      if (error?.code !== 'EADDRINUSE' || attempt === 2) throw error;
+      // Vite's strict-port collision can be a plain Error without .code.
+      const collision = error?.code === 'EADDRINUSE' ||
+        /^Port \d+ is already in use$/.test(error?.message ?? '');
+      if (!collision || attempt === 2) throw error;
     }
   }
   throw new Error('Unexpected retry exhaustion');
@@ -26,7 +29,7 @@ test('ephemeral test listener retries EADDRINUSE only, closing each failed serve
   const server = await startServer(async () => ({
     async listen() {
       attempts++;
-      if (attempts === 1) throw Object.assign(new Error('port taken'), { code: 'EADDRINUSE' });
+      if (attempts === 1) throw new Error('Port 48931 is already in use');
     },
     async close() { closes++; }
   }));

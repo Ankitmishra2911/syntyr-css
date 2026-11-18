@@ -33,6 +33,11 @@ class SveltekitReferenceContracts(unittest.TestCase):
         self.assertNotIn("{@html", page)
         self.assertNotIn("fetch(", page)
         self.assertIn("readonly={submitting}", page)
+        # A pending enhanced POST must never redirect the user back to
+        # Settings after they navigate to another route.
+        self.assertIn("onDestroy", page)
+        self.assertIn("pageActive", page)
+        self.assertIn("if (!pageActive) return;", page)
         # Native maxlength uses UTF-16 code units; the server counts Unicode
         # code points so the native limit would reject otherwise valid values.
         self.assertNotIn('minlength="2"', page)

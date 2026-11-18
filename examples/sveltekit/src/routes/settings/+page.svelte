@@ -1,23 +1,29 @@
 <script>
   import { enhance } from '$app/forms';
+  import { onDestroy } from 'svelte';
   import AppPanel from '../../lib/AppPanel.svelte';
 
   let { form } = $props();
   let submitting = $state(false);
+
+  let pageActive = true;
+  onDestroy(() => { pageActive = false; });
 
   // Optional enhancement. The same POST works without hydration or JavaScript.
   function enhanceSubmission() {
     submitting = true;
     return async ({ result, update }) => {
       try {
+        // A late action must not navigate back to this page after leaving it.
+        if (!pageActive) return;
         // Keep the validated value on success; browser-native submission
         // remains the fallback if enhancement is unavailable.
         await update({ reset: false });
-        if (result.type === 'failure') {
+        if (pageActive && result.type === 'failure') {
           document.getElementById('settings-errors')?.focus();
         }
       } finally {
-        submitting = false;
+        if (pageActive) submitting = false;
       }
     };
   }
