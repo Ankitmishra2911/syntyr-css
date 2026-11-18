@@ -14,7 +14,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [AI quickstart](https://syntyr-css.pages.dev/docs/ai-quickstart.md): Version-aware CSS installation and valid HTML examples.
 - [Complete curated reference](https://syntyr-css.pages.dev/llms-full.txt): Concatenated public technical guides, generated from source.
 - [Agreed design principles and conformance](https://syntyr-css.pages.dev/docs/design-principles.md): Hierarchy, semantic components, states, native HTML recipes, and tested palette roles.
-- [Component reference](https://syntyr-css.pages.dev/docs/components.md): Canonical low-entropy standard component inventory, native HTML controls (including range/file/color), CSS classes, semantic-mode boundaries and candidate-only table wrapping migration.
+- [Component reference](https://syntyr-css.pages.dev/docs/components.md): Canonical low-entropy standard component inventory, native HTML controls (including range/file/color, datalist/optgroup and named disclosure examples), CSS classes, semantic-mode boundaries and candidate-only table wrapping migration.
 - [Component manifest](https://syntyr-css.pages.dev/metadata/components.json): Curated, validated selectors with their required CSS modules.
 - [Copy-owned HTML blocks and local registry adoption](https://syntyr-css.pages.dev/docs/blocks-guide.md): Dependency-aware offline installer, verified file hashes, opt-in dry-run/apply and conflict handling (unreleased alpha.5 candidate).
 - [Native form-state contracts example](https://syntyr-css.pages.dev/examples/form-state-contracts.html): Server-owned validation states, ARIA-linked errors and local CSS overrides (unreleased alpha.5 candidate).

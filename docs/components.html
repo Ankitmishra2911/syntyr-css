@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="2f23993bdfb9b862bffc23ecdee8c9f82851ac32217a1fb6002e51d6e80bfb15">
+  <meta name="syntyr-source-sha256" content="deb900aef94301ad7a0355244f3f420d8fbbbacefac4225836c597dcd6c64576">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -408,7 +408,7 @@ forced colors, mobile overflow, and actual server form behavior in consumers.</p
 </tbody>
 </table>
 <p>The selectors style <strong>unclassed elements only</strong>, or elements explicitly marked <code>data-syn-semantic</code>. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.</p>
-<p>For a copyable page covering the additions, see <a href="../examples/native-elements.html">native HTML element examples</a>. The <code>commandfor</code> / <code>command=&quot;show-modal&quot;</code> dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.</p>
+<p>For a copyable page covering the additions, see <a href="../examples/native-elements.html">native HTML element examples</a>. That example also shows labeled <code>datalist</code> suggestions, grouped <code>select</code>/<code>optgroup</code> options, and named <code>details</code> disclosures. Native suggestions do not validate accepted values; host applications validate them on the server. Named disclosures are exclusive-open in supporting browsers, with a usable ordinary-details fallback elsewhere. Semantic file/color inputs and fieldsets shrink at enlarged text sizes, while wide tables remain in labeled, keyboard-scrollable regions. The <code>commandfor</code> / <code>command=&quot;show-modal&quot;</code> dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.</p>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.semantic.css&quot;&gt;
 &lt;main class=&quot;syn-root syn-semantic&quot;&gt;
