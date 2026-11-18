@@ -157,6 +157,34 @@
       &.syn-error-summary, &.syn-result-state, &.syn-bulk-actions { border-color: CanvasText; }
     }
 
+    /* Native form workflows: keep file input browser-owned and form actions
+       bound by the HTML form attribute, including when the footer is outside. */
+    &.syn-upload-field {
+      display: grid; gap: var(--syn-space-2); min-inline-size: 0;
+      padding: min(var(--syn-space-3), 2vw); border: 1px dashed var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-upload-field :where(input[type="file"]) { max-inline-size: 100%; min-inline-size: 0; }
+    &.syn-upload-field :where(ul) { margin: 0; padding-inline-start: min(1.25rem, 3vw); }
+    &.syn-form-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--syn-space-2);
+      position: sticky; inset-block-end: 0; z-index: 1; min-inline-size: 0;
+      margin-block-start: var(--syn-space-3); padding: var(--syn-space-2);
+      border-block-start: 1px solid var(--syn-border-default);
+      background: var(--syn-surface); color: var(--syn-text);
+    }
+    &.syn-form-actions__buttons {
+      display: flex; flex-wrap: wrap; gap: var(--syn-space-1);
+      align-items: center; min-inline-size: 0;
+    }
+
+    @media (forced-colors: active) {
+      &.syn-upload-field, &.syn-form-actions { border-color: CanvasText; }
+    }
+
     /* Native pipeline view: horizontal scroll only on the board, not the page.
        A tabindex=0 and accessible name make overflow keyboard reachable. */
     &.syn-pipeline {

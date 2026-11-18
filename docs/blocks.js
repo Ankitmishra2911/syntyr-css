@@ -6,9 +6,10 @@
   const category = document.getElementById("blocks-category");
   const theme = document.getElementById("blocks-theme");
   const results = document.getElementById("blocks-results");
+  const feedback = document.getElementById("blocks-feedback");
   const empty = document.getElementById("blocks-empty");
   const cards = Array.from(document.querySelectorAll("[data-block-id]"));
-  if (!controls || !query || !category || !theme || !results || !empty || !cards.length) return;
+  if (!controls || !query || !category || !theme || !results || !feedback || !empty || !cards.length) return;
 
   const indexed = cards.map(card => ({
     card,
@@ -58,7 +59,7 @@
       try {
         if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
         await navigator.clipboard.writeText(value);
-        results.textContent = item.card.querySelector("h2").textContent + " HTML copied.";
+        feedback.textContent = item.card.querySelector("h2").textContent + " HTML copied.";
       } catch {
         const details = item.code.closest("details");
         if (details) details.open = true;
@@ -67,7 +68,7 @@
         range.selectNodeContents(item.code);
         selection?.removeAllRanges();
         selection?.addRange(range);
-        results.textContent = "Source selected. Press Ctrl+C or Cmd+C to copy.";
+        feedback.textContent = "Source selected. Press Ctrl+C or Cmd+C to copy.";
       }
     });
   }

@@ -115,11 +115,12 @@ def progressive_checks(browser, engine, screenshots):
         page.set_viewport_size({"width": 1280, "height": 900})
     page.locator("[data-block-copy]").first.click()
     page.wait_for_function(
-        "() => /copied|selected/i.test(document.querySelector('#blocks-results').textContent)",
+        "() => /copied|selected/i.test(document.querySelector('#blocks-feedback').textContent)",
         timeout=3000
     )
-    status = page.locator("#blocks-results").inner_text().lower()
+    status = page.locator("#blocks-feedback").inner_text().lower()
     require("copied" in status or "selected" in status, "JS: copy/fallback failed")
+    require("20 of 20" in page.locator("#blocks-results").inner_text(), "JS: count overwritten by copy feedback")
     require(not console_errors, f"{engine}: script errors {console_errors}")
     context.close()
 
@@ -145,7 +146,7 @@ def live_clipboard_check(browser):
                 "HTTP: controls not available")
         page.get_by_role("button", name="Copy HTML for Product launch hero").click()
         page.wait_for_function(
-            "() => document.querySelector('#blocks-results').textContent.includes('HTML copied')",
+            "() => document.querySelector('#blocks-feedback').textContent.includes('HTML copied')",
             timeout=3000
         )
         clipboard = page.evaluate("navigator.clipboard.readText()")

@@ -5,9 +5,10 @@
   const category = document.getElementById('catalog-category');
   const controls = document.getElementById('catalog-controls');
   const results = document.getElementById('catalog-results');
+  const feedback = document.getElementById("catalog-feedback");
   const empty = document.getElementById('catalog-empty');
   const cards = [...document.querySelectorAll('.catalog-card')];
-  if (!search || !category || !controls || !results || !empty || !cards.length) return;
+  if (!search || !category || !controls || !results || !feedback || !empty || !cards.length) return;
 
   const searchable = cards.map((card) => ({
     card,
@@ -61,7 +62,7 @@
       try {
         if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable');
         await navigator.clipboard.writeText(value);
-        results.textContent = `${card.querySelector('h2').textContent} HTML copied.`;
+        feedback.textContent = `${card.querySelector('h2').textContent} HTML copied.`;
       } catch {
         code.closest('details').open = true;
         const selection = window.getSelection();
@@ -69,7 +70,7 @@
         range.selectNodeContents(code);
         selection?.removeAllRanges();
         selection?.addRange(range);
-        results.textContent = 'HTML selected. Use your keyboard to copy it.';
+        feedback.textContent = 'HTML selected. Use your keyboard to copy it.';
       }
     });
   }
