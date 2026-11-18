@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="bf8a3f3d5e96f69982e6e642d59a1758e49fcd924b75abd4d7fc1ecce77fcd75">
+  <meta name="syntyr-source-sha256" content="1fec94342eb976e1a1ca67f2e4dec44d3c248ed335e8a797c1c6d841d445c85d">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -150,6 +150,39 @@ All spacing remains controlled by ordinary CSS custom properties.</p>
 &lt;/section&gt;
 </code></pre>
 <p>The styles are layout primitives, not a grid widget or CRM engine. Keep keyboard focus visible, do not imply drag interactions, and render truthful stage counts. Preserve authorization and validate any user-controlled query parameters on the server.</p>
+<h2 id="native-disclosure-navigation-for-workspaces-alpha5-source-candidate">Native disclosure navigation for workspaces (alpha.5 source candidate)</h2>
+<p><a href="../examples/native-disclosure-navigation.html">Open the disclosure navigation example</a>.
+Use <code>.syn-tree-nav</code> on a named <code>nav</code> containing normal nested lists, links and
+<code>details</code>/<code>summary</code> for expandable sections. Use the existing <code>.syn-sidebar</code>
+to lay out the navigation beside content and wrap it at narrow widths.
+This is <strong>not an ARIA tree widget</strong>: do not add <code>role=&quot;tree&quot;</code>, <code>treeitem</code>,
+<code>aria-selected</code>, or roving <code>tabindex</code> without a full tested keyboard controller.
+The browser already supports Tab, Enter, Space and native disclosure.</p>
+<pre><code class="language-html">&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;div class=&quot;syn-sidebar&quot;&gt;
+    &lt;nav class=&quot;syn-tree-nav&quot; aria-label=&quot;Workspace sections&quot;&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;details open&gt;
+          &lt;summary&gt;Operations&lt;/summary&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;/resources&quot; aria-current=&quot;page&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;/campaigns&quot;&gt;Campaigns&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/details&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+    &lt;main id=&quot;workspace&quot;&gt;&lt;h1&gt;Resources&lt;/h1&gt;&lt;/main&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Styling stays in the <strong>optional</strong> <code>syntyr.recipes.css</code>, not the immutable
+published alpha.4 core. Targets maintain a 44 CSS-pixel minimum block size,
+focused links and summaries remain visibly outlined, logical inline margins
+respect RTL, and forced-colors mode preserves the current-page indicator.
+Do not fake routes: servers must supply actual authorized links, active page
+state and safe content. For a composite file-browser tree with multi-selection,
+keyboard arrows and roving focus, use an independently tested headless widget
+instead of extending this native navigation recipe.</p>
 <h2 id="reusing-recipes-across-stacks">Reusing recipes across stacks</h2>
 <ul>
 <li><strong>Go / templ, PHP, Django, Rust templates:</strong> Make recipes server-rendered partials and pass content as arguments.</li>
@@ -340,6 +373,7 @@ translated metadata in the consuming app before production use.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-stateful-native-button-host-controlled">4. Stateful native button (host controlled)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#token-only-custom-theme">Token-only custom theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#crm-and-vertical-saas-patterns-alpha5-source-candidate">CRM and vertical SaaS patterns (alpha.5 source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-disclosure-navigation-for-workspaces-alpha5-source-candidate">Native disclosure navigation for workspaces (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reusing-recipes-across-stacks">Reusing recipes across stacks</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>
