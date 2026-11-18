@@ -12,6 +12,7 @@ from pathlib import Path, PurePosixPath
 import subprocess
 import sys
 import tarfile
+import zlib
 from tempfile import TemporaryDirectory
 
 try:
@@ -82,8 +83,10 @@ def audit_archive(archive: Path, root: Path = ROOT) -> list[str]:
                 found[member.name] = stream.read()
             # tarfile iteration stops at the tar end marker, before the gzip
             # trailer. Consume the stream to validate gzip CRC and ISIZE.
-            package.fileobj.read()
-    except (EOFError, OSError, tarfile.TarError) as exc:
+            trailing = package.fileobj.read()
+            if trailing.strip(b"\0"):
+                errors.append("unexpected data after tar end marker")
+    except (EOFError, OSError, tarfile.TarError, zlib.error) as exc:
         return [f"invalid npm archive: {exc}"]
 
     for name in sorted(expected.keys() - found.keys()):

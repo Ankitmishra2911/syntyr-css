@@ -1,6 +1,7 @@
 """Verify the actual npm archive, not only package.json declarations."""
 from __future__ import annotations
 
+import gzip
 import io
 from pathlib import Path
 import tarfile
@@ -120,6 +121,18 @@ class NpmTarballAuditTests(unittest.TestCase):
             with self.subTest(order=order):
                 errors = self.check(archive_with(directory_collision=order))
                 self.assertTrue(any("collision" in err for err in errors), errors)
+
+    def test_rejects_nonzero_data_hidden_after_tar_end_marker(self):
+        # A second parser could continue into data after the tar end marker.
+        payload = gzip.compress(gzip.decompress(archive_with()) + b"hidden-member-payload")
+        errors = self.check(payload)
+        self.assertTrue(any("unexpected data after tar end marker" in err for err in errors), errors)
+
+    def test_rejects_malformed_trailing_gzip_member_without_crashing(self):
+        # Valid gzip followed by a gzip header whose DEFLATE block type is invalid.
+        invalid_member = bytes.fromhex("1f8b0800000000000003") + b"\x06" + b"\x00" * 8
+        errors = self.check(archive_with() + invalid_member)
+        self.assertTrue(any("invalid npm archive" in err for err in errors), errors)
 
     def test_rejects_non_object_export_map_without_crashing(self):
         errors = self.check(archive_with(changes={
