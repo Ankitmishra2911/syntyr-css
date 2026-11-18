@@ -44,6 +44,29 @@ class NativeSemanticPrimitives(unittest.TestCase):
         self.assertNotIn("<script", html.lower())
         self.assertIn("static example", html.lower())
 
+    def test_native_suggestions_and_grouped_disclosures_are_accessible(self):
+        html = (ROOT / "examples/native-elements.html").read_text()
+        import re
+        self.assertRegex(
+            html, r'<input[^>]*id="native-location"[^>]*list="native-location-list"')
+        self.assertIn('<datalist id="native-location-list">', html)
+        self.assertGreaterEqual(html.count('<optgroup label='), 2)
+        self.assertIn('<label for="native-service">', html)
+        self.assertEqual(html.count('<details name="native-review-sections">'), 2)
+        self.assertIn('older browsers may leave both open', html)
+        self.assertNotIn('<script', html.lower())
+        index = (ROOT / "llms.txt").read_text()
+        self.assertIn('datalist/optgroup and named disclosure', index)
+
+    def test_native_form_reflow_uses_capped_controls_and_scroll_region(self):
+        html = (ROOT / "examples/native-elements.html").read_text()
+        css = (ROOT / "src/semantic.css").read_text()
+        self.assertIn('class="syn-table-wrap" role="region"', html)
+        self.assertIn('aria-label="Sample campaign inventory" tabindex="0"', html)
+        self.assertIn('padding: min(1rem, 6vw)', css)
+        self.assertIn('inline-size: min(4rem, 100%)', css)
+        self.assertIn('box-sizing: border-box', css)
+
     def test_demo_is_discoverable_and_published_explicitly(self):
         self.assertIn('href="../examples/native-elements.html"', (ROOT / "docs/index.html").read_text())
         self.assertIn('"native-elements.html"', (ROOT / "scripts/build_cloudflare_site.py").read_text())

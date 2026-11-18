@@ -1138,10 +1138,10 @@
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(label:not([class]):has(> input[type="checkbox"], > input[type="radio"]), label[data-syn-semantic]:has(> input[type="checkbox"], > input[type="radio"])) { display: block; cursor: pointer; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(fieldset:not([class]), fieldset[data-syn-semantic])) {
     display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-2);
-    border: 1px solid var(--syn-frame); min-width: 0; padding: 1rem;
+    border: 1px solid var(--syn-frame); min-width: 0; padding: min(1rem, 6vw);
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(legend:not([class]), legend[data-syn-semantic])) { padding-inline: .4rem; }
-  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(article:not([class]), article[data-syn-semantic])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(article:not([class]), article[data-syn-semantic])) { padding: min(clamp(1rem, 3vw, 1.75rem), 6vw); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(table:not([class]), table[data-syn-semantic])) { width: 100%; border-collapse: collapse; text-align: left; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic]), :is(td:not([class]), td[data-syn-semantic])) { padding: .65rem; border-bottom: 1px solid var(--syn-frame); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic])) { color: var(--syn-text-subtle); }
@@ -1318,6 +1318,7 @@
   }
   /* Browser-native file and color controls (no custom pickers or runtime JS). */
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="file"]:not([class]), input[type="file"][data-syn-semantic])) {
+    inline-size: 100%; min-inline-size: 0; box-sizing: border-box;
     max-inline-size: 100%;
     color: var(--syn-text);
     font: inherit;
@@ -1336,7 +1337,7 @@
     cursor: pointer;
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="color"]:not([class]), input[type="color"][data-syn-semantic])) {
-    inline-size: 4rem;
+    inline-size: min(4rem, 100%); min-inline-size: 0; box-sizing: border-box;
     min-block-size: var(--syn-control-height);
     padding: .25rem;
     border: 1px solid var(--syn-border-default);
