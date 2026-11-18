@@ -992,6 +992,11 @@
       "description": "Container query boundary for responsive compositions."
     },
     {
+      "name": "syn-resource-outline",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
+    },
+    {
       "name": "syn-result-state",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."

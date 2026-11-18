@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="c576f28f2becda32b73ccb446bebcc91a908a339fd3db035f8e2eb0d895ba1b9">
+  <meta name="syntyr-source-sha256" content="c1cf0366281b93586261af1c6af2211617eccaebdc22e1bd76e440369207074e">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -332,6 +332,30 @@ excluded from <code>syntyr.core.css</code>. The illustration uses labeled placeh
 not real customer evidence. Test keyboard and touch interactions, actual
 screen-reader focus behavior, 400% zoom, forced colors, RTL, and lengthy
 translated metadata in the consuming app before production use.</p>
+<h2 id="permission-matrix-rolecapability-review">Permission matrix — role/capability review</h2>
+<p>The <a href="../examples/permission-matrix.html">copy-owned permissions example</a> combines
+Syntyr core and recipes with a small application-local stylesheet. It takes
+enterprise-table and accessible-form ideas from mature design systems without
+adding a component to Syntyr's core or introducing JavaScript.</p>
+<ul>
+<li>Real `table`, `caption`, column/row headers and visible `input type=&quot;checkbox&quot;`
+controls communicate the role/capability intersection to assistive technology.
+Every checkbox has an explicit, role-and-capability-specific label.</li>
+<li>A named, keyboard-focusable scroll region preserves the wide matrix at mobile
+widths and large zoom levels. Test scrolling with a keyboard and screen reader.</li>
+<li>Viewer/Editor inputs are an unsaved local demonstration. The disabled
+Administrator column demonstrates a system-fixed role, not a policy imposed
+by Syntyr. Browser-disabled fields will not submit in a real form.</li>
+<li>To make this a working settings page, render it from trusted server policy,
+wrap it in an authenticated mutation form with CSRF protection and a policy
+version, then validate every capability server-side before an atomic update.
+Audit the actor and changes; never trust a checked box or a hidden role field
+for authorization.</li>
+<li>Do not present a static demo as a live access-control feature, persist changes
+in browser storage, or claim accessibility compliance without manual testing.</li>
+</ul>
+<p>The markup belongs to the host application; this is an integration pattern,
+not a JavaScript permissions widget or a substitute for authorization.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-vertical-flow">Optional vertical flow</a>
@@ -351,6 +375,7 @@ translated metadata in the consuming app before production use.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#collection-workspaces-and-error-recovery-source-candidate">Collection workspaces and error recovery (source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#enterprise-collection-sheet-and-evidence-compositions-alpha5-source-candidate">Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#permission-matrix-rolecapability-review">Permission matrix — role/capability review</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="recipes.md">Markdown source</a></nav>
