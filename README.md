@@ -141,6 +141,7 @@ stylesheets.
 - [Three flagship visual compositions](docs/visual-composition.md): [Studio operations](examples/flagship-studio.html), [Noir editorial](examples/flagship-noir.html), and [Grid control](examples/flagship-grid.html); original, static, zero-JavaScript showcases.
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
 - [Search, filtering, settings and pagination SaaS workflow demonstration](examples/saas-workflows.html): server-ready semantic HTML, static illustrative data, zero JavaScript
+- [Role-permissions review matrix](examples/permission-matrix.html): accessible native checkbox/table composition for enterprise authorization UIs; local preview only, no real permissions or JavaScript
 - [Workflow operations compositions](examples/workflow-operations.html): progress steps, expandable activity diagnostics, and human approval queue using existing Syntyr classes; no backend or JavaScript
 - [Native file lifecycle presentation](examples/file-lifecycle.html): file picker, queued/uploading/completed/failed snapshots, and host-owned upload boundaries (unreleased alpha.5 source)
 - [Vertigo-inspired four-stage resource lifecycle reference](examples/vertigo-resource-workflow.html): schema-driven CRUD visual patterns (index, detail, editor, settings) with zero runtime JavaScript and disabled mutations.
@@ -169,7 +170,7 @@ The authoring dependency does **not** ship to consumers or run during the static
 
 ## Source checkout demos and experimental modes
 
-For the unreleased alpha.5 source checkout, open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
+For the unreleased alpha.5 source checkout, open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [enterprise compositions](examples/enterprise-compositions.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">

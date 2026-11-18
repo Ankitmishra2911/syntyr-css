@@ -371,3 +371,69 @@ The optional recipes stylesheet contains `.syn-collection-toolbar`, `.syn-collec
 - Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.
 
 The example is illustrative, **not a configured server**. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.
+
+## Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)
+
+The optional `syntyr.recipes.css` also includes reusable patterns tested against
+Adacavo-style resource workflows. They are original MIT-licensed presentation
+recipes, **not a port of Adacavo's application code**. See the
+[zero-JavaScript example](../examples/enterprise-compositions.html).
+
+- `.syn-view-switcher` contains real links (`aria-current="page"`) for
+  server-selected views, or host-controlled toggle buttons
+  (`aria-pressed="true"`). A link doesn't implement filtering, and a button
+  needs a real event handler; never claim a view switched solely from CSS.
+- `.syn-sheet` and `.syn-sheet-header`, `.syn-sheet-body`,
+  `.syn-sheet-footer` style a native **nonmodal** `[popover]` panel, or a
+  native modal `<dialog>`. Native `popovertarget` works without JavaScript
+  in supported browsers. A popover **does not** trap focus or make the rest of
+  the page inert. For modal editing, call `showModal()` or use supported
+  `commandfor`/`command="show-modal"` and retain a direct-page fallback.
+  The `--syn-sheet-width` CSS property defaults to `30rem`; set it on the
+  sheet to adjust width. When closed, neither element is forced visible by
+  the grid display rules. At extreme text zoom or short viewport heights,
+  the whole sheet scrolls so its footer actions remain reachable; the body
+  retains a minimum scroll region. When the body can overflow independently,
+  make that region keyboard-focusable (`tabindex="0"`) and name it with
+  `aria-labelledby` referencing a visible heading, as the example does.
+  Check both record details and each footer action at 320px and 400% text.
+  Don't set `aria-modal="true"` on the nonmodal popover.
+- `.syn-evidence-grid`, `.syn-evidence-card`, `.syn-evidence-media`,
+  `.syn-evidence-body`, `.syn-evidence-meta` and `.syn-evidence-actions`
+  present `figure`, `figcaption`, `dl` and `time` records. Use
+  `.syn-evidence-media--placeholder` for text-only media fallbacks so
+  enlarged text can expand vertically rather than being clipped. Reuse the
+  existing `.syn-status` for server-validated textual status. Application
+  code owns uploads, verification, EXIF/GPS, image fallbacks, and approvals.
+
+All styles require a `.syn-root` ancestor, use semantic tokens, and are
+excluded from `syntyr.core.css`. The illustration uses labeled placeholders,
+not real customer evidence. Test keyboard and touch interactions, actual
+screen-reader focus behavior, 400% zoom, forced colors, RTL, and lengthy
+translated metadata in the consuming app before production use.
+
+## Permission matrix — role/capability review
+
+The [copy-owned permissions example](../examples/permission-matrix.html) combines
+Syntyr core and recipes with a small application-local stylesheet. It takes
+enterprise-table and accessible-form ideas from mature design systems without
+adding a component to Syntyr's core or introducing JavaScript.
+
+- Real \`table\`, \`caption\`, column/row headers and visible \`input type="checkbox"\`
+  controls communicate the role/capability intersection to assistive technology.
+  Every checkbox has an explicit, role-and-capability-specific label.
+- A named, keyboard-focusable scroll region preserves the wide matrix at mobile
+  widths and large zoom levels. Test scrolling with a keyboard and screen reader.
+- Viewer/Editor inputs are an unsaved local demonstration. The disabled
+  Administrator column demonstrates a system-fixed role, not a policy imposed
+  by Syntyr. Browser-disabled fields will not submit in a real form.
+- To make this a working settings page, render it from trusted server policy,
+  wrap it in an authenticated mutation form with CSRF protection and a policy
+  version, then validate every capability server-side before an atomic update.
+  Audit the actor and changes; never trust a checked box or a hidden role field
+  for authorization.
+- Do not present a static demo as a live access-control feature, persist changes
+  in browser storage, or claim accessibility compliance without manual testing.
+
+The markup belongs to the host application; this is an integration pattern,
+not a JavaScript permissions widget or a substitute for authorization.
