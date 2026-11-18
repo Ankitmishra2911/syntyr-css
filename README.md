@@ -118,6 +118,7 @@ stylesheets.
 - [Agent-readable composition recipes with validated slots, variants and stylesheet requirements](docs/editor-integration.md#agent-ready-composition-recipes)
 - [Editor autocomplete, full component contract and optional static HTML diagnostics](docs/editor-integration.md) (`metadata/syntyr-contract.json`, `scripts/syntyr_check.py`)
 - [Tailwind v4 interoperability, local VS Code extension, and Figma token exports](docs/ecosystem-integrations.md) (opt-in alpha.5 source adapters)
+- [Static-site generators: Astro, Eleventy, Hugo, Jekyll, Zola and Next.js export](docs/static-site-generators.md) ([runnable Eleventy example](examples/eleventy/))
 - [Runnable Tailwind v4, Astro and shadcn-token adoption projects](docs/adoption-starters.md) and [editable Figma component kit pilot](docs/figma-component-kit.md)
 - [Opt-in shadcn/ui semantic token bridge](docs/shadcn-integration.md), [official CLI-generated React/Radix example](examples/syntyr-shadcn-react/), [Chromium visual regression](docs/visual-regression.md), and [release readiness](docs/release-readiness-ecosystem.md)
 - [Accessibility and browser-matrix methodology](docs/accessibility.md)
