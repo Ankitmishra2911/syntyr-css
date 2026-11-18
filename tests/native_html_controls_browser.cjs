@@ -2,8 +2,31 @@
 'use strict';
 const assert = require('node:assert/strict');
 const path = require('node:path');
+const { pathToFileURL } = require('node:url');
 const { chromium, firefox, webkit } = require('playwright');
 const base = path.resolve(__dirname, '../examples/native-elements.html');
+
+async function tabToSummary(page, summary) {
+  for (let attempt = 0; attempt < 80; attempt += 1) {
+    await page.keyboard.press('Tab');
+    if (await summary.evaluate(el => el === document.activeElement)) return;
+  }
+  assert.fail('Named disclosure summary is not keyboard-reachable with Tab');
+}
+
+async function supportsExclusiveDetails(page) {
+  return page.evaluate(() => {
+    const fixture = document.createElement('div');
+    fixture.innerHTML = '<details name="syntyr-grouping-support" open><summary>One</summary></details><details name="syntyr-grouping-support"><summary>Two</summary></details>';
+    document.body.append(fixture);
+    const [first, second] = fixture.querySelectorAll('details');
+    second.open = true;
+    const supported = !first.open && second.open;
+    fixture.remove();
+    return supported;
+  });
+}
+
 const engine = process.env.SYNTYR_BROWSER || 'chromium';
 const executables = {
   chromium: process.env.SYNTYR_CHROMIUM_EXECUTABLE,
@@ -18,7 +41,7 @@ if (!(engine in executables)) throw new Error('Unsupported browser: ' + engine);
   try {
     for (const width of [320, 390, 768]) {
       const page = await browser.newPage({ viewport: {width, height: 800}, reducedMotion: 'reduce' });
-      await page.goto('file://' + base);
+      await page.goto(pathToFileURL(base).href);
       assert.equal(await page.locator('script').count(), 0, 'No runtime JS');
       for (const fontSize of ['100%', '200%', '400%']) {
         await page.evaluate(s => document.documentElement.style.fontSize = s, fontSize);
@@ -38,13 +61,20 @@ if (!(engine in executables)) throw new Error('Unsupported browser: ' + engine);
       assert.equal(await suggestions.inputValue(), 'Central district');
       const details = page.locator('details[name="native-review-sections"]');
       assert.equal(await details.count(), 2);
-      await details.nth(0).locator('summary').focus();
+      const groupingSupported = await supportsExclusiveDetails(page);
+      await tabToSummary(page, details.nth(0).locator('summary'));
+      assert.equal(await details.nth(0).locator('summary').evaluate(el => el === document.activeElement), true);
       await page.keyboard.press('Enter');
       assert.equal(await details.nth(0).getAttribute('open'), '');
-      await details.nth(1).locator('summary').focus();
+      await tabToSummary(page, details.nth(1).locator('summary'));
+      assert.equal(await details.nth(1).locator('summary').evaluate(el => el === document.activeElement), true);
       await page.keyboard.press('Enter');
       assert.equal(await details.nth(1).getAttribute('open'), '');
-      // Exclusive-open details[name] is progressive: older engines may leave both open.
+      if (groupingSupported) {
+        assert.equal(await details.nth(0).getAttribute('open'), null,
+          'Native named disclosure must close the previously open panel');
+      }
+      // Older engines may keep both disclosures open, but both must stay keyboard-accessible.
       assert.equal(await page.locator('button[commandfor="sample-dialog"]').count(), 1);
       await page.close();
     }

@@ -46,9 +46,22 @@ class NativeSemanticPrimitives(unittest.TestCase):
 
     def test_native_suggestions_and_grouped_disclosures_are_accessible(self):
         html = (ROOT / "examples/native-elements.html").read_text()
-        import re
-        self.assertRegex(
-            html, r'<input[^>]*id="native-location"[^>]*list="native-location-list"')
+        from html.parser import HTMLParser
+
+        class Inputs(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.by_id = {}
+
+            def handle_starttag(self, tag, attrs):
+                if tag == "input":
+                    attributes = dict(attrs)
+                    if attributes.get("id"):
+                        self.by_id[attributes["id"]] = attributes
+
+        parsed = Inputs()
+        parsed.feed(html)
+        self.assertEqual(parsed.by_id["native-location"].get("list"), "native-location-list")
         self.assertIn('<datalist id="native-location-list">', html)
         self.assertGreaterEqual(html.count('<optgroup label='), 2)
         self.assertIn('<label for="native-service">', html)
