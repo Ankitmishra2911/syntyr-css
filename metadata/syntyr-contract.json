@@ -5012,7 +5012,7 @@
     {
       "name": "--syn-panel-radius",
       "module": "tokens.css",
-      "description": "Per-panel border radius; defaults to square corners.",
+      "description": "Per-panel border radius; Studio and Minimal default to the theme radius, other themes default to square corners; set --syn-panel-radius: 0 to keep square panels.",
       "stylesheets": [
         "components/tokens.css",
         "presets/cinematic.css",

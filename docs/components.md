@@ -85,6 +85,12 @@ module only when it is needed.
 Customize individual components with custom properties rather than a new
 set of modifiers:
 
+Panel radius defaults are **theme-dependent** in the unreleased alpha.5
+candidate: Studio and Minimal use their --syn-radius value, while Grid,
+Noir, Industrial, Terminal, Corporate, and Auto remain square. Set
+--syn-panel-radius: 0 on a panel or theme scope when square corners are
+required. See the [panel-radius migration note](api-stability.md).
+
 ```html
 <article class="syn-panel"
          style="--syn-panel-padding:1.5rem; --syn-panel-radius:.75rem;

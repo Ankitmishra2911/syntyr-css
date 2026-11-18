@@ -48,6 +48,21 @@ class ChatInspiredUIContract(unittest.TestCase):
         self.assertIn('&.syn-composer .syn-textarea:where(:user-invalid, [aria-invalid="true"])', recipe)
         self.assertIn("border-color: var(--syn-danger);", recipe)
 
+    def test_panel_radius_compatibility_and_metadata_agree(self):
+        import json
+        migration = (ROOT / "docs/api-stability.md").read_text()
+        components = (ROOT / "docs/components.md").read_text()
+        description = (ROOT / "scripts/export_api_metadata.py").read_text()
+        api = json.loads((ROOT / "metadata/syntyr-api.json").read_text())
+        api_radius = next(token for token in api["tokens"] if token["name"] == "--syn-panel-radius")
+        for reference in (migration, components, description, api_radius["description"]):
+            with self.subTest(reference=reference[:50]):
+                self.assertIn("Studio", reference)
+                self.assertIn("Minimal", reference)
+        self.assertIn("--syn-panel-radius: 0", migration)
+        self.assertIn("alpha.5", migration.lower())
+        self.assertNotIn("defaults to square corners", api_radius["description"])
+
     def test_studio_and_minimal_have_quiet_rounded_panels_not_theme_forks(self):
         tokens = (ROOT / "src/tokens.css").read_text()
         for theme in ("studio", "minimal"):

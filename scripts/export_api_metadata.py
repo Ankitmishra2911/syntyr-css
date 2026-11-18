@@ -62,7 +62,7 @@ TOKEN_DOCS = {
     "--syn-horizon-alpha": "Horizon line accent share.",
     "--syn-scanline-alpha": "Scanline overlay opacity percentage.",
     "--syn-panel-padding": "Per-panel padding; defaults to the existing fluid panel padding.",
-    "--syn-panel-radius": "Per-panel border radius; defaults to square corners.",
+    "--syn-panel-radius": "Per-panel border radius; Studio and Minimal default to the theme radius, other themes default to square corners; set --syn-panel-radius: 0 to keep square panels.",
     "--syn-panel-border-width": "Per-panel border width; defaults to 1px.",
     "--syn-button-padding-inline": "Per-button inline padding; defaults to 1rem.",
     "--syn-button-border-width": "Per-button border width; defaults to 1px.",

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
-  <meta name="syntyr-source-sha256" content="4d2bdd68d8bdaa9e3b01b73fb2b72809589452d5e02165abce867a5ce596dc75">
+  <meta name="syntyr-source-sha256" content="7c96bace89cce86a29508f7e03f2d7982d3218a6da13c739b87306df9ae26b39">
   <meta name="theme-color" content="#f5f7fb">
   <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
@@ -222,6 +222,19 @@ styling, and <code>.syn-panel[inert]</code> gains a presentation-only unavailabl
 surface-hover color-mix role on explicitly opted-in regions. Default palettes,
 semantic foreground pairs and fallback colors are unchanged. It is not a new
 default theme or a stability commitment; see the <a href="theme-customization.html">theme customization guide</a>.</p>
+<h3 id="alpha5-theme-dependent-panel-radius-migration">Alpha.5 theme-dependent panel-radius migration</h3>
+<p>The experimental alpha.5 source candidate changes the default .syn-panel
+corner radius <strong>without changing markup</strong>: Studio and Minimal now use
+--syn-panel-radius: var(--syn-radius) (Studio .25rem, Minimal .375rem),
+while Grid, Noir, Industrial, Terminal, Corporate and Auto remain square.
+This is a <strong>prerelease visual compatibility change</strong>; published immutable
+alpha.4 assets do not change. Apps relying on square panels in Studio or
+Minimal can explicitly override the token on a root or a single panel:</p>
+<pre><code class="language-css">.syn-root { --syn-panel-radius: 0; }
+</code></pre>
+<p>Nested theme regions may intentionally set a different default. To keep square
+panels throughout an application, reapply --syn-panel-radius: 0 at relevant
+nested theme boundaries or on specific panels.</p>
 <h3 id="alpha5-native-readonly-form-presentation">Alpha.5 native readonly form presentation</h3>
 <p>In the unreleased alpha.5 source candidate, classed <code>syn-input</code> and
 <code>syn-textarea</code> and opt-in semantic native text fields with a real <code>readonly</code>
@@ -296,6 +309,7 @@ or review workflows. See <a href="recipes.html">recipe contracts</a>.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#proposed-minimum-v1-contract-not-yet-approved">Proposed minimum v1 contract (not yet approved)</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-opt-in-crm-compositions-and-density-profiles">Alpha.5 opt-in CRM compositions and density profiles</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-native-css-refinements">Alpha.5 native CSS refinements</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-theme-dependent-panel-radius-migration">Alpha.5 theme-dependent panel-radius migration</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-native-readonly-form-presentation">Alpha.5 native readonly form presentation</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-semantic-html-authoring-changes">Alpha.5 semantic HTML authoring changes</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</a>

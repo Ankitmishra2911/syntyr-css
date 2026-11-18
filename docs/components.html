@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="b74a902ff9a1345bafdd429dce943fe2e35dcbefd63f3e82214a5c68e4f1ae6a">
+  <meta name="syntyr-source-sha256" content="d7e298bab92632da71040c649a28f9e1b15111e8adcdf2fe7da5207c3ca5810b">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -167,6 +167,11 @@ The existing flex/grid/spacing helpers are unchanged. Load the optional
 module only when it is needed.</p>
 <p>Customize individual components with custom properties rather than a new
 set of modifiers:</p>
+<p>Panel radius defaults are <strong>theme-dependent</strong> in the unreleased alpha.5
+candidate: Studio and Minimal use their --syn-radius value, while Grid,
+Noir, Industrial, Terminal, Corporate, and Auto remain square. Set
+--syn-panel-radius: 0 on a panel or theme scope when square corners are
+required. See the <a href="api-stability.html">panel-radius migration note</a>.</p>
 <pre><code class="language-html">&lt;article class=&quot;syn-panel&quot;
          style=&quot;--syn-panel-padding:1.5rem; --syn-panel-radius:.75rem;
                 --syn-panel-border-width:2px&quot;&gt;

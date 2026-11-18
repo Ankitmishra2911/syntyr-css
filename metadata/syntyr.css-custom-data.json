@@ -327,7 +327,7 @@
     },
     {
       "name": "--syn-panel-radius",
-      "description": "Per-panel border radius; defaults to square corners."
+      "description": "Per-panel border radius; Studio and Minimal default to the theme radius, other themes default to square corners; set --syn-panel-radius: 0 to keep square panels."
     },
     {
       "name": "--syn-primary-hover-bg",

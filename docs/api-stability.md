@@ -92,6 +92,24 @@ surface-hover color-mix role on explicitly opted-in regions. Default palettes,
 semantic foreground pairs and fallback colors are unchanged. It is not a new
 default theme or a stability commitment; see the [theme customization guide](theme-customization.md).
 
+### Alpha.5 theme-dependent panel-radius migration
+
+The experimental alpha.5 source candidate changes the default .syn-panel
+corner radius **without changing markup**: Studio and Minimal now use
+--syn-panel-radius: var(--syn-radius) (Studio .25rem, Minimal .375rem),
+while Grid, Noir, Industrial, Terminal, Corporate and Auto remain square.
+This is a **prerelease visual compatibility change**; published immutable
+alpha.4 assets do not change. Apps relying on square panels in Studio or
+Minimal can explicitly override the token on a root or a single panel:
+
+```css
+.syn-root { --syn-panel-radius: 0; }
+```
+
+Nested theme regions may intentionally set a different default. To keep square
+panels throughout an application, reapply --syn-panel-radius: 0 at relevant
+nested theme boundaries or on specific panels.
+
 ### Alpha.5 native readonly form presentation
 
 In the unreleased alpha.5 source candidate, classed `syn-input` and
