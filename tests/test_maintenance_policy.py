@@ -54,11 +54,39 @@ class MaintenancePolicyTests(unittest.TestCase):
             issues = find_issues(src, {"syntyr.recipes.css": ("recipes.css",)})
             self.assertTrue(any("theme fork" in issue for issue in issues), issues)
 
+    def test_core_refuses_framework_specific_css_directives_and_selectors(self):
+        examples = (
+            "@theme inline { --color-ui: blue; }",  # Tailwind v4
+            ".syn-root { @apply flex; }",  # Tailwind-only syntax
+            ".syn-shadcn { color: red; }",  # Adapter-owned surface
+            ".syn-shadcn-button { color: red; }",  # Adapter-owned extension
+            ".syn-radix[data-state=\"open\"] { color: red; }",  # Adapter-owned surface
+            ".syn-root { color: var(--radix-popover-trigger-width); }",  # Vendor variable
+            ".syn-root[data-radix-menu-content] { color: red; }",  # Vendor DOM shape
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            file = src / "components" / "card.css"
+            file.parent.mkdir()
+            registry = {"syntyr.core.css": ("components/card.css",)}
+            for css in examples:
+                with self.subTest(css=css):
+                    file.write_text(css)
+                    issues = find_issues(src, registry)
+                    self.assertTrue(any("integration leak" in issue for issue in issues), issues)
+
+    def test_comments_do_not_trigger_integration_leak_policy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            src = Path(directory)
+            file = src / "tokens.css"
+            file.write_text("/* @apply .syn-radix --tw-color */\n.syn-root { color: var(--syn-text, CanvasText); }")
+            self.assertEqual(find_issues(src, {"syntyr.core.css": ("tokens.css",)}), [])
+
     def test_important_declarations_outside_accessibility_base_are_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             src = Path(directory)
             (src / "components").mkdir()
-            (src / "base.css").write_text("@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }")
+            (src / "base.css").write_text("@media (prefers-reduced-motion: reduce) { * { animation-duration: 0s !important; } }")
             (src / "components" / "card.css").write_text(".syn-card { color: red !important; }")
             bundles = {"syntyr.core.css": ("base.css", "components/card.css")}
             issues = find_issues(src, bundles)
@@ -66,6 +94,167 @@ class MaintenancePolicyTests(unittest.TestCase):
             (src / "components" / "card.css").write_text("/* !important is discouraged */ .syn-card { color: red; }")
             self.assertEqual(find_issues(src, bundles), [])
 
+
+
+class VariableResolutionPolicyTests(unittest.TestCase):
+    """CSS var() without a declared token or fallback is silent runtime breakage."""
+
+    def test_undefined_variable_without_fallback_is_an_error(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-button { color: var(--syn-missing-color); }"
+            )
+            issues = find_issues(source, {"buttons.css": ("buttons.css",)})
+            self.assertTrue(any("--syn-missing-color" in issue for issue in issues), issues)
+
+    def test_custom_variable_with_explicit_fallback_is_valid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-button { color: var(--syn-override, var(--syn-inner, blue)); }"
+            )
+            self.assertEqual(find_issues(source, {"buttons.css": ("buttons.css",)}), [])
+
+    def test_defined_token_used_by_another_module_is_valid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "tokens.css").write_text(":root { --syn-accent: blue; }")
+            (source / "buttons.css").write_text(".syn-button { color: var(--syn-accent); }")
+            self.assertEqual(find_issues(source, {"css": ("tokens.css", "buttons.css")}), [])
+
+    def test_comment_only_variable_reference_is_ignored(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                "/* var(--syn-discontinued) */ .syn-button { color: var(--syn-override, blue); }"
+            )
+            self.assertEqual(find_issues(source, {"buttons.css": ("buttons.css",)}), [])
+
+
+    def test_quoted_variable_references_do_not_trigger_false_positives(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "label.css").write_text(
+                r'.syn-label { content: "escaped \"quote\" var(--syn-not-a-variable)"; }'
+            )
+            self.assertEqual(find_issues(source, {"css": ("label.css",)}), [])
+
+    def test_quoted_fake_declarations_do_not_hide_undefined_variables(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "label.css").write_text(
+                '.syn-label { content: "--syn-not-declared: teal"; color: var(--syn-not-declared); }'
+            )
+            issues = find_issues(source, {"css": ("label.css",)})
+            self.assertTrue(any("unresolved CSS variable" in issue for issue in issues), issues)
+
+
+    def test_uppercase_or_mixed_case_var_function_cannot_hide_missing_tokens(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            file = source / "buttons.css"
+            for spelling in ("VAR", "Var", "vAr"):
+                with self.subTest(spelling=spelling):
+                    file.write_text(f".syn-button {{ color: {spelling}(--syn-missing); }}")
+                    issues = find_issues(source, {"css": ("buttons.css",)})
+                    self.assertTrue(any("--syn-missing" in issue for issue in issues), issues)
+
+    def test_supports_feature_query_does_not_define_custom_property(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                "@supports (--syn-missing: blue) { .syn-button { color: var(--syn-missing); } }"
+            )
+            issues = find_issues(source, {"css": ("buttons.css",)})
+            self.assertTrue(any("unresolved CSS variable" in issue for issue in issues), issues)
+
+    def test_real_custom_property_after_semicolon_is_still_detected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-button { color: red; --syn-local: blue; background: VAR(--syn-local); }"
+            )
+            self.assertEqual(find_issues(source, {"css": ("buttons.css",)}), [])
+
+
+    def test_unquoted_escaped_quote_does_not_hide_missing_variable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-icon { background: url(icon" + chr(92) + '".svg); color: var(--syn-missing); }'
+            )
+            issues = find_issues(source, {"css": ("buttons.css",)})
+            self.assertTrue(any("--syn-missing" in issue for issue in issues), issues)
+
+    def test_custom_property_after_nested_rule_is_detected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "buttons.css").write_text(
+                ".syn-root { &:hover { color: red; } --syn-local: blue; color: var(--syn-local); }"
+            )
+            self.assertEqual(find_issues(source, {"css": ("buttons.css",)}), [])
+
+
+class ImportantExceptionPolicyTests(unittest.TestCase):
+    def test_important_outside_reduced_motion_is_rejected_in_base(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                ".syn-root { color: red !important; }\n"
+                "@media (prefers-reduced-motion: reduce) { .syn-root * { animation-duration: 0s !important; } }"
+            )
+            issues = find_issues(source, {"core": ("base.css",)})
+            self.assertTrue(any("!important outside reduced-motion" in issue for issue in issues), issues)
+
+    def test_unrelated_important_within_reduced_motion_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                "@media (prefers-reduced-motion: reduce) { .syn-root { color: red !important; } }"
+            )
+            issues = find_issues(source, {"core": ("base.css",)})
+            self.assertTrue(any("!important" in issue for issue in issues), issues)
+
+    def test_supported_reduced_motion_overrides_remain_valid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                "@media (prefers-reduced-motion: reduce) { .syn-root * {"
+                "scroll-behavior: auto !important;"
+                "transition-duration: 0s !important;"
+                "animation-duration: 0s !important;" "} }"
+            )
+            self.assertEqual(find_issues(source, {"core": ("base.css",)}), [])
+
+    def test_reduced_motion_exception_rejects_negated_media(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                '@media not all and (prefers-reduced-motion: reduce) {'
+                ' .syn-root { animation-duration: 0s !important; } }'
+            )
+            issues = find_issues(source, {"core": ("base.css",)})
+            self.assertTrue(any("outside reduced-motion" in issue for issue in issues), issues)
+
+    def test_reduced_motion_exception_rejects_unrestricted_media_list(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                '@media screen, (prefers-reduced-motion: reduce) {'
+                ' .syn-root { animation-duration: 0s !important; } }'
+            )
+            issues = find_issues(source, {"core": ("base.css",)})
+            self.assertTrue(any("outside reduced-motion" in issue for issue in issues), issues)
+
+    def test_reduced_motion_exception_accepts_nested_media_after_declaration(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / "base.css").write_text(
+                '.syn-root { color: red; @media (prefers-reduced-motion: reduce) {'
+                ' animation-duration: 0s !important; } }'
+            )
+            self.assertEqual(find_issues(source, {"core": ("base.css",)}), [])
 
 if __name__ == "__main__":
     unittest.main()

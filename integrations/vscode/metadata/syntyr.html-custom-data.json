@@ -194,6 +194,10 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-choice-card",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
           "name": "syn-code",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -346,6 +350,78 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-email-body",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-code",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-compose",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-inbox",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-item",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-layout",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-main",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-message",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-message-header",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-meta",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-preferences",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-preview",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-recipient-list",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-sidebar",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-signup",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-subject",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-time",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
+          "name": "syn-email-workspace",
+          "description": "Syntyr CSS class (email.css)."
+        },
+        {
           "name": "syn-empty",
           "description": "Syntyr CSS class (components/patterns.css)."
         },
@@ -400,6 +476,10 @@
         {
           "name": "syn-filter-bar",
           "description": "Optional wrapping CRM GET filter form; host applies query parameters."
+        },
+        {
+          "name": "syn-filter-choices",
+          "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
           "name": "syn-filter-field",
@@ -551,6 +631,18 @@
         },
         {
           "name": "syn-list-row",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-list-row__actions",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-list-row__body",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-list-row__media",
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
@@ -744,6 +836,10 @@
         {
           "name": "syn-sidebar",
           "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-sidecar",
+          "description": "Syntyr CSS class (components/layout.css)."
         },
         {
           "name": "syn-site-heading",
@@ -1188,6 +1284,15 @@
         },
         {
           "name": "spacious"
+        }
+      ]
+    },
+    {
+      "name": "data-syn-color-space",
+      "description": "Experimental opt-in OKLCH hover mixing; default remains sRGB.",
+      "values": [
+        {
+          "name": "oklch"
         }
       ]
     },

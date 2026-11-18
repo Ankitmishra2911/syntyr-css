@@ -113,7 +113,7 @@ Load `syntyr.core.css` and then optional `syntyr.recipes.css`. See the [complete
 
 - **Filter bar:** `.syn-filter-bar` arranges labelled `.syn-filter-field` controls and a wrapping `.syn-filter-actions` group. Use `.syn-filter-field--query` for a wider search field. A `method="get"` form remains usable without JavaScript; the application must apply filters and preserve query values.
 - **Pipeline:** `.syn-pipeline` contains named `section.syn-pipeline-lane` columns; each lane contains a semantic `ul.syn-pipeline-list` of `li.syn-pipeline-card`. Set `tabindex="0"` and an accessible name on the scrollable board so keyboard users can reach overflow. Links inside cards remain ordinary links. Drag-and-drop, permissions, saved filters, counts, and stage transitions must be implemented by the host application.
-- **Record metadata:** `dl.syn-record-fields` groups each `dt` and `dd` in a direct child `div` for readable, responsive key/value pairs. Use a real `time` element for dates.
+- **Record metadata:** `dl.syn-record-fields` groups each `dt` and `dd` in a direct child `div` for readable, responsive key/value pairs. Use a real `time` element for dates. **Subgrid** aligns labels and values across rows when supported. A named inline-size `container` on the `dl` stacks each pair below **24rem**, independently of viewport size; older browsers retain the original intrinsic two-column/wrapping **fallback**. No extra classes, media breakpoints, or JavaScript are required.
 - **Density:** `data-syn-density="compact"` compresses control, row and card spacing without shrinking type. `data-syn-density="comfortable"` restores default metrics inside compact ancestors. `data-syn-density="spacious"` provides larger controls and rows for review-heavy screens. These attributes may be on `.syn-root` or nested elements. `comfortable` is the default when density is unspecified.
 
 ```html
@@ -198,6 +198,79 @@ The [SaaS workflow demonstration](../examples/saas-workflows.html) shows how to 
 - When using HTMX, Datastar or another enhancement layer, keep GET filters, ordinary links and form labels working without client-side JavaScript.
 
 The scoped `examples/saas-workflows.css` stylesheet contains layout glue only and is **not** added to the distributed core or all-in-one bundle.
+
+## Composed operations workflows: progress, activity and decisions (alpha.5 source only)
+
+The [live workflow-operations demonstration](../examples/workflow-operations.html)
+shows three task-specific patterns inspired by operational and AI agent interfaces.
+It deliberately **adds no new Syntyr component API or runtime dependency**.
+The example consumes the unreleased source-candidate `syntyr.core.css` and
+`syntyr.recipes.css`; it is **not included in published alpha.4**.
+The example-specific stylesheet is layout glue and is not distributed as core CSS.
+
+### 1. Progress: ordered list and authoritative state
+
+```html
+<section class="syn-root syn-region" data-syn-theme="studio">
+  <h2>Deployment progress</h2>
+  <ol class="syn-steps syn-steps--vertical" role="list" aria-label="Deployment progress">
+    <li class="syn-step" data-syn-state="complete">
+      <span class="syn-step-label">Checks complete</span>
+    </li>
+    <li class="syn-step" aria-current="step">
+      <span class="syn-step-label">Approval pending (current)</span>
+    </li>
+    <li class="syn-step">
+      <span class="syn-step-label">Publish (not started)</span>
+    </li>
+  </ol>
+</section>
+```
+
+The server must decide which step is current and which are complete or failed.
+Only one step has `aria-current="step"`; CSS never computes progress.
+If there is no current step, remove `aria-current` rather than fabricating one.
+
+### 2. Execution activity: event list and native disclosures
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <h2>Activity</h2>
+  <ol class="syn-activity-timeline" role="list" aria-label="Execution events">
+    <li>
+      <strong>Validation succeeded</strong>
+      <time datetime="2026-11-17T09:12:10-03:00">09:12:10</time>
+      <details class="syn-details">
+        <summary>View sanitized diagnostics</summary>
+        <pre><code>18 checks passed</code></pre>
+      </details>
+    </li>
+  </ol>
+</section>
+```
+
+Server applications supply trusted status, duration and log content. Render
+diagnostics as escaped **text**, never injected HTML; redact secrets and personal
+data. For live updates, the application—not CSS—owns polling/streaming, retry,
+completion announcements and `aria-busy` lifecycle. Do not announce an entire
+rapidly updated event feed with `aria-live="assertive"`.
+
+### 3. Approval: honest actions and durable outcomes
+
+Compose an `article.syn-app-card`, a visible `syn-status` and ordinary native
+buttons or forms. In a static preview, **disable mutation buttons**; do not show
+fake approval confirmations. In a working application, bind each approval/rejection
+to a real authenticated **POST** route. Verify role and object authorization,
+CSRF protection, the decision's current revision and idempotency on the server.
+Do not optimistically remove a request or claim success before the server commits
+its decision. Surface rejected, expired, conflict and network-failure states,
+and maintain an auditable record with actor and timestamp. Only expose actions
+the current reviewer is permitted to take.
+
+Prefer the existing `syn-steps`, `syn-activity-timeline`, `syn-details` and
+`syn-app-card` compositions before adding variants, React widgets or extra
+CSS modules. The demo uses them unchanged and works with server templates,
+HTMX, or React. This is a **presentation example**, not a workflow engine.
 
 
 ## Intrinsic responsive layouts (optional recipes CSS)

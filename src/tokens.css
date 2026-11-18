@@ -277,6 +277,16 @@
       --syn-cut: .9rem;
     }
   }
+  /* Experimental perceptual mixing: explicitly enable per root or themed region.
+     The default sRGB role remains intact on unsupported engines and elsewhere.
+     Do not recolor semantic text/accent pairings without a contrast audit. */
+  @supports (color: color-mix(in oklch, red, blue)) {
+    :where(.syn-root[data-syn-color-space="oklch"],
+           .syn-root [data-syn-color-space="oklch"]) {
+      --syn-surface-hover: color-mix(in oklch, var(--syn-surface-hi) 83%, var(--syn-accent));
+    }
+  }
+
   /* Technical typography is an explicit choice, not the neutral root default. */
   :where(.syn-root[data-syn-theme="grid"],
          .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],

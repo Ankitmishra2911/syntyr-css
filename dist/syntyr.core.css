@@ -277,6 +277,16 @@
       --syn-cut: .9rem;
     }
   }
+  /* Experimental perceptual mixing: explicitly enable per root or themed region.
+     The default sRGB role remains intact on unsupported engines and elsewhere.
+     Do not recolor semantic text/accent pairings without a contrast audit. */
+  @supports (color: color-mix(in oklch, red, blue)) {
+    :where(.syn-root[data-syn-color-space="oklch"],
+           .syn-root [data-syn-color-space="oklch"]) {
+      --syn-surface-hover: color-mix(in oklch, var(--syn-surface-hi) 83%, var(--syn-accent));
+    }
+  }
+
   /* Technical typography is an explicit choice, not the neutral root default. */
   :where(.syn-root[data-syn-theme="grid"],
          .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
@@ -365,10 +375,35 @@
       isolation: isolate;
     }
     &.syn-stage-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-block-end: 1.75rem; }
-    &.syn-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
-    &.syn-layout { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); align-items: start; }
-    &.syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-space-3); }
-    &.syn-inline { display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-2); }
+    /* Component-local variables customize intrinsic layouts without a utility compiler. */
+    &.syn-grid { display: grid; gap: var(--syn-grid-gap, 1rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-grid-min, 17rem)), 1fr)); }
+    &.syn-layout { display: grid; gap: var(--syn-layout-gap, 1.25rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-layout-min, 21rem)), 1fr)); align-items: start; }
+    &.syn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--syn-stack-gap, var(--syn-space-3)); }
+    /* A wrapping cluster for filters, actions, chips and navigation.
+       Consumers can customize alignment without an extra utility API. */
+    &.syn-inline {
+      display: flex; flex-wrap: wrap; min-inline-size: 0;
+      align-items: var(--syn-inline-align, center);
+      justify-content: var(--syn-inline-justify, flex-start);
+      gap: var(--syn-inline-gap, var(--syn-space-2));
+    }
+    /* Intrinsic main + optional aside; direct children only, main first.
+       The narrow layout naturally wraps even in an embedded container. */
+    &.syn-sidecar {
+      display: flex; flex-wrap: wrap; min-inline-size: 0;
+      align-items: var(--syn-sidecar-align, start);
+      gap: var(--syn-sidecar-gap, var(--syn-space-3));
+    }
+    &.syn-sidecar > :first-child {
+      flex: 999 1 0;
+      min-inline-size: min(100%, var(--syn-sidecar-main-min, 28rem));
+      overflow-wrap: anywhere;
+    }
+    &.syn-sidecar > :last-child:not(:first-child) {
+      flex: 1 1 var(--syn-sidecar-aside-width, 16rem);
+      min-inline-size: min(100%, var(--syn-sidecar-aside-width, 16rem));
+      overflow-wrap: anywhere;
+    }
     &.syn-panel {
       position: relative; padding: var(--syn-panel-padding, clamp(1rem, 2.8vw, 1.75rem)); overflow-wrap: anywhere;
       color: var(--syn-text); border: var(--syn-panel-border-width, 1px) solid var(--syn-border-subtle);
@@ -376,11 +411,18 @@
       background: var(--syn-surface);
       min-width: 0;
     }
+    /* Native inert blocks interaction; this is only a visible presentation cue. */
+    &.syn-panel:where([inert]) { border-style: dashed; background: var(--syn-surface-recessed); }
     &.syn-panel--raised { box-shadow: var(--syn-shadow-raised); }
     &.syn-panel--cut::after {
-      content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
-      width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-panel-cut-fill, var(--syn-bg));
+      content: ""; pointer-events: none; position: absolute;
+      inset-inline-end: -1px; inset-block-end: -1px;
+      inline-size: var(--syn-cut); block-size: var(--syn-cut);
+      background: var(--syn-panel-cut-fill, var(--syn-bg));
       clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    }
+    &.syn-panel--cut:dir(rtl)::after {
+      clip-path: polygon(0 0, 0 100%, 100% 100%);
     }
     @media (forced-colors: active) { &.syn-stage, &.syn-panel { border-color: CanvasText; } }
   }
@@ -469,6 +511,12 @@
     &.syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }
     &.syn-input:where(:focus), &.syn-select:where(:focus), &.syn-textarea:where(:focus) { border-color: var(--syn-border-focus); }
     &.syn-input:disabled, &.syn-select:disabled, &.syn-textarea:disabled { background: var(--syn-surface-recessed); }
+    /* Native readonly text remains focusable, selectable and included in FormData.
+       Distinguish it from a disabled control without dimming readable text. */
+    &.syn-input[readonly], &.syn-textarea[readonly] {
+      background: var(--syn-surface-recessed);
+      border-style: dashed;
+    }
     &.syn-input:where(:user-invalid, [aria-invalid="true"]),
     &.syn-select:where(:user-invalid, [aria-invalid="true"]),
     &.syn-textarea:where(:user-invalid, [aria-invalid="true"]) { border-color: var(--syn-danger); }
@@ -482,12 +530,37 @@
       max-height: 24rem;
       overflow-y: auto;
     }
+    /* Preserve native pickers and keyboard behavior; no replacement controls. */
+    &.syn-input[type="range"] {
+      padding: 0; border: 0; background: transparent;
+      accent-color: var(--syn-accent); cursor: pointer;
+    }
+    &.syn-input[type="range"]:disabled { background: transparent; cursor: not-allowed; }
+    &.syn-input[type="file"] { padding: .25rem; max-inline-size: 100%; }
+    &.syn-input[type="file"]::file-selector-button {
+      min-block-size: 2.25rem; padding: .35rem .65rem; margin-inline-end: .65rem;
+      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+      background: var(--syn-surface-raised); color: var(--syn-text);
+      font: inherit; cursor: pointer;
+    }
+    &.syn-input[type="file"]:disabled::file-selector-button { cursor: not-allowed; }
+    &.syn-input[type="file"]:not(:disabled):hover::file-selector-button {
+      border-color: var(--syn-border-hover);
+    }
+    &.syn-input[type="color"] {
+      inline-size: 3.5rem; min-inline-size: 3.5rem; block-size: var(--syn-control-height);
+      padding: .25rem; cursor: pointer;
+    }
+    &.syn-select[multiple] { block-size: auto; min-block-size: 7rem; padding: .35rem; }
     &.syn-input[type="checkbox"], &.syn-input[type="radio"] { width: max(1.5rem, 24px); min-width: max(1.5rem, 24px); min-height: max(1.5rem, 24px); height: max(1.5rem, 24px); padding: 0; accent-color: var(--syn-accent); vertical-align: middle; }
     &.syn-check { display: inline-flex; align-items: center; gap: .55rem; color: var(--syn-text); cursor: pointer; }
     &.syn-fieldset { border: 1px solid var(--syn-frame); padding: 1rem; min-width: 0; }
     &.syn-fieldset legend { padding-inline: .45rem; font: 600 .78rem var(--syn-mono); }
     @media (forced-colors: active) {
       &.syn-input, &.syn-select, &.syn-textarea, &.syn-fieldset { border-color: CanvasText; }
+      &.syn-input[type="file"]::file-selector-button {
+        border-color: ButtonText; background: ButtonFace; color: ButtonText;
+      }
     }
   }
 }
@@ -501,6 +574,15 @@
       min-inline-size: 0;
     }
     &.syn-field > :where(.syn-help, .syn-error) { margin-block: 0; }
+    /* Progressive native feedback; focus outlines and error text remain authoritative. */
+    &.syn-field:focus-within > .syn-label { color: var(--syn-accent); }
+    &.syn-field:has(:user-invalid, [aria-invalid="true"]) > .syn-label { color: var(--syn-danger); }
+    /* A host-rendered server error must remain visible even when native
+       :user-invalid has not fired (or the browser considers the value valid). */
+    &.syn-field[data-syn-state="error"] > .syn-label { color: var(--syn-danger); }
+    &.syn-field[data-syn-state="error"] :where(.syn-input, .syn-select, .syn-textarea) {
+      border-color: var(--syn-danger);
+    }
     &.syn-field-row {
       display: grid;
       gap: var(--syn-space-2);
@@ -520,6 +602,10 @@
       align-items: stretch;
       inline-size: 100%;
       min-inline-size: 0;
+    }
+    &.syn-input-group:has(> .syn-button) {
+      flex-wrap: wrap;
+      container-type: inline-size;
     }
     &.syn-input-group > :where(.syn-input, .syn-select) {
       flex: 1 1 0%;
@@ -551,6 +637,25 @@
       border-end-end-radius: var(--syn-radius);
     }
     &.syn-input-group > :not(:first-child) { border-inline-start: 0; }
+    /* Stack connected submit controls only when the group's own space is too
+       narrow for enlarged text. Addon-only currency/units stay inline. */
+    @container (max-width: 12rem) {
+      &.syn-input-group:has(> .syn-button) > :where(.syn-input, .syn-select, .syn-button) {
+        flex: 1 1 100%;
+        inline-size: 100%;
+      }
+      &.syn-input-group:has(> .syn-button) > .syn-button {
+        border-inline-start: 1px solid var(--syn-border-default);
+        border-block-start: 0;
+      }
+      &.syn-input-group:has(> .syn-button) > :first-child {
+        border-start-end-radius: var(--syn-radius);
+      }
+      &.syn-input-group:has(> .syn-button) > :last-child {
+        border-end-start-radius: var(--syn-radius);
+      }
+    }
+    &.syn-input-group:focus-within > .syn-input-addon { border-block-color: var(--syn-border-focus); }
     @media (forced-colors: active) {
       &.syn-input-addon { border-color: CanvasText; }
     }
@@ -560,12 +665,25 @@
   /* All component rules match the root itself or a descendant, never a host sibling. */
   :where(.syn-root, .syn-root *) {
     &.syn-popover, &.syn-dialog {
+      box-sizing: border-box;
+      /* Viewport axes are physical, including under vertical writing modes. */
+      max-width: calc(100vw - 2rem);
+      max-height: min(80vh, 40rem);
+      max-height: min(80dvh, 40rem);
+      overflow: auto;
       width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
       border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-overlay);
     }
-    &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    &.syn-popover { margin: .75rem; inset: auto;
+      /* Reserve the fixed corner's 1rem bottom inset and .75rem margin,
+         including on very short viewports. Anchored popovers inherit a
+         conservative cap without introducing separate component classes. */
+      max-height: max(0px, min(80vh, 40rem, calc(100vh - 1.75rem)));
+      max-height: max(0px, min(80dvh, 40rem, calc(100dvh - 1.75rem)));
+      inset-block-end: 1rem; inset-inline-end: 1rem;
+    }
     /* The ordinary corner popover remains the fallback if anchors are unsupported. */
     @supports (position-area: bottom) {
       &.syn-popover.syn-popover--anchored {
@@ -598,7 +716,7 @@
         position-try-fallbacks: flip-block, flip-inline;
         inset: auto;
         margin: .5rem 0;
-        max-inline-size: calc(100vw - 2rem);
+        /* Base overlay max-width/max-height already bound physical axes. */
       }
     }
   }
@@ -790,6 +908,54 @@
     &.syn-chip:is(a, button) { min-block-size: var(--syn-control-height); }
     &.syn-chip:is(a, button):where(:hover, :focus-visible) { border-color: var(--syn-border-hover); }
 
+    /* Native radio/checkbox filters: scoped to the explicit composition.
+       The input remains a real, focusable form control and submits normally. */
+    &.syn-filter-choices {
+      display: flex; flex-wrap: wrap; align-items: stretch;
+      gap: .375rem; min-inline-size: 0;
+    }
+    &.syn-filter-choices > .syn-chip {
+      position: relative; min-block-size: var(--syn-control-height); cursor: pointer;
+    }
+    &.syn-filter-choices > .syn-chip > input:is([type="radio"], [type="checkbox"]) {
+      position: absolute; inline-size: 1px; block-size: 1px;
+      margin: 0; padding: 0; opacity: 0; pointer-events: none;
+    }
+    &.syn-filter-choices > .syn-chip:has(> input:checked) {
+      border-color: var(--syn-accent); background: var(--syn-accent-soft);
+    }
+    &.syn-filter-choices > .syn-chip:has(> input:focus-visible) {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    &.syn-filter-choices > .syn-chip:has(> input:disabled) {
+      border-style: dashed; color: var(--syn-muted); cursor: not-allowed;
+    }
+
+    /* Label-wrapped choice cards reuse native fieldsets and syn-grid.
+       Keep the input visible; checked, disabled, and focus states are CSS only. */
+    &.syn-choice-card {
+      display: grid; grid-template-columns: max-content minmax(0, 1fr);
+      align-items: start; gap: var(--syn-space-2); min-inline-size: 0;
+      min-block-size: var(--syn-control-height);
+      padding: var(--syn-space-2); border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); background: var(--syn-surface);
+      color: var(--syn-text); cursor: pointer; overflow-wrap: anywhere;
+    }
+    &.syn-choice-card > .syn-input:is([type="radio"], [type="checkbox"]) {
+      margin: .1rem 0 0; flex: none;
+    }
+    &.syn-choice-card > span { display: grid; min-inline-size: 0; gap: .15rem; }
+    &.syn-choice-card > span > small { color: var(--syn-muted); font-size: var(--syn-type-sm); }
+    &.syn-choice-card:has(> .syn-input:checked) {
+      border-color: var(--syn-accent); background: var(--syn-accent-soft);
+    }
+    &.syn-choice-card:has(> .syn-input:focus-visible) {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    &.syn-choice-card:has(> .syn-input:disabled) {
+      border-style: dashed; cursor: not-allowed;
+    }
+
     /* Navigation links, not an ARIA tab widget. aria-current=page is only for
        the actual current destination, and does not imply JS-managed panels. */
     &.syn-nav-tabs {
@@ -832,6 +998,22 @@
       background: var(--syn-accent-soft); font-weight: 650;
     }
     &.syn-list-row:where(a, button):hover { background: var(--syn-surface-hover); }
+    /* A row can be a single link OR a noninteractive li with multiple links.
+       Never nest links or buttons inside a linked row. */
+    &.syn-list-row:has(> .syn-list-row__body) { flex-wrap: wrap; }
+    &.syn-list-row__media { flex: 0 0 auto; }
+    &.syn-list-row__body {
+      display: grid; gap: .125rem; flex: 1 1 12rem;
+      min-inline-size: min(100%, 9rem); overflow-wrap: anywhere;
+    }
+    &.syn-list-row__body > small { color: var(--syn-muted); }
+    &.syn-list-row__actions {
+      display: inline-flex; flex: 0 1 auto; flex-wrap: wrap;
+      align-items: center; gap: .375rem; margin-inline-start: auto;
+    }
+    &.syn-list-row__actions :is(a, button) {
+      display: inline-flex; align-items: center; min-block-size: var(--syn-control-height);
+    }
 
     &.syn-button-group {
       display: inline-flex; flex-wrap: wrap; align-items: stretch;
@@ -897,6 +1079,15 @@
 
       &.syn-stat, &.syn-empty, &.syn-price-card, &.syn-price-card[data-syn-featured] { border-color: CanvasText; }
       &.syn-avatar, &.syn-chip, &.syn-list-group, &.syn-divider-label::before, &.syn-divider-label::after { border-color: CanvasText; }
+      &.syn-choice-card { border-color: CanvasText; }
+      &.syn-choice-card:has(> .syn-input:checked),
+      &.syn-filter-choices > .syn-chip:has(> input:checked) {
+        border-color: Highlight; outline-color: Highlight;
+      }
+      &.syn-choice-card:has(> .syn-input:focus-visible),
+      &.syn-filter-choices > .syn-chip:has(> input:focus-visible) {
+        outline-color: Highlight;
+      }
       &.syn-nav-tabs [aria-current="page"], &.syn-list-row[aria-current="page"] { border-color: Highlight; }
     }
   }
