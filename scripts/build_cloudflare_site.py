@@ -311,7 +311,7 @@ def source_files() -> dict[str, bytes]:
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "semantic-compositions.html", "native-interactions.html", "native-recipes.html", "resource-outline.html", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
-        "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "permission-matrix.html", "permission-matrix.css", "crm.html", "resource-workspace.html", "saas-workflows.css", "workflow-operations.html", "workflow-operations.css", "premium-compositions.html",
+        "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "permission-matrix.html", "permission-matrix.css", "crm.html", "resource-workspace.html", "file-lifecycle.html", "saas-workflows.css", "workflow-operations.html", "workflow-operations.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
         "viz.html", "geo.html", "data-grid.html", "animation.html", "copy.html",
     )

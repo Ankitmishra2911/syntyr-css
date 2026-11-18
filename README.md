@@ -144,6 +144,7 @@ stylesheets.
 - [Search, filtering, settings and pagination SaaS workflow demonstration](examples/saas-workflows.html): server-ready semantic HTML, static illustrative data, zero JavaScript
 - [Role-permissions review matrix](examples/permission-matrix.html): accessible native checkbox/table composition for enterprise authorization UIs; local preview only, no real permissions or JavaScript
 - [Workflow operations compositions](examples/workflow-operations.html): progress steps, expandable activity diagnostics, and human approval queue using existing Syntyr classes; no backend or JavaScript
+- [Native file lifecycle presentation](examples/file-lifecycle.html): file picker, queued/uploading/completed/failed snapshots, and host-owned upload boundaries (unreleased alpha.5 source)
 - [Vertigo-inspired four-stage resource lifecycle reference](examples/vertigo-resource-workflow.html): schema-driven CRUD visual patterns (index, detail, editor, settings) with zero runtime JavaScript and disabled mutations.
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
 - [Optional Rust SaaS Foundation / Askama / HTMX integration guide](docs/rust-saas-integration.md)
