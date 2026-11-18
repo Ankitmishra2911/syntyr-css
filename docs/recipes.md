@@ -185,6 +185,51 @@ separator's ARIA bounds, visible panel sizes and keyboard/pointer behavior in
 sync. The script is demonstrative, **not** part of the zero-JS CSS runtime.
 Test real zoom, touch, forced colors, keyboard and screen-reader support
 before production use.
+## File selection and lifecycle presentation (alpha.5 source candidate)
+
+Use the existing native file input (`.syn-input[type="file"]`) with a real
+`label`, then load optional `syntyr.recipes.css` for an ordered
+`ol.syn-file-queue` containing `li.syn-file-item` entries. An optional
+`.syn-file-item-header` keeps names and textual status together without
+forcing a fixed width. Use only one truthfully rendered state per entry:
+`data-syn-state="queued|uploading|complete|failed"`.
+Preserve `role="list"` on the ordered queue when removing visual markers:
+Safari/VoiceOver can otherwise omit the list and its item count from
+accessibility announcements outside a navigation landmark.
+
+[Open the static file-lifecycle example](../examples/file-lifecycle.html).
+This recipe is **presentation only**, not a drag-and-drop zone, upload engine,
+retry handler, virus scanner, or file storage client. File choice works
+natively without JavaScript, but choosing a file does not upload it.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <label class="syn-label" for="attachments">Attachments</label>
+  <input id="attachments" class="syn-input" type="file" multiple>
+  <ol class="syn-file-queue" role="list">
+    <li class="syn-file-item" data-syn-state="uploading">
+      <div class="syn-file-item-header">
+        <strong>report.pdf</strong><span>Uploading · 42%</span>
+      </div>
+      <progress class="syn-meter" value="42" max="100"
+                aria-label="Report upload progress">42%</progress>
+    </li>
+  </ol>
+</section>
+```
+
+**Host application contract:** Do not render completion until the server
+confirms durable storage. Compute actual byte-based progress if available;
+omit `value` on `<progress>` only when an upload is genuinely indeterminate.
+Honor file size/type limits, authorization, CSRF protections when applicable,
+safe filenames, cancellation, retries, and server-side scanning as required.
+Retain selected files after recoverable errors when the browser permits,
+and expose real error details with field associations. Create a persistent
+live status region in the host if asynchronous changes require announcements;
+CSS and a static snapshot cannot announce an update. No automatic drag/drop
+or upload happens with these classes. Test responsive zoom, forced colors,
+keyboard navigation, real upload failure and assistive technology in the host.
+
 
 ## Reusing recipes across stacks
 

@@ -138,6 +138,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-file-edge",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
       "name": "--syn-filter-field-min",
       "description": "Filter field basis and minimum; defaults to 11rem."
     },
