@@ -1881,6 +1881,39 @@ Use only for text-like controls that implement placeholder-shown. Avoid for
 date, color, select, checkbox, radio and unsupported types. Validate contrast
 and long translated labels in the actual application.
 
+### Label-first floating fields
+
+Use the same native label and input in either source order:
+
+~~~html
+<div class="syn-field syn-field--floating">
+  <label class="syn-floating-label" for="company">Company</label>
+  <input class="syn-input" id="company" name="company" placeholder=" " autocomplete="organization">
+</div>
+~~~
+
+Modern browsers use :has() to float label-first markup when the input is
+focused or filled. Input-first markup remains the fallback for older engines.
+Keep a real for/id association; placeholder text is not an accessible label.
+At narrow container widths, both orders become a traditional stacked field.
+
+### Native file feedback and search controls
+
+Plain file inputs in .syn-semantic preserve their native file picker.
+For aria-invalid="true", Syntyr adds a visible error border to the file
+input even when the user-agent default has no border. Use a real explanation
+associated with aria-describedby; CSS does not perform validation or upload.
+The native search clear affordance is preserved with inline-end padding
+in both explicit .syn-input and scoped classless modes.
+
+~~~html
+<div class="syn-semantic">
+  <label for="proof">Proof-of-posting photo</label>
+  <input type="file" id="proof" aria-invalid="true" aria-describedby="proof-error">
+  <small id="proof-error" class="syn-error">Upload a photo to continue.</small>
+</div>
+~~~
+
 ## Semantic timelines and captioned code
 
 ~~~html
