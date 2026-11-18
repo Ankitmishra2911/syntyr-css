@@ -162,3 +162,11 @@ See [`ARCHITECTURE.md`](../ARCHITECTURE.md) for feature-admission criteria,
 layer ownership and dependency boundaries. Optional package integrations may
 provide additional contracts but must never introduce a mandatory core
 runtime dependency.
+
+## Enterprise presentation recipes (unreleased alpha.5)
+
+The optional `syntyr.recipes.css` source candidate adds `.syn-view-switcher`,
+`.syn-sheet` and `.syn-evidence-*` classes. These are experimental opt-in
+CSS selectors, not part of the immutable alpha.4 package and not a guarantee
+of application-level selection, dialog focus management, image verification
+or review workflows. See [recipe contracts](recipes.md).

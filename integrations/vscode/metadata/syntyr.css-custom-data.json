@@ -362,6 +362,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-sheet-width",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem."
+    },
+    {
       "name": "--syn-space-1",
       "description": "Syntyr CSS property (tokens.css)."
     },
