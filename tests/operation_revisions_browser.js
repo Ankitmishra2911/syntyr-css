@@ -49,8 +49,17 @@ async function check(engine, name) {
 }
 
 (async () => {
-  const requested = (process.env.SYNTYR_TEST_ENGINES || "chromium,firefox,webkit").split(",");
-  for (const [name, engine] of Object.entries({chromium, firefox, webkit})) {
-    if (requested.includes(name)) await check(engine, name);
+  const engines = {chromium, firefox, webkit};
+  const requested = (process.env.SYNTYR_TEST_ENGINES ?? "chromium,firefox,webkit")
+    .split(",").map(name => name.trim());
+  const unsupported = requested.filter(name => !Object.hasOwn(engines, name));
+  if (unsupported.length) {
+    throw new Error(`Unsupported browser engine selection: ${unsupported.map(JSON.stringify).join(", ")}`);
+  }
+  if (requested.length === 0) {
+    throw new Error("No valid browser engines selected");
+  }
+  for (const name of new Set(requested)) {
+    await check(engines[name], name);
   }
 })().catch(error => {console.error(error); process.exitCode = 1;});
