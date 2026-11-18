@@ -51,9 +51,19 @@ def build() -> str:
     for block in blocks:
         ident = block["id"]
         snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text(encoding="utf-8").strip()
-        # Static gallery preview: never submit example forms, even with JS off.
-        # Preserve the canonical snippet and copyable HTML source unchanged.
-        preview = re.sub(r"<form(?=\s|>)", "<form inert", snippet, flags=re.IGNORECASE)
+        # Preview-only disabled fieldsets preserve readable form labels while
+        # ensuring no-JS demo controls cannot submit to unimplemented routes.
+        # Never mutate the original copyable snippet or registry markup.
+        preview = re.sub(
+            r"(<form\b[^>]*>)",
+            r'\1<fieldset class="blocks-preview-disabled" disabled>',
+            snippet, flags=re.IGNORECASE,
+        )
+        preview = re.sub(
+            r"(</form>)",
+            r"</fieldset><!-- end non-submittable gallery form -->\1",
+            preview, flags=re.IGNORECASE,
+        )
         modules = " + ".join(f"syntyr.{module}.css" for module in block["modules"])
         tags = " ".join([block["title"], block["description"], *block["tags"]])
         cards.append(f"""

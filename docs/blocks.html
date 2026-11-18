@@ -452,7 +452,7 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-filter-heading">
   <h2 id="syn-filter-heading" class="syn-heading">Find a request</h2>
-  <form inert class="syn-panel syn-form" method="get" action="/requests">
+  <form class="syn-panel syn-form" method="get" action="/requests"><fieldset class="blocks-preview-disabled" disabled>
     <label class="syn-label" for="syn-block-query">Search by name</label>
     <input class="syn-input" id="syn-block-query" name="query" type="search" placeholder="Search requests">
     <label class="syn-label" for="syn-block-status">Status</label>
@@ -460,7 +460,7 @@
       <option value="">All statuses</option><option value="open">Open</option><option value="closed">Closed</option>
     </select>
     <button class="syn-button syn-button--primary" type="submit">Apply filters</button>
-  </form>
+  </fieldset><!-- end non-submittable gallery form --></form>
 </section>
         </div>
         <details class="blocks-details">
@@ -494,14 +494,14 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-settings-heading">
   <h2 id="syn-settings-heading" class="syn-heading">Workspace settings</h2>
-  <form inert class="syn-panel syn-form" method="post" action="/settings">
+  <form class="syn-panel syn-form" method="post" action="/settings"><fieldset class="blocks-preview-disabled" disabled>
     <label class="syn-label" for="syn-block-name">Workspace name</label>
     <input class="syn-input" id="syn-block-name" name="name" autocomplete="organization" value="Northstar Operations" required>
     <label class="syn-label" for="syn-block-timezone">Timezone</label>
     <select class="syn-select" id="syn-block-timezone" name="timezone"><option value="UTC">UTC</option><option value="America/Sao_Paulo">Brasília</option></select>
     <p class="syn-help">Connect your actual validation, CSRF protection and persistence.</p>
     <button class="syn-button syn-button--primary" type="submit">Save settings</button>
-  </form>
+  </fieldset><!-- end non-submittable gallery form --></form>
 </section>
         </div>
         <details class="blocks-details">
@@ -1382,11 +1382,11 @@
   <div class="syn-panel">
     <p class="syn-eyebrow">STAY IN THE LOOP</p><h2 id="syn-newsletter" class="syn-heading">A useful note, once a month</h2>
     <p>Design patterns, maintenance tips and new articles. Unsubscribe at any time.</p>
-    <form inert class="syn-form" action="/newsletter/subscribe" method="post">
+    <form class="syn-form" action="/newsletter/subscribe" method="post"><fieldset class="blocks-preview-disabled" disabled>
       <div class="syn-field"><label class="syn-label" for="syn-newsletter-email">Email address</label>
         <input class="syn-input" type="email" id="syn-newsletter-email" name="email" autocomplete="email" required></div>
       <button class="syn-button syn-button--primary" type="submit">Subscribe</button>
-    </form>
+    </fieldset><!-- end non-submittable gallery form --></form>
     <p class="syn-caption">Connect a real consent-aware endpoint, CSRF protection and confirmation flow before publishing.</p>
   </div>
 </section>
@@ -1422,7 +1422,7 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-inquiry">
   <h2 id="syn-inquiry" class="syn-heading">Tell us about your project</h2>
-  <form inert class="syn-panel syn-form" action="/contact/request" method="post">
+  <form class="syn-panel syn-form" action="/contact/request" method="post"><fieldset class="blocks-preview-disabled" disabled>
     <div class="syn-field"><label class="syn-label" for="syn-inquiry-name">Your name</label>
       <input class="syn-input" id="syn-inquiry-name" name="name" autocomplete="name" required></div>
     <div class="syn-field"><label class="syn-label" for="syn-inquiry-email">Email address</label>
@@ -1430,7 +1430,7 @@
     <div class="syn-field"><label class="syn-label" for="syn-inquiry-details">Project details</label>
       <textarea class="syn-input" id="syn-inquiry-details" name="details" rows="3" required></textarea></div>
     <button class="syn-button syn-button--primary" type="submit">Request a conversation</button>
-  </form>
+  </fieldset><!-- end non-submittable gallery form --></form>
   <p class="syn-caption">Sample form only. Add consent, anti-spam, CSRF and server validation in your application.</p>
 </section>
         </div>
@@ -1570,13 +1570,13 @@
   <div class="syn-panel">
     <h2 class="syn-heading" id="syn-signin-heading">Sign in to Northstar</h2>
     <p class="syn-muted">Use your account credentials. Authentication is implemented by your application.</p>
-    <form inert class="syn-form" method="post" action="/sign-in">
+    <form class="syn-form" method="post" action="/sign-in"><fieldset class="blocks-preview-disabled" disabled>
       <label class="syn-label" for="syn-signin-email">Email address</label>
       <input class="syn-input" id="syn-signin-email" name="email" type="email" autocomplete="username" required>
       <label class="syn-label" for="syn-signin-password">Password</label>
       <input class="syn-input" id="syn-signin-password" name="password" type="password" autocomplete="current-password" required>
       <button class="syn-button syn-button--primary" type="submit">Sign in</button>
-    </form>
+    </fieldset><!-- end non-submittable gallery form --></form>
     <p class="syn-caption"><a href="/password/forgot">Forgot password?</a> · <a href="/sign-up">Create account</a></p>
   </div>
 </section>
@@ -1616,11 +1616,11 @@
   <div class="syn-panel">
     <h2 class="syn-heading" id="syn-recovery-heading">Recover account access</h2>
     <p>Enter the email address associated with your account. If eligible, the service will send a recovery link.</p>
-    <form inert class="syn-form" method="post" action="/password/forgot">
+    <form class="syn-form" method="post" action="/password/forgot"><fieldset class="blocks-preview-disabled" disabled>
       <label class="syn-label" for="syn-recovery-email">Email address</label>
       <input class="syn-input" id="syn-recovery-email" name="email" type="email" autocomplete="email" required>
       <button class="syn-button syn-button--primary" type="submit">Request recovery link</button>
-    </form>
+    </fieldset><!-- end non-submittable gallery form --></form>
     <p class="syn-help">The server should return a non-enumerating response and enforce token expiry, rate limits and CSRF protection.</p>
     <a href="/sign-in">Return to sign in</a>
   </div>
@@ -1786,7 +1786,7 @@
     <h2 class="syn-section-heading" id="syn-collection-heading">Ideas for practical teams</h2>
     <p class="syn-muted">A reusable archive: the host server supplies matching items and pagination.</p>
   </header>
-  <form inert class="syn-filter-bar" method="get" action="/journal" role="search" aria-label="Filter articles">
+  <form class="syn-filter-bar" method="get" action="/journal" role="search" aria-label="Filter articles"><fieldset class="blocks-preview-disabled" disabled>
     <div class="syn-filter-field syn-filter-field--query">
       <label class="syn-label" for="syn-collection-search">Search articles</label>
       <input class="syn-input" id="syn-collection-search" type="search" name="q" placeholder="Search the journal">
@@ -1800,7 +1800,7 @@
       </select>
     </div>
     <div class="syn-filter-actions"><button class="syn-button syn-button--primary" type="submit">Find articles</button></div>
-  </form>
+  </fieldset><!-- end non-submittable gallery form --></form>
   <div class="syn-feature-grid">
     <article class="syn-feature-card syn-stack">
       <span class="syn-badge">Engineering</span>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: Experimental alpha.5 source gallery, not an immutable release or published npm package.">
-  <meta name="syntyr-source-sha256" content="c166fdb85b9f78bcf31898030b904d267cd5170d8ed06916c8198ed74a03742b">
+  <meta name="syntyr-source-sha256" content="f881530afac26144e5c36cef8eeefb7e24d90c54e0c42e47752027d6ab041e1b">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide">
@@ -41,10 +41,13 @@
 <p>The 47 copy-owned HTML compositions cover marketing, editorial, services, portfolio, commerce, navigation, application and technical use
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.</p>
-<p>Gallery preview forms are inert to prevent accidental submissions to illustrative
-authentication, contact and newsletter routes, including when JavaScript is
-disabled. The copyable HTML source and block registry retain the original real
-form actions and methods; host applications must implement them securely.</p>
+<p>Gallery preview controls are wrapped in disabled fieldsets to prevent
+accidental submissions to illustrative authentication, contact and newsletter
+routes even when JavaScript is disabled. Unlike an inert form, disabled controls
+retain a readable form structure and labels for assistive technology. A scoped
+submit handler is a progressive fallback. The copyable HTML source and block
+registry retain the original form actions and methods; host applications must
+implement them securely.</p>
 <p>The gallery script powers optional documentation search, theme switching and copy
 buttons. Disable JavaScript and all forty static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in

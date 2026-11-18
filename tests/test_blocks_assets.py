@@ -76,8 +76,12 @@ class BlocksAssetsTests(unittest.TestCase):
         page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
         forms = re.findall(r"<form\b[^>]*>", page)
         self.assertGreaterEqual(len(forms), 6, "expected preview forms")
-        self.assertTrue(all(re.search(r"\binert(?:\s|>)", form) for form in forms),
-                        "preview form submissions must be disabled without JavaScript")
+        self.assertTrue(all(not re.search(r"\binert(?:\s|>)", form) for form in forms),
+                        "preview forms must remain readable in the accessibility tree")
+        self.assertEqual(page.count('<fieldset class="blocks-preview-disabled" disabled>'),
+                         len(forms), "all preview form controls must be disabled without JavaScript")
+        self.assertEqual(page.count('</fieldset><!-- end non-submittable gallery form -->'),
+                         len(forms))
         script = (ROOT / "docs/blocks.js").read_text(encoding="utf-8")
         self.assertIn('addEventListener("submit"', script)
         self.assertIn('event.preventDefault()', script)
