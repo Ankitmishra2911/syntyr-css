@@ -52,19 +52,38 @@ class NativeSemanticPrimitives(unittest.TestCase):
             def __init__(self):
                 super().__init__()
                 self.by_id = {}
+                self.selects = {}
+                self.labels = {}
+                self.active_label = None
 
             def handle_starttag(self, tag, attrs):
-                if tag == "input":
-                    attributes = dict(attrs)
-                    if attributes.get("id"):
-                        self.by_id[attributes["id"]] = attributes
+                attributes = dict(attrs)
+                if tag == "input" and attributes.get("id"):
+                    self.by_id[attributes["id"]] = attributes
+                elif tag == "select" and attributes.get("id"):
+                    self.selects[attributes["id"]] = attributes
+                elif tag == "label":
+                    self.active_label = attributes.get("for")
+                    if self.active_label:
+                        self.labels[self.active_label] = ""
+
+            def handle_data(self, data):
+                if self.active_label:
+                    self.labels[self.active_label] += data
+
+            def handle_endtag(self, tag):
+                if tag == "label":
+                    self.active_label = None
 
         parsed = Inputs()
         parsed.feed(html)
         self.assertEqual(parsed.by_id["native-location"].get("list"), "native-location-list")
         self.assertIn('<datalist id="native-location-list">', html)
         self.assertGreaterEqual(html.count('<optgroup label='), 2)
-        self.assertIn('<label for="native-service">', html)
+        self.assertIn("native-service", parsed.selects,
+                      "Service select must exist with the expected ID")
+        self.assertTrue(parsed.labels.get("native-service", "").strip(),
+                        "Service select needs a visible associated label")
         self.assertEqual(html.count('<details name="native-review-sections">'), 2)
         self.assertIn('older browsers may leave both open', html)
         self.assertNotIn('<script', html.lower())
@@ -74,8 +93,39 @@ class NativeSemanticPrimitives(unittest.TestCase):
     def test_native_form_reflow_uses_capped_controls_and_scroll_region(self):
         html = (ROOT / "examples/native-elements.html").read_text()
         css = (ROOT / "src/semantic.css").read_text()
-        self.assertIn('class="syn-table-wrap" role="region"', html)
-        self.assertIn('aria-label="Sample campaign inventory" tabindex="0"', html)
+        from html.parser import HTMLParser
+
+        class TableRegion(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.div_depth = 0
+                self.region_depth = None
+                self.region = None
+                self.contains_table = False
+
+            def handle_starttag(self, tag, attrs):
+                attributes = dict(attrs)
+                if tag == "div":
+                    self.div_depth += 1
+                    if "syn-table-wrap" in attributes.get("class", "").split():
+                        self.region_depth = self.div_depth
+                        self.region = attributes
+                elif tag == "table" and self.region_depth is not None:
+                    self.contains_table = True
+
+            def handle_endtag(self, tag):
+                if tag == "div":
+                    if self.region_depth == self.div_depth:
+                        self.region_depth = None
+                    self.div_depth -= 1
+
+        region = TableRegion()
+        region.feed(html)
+        self.assertIsNotNone(region.region, "Table wrapper must exist")
+        self.assertEqual(region.region.get("role"), "region")
+        self.assertEqual(region.region.get("aria-label"), "Sample campaign inventory")
+        self.assertEqual(region.region.get("tabindex"), "0")
+        self.assertTrue(region.contains_table, "Named scroll region must contain the table")
         self.assertIn('padding: min(1rem, 6vw)', css)
         self.assertIn('inline-size: min(4rem, 100%)', css)
         self.assertIn('box-sizing: border-box', css)

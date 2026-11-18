@@ -45,20 +45,45 @@ if (!(engine in executables)) throw new Error('Unsupported browser: ' + engine);
       assert.equal(await page.locator('script').count(), 0, 'No runtime JS');
       for (const fontSize of ['100%', '200%', '400%']) {
         await page.evaluate(s => document.documentElement.style.fontSize = s, fontSize);
-        const metric = await page.evaluate(() => ({
-          page: document.documentElement.scrollWidth,
-          viewport: document.documentElement.clientWidth,
-          file: document.querySelector('#design-file').getBoundingClientRect().right,
-        }));
+        const metric = await page.evaluate(() => {
+          const file = document.querySelector('#design-file');
+          const color = document.querySelector('#design-color');
+          const fieldset = file.closest('fieldset');
+          const box = element => {
+            const rect = element.getBoundingClientRect();
+            return {left: rect.left, right: rect.right};
+          };
+          return {
+            page: document.documentElement.scrollWidth,
+            viewport: document.documentElement.clientWidth,
+            fieldset: box(fieldset),
+            file: box(file),
+            color: box(color),
+          };
+        });
         assert.ok(metric.page <= metric.viewport + 1,
-          `${engine}: horizontal overflow at width=${width}, root font=${fontSize}: ${JSON.stringify(metric)}`);
+          engine + ': horizontal overflow at width=' + width + ', root font=' + fontSize +
+          ': ' + JSON.stringify(metric));
+        for (const control of ['file', 'color']) {
+          const rect = metric[control];
+          assert.ok(rect.left >= metric.fieldset.left - 1 &&
+                    rect.right <= metric.fieldset.right + 1,
+            engine + ': ' + control + ' exceeds Native inputs fieldset at ' +
+            width + 'px and ' + fontSize + ': ' + JSON.stringify(metric));
+        }
       }
       await page.evaluate(() => document.documentElement.style.fontSize = '');
       const suggestions = page.locator('#native-location');
       assert.equal(await suggestions.getAttribute('list'), 'native-location-list');
-      assert.equal(await page.locator('#native-location-list option').count(), 3);
-      await suggestions.fill('Central district');
-      assert.equal(await suggestions.inputValue(), 'Central district');
+      const listOptions = await suggestions.evaluate(input => input.list
+        ? Array.from(input.list.options)
+            .filter(option => !option.disabled && option.value.trim())
+            .map(option => option.value)
+        : []);
+      assert.deepEqual(listOptions, ['North district', 'Central district', 'South district'],
+        'Datalist must expose enabled, nonempty suggestions through the input');
+      await suggestions.fill('Unlisted district');
+      assert.equal(await suggestions.inputValue(), 'Unlisted district');
       const details = page.locator('details[name="native-review-sections"]');
       assert.equal(await details.count(), 2);
       const groupingSupported = await supportsExclusiveDetails(page);
