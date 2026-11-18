@@ -79,6 +79,8 @@ def progressive_checks(browser, engine, screenshots):
     page = context.new_page()
     page.goto(GALLERY)
     require(page.locator("[data-block-id]").count() == BLOCK_COUNT, "No-JS: blocks missing")
+    require(page.locator(".blocks-preview a[href]").count() == 0,
+            "No-JS: gallery preview still navigates to placeholder routes")
     require(page.locator("[data-icon-id]").count() == 24, "No-JS: SVG icons missing")
     require(page.locator(".syn-block-asset").count() == 12, "No-JS: CSS assets missing")
     require(page.locator("#blocks-controls").is_hidden(), "No-JS: controls should be hidden")
@@ -111,7 +113,7 @@ def progressive_checks(browser, engine, screenshots):
                 f"{engine}: {ident} demo controls not disabled")
     # Long pipeline lanes are intentionally horizontally scrollable; confirm
     # a keyboard target in the last lane can still be scrolled into the viewport.
-    deal_link = page.get_by_role("link", name="Cedar Labs")
+    deal_link = page.locator('[data-block-id="crm-workspace"] .syn-pipeline-card a').filter(has_text="Cedar Labs")
     deal_link.scroll_into_view_if_needed()
     deal_right = deal_link.evaluate("e => e.getBoundingClientRect().right")
     require(deal_right <= 391, f"{engine}: horizontal pipeline link unreachable")

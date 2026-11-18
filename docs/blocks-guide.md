@@ -18,7 +18,7 @@ application CSS, and the core Syntyr build is unchanged.
 ## Safe local registry installation (experimental alpha.5 source)
 
 The static [universal registry](../registry/registry.json) contains the 31 MIT
-HTML blocks and eight CSS module entries. Every item includes its exact
+HTML blocks and nine CSS module entries. Every item includes its exact
 source-tree version, SHA-256 content hashes, declared CSS dependencies, files,
 and destination paths. This is **not** a published immutable alpha.5 release.
 
@@ -170,7 +170,7 @@ copied into the public project. The separate private Console Kit is unaffected.
 ## Experimental shadcn universal-item registry
 
 The source candidate can generate a **copy-owned, framework-independent**
-shadcn-compatible universal-item registry from the same 20 MIT blocks and
+shadcn-compatible universal-item registry from the same 31 MIT blocks and
 checked-in CSS distributions. It neither replaces nor duplicates the native
 block installer from PR #104. Universal files use explicit project-relative
 targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.

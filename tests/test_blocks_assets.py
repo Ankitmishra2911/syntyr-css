@@ -66,18 +66,66 @@ class BlocksAssetsTests(unittest.TestCase):
                 self.assertEqual(by_id[ident]["modules"], ["core"])
 
     def test_form_previews_are_disabled_without_modifying_copyable_snippets(self):
-        from html import escape
+        from html import unescape
+
+        class FormAudit(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.in_form = False
+                self.in_disabled_fieldset = False
+                self.controls = []
+
+            def handle_starttag(self, tag, attrs):
+                attributes = dict(attrs)
+                if tag == "form":
+                    self.in_form = True
+                elif tag == "fieldset" and self.in_form and "disabled" in attributes:
+                    self.in_disabled_fieldset = True
+                elif tag in {"input", "select", "button", "textarea"} and self.in_form:
+                    self.controls.append(self.in_disabled_fieldset)
+
+            def handle_endtag(self, tag):
+                if tag == "fieldset":
+                    self.in_disabled_fieldset = False
+                elif tag == "form":
+                    self.in_form = False
+
         page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
-        for ident in ("auth-sign-in", "auth-recovery", "newsletter-signup"):
+        for ident in ("auth-sign-in", "auth-recovery", "newsletter-signup", "resource-workspace"):
             with self.subTest(ident=ident):
                 card = page.split(f'data-block-id="{ident}"', 1)[1].split('      </article>', 1)[0]
-                self.assertIn('<fieldset class="blocks-preview-disabled" disabled>', card)
-                self.assertIn('</fieldset>', card)
+                preview = card.split('<div class="blocks-preview">', 1)[1].split('<details class="blocks-details">', 1)[0]
+                audit = FormAudit()
+                audit.feed(preview)
+                self.assertTrue(audit.controls, f"{ident}: missing preview form controls")
+                self.assertTrue(all(audit.controls), f"{ident}: controls outside disabled fieldset")
+                self.assertNotIn('href=', preview, f"{ident}: gallery preview may navigate")
                 snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text().strip()
-                self.assertIn(escape(snippet), card)
+                source = card.split('<pre class="blocks-source"><code>', 1)[1].split('</code></pre>', 1)[0]
+                self.assertEqual(unescape(source).strip(), snippet)
         css = (ROOT / "docs/blocks.css").read_text()
         self.assertIn('.syn-root .syn-form>.blocks-preview-disabled', css)
         self.assertIn('.syn-root .syn-filter-bar>.blocks-preview-disabled', css)
+        self.assertIn('flex-grow:1', css)
+
+    def test_preview_transform_does_not_enable_fake_form_actions_or_navigation(self):
+        from scripts.build_blocks import preview_markup
+        sample = ('<form data-rule="length > 0" action="/pretend" method="post">'
+                  '<input name="query"><button type="submit">Submit</button></form>'
+                  '<a href="/pretend/recover">Recover</a>')
+        preview = preview_markup(sample)
+        self.assertIn('<form data-rule="length > 0"><fieldset', preview.replace(' action="/pretend" method="post"', ''))
+        self.assertIn('disabled>', preview)
+        self.assertIn('<input name="query"><button', preview)
+        self.assertIn('</fieldset></form>', preview)
+        self.assertIn('<a>Recover</a>', preview)
+        self.assertNotIn('href="/pretend/recover"', preview)
+
+    def test_reviewed_comparison_and_error_copy_is_accessible_and_truthful(self):
+        comparison = (ROOT / 'blocks/snippets/comparison-table.html').read_text()
+        recovery = (ROOT / 'blocks/snippets/error-recovery.html').read_text()
+        self.assertRegex(comparison, r'class="syn-table-wrap"[^>]*role="region"[^>]*tabindex="0"')
+        self.assertNotIn('You can retry', recovery)
 
     def test_gallery_is_generated_and_progressively_enhanced(self):
         result = subprocess.run(

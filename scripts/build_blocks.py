@@ -39,6 +39,22 @@ TYPOGRAPHY = (
 )
 
 
+# Only presentation in the documentation gallery is transformed. Copyable
+# source and universal registry snippets retain real host-owned routes.
+FORM_START = re.compile(r"""(<form\b(?:"[^"]*"|'[^']*'|[^'">])*>)""", re.IGNORECASE)
+ANCHOR_START = re.compile(r"""<a\b(?:"[^"]*"|'[^']*'|[^'">])*?>""", re.IGNORECASE)
+HREF_ATTRIBUTE = re.compile(r"""\s+href\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)""", re.IGNORECASE)
+
+
+def preview_markup(source: str) -> str:
+    """Keep forms/links inert inside the gallery without changing copied HTML."""
+    preview = FORM_START.sub(
+        r'\1<fieldset class="blocks-preview-disabled" disabled>', source
+    )
+    preview = re.sub(r"</form\s*>", r"</fieldset></form>", preview, flags=re.IGNORECASE)
+    return ANCHOR_START.sub(lambda match: HREF_ATTRIBUTE.sub("", match.group()), preview)
+
+
 def build() -> str:
     blocks = json.loads((ROOT / "blocks/manifest.json").read_text(encoding="utf-8"))["blocks"]
     count = len(blocks)
@@ -48,9 +64,7 @@ def build() -> str:
         snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text(encoding="utf-8").strip()
         # Preview-only fieldset prevents accidental submissions to fictional
         # endpoints; preserve the original HTML in the copyable code sample.
-        preview = re.sub(r"(<form\b[^>]*>)", r'\1<fieldset class="blocks-preview-disabled" disabled>',
-                         snippet, flags=re.IGNORECASE)
-        preview = re.sub(r"(</form>)", r"</fieldset>\1", preview, flags=re.IGNORECASE)
+        preview = preview_markup(snippet)
         modules = " + ".join(f"syntyr.{module}.css" for module in block["modules"])
         tags = " ".join([block["title"], block["description"], *block["tags"]])
         cards.append(f"""

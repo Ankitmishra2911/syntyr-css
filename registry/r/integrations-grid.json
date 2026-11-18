@@ -13,7 +13,7 @@
       "path": "blocks/snippets/integrations-grid.html",
       "type": "registry:file",
       "target": "~/syntyr/blocks/integrations-grid.html",
-      "content": "<section class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-integrations\">\n  <h2 id=\"syn-integrations\" class=\"syn-heading\">Works with your workflow</h2>\n  <div class=\"syn-grid\">\n    <article class=\"syn-panel\"><h3>Calendar export</h3><p>Plan dates alongside existing schedules.</p><a href=\"/integrations/calendar\">Integration guide</a></article>\n    <article class=\"syn-panel\"><h3>Webhooks</h3><p>Send event data to systems you control.</p><a href=\"/integrations/webhooks\">Webhook guide</a></article>\n    <article class=\"syn-panel\"><h3>CSV import</h3><p>Move your records from a simple file.</p><a href=\"/integrations/csv\">CSV import guide</a></article>\n  </div>\n  <p class=\"syn-caption\">Example capabilities, not a claim of live integrations.</p>\n</section>\n"
+      "content": "<section class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-integrations\">\n  <h2 id=\"syn-integrations\" class=\"syn-heading\">Works with your workflow</h2>\n  <div class=\"syn-grid\">\n    <article class=\"syn-panel\"><h3>Calendar export</h3><p>Plan dates alongside existing schedules.</p><a href=\"/integrations/calendar\">Integration guide</a></article>\n    <article class=\"syn-panel\"><h3>Webhooks</h3><p>Send event data to systems you control.</p><a href=\"/integrations/webhooks\">Webhook guide</a></article>\n    <article class=\"syn-panel\"><h3>CSV import</h3><p>Move your records from a simple file.</p><a href=\"/integrations/csv\">CSV import guide</a></article>\n  </div>\n  <p class=\"syn-caption\">Example capabilities only. Connect these application-owned /integrations/ routes before publishing.</p>\n</section>\n"
     },
     {
       "path": "LICENSE",
@@ -27,7 +27,7 @@
     "source": "MIT source candidate",
     "runtimeJavaScript": false,
     "fileDigests": {
-      "~/syntyr/blocks/integrations-grid.html": "062394bc731cfc7cf945289bdade7d82e2fa556777e1b2e8f91f2919ff24023a",
+      "~/syntyr/blocks/integrations-grid.html": "eb9423646f10dfc16327528e59610a82454b9ba5d9fc3c6eb9886cbfb9f899a2",
       "~/syntyr/LICENSE": "42f56369ac06362dbfe433d2d50b178bf74c369a55ea22337ab40fd9433521bf"
     }
   },
