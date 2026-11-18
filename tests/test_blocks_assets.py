@@ -90,6 +90,19 @@ class BlocksAssetsTests(unittest.TestCase):
             self.assertIn(escape(source), page)
             self.assertNotIn("<form inert", source)
 
+    def test_disabled_preview_fieldset_preserves_native_form_layout(self):
+        # Preview controls remain disabled without JS, but their wrapper must
+        # participate in the parent's grid/flex layout (including RTL/reflow).
+        css = (ROOT / "docs/blocks.css").read_text(encoding="utf-8")
+        import re
+        match = re.search(r"\.syn-root \.blocks-preview-disabled\s*\{([^}]*)\}", css)
+        self.assertIsNotNone(match)
+        declarations = match.group(1)
+        for rule in ("display:inherit", "gap:inherit", "flex-wrap:inherit",
+                     "grid-template-columns:inherit"):
+            self.assertIn(rule, declarations.replace(" ", ""),
+                          f"preview fieldset must preserve {rule}")
+
     def test_repeated_source_and_copy_controls_have_contextual_names(self):
         page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
         parser = InspectHTML()
