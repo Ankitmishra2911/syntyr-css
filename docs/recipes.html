@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="f93d936ed77120bdee4163a309f6b9f8e5c0c2d0ea19f0ebec4db1793121d7a0">
+  <meta name="syntyr-source-sha256" content="bd9aae648399baba64c053373236bae2c90c04aef1872d338975bc70384b4c28">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -336,13 +336,13 @@ application CSS. Keep real document headings and reading order.</p>
 <h2 id="native-query-filters-and-record-review-alpha5-source-candidate">Native query filters and record review (alpha.5 source candidate)</h2>
 <p>The <a href="../examples/query-review.html">copy-owned filter and review composition</a>
 reuses <code>.syn-filter-bar</code>, <code>.syn-filter-choices</code>, <code>.syn-chip</code>,
-and <code>dl.syn-record-fields</code>. This is a static server-rendered snapshot: the example
-does not filter results or perform edits without a host server.</p>
+and <code>dl.syn-record-fields</code>. The example is a <strong>static server-rendered snapshot</strong>;
+it does not filter results or perform edits without a host application.</p>
 <ul>
-<li>Use a native GET form with labelled query controls and have the server validate, filter and re-render selected values and counts.</li>
-<li>Use real removal links that drop one parameter while retaining all remaining encoded query values; label the removal action in text.</li>
-<li>Use native description-list terms and values for review. The illustrative Edit links jump to disabled preview fields; provide real authorized edit routes in a host application.</li>
-<li>Keep authorization, mutations, persistence and filter logic in the host application; no mandatory JavaScript or new core CSS classes are introduced.</li>
+<li>Submit labelled controls with a native <code>method=&quot;get&quot;</code> form. The server must validate the query and re-render selected values, counts, and the matching results.</li>
+<li>Render each removable filter as a real link that drops exactly one encoded query parameter while preserving the others. Use descriptive accessible names, not icon-only removal affordances. The server must generate these URLs from validated state.</li>
+<li>Review record details as <code>dl</code> / <code>dt</code> / <code>dd</code> pairs and use Edit links to disabled example fields in this static snapshot; hosts must substitute real, authorized edit routes. Never style a static text value as a working editable field.</li>
+<li>Filtering, authorization, permissions, mutations, and persistence belong to the host. These composition classes add <strong>no new core CSS or mandatory JavaScript</strong>.</li>
 </ul>
 <h2 id="enterprise-collection-sheet-and-evidence-compositions-alpha5-source-candidate">Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)</h2>
 <p>The optional <code>syntyr.recipes.css</code> also includes reusable patterns tested against
