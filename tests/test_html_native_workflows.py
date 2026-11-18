@@ -52,6 +52,16 @@ class NativeWorkflowTests(unittest.TestCase):
         self.assertTrue(all(a.get("name") == "intent" and "disabled" in a for a in actions))
         self.assertFalse(any(t == "script" for t, _ in tags))
 
+    def test_nested_form_action_footer_does_not_claim_prohibited_aria_name(self):
+        # This <footer> is not a contentinfo landmark and cannot use
+        # aria-label without a valid role; the visible buttons name themselves.
+        actions = [(tag, attrs) for tag, attrs in self.tags.items
+                   if "syn-form-actions" in attrs.get("class", "").split()]
+        self.assertEqual(len(actions), 1)
+        tag, attrs = actions[0]
+        self.assertEqual(tag, "footer")
+        self.assertNotIn("aria-label", attrs)
+
     def test_linked_explorer_uses_disclosure_not_fake_treeview(self):
         tags = self.tags.items
         self.assertTrue(any(t == "nav" and a.get("aria-label") == "Browse resources" for t, a in tags))

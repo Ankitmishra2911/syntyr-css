@@ -190,6 +190,11 @@ def render_guide(name: str, allowed: set[str]) -> str:
                 child.attrSet("href", urlunsplit(("https", "github.com", f"/dporkka/syntyr-css/blob/main/{repo_path}", parsed.query, parsed.fragment)))
 
     article = renderer().renderer.render(tokens, renderer().options, {})
+    # Design guide code samples can overflow on small viewports. Preserve
+    # native pre/code semantics while allowing keyboard users to scroll
+    # them without JavaScript. This is scoped to the confirmed audit page.
+    if name == "design-principles.md":
+        article = article.replace("<pre><code", '<pre tabindex="0"><code')
     toc = "\n".join(
         f'<a class="docs-article-toc-link docs-article-toc-{level}" href="#{escape(anchor)}">{escape(label)}</a>'
         for level, anchor, label in headings
