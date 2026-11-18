@@ -156,19 +156,21 @@ This is **not an ARIA tree widget**: do not add `role="tree"`, `treeitem`,
 The browser already supports Tab, Enter, Space and native disclosure.
 
 ```html
-<div class="syn-root syn-sidebar" data-syn-theme="studio">
-  <nav class="syn-tree-nav" aria-label="Workspace sections">
-    <ul>
-      <li><details open>
-        <summary>Operations</summary>
-        <ul>
-          <li><a href="/resources" aria-current="page">Resources</a></li>
-          <li><a href="/campaigns">Campaigns</a></li>
-        </ul>
-      </details></li>
-    </ul>
-  </nav>
-  <main id="workspace"><h1>Resources</h1></main>
+<div class="syn-root" data-syn-theme="studio">
+  <div class="syn-sidebar">
+    <nav class="syn-tree-nav" aria-label="Workspace sections">
+      <ul>
+        <li><details open>
+          <summary>Operations</summary>
+          <ul>
+            <li><a href="/resources" aria-current="page">Resources</a></li>
+            <li><a href="/campaigns">Campaigns</a></li>
+          </ul>
+        </details></li>
+      </ul>
+    </nav>
+    <main id="workspace"><h1>Resources</h1></main>
+  </div>
 </div>
 ```
 

@@ -48,6 +48,15 @@ class NativeDisclosureNavigationTest(unittest.TestCase):
         self.assertIn("no JavaScript", content)
         self.assertIn("not an ARIA tree", content)
 
+    def test_copyable_sidebar_recipe_has_a_separate_scoped_ancestor(self):
+        guide = (ROOT / "docs/recipes.md").read_text(encoding="utf-8")
+        snippet = guide.split("## Native disclosure navigation for workspaces", 1)[1].split("```html", 1)[1].split("```", 1)[0]
+        self.assertIn('<div class="syn-root" data-syn-theme="studio">\n  <div class="syn-sidebar">', snippet)
+        self.assertNotIn('class="syn-root syn-sidebar"', snippet)
+        self.assertIn('<nav class="syn-tree-nav"', snippet)
+        self.assertIn('<main id="workspace">', snippet)
+        self.assertIn('</main>\n  </div>\n</div>', snippet)
+
     def test_optional_recipe_preserves_focus_reflow_and_forced_colors(self):
         source = (ROOT / "src/recipes.css").read_text(encoding="utf-8")
         dist = (ROOT / "dist/syntyr.recipes.css").read_text(encoding="utf-8")
