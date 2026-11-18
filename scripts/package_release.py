@@ -35,6 +35,8 @@ FILES = (
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
     "examples/preset-preview.html",
     "examples/resource-outline.html",  # Script-free native navigation demo.
+    "examples/command-launcher.html",
+    "examples/command-launcher.mjs",  # Optional copy-owned behavior only.
     "examples/animation.html",
     "examples/animation-demo.mjs",  # One local CSS file per named preset.
     "examples/copy.html",
