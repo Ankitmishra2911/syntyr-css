@@ -75,7 +75,9 @@ def layout_check(browser, engine, width, scale):
 
 
 def progressive_checks(browser, engine, screenshots):
-    context = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
+    context = browser.new_context(java_script_enabled=False,
+                                  viewport={"width": 390, "height": 844},
+                                  reduced_motion="reduce")
     page = context.new_page()
     page.goto(GALLERY)
     require(page.locator("[data-block-id]").count() == BLOCK_COUNT, "No-JS: blocks missing")
@@ -106,17 +108,43 @@ def progressive_checks(browser, engine, screenshots):
         require(fieldset.count() == 1, f"{engine}: {ident} missing safe preview fieldset")
         require(fieldset.get_attribute("disabled") is not None,
                 f"{engine}: {ident} preview fieldset is not disabled")
-        display = fieldset.evaluate("e => getComputedStyle(e).display")
-        require(display == layout, f"{engine}: {ident} preview layout {display}, expected {layout}")
+        computed = fieldset.evaluate("e => ({display: getComputedStyle(e).display, wrap: getComputedStyle(e).flexWrap})")
+        require(computed["display"] == layout,
+                f"{engine}: {ident} preview layout {computed}, expected {layout}")
+        if layout == "flex":
+            require(computed["wrap"] == "wrap",
+                    f"{engine}: {ident} fieldset cannot wrap mobile controls: {computed}")
         control = fieldset.locator("input,select,button").first
         require(control.count() == 1 and control.is_disabled(),
                 f"{engine}: {ident} demo controls not disabled")
-    # Long pipeline lanes are intentionally horizontally scrollable; confirm
-    # a keyboard target in the last lane can still be scrolled into the viewport.
+    # The preview intentionally strips hrefs. Verify that its named, scrollable
+    # pipeline is reachable via Tab and exposes later lanes using keyboard arrows.
+    pipeline = page.locator('[data-block-id="crm-workspace"] .syn-pipeline')
+    focused = False
+    for _ in range(90):
+        page.keyboard.press("Tab")
+        if pipeline.evaluate("e => e === document.activeElement"):
+            focused = True
+            break
+    require(focused, f"{engine}: pipeline is not keyboard-reachable")
+    start_scroll = pipeline.evaluate("e => e.scrollLeft")
+    for _ in range(4):
+        page.keyboard.press("ArrowRight")
+    page.wait_for_timeout(550)
     deal_link = page.locator('[data-block-id="crm-workspace"] .syn-pipeline-card a').filter(has_text="Cedar Labs")
-    deal_link.scroll_into_view_if_needed()
-    deal_right = deal_link.evaluate("e => e.getBoundingClientRect().right")
-    require(deal_right <= 391, f"{engine}: horizontal pipeline link unreachable")
+    metric = deal_link.evaluate("""e => {
+        const link = e.getBoundingClientRect();
+        const pipeline = e.closest('.syn-pipeline');
+        const region = pipeline.getBoundingClientRect();
+        return {left: link.left, right: link.right, regionLeft: region.left,
+                regionRight: region.right, scroll: pipeline.scrollLeft,
+                viewport: document.documentElement.clientWidth};
+    }""")
+    require(metric["scroll"] > start_scroll,
+            f"{engine}: arrow keys cannot scroll the focused pipeline: {metric}")
+    require(metric["left"] >= max(0, metric["regionLeft"]) - 1 and
+            metric["right"] <= min(metric["viewport"], metric["regionRight"]) + 1,
+            f"{engine}: Cedar Labs lane is not fully visible after keyboard scrolling: {metric}")
     context.close()
 
     context = browser.new_context(viewport={"width": 1280, "height": 900})
@@ -163,6 +191,26 @@ class QuietStaticHandler(SimpleHTTPRequestHandler):
     """Test-server only; avoid polluting browser verification output."""
     def log_message(self, fmt, *args):
         pass
+
+
+def playground_preview_check(browser, engine):
+    """Preview destinations are inert while editor and copy preserve real href."""
+    context = browser.new_context(viewport={"width": 800, "height": 700})
+    page = context.new_page()
+    try:
+        page.goto((ROOT / "docs/playground.html").as_uri() +
+                  "#component=block-error-recovery")
+        markup = page.locator("#playground-markup")
+        require('/dashboard' in markup.input_value(),
+                f"{engine}: editor lost source placeholder route")
+        frame = page.frame_locator("#playground-preview")
+        frame.get_by_text("Return to dashboard").wait_for()
+        require(frame.locator("a[href]").count() == 0,
+                f"{engine}: playground preview can navigate to placeholder routes")
+        require('/dashboard' in markup.input_value(),
+                f"{engine}: inert preview rewrote editable source")
+    finally:
+        context.close()
 
 
 def live_clipboard_check(browser):
@@ -246,6 +294,12 @@ def main():
             except Exception as exc:
                 failures.append(f"{engine} progressive: {exc}")
                 item["progressive"] = "fail"
+            try:
+                playground_preview_check(browser, engine)
+                item["playground_navigation"] = "pass"
+            except Exception as exc:
+                failures.append(f"{engine} playground preview: {exc}")
+                item["playground_navigation"] = "fail"
             if engine == "chromium":
                 try:
                     live_clipboard_check(browser)

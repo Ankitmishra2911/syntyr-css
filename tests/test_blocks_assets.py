@@ -72,23 +72,25 @@ class BlocksAssetsTests(unittest.TestCase):
             def __init__(self):
                 super().__init__()
                 self.in_form = False
-                self.in_disabled_fieldset = False
+                self.disabled_stack = []
                 self.controls = []
 
             def handle_starttag(self, tag, attrs):
                 attributes = dict(attrs)
                 if tag == "form":
                     self.in_form = True
-                elif tag == "fieldset" and self.in_form and "disabled" in attributes:
-                    self.in_disabled_fieldset = True
+                elif tag == "fieldset" and self.in_form:
+                    self.disabled_stack.append(
+                        "disabled" in attributes or any(self.disabled_stack))
                 elif tag in {"input", "select", "button", "textarea"} and self.in_form:
-                    self.controls.append(self.in_disabled_fieldset)
+                    self.controls.append(any(self.disabled_stack))
 
             def handle_endtag(self, tag):
-                if tag == "fieldset":
-                    self.in_disabled_fieldset = False
+                if tag == "fieldset" and self.disabled_stack:
+                    self.disabled_stack.pop()
                 elif tag == "form":
                     self.in_form = False
+                    self.disabled_stack.clear()
 
         page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
         for ident in ("auth-sign-in", "auth-recovery", "newsletter-signup", "resource-workspace"):
@@ -121,11 +123,83 @@ class BlocksAssetsTests(unittest.TestCase):
         self.assertIn('<a>Recover</a>', preview)
         self.assertNotIn('href="/pretend/recover"', preview)
 
+    def test_preview_transform_respects_textarea_and_attribute_boundaries(self):
+        from scripts.build_blocks import preview_markup
+        source = (
+            '<form id="demo" action="/submit"><textarea name="notes">Keep literal '
+            '</form> text</textarea><fieldset><input name="nested"></fieldset>'
+            '<button type="submit">Inside</button></form>'
+            '<a aria-label=\'Documentation: href="/help"\' href="/help">Help</a>'
+            '<button type="submit" form="demo">Outside</button>'
+        )
+        preview = preview_markup(source)
+        self.assertIn('<textarea name="notes">Keep literal </form> text</textarea>', preview)
+        self.assertEqual(preview.count('</fieldset></form>'), 1)
+        self.assertIn('<a aria-label=\'Documentation: href="/help"\'>Help</a>', preview)
+        self.assertIn('<button type="submit" form="demo" disabled>Outside</button>', preview)
+        self.assertNotIn('<a aria-label=\'Documentation: href="/help"\' href=', preview)
+
+    def test_preview_form_audit_handles_nested_fieldsets(self):
+        from scripts.build_blocks import preview_markup
+        source = (
+            '<form action="/submit"><fieldset><input name="nested"></fieldset>'
+            '<button type="submit">Submit</button></form>'
+        )
+        preview = preview_markup(source)
+        class Audit(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.disabled_stack = []
+                self.control_states = []
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if tag == "fieldset":
+                    self.disabled_stack.append("disabled" in attrs or
+                        bool(self.disabled_stack and self.disabled_stack[-1]))
+                if tag in {"button", "input"}:
+                    self.control_states.append(bool(self.disabled_stack and self.disabled_stack[-1]))
+            def handle_endtag(self, tag):
+                if tag == "fieldset":
+                    self.disabled_stack.pop()
+        audit = Audit()
+        audit.feed(preview)
+        self.assertEqual(audit.control_states, [True, True])
+
     def test_reviewed_comparison_and_error_copy_is_accessible_and_truthful(self):
         comparison = (ROOT / 'blocks/snippets/comparison-table.html').read_text()
         recovery = (ROOT / 'blocks/snippets/error-recovery.html').read_text()
         self.assertRegex(comparison, r'class="syn-table-wrap"[^>]*role="region"[^>]*tabindex="0"')
         self.assertNotIn('You can retry', recovery)
+
+    def test_scrollable_resource_and_billing_tables_have_named_keyboard_regions(self):
+        from html.parser import HTMLParser
+
+        class TableRegionAudit(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.wrapper = None
+                self.in_wrapper = False
+                self.contains_table = False
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if tag == "div" and "syn-table-wrap" in attrs.get("class", "").split():
+                    self.wrapper = attrs
+                    self.in_wrapper = True
+                if tag == "table" and self.in_wrapper:
+                    self.contains_table = True
+            def handle_endtag(self, tag):
+                if tag == "div" and self.in_wrapper:
+                    self.in_wrapper = False
+
+        for ident in ("resource-workspace", "billing-workspace"):
+            with self.subTest(block=ident):
+                source = (ROOT / "blocks/snippets" / (ident + ".html")).read_text()
+                audit = TableRegionAudit()
+                audit.feed(source)
+                self.assertTrue(audit.contains_table)
+                self.assertEqual(audit.wrapper.get("role"), "region")
+                self.assertEqual(audit.wrapper.get("tabindex"), "0")
+                self.assertTrue(audit.wrapper.get("aria-label"), "Missing table region name")
 
     def test_gallery_is_generated_and_progressively_enhanced(self):
         result = subprocess.run(
