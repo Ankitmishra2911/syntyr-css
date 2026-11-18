@@ -183,13 +183,19 @@ class NativeSemanticPrimitives(unittest.TestCase):
                                  'input[type="color"][data-syn-semantic]')
         file = declarations_for('input[type="file"]:not([class])',
                                 'input[type="file"][data-syn-semantic]')
-        self.assertEqual(fieldset.get("padding"), "min(1rem, 6vw)")
+        self.assertEqual(fieldset.get("padding"), "1rem")
         self.assertEqual(color.get("inline-size"), "min(4rem, 100%)")
         self.assertEqual(color.get("min-inline-size"), "0")
-        self.assertEqual(color.get("box-sizing"), "border-box")
+        self.assertEqual(color.get("max-inline-size"), "100%")
         self.assertEqual(file.get("inline-size"), "100%")
         self.assertEqual(file.get("min-inline-size"), "0")
-        self.assertEqual(file.get("box-sizing"), "border-box")
+        self.assertEqual(file.get("max-inline-size"), "100%")
+        self.assertEqual(file.get("overflow"), "clip")
+        media = css.split("@media (max-width: 40rem)", 1)[1].split(
+            "@media (forced-colors: active)", 1)[0]
+        self.assertIn(":is(.syn-root.syn-semantic, .syn-root .syn-semantic)", media)
+        self.assertIn(":is(fieldset:not([class]), fieldset[data-syn-semantic])", media)
+        self.assertIn("padding: min(1rem, 5vw)", media)
 
     def test_demo_is_discoverable_and_published_explicitly(self):
         self.assertIn('href="../examples/native-elements.html"', (ROOT / "docs/index.html").read_text())
@@ -234,6 +240,26 @@ class NativeSemanticPrimitives(unittest.TestCase):
         self.assertIn("scrollLeft", browser)
         self.assertIn("mark code", browser)
 
+
+    def test_native_file_and_color_controls_bound_width_at_large_text_sizes(self):
+        css = (ROOT / "src/semantic.css").read_text()
+        file_section = css.split('input[type="file"]:not([class])', 1)[1].split("}", 1)[0]
+        for declaration in ("inline-size: 100%", "min-inline-size: 0",
+                            "max-inline-size: 100%", "overflow: clip"):
+            with self.subTest(declaration=declaration):
+                self.assertIn(declaration, file_section)
+        color_section = css.split('input[type="color"]:not([class])', 1)[1].split("}", 1)[0]
+        for declaration in ("inline-size: min(4rem, 100%)", "min-inline-size: 0",
+                            "max-inline-size: 100%"):
+            self.assertIn(declaration, color_section)
+        self.assertIn("padding: min(1rem, 5vw)", css)
+        html = (ROOT / "examples/native-elements.html").read_text()
+        self.assertIn('aria-label="Sample campaign inventory"', html)
+        self.assertIn('tabindex="0"', html)
+        browser = (ROOT / "tests/native_semantic_browser.py").read_text()
+        self.assertIn('"400%"', browser)
+        self.assertIn('"#design-file"', browser)
+        self.assertIn('"#design-color"', browser)
 
     def test_native_example_is_covered_by_shared_browser_audits(self):
         for script in ("tests/axe_audit.py", "tests/browser_matrix.py", "tests/reflow_test.py"):
