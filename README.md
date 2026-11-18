@@ -96,6 +96,7 @@ stylesheets.
 - [Performance and design polish guide (no size gate)](docs/performance-and-polish.md)
 - [Progressive loading and critical CSS decision guide](docs/progressive-loading.md) and [zero-JS performance-first example](examples/performance-first.html)
 - [WordPress, Wix, Shopify, Webflow, Framer and CMS/site-builder installation](docs/site-builders.md) (13 platform-specific SEO guides, unlayered alpha.5 embed CSS, WordPress/Shopify source examples, and host-theme isolation fixture).
+- [Framework-independent CMS starter (Sveltia CMS + Pages CMS)](examples/cms-starter/README.md): portable JSON blocks, native HTML/CSS renderer and optional Git-backed editors ([integration guide](docs/cms-integration.md)); experimental alpha.5 source.
 - [Framework integrations: LiveView, Livewire, Hotwire/Turbo, HTMX, Go templ and frontend stacks](docs/framework-integrations.md)
 - [Mobile integration: React Native / Expo native tokens, plus Flutter, SwiftUI, Compose and Ionic](docs/mobile-frameworks.md) (opt-in alpha.5 source adapter; no native CSS runtime)
 - [Runnable Expo SDK 58 native test fixture](examples/expo-native-smoke/README.md) (native component tests, Android/iOS Metro exports; native simulator/device verification still required)
