@@ -64,7 +64,8 @@ async function run(engine, name, url) {
       menu.setAttribute("popover", "");
       menu.setAttribute("data-syn-menu", "");
       menu.innerHTML = '<button data-syn-menu-item>Rename</button>' +
-        '<button data-syn-menu-item>Duplicate</button>' +
+        '<div inert><button data-syn-menu-item>Duplicate</button></div>' +
+        '<button data-syn-menu-item>Delete</button>' +
         '<a data-syn-menu-item aria-disabled="true" href="#should-not-navigate">Unavailable</a>';
       document.querySelector("main").append(trigger, menu);
       const dispose = enhanceMenu(menu);
@@ -87,12 +88,25 @@ async function run(engine, name, url) {
       window.__shadow = shadow;
       window.__shadowMenu = shadowMenu;
       window.__disposeShadow = disposeShadow;
-      return { manualRejected, manualRole, suppressed, selectionCorrect };
+      const alreadyOpen = document.createElement("div");
+      alreadyOpen.id = "already-open";
+      alreadyOpen.setAttribute("popover", "auto");
+      alreadyOpen.setAttribute("data-syn-menu", "");
+      alreadyOpen.innerHTML = '<button data-syn-menu-item>Open menu action</button>';
+      document.querySelector("main").append(alreadyOpen);
+      alreadyOpen.showPopover();
+      const disposeAlreadyOpen = enhanceMenu(alreadyOpen);
+      const opensWithFocus = document.activeElement === alreadyOpen.querySelector("button");
+      disposeAlreadyOpen();
+      alreadyOpen.hidePopover();
+      alreadyOpen.remove();
+      return { manualRejected, manualRole, suppressed, selectionCorrect, opensWithFocus };
     });
     assert.equal(outcome.manualRejected, true);
     assert.equal(outcome.manualRole, null);
     assert.equal(outcome.suppressed, true);
     assert.equal(outcome.selectionCorrect, true);
+    assert.equal(outcome.opensWithFocus, true, "enhancing an already-open popover focuses first item");
 
     await page.evaluate(() => window.__shadowMenu.showPopover());
     await page.waitForFunction(() =>
@@ -104,8 +118,10 @@ async function run(engine, name, url) {
     await page.evaluate(() => window.__disposeShadow());
 
     await page.evaluate(() => window.__menu.showPopover());
-    await page.waitForFunction(() => window.__menu.getAttribute("role") === "menu");
+    await page.waitForFunction(() => document.activeElement?.textContent === "Rename");
     await page.keyboard.press("ArrowDown");
+    assert.equal(await page.evaluate(() => document.activeElement?.textContent), "Delete",
+      "inert descendants must be skipped by arrow navigation");
     await page.evaluate(() => window.__disposeMenu());
     assert.equal(await page.evaluate(() => window.__menu.getAttribute("role")), null);
 

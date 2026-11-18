@@ -69,6 +69,11 @@ class DropdownContract(unittest.TestCase):
         self.assertIn("integrations/dropdown/", pkg["files"])
         self.assertNotIn("menu.mjs", (ROOT / "dist/syntyr.core.css").read_text())
 
+    def test_native_multiple_select_remains_preferred(self):
+        guide = (ROOT / "docs/dropdowns.md").read_text()
+        self.assertIn('<select class="syn-select" multiple', guide)
+        self.assertIn('Autocomplete or hierarchical menu', guide)
+
     def test_guidance_distinguishes_action_panel_and_aria_menu(self):
         guide = (ROOT / "docs/dropdowns.md").read_text()
         for phrase in ("native", "Tab", "Escape", "role=\"menu\"", "ArrowDown",

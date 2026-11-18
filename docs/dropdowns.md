@@ -10,7 +10,8 @@ Syntyr supplies styling; native HTML owns ordinary behavior. Use the **native** 
 | Open a set of ordinary links/buttons | `[popover].syn-popover.syn-dropdown` | Tab and Escape | None |
 | Show expandable information | `<details class="syn-details">` | Native disclosure keys | None |
 | Desktop-style application menu | Optional `enhanceMenu()` adapter | ArrowDown, ArrowUp, Home, End, typeahead | Explicit opt-in module |
-| Multi-select, autocomplete, hierarchical menu | Use an accessible, tested application widget | Full ARIA pattern | App-owned |
+| Select several values in a form | `<select class="syn-select" multiple name="regions">` | Native multi-select keys | None |
+| Autocomplete or hierarchical menu | Use an accessible, tested application widget | Full ARIA pattern | App-owned |
 
 The no-JS example is [examples/dropdowns.html](https://syntyr-css.pages.dev/examples/dropdowns.html). The native Popover API provides light dismissal and Escape behavior in supporting browsers. Older browsers need an alternative if the actions are essential.
 

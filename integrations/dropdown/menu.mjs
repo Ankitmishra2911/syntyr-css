@@ -31,7 +31,7 @@ export function enhanceMenu(menu) {
   }
   const enabled = () => [...menu.querySelectorAll(ITEM)].filter((el) =>
     !el.matches(':disabled, [aria-disabled="true"], [hidden]') &&
-    !el.closest('[hidden]') && el.getClientRects().length > 0);
+    !el.closest('[hidden], [inert]') && el.getClientRects().length > 0);
   let typed = '';
   let lastTyped = 0;
 
@@ -106,6 +106,12 @@ export function enhanceMenu(menu) {
   menu.addEventListener('keydown', onKeyDown);
   menu.addEventListener('click', onCaptureClick, true);
   menu.addEventListener('click', onClick);
+  // If enhancement starts after the popover has opened, no toggle event is
+  // replayed. Establish the same initial focus as the normal opening path.
+  if (menu.matches(':popover-open')) {
+    typed = '';
+    enabled()[0]?.focus();
+  }
   return () => {
     menu.removeEventListener('toggle', onToggle);
     menu.removeEventListener('keydown', onKeyDown);
