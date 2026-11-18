@@ -26,6 +26,17 @@ class ResizableWorkspaceContract(unittest.TestCase):
             css,
         )
 
+    def test_stack_spacing_across_hidden_separator(self):
+        css = read("src/recipes.css")
+        self.assertIn(
+            "&.syn-resizable-workspace .syn-resizable-workspace__separator + .syn-resizable-workspace__pane",
+            css,
+        )
+
+    def test_active_pointer_is_not_replaced_by_second_touch(self):
+        js = read("examples/resizable-workspace.mjs")
+        self.assertIn("if (pointer !== null || event.button !== 0) return;", js)
+
     def test_accessible_separator_and_fallback(self):
         html = read("examples/resizable-workspace.html")
         for token in ("role=\"separator\"", "aria-orientation=\"vertical\"",

@@ -1510,7 +1510,7 @@
       &.syn-resizable-workspace .syn-resizable-workspace__panes {
         display: block;
       }
-      &.syn-resizable-workspace .syn-resizable-workspace__pane + .syn-resizable-workspace__pane {
+      &.syn-resizable-workspace .syn-resizable-workspace__separator + .syn-resizable-workspace__pane {
         margin-block-start: var(--syn-space-2);
       }
       &.syn-resizable-workspace .syn-resizable-workspace__separator {

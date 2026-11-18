@@ -88,9 +88,37 @@ async function exercise(engine, name, base) {
     await assertRenderedFraction();
     await page.locator(".syn-root").evaluate(el => { el.dir = "ltr"; });
 
+    // Synthetic simultaneous touch pointers; stub capture for DOM events
+    // because pointer capture requires a browser-active hardware pointer.
+    const multiTouch = await separator.evaluate(el => {
+      const panes = el.closest("[data-syn-resizable]").querySelector(".syn-resizable-workspace__panes");
+      const box = panes.getBoundingClientRect();
+      const grip = el.getBoundingClientRect();
+      const start = Number(el.getAttribute("aria-valuenow"));
+      el.setPointerCapture = () => {};
+      el.hasPointerCapture = () => false;
+      const send = (type, id, x) => el.dispatchEvent(new PointerEvent(type, {
+        bubbles: true, button: 0, pointerId: id, pointerType: "touch",
+        clientX: x, clientY: grip.y + grip.height / 2,
+      }));
+      const point = grip.x + grip.width / 2;
+      send("pointerdown", 41, point);
+      send("pointerdown", 42, point);
+      send("pointerup", 42, point);
+      send("pointermove", 41, box.x + box.width * .46);
+      const after = Number(el.getAttribute("aria-valuenow"));
+      send("pointerup", 41, point);
+      return { start, after };
+    });
+    assert(multiTouch.after > multiTouch.start + 5,
+      "second touch must not steal first pointer: " + JSON.stringify(multiTouch));
+
     // Container queries follow the workspace's width, not just viewport width.
     await page.locator(".syn-resizable-workspace").evaluate(el => { el.style.inlineSize = "400px"; });
     assert.equal(await separator.isVisible(), false, "narrow embedded container hides handle");
+    const stackedGap = await page.locator("#asset-detail").evaluate(el =>
+      Number.parseFloat(getComputedStyle(el).marginBlockStart));
+    assert(stackedGap >= 8, "stacked panes should retain a visible separation: " + stackedGap);
     await page.locator(".syn-resizable-workspace").evaluate(el => { el.style.removeProperty("inline-size"); });
 
     await page.setViewportSize({ width: 320, height: 760 });

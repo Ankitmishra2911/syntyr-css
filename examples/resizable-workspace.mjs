@@ -34,7 +34,7 @@ for (const workspace of document.querySelectorAll("[data-syn-resizable]")) {
   update(percentage);
 
   separator.addEventListener("pointerdown", event => {
-    if (event.button !== 0) return;
+    if (pointer !== null || event.button !== 0) return;
     // Only moves resize the panel; a stationary pointerdown is a no-op.
     const handle = separator.getBoundingClientRect();
     const direction = getComputedStyle(panes).direction;
