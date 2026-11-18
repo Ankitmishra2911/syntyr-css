@@ -91,6 +91,7 @@ class CloudflareSiteTests(unittest.TestCase):
                     "docs/how-to.html",  # Docs-only search, same CSP as the catalog.
                     "examples/animation.html", "examples/copy.html",
                     "examples/resizable-workspace.html",
+                    "examples/command-launcher.html",
                     # Explicitly opted-in first-party ESM examples only.
                 }
             ))

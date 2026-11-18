@@ -496,6 +496,13 @@
       border-radius: var(--syn-radius); background: var(--syn-surface-floating);
       color: var(--syn-text); box-shadow: var(--syn-shadow-overlay);
     }
+    /* Reuse visual command styles in an opt-in native dialog. No default JS. */
+    &.syn-command-panel:where(dialog) {
+      box-sizing: border-box; max-inline-size: calc(100% - 2rem);
+      max-block-size: min(80dvh, 44rem); overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    &.syn-command-panel:where(dialog)::backdrop { background: rgb(0 0 0 / .55); }
     &.syn-command-panel .syn-command-search {
       padding: var(--syn-space-2); border-block-end: 1px solid var(--syn-border-subtle);
     }

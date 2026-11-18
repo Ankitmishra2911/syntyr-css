@@ -35,6 +35,8 @@ FILES = (
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
     "examples/preset-preview.html",
     "examples/resource-outline.html",  # Script-free native navigation demo.
+    "examples/command-launcher.html",
+    "examples/command-launcher.mjs",  # Optional copy-owned navigation adapter.
     "examples/query-review.html",  # Native server-rendered filter/review composition.
     "examples/resizable-workspace.html",
     "examples/resizable-workspace.mjs",
