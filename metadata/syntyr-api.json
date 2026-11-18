@@ -667,6 +667,16 @@
       "description": "Syntyr CSS class (components/forms.css)."
     },
     {
+      "name": "syn-form-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-form-actions__buttons",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
       "name": "syn-frame",
       "module": "geometry.css",
       "description": "Syntyr CSS class (geometry.css)."
@@ -1520,6 +1530,11 @@
       "name": "syn-u-wrap",
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css)."
+    },
+    {
+      "name": "syn-upload-field",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css)."
     },
     {
       "name": "syn-view-switcher",
