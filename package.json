@@ -55,7 +55,8 @@
     "./copy": {
       "types": "./dist/syntyr.copy.d.mts",
       "default": "./dist/syntyr.copy.mjs"
-    }
+    },
+    "./menu.mjs": "./integrations/dropdown/menu.mjs"
   },
   "sideEffects": [
     "**/*.css"
@@ -68,7 +69,8 @@
     "metadata/css-contract.v1.json",
     "metadata/component-gallery.v1.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "integrations/dropdown/"
   ],
   "publishConfig": {
     "access": "public"
