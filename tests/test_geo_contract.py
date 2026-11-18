@@ -63,6 +63,15 @@ class GeoContract(unittest.TestCase):
         self.assertNotIn(".maplibregl-", css)
         self.assertNotIn(".leaflet-", css)
 
+    def test_static_marker_coordinates_remain_physical_in_rtl(self):
+        css = (ROOT / "src/geo.css").read_text()
+        rule = css.split(".syn-root .syn-geo-marker-layer > .syn-geo-marker {", 1)[1].split("}", 1)[0]
+        self.assertIn("left: var(--syn-geo-x, 50%)", rule)
+        self.assertIn("top: var(--syn-geo-y, 50%)", rule)
+        self.assertIn("transform: translate(-50%, -50%)", rule)
+        self.assertNotIn("inset-inline-start:", rule)
+        self.assertNotIn("inset-block-start:", rule)
+
     def test_selected_cluster_has_visible_ring_even_when_marker_glyph_hidden(self):
         css = (ROOT / "src/geo.css").read_text()
         self.assertIn(

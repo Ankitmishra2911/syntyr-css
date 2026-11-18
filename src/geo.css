@@ -136,8 +136,9 @@
      Real mapping engines position their own marker elements. */
   .syn-root .syn-geo-marker-layer > .syn-geo-marker {
     position: absolute;
-    inset-inline-start: var(--syn-geo-x, 50%);
-    inset-block-start: var(--syn-geo-y, 50%);
+    /* Diagram coordinates are physical SVG/canvas axes, not logical inline flow. */
+    left: var(--syn-geo-x, 50%);
+    top: var(--syn-geo-y, 50%);
     transform: translate(-50%, -50%);
   }
   .syn-root .syn-geo-marker::before {
