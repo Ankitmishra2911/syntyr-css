@@ -132,3 +132,31 @@ test('HTTP methods, root paths and static assets are allowlisted', async () => {
   assert.equal((await request('/assets/../README.md')).status, 404);
   assert.equal((await request('/')).status, 302);
 });
+
+test('rejected fragment searches retain accessible errors but no stale results or pagination', async () => {
+  const invalid = '&' + ' '.repeat(79) + 'X';
+  const htmx = await request('/htmx?q=' + encodeURIComponent(invalid), {headers: {'HX-Request':'true'}});
+  assert.equal(htmx.status, 422);
+  assert.match(htmx.body, /aria-invalid="true"/);
+  assert.match(htmx.body, /id="resource-query-error"/);
+  assert.doesNotMatch(htmx.body, /<table class="syn-table"|aria-label="Resource pages"|rel="next"/);
+  const native = await request('/datastar?q=' + encodeURIComponent(invalid));
+  assert.equal(native.status, 400);
+  assert.doesNotMatch(native.body, /<table class="syn-table"|aria-label="Resource pages"/);
+  const signals = encodeURIComponent(JSON.stringify({q: invalid}));
+  const sse = await request('/datastar?datastar=' + signals, {headers: {Accept:'text/event-stream'}});
+  assert.equal(sse.status, 200);
+  assert.match(sse.body, /aria-invalid="true"/);
+  assert.doesNotMatch(sse.body, /<table class="syn-table"|aria-label="Resource pages"|rel="next"/);
+  for (const mode of ['htmx','datastar']) {
+    const valid = await request(`/${mode}?q=%26`);
+    assert.equal(valid.status, 200);
+    assert.match(valid.body, /rel="next"/);
+  }
+});
+
+test('fragment routes reject invalid percent encoding instead of changing the query', async () => {
+  for (const path of ['/htmx?q=CRM&page=%ZZ','/htmx?q=%ZZ','/datastar?q=%ZZ','/datastar?q=CRM%']) {
+    assert.equal((await request(path)).status,400,path);
+  }
+});

@@ -101,6 +101,7 @@ class BrowserFragmentTests(unittest.TestCase):
         self.page.locator("#resource-query[aria-invalid=true]").wait_for()
         self.assertEqual(self.page.locator("#resource-query").get_attribute("aria-describedby"), "resource-query-error")
         self.page.get_by_role("alert").wait_for()
+        self.assertEqual(self.page.locator('#resource-results').count(), 0)
         self.page.locator("#resource-query").fill("Inventory")
         self.page.locator("form[role=search] button[type=submit]").click()
         self.page.get_by_role("rowheader", name="Inventory").wait_for()

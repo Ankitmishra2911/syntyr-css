@@ -68,6 +68,10 @@ pinned assets and set a suitable Content Security Policy (CSP).
 
 ## Component boundaries and security
 
+All invalid percent-encoded query strings return HTTP 400, while rejected
+search terms display bounded, accessible validation feedback **without any
+stale result table or actionable pagination** in full-page and fragment modes.
+
 The app owns request routing, query validation, URL encoding, cache variation,
 SSE/HTML content types, and status codes; the component functions just render
 semantic HTML using Syntyr's existing `syn-*` CSS contract. The app's

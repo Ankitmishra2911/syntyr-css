@@ -60,14 +60,14 @@ export function renderWorkspace(mode, data) {
       ${isHtmx ? '' : '<output role="status" data-show="$_fetching" style="display:none">Searching…</output>'}
     </form>
     ${notice(data.notice)}
-    <section id="resource-results" class="syn-stack" role="region" aria-label="Search results" aria-live="polite">
+    ${data.showResults === false ? '' : `<section id="resource-results" class="syn-stack" role="region" aria-label="Search results" aria-live="polite">
       ${table(data.records)}
       ${pagination({
         ...data.pager,
         prevURL: scopedPageHref(path, data.pager.prevURL),
         nextURL: scopedPageHref(path, data.pager.nextURL),
       })}
-    </section>
+    </section>`}
   </div>`;
 }
 
@@ -128,6 +128,12 @@ export function createFragmentServer() {
     let url;
     try { url = new URL(req.url, 'http://localhost'); }
     catch { response(res, 400, 'text/plain; charset=utf-8', 'Bad request', { head }); return; }
+    // URLSearchParams tolerates malformed percent escapes. Reject ambiguous
+    // query encoding for both native GET and enhanced fragment/SSE requests.
+    if (/%(?![0-9a-f]{2})/i.test(url.search)) {
+      response(res, 400, 'text/plain; charset=utf-8', 'Invalid query encoding', { head });
+      return;
+    }
     if (url.pathname === '/') {
       response(res, 302, 'text/plain; charset=utf-8', '', { head, headers: { Location: '/htmx' } });
       return;
