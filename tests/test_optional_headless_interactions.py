@@ -98,6 +98,18 @@ class OptionalHeadlessInteractions(unittest.TestCase):
         self.assertIn('not every record in a server database', guide)
         self.assertNotIn('react-aria-components', (ROOT / 'package.json').read_text())
 
+    def test_agent_index_discovers_optional_selection_scope_workflow(self):
+        index = (ROOT / 'llms.txt').read_text()
+        entry = next(
+            (line for line in index.splitlines()
+             if '[Optional React Aria resource-selection workflow]' in line),
+            ''
+        )
+        self.assertIn('https://syntyr-css.pages.dev/docs/headless-interactions.md', entry)
+        self.assertIn('local-only', entry)
+        self.assertIn('server-side', entry)
+        self.assertIn('opt-in', entry.lower())
+
     def test_guide_explains_semantics_portals_and_dependencies(self):
         guide = (ROOT / 'docs/headless-interactions.md').read_text()
         for phrase in ('React Aria', 'Radix', 'popover', 'datalist',
