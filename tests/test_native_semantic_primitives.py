@@ -56,13 +56,32 @@ class NativeSemanticPrimitives(unittest.TestCase):
                 self.labels = {}
                 self.active_label = None
                 self.details_names = []
+                self.template_depth = 0
+                self.active_select = None
+                self.active_group = None
+                self.service_groups = []
 
             def handle_starttag(self, tag, attrs):
+                if tag == "template":
+                    self.template_depth += 1
+                    return
+                if self.template_depth:
+                    return
                 attributes = dict(attrs)
                 if tag == "input" and attributes.get("id"):
                     self.by_id[attributes["id"]] = attributes
-                elif tag == "select" and attributes.get("id"):
-                    self.selects[attributes["id"]] = attributes
+                elif tag == "select":
+                    self.active_select = attributes.get("id")
+                    if self.active_select:
+                        self.selects[self.active_select] = attributes
+                elif tag == "optgroup" and self.active_select == "native-service":
+                    self.active_group = {
+                        "label": attributes.get("label", "").strip(),
+                        "option_count": 0,
+                    }
+                    self.service_groups.append(self.active_group)
+                elif tag == "option" and self.active_group is not None:
+                    self.active_group["option_count"] += 1
                 elif tag == "label":
                     self.active_label = attributes.get("for")
                     if self.active_label:
@@ -71,18 +90,31 @@ class NativeSemanticPrimitives(unittest.TestCase):
                     self.details_names.append(attributes.get("name"))
 
             def handle_data(self, data):
-                if self.active_label:
+                if not self.template_depth and self.active_label:
                     self.labels[self.active_label] += data
 
             def handle_endtag(self, tag):
+                if tag == "template":
+                    self.template_depth -= 1
+                    return
+                if self.template_depth:
+                    return
                 if tag == "label":
                     self.active_label = None
+                elif tag == "optgroup":
+                    self.active_group = None
+                elif tag == "select":
+                    self.active_select = None
+                    self.active_group = None
 
         parsed = Inputs()
         parsed.feed(html)
         self.assertEqual(parsed.by_id["native-location"].get("list"), "native-location-list")
         self.assertIn('<datalist id="native-location-list">', html)
-        self.assertGreaterEqual(html.count('<optgroup label='), 2)
+        grouped_options = [group for group in parsed.service_groups
+                           if group["label"] and group["option_count"] > 0]
+        self.assertGreaterEqual(len(grouped_options), 2,
+                                "Service select must contain two labeled, populated groups")
         self.assertIn("native-service", parsed.selects,
                       "Service select must exist with the expected ID")
         self.assertTrue(parsed.labels.get("native-service", "").strip(),
@@ -102,50 +134,62 @@ class NativeSemanticPrimitives(unittest.TestCase):
             def __init__(self):
                 super().__init__()
                 self.div_depth = 0
-                self.region_depth = None
-                self.region = None
-                self.contains_table = False
+                self.regions = []
+                self.open_regions = []
 
             def handle_starttag(self, tag, attrs):
                 attributes = dict(attrs)
                 if tag == "div":
                     self.div_depth += 1
                     if "syn-table-wrap" in attributes.get("class", "").split():
-                        self.region_depth = self.div_depth
-                        self.region = attributes
-                elif tag == "table" and self.region_depth is not None:
-                    self.contains_table = True
+                        region = {"depth": self.div_depth, "attrs": attributes,
+                                  "contains_table": False}
+                        self.regions.append(region)
+                        self.open_regions.append(region)
+                elif tag == "table" and self.open_regions:
+                    self.open_regions[-1]["contains_table"] = True
 
             def handle_endtag(self, tag):
                 if tag == "div":
-                    if self.region_depth == self.div_depth:
-                        self.region_depth = None
+                    if (self.open_regions and
+                            self.open_regions[-1]["depth"] == self.div_depth):
+                        self.open_regions.pop()
                     self.div_depth -= 1
 
         region = TableRegion()
         region.feed(html)
-        self.assertIsNotNone(region.region, "Table wrapper must exist")
-        self.assertEqual(region.region.get("role"), "region")
-        self.assertEqual(region.region.get("aria-label"), "Sample campaign inventory")
-        self.assertEqual(region.region.get("tabindex"), "0")
-        self.assertTrue(region.contains_table, "Named scroll region must contain the table")
-        def declarations_for(selector):
-            # Check the exact rule, not an incidental occurrence elsewhere.
-            selector_start = css.index(selector)
-            opening = css.index("{", selector_start)
-            closing = css.index("}", opening)
-            return css[opening + 1:closing]
+        valid = [entry for entry in region.regions
+                 if entry["contains_table"]
+                 and entry["attrs"].get("role") == "region"
+                 and entry["attrs"].get("aria-label") == "Sample campaign inventory"
+                 and entry["attrs"].get("tabindex") == "0"]
+        self.assertEqual(len(valid), 1,
+                         "The same named, tabbable wrapper must contain the table")
 
-        fieldset = declarations_for("fieldset:not([class])")
-        color = declarations_for('input[type="color"]:not([class])')
-        file = declarations_for('input[type="file"]:not([class])')
-        self.assertIn("padding: min(1rem, 6vw)", fieldset)
-        self.assertIn("inline-size: min(4rem, 100%)", color)
-        self.assertIn("min-inline-size: 0", color)
-        self.assertIn("box-sizing: border-box", color)
-        self.assertIn("inline-size: 100%", file)
-        self.assertIn("min-inline-size: 0", file)
-        self.assertIn("box-sizing: border-box", file)
+        def declarations_for(unclassed, opted_in):
+            # Require the complete opt-in ancestor before parsing declarations.
+            import re
+            prefix = ":is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is("
+            start = css.index(prefix + unclassed)
+            opening = css.index("{", start)
+            self.assertIn(opted_in, css[start:opening],
+                          "The rule must retain the explicit semantic opt-in alternative")
+            block = css[opening + 1:css.index("}", opening)]
+            return {match.group(1): match.group(2).strip()
+                    for match in re.finditer(r"(?<![\w-])([\w-]+)\s*:\s*([^;{}]+);", block)}
+
+        fieldset = declarations_for("fieldset:not([class])", "fieldset[data-syn-semantic]")
+        color = declarations_for('input[type="color"]:not([class])',
+                                 'input[type="color"][data-syn-semantic]')
+        file = declarations_for('input[type="file"]:not([class])',
+                                'input[type="file"][data-syn-semantic]')
+        self.assertEqual(fieldset.get("padding"), "min(1rem, 6vw)")
+        self.assertEqual(color.get("inline-size"), "min(4rem, 100%)")
+        self.assertEqual(color.get("min-inline-size"), "0")
+        self.assertEqual(color.get("box-sizing"), "border-box")
+        self.assertEqual(file.get("inline-size"), "100%")
+        self.assertEqual(file.get("min-inline-size"), "0")
+        self.assertEqual(file.get("box-sizing"), "border-box")
 
     def test_demo_is_discoverable_and_published_explicitly(self):
         self.assertIn('href="../examples/native-elements.html"', (ROOT / "docs/index.html").read_text())

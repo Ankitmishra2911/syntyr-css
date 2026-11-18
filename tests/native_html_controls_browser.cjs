@@ -7,6 +7,8 @@ const { chromium, firefox, webkit } = require('playwright');
 const base = path.resolve(__dirname, '../examples/native-elements.html');
 
 async function tabToSummary(page, summary) {
+  assert.equal(await summary.count(), 1,
+    'Named disclosure must expose exactly one summary before keyboard navigation');
   for (let attempt = 0; attempt < 80; attempt += 1) {
     await page.keyboard.press('Tab');
     if (await summary.evaluate(el => el === document.activeElement)) return;
@@ -86,6 +88,10 @@ if (!(engine in executables)) throw new Error('Unsupported browser: ' + engine);
       assert.equal(await suggestions.inputValue(), 'Unlisted district');
       const details = page.locator('details[name="native-review-sections"]');
       assert.equal(await details.count(), 2);
+      await assert.rejects(
+        tabToSummary(page, page.locator('details[name="missing-summary"] summary')),
+        /must expose exactly one summary/,
+        'Missing summary should fail immediately rather than hang on locator.evaluate');
       const groupingSupported = await supportsExclusiveDetails(page);
       await tabToSummary(page, details.nth(0).locator('summary'));
       assert.equal(await details.nth(0).locator('summary').evaluate(el => el === document.activeElement), true);
