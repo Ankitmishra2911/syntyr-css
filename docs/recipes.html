@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="531a5377ad78a7c5826d215b7cf096a91c6f36712ef037990ec15a863fda22cb">
+  <meta name="syntyr-source-sha256" content="0a637992a73a2321a631e8d44470e90cc2c129c37a5fa2862bdbbb2d527fcd01">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -190,6 +190,66 @@ All spacing remains controlled by ordinary CSS custom properties.</p>
 <li>When using HTMX, Datastar or another enhancement layer, keep GET filters, ordinary links and form labels working without client-side JavaScript.</li>
 </ul>
 <p>The scoped <code>examples/saas-workflows.css</code> stylesheet contains layout glue only and is <strong>not</strong> added to the distributed core or all-in-one bundle.</p>
+<h2 id="composed-operations-workflows-progress-activity-and-decisions-alpha5-source-only">Composed operations workflows: progress, activity and decisions (alpha.5 source only)</h2>
+<p>The <a href="../examples/workflow-operations.html">live workflow-operations demonstration</a>
+shows three task-specific patterns inspired by operational and AI agent interfaces.
+It deliberately <strong>adds no new Syntyr component API or runtime dependency</strong>.
+The example consumes the unreleased source-candidate <code>syntyr.core.css</code> and
+<code>syntyr.recipes.css</code>; it is <strong>not included in published alpha.4</strong>.
+The example-specific stylesheet is layout glue and is not distributed as core CSS.</p>
+<h3 id="1-progress-ordered-list-and-authoritative-state">1. Progress: ordered list and authoritative state</h3>
+<pre><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;h2&gt;Deployment progress&lt;/h2&gt;
+  &lt;ol class=&quot;syn-steps syn-steps--vertical&quot; role=&quot;list&quot; aria-label=&quot;Deployment progress&quot;&gt;
+    &lt;li class=&quot;syn-step&quot; data-syn-state=&quot;complete&quot;&gt;
+      &lt;span class=&quot;syn-step-label&quot;&gt;Checks complete&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;syn-step&quot; aria-current=&quot;step&quot;&gt;
+      &lt;span class=&quot;syn-step-label&quot;&gt;Approval pending (current)&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;syn-step&quot;&gt;
+      &lt;span class=&quot;syn-step-label&quot;&gt;Publish (not started)&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The server must decide which step is current and which are complete or failed.
+Only one step has <code>aria-current=&quot;step&quot;</code>; CSS never computes progress.
+If there is no current step, remove <code>aria-current</code> rather than fabricating one.</p>
+<h3 id="2-execution-activity-event-list-and-native-disclosures">2. Execution activity: event list and native disclosures</h3>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;h2&gt;Activity&lt;/h2&gt;
+  &lt;ol class=&quot;syn-activity-timeline&quot; role=&quot;list&quot; aria-label=&quot;Execution events&quot;&gt;
+    &lt;li&gt;
+      &lt;strong&gt;Validation succeeded&lt;/strong&gt;
+      &lt;time datetime=&quot;2026-11-17T09:12:10-03:00&quot;&gt;09:12:10&lt;/time&gt;
+      &lt;details class=&quot;syn-details&quot;&gt;
+        &lt;summary&gt;View sanitized diagnostics&lt;/summary&gt;
+        &lt;pre&gt;&lt;code&gt;18 checks passed&lt;/code&gt;&lt;/pre&gt;
+      &lt;/details&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Server applications supply trusted status, duration and log content. Render
+diagnostics as escaped <strong>text</strong>, never injected HTML; redact secrets and personal
+data. For live updates, the application—not CSS—owns polling/streaming, retry,
+completion announcements and <code>aria-busy</code> lifecycle. Do not announce an entire
+rapidly updated event feed with <code>aria-live=&quot;assertive&quot;</code>.</p>
+<h3 id="3-approval-honest-actions-and-durable-outcomes">3. Approval: honest actions and durable outcomes</h3>
+<p>Compose an <code>article.syn-app-card</code>, a visible <code>syn-status</code> and ordinary native
+buttons or forms. In a static preview, <strong>disable mutation buttons</strong>; do not show
+fake approval confirmations. In a working application, bind each approval/rejection
+to a real authenticated <strong>POST</strong> route. Verify role and object authorization,
+CSRF protection, the decision's current revision and idempotency on the server.
+Do not optimistically remove a request or claim success before the server commits
+its decision. Surface rejected, expired, conflict and network-failure states,
+and maintain an auditable record with actor and timestamp. Only expose actions
+the current reviewer is permitted to take.</p>
+<p>Prefer the existing <code>syn-steps</code>, <code>syn-activity-timeline</code>, <code>syn-details</code> and
+<code>syn-app-card</code> compositions before adding variants, React widgets or extra
+CSS modules. The demo uses them unchanged and works with server templates,
+HTMX, or React. This is a <strong>presentation example</strong>, not a workflow engine.</p>
 <h2 id="intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</h2>
 <p>Load <code>syntyr.core.css</code> plus <code>syntyr.recipes.css</code>. The layout primitives are
 scoped to <code>.syn-root</code> and require no JavaScript, framework or viewport media
@@ -269,6 +329,10 @@ not a JavaScript permissions widget or a substitute for authorization.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#reusing-recipes-across-stacks">Reusing recipes across stacks</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#composed-operations-workflows-progress-activity-and-decisions-alpha5-source-only">Composed operations workflows: progress, activity and decisions (alpha.5 source only)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#1-progress-ordered-list-and-authoritative-state">1. Progress: ordered list and authoritative state</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#2-execution-activity-event-list-and-native-disclosures">2. Execution activity: event list and native disclosures</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#3-approval-honest-actions-and-durable-outcomes">3. Approval: honest actions and durable outcomes</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#collection-workspaces-and-error-recovery-source-candidate">Collection workspaces and error recovery (source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#permission-matrix-rolecapability-review">Permission matrix — role/capability review</a>

@@ -1,8 +1,7 @@
-"""Generate editable playground examples from the canonical static component catalog.
+"""Generate editable examples from the existing component and free-block galleries.
 
-The catalog owns the MIT HTML snippets. This build step creates a docs-only data
-artifact so the browser playground does not maintain duplicate markup or fetch
-HTML at runtime (the playground also works from file://).
+Those galleries own the MIT HTML snippets. This docs-only build artifact avoids
+maintaining duplicate markup or fetching HTML at runtime (also works from file://).
 """
 from __future__ import annotations
 
@@ -70,31 +69,65 @@ class CatalogParser(HTMLParser):
                 self.card = None
 
 
+class BlockParser(CatalogParser):
+    """Read the source from the existing free blocks gallery, never the preview."""
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        a = dict(attrs)
+        classes = (a.get("class") or "").split()
+        if tag == "article" and "blocks-card" in classes and self.card is None:
+            block_id = a.get("data-block-id") or ""
+            self.card = {"id": f"block-{block_id}", "title": "", "module": "",
+                         "description": "", "html": "", "keywords": a.get("data-block-keywords") or "",
+                         "kind": "block", "category": a.get("data-block-category") or ""}
+            self.article_depth = 1
+            return
+        if self.card is None:
+            return
+        if tag == "article":
+            self.article_depth += 1
+        if tag == "pre" and "blocks-source" in classes:
+            self.in_source = True
+        if tag == "code" and self.in_source:
+            self.field, self.field_tag = "html", "code"
+        elif tag == "h2" and a.get("id") == self.card["id"].replace("block-", "block-title-", 1):
+            self.field, self.field_tag = "title", "h2"
+        elif tag == "span" and "syn-badge" in classes and not self.card["module"]:
+            self.field, self.field_tag = "module", "span"
+        elif tag == "p" and "syn-muted" in classes and not self.card["description"]:
+            self.field, self.field_tag = "description", "p"
+
+
 def generate() -> str:
     parser = CatalogParser()
     parser.feed((ROOT / "docs/catalog.html").read_text(encoding="utf-8"))
+    blocks = BlockParser()
+    blocks.feed((ROOT / "docs/blocks.html").read_text(encoding="utf-8"))
     manifest = json.loads((ROOT / "metadata/components.json").read_text(encoding="utf-8"))
     components = manifest["components"]
     allowed_modules = {item["module"] for item in components}
-    entries = parser.entries
-    if len(entries) < 8:
-        raise ValueError("Expected at least 8 canonical catalog examples")
+    entries = parser.entries + blocks.entries
+    if len(parser.entries) < 8 or len(blocks.entries) < 20:
+        raise ValueError("Expected the full canonical component and free-block galleries")
     if len({entry["id"] for entry in entries}) != len(entries):
         raise ValueError("Duplicate catalog identifiers")
     for entry in entries:
         if not all(entry.values()):
             raise ValueError(f"Incomplete catalog example: {entry['id']}")
-        if not re.fullmatch(r"catalog-[a-z0-9-]+", entry["id"]):
-            raise ValueError(f"Unsafe catalog identifier: {entry['id']}")
-        if entry["module"] not in allowed_modules:
+        if not re.fullmatch(r"(catalog|block)-[a-z0-9-]+", entry["id"]):
+            raise ValueError(f"Unsafe example identifier: {entry['id']}")
+        modules = entry["module"].split(" + ")
+        if any(module not in allowed_modules for module in modules):
             raise ValueError(f"Unrecognized CSS module: {entry['module']}")
         if len(entry["html"]) > 20000 or "<script" in entry["html"].lower():
             raise ValueError(f"Example must be inert, short HTML: {entry['id']}")
         used_classes = set(re.findall(r"\bsyn-[a-z][a-z0-9-]*", entry["html"]))
         matches = [component for component in components
-                   if component["module"] == entry["module"]
+                   if component["module"] in modules
                    and used_classes.intersection(component["classes"])]
-        if matches:
+        if entry.get("kind") == "block":
+            entry["guidance"] = "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+        elif matches:
             matched = max(matches, key=lambda item: len(
                 used_classes.intersection(item["classes"])))
             entry["guidance"] = matched["notes"]
