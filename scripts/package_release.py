@@ -10,9 +10,9 @@ import sys
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 if __package__:
-    from .build import all_distributions
+    from .build import all_distributions, javascript_distributions
 else:
-    from build import all_distributions
+    from build import all_distributions, javascript_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 # One source of truth: scripts/build.py defines public CSS entrypoints.
@@ -23,13 +23,25 @@ FILES = (
     "ARCHITECTURE.md",
     "docs/distribution.md",
     "docs/api-stability.md",
+    "docs/animation.md",
+    "docs/clipboard.md",
     "docs/ai-quickstart.md",
     "docs/agent-integration.md",
     "docs/components.md",
     "docs/recipes.md",
     "docs/component-recipes.md",
+    "docs/email-components.md",
+    "examples/email.html",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
-    "examples/preset-preview.html",  # One local CSS file per named preset.
+    "examples/preset-preview.html",
+    "examples/resource-outline.html",  # Script-free native navigation demo.
+    "examples/query-review.html",  # Native server-rendered filter/review composition.
+    "examples/resizable-workspace.html",
+    "examples/resizable-workspace.mjs",
+    "examples/animation.html",
+    "examples/animation-demo.mjs",  # One local CSS file per named preset.
+    "examples/copy.html",
+    "examples/copy-demo.mjs",
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
@@ -44,9 +56,12 @@ FILES = (
     "docs/visual-intensity.md",
     "docs/accessibility.md",
     "docs/viz.md",
+    "docs/geo.md",
+    "examples/geo.html",
     "llms.txt",
     "llms-full.txt",
     "metadata/components.json",
+    "metadata/component-gallery.v1.json",
     "metadata/css-contract.v1.json",
     "agents/syntyr/SKILL.md",
     "docs/editor-integration.md",
@@ -55,7 +70,9 @@ FILES = (
     "metadata/syntyr.css-custom-data.json",
     "metadata/syntyr.code-snippets",
 
-) + tuple(f"dist/{name}" for name in all_distributions()) + (
+) + tuple(f"dist/{name}" for name in all_distributions()) + tuple(
+    f"dist/{name}" for name in javascript_distributions()
+) + (
     "terminal/palettes.json",
 )
 
@@ -71,6 +88,8 @@ def package(output: Path) -> None:
     subprocess.run([sys.executable, str(ROOT / "scripts/sync_design_md.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/export_api_metadata.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_component_gallery.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     output.parent.mkdir(parents=True, exist_ok=True)
     with ZipFile(output, mode="w", compression=ZIP_DEFLATED, compresslevel=9) as archive:

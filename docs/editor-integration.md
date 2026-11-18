@@ -55,6 +55,42 @@ A class being present in the metadata does not mean its optional stylesheet
 is already loaded. Check each item's `module` in the generated catalog and
 load the corresponding Syntyr CSS distribution.
 
+## Generated portable component gallery for builders
+
+The source-tree candidate also ships [component-gallery.v1.json](../metadata/component-gallery.v1.json),
+an **optional, framework-neutral** static contract for documentation,
+visual editors and AI-assisted composition. It is derived automatically from
+the curated `metadata/components.json` and the actual native HTML examples
+in `docs/catalog.html`, not another manually authored component registry.
+
+The manifest also carries the curated `recipes[]` with slots and variants,
+plus theme names from the generated CSS API metadata (not a new theme
+registry). Each `components[]` entry is the existing curated metadata. Each
+`examples[]` entry has a stable `id`, title, description, searchable
+keywords, native HTML, semantic element names, actual `syn-*` classes, and
+`required_stylesheets`. The stylesheet list can include the separately opt-in
+semantic CSS module; loading `syntyr.core.css` alone is not always sufficient.
+The `module` field preserves the primary stylesheet shown in the gallery.
+
+From a source checkout, regenerate and verify with:
+
+```sh
+python3 scripts/build_component_gallery.py
+python3 scripts/build_component_gallery.py --check
+```
+
+The public documentation catalog adds optional theme and compact-width preview
+controls. Without JavaScript, all previews and visible source snippets remain
+available. None of these controls or generator scripts ships in core CSS.
+
+**Safety and compatibility:** the JSON is a library of trusted, checked-in
+examples, not an HTML sanitizer or a guarantee that examples implement business
+behavior. Treat incoming user markup separately. Component classes require a
+`.syn-root` ancestor, the installed release must provide the listed CSS
+modules, and the **unreleased alpha.5 source candidate** must not be mistaken
+for the published alpha.4 release. HTML form actions, billing, data, dialogs,
+and application state are controlled by the host platform.
+
 ## Optional static HTML diagnostics
 
 The generated `metadata/syntyr-contract.json` is Syntyr's machine-readable

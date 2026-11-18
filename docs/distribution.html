@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Install and self-host Syntyr CSS using versioned stylesheets, optional modules, and immutable releases for production websites.">
-  <meta name="syntyr-source-sha256" content="f1a238c374b83a1afccd5d8fd105cdf9a99506d2ab749005fd5a10f4b5625cff">
+  <meta name="syntyr-source-sha256" content="8f0cba7077fed4ff7499e1c3a2261477457febf73822b1d5734e27215330a209">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS distribution — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/distribution">
@@ -142,6 +142,12 @@ and <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/visual-regress
 This is present in the alpha.5 source candidate, <strong>not published alpha.4</strong>.</p>
 <h2 id="optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</h2>
 <p>A CSS-only <code>@syntyr/css</code> manifest is available in the alpha.5 repository candidate, but <strong>it has not been published to npm</strong>. See <a href="package-managers.html">package-manager installation and local tarball testing</a> for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.</p>
+<h2 id="optional-native-animation-companion">Optional native animation companion</h2>
+<p>Syntyr remains CSS-only by default. Applications that need <em>programmatic</em> motion
+can separately import <code>dist/syntyr.animate.mjs</code> (native Web Animations API and
+IntersectionObserver only). No script is included in core or <code>syntyr.all.css</code>.
+See the <a href="animation.html">animation API guide</a> and the
+<a href="../examples/animation.html">runnable example</a>.</p>
 <h2 id="optional-themes-and-semantic-html">Optional themes and semantic HTML</h2>
 <p>Grid, Noir and Studio ship in the <strong>same</strong> core stylesheet; set
 <code>data-syn-theme=&quot;grid&quot;</code> or <code>data-syn-theme=&quot;noir&quot;</code> or <code>data-syn-theme=&quot;studio&quot;</code> on the scoped root.
@@ -240,6 +246,7 @@ cross-browser and full accessibility audits are still release gates.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#single-file-presets-experimental-alpha5-source">Single-file presets (experimental alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-native-animation-companion">Optional native animation companion</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-themes-and-semantic-html">Optional themes and semantic HTML</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#loading-contract-at-a-glance">Loading contract at a glance</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-explicit-selective-build">Optional explicit selective build</a>

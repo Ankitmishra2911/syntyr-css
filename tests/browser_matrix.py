@@ -21,7 +21,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
-         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
+         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/enterprise-compositions.html", "examples/premium-compositions.html", "examples/operation-revisions.html",
 )
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -51,6 +51,12 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert "light-dark(" in css, (name, css)
     else:
         assert css in ("#76e7f7", "#f1b574", "#2458c6", "#ffb36b", "#65e8a0", "#155ac8", "#313a45"), (name, css)
+    if name == "examples/native-elements.html" and viewport == 320:
+        # A native file input must not force a semantic fieldset grid track
+        # wider than the viewport. Check the offending region, not only body.
+        fieldset = page.get_by_role("group", name="Native inputs")
+        bounds = fieldset.evaluate("e => ({client: e.clientWidth, scroll: e.scrollWidth})")
+        assert bounds["scroll"] <= bounds["client"] + 1, (name, viewport, bounds)
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
