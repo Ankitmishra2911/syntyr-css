@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="ef13037c033669368831635ca87e25c8d758e21d9cd476d97056a2ec8ea4821c">
+  <meta name="syntyr-source-sha256" content="cb7b715b385877e1b708cb7430028ac2378c3bb98239f5d5d49fb41890c0fd5c">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -174,6 +174,25 @@ This is an <strong>example</strong>, not a new Syntyr runtime API or a claim of 
 adapter for every backend language. See the
 <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-components-go/README.md">copyable template README</a>
 for the complete contract and setup instructions.</p>
+<h3 id="additional-copy-owned-server-component-adapters">Additional copy-owned server component adapters</h3>
+<p>The <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-templ">Go templ adapter</a>
+uses the same five native HTML component contracts as the Go standard-library
+example, with independent <code>Field</code>, <code>Notice</code>, <code>Button</code>, <code>Table</code> and
+<code>Pagination</code> components. It has an isolated, pinned <code>github.com/a-h/templ</code>
+build-time/runtime module dependency (Go 1.26+); run <code>templ generate</code> before
+tests or starting the example. Generated Go code is not checked in.</p>
+<p>The <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/server-components-node">Node.js standard-library adapter</a>
+exposes corresponding composable HTML functions. It requires no npm packages;
+Node owns request routing and escaping, and the example serves a single
+allowlisted CSS asset. Pagination links are root-relative and use
+<code>URLSearchParams</code>, not interpolation of arbitrary URLs. Run its built-in
+<code>node --test</code> suite to exercise escaped values, safe links, error linkage,
+HTTP methods and GET fallback.</p>
+<p>These integrations are <strong>copy-owned examples</strong>, not npm exports or shipped
+runtime packages. They reuse <code>syntyr.core.css</code> and the same semantic HTML;
+none adds a JavaScript controller, hydration requirement, new <code>syn-*</code> class,
+CSS module or runtime to Syntyr's core. Each server must still handle its own
+user permissions, CSRF defenses for mutations, status codes, and navigation.</p>
 <h2 id="server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</h2>
 <p><strong>No adapter is necessary to render Syntyr components.</strong> Serve core CSS from
 your application and output the same <code>syn-</code> classes in HEEx, Blade, ERB, templ,
@@ -489,6 +508,7 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
 <a class="docs-article-toc-link docs-article-toc-2" href="#htmx-progressive-enhancement">HTMX: progressive enhancement</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#htmx-4-migration-separate-from-syntyr">HTMX 4 migration (separate from Syntyr)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#composable-server-html-components-go-standard-library">Composable server HTML components (Go standard library)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#additional-copy-owned-server-component-adapters">Additional copy-owned server component adapters</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#phoenix-liveview-heex">Phoenix LiveView (HEEx)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#laravel-livewire-blade">Laravel Livewire (Blade)</a>

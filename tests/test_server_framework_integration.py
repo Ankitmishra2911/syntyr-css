@@ -99,6 +99,40 @@ class ServerFrameworkIntegrationTests(unittest.TestCase):
         self.assertNotIn("<script", page.lower())
         self.assertNotIn("<script", component.lower())
 
+    def test_optional_node_and_templ_adapters_share_native_component_contract(self):
+        node = ROOT / "examples/server-components-node"
+        go = ROOT / "examples/server-components-templ"
+        node_html = (node / "components.mjs").read_text()
+        node_server = (node / "server.mjs").read_text()
+        templ_markup = (go / "components.templ").read_text()
+        go_mod = (go / "go.mod").read_text()
+        guide = (ROOT / "docs/framework-integrations.md").read_text()
+        llms = (ROOT / "llms.txt").read_text()
+        for name in ("field", "notice", "button", "table", "pagination"):
+            self.assertIn("export function " + name + "(", node_html)
+            self.assertIn("templ " + name.title() + "(", templ_markup)
+        for cls in ("syn-field", "syn-input", "syn-alert", "syn-button", "syn-table"):
+            self.assertIn(cls, node_html)
+            self.assertIn(cls, templ_markup)
+        for required in ('scope="col"', 'scope="row"', 'aria-describedby=', 'aria-current="page"'):
+            self.assertIn(required, node_html)
+            self.assertIn(required, templ_markup)
+        self.assertIn("escapeHtml", node_html)
+        self.assertIn("danger ? 'alert'", node_html)
+        self.assertIn('role="alert"', templ_markup)
+        self.assertIn("safePageHref", node_html)
+        self.assertIn("URLSearchParams", node_server)
+        self.assertIn("X-Content-Type-Options", node_server)
+        self.assertIn("github.com/a-h/templ v0.3.1100", go_mod)
+        self.assertIn("@Field(data.Query)", templ_markup)
+        self.assertIn("@Pagination(data.Pager)", templ_markup)
+        for path in ("server-components-node", "server-components-templ"):
+            self.assertIn("examples/" + path, guide)
+            self.assertIn("examples/" + path, llms)
+        self.assertNotIn("<script", node_html.lower())
+        self.assertNotIn("<script", templ_markup.lower())
+        self.assertNotIn('"./server-components-node"', (ROOT / "package.json").read_text())
+
     def test_docs_cover_versions_and_dom_ownership_without_claiming_runtime(self):
         guide = (ROOT / "docs/framework-integrations.md").read_text()
         for name in ("LiveView", "Livewire", "Turbo", "HTMX", "Go templ",
