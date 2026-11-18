@@ -138,6 +138,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-file-edge",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
       "name": "--syn-filter-field-min",
       "description": "Filter field basis and minimum; defaults to 11rem."
     },
@@ -220,6 +224,42 @@
     {
       "name": "--syn-frame-strong",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-geo-floating",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-land",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-point",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-road",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-route",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-water",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-zone",
+      "description": "Syntyr CSS property (geo.css)."
     },
     {
       "name": "--syn-glow-alpha",
@@ -318,6 +358,10 @@
       "description": "Foreground color for the primary accent."
     },
     {
+      "name": "--syn-operation-edge",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
       "name": "--syn-panel-border-width",
       "description": "Per-panel border width; defaults to 1px."
     },
@@ -360,6 +404,10 @@
     {
       "name": "--syn-shadow-sm",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-sheet-width",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem."
     },
     {
       "name": "--syn-space-1",
@@ -496,6 +544,10 @@
     {
       "name": "--syn-wash-secondary-alpha",
       "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "description": "Syntyr CSS property (recipes.css)."
     }
   ]
 }

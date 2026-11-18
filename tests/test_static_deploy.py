@@ -7,6 +7,7 @@ from tempfile import TemporaryDirectory
 import subprocess
 import sys
 import unittest
+from unittest.mock import patch
 from zipfile import ZipFile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -79,6 +80,43 @@ class StaticDeployTests(unittest.TestCase):
             with self.assertRaisesRegex(DeploymentError, "symlink"):
                 StaticSite.load(site)
 
+    def test_repository_private_directories_are_rejected_before_reading(self):
+        for directory, filename in (("business", "internal-notes.md"),
+                                    ("tests", "fixture.json"),
+                                    ("src", "settings.ts"),
+                                    ("node_modules", "index.js")):
+            with self.subTest(directory=directory), TemporaryDirectory() as temp:
+                site = self.sample(Path(temp))
+                private = site / directory / filename
+                private.parent.mkdir(parents=True, exist_ok=True)
+                private.write_text("PRIVATE", encoding="utf-8")
+                with self.assertRaisesRegex(DeploymentError, "disallowed"):
+                    StaticSite.load(site)
+
+    def test_secret_yml_yaml_variants_never_enter_staging(self):
+        for filename in ("secrets.yaml", "secrets.yml", "credentials.yaml",
+                         "credentials.yml", "config/secrets.yaml"):
+            with self.subTest(filename=filename), TemporaryDirectory() as temp:
+                site = self.sample(Path(temp))
+                private = site / filename
+                private.parent.mkdir(parents=True, exist_ok=True)
+                private.write_text("token: private", encoding="utf-8")
+                with self.assertRaisesRegex(DeploymentError, "disallowed"):
+                    StaticSite.load(site)
+
+    def test_zip_creation_is_atomic_when_target_appears_after_precheck(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            site = StaticSite.load(self.sample(root))
+            target = root / "race.zip"
+            def race_output(_source, output):
+                output.write_bytes(b"EXISTING CONTENT")
+                return output
+            with patch("static_deploy._validate_output", side_effect=race_output):
+                with self.assertRaises(FileExistsError):
+                    NulangCloudBundleProvider().prepare(site, target, "https://demo.example")
+            self.assertEqual(target.read_bytes(), b"EXISTING CONTENT")
+
     def test_refuses_repository_root_and_overwriting_targets(self):
         with TemporaryDirectory() as temp:
             root = Path(temp)
@@ -109,6 +147,17 @@ class StaticDeployTests(unittest.TestCase):
                 validate_site_url(url)
         self.assertEqual(validate_site_url("https://demo.example/"), "https://demo.example")
 
+    def test_portable_origin_rejects_markup_and_invalid_hostnames(self):
+        for url in ('https://demo.example"onload="bad',
+                    "https://demo.example'onclick='bad",
+                    'https://demo.example<svg',
+                    'https://demo.example&amp;bad',
+                    'https://demo..example',
+                    'https://-bad.example'):
+            with self.subTest(url=url), self.assertRaises(DeploymentError):
+                validate_site_url(url)
+        self.assertEqual(validate_site_url('https://[::1]/'), 'https://[::1]')
+
     def test_cli_is_experimental_and_refuses_live_publish(self):
         with TemporaryDirectory() as temp:
             root = Path(temp)
@@ -132,6 +181,22 @@ class StaticDeployTests(unittest.TestCase):
 
 
 class PortableBuildTests(unittest.TestCase):
+    def test_portable_origin_rewrites_first_party_open_graph_and_structured_metadata(self):
+        from build_cloudflare_site import source_files
+        files = source_files(site_url="https://demo.example", include_cloudflare_headers=False)
+        home = files["index.html"].decode("utf-8")
+        docs = files["docs/index.html"].decode("utf-8")
+        blog = files["blog/index.html"].decode("utf-8")
+        self.assertIn('property="og:url" content="https://demo.example/"', home)
+        self.assertNotIn('property="og:url" content="https://syntyr-css.pages.dev/"', home)
+        self.assertIn('"item":"https://demo.example/docs/"', docs)
+        self.assertNotIn('"item":"https://syntyr-css.pages.dev/docs/"', docs)
+        # Blog structured metadata must identify the portable deployment too.
+        from re import findall
+        scripts = findall(r'<script type="application/ld\+json">(.*?)</script>', blog, flags=__import__('re').S)
+        self.assertTrue(scripts)
+        self.assertFalse(any('https://syntyr-css.pages.dev/' in script for script in scripts))
+
     def test_site_export_supports_custom_origin_without_cloudflare_headers(self):
         from build_cloudflare_site import source_files
         files = source_files(site_url="https://demo.example", include_cloudflare_headers=False)

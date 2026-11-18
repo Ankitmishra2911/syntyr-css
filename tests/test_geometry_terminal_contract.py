@@ -1,4 +1,4 @@
-"""v0.4 geometry + terminal enhancement contracts (zero runtime JS)."""
+"""Optional geometry, terminal and native-state regression contracts."""
 from pathlib import Path
 import subprocess
 import unittest

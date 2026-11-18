@@ -122,6 +122,10 @@
           "description": "Syntyr CSS class (components/buttons.css)."
         },
         {
+          "name": "syn-button--icon",
+          "description": "Syntyr CSS class (components/buttons.css)."
+        },
+        {
           "name": "syn-button--outline",
           "description": "Syntyr CSS class (components/buttons.css)."
         },
@@ -152,6 +156,18 @@
         {
           "name": "syn-cell--wrap",
           "description": "Syntyr CSS class (components/data.css)."
+        },
+        {
+          "name": "syn-change-after",
+          "description": "Updated or added revision value with visible text label."
+        },
+        {
+          "name": "syn-change-before",
+          "description": "Previous or removed revision value with visible text label."
+        },
+        {
+          "name": "syn-change-pair",
+          "description": "Responsive before/after value pair for existing semantic record fields."
         },
         {
           "name": "syn-chart",
@@ -338,6 +354,26 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-dropdown",
+          "description": "Syntyr CSS class (components/overlays.css)."
+        },
+        {
+          "name": "syn-dropdown__group-label",
+          "description": "Syntyr CSS class (components/overlays.css)."
+        },
+        {
+          "name": "syn-dropdown__item",
+          "description": "Syntyr CSS class (components/overlays.css)."
+        },
+        {
+          "name": "syn-dropdown__separator",
+          "description": "Syntyr CSS class (components/overlays.css)."
+        },
+        {
+          "name": "syn-dropdown__shortcut",
+          "description": "Syntyr CSS class (components/overlays.css)."
+        },
+        {
           "name": "syn-email-body",
           "description": "Syntyr CSS class (email.css)."
         },
@@ -422,6 +458,34 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-evidence-actions",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-body",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-card",
+          "description": "Semantic figure-based evidence review presentation with captions and metadata, not a media viewer."
+        },
+        {
+          "name": "syn-evidence-grid",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-media",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-media--placeholder",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-evidence-meta",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-eyebrow",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -456,6 +520,18 @@
         {
           "name": "syn-fieldset",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-file-item",
+          "description": "File queue entry with host-owned queued, uploading, complete or failed state."
+        },
+        {
+          "name": "syn-file-item-header",
+          "description": "Flexible file name and visible status header for queue entries."
+        },
+        {
+          "name": "syn-file-queue",
+          "description": "Optional ordered file lifecycle list; not an upload engine."
         },
         {
           "name": "syn-filter-actions",
@@ -496,6 +572,14 @@
         {
           "name": "syn-form",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-form-actions",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-form-actions__buttons",
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-frame",
@@ -544,6 +628,94 @@
         {
           "name": "syn-frame--step",
           "description": "Optional square-stepped top-right and bottom-left frame."
+        },
+        {
+          "name": "syn-geo-attribution",
+          "description": "Optional attribution surface; preserve map provider credits."
+        },
+        {
+          "name": "syn-geo-bottom",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-callout",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-cluster",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-control",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-control-group",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-controls",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-data-list",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-layer-list",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-legend",
+          "description": "Readable, labeled map legend; host must provide layer semantics."
+        },
+        {
+          "name": "syn-geo-legend-list",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-legend-title",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-map",
+          "description": "Map renderer mount surface; actual projection and map behavior belong to host."
+        },
+        {
+          "name": "syn-geo-marker",
+          "description": "44px visual marker target; renderer-managed marker positions stay renderer-managed."
+        },
+        {
+          "name": "syn-geo-marker-layer",
+          "description": "Static diagram overlay for percentage-positioned markers, not for renderer-managed markers."
+        },
+        {
+          "name": "syn-geo-overlay",
+          "description": "Pointer-transparent overlay for application-owned map controls and legends."
+        },
+        {
+          "name": "syn-geo-scale",
+          "description": "Scale presentation; actual scale and bar width require a real map renderer."
+        },
+        {
+          "name": "syn-geo-shell",
+          "description": "Named CSS container for map-based workspace layouts; use with core plus optional geo CSS."
+        },
+        {
+          "name": "syn-geo-sidebar",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-swatch",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-viewport",
+          "description": "Syntyr CSS class (geo.css)."
+        },
+        {
+          "name": "syn-geo-workspace",
+          "description": "Responsive GIS sidebar plus map viewport; stacks based on container width."
         },
         {
           "name": "syn-glow",
@@ -662,6 +834,10 @@
           "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
+          "name": "syn-operation-feedback",
+          "description": "Optional host-managed operation feedback with truthful state text."
+        },
+        {
           "name": "syn-page",
           "description": "Syntyr CSS class (base.css)."
         },
@@ -762,6 +938,26 @@
           "description": "Container query boundary for responsive compositions."
         },
         {
+          "name": "syn-resizable-workspace",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__pane",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__panes",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resizable-workspace__separator",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-resource-outline",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
           "name": "syn-result-state",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -786,8 +982,28 @@
           "description": "Syntyr CSS class (components/forms.css)."
         },
         {
+          "name": "syn-select--enhanced",
+          "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
           "name": "syn-semantic",
           "description": "Opt-in styling of native HTML elements."
+        },
+        {
+          "name": "syn-sheet",
+          "description": "Native popover or dialog side-sheet presentation; browser and host own opening, focus, and close behavior."
+        },
+        {
+          "name": "syn-sheet-body",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-sheet-footer",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-sheet-header",
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-shell",
@@ -1146,6 +1362,14 @@
           "description": "Syntyr CSS class (utilities.css)."
         },
         {
+          "name": "syn-upload-field",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-view-switcher",
+          "description": "Server-selected view links or host-controlled view buttons; the host owns selection and navigation."
+        },
+        {
           "name": "syn-viz-bar",
           "description": "Syntyr CSS class (viz.css)."
         },
@@ -1279,6 +1503,9 @@
           "name": "complete"
         },
         {
+          "name": "conflict"
+        },
+        {
           "name": "degraded"
         },
         {
@@ -1288,16 +1515,34 @@
           "name": "error"
         },
         {
+          "name": "failed"
+        },
+        {
           "name": "healthy"
         },
         {
           "name": "loading"
         },
         {
+          "name": "pending"
+        },
+        {
+          "name": "queued"
+        },
+        {
+          "name": "saved"
+        },
+        {
           "name": "selected"
         },
         {
           "name": "unknown"
+        },
+        {
+          "name": "unsaved"
+        },
+        {
+          "name": "uploading"
         }
       ]
     },

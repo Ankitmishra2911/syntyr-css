@@ -111,7 +111,7 @@ def build() -> str:
     <a class="syn-logo" href="index.html">SYNTYR / BLOCKS &amp; ASSETS</a>
     <nav class="syn-nav" aria-label="Documentation">
       <a href="index.html">Gallery</a><a href="catalog.html">Components</a>
-      <a href="blocks-guide.html">Integration guide</a>
+      <a href="blocks-guide.html">Integration guide</a><a href="how-to.html">How-To</a>
     </nav>
   </header>
   <main class="syn-shell" id="blocks-main">
@@ -140,6 +140,7 @@ def build() -> str:
           </select></div>
       </div>
       <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-feedback" class="syn-caption" role="status" aria-live="polite" aria-atomic="true"></p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">{''.join(cards)}
       </div>

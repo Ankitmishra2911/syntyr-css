@@ -2,7 +2,7 @@
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
-Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
+Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). New [semantic HTML composition recipes](semantic-components.md) show article metadata, native citations, change history, ruby annotations, and table footers, with a [live gallery](../examples/semantic-compositions.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
 
 ## Loading and scoping
 
@@ -60,6 +60,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Email UI (optional) | `.syn-email-signup`, `.syn-email-inbox`, `.syn-email-message`, `.syn-email-compose`, `.syn-email-preferences` | Native forms and mailbox navigation; see [email components](email-components.md) |
 | Form compositions | `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` | native `form`, `label`, `input`, `button` |
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
+| Dropdowns | `.syn-dropdown` on `.syn-popover`, `.syn-dropdown__item`, `.syn-dropdown__group-label`, `.syn-dropdown__separator`, `.syn-dropdown__shortcut`, optional `.syn-select--enhanced` | Native select / disclosure / popover |
 | Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--nowrap`, `.syn-cell--numeric` | unclassed `table` |
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
 | Workflow (unreleased) | `.syn-steps`, `.syn-step`, `.syn-steps--vertical` | ordered `<ol>` and `aria-current="step"` |
@@ -106,6 +107,8 @@ Inspect `metadata/syntyr-api.json` for the machine-readable API index,
 or use the [editor integration instructions](editor-integration.md).
 
 Optional native browser integrations: `.syn-popover--anchored` for invoker-relative popovers, `.syn-textarea--autosize` for `field-sizing: content`, and (with the optional `syntyr.motion.css` stylesheet) `.syn-popover--transition` and `.syn-reading-progress`. See the [browser API guide](native-browser-apis.md) for compatibility and fallbacks.
+
+See [dropdown and native select patterns](dropdowns.md) for scriptless action panels, customizable selects, and the separately opt-in ARIA menu adapter.
 
 Use native button `popovertarget="id"` to control a popover and `commandfor="id" command="show-modal"` to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.
 
@@ -500,5 +503,7 @@ implement step navigation, eligibility checks or server-side transitions.
 Long step descriptions and translated text keep numbered markers aligned at the
 block start so vertical connectors do not cross the marker or its numeral.
 
-See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
-are not included in the published immutable alpha.4 release.
+See [the zero-JavaScript example](../examples/workflow-steps.html) and the
+[composed operations workflow gallery](../examples/workflow-operations.html), which
+reuses these steps with existing activity timelines and approval surfaces.
+These classes are not included in the published immutable alpha.4 release.

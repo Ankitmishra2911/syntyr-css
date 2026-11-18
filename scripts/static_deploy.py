@@ -8,7 +8,9 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass
 import hashlib
+import ipaddress
 import json
+import re
 from pathlib import Path
 import shutil
 import sys
@@ -25,8 +27,33 @@ _ALLOWED_DOTFILES = frozenset({".nojekyll", ".syntyr-site-manifest.json"})
 _FORBIDDEN_BASENAMES = frozenset({
     ".git", ".env", ".npmrc", ".pypirc", ".ssh", ".aws", ".npm",
     "id_rsa", "id_ed25519", "credentials", "credentials.json",
-    "secrets.json", "secrets.yml", ".htpasswd", ".DS_Store",
+    "secrets.json", "secrets.yml", "secrets.yaml", "credentials.yaml",
+    "credentials.yml", ".htpasswd", ".ds_store",
 })
+# These are repository/source directories, not reviewed static build outputs.
+# Assets in an intentional release build should live in public/ or assets/.
+_PRIVATE_SOURCE_DIRS = frozenset({
+    "business", "tests", "test", "src", "node_modules", "scripts",
+    "tools", "experiments", "benchmarks", "private", "internal", "secrets",
+    "site-releases", ".github", ".woodpecker", ".venv", "venv",
+})
+
+
+def _safe_hostname(hostname: str | None) -> bool:
+    if not hostname:
+        return False
+    try:
+        ipaddress.ip_address(hostname)
+        return True
+    except ValueError:
+        pass
+    # No URI punctuation or HTML meta-attribute delimiters in a DNS hostname.
+    # Internationalized hostnames can be supplied in ASCII/Punycode form.
+    if len(hostname) > 253 or not re.fullmatch(r"[a-zA-Z0-9.-]+", hostname):
+        return False
+    labels = hostname.removesuffix(".").split(".")
+    return all(label and len(label) <= 63 and label[0].isalnum() and label[-1].isalnum()
+               for label in labels)
 
 
 def validate_site_url(value: str) -> str:
@@ -34,7 +61,7 @@ def validate_site_url(value: str) -> str:
     try:
         parsed = urlsplit(value)
         valid = (
-            parsed.scheme == "https" and bool(parsed.hostname)
+            parsed.scheme == "https" and _safe_hostname(parsed.hostname)
             and not parsed.username and not parsed.password
             and parsed.path in ("", "/") and not parsed.query and not parsed.fragment
             and parsed.port in (None, 443)
@@ -75,6 +102,8 @@ class StaticSite:
             relative = path.relative_to(directory)
             if path.is_symlink():
                 raise DeploymentError(f"site includes symlink: {relative}")
+            if relative.parts[0].lower() in _PRIVATE_SOURCE_DIRS:
+                raise DeploymentError(f"disallowed private source directory in site: {relative}")
             for part in relative.parts:
                 folded = part.lower()
                 if (folded in _FORBIDDEN_BASENAMES or folded.startswith(".env")
@@ -148,7 +177,8 @@ class NulangCloudBundleProvider:
             ],
         }
         # Archive is stable regardless of source directory timestamps and permissions.
-        with ZipFile(destination, "w") as zipped:
+        # Exclusive creation closes the check-then-open overwrite race.
+        with ZipFile(destination, "x") as zipped:
             for name, payload in site.files:
                 _write_zip(zipped, f"site/{name}", payload)
             _write_zip(zipped, "syntyr-deploy.json",
