@@ -109,6 +109,7 @@
     @media (forced-colors: active) {
       &.syn-resizable-workspace .syn-resizable-workspace__pane { border-color: CanvasText; }
       &.syn-resizable-workspace .syn-resizable-workspace__separator { color: CanvasText; }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator::before { background: CanvasText; }
       &.syn-resizable-workspace .syn-resizable-workspace__separator:focus-visible { outline-color: Highlight; }
     }
 

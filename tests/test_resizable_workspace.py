@@ -19,6 +19,13 @@ class ResizableWorkspaceContract(unittest.TestCase):
         self.assertIn("forced-colors: active", css)
         self.assertNotIn("syn-resizable-workspace", read("dist/syntyr.core.css"))
 
+    def test_forced_colors_grip_has_explicit_system_background(self):
+        css = read("src/recipes.css")
+        self.assertIn(
+            "&.syn-resizable-workspace .syn-resizable-workspace__separator::before { background: CanvasText; }",
+            css,
+        )
+
     def test_accessible_separator_and_fallback(self):
         html = read("examples/resizable-workspace.html")
         for token in ("role=\"separator\"", "aria-orientation=\"vertical\"",

@@ -42,14 +42,28 @@ async function exercise(engine, name, base) {
     await page.keyboard.press("Shift+ArrowRight");
     assert.equal(await separator.getAttribute("aria-valuenow"), "32");
 
+    async function assertRenderedFraction() {
+      const leading = await page.locator("#asset-list").boundingBox();
+      const total = await page.locator(".syn-resizable-workspace__panes").boundingBox();
+      const reported = Number(await separator.getAttribute("aria-valuenow"));
+      const rendered = leading.width / total.width * 100;
+      assert(Math.abs(rendered - reported) < 1,
+        `ARIA reports ${reported}% but rendered split is ${rendered}%`);
+    }
+    await assertRenderedFraction();
+
     const frame = await page.locator(".syn-resizable-workspace__panes").boundingBox();
     const grip = await separator.boundingBox();
     await page.mouse.move(grip.x + grip.width / 2, grip.y + grip.height / 2);
+    const initialValue = Number(await separator.getAttribute("aria-valuenow"));
     await page.mouse.down();
+    assert.equal(Number(await separator.getAttribute("aria-valuenow")), initialValue,
+      "stationary LTR pointerdown must not jump the divider");
     await page.mouse.move(frame.x + frame.width * .58, grip.y + grip.height / 2, { steps: 5 });
     await page.mouse.up();
     let value = Number(await separator.getAttribute("aria-valuenow"));
     assert(value >= 56 && value <= 60, "pointer drag must resize: " + value);
+    await assertRenderedFraction();
 
     // In RTL the visual inline-start edge is the right side.
     await page.locator(".syn-root").evaluate(el => { el.dir = "rtl"; });
@@ -57,16 +71,21 @@ async function exercise(engine, name, base) {
     const before = Number(await separator.getAttribute("aria-valuenow"));
     await page.keyboard.press("ArrowRight");
     assert.equal(Number(await separator.getAttribute("aria-valuenow")), before - 2);
+    await assertRenderedFraction();
     // Pointer direction also flips in RTL; moving toward visual right narrows
     // the leading pane instead of widening it.
     const rtlBox = await page.locator(".syn-resizable-workspace__panes").boundingBox();
     const rtlGrip = await separator.boundingBox();
     await page.mouse.move(rtlGrip.x + rtlGrip.width / 2, rtlGrip.y + rtlGrip.height / 2);
+    const rtlInitial = Number(await separator.getAttribute("aria-valuenow"));
     await page.mouse.down();
+    assert.equal(Number(await separator.getAttribute("aria-valuenow")), rtlInitial,
+      "stationary RTL pointerdown must not jump the divider");
     await page.mouse.move(rtlBox.x + rtlBox.width * .7, rtlGrip.y + rtlGrip.height / 2, { steps: 3 });
     await page.mouse.up();
     const rtlValue = Number(await separator.getAttribute("aria-valuenow"));
     assert(rtlValue >= 28 && rtlValue <= 32, "RTL pointer should invert: " + rtlValue);
+    await assertRenderedFraction();
     await page.locator(".syn-root").evaluate(el => { el.dir = "ltr"; });
 
     // Container queries follow the workspace's width, not just viewport width.
@@ -100,6 +119,11 @@ async function exercise(engine, name, base) {
     await colors.getByRole("separator").focus();
     const outline = await colors.getByRole("separator").evaluate(el => getComputedStyle(el).outlineStyle);
     assert.notEqual(outline, "none");
+    const contrast = await colors.getByRole("separator").evaluate(el => ({
+      grip: getComputedStyle(el, "::before").backgroundColor,
+      panel: getComputedStyle(el.parentElement.children[0]).backgroundColor,
+    }));
+    assert.notEqual(contrast.grip, contrast.panel, "forced-colors grip must contrast with panel");
     await colors.close();
     await page.close();
     console.log("PASS", name, "keyboard/pointer/RTL/narrow/fallback/forced-colors");

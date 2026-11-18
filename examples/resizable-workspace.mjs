@@ -7,6 +7,7 @@ for (const workspace of document.querySelectorAll("[data-syn-resizable]")) {
   const maximum = Number(separator.getAttribute("aria-valuemax"));
   let percentage = Number(separator.getAttribute("aria-valuenow"));
   let pointer = null;
+  let grabOffset = 0;
 
   function update(value) {
     if (!Number.isFinite(value)) return;
@@ -19,8 +20,12 @@ for (const workspace of document.querySelectorAll("[data-syn-resizable]")) {
     const rect = panes.getBoundingClientRect();
     if (rect.width <= 0) return;
     const direction = getComputedStyle(panes).direction;
-    const ratio = (clientX - rect.left) / rect.width;
-    update((direction === "rtl" ? 1 - ratio : ratio) * 100);
+    // The grab offset measures from the separator edge adjacent to the
+    // leading pane, so pressing its centre never moves the split.
+    const leadingPixels = direction === "rtl"
+      ? rect.right - clientX - grabOffset
+      : clientX - rect.left - grabOffset;
+    update(leadingPixels / rect.width * 100);
   }
 
   separator.hidden = false;
@@ -30,9 +35,14 @@ for (const workspace of document.querySelectorAll("[data-syn-resizable]")) {
 
   separator.addEventListener("pointerdown", event => {
     if (event.button !== 0) return;
+    // Only moves resize the panel; a stationary pointerdown is a no-op.
+    const handle = separator.getBoundingClientRect();
+    const direction = getComputedStyle(panes).direction;
+    grabOffset = direction === "rtl"
+      ? handle.right - event.clientX
+      : event.clientX - handle.left;
     pointer = event.pointerId;
     separator.setPointerCapture(pointer);
-    fromPointer(event.clientX);
     event.preventDefault();
   });
   separator.addEventListener("pointermove", event => {
