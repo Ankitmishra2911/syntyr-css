@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="5cd14d8bcc101098d3d330ea18f7af6a3d306794760b36be3ff5a68f3ae084f8">
+  <meta name="syntyr-source-sha256" content="8c01aa49c39b999505ed03fc0b5ec74b5fee58c5474f4d79871efe44075de056">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -366,6 +366,17 @@ application CSS. Keep real document headings and reading order.</p>
 <li>Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.</li>
 </ul>
 <p>The example is illustrative, <strong>not a configured server</strong>. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.</p>
+<h2 id="native-query-filters-and-record-review-alpha5-source-candidate">Native query filters and record review (alpha.5 source candidate)</h2>
+<p>The <a href="../examples/query-review.html">copy-owned filter and review composition</a>
+reuses <code>.syn-filter-bar</code>, <code>.syn-filter-choices</code>, <code>.syn-chip</code>,
+and <code>dl.syn-record-fields</code>. The example is a <strong>static server-rendered snapshot</strong>;
+it does not filter results or perform edits without a host application.</p>
+<ul>
+<li>Submit labelled controls with a native <code>method=&quot;get&quot;</code> form. The server must validate the query and re-render selected values, counts, and the matching results.</li>
+<li>Render each removable filter as a real link that drops exactly one encoded query parameter while preserving the others. Use descriptive accessible names, not icon-only removal affordances. The server must generate these URLs from validated state.</li>
+<li>Review record details as <code>dl</code> / <code>dt</code> / <code>dd</code> pairs and use Edit links to disabled example fields in this static snapshot; hosts must substitute real, authorized edit routes. Never style a static text value as a working editable field.</li>
+<li>Filtering, authorization, permissions, mutations, and persistence belong to the host. These composition classes add <strong>no new core CSS or mandatory JavaScript</strong>.</li>
+</ul>
 <h2 id="enterprise-collection-sheet-and-evidence-compositions-alpha5-source-candidate">Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)</h2>
 <p>The optional <code>syntyr.recipes.css</code> also includes reusable patterns tested against
 Adacavo-style resource workflows. They are original MIT-licensed presentation
@@ -448,6 +459,7 @@ not a JavaScript permissions widget or a substitute for authorization.</p>
 <a class="docs-article-toc-link docs-article-toc-3" href="#3-approval-honest-actions-and-durable-outcomes">3. Approval: honest actions and durable outcomes</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#collection-workspaces-and-error-recovery-source-candidate">Collection workspaces and error recovery (source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-query-filters-and-record-review-alpha5-source-candidate">Native query filters and record review (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#enterprise-collection-sheet-and-evidence-compositions-alpha5-source-candidate">Enterprise collection, sheet and evidence compositions (alpha.5 source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#permission-matrix-rolecapability-review">Permission matrix — role/capability review</a>
         </nav></aside>

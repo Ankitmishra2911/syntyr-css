@@ -737,6 +737,116 @@
       "description": "Optional square-stepped top-right and bottom-left frame."
     },
     {
+      "name": "syn-geo-attribution",
+      "module": "geo.css",
+      "description": "Optional attribution surface; preserve map provider credits."
+    },
+    {
+      "name": "syn-geo-bottom",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-callout",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-cluster",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-control",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-control-group",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-controls",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-data-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-layer-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-legend",
+      "module": "geo.css",
+      "description": "Readable, labeled map legend; host must provide layer semantics."
+    },
+    {
+      "name": "syn-geo-legend-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-legend-title",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-map",
+      "module": "geo.css",
+      "description": "Map renderer mount surface; actual projection and map behavior belong to host."
+    },
+    {
+      "name": "syn-geo-marker",
+      "module": "geo.css",
+      "description": "44px visual marker target; renderer-managed marker positions stay renderer-managed."
+    },
+    {
+      "name": "syn-geo-marker-layer",
+      "module": "geo.css",
+      "description": "Static diagram overlay for percentage-positioned markers, not for renderer-managed markers."
+    },
+    {
+      "name": "syn-geo-overlay",
+      "module": "geo.css",
+      "description": "Pointer-transparent overlay for application-owned map controls and legends."
+    },
+    {
+      "name": "syn-geo-scale",
+      "module": "geo.css",
+      "description": "Scale presentation; actual scale and bar width require a real map renderer."
+    },
+    {
+      "name": "syn-geo-shell",
+      "module": "geo.css",
+      "description": "Named CSS container for map-based workspace layouts; use with core plus optional geo CSS."
+    },
+    {
+      "name": "syn-geo-sidebar",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-swatch",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-viewport",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css)."
+    },
+    {
+      "name": "syn-geo-workspace",
+      "module": "geo.css",
+      "description": "Responsive GIS sidebar plus map viewport; stacks based on container width."
+    },
+    {
       "name": "syn-glow",
       "module": "effects.css",
       "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity."
@@ -1887,6 +1997,51 @@
       "name": "--syn-frame-strong",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-geo-floating",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-land",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-point",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-road",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-route",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-water",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-zone",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css)."
     },
     {
       "name": "--syn-glow-alpha",
