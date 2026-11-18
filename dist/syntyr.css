@@ -824,6 +824,20 @@
         max-inline-size: min(22rem, calc(100vw - 2rem));
       }
     }
+    /* At browser zoom or in a short landscape viewport, neither side of
+       the trigger may have room for a menu. Center the scrollable native
+       popover instead of clipping its bottom actions outside the viewport. */
+    @media (max-height: 30rem) {
+      &.syn-popover.syn-dropdown.syn-popover--anchored {
+        position-area: none;
+        position-try-fallbacks: none;
+        inset: .5rem;
+        margin: auto;
+        block-size: fit-content;
+        max-block-size: calc(100dvh - 1rem);
+        max-inline-size: calc(100vw - 1rem);
+      }
+    }
   }
 }
 @layer syn.components {
