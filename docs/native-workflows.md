@@ -87,7 +87,8 @@ For server-rendered selection, render the selected record and use
 `aria-current="page"` on its corresponding link only.
 
 At narrow widths, the existing detail shell wraps the sidebar above
-the inspector. RTL relies on logical padding and borders; focus outlines
+the inspector. File-picker padding and attachment-list indentation are bounded
+by viewport width to avoid horizontal overflow with enlarged browser text. RTL relies on logical padding and borders; focus outlines
 and forced-colors borders remain visible. Verify keyboard navigation,
 200% and 400% zoom, and focus after postback using a real browser.
 If asynchronous updates are introduced, the host application owns focus,

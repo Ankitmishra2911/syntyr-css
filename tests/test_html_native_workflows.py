@@ -29,6 +29,8 @@ class NativeWorkflowTests(unittest.TestCase):
                      "syn-form-actions__buttons"):
             self.assertIn("&." + name, source)
             self.assertIn("&." + name, built)
+        self.assertIn("padding: min(var(--syn-space-3), 2vw)", source)
+        self.assertIn("padding-inline-start: min(1.25rem, 3vw)", source)
         self.assertIn("inset-block-end: 0", source)
         self.assertIn("padding-inline-start:", source)
         self.assertIn("@media (forced-colors: active)", source)
