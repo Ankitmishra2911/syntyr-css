@@ -36,7 +36,8 @@ class GeoContract(unittest.TestCase):
     def test_geo_surface_tokens_and_core_primitives(self):
         css = (ROOT / "src/geo.css").read_text()
         self.assertIn("@layer syn.viz", css)
-        self.assertIn(".syn-root [data-syn-theme]", css)
+        self.assertIn(".syn-root .syn-geo-shell", css)
+        self.assertNotIn("[data-syn-theme]", css, "Geo styling should inherit theme tokens without a component theme fork")
         for key in ("--syn-geo-land", "--syn-geo-water", "--syn-geo-road",
                     "--syn-geo-parcel", "--syn-geo-point",
                     "--syn-geo-route", "--syn-geo-zone"):
@@ -61,6 +62,23 @@ class GeoContract(unittest.TestCase):
             self.assertNotIn(forbidden, css)
         self.assertNotIn(".maplibregl-", css)
         self.assertNotIn(".leaflet-", css)
+
+    def test_selected_cluster_has_visible_ring_even_when_marker_glyph_hidden(self):
+        css = (ROOT / "src/geo.css").read_text()
+        self.assertIn(
+            '.syn-root .syn-geo-marker[data-syn-selected="true"] .syn-geo-cluster',
+            css,
+        )
+        self.assertIn(
+            '.syn-root .syn-geo-marker[aria-current="location"] .syn-geo-cluster',
+            css,
+        )
+        normal = css.split("/* Selected clusters need their own visible ring")[1].split("/* Surface treatment")[0]
+        self.assertIn("box-shadow: 0 0 0 3px var(--syn-surface)", normal)
+        forced = css.split("@media (forced-colors: active)")[1]
+        self.assertIn('.syn-root .syn-geo-marker[data-syn-selected="true"] .syn-geo-cluster', forced)
+        self.assertIn("outline: 3px solid Highlight;", forced)
+        self.assertIn("outline-offset: 4px;", forced)
 
     def test_static_demo_does_not_fake_live_gis_features(self):
         html = (ROOT / "examples/geo.html").read_text()

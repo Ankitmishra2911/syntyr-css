@@ -2,8 +2,9 @@
    The host application owns projection, tiles, attribution, spatial data,
    hit testing and map behavior. Neither CSS nor the demo is a GIS engine. */
 @layer syn.viz {
-  /* Theme-scoped cartographic roles; values follow nested themes. */
-  :where(.syn-root, .syn-root [data-syn-theme]) {
+  /* Compute geo roles where the workspace is mounted so the containing
+     Syntyr theme supplies the colors, without creating a theme selector fork. */
+  :where(.syn-root .syn-geo-shell, .syn-root.syn-geo-shell) {
     --syn-geo-land: color-mix(in srgb, var(--syn-surface-hi) 80%, var(--syn-accent));
     --syn-geo-water: color-mix(in srgb, var(--syn-accent-2) 20%, var(--syn-surface));
     --syn-geo-road: color-mix(in srgb, var(--syn-surface) 75%, var(--syn-text));
@@ -12,10 +13,8 @@
     --syn-geo-route: var(--syn-accent-2);
     --syn-geo-zone: var(--syn-warning);
     --syn-geo-floating: var(--syn-surface-raised);
-  }
 
-  /* A named container makes shell layouts depend on available space, not device width. */
-  :where(.syn-root .syn-geo-shell, .syn-root.syn-geo-shell) {
+    /* The shell is also the named container for responsive GIS layout. */
     container: syn-geo / inline-size;
     min-inline-size: 0;
     color: var(--syn-text);
@@ -178,6 +177,11 @@
     font-variant-numeric: tabular-nums;
   }
   .syn-root .syn-geo-marker:has(.syn-geo-cluster)::before { display: none; }
+  /* Selected clusters need their own visible ring: their marker glyph is hidden. */
+  .syn-root .syn-geo-marker[data-syn-selected="true"] .syn-geo-cluster,
+  .syn-root .syn-geo-marker[aria-current="location"] .syn-geo-cluster {
+    box-shadow: 0 0 0 3px var(--syn-surface), 0 0 0 6px var(--syn-geo-marker-color);
+  }
 
   /* Surface treatment can also be applied to engine-managed popup content. */
   .syn-root .syn-geo-callout {
@@ -329,6 +333,12 @@
       outline-offset: 4px;
     }
     .syn-root .syn-geo-cluster { background: Highlight; color: HighlightText; border-color: CanvasText; }
+    .syn-root .syn-geo-marker[data-syn-selected="true"] .syn-geo-cluster,
+    .syn-root .syn-geo-marker[aria-current="location"] .syn-geo-cluster {
+      box-shadow: none;
+      outline: 3px solid Highlight;
+      outline-offset: 4px;
+    }
     .syn-root .syn-geo-swatch { background: Highlight; border-color: CanvasText; }
     .syn-root .syn-geo-swatch[data-syn-geo-kind="route"] { background: none; border-block-start-color: CanvasText; }
     .syn-root .syn-geo-swatch[data-syn-geo-kind="zone"] { background: Canvas; }

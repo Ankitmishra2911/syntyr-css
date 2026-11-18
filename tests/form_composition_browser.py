@@ -2,6 +2,7 @@
 
 Run with Playwright + all three browsers installed; not a consumer dependency.
 """
+import os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -13,7 +14,10 @@ ADAPTER = ROOT / "integrations/radix/states.css"
 def run():
     with sync_playwright() as p:
         for name in ("chromium", "firefox", "webkit"):
-            browser = getattr(p, name).launch()
+            options = {}
+            if name == "webkit" and os.environ.get("SYNTYR_WEBKIT_EXECUTABLE"):
+                options["executable_path"] = os.environ["SYNTYR_WEBKIT_EXECUTABLE"]
+            browser = getattr(p, name).launch(**options)
             for width in (320, 900):
                 page = browser.new_page(viewport={"width": width, "height": 850})
                 page.goto(URL)
@@ -29,6 +33,27 @@ def run():
                 assert len(columns) == (1 if width == 320 else 2), (name, width, columns)
                 input_rect = page.locator("#budget").bounding_box()
                 assert input_rect and input_rect["x"] >= -1 and input_rect["x"] + input_rect["width"] <= width + 1, (name, width, input_rect)
+                if width == 320:
+                    search = page.locator("#search-q")
+                    submit = page.get_by_role("button", name="Search")
+                    ordinary_field = search.bounding_box()
+                    ordinary_button = submit.bounding_box()
+                    assert ordinary_button["x"] >= ordinary_field["x"] + ordinary_field["width"] - 2, (
+                        name, "ordinary connected controls should stay inline")
+                    for font_size in (32, 48, 64):
+                        page.evaluate("(size) => document.documentElement.style.fontSize = size + 'px'", font_size)
+                        field_box = search.bounding_box()
+                        button_box = submit.bounding_box()
+                        group_box = page.locator(".syn-input-group").first.bounding_box()
+                        assert field_box["width"] >= group_box["width"] - 2, (
+                            name, font_size, "enlarged search field should use full row", field_box, group_box)
+                        assert button_box["y"] >= field_box["y"] + field_box["height"] - 2, (
+                            name, font_size, "submit should stack below search field")
+                        assert field_box["height"] < 4 * font_size, (
+                            name, font_size, "search field text wraps into excessively tall control", field_box)
+                        assert button_box["x"] + button_box["width"] <= width + 1, (
+                            name, font_size, "submit overflows viewport", button_box)
+                    page.evaluate("document.documentElement.style.fontSize = ''")
                 if width == 900:
                     page.get_by_label("Account name").fill("Syntyr")
                     page.get_by_role("button", name="Search").click()

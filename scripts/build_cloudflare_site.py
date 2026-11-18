@@ -17,11 +17,15 @@ import sys
 import tempfile
 
 if __package__:
-    from .build import all_distributions
+    from .build import all_distributions, javascript_distributions
     from .build_shadcn_registry import generate as universal_registry_files
+    from .build_playground_catalog import generate as playground_catalog
+    from .build_blocks import build as blocks_gallery
 else:
-    from build import all_distributions
+    from build import all_distributions, javascript_distributions
     from build_shadcn_registry import generate as universal_registry_files
+    from build_playground_catalog import generate as playground_catalog
+    from build_blocks import build as blocks_gallery
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -30,8 +34,9 @@ SITE_URL = "https://syntyr-css.pages.dev"
 # These pages are illustrative applications or an error response, not search
 # landing pages. Their HTML remains publicly available and linkable.
 NOINDEX_HTML = frozenset({
-    "404.html", "examples/geo.html", "examples/crm.html", "examples/saas.html",
-    "examples/pricing.html", "examples/resource-workspace.html",
+    "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html", "examples/preset-preview.html",
+    "examples/resource-workspace.html", "examples/geo.html",
+    "examples/permission-matrix.html",
 })
 CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
 ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
@@ -115,7 +120,7 @@ def add_seo_metadata(files: dict[str, bytes]) -> None:
 # These headers protect the static docs; they are NOT application security
 # middleware and do not follow the distributed CSS into consumer applications.
 HEADERS = """/*
-  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'self' https://github.com/dporkka/syntyr-css/issues; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000
   Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=()
   X-Frame-Options: DENY
@@ -160,6 +165,12 @@ HEADERS = """/*
 /examples/*
   Cache-Control: public, max-age=0, must-revalidate
 
+/blog/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/blog/rss.xml
+  Content-Type: application/rss+xml; charset=utf-8
+
 /dist/*
   Cache-Control: public, max-age=0, must-revalidate
   Access-Control-Allow-Origin: *
@@ -170,6 +181,9 @@ HEADERS = """/*
 
 /v/*
   Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/metadata/component-gallery.v1.json
   Access-Control-Allow-Origin: *
 
 /_assets/css/*
@@ -226,22 +240,33 @@ def immutable_site_css(files: dict[str, bytes]) -> None:
 
 
 PUBLIC_DOCS = (
-    "ai-quickstart.md", "agent-integration.md",
-    "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "release-freeze.md", "component-authoring.md", "components.md",
+    "ai-quickstart.md", "agent-integration.md", "design-principles.md",
+    "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md",
+    "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
+    "console-kit.html", "component-recipes.md", "email-components.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
     "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
-    "distribution.md", "native-patterns.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
-    "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "framework-integrations.md",
+    "faq.md", "compare.md", "compare-tailwind.md", "compare-bootstrap.md", "compare-shadcn.md",
+    "compare-daisyui.md", "compare-pico.md", "compare-native-css.md",
+    "distribution.md", "native-patterns.md", "semantic-components.md", "composition-adoption.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "how-to.html", "how-to.css", "how-to.js", "catalog.html", "catalog.css", "catalog.js",
+    "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "framework-integrations.md", "mobile-frameworks.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
-    "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
+    "index.html", "animation.md", "clipboard.md", "lit-integration.md", "playground.html", "playground.css", "playground.js", "playground-catalog.js", "playground-editor.js", "playground-editor.licenses.txt", "page-builder-guide.md", "page-builder.html", "page-builder.css", "page-builder.js", "page-builder-model.mjs",
     "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
-    "site-generator-decision.md", "tailwind-research.md",
+    "site-generator-decision.md", "site-builders.md", "tailwind-research.md",
+    "wordpress.md", "shopify.md", "wix.md", "webflow.md", "framer.md", "squarespace.md", "ghost.md", "hubspot.md", "drupal.md", "joomla.md", "carrd.md", "duda.md", "tilda.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
     "vertigo-integration.md", "viz.md", "geo.md",
 )
 
 
 def source_files() -> dict[str, bytes]:
+    # Both galleries are generated from reviewed, MIT-owned source fragments.
+    if (ROOT / "docs/blocks.html").read_text(encoding="utf-8") != blocks_gallery():
+        raise ValueError("Stale blocks gallery: run scripts/build_blocks.py")
+    # Fail closed if either gallery changes without updating the playground.
+    if (ROOT / "docs/playground-catalog.js").read_text(encoding="utf-8") != playground_catalog():
+        raise ValueError("Stale playground examples: run scripts/build_playground_catalog.py")
     files: dict[str, bytes] = {}
     paths = [
         ROOT / "index.html",
@@ -255,31 +280,40 @@ def source_files() -> dict[str, bytes]:
         ROOT / "llms.txt",
         ROOT / "llms-full.txt",
         ROOT / "metadata/components.json",
+        ROOT / "metadata/component-gallery.v1.json",
+        # Public, generated, dependency-free mobile design tokens and copy-owned source.
+        ROOT / "metadata/mobile/syntyr.tokens.json",
+        ROOT / "integrations/react-native/tokens.ts",
+        ROOT / "integrations/react-native/styles.ts",
+        ROOT / "examples/react-native/App.tsx",
         ROOT / "metadata/commercial-offers.json",
         ROOT / "agents/syntyr/SKILL.md",
         ROOT / "terminal/palettes.json",
         *(
             ROOT / "metadata" / name
             for name in (
-                "syntyr-api.json", "syntyr-contract.json",
+                "syntyr-api.json", "syntyr-contract.json", "css-contract.v1.json",
                 "syntyr.html-custom-data.json",
                 "syntyr.css-custom-data.json", "syntyr.code-snippets",
             )
         ),
         ROOT / "integrations/vertigo/admin.css",
         ROOT / "integrations/radix/states.css",
+        ROOT / "integrations/headless/interactions.css",
         ROOT / "examples/ansi_cli.py",
+        ROOT / "examples/animation-demo.mjs",
+        ROOT / "examples/copy-demo.mjs",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
     public_examples = (
-        "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
-        "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
+        "business.html", "email.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
+        "minimalist-patterns.html", "design-states.html", "native-elements.html", "semantic-compositions.html", "native-interactions.html", "native-recipes.html", "resource-outline.html", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
-        "resources.html", "saas.html", "saas-workflows.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
+        "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "permission-matrix.html", "permission-matrix.css", "crm.html", "resource-workspace.html", "saas-workflows.css", "workflow-operations.html", "workflow-operations.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
-        "viz.html", "geo.html",
+        "viz.html", "geo.html", "data-grid.html", "animation.html", "copy.html",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.
@@ -302,7 +336,13 @@ def source_files() -> dict[str, bytes]:
     )
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
+    # Public editorial HTML, styling and RSS. Other blog sources stay private.
+    paths.extend(ROOT / "blog" / name for name in (
+        "index.html", "blog.css", "rss.xml", "css-first-design-systems.html",
+        "accessible-native-html.html", "landing-page-ui-blocks.html",
+    ))
     paths.extend(ROOT / "dist" / name for name in public_css)
+    paths.extend(ROOT / "dist" / name for name in javascript_distributions())
     # Only known generated MIT universal-item JSON; never scan private products.
     registry_expected = universal_registry_files()
     paths.extend(ROOT / "registry" / name for name in registry_expected)

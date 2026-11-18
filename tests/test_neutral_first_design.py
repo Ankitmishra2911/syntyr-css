@@ -49,7 +49,7 @@ class NeutralFirstDesign(unittest.TestCase):
         self.assertIn(".syn-cell--wrap", data)
         self.assertRegex(data, r"\.syn-cell--wrap[^\{]*\{[^}]*white-space:\s*normal")
         self.assertIn("overflow-wrap: anywhere", data)
-        self.assertIn('tr[aria-selected="true"] > :first-child', data)
+        self.assertIn('tr[data-syn-state="selected"] > :first-child', data)
         example = source("examples/saas-workflows.html")
         self.assertIn("syn-cell--wrap", example)
         self.assertIn("syn-cell--numeric", example)

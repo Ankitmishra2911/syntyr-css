@@ -14,10 +14,16 @@
     "components/patterns.css",
     "components/tokens.css",
     "components/typography.css",
+    "presets/cinematic.css",
+    "presets/minimal.css",
+    "presets/saas.css",
     "syntyr.all.css",
     "syntyr.core.css",
     "syntyr.css",
+    "syntyr.data-grid.css",
     "syntyr.effects.css",
+    "syntyr.email.css",
+    "syntyr.embed.css",
     "syntyr.geo.css",
     "syntyr.geometry.css",
     "syntyr.motion.css",
@@ -38,9 +44,13 @@
       "description": "Syntyr CSS class (components/buttons.css).",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -49,6 +59,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -58,6 +70,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -68,9 +82,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -80,9 +98,45 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-alert--success",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-alert--warning",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -91,6 +145,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -100,6 +156,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -109,6 +167,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -118,6 +178,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -127,6 +189,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -136,6 +200,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -145,6 +211,7 @@
       "module": "symbols.css",
       "description": "Syntyr CSS class (symbols.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.symbols.css"
       ]
@@ -154,6 +221,7 @@
       "module": "symbols.css",
       "description": "Syntyr CSS class (symbols.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.symbols.css"
       ]
@@ -163,6 +231,7 @@
       "module": "symbols.css",
       "description": "Syntyr CSS class (symbols.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.symbols.css"
       ]
@@ -172,9 +241,74 @@
       "module": "effects.css",
       "description": "Syntyr CSS class (effects.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.css",
         "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-avatar",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar--lg",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar--sm",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar-stack",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
       ]
     },
     {
@@ -183,9 +317,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -195,9 +333,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -207,9 +349,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -219,9 +365,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -230,6 +380,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -240,9 +392,13 @@
       "description": "Native button or link styling; use semantic HTML.",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -252,9 +408,13 @@
       "description": "Syntyr CSS class (components/buttons.css).",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -264,9 +424,13 @@
       "description": "Syntyr CSS class (components/buttons.css).",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -276,9 +440,13 @@
       "description": "Syntyr CSS class (components/buttons.css).",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -288,9 +456,13 @@
       "description": "Primary action appearance.",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -300,9 +472,29 @@
       "description": "Syntyr CSS class (components/buttons.css).",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-button-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -312,9 +504,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -324,9 +520,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -336,9 +536,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -348,9 +552,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -432,9 +640,45 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-chip",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-choice-card",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -444,9 +688,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -455,6 +703,7 @@
       "module": "native-recipes.css",
       "description": "Syntyr CSS class (native-recipes.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.native-recipes.css"
       ]
@@ -464,6 +713,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -473,6 +724,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -482,6 +735,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -491,6 +746,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -500,6 +757,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -509,6 +768,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -518,6 +779,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -527,6 +790,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -536,6 +801,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -545,8 +812,136 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__cell",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__cell--numeric",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__cell-text",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__columnheader",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__editor",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__footer",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__header",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__header-row",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__loading",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__row",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__status",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__toolbar",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__viewport",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
       ]
     },
     {
@@ -554,6 +949,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -563,6 +960,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -572,6 +971,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -581,6 +982,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -591,9 +994,13 @@
       "description": "Syntyr CSS class (components/overlays.css).",
       "stylesheets": [
         "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -603,9 +1010,13 @@
       "description": "Syntyr CSS class (components/overlays.css).",
       "stylesheets": [
         "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -614,6 +1025,7 @@
       "module": "motion.css",
       "description": "Syntyr CSS class (motion.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.motion.css"
       ]
@@ -624,10 +1036,192 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-divider-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-email-body",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-code",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-compose",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-inbox",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-item",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-layout",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-main",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-message",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-message-header",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-meta",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-preferences",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-preview",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-recipient-list",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-sidebar",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-signup",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-subject",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-time",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-workspace",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
       ]
     },
     {
@@ -636,9 +1230,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -648,9 +1246,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -659,6 +1261,85 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-body",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-card",
+      "module": "recipes.css",
+      "description": "Semantic figure-based evidence review presentation with captions and metadata, not a media viewer.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-grid",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-media",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-media--placeholder",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-meta",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -669,9 +1350,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -680,6 +1365,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -689,6 +1376,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -699,9 +1388,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -711,9 +1404,13 @@
       "description": "Syntyr CSS class (components/form-composition.css).",
       "stylesheets": [
         "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -722,6 +1419,7 @@
       "module": "native-recipes.css",
       "description": "Syntyr CSS class (native-recipes.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.native-recipes.css"
       ]
@@ -732,9 +1430,13 @@
       "description": "Syntyr CSS class (components/form-composition.css).",
       "stylesheets": [
         "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -744,9 +1446,13 @@
       "description": "Syntyr CSS class (components/form-composition.css).",
       "stylesheets": [
         "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -756,9 +1462,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -767,6 +1477,8 @@
       "module": "recipes.css",
       "description": "Wrapping submit and reset action group for CRM filters.",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -776,8 +1488,26 @@
       "module": "recipes.css",
       "description": "Optional wrapping CRM GET filter form; host applies query parameters.",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-filter-choices",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
       ]
     },
     {
@@ -785,6 +1515,8 @@
       "module": "recipes.css",
       "description": "Label and control group in an optional CRM filter bar.",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -794,6 +1526,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -803,6 +1537,7 @@
       "module": "native-recipes.css",
       "description": "Syntyr CSS class (native-recipes.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.native-recipes.css"
       ]
@@ -812,6 +1547,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -821,6 +1558,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -830,6 +1569,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -840,9 +1581,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -851,6 +1596,7 @@
       "module": "geometry.css",
       "description": "Syntyr CSS class (geometry.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -860,6 +1606,7 @@
       "module": "geometry.css",
       "description": "Optional 2px accent outline for a selected frame shape.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -869,6 +1616,7 @@
       "module": "geometry.css",
       "description": "Syntyr CSS class (geometry.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -878,6 +1626,7 @@
       "module": "geometry.css",
       "description": "Syntyr CSS class (geometry.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -887,6 +1636,7 @@
       "module": "geometry.css",
       "description": "Syntyr CSS class (geometry.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -896,6 +1646,7 @@
       "module": "geometry.css",
       "description": "Optional diagonal top-left and bottom-right facets.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -905,6 +1656,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -914,6 +1667,7 @@
       "module": "geometry.css",
       "description": "Syntyr CSS class (geometry.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -923,6 +1677,7 @@
       "module": "geometry.css",
       "description": "Syntyr CSS class (geometry.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -932,6 +1687,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -941,6 +1698,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -950,6 +1709,7 @@
       "module": "geometry.css",
       "description": "Optional square-stepped top-right and bottom-left frame.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -1157,6 +1917,7 @@
       "module": "effects.css",
       "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.css",
         "syntyr.effects.css"
@@ -1167,6 +1928,7 @@
       "module": "effects.css",
       "description": "Syntyr CSS class (effects.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.css",
         "syntyr.effects.css"
@@ -1178,9 +1940,13 @@
       "description": "Responsive grid composition.",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1189,6 +1955,7 @@
       "module": "effects.css",
       "description": "Syntyr CSS class (effects.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.css",
         "syntyr.effects.css"
@@ -1200,9 +1967,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1212,9 +1983,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1224,9 +1999,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1235,6 +2014,7 @@
       "module": "effects.css",
       "description": "Syntyr CSS class (effects.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.css",
         "syntyr.effects.css"
@@ -1245,6 +2025,7 @@
       "module": "symbols.css",
       "description": "Syntyr CSS class (symbols.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.symbols.css"
       ]
@@ -1255,9 +2036,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1267,9 +2052,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1279,9 +2068,13 @@
       "description": "Syntyr CSS class (components/form-composition.css).",
       "stylesheets": [
         "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1291,9 +2084,13 @@
       "description": "Syntyr CSS class (components/form-composition.css).",
       "stylesheets": [
         "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1302,6 +2099,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1312,9 +2111,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1324,9 +2127,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1336,9 +2143,93 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row__actions",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row__body",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row__media",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1348,9 +2239,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1360,9 +2255,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1372,9 +2271,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1384,9 +2287,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1396,9 +2303,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1408,9 +2319,29 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-nav-tabs",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1420,9 +2351,13 @@
       "description": "Syntyr CSS class (base.css).",
       "stylesheets": [
         "components/base.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1431,6 +2366,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1440,6 +2377,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1449,6 +2388,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1459,9 +2400,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1471,9 +2416,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1483,9 +2432,13 @@
       "description": "General-purpose surface; customize via --syn-panel-* properties.",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1495,9 +2448,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1507,9 +2464,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1518,6 +2479,8 @@
       "module": "recipes.css",
       "description": "Keyboard-focusable scrollable CRM stage layout; host manages state.",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1527,6 +2490,8 @@
       "module": "recipes.css",
       "description": "Opt-in CRM record presentation, not a drag-drop widget.",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1536,6 +2501,8 @@
       "module": "recipes.css",
       "description": "Named stage column with semantic list of records.",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1545,6 +2512,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1555,9 +2524,13 @@
       "description": "Syntyr CSS class (components/overlays.css).",
       "stylesheets": [
         "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1567,9 +2540,13 @@
       "description": "Syntyr CSS class (components/overlays.css).",
       "stylesheets": [
         "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1578,6 +2555,7 @@
       "module": "motion.css",
       "description": "Syntyr CSS class (motion.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.motion.css"
       ]
@@ -1588,9 +2566,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1600,9 +2582,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1612,9 +2598,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1633,9 +2623,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1644,6 +2638,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1653,6 +2649,7 @@
       "module": "motion.css",
       "description": "Syntyr CSS class (motion.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.motion.css"
       ]
@@ -1662,6 +2659,8 @@
       "module": "recipes.css",
       "description": "Responsive definition-list layout for key/value record details.",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1672,10 +2671,24 @@
       "description": "Container query boundary for responsive compositions.",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-resource-outline",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
       ]
     },
     {
@@ -1683,6 +2696,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1693,9 +2708,13 @@
       "description": "Required style scope for Syntyr components and themes.",
       "stylesheets": [
         "components/base.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1705,9 +2724,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1716,6 +2739,7 @@
       "module": "effects.css",
       "description": "Syntyr CSS class (effects.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.css",
         "syntyr.effects.css"
@@ -1727,9 +2751,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1739,9 +2767,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1750,9 +2782,56 @@
       "module": "semantic.css",
       "description": "Opt-in styling of native HTML elements.",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.semantic-bundle.css",
         "syntyr.semantic.css"
+      ]
+    },
+    {
+      "name": "syn-sheet",
+      "module": "recipes.css",
+      "description": "Native popover or dialog side-sheet presentation; browser and host own opening, focus, and close behavior.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-body",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-footer",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-header",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -1761,9 +2840,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1772,6 +2855,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1781,6 +2866,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1790,6 +2877,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1799,8 +2888,26 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sidecar",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
       ]
     },
     {
@@ -1808,6 +2915,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1817,6 +2926,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1826,6 +2937,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -1836,9 +2949,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1848,9 +2965,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1860,9 +2981,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1872,9 +2997,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1884,9 +3013,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1896,9 +3029,13 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1908,9 +3045,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1920,9 +3061,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1932,9 +3077,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1944,9 +3093,13 @@
       "description": "Container-responsive metric composition.",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1956,9 +3109,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1968,9 +3125,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1980,9 +3141,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1992,9 +3157,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2004,9 +3173,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2016,9 +3189,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2028,9 +3205,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2040,9 +3221,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2052,9 +3237,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2063,6 +3252,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2072,6 +3263,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2081,6 +3274,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2090,6 +3285,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2099,6 +3296,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2108,6 +3307,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2117,6 +3318,7 @@
       "module": "symbols.css",
       "description": "Syntyr CSS class (symbols.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.symbols.css"
       ]
@@ -2126,6 +3328,7 @@
       "module": "symbols.css",
       "description": "Syntyr CSS class (symbols.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.symbols.css"
       ]
@@ -2135,6 +3338,7 @@
       "module": "symbols.css",
       "description": "Syntyr CSS class (symbols.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.symbols.css"
       ]
@@ -2145,9 +3349,13 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2156,8 +3364,42 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-table--sticky",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table--striped",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
       ]
     },
     {
@@ -2166,9 +3408,29 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table-sort",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2178,9 +3440,29 @@
       "description": "Syntyr CSS class (components/data.css).",
       "stylesheets": [
         "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table-wrap--scroll",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2189,6 +3471,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2198,6 +3482,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2207,6 +3493,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2216,6 +3504,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2225,6 +3515,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2234,6 +3526,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2243,6 +3537,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2252,6 +3548,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2261,6 +3559,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2270,6 +3570,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2279,6 +3581,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2288,6 +3592,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2297,6 +3603,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2306,6 +3614,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2315,6 +3625,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2324,6 +3636,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2334,9 +3648,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2346,9 +3664,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2358,9 +3680,13 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2369,6 +3695,7 @@
       "module": "native-recipes.css",
       "description": "Syntyr CSS class (native-recipes.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.native-recipes.css"
       ]
@@ -2379,9 +3706,13 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2391,9 +3722,13 @@
       "description": "Syntyr CSS class (components/patterns.css).",
       "stylesheets": [
         "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2402,6 +3737,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2411,6 +3747,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2420,6 +3757,7 @@
       "module": "utilities.css",
       "description": "Opt-in flexbox layout utility.",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2429,6 +3767,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2438,6 +3777,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2447,6 +3787,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2456,6 +3797,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2465,6 +3807,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2474,6 +3817,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2483,6 +3827,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2492,6 +3837,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2501,6 +3847,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2510,6 +3857,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2519,6 +3867,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2528,6 +3877,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2537,6 +3887,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2546,6 +3897,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2555,6 +3907,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2564,6 +3917,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2573,6 +3927,7 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2582,6 +3937,7 @@
       "module": "utilities.css",
       "description": "Opt-in full-width utility.",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
       ]
@@ -2591,8 +3947,20 @@
       "module": "utilities.css",
       "description": "Syntyr CSS class (utilities.css).",
       "stylesheets": [
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-view-switcher",
+      "module": "recipes.css",
+      "description": "Server-selected view links or host-controlled view buttons; the host owns selection and navigation.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -2708,6 +4076,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -2720,9 +4090,13 @@
       "description": "Theme accent color; also check --syn-on-accent contrast.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2732,9 +4106,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2744,9 +4122,29 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-avatar-size",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS property (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2756,9 +4154,13 @@
       "description": "Theme background.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2768,9 +4170,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2780,9 +4186,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2792,9 +4202,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2804,9 +4218,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2816,9 +4234,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2827,6 +4249,7 @@
       "module": "geometry.css",
       "description": "Syntyr CSS property (geometry.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -2837,9 +4260,13 @@
       "description": "Per-button border width; defaults to 1px.",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2849,9 +4276,13 @@
       "description": "Per-button inline padding; defaults to 1rem.",
       "stylesheets": [
         "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2861,9 +4292,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2936,9 +4371,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2948,9 +4387,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2960,9 +4403,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2972,10 +4419,69 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-aside-basis",
+      "module": "recipes.css",
+      "description": "Detail aside flex basis; defaults to 17rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-aside-min",
+      "module": "recipes.css",
+      "description": "Detail aside minimum width; defaults to 17rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-gap",
+      "module": "recipes.css",
+      "description": "Detail shell gap; defaults to --syn-space-3.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-main-basis",
+      "module": "recipes.css",
+      "description": "Detail main flex basis; defaults to 32rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-main-min",
+      "module": "recipes.css",
+      "description": "Detail main minimum width; defaults to 22rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -2984,9 +4490,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2996,9 +4506,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3008,9 +4522,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3020,10 +4538,47 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-field-min",
+      "module": "recipes.css",
+      "description": "Filter field basis and minimum; defaults to 11rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-gap",
+      "module": "recipes.css",
+      "description": "Wrapping filter-bar gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-query-min",
+      "module": "recipes.css",
+      "description": "Query field flex basis; defaults to 18rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -3031,6 +4586,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS property (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -3041,9 +4598,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3053,9 +4614,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3065,9 +4630,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3077,9 +4646,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3089,9 +4662,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3100,6 +4677,7 @@
       "module": "geometry.css",
       "description": "Solid or gradient border paint for optional frames.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3109,6 +4687,7 @@
       "module": "geometry.css",
       "description": "Shared fallback corner size for optional geometry shapes.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3118,6 +4697,7 @@
       "module": "geometry.css",
       "description": "Optional bottom-left frame cut size.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3127,6 +4707,7 @@
       "module": "geometry.css",
       "description": "Optional bottom-right frame cut size.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3136,6 +4717,7 @@
       "module": "geometry.css",
       "description": "Optional top-left frame cut size.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3145,6 +4727,7 @@
       "module": "geometry.css",
       "description": "Optional top-right frame cut size.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3154,6 +4737,7 @@
       "module": "geometry.css",
       "description": "Interior fill paint for optional shaped frames.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3163,6 +4747,7 @@
       "module": "geometry.css",
       "description": "Optional translucent overlay on the inner shaped surface.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3172,6 +4757,7 @@
       "module": "geometry.css",
       "description": "Solid border paint fallback for optional frames.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3181,6 +4767,7 @@
       "module": "geometry.css",
       "description": "Syntyr CSS property (geometry.css).",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3190,6 +4777,7 @@
       "module": "geometry.css",
       "description": "Width of the optional shape-following border.",
       "stylesheets": [
+        "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
       ]
@@ -3200,9 +4788,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3218,7 +4810,7 @@
     {
       "name": "--syn-geo-land",
       "module": "geo.css",
-      "description": "Decorative map fallback surface, not a real basemap.",
+      "description": "Syntyr CSS property (geo.css).",
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.geo.css"
@@ -3245,7 +4837,7 @@
     {
       "name": "--syn-geo-point",
       "module": "geo.css",
-      "description": "Map-marker accent; derived from theme. Does not establish a GIS layer category.",
+      "description": "Syntyr CSS property (geo.css).",
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.geo.css"
@@ -3263,7 +4855,7 @@
     {
       "name": "--syn-geo-route",
       "module": "geo.css",
-      "description": "Map route/line color; host supplies geometry and semantics.",
+      "description": "Syntyr CSS property (geo.css).",
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.geo.css"
@@ -3281,7 +4873,7 @@
     {
       "name": "--syn-geo-zone",
       "module": "geo.css",
-      "description": "Map zone color; host supplies meaningful labels and boundaries.",
+      "description": "Syntyr CSS property (geo.css).",
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.geo.css"
@@ -3293,9 +4885,13 @@
       "description": "Glow accent share; varies by scoped data-syn-intensity.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3305,10 +4901,127 @@
       "description": "Grid-line accent share; varies by scoped data-syn-intensity.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-density-pad-inline",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-density-row-block",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-edge",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-focus",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-gap",
+      "module": "components/layout.css",
+      "description": "Grid gap; defaults to 1rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-hover",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-min",
+      "module": "components/layout.css",
+      "description": "Minimum grid track width; defaults to 17rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-muted",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-pad-inline",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-row-block",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-selected",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
       ]
     },
     {
@@ -3317,9 +5030,83 @@
       "description": "Horizon line accent share.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-inline-gap",
+      "module": "components/layout.css",
+      "description": "Inline flex gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-kpi-gap",
+      "module": "recipes.css",
+      "description": "KPI grid gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-kpi-min",
+      "module": "recipes.css",
+      "description": "Minimum KPI grid track width; defaults to 13rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-layout-gap",
+      "module": "components/layout.css",
+      "description": "Layout gap; defaults to 1.25rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-layout-min",
+      "module": "components/layout.css",
+      "description": "Minimum layout track width; defaults to 21rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3329,9 +5116,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3341,9 +5132,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3353,9 +5148,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3365,9 +5164,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3377,9 +5180,13 @@
       "description": "Foreground color for the primary accent.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3389,9 +5196,13 @@
       "description": "Per-panel border width; defaults to 1px.",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3401,9 +5212,13 @@
       "description": "Per-panel padding; defaults to the existing fluid panel padding.",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3413,9 +5228,13 @@
       "description": "Per-panel border radius; defaults to square corners.",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3425,9 +5244,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3437,9 +5260,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3448,6 +5275,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS property (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -3458,9 +5287,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3470,9 +5303,13 @@
       "description": "Scanline overlay opacity percentage.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3482,9 +5319,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3494,9 +5335,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3506,10 +5351,25 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-sheet-width",
+      "module": "recipes.css",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -3518,9 +5378,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3530,9 +5394,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3542,9 +5410,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3554,9 +5426,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3566,9 +5442,29 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-stack-gap",
+      "module": "components/layout.css",
+      "description": "Stack gap; defaults to --syn-space-3.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3578,9 +5474,13 @@
       "description": "Syntyr CSS property (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3590,9 +5490,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3602,9 +5506,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3614,9 +5522,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3626,9 +5538,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3638,9 +5554,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3650,9 +5570,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3662,9 +5586,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3674,9 +5602,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3686,9 +5618,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3697,6 +5633,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS property (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -3706,6 +5644,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS property (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -3715,6 +5655,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS property (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -3724,6 +5666,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS property (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -3734,9 +5678,13 @@
       "description": "Default text color.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3746,9 +5694,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3758,9 +5710,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3770,9 +5726,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3782,9 +5742,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3794,9 +5758,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3806,9 +5774,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3817,6 +5789,8 @@
       "module": "recipes.css",
       "description": "Syntyr CSS property (recipes.css).",
       "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.recipes.css"
       ]
@@ -3827,9 +5801,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3839,9 +5817,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3851,9 +5833,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3863,9 +5849,13 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3875,9 +5865,13 @@
       "description": "Primary atmospheric wash share.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3887,9 +5881,13 @@
       "description": "Secondary atmospheric wash share.",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     }
@@ -3924,6 +5922,9 @@
       "compact",
       "comfortable",
       "spacious"
+    ],
+    "data-syn-color-space": [
+      "oklch"
     ],
     "data-syn-state": [
       "active",
@@ -4195,6 +6196,221 @@
         "syn-record-fields"
       ],
       "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+    }
+  ],
+  "recipes": [
+    {
+      "id": "crm-filter",
+      "description": "Server-driven filter toolbar with wrapping fields and submit/reset actions.",
+      "stylesheets": [
+        "syntyr.core.css",
+        "syntyr.recipes.css"
+      ],
+      "root": {
+        "tag": "form",
+        "classes": [
+          "syn-filter-bar"
+        ]
+      },
+      "slots": [
+        {
+          "name": "field",
+          "tag": "label",
+          "classes": [
+            "syn-filter-field"
+          ],
+          "optional": false,
+          "repeatable": true
+        },
+        {
+          "name": "query",
+          "tag": "label",
+          "classes": [
+            "syn-filter-field",
+            "syn-filter-field--query"
+          ],
+          "optional": true,
+          "repeatable": false
+        },
+        {
+          "name": "actions",
+          "tag": "div",
+          "classes": [
+            "syn-filter-actions"
+          ],
+          "optional": false,
+          "repeatable": false
+        }
+      ],
+      "variants": {
+        "data-syn-density": [
+          "comfortable",
+          "compact"
+        ]
+      },
+      "host_behavior": "Supply method=get, named controls, actual action URL and meaningful reset link. The host filters results; CSS does not execute queries.",
+      "example": "examples/saas-workflows.html"
+    },
+    {
+      "id": "resource-table",
+      "description": "Horizontally scrollable semantic data table with optional numeric cells and native pagination links.",
+      "stylesheets": [
+        "syntyr.core.css"
+      ],
+      "root": {
+        "tag": "div",
+        "classes": [
+          "syn-table-wrap"
+        ]
+      },
+      "slots": [
+        {
+          "name": "table",
+          "tag": "table",
+          "classes": [
+            "syn-table"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "numeric-cell",
+          "tag": "td",
+          "classes": [
+            "syn-cell--numeric"
+          ],
+          "optional": true,
+          "repeatable": true
+        },
+        {
+          "name": "pagination",
+          "tag": "nav",
+          "classes": [
+            "syn-pagination"
+          ],
+          "optional": true,
+          "repeatable": false
+        }
+      ],
+      "variants": {
+        "data-syn-density": [
+          "comfortable",
+          "compact"
+        ]
+      },
+      "host_behavior": "Provide caption, real th scope associations, keyboard-reachable horizontal overflow where needed, actual page links and server-side sort/filter. CSS does not sort, page or select records.",
+      "example": "examples/saas-workflows.html"
+    },
+    {
+      "id": "app-shell",
+      "description": "Responsive application shell with navigation rail and primary workspace.",
+      "stylesheets": [
+        "syntyr.core.css",
+        "syntyr.recipes.css"
+      ],
+      "root": {
+        "tag": "div",
+        "classes": [
+          "syn-app-shell"
+        ]
+      },
+      "slots": [
+        {
+          "name": "rail",
+          "tag": "aside",
+          "classes": [
+            "syn-app-rail"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "navigation",
+          "tag": "nav",
+          "classes": [
+            "syn-app-nav"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "workspace",
+          "tag": "main",
+          "classes": [
+            "syn-workspace"
+          ],
+          "optional": false,
+          "repeatable": false
+        }
+      ],
+      "variants": {
+        "data-syn-theme": [
+          "studio",
+          "grid",
+          "noir"
+        ]
+      },
+      "host_behavior": "Provide labelled navigation, unique main landmark, actual routes and authorization for each destination. Theme must be placed on .syn-root or a scoped ancestor.",
+      "example": "examples/operations-console.html"
+    },
+    {
+      "id": "validated-form",
+      "description": "Labeled field/error compositions for host-validated forms.",
+      "stylesheets": [
+        "syntyr.core.css"
+      ],
+      "root": {
+        "tag": "form",
+        "classes": [
+          "syn-form"
+        ]
+      },
+      "slots": [
+        {
+          "name": "field",
+          "tag": "div",
+          "classes": [
+            "syn-field"
+          ],
+          "optional": false,
+          "repeatable": true
+        },
+        {
+          "name": "label",
+          "tag": "label",
+          "classes": [
+            "syn-label"
+          ],
+          "optional": false,
+          "repeatable": true
+        },
+        {
+          "name": "input",
+          "tag": "input",
+          "classes": [
+            "syn-input"
+          ],
+          "optional": false,
+          "repeatable": true
+        },
+        {
+          "name": "error",
+          "tag": "p",
+          "classes": [
+            "syn-error"
+          ],
+          "optional": true,
+          "repeatable": true
+        }
+      ],
+      "variants": {
+        "data-syn-density": [
+          "comfortable",
+          "compact"
+        ]
+      },
+      "host_behavior": "Host supplies server/client validation, error text, stable error IDs, aria-describedby, aria-invalid and focus to an error summary when submission fails. CSS never performs validation or focus changes.",
+      "example": "examples/form-composition.html"
     }
   ]
 }
