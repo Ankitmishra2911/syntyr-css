@@ -24,23 +24,37 @@ class Assets(HTMLParser):
         self.stylesheets: list[str] = []
         self.scripts: list[str | None] = []
         self.inline_script_bytes = 0
+        self.inline_event_handler_bytes = 0
+        self.inline_styles: list[str] = []
         self._in_script = False
+        self._in_style = False
 
     def handle_starttag(self, tag: str, pairs: list[tuple[str, str | None]]) -> None:
         attrs = dict(pairs)
+        for name, value in pairs:
+            if value is not None and name.startswith("on") and len(name) > 2:
+                self.inline_event_handler_bytes += len(value.encode("utf-8"))
+        if attrs.get("style"):
+            self.inline_styles.append(attrs["style"])
         if tag == "link" and "stylesheet" in (attrs.get("rel") or "").split():
             self.stylesheets.append(attrs.get("href") or "")
         if tag == "script":
             self.scripts.append(attrs.get("src"))
             self._in_script = True
+        if tag == "style":
+            self._in_style = True
 
     def handle_data(self, data: str) -> None:
         if self._in_script:
             self.inline_script_bytes += len(data.encode("utf-8"))
+        if self._in_style:
+            self.inline_styles.append(data)
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "script":
             self._in_script = False
+        if tag == "style":
+            self._in_style = False
 
 
 def _local_file(href: str, parent: Path) -> Path:
@@ -69,7 +83,7 @@ def audit_page(markup: str, parent: Path) -> dict[str, int]:
         group.append(data)
     bytes_syntyr = sum(map(len, syntyr))
     bytes_custom = sum(map(len, custom))
-    runtime_js = assets.inline_script_bytes
+    runtime_js = assets.inline_script_bytes + assets.inline_event_handler_bytes
     for script in assets.scripts:
         if script:
             parsed = urlsplit(script)
@@ -86,8 +100,8 @@ def audit_page(markup: str, parent: Path) -> dict[str, int]:
         "syntyr_css_gzip_bytes": sum(len(gzip.compress(x, mtime=0)) for x in syntyr),
         "custom_css_bytes": bytes_custom,
         "custom_css_gzip_bytes": sum(len(gzip.compress(x, mtime=0)) for x in custom),
-        "custom_token_overrides": len(set(re.findall(r"--syn-[\w-]+\s*:", "\n".join(
-            x.decode("utf-8") for x in custom
+        "custom_token_overrides": len(set(re.findall(r"(--syn-[\w-]+)\s*:", "\n".join(
+            [*(x.decode("utf-8") for x in custom), *assets.inline_styles]
         )))),
         "runtime_js_bytes": runtime_js,
         "script_tags": len(assets.scripts),

@@ -1,6 +1,6 @@
 # Web design reference matrix and Syntyr benchmark applications
 
-Research rubric for the **unreleased alpha.5 source candidate**, not a statement about the published alpha.4 package. Updated 2026-11-15. This matrix identifies what to *study*, not assets to redistribute. Design inspiration and design principles are not licenses.
+Research rubric for the **unreleased alpha.5 source candidate**, not a statement about the published alpha.4 package. Updated 2026-11-18. This matrix identifies what to *study*, not assets to redistribute. Design inspiration and design principles are not licenses.
 
 ## Ranked reference matrix
 
@@ -14,11 +14,19 @@ Research rubric for the **unreleased alpha.5 source candidate**, not a statement
 | P1 | [GitHub Primer](https://primer.style/) | Accessible states, density, documented tokens | Compare data tables, responsive navigation, error/help states | Do not copy GitHub branding |
 | P1 | [PatternFly](https://www.patternfly.org/) | Complex B2B admin workflows | Cover multi-column CRM records, search, status and overflow handling | Framework implementation not a runtime dependency |
 | P1 | [IBM Carbon](https://carbondesignsystem.com/) | Data-rich UX patterns and hierarchy | Verify content density, long labels, tables, status without color alone | Don't transplant proprietary assets |
+| P1 | [React Aria](https://react-aria.adobe.com/) | Interaction states and accessibility contracts | Test keyboard sequences, focus and touch behavior for any optional interactive adapter | Patterns are guidance; CSS alone cannot implement interactions |
+| P1 | [Base UI](https://base-ui.com/) | Unstyled, composable primitive anatomy | Audit semantic markup and state hooks without adding a mandatory React runtime | Do not assume framework components are drop-in native HTML |
+| P1 | [Atlassian Design System](https://atlassian.design/) | Dense work-management navigation and status | Check task tables, contextual actions, labels and long-name overflow | Do not reuse brand assets or proprietary components |
+| P1 | [shadcn/ui](https://ui.shadcn.com/) | Copyable component composition and developer ergonomics | Compare documentation clarity, component examples and style customization | Borrow ideas, not framework or Tailwind dependencies |
 | P1 | [GOV.UK Design System](https://design-system.service.gov.uk/) | Error summaries, labels and validation patterns | Include real labels and meaningful help/error copy in future interactive examples | Not a guarantee of full WCAG conformance |
 | P1 | [CUBE CSS](https://cube.fyi/) | Composition, utilities, blocks, exceptions | Prefer scoped low-specificity CSS over application-level override wars | Pattern inspiration rather than imported code |
 | P1 | [Utopia](https://utopia.fyi/) | Fluid type and spacing | Prefer `clamp()` and intrinsic sizing where they improve readability | Verify min/max type sizes for zoom and content |
 | P2 | [Mobbin](https://mobbin.com/) | Real product navigation, onboarding and forms | Benchmark authentic information architecture, not just isolated cards | Commercial screenshots are references only |
 | P2 | [Refero](https://refero.design/) | SaaS dashboard and marketing layout patterns | Build practical composition samples with independent original copy | Do not copy screenshots/templates |
+| P2 | [SaaSFrame](https://www.saasframe.io/) | B2B SaaS workflows, pages and hierarchy | Check onboarding, empty states and page-level navigation in the CRM benchmark | Screenshots and Figma assets are reference material, not source code |
+| P2 | [Landbook](https://land-book.com/) | Marketing hierarchy and landing-page structure | Compare small-screen CTA order, readable typography and pricing clarity | Create original layouts, text and artwork; do not replicate submissions |
+| P2 | [Lapa Ninja](https://www.lapa.ninja/) | Hero and product-marketing sections | Compare section variety and responsive information hierarchy | Templates and screenshots need independent usage rights |
+| P2 | [Refactoring UI](https://refactoringui.com/) | Visual hierarchy, spacing and typography | Validate deliberate size and spacing scales instead of arbitrary one-off values | Paid instructional material is not redistributable |
 | P2 | [Codrops](https://tympanus.net/codrops/) | Expressive CSS, typography, subtle motion | Keep futuristic effects opt-in, accessible and motion-reducible | Review each demo's license; no direct copying |
 | P2 | [Tailwind Plus](https://tailwindcss.com/plus) | Commercial template packaging and support | Keep MIT CSS fundamentals free; monetize original complete templates | Commercial examples are **not** MIT source assets |
 
@@ -51,7 +59,7 @@ python3 scripts/design_reference_audit.py --json
 python3 -m unittest discover -s tests -p test_design_reference_benchmarks.py -v
 ```
 
-The audit reports real HTML bytes, local Syntyr stylesheet bytes and gzip bytes, custom stylesheet bytes and gzip bytes, the number of custom `--syn-*` overrides, and runtime JS bytes. Gzip uses deterministic `mtime=0`; stylesheets are counted once per page and are **not** equivalent to browser transfer totals with caching. The metrics do **not** claim real-world LCP, CLS, browser-interaction latency, color contrast, or full WCAG conformance. Run the repository's Playwright/axe checks for those claims. Source checkout and published alpha.4 differ.
+The audit reports real HTML bytes, local Syntyr stylesheet bytes and gzip bytes, custom stylesheet bytes and gzip bytes, unique `--syn-*` declarations across linked CSS, `<style>` blocks and `style` attributes, and script plus inline event-handler JavaScript bytes. Gzip uses deterministic `mtime=0`; stylesheets are counted once per page and are **not** equivalent to browser transfer totals with caching. The metrics do **not** claim real-world LCP, CLS, browser-interaction latency, color contrast, or full WCAG conformance. Run the repository's Playwright/axe checks for those claims. Source checkout and published alpha.4 differ.
 
 ### Follow-up quality gates
 

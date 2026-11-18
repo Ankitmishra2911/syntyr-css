@@ -105,6 +105,25 @@ class DesignReferenceBenchmarkTest(unittest.TestCase):
                 self.assertGreaterEqual(report["custom_css_gzip_bytes"], 0)
                 self.assertEqual(report["script_tags"], 0)
 
+    def test_audit_counts_inline_event_handler_javascript(self):
+        from scripts.design_reference_audit import audit_page
+        markup = '<button onclick="alert(1)" onkeydown="return false">Run</button>'
+        report = audit_page(markup, BASE)
+        self.assertEqual(report["runtime_js_bytes"], len("alert(1)return false"))
+        self.assertEqual(report["script_tags"], 0)
+
+        image = audit_page('<img src="fixture.png" onerror="recover()" />', BASE)
+        self.assertEqual(image["runtime_js_bytes"], len("recover()"))
+
+    def test_audit_counts_unique_tokens_in_style_elements_and_attributes(self):
+        from scripts.design_reference_audit import audit_page
+        markup = (
+            '<style>.card { --syn-accent: red; --syn-space: 1rem; }</style>'
+            '<div style="--syn-accent : blue; --syn-radius: 4px">Card</div>'
+        )
+        report = audit_page(markup, BASE)
+        self.assertEqual(report["custom_token_overrides"], 3)
+
     def test_audit_rejects_remote_stylesheet_or_missing_stylesheet(self):
         from scripts.design_reference_audit import audit_page
         with self.assertRaisesRegex(ValueError, "external stylesheet"):

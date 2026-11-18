@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Web design reference matrix and Syntyr benchmark applications. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="7f39098ce1058f215906fb6154f2264f969e5bcd1cf1e118458f9671147e34ed">
+  <meta name="syntyr-source-sha256" content="cad54198bdebf63d09aa2fd4a24824a24a75bb14239069a381a72edcb045771d">
   <meta name="theme-color" content="#f5f7fb">
   <title>Web design reference matrix and Syntyr benchmark applications — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/design-reference-matrix.html">
@@ -35,7 +35,7 @@
       <div class="docs-article-layout">
         <article class="docs-prose" aria-label="Web design reference matrix and Syntyr benchmark applications">
 <h1 id="web-design-reference-matrix-and-syntyr-benchmark-applications">Web design reference matrix and Syntyr benchmark applications</h1>
-<p>Research rubric for the <strong>unreleased alpha.5 source candidate</strong>, not a statement about the published alpha.4 package. Updated 2026-11-15. This matrix identifies what to <em>study</em>, not assets to redistribute. Design inspiration and design principles are not licenses.</p>
+<p>Research rubric for the <strong>unreleased alpha.5 source candidate</strong>, not a statement about the published alpha.4 package. Updated 2026-11-18. This matrix identifies what to <em>study</em>, not assets to redistribute. Design inspiration and design principles are not licenses.</p>
 <h2 id="ranked-reference-matrix">Ranked reference matrix</h2>
 <table>
 <thead>
@@ -106,6 +106,34 @@
 </tr>
 <tr>
 <td>P1</td>
+<td><a href="https://react-aria.adobe.com/">React Aria</a></td>
+<td>Interaction states and accessibility contracts</td>
+<td>Test keyboard sequences, focus and touch behavior for any optional interactive adapter</td>
+<td>Patterns are guidance; CSS alone cannot implement interactions</td>
+</tr>
+<tr>
+<td>P1</td>
+<td><a href="https://base-ui.com/">Base UI</a></td>
+<td>Unstyled, composable primitive anatomy</td>
+<td>Audit semantic markup and state hooks without adding a mandatory React runtime</td>
+<td>Do not assume framework components are drop-in native HTML</td>
+</tr>
+<tr>
+<td>P1</td>
+<td><a href="https://atlassian.design/">Atlassian Design System</a></td>
+<td>Dense work-management navigation and status</td>
+<td>Check task tables, contextual actions, labels and long-name overflow</td>
+<td>Do not reuse brand assets or proprietary components</td>
+</tr>
+<tr>
+<td>P1</td>
+<td><a href="https://ui.shadcn.com/">shadcn/ui</a></td>
+<td>Copyable component composition and developer ergonomics</td>
+<td>Compare documentation clarity, component examples and style customization</td>
+<td>Borrow ideas, not framework or Tailwind dependencies</td>
+</tr>
+<tr>
+<td>P1</td>
 <td><a href="https://design-system.service.gov.uk/">GOV.UK Design System</a></td>
 <td>Error summaries, labels and validation patterns</td>
 <td>Include real labels and meaningful help/error copy in future interactive examples</td>
@@ -138,6 +166,34 @@
 <td>SaaS dashboard and marketing layout patterns</td>
 <td>Build practical composition samples with independent original copy</td>
 <td>Do not copy screenshots/templates</td>
+</tr>
+<tr>
+<td>P2</td>
+<td><a href="https://www.saasframe.io/">SaaSFrame</a></td>
+<td>B2B SaaS workflows, pages and hierarchy</td>
+<td>Check onboarding, empty states and page-level navigation in the CRM benchmark</td>
+<td>Screenshots and Figma assets are reference material, not source code</td>
+</tr>
+<tr>
+<td>P2</td>
+<td><a href="https://land-book.com/">Landbook</a></td>
+<td>Marketing hierarchy and landing-page structure</td>
+<td>Compare small-screen CTA order, readable typography and pricing clarity</td>
+<td>Create original layouts, text and artwork; do not replicate submissions</td>
+</tr>
+<tr>
+<td>P2</td>
+<td><a href="https://www.lapa.ninja/">Lapa Ninja</a></td>
+<td>Hero and product-marketing sections</td>
+<td>Compare section variety and responsive information hierarchy</td>
+<td>Templates and screenshots need independent usage rights</td>
+</tr>
+<tr>
+<td>P2</td>
+<td><a href="https://refactoringui.com/">Refactoring UI</a></td>
+<td>Visual hierarchy, spacing and typography</td>
+<td>Validate deliberate size and spacing scales instead of arbitrary one-off values</td>
+<td>Paid instructional material is not redistributable</td>
 </tr>
 <tr>
 <td>P2</td>
@@ -178,7 +234,7 @@ python3 scripts/design_reference_audit.py
 python3 scripts/design_reference_audit.py --json
 python3 -m unittest discover -s tests -p test_design_reference_benchmarks.py -v
 </code></pre>
-<p>The audit reports real HTML bytes, local Syntyr stylesheet bytes and gzip bytes, custom stylesheet bytes and gzip bytes, the number of custom <code>--syn-*</code> overrides, and runtime JS bytes. Gzip uses deterministic <code>mtime=0</code>; stylesheets are counted once per page and are <strong>not</strong> equivalent to browser transfer totals with caching. The metrics do <strong>not</strong> claim real-world LCP, CLS, browser-interaction latency, color contrast, or full WCAG conformance. Run the repository's Playwright/axe checks for those claims. Source checkout and published alpha.4 differ.</p>
+<p>The audit reports real HTML bytes, local Syntyr stylesheet bytes and gzip bytes, custom stylesheet bytes and gzip bytes, unique <code>--syn-*</code> declarations across linked CSS, <code>&lt;style&gt;</code> blocks and <code>style</code> attributes, and script plus inline event-handler JavaScript bytes. Gzip uses deterministic <code>mtime=0</code>; stylesheets are counted once per page and are <strong>not</strong> equivalent to browser transfer totals with caching. The metrics do <strong>not</strong> claim real-world LCP, CLS, browser-interaction latency, color contrast, or full WCAG conformance. Run the repository's Playwright/axe checks for those claims. Source checkout and published alpha.4 differ.</p>
 <h3 id="follow-up-quality-gates">Follow-up quality gates</h3>
 <ul>
 <li>Compare the three designs at 320, 375, 768, 1280 CSS pixels, 200% zoom, and with long translated strings.</li>
