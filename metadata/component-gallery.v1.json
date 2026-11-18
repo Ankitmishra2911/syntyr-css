@@ -1463,7 +1463,7 @@
         "syn-button--outline",
         "syn-result-state"
       ],
-      "html": "<section class=\"syn-result-state\" aria-labelledby=\"catalog-recovery-title\">\n  <h3 id=\"catalog-recovery-title\">No matching records</h3>\n  <p>Try a broader search or review the documentation.</p>\n  <a class=\"syn-button syn-button--outline\" href=\"guides.html\">Browse guides</a>\n</section>"
+      "html": "<section class=\"syn-result-state\" aria-labelledby=\"catalog-recovery-title\">\n  <h3 id=\"catalog-recovery-title\">No matching records</h3>\n  <p>Try a broader search or review the documentation.</p>\n  <a class=\"syn-button syn-button--outline\" href=\"https://syntyr-css.pages.dev/docs/guides.html\">Browse guides</a>\n</section>"
     },
     {
       "id": "catalog-geometry-frame-title",

@@ -138,3 +138,12 @@ test("native-only projects do not depend on an optional gallery fetch", () => {
   assert.equal(projectNeedsGalleryManifest({ blocks: [{ type: "hero" }] }), false);
   assert.equal(projectNeedsGalleryManifest({ blocks: "invalid" }), false);
 });
+
+
+test("recovery example keeps its functioning destination on export", () => {
+  registerGalleryManifest(manifest);
+  const page = createDefaultDocument();
+  page.blocks = [createBlock("gallery:catalog-recovery-state-title", "recover-1")];
+  const html = exportHtml(page);
+  assert.match(html, /href="https:\/\/syntyr-css\.pages\.dev\/docs\/guides\.html"/);
+});
