@@ -47,12 +47,21 @@ as the build command for your static hosting provider, and set the publish
 directory to `public`. Commits to the content repository must trigger a build
 and deployment; the editor does **not** deploy changes itself.
 
+Section IDs in `content/pages/home.json` are required, stable lowercase slugs.
+Keep them unchanged when moving blocks, so links like `/#section-features`
+remain valid; duplicate IDs or unsafe slugs fail validation. Both editor
+configurations expose this field.
+
 ## Choose an optional editor
 
 **Sveltia CMS (recommended default)**
 
 1. In `admin/config.yml`, replace `REPLACE_OWNER/REPLACE_REPO` with the GitHub
    repository containing the **site root** (`content/pages/home.json`).
+   Set `backend.branch` to the branch holding that file (the default is
+   `main`); change it if your content branch differs. The sample
+   `media_folder` is `media/` and should be tracked or created by the editor
+   before handling uploads.
 2. Commit and deploy the site (the generated `public/admin/` contains the
    Sveltia editor HTML/config). Open `/admin/` and authenticate.
 3. Developers can use a scoped fine-grained GitHub token; for nontechnical

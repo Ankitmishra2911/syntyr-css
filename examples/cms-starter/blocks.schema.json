@@ -40,63 +40,19 @@
       "maxItems": 24,
       "items": {
         "$ref": "#/$defs/section"
-      }
+      },
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/hero"
+        }
+      ]
     }
   },
   "$defs": {
     "section": {
       "oneOf": [
         {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "type",
-            "eyebrow",
-            "heading",
-            "description",
-            "button"
-          ],
-          "properties": {
-            "type": {
-              "const": "hero"
-            },
-            "eyebrow": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 120
-            },
-            "heading": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 180
-            },
-            "description": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 500
-            },
-            "button": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "label",
-                "url"
-              ],
-              "properties": {
-                "label": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100
-                },
-                "url": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 2048,
-                  "description": "Root-relative or http(s) URL; renderer enforces URL safety."
-                }
-              }
-            }
-          }
+          "$ref": "#/$defs/hero"
         },
         {
           "type": "object",
@@ -104,7 +60,8 @@
           "required": [
             "type",
             "heading",
-            "items"
+            "items",
+            "id"
           ],
           "properties": {
             "type": {
@@ -139,6 +96,13 @@
                   }
                 }
               }
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,62}$",
+              "minLength": 1,
+              "maxLength": 63,
+              "description": "Stable section anchor slug, unique within the document."
             }
           }
         },
@@ -148,7 +112,8 @@
           "required": [
             "type",
             "heading",
-            "plans"
+            "plans",
+            "id"
           ],
           "properties": {
             "type": {
@@ -216,6 +181,13 @@
                   }
                 }
               }
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,62}$",
+              "minLength": 1,
+              "maxLength": 63,
+              "description": "Stable section anchor slug, unique within the document."
             }
           }
         },
@@ -225,7 +197,8 @@
           "required": [
             "type",
             "heading",
-            "items"
+            "items",
+            "id"
           ],
           "properties": {
             "type": {
@@ -260,6 +233,13 @@
                   }
                 }
               }
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,62}$",
+              "minLength": 1,
+              "maxLength": 63,
+              "description": "Stable section anchor slug, unique within the document."
             }
           }
         },
@@ -270,7 +250,8 @@
             "type",
             "heading",
             "description",
-            "button"
+            "button",
+            "id"
           ],
           "properties": {
             "type": {
@@ -306,10 +287,77 @@
                   "description": "Root-relative or http(s) URL; renderer enforces URL safety."
                 }
               }
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,62}$",
+              "minLength": 1,
+              "maxLength": 63,
+              "description": "Stable section anchor slug, unique within the document."
             }
           }
         }
       ]
+    },
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "eyebrow",
+        "heading",
+        "description",
+        "button",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "const": "hero"
+        },
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "heading": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "button": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "url"
+          ],
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2048,
+              "description": "Root-relative or http(s) URL; renderer enforces URL safety."
+            }
+          }
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,62}$",
+          "minLength": 1,
+          "maxLength": 63,
+          "description": "Stable section anchor slug, unique within the document."
+        }
+      }
     }
   }
 }

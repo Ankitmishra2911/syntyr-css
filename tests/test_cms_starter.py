@@ -70,9 +70,62 @@ class CmsStarterTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             cms.render_document(page)
 
+    def test_reordering_sections_preserves_explicit_anchor_ids_and_button_targets(self):
+        page = self.sample()
+        page["sections"][1], page["sections"][2] = page["sections"][2], page["sections"][1]
+        html = cms.render_document(page)
+        self.assertIn('id="section-features"', html)
+        self.assertIn('id="section-pricing"', html)
+        self.assertEqual(html.count('href="/#section-features"'), 2)
+        self.assertNotIn('section-1-features', html)
+
+    def test_multiple_heroes_keep_one_h1(self):
+        page = self.sample()
+        extra = deepcopy(page["sections"][0])
+        extra["id"] = "another-hero"
+        page["sections"].append(extra)
+        html = cms.render_document(page)
+        self.assertEqual(html.count("<h1 "), 1)
+        self.assertIn('<h2 id="section-another-hero"', html)
+
+    def test_duplicate_or_invalid_section_ids_are_rejected(self):
+        for bad in ("", "../bad", "5bad", "<script>", "hello world"):
+            with self.subTest(bad=bad):
+                page = self.sample()
+                page["sections"][1]["id"] = bad
+                with self.assertRaisesRegex(ValueError, "id"):
+                    cms.render_document(page)
+        page = self.sample()
+        page["sections"][2]["id"] = page["sections"][1]["id"]
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            cms.render_document(page)
+
+    def test_schema_requires_hero_first_and_stable_ids(self):
+        schema = json.loads((STARTER / "blocks.schema.json").read_text())
+        self.assertIn("prefixItems", schema["properties"]["sections"])
+        self.assertEqual(schema["properties"]["sections"]["prefixItems"][0]["$ref"], "#/$defs/hero")
+        self.assertEqual(schema["$defs"]["section"]["oneOf"][0]["$ref"], "#/$defs/hero")
+        for kind in [schema["$defs"]["hero"], *schema["$defs"]["section"]["oneOf"][1:]]:
+            self.assertIn("id", kind["required"])
+            self.assertEqual(kind["properties"]["id"]["pattern"], "^[a-z][a-z0-9-]{0,62}$")
+
+    def test_cms_editors_and_publishing_support_ids_and_media(self):
+        config = (STARTER / "admin/config.yml").read_text()
+        pages = (STARTER / ".pages.yml").read_text()
+        self.assertIn("media_folder:", config)
+        self.assertIn("public_folder:", config)
+        self.assertEqual(config.count("name: id,"), 5)
+        self.assertEqual(pages.count("name: id,"), 5)
+        self.assertIn('"cms-integration.md"', (ROOT / "scripts/build_cloudflare_site.py").read_text())
+        self.assertIn("docs/cms-integration.md", (ROOT / "llms.txt").read_text())
+        readme = (STARTER / "README.md").read_text()
+        self.assertIn("backend.branch", readme)
+
     def test_schema_and_editors_declare_same_section_types(self):
         schema = json.loads((STARTER / "blocks.schema.json").read_text(encoding="utf-8"))
-        types = {section["properties"]["type"]["const"] for section in schema["$defs"]["section"]["oneOf"]}
+        options = [schema["$defs"]["hero"] if "$ref" in section else section
+                   for section in schema["$defs"]["section"]["oneOf"]]
+        types = {section["properties"]["type"]["const"] for section in options}
         self.assertEqual(types, {"hero", "features", "pricing", "faq", "cta"})
         sveltia = (STARTER / "admin/config.yml").read_text(encoding="utf-8")
         pages = (STARTER / ".pages.yml").read_text(encoding="utf-8")

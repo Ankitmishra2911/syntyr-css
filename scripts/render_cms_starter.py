@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 from html import escape
 import json
+import re
 from pathlib import Path
 import shutil
 from urllib.parse import urlsplit
@@ -17,11 +18,11 @@ STARTER = ROOT / "examples/cms-starter"
 DESTINATION = STARTER / "_site"
 THEMES = frozenset(("studio", "grid", "noir", "industrial", "terminal", "corporate", "minimal"))
 SECTION_FIELDS = {
-    "hero": {"type", "eyebrow", "heading", "description", "button"},
-    "features": {"type", "heading", "items"},
-    "pricing": {"type", "heading", "plans"},
-    "faq": {"type", "heading", "items"},
-    "cta": {"type", "heading", "description", "button"},
+    "hero": {"type", "id", "eyebrow", "heading", "description", "button"},
+    "features": {"type", "id", "heading", "items"},
+    "pricing": {"type", "id", "heading", "plans"},
+    "faq": {"type", "id", "heading", "items"},
+    "cta": {"type", "id", "heading", "description", "button"},
 }
 
 
@@ -77,6 +78,7 @@ def validate_document(document: object) -> dict:
     sections = _items(page["sections"], "page.sections")
     if not isinstance(sections[0], dict) or sections[0].get("type") != "hero":
         raise ValueError("page.sections: the first section must be a hero with the page h1")
+    used_ids = set()
     for index, section in enumerate(sections):
         path = f"page.sections[{index}]"
         if not isinstance(section, dict) or not isinstance(section.get("type"), str) or section["type"] not in SECTION_FIELDS:
@@ -84,6 +86,12 @@ def validate_document(document: object) -> dict:
         kind = section["type"]
         fields = SECTION_FIELDS[kind]
         _object(section, fields, fields, path)
+        section_id = section["id"]
+        if not isinstance(section_id, str) or not re.fullmatch(r"[a-z][a-z0-9-]{0,62}", section_id):
+            raise ValueError(f"{path}.id: expected stable lowercase slug")
+        if section_id in used_ids:
+            raise ValueError(f"{path}.id: duplicate section identifier")
+        used_ids.add(section_id)
         _text(section["heading"], f"{path}.heading", 180)
         if kind in ("hero", "cta"):
             _text(section["description"], f"{path}.description", 500)
@@ -112,7 +120,7 @@ def validate_document(document: object) -> dict:
 
 def _render_section(section: dict, index: int) -> str:
     kind = section["type"]
-    label_id = f"section-{index}-{kind}"
+    label_id = f"section-{section['id']}"
     heading = _text(section["heading"], "heading", 180)
     heading_tag = "h1" if index == 0 else "h2"
     head = f'<{heading_tag} id="{label_id}" class="syn-heading">{heading}</{heading_tag}>'
@@ -120,7 +128,7 @@ def _render_section(section: dict, index: int) -> str:
         button = _button(section["button"], "button")
         return (f'<section class="syn-region" aria-labelledby="{label_id}"><div class="syn-site-hero">'
                 f'<p class="syn-eyebrow">{_text(section["eyebrow"], "eyebrow")}</p>'
-                f'<h1 id="{label_id}" class="syn-site-heading">{heading}</h1>'
+                f'<{heading_tag} id="{label_id}" class="syn-site-heading">{heading}</{heading_tag}>'
                 f'<p class="syn-lede">{_text(section["description"], "description")}</p>'
                 f'<div class="syn-actions"><a class="syn-button syn-button--primary" href="{button["url"]}">{button["label"]}</a></div>'
                 '</div></section>')
