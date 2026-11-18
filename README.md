@@ -168,7 +168,7 @@ The authoring dependency does **not** ship to consumers or run during the static
 
 ## Source checkout demos and experimental modes
 
-For the unreleased alpha.5 source checkout, open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
+For the unreleased alpha.5 source checkout, open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [enterprise compositions](examples/enterprise-compositions.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
