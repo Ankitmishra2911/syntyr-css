@@ -4,6 +4,7 @@ A folder navigation should remain plain links and <details>, not a fake ARIA tre
 """
 from html.parser import HTMLParser
 from pathlib import Path
+import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,6 +57,17 @@ class NativeDisclosureNavigationTest(unittest.TestCase):
         self.assertIn('<nav class="syn-tree-nav"', snippet)
         self.assertIn('<main id="workspace">', snippet)
         self.assertIn('</main>\n  </div>\n</div>', snippet)
+
+    def test_workspace_navigation_targets_are_distinct_sections(self):
+        content = EXAMPLE.read_text(encoding="utf-8")
+        navigation = content.split('<nav class="syn-tree-nav"', 1)[1].split("</nav>", 1)[0]
+        fragment_targets = re.findall(r'<a href="#([^"]+)"', navigation)
+        self.assertEqual(len(fragment_targets), len(set(fragment_targets)),
+                         "Each workspace navigation item needs its own destination")
+        page = Elements()
+        page.feed(content)
+        for target in fragment_targets:
+            self.assertIn(target, page.ids)
 
     def test_optional_recipe_preserves_focus_reflow_and_forced_colors(self):
         source = (ROOT / "src/recipes.css").read_text(encoding="utf-8")
