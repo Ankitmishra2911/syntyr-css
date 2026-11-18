@@ -77,7 +77,10 @@ state alone conveys permission to move an item.
 
 See [the script-free resource outline example](../examples/resource-outline.html).
 The nesting uses logical inline spacing to work in both LTR and RTL;
-long names wrap rather than being silently truncated. Keep the
+after three visual indentation levels it stops adding horizontal offset so
+very deep folders remain readable at narrow widths and 400% zoom; semantic
+list hierarchy and native disclosures remain intact. Long names wrap rather
+than being silently truncated. Keep the
 selected location visible, ensure all links have real destinations,
 and test browser focus, high zoom, and forced colors in the host app.
 
