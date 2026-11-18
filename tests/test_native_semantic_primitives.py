@@ -55,6 +55,7 @@ class NativeSemanticPrimitives(unittest.TestCase):
                 self.selects = {}
                 self.labels = {}
                 self.active_label = None
+                self.details_names = []
 
             def handle_starttag(self, tag, attrs):
                 attributes = dict(attrs)
@@ -66,6 +67,8 @@ class NativeSemanticPrimitives(unittest.TestCase):
                     self.active_label = attributes.get("for")
                     if self.active_label:
                         self.labels[self.active_label] = ""
+                elif tag == "details":
+                    self.details_names.append(attributes.get("name"))
 
             def handle_data(self, data):
                 if self.active_label:
@@ -84,7 +87,7 @@ class NativeSemanticPrimitives(unittest.TestCase):
                       "Service select must exist with the expected ID")
         self.assertTrue(parsed.labels.get("native-service", "").strip(),
                         "Service select needs a visible associated label")
-        self.assertEqual(html.count('<details name="native-review-sections">'), 2)
+        self.assertEqual(parsed.details_names.count("native-review-sections"), 2)
         self.assertIn('older browsers may leave both open', html)
         self.assertNotIn('<script', html.lower())
         index = (ROOT / "llms.txt").read_text()
@@ -126,9 +129,23 @@ class NativeSemanticPrimitives(unittest.TestCase):
         self.assertEqual(region.region.get("aria-label"), "Sample campaign inventory")
         self.assertEqual(region.region.get("tabindex"), "0")
         self.assertTrue(region.contains_table, "Named scroll region must contain the table")
-        self.assertIn('padding: min(1rem, 6vw)', css)
-        self.assertIn('inline-size: min(4rem, 100%)', css)
-        self.assertIn('box-sizing: border-box', css)
+        def declarations_for(selector):
+            # Check the exact rule, not an incidental occurrence elsewhere.
+            selector_start = css.index(selector)
+            opening = css.index("{", selector_start)
+            closing = css.index("}", opening)
+            return css[opening + 1:closing]
+
+        fieldset = declarations_for("fieldset:not([class])")
+        color = declarations_for('input[type="color"]:not([class])')
+        file = declarations_for('input[type="file"]:not([class])')
+        self.assertIn("padding: min(1rem, 6vw)", fieldset)
+        self.assertIn("inline-size: min(4rem, 100%)", color)
+        self.assertIn("min-inline-size: 0", color)
+        self.assertIn("box-sizing: border-box", color)
+        self.assertIn("inline-size: 100%", file)
+        self.assertIn("min-inline-size: 0", file)
+        self.assertIn("box-sizing: border-box", file)
 
     def test_demo_is_discoverable_and_published_explicitly(self):
         self.assertIn('href="../examples/native-elements.html"', (ROOT / "docs/index.html").read_text())
