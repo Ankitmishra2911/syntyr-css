@@ -97,6 +97,18 @@ class QueryReviewComposition(unittest.TestCase):
             self.assertFalse(a.get("href", "").startswith("/inventory"),
                              "static demo links must not point to unimplemented routes")
 
+    def test_offline_recipe_guide_link_resolves_in_release_zip(self):
+        from posixpath import normpath
+        from scripts.package_release import FILES
+
+        guidance = [link for link in self.elements.links
+                    if "recipe" in link.get("href", "") and
+                    link.get("href", "").startswith("../docs/")]
+        self.assertEqual(len(guidance), 1)
+        relative_target = normpath("examples/" + guidance[0]["href"])
+        self.assertIn(relative_target, FILES)
+        self.assertTrue((ROOT / relative_target).is_file())
+
     def test_documented_entry_point(self):
         docs = (ROOT / "docs/recipes.md").read_text(encoding="utf-8")
         self.assertIn("examples/query-review.html", docs)
