@@ -44,24 +44,34 @@ Don't rely on ARIA to implement state changes or disable interactions. Use
 native control semantics; any optional JavaScript must feature-detect browser
 support, preserve keyboard focus, and never hide the only path to important data.
 
-## Escalation ladder: add only the behavior the platform cannot supply
+## Failed enhancements are not the same as missing JavaScript
 
-| Need | Prefer | When to add a dependency |
-| --- | --- | --- |
-| Links, form submission, validation | Native `a`, `form`, `input` and server responses | Only for workflow requirements beyond the browser |
-| Disclosure, modal, basic popover | `details`, `dialog` and `popover` | A tested fallback if target browsers lack the required primitive |
-| Responsive component presentation | CSS Grid, container queries, `:has()` and tokens | Only if the UI requires measured dimensions in application logic |
-| Incremental server-rendered updates | Optional HTMX/Datastar in the host application | If normal navigation cannot meet the interaction requirements |
-| Small client-side state | A host-owned JavaScript module | If HTML/CSS alone cannot represent the state |
-| Reusable cross-framework behavior | A separately installed, accessible custom element or Lit adapter | Only when encapsulation and reuse outweigh lifecycle costs |
-| Searchable combobox, rich editor, virtualized grid | Independently tested accessible widget package | Usually; don't recreate complex keyboard/focus semantics in CSS |
+Native forms handle the **absence** of HTMX or other enhancement scripts, but
+an enhanced request can still fail after the runtime has intercepted it.
+The browser will not automatically re-submit a failed HTMX request as a normal
+navigation. Keep a real form `action`/`method` and provide a visible,
+keyboard-reachable native-navigation fallback on response, connection and timeout
+errors. Preserve submitted values, and clear failed-request messaging on a
+subsequent successful request. A retry link must point to the real, authorized
+server endpoint; do not blindly replay non-idempotent POSTs.
 
-Syntyr owns **presentation**, not input validation, business logic, focus management,
-server navigation, asynchronous state, or keyboard controllers. Applications own
-these responsibilities. A native custom element is not inherently simpler than
-native HTML; do not wrap existing controls solely to create another abstraction.
-Keep all optional adapters independently removable without changing the core
-stylesheet or its public selectors.
+The [HTMX example](https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.html)
+uses an optional, **application-owned**
+[`htmx-recovery.js`](https://github.com/dporkka/syntyr-css/blob/main/examples/htmx-recovery.js) listener that exposes a
+normal GET link with the user's current query on failure. With JavaScript
+disabled or the HTMX bundle missing, the form submits normally; with HTMX
+available, only the result fragment is replaced. Syntyr CSS never installs
+the listener and remains independent of HTMX.
+
+For mutations, use server-owned validation, CSRF defenses, idempotency or
+duplicate-submission controls, accessible field errors, and Post/Redirect/Get
+for ordinary successful form submissions. A client-side pending cursor is
+visual feedback only, not a submission lock or network recovery policy.
+
+Floating labels remain real `<label for>` controls. Do not remove their
+pointer activation when applying responsive, CSS-only label positioning:
+clicking the visible label must focus the associated input at both wide and
+narrow widths.
 
 ## Built-in system-aware theme
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s default contract is HTML first . Core CSS doesn&#x27;t include JavaScript, network requests, icons, fonts or a client-side build step. Progressive…">
-  <meta name="syntyr-source-sha256" content="a5753086c3a2644170646e5fe811cf8cb927f6a206800352550447537b7e1d8b">
+  <meta name="syntyr-source-sha256" content="e41d722f940362abc33dd58411b79538ecdc62d26819eb8affdb2ec48e83ee05">
   <meta name="theme-color" content="#f5f7fb">
   <title>Progressive enhancement and document rendering — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/progressive-enhancement">
@@ -68,59 +68,30 @@ real navigation route for critical information because <code>commandfor</code> a
 <p>Don't rely on ARIA to implement state changes or disable interactions. Use
 native control semantics; any optional JavaScript must feature-detect browser
 support, preserve keyboard focus, and never hide the only path to important data.</p>
-<h2 id="escalation-ladder-add-only-the-behavior-the-platform-cannot-supply">Escalation ladder: add only the behavior the platform cannot supply</h2>
-<table>
-<thead>
-<tr>
-<th>Need</th>
-<th>Prefer</th>
-<th>When to add a dependency</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Links, form submission, validation</td>
-<td>Native <code>a</code>, <code>form</code>, <code>input</code> and server responses</td>
-<td>Only for workflow requirements beyond the browser</td>
-</tr>
-<tr>
-<td>Disclosure, modal, basic popover</td>
-<td><code>details</code>, <code>dialog</code> and <code>popover</code></td>
-<td>A tested fallback if target browsers lack the required primitive</td>
-</tr>
-<tr>
-<td>Responsive component presentation</td>
-<td>CSS Grid, container queries, <code>:has()</code> and tokens</td>
-<td>Only if the UI requires measured dimensions in application logic</td>
-</tr>
-<tr>
-<td>Incremental server-rendered updates</td>
-<td>Optional HTMX/Datastar in the host application</td>
-<td>If normal navigation cannot meet the interaction requirements</td>
-</tr>
-<tr>
-<td>Small client-side state</td>
-<td>A host-owned JavaScript module</td>
-<td>If HTML/CSS alone cannot represent the state</td>
-</tr>
-<tr>
-<td>Reusable cross-framework behavior</td>
-<td>A separately installed, accessible custom element or Lit adapter</td>
-<td>Only when encapsulation and reuse outweigh lifecycle costs</td>
-</tr>
-<tr>
-<td>Searchable combobox, rich editor, virtualized grid</td>
-<td>Independently tested accessible widget package</td>
-<td>Usually; don't recreate complex keyboard/focus semantics in CSS</td>
-</tr>
-</tbody>
-</table>
-<p>Syntyr owns <strong>presentation</strong>, not input validation, business logic, focus management,
-server navigation, asynchronous state, or keyboard controllers. Applications own
-these responsibilities. A native custom element is not inherently simpler than
-native HTML; do not wrap existing controls solely to create another abstraction.
-Keep all optional adapters independently removable without changing the core
-stylesheet or its public selectors.</p>
+<h2 id="failed-enhancements-are-not-the-same-as-missing-javascript">Failed enhancements are not the same as missing JavaScript</h2>
+<p>Native forms handle the <strong>absence</strong> of HTMX or other enhancement scripts, but
+an enhanced request can still fail after the runtime has intercepted it.
+The browser will not automatically re-submit a failed HTMX request as a normal
+navigation. Keep a real form <code>action</code>/<code>method</code> and provide a visible,
+keyboard-reachable native-navigation fallback on response, connection and timeout
+errors. Preserve submitted values, and clear failed-request messaging on a
+subsequent successful request. A retry link must point to the real, authorized
+server endpoint; do not blindly replay non-idempotent POSTs.</p>
+<p>The <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.html">HTMX example</a>
+uses an optional, <strong>application-owned</strong>
+<a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx-recovery.js"><code>htmx-recovery.js</code></a> listener that exposes a
+normal GET link with the user's current query on failure. With JavaScript
+disabled or the HTMX bundle missing, the form submits normally; with HTMX
+available, only the result fragment is replaced. Syntyr CSS never installs
+the listener and remains independent of HTMX.</p>
+<p>For mutations, use server-owned validation, CSRF defenses, idempotency or
+duplicate-submission controls, accessible field errors, and Post/Redirect/Get
+for ordinary successful form submissions. A client-side pending cursor is
+visual feedback only, not a submission lock or network recovery policy.</p>
+<p>Floating labels remain real <code>&lt;label for&gt;</code> controls. Do not remove their
+pointer activation when applying responsive, CSS-only label positioning:
+clicking the visible label must focus the associated input at both wide and
+narrow widths.</p>
 <h2 id="built-in-system-aware-theme">Built-in system-aware theme</h2>
 <p>Load core and set <code>data-syn-theme=&quot;auto&quot;</code>. No separate automatic theme
 stylesheet is needed:</p>
@@ -172,7 +143,7 @@ Real OS high-contrast and assistive-technology testing must be done manually.</p
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-actions-and-server-responses-come-first">Native actions and server responses come first</a>
-<a class="docs-article-toc-link docs-article-toc-2" href="#escalation-ladder-add-only-the-behavior-the-platform-cannot-supply">Escalation ladder: add only the behavior the platform cannot supply</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#failed-enhancements-are-not-the-same-as-missing-javascript">Failed enhancements are not the same as missing JavaScript</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#built-in-system-aware-theme">Built-in system-aware theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#opt-in-print-styling">Opt-in print styling</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#responsive-legible-and-fast">Responsive, legible, and fast</a>

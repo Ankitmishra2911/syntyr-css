@@ -5,7 +5,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from build import distributions, all_distributions
+from build import distributions, all_distributions, javascript_distributions
 from package_release import FILES
 from build_cloudflare_site import source_files
 
@@ -26,14 +26,22 @@ class ArchitectureContract(unittest.TestCase):
         canonical = set(all_distributions())
         self.assertEqual(
             {f"dist/{name}" for name in canonical},
-            {path for path in FILES if path.startswith("dist/")},
+            {path for path in FILES if path.startswith("dist/") and path.endswith(".css")},
+        )
+        self.assertEqual(
+            {f"dist/{name}" for name in javascript_distributions()},
+            {path for path in FILES if path.startswith("dist/") and not path.endswith(".css")},
         )
         self.assertIn("ARCHITECTURE.md", FILES)
         public = source_files()
         self.assertIn("ARCHITECTURE.md", public)
         self.assertEqual(
+            {f"dist/{name}" for name in javascript_distributions()},
+            {path for path in public if path.startswith("dist/") and not path.endswith(".css")},
+        )
+        self.assertEqual(
             {f"dist/{name}" for name in canonical},
-            {path for path in public if path.startswith("dist/")},
+            {path for path in public if path.startswith("dist/") and path.endswith(".css")},
         )
 
     def test_css_package_has_no_required_framework_or_install_time_dependencies(self):

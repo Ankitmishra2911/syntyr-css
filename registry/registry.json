@@ -104,6 +104,26 @@
       ]
     },
     {
+      "name": "geo",
+      "type": "registry:item",
+      "title": "Syntyr geo CSS",
+      "description": "MIT Syntyr geo stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.geo.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.geo.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
       "name": "motion",
       "type": "registry:item",
       "title": "Syntyr motion CSS",
