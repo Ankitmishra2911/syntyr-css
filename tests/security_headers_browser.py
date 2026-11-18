@@ -105,6 +105,10 @@ def verify(browser, origin):
         assert not errors, errors
         page.goto(origin + "/docs/catalog.html", wait_until="load")
         assert page.locator("#catalog-controls").is_visible(), "Catalog enhancement blocked by CSP"
+        page.goto(origin + "/docs/how-to.html", wait_until="load")
+        assert page.locator("#howto-controls").is_visible(), "How-To search blocked by CSP"
+        page.locator("#howto-search").fill("pricing")
+        assert page.locator(".howto-card:visible").count() == 1
         assert not errors, errors
     finally:
         context.close()
