@@ -23,6 +23,12 @@ class NativeHiddenContract(unittest.TestCase):
         self.assertIn(':not([hidden="until-found" i])', css)
         self.assertNotIn("content-visibility: hidden", css)
 
+    def test_until_found_guidance_documents_incompatible_display_values(self):
+        docs = (ROOT / "docs/native-patterns.md").read_text(encoding="utf-8")
+        for value in ("display: none", "display: inline", "display: contents"):
+            with self.subTest(value=value):
+                self.assertIn(value, docs)
+
     def test_guard_is_in_core_and_semantic_distributions(self):
         for bundle in ("syntyr.core.css", "syntyr.semantic-bundle.css", "syntyr.all.css"):
             with self.subTest(bundle=bundle):

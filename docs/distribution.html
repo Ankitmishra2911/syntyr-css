@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Install and self-host Syntyr CSS using versioned stylesheets, optional modules, and immutable releases for production websites.">
-  <meta name="syntyr-source-sha256" content="c80d6e116f07e5ad18ec96e694bebd84237082b1d92140efffc7cca1e5bc0ca2">
+  <meta name="syntyr-source-sha256" content="227c6034d5a1b217558eb22efd5f8b49532ef9819d57a051949b6969ba1ac10a">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS distribution — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/distribution">
@@ -52,6 +52,15 @@ icons, Sass compiler or CSS framework is required to use the distributed CSS.</p
 The above works with Go templates, plain HTML, Astro, HTMX, React and other
 renderers. See <a href="framework-integrations.html">the framework integration guide</a> for
 HTMX request-state classes, optional semantic markers, and server-side fragments. Add <code>syn-page</code> to the root only if you want full-page min-height.</p>
+<h2 id="embed-inside-an-existing-cms-theme-unreleased-alpha5">Embed inside an existing CMS theme (unreleased alpha.5)</h2>
+<p>The alpha.5 source builds a separate <code>dist/syntyr.embed.css</code> entrypoint
+from the canonical core CSS, removing its outer CSS cascade layers to avoid
+the normal layered-versus-unlayered theme-precedence trap. Load it <strong>instead
+of</strong> <code>syntyr.core.css</code> for self-hosted Syntyr sections on WordPress, Shopify,
+Webflow or similar themes. This file is not in published alpha.4 releases;
+the CSS still uses the same <code>.syn-root</code> namespace and no runtime JavaScript.
+See the <a href="site-builders.html">site-builder integration guide</a> for platform limits
+and copyable snippets.</p>
 <h2 id="offline-saas-preview-in-the-next-release-zip-unreleased-alpha5">Offline SaaS preview in the next release ZIP (unreleased alpha.5)</h2>
 <p>The alpha.5 source candidate now packages <code>examples/saas.html</code> together with
 <code>dist/syntyr.core.css</code> and <code>dist/syntyr.recipes.css</code>. After building or
@@ -65,6 +74,20 @@ it in an application, replace sample values with server-rendered data and wire
 navigation and mutations to your own server. The already published <strong>alpha.4</strong>
 release does <em>not</em> contain this packaged example; the next alpha.5 release
 has not been published yet.</p>
+<h2 id="command-launcher-zip-example-unreleased-alpha5">Command launcher ZIP example (unreleased alpha.5)</h2>
+<p>The optional command launcher example points to three standalone HTML
+examples included in the release ZIP: the preset preview, native resource
+outline, and SaaS dashboard. Both the script-free navigation and enhanced
+native-dialog links resolve without fetching any unbundled docs assets.</p>
+<p>For the interactive Ctrl/Command+K module, serve the extracted alpha.5
+release directory over local HTTP, as explained for the resizable workspace
+above. From the extracted ZIP's top-level folder, run:</p>
+<pre><code>python3 -m http.server 8000 --bind 127.0.0.1
+</code></pre>
+<p>Open http://127.0.0.1:8000/examples/command-launcher.html.
+The native navigation stays usable without JavaScript on a file:// URL, but
+the optional module may be blocked by browser file-origin restrictions.
+No server is necessary for the static examples/saas.html preview.</p>
 <h2 id="one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</h2>
 <p>For a Pico-like HTML workflow, <code>dist/syntyr.semantic-bundle.css</code> combines core and semantic CSS into a single file. Copy it to your static assets, then opt in on the region you want styled:</p>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.semantic-bundle.css&quot;&gt;
@@ -133,6 +156,12 @@ and <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/visual-regress
 This is present in the alpha.5 source candidate, <strong>not published alpha.4</strong>.</p>
 <h2 id="optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</h2>
 <p>A CSS-only <code>@syntyr/css</code> manifest is available in the alpha.5 repository candidate, but <strong>it has not been published to npm</strong>. See <a href="package-managers.html">package-manager installation and local tarball testing</a> for supported imports and an explicit no-publication boundary. No package manager is required for the documented self-hosted stylesheet path.</p>
+<h2 id="optional-native-animation-companion">Optional native animation companion</h2>
+<p>Syntyr remains CSS-only by default. Applications that need <em>programmatic</em> motion
+can separately import <code>dist/syntyr.animate.mjs</code> (native Web Animations API and
+IntersectionObserver only). No script is included in core or <code>syntyr.all.css</code>.
+See the <a href="animation.html">animation API guide</a> and the
+<a href="../examples/animation.html">runnable example</a>.</p>
 <h2 id="optional-themes-and-semantic-html">Optional themes and semantic HTML</h2>
 <p>Grid, Noir and Studio ship in the <strong>same</strong> core stylesheet; set
 <code>data-syn-theme=&quot;grid&quot;</code> or <code>data-syn-theme=&quot;noir&quot;</code> or <code>data-syn-theme=&quot;studio&quot;</code> on the scoped root.
@@ -226,10 +255,13 @@ cross-browser and full accessibility audits are still release gates.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#recommended-self-host-a-versioned-stylesheet">Recommended: self-host a versioned stylesheet</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#embed-inside-an-existing-cms-theme-unreleased-alpha5">Embed inside an existing CMS theme (unreleased alpha.5)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#offline-saas-preview-in-the-next-release-zip-unreleased-alpha5">Offline SaaS preview in the next release ZIP (unreleased alpha.5)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#command-launcher-zip-example-unreleased-alpha5">Command launcher ZIP example (unreleased alpha.5)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#single-file-presets-experimental-alpha5-source">Single-file presets (experimental alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-native-animation-companion">Optional native animation companion</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-themes-and-semantic-html">Optional themes and semantic HTML</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#loading-contract-at-a-glance">Loading contract at a glance</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-explicit-selective-build">Optional explicit selective build</a>

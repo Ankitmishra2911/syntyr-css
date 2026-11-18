@@ -22,6 +22,9 @@
     "syntyr.css",
     "syntyr.data-grid.css",
     "syntyr.effects.css",
+    "syntyr.email.css",
+    "syntyr.embed.css",
+    "syntyr.geo.css",
     "syntyr.geometry.css",
     "syntyr.motion.css",
     "syntyr.native-recipes.css",
@@ -47,6 +50,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -84,6 +88,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -99,6 +104,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -114,6 +120,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -129,6 +136,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -251,6 +259,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -266,6 +275,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -281,6 +291,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -296,6 +307,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -311,6 +323,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -326,6 +339,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -341,6 +355,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -356,6 +371,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -382,6 +398,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -397,6 +414,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -412,6 +430,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -427,6 +446,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -442,6 +462,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -457,6 +478,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -472,6 +494,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -487,6 +510,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -502,6 +526,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -517,6 +542,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -532,7 +558,41 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-change-after",
+      "module": "recipes.css",
+      "description": "Updated or added revision value with visible text label.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-change-before",
+      "module": "recipes.css",
+      "description": "Previous or removed revision value with visible text label.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-change-pair",
+      "module": "recipes.css",
+      "description": "Responsive before/after value pair for existing semantic record fields.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -619,6 +679,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -634,6 +695,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -649,6 +711,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -664,6 +727,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -969,6 +1033,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -984,6 +1049,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1009,6 +1075,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1024,7 +1091,170 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-email-body",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-code",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-compose",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-inbox",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-item",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-layout",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-main",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-message",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-message-header",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-meta",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-preferences",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-preview",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-recipient-list",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-sidebar",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-signup",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-subject",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-time",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-workspace",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
       ]
     },
     {
@@ -1039,6 +1269,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1054,11 +1285,89 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
     {
       "name": "syn-error-summary",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-body",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-card",
+      "module": "recipes.css",
+      "description": "Semantic figure-based evidence review presentation with captions and metadata, not a media viewer.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-grid",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-media",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-media--placeholder",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-meta",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
       "stylesheets": [
@@ -1080,6 +1389,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1117,6 +1427,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1132,6 +1443,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1157,6 +1469,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1172,6 +1485,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1187,7 +1501,41 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-file-item",
+      "module": "recipes.css",
+      "description": "File queue entry with host-owned queued, uploading, complete or failed state.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-file-item-header",
+      "module": "recipes.css",
+      "description": "Flexible file name and visible status header for queue entries.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-file-queue",
+      "module": "recipes.css",
+      "description": "Optional ordered file lifecycle list; not an upload engine.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -1224,6 +1572,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1304,7 +1653,30 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-form-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-form-actions__buttons",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -1431,6 +1803,204 @@
       ]
     },
     {
+      "name": "syn-geo-attribution",
+      "module": "geo.css",
+      "description": "Optional attribution surface; preserve map provider credits.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-bottom",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-callout",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-cluster",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-control",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-control-group",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-controls",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-data-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-layer-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-legend",
+      "module": "geo.css",
+      "description": "Readable, labeled map legend; host must provide layer semantics.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-legend-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-legend-title",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-map",
+      "module": "geo.css",
+      "description": "Map renderer mount surface; actual projection and map behavior belong to host.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-marker",
+      "module": "geo.css",
+      "description": "44px visual marker target; renderer-managed marker positions stay renderer-managed.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-marker-layer",
+      "module": "geo.css",
+      "description": "Static diagram overlay for percentage-positioned markers, not for renderer-managed markers.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-overlay",
+      "module": "geo.css",
+      "description": "Pointer-transparent overlay for application-owned map controls and legends.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-scale",
+      "module": "geo.css",
+      "description": "Scale presentation; actual scale and bar width require a real map renderer.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-shell",
+      "module": "geo.css",
+      "description": "Named CSS container for map-based workspace layouts; use with core plus optional geo CSS.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-sidebar",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-swatch",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-viewport",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-workspace",
+      "module": "geo.css",
+      "description": "Responsive GIS sidebar plus map viewport; stacks based on container width.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
       "name": "syn-glow",
       "module": "effects.css",
       "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity.",
@@ -1464,6 +2034,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1490,6 +2061,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1505,6 +2077,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1520,6 +2093,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1556,6 +2130,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1571,6 +2146,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1586,6 +2162,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1601,6 +2178,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1627,6 +2205,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1642,6 +2221,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1657,6 +2237,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1672,6 +2253,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1687,6 +2269,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1702,6 +2285,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1717,6 +2301,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1732,6 +2317,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1747,6 +2333,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1762,6 +2349,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1777,6 +2365,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1792,6 +2381,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1807,6 +2397,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1822,6 +2413,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1837,7 +2429,19 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-operation-feedback",
+      "module": "recipes.css",
+      "description": "Optional host-managed operation feedback with truthful state text.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -1852,6 +2456,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1900,6 +2505,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1915,6 +2521,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1930,6 +2537,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1945,6 +2553,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -1960,6 +2569,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2019,6 +2629,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2034,6 +2645,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2059,6 +2671,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2074,6 +2687,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2089,6 +2703,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2113,6 +2728,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2160,7 +2776,62 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__pane",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__panes",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__separator",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resource-outline",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
       ]
     },
     {
@@ -2186,6 +2857,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2201,6 +2873,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2227,6 +2900,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2242,6 +2916,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2259,6 +2934,50 @@
       ]
     },
     {
+      "name": "syn-sheet",
+      "module": "recipes.css",
+      "description": "Native popover or dialog side-sheet presentation; browser and host own opening, focus, and close behavior.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-body",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-footer",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-header",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-shell",
       "module": "components/layout.css",
       "description": "Syntyr CSS class (components/layout.css).",
@@ -2270,6 +2989,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2329,6 +3049,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2377,6 +3098,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2392,6 +3114,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2407,6 +3130,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2422,6 +3146,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2437,6 +3162,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2452,6 +3178,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2467,6 +3194,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2482,6 +3210,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2497,6 +3226,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2512,6 +3242,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2527,6 +3258,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2542,6 +3274,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2557,6 +3290,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2572,6 +3306,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2587,6 +3322,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2602,6 +3338,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2617,6 +3354,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2632,6 +3370,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2647,6 +3386,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2758,6 +3498,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2784,6 +3525,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2799,6 +3541,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2814,6 +3557,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2829,6 +3573,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2844,6 +3589,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -2859,6 +3605,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3050,6 +3797,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3065,6 +3813,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3080,6 +3829,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3105,6 +3855,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3120,6 +3871,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3344,6 +4096,28 @@
       ]
     },
     {
+      "name": "syn-upload-field",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-view-switcher",
+      "module": "recipes.css",
+      "description": "Server-selected view links or host-controlled view buttons; the host owns selection and navigation.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-viz-bar",
       "module": "viz.css",
       "description": "Syntyr CSS class (viz.css).",
@@ -3476,6 +4250,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3491,6 +4266,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3506,6 +4282,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3521,6 +4298,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3536,6 +4314,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3551,6 +4330,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3566,6 +4346,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3581,6 +4362,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3596,6 +4378,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3611,6 +4394,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3636,6 +4420,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3651,6 +4436,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3666,6 +4452,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3744,6 +4531,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3759,6 +4547,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3774,6 +4563,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3789,6 +4579,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3859,6 +4650,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3874,6 +4666,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3889,6 +4682,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3904,7 +4698,19 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-file-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -3963,6 +4769,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3978,6 +4785,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -3993,6 +4801,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4008,6 +4817,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4023,6 +4833,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4148,7 +4959,89 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-floating",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-land",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-point",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-road",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-route",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-water",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-zone",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
       ]
     },
     {
@@ -4163,6 +5056,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4178,6 +5072,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4229,6 +5124,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4253,6 +5149,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4304,6 +5201,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4319,6 +5217,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4356,6 +5255,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4371,6 +5271,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4386,6 +5287,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4401,6 +5303,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4416,6 +5319,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4431,6 +5335,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4446,7 +5351,19 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-operation-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -4461,6 +5378,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4476,6 +5394,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4491,6 +5410,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4506,6 +5426,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4521,6 +5442,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4547,6 +5469,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4562,6 +5485,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4577,6 +5501,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4592,6 +5517,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4607,7 +5533,19 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-sheet-width",
+      "module": "recipes.css",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -4622,6 +5560,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4637,6 +5576,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4652,6 +5592,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4667,6 +5608,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4682,6 +5624,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4697,6 +5640,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4712,6 +5656,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4727,6 +5672,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4742,6 +5688,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4757,6 +5704,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4772,6 +5720,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4787,6 +5736,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4802,6 +5752,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4817,6 +5768,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4832,6 +5784,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4847,6 +5800,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4906,6 +5860,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4921,6 +5876,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4936,6 +5892,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4951,6 +5908,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4966,6 +5924,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4981,6 +5940,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -4996,6 +5956,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -5022,6 +5983,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -5037,6 +5999,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -5052,6 +6015,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -5067,6 +6031,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -5082,6 +6047,7 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
       ]
     },
@@ -5097,7 +6063,19 @@
         "syntyr.all.css",
         "syntyr.core.css",
         "syntyr.css",
+        "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     }
   ],
@@ -5138,13 +6116,20 @@
     "data-syn-state": [
       "active",
       "complete",
+      "conflict",
       "degraded",
       "down",
       "error",
+      "failed",
       "healthy",
       "loading",
+      "pending",
+      "queued",
+      "saved",
       "selected",
-      "unknown"
+      "unknown",
+      "unsaved",
+      "uploading"
     ]
   },
   "components": [
@@ -5318,6 +6303,38 @@
       "notes": "Supply textual cell labels, data-syn-level and real data."
     },
     {
+      "name": "Geospatial workspace",
+      "module": "syntyr.geo.css",
+      "elements": [
+        "section",
+        "aside",
+        "figure",
+        "div",
+        "a",
+        "button",
+        "ul"
+      ],
+      "classes": [
+        "syn-geo-shell",
+        "syn-geo-workspace",
+        "syn-geo-sidebar",
+        "syn-geo-viewport",
+        "syn-geo-map",
+        "syn-geo-overlay",
+        "syn-geo-controls",
+        "syn-geo-control",
+        "syn-geo-marker",
+        "syn-geo-marker-layer",
+        "syn-geo-cluster",
+        "syn-geo-legend",
+        "syn-geo-swatch",
+        "syn-geo-scale",
+        "syn-geo-attribution",
+        "syn-geo-data-list"
+      ],
+      "notes": "Optional renderer-neutral CSS; load core then geo. The host renderer owns projection, attribution, marker positions, zooming, clustering and screen-reader data alternatives. See docs/geo.md."
+    },
+    {
       "name": "Advanced geometry frames",
       "module": "syntyr.geometry.css",
       "elements": [
@@ -5373,6 +6390,59 @@
         "syn-record-fields"
       ],
       "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+    },
+    {
+      "name": "Operation feedback",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "div",
+        "section",
+        "h2",
+        "h3",
+        "p"
+      ],
+      "classes": [
+        "syn-operation-feedback"
+      ],
+      "notes": "Experimental alpha.5 static presentation only. Host must set true pending, saved, failed, conflict or unsaved state, manage requests, announcements, retry and authorization."
+    },
+    {
+      "name": "Record change pair",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "dl",
+        "div",
+        "dt",
+        "dd",
+        "span",
+        "del",
+        "ins"
+      ],
+      "classes": [
+        "syn-record-fields",
+        "syn-change-pair",
+        "syn-change-before",
+        "syn-change-after"
+      ],
+      "notes": "Experimental alpha.5 semantic before/after styling nested in existing record fields. Text labels and native del/ins convey changes; backend supplies true revision values and conflict policy."
+    },
+    {
+      "name": "File lifecycle",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "ol",
+        "li",
+        "div",
+        "span",
+        "strong",
+        "progress"
+      ],
+      "classes": [
+        "syn-file-queue",
+        "syn-file-item",
+        "syn-file-item-header"
+      ],
+      "notes": "Unreleased alpha.5 CSS-only queue snapshots. Native input lives in core; host owns upload progress, failure and completion truth, validation, retry, status announcements and storage."
     }
   ],
   "recipes": [

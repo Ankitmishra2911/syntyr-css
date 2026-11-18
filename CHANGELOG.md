@@ -1,5 +1,7 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Keep classless native file inputs within 320px semantic fieldsets by using a shrinkable CSS Grid track and wrapping the native file-picker button; add cross-browser and enlarged-text reflow regression coverage.
+
 - Make the PR progressive-enhancement browser gate independent of PyPI access by
   reusing the existing locked Node Playwright test infrastructure and the real
   Python stdlib HTTP fixture. All three browser engines still run with

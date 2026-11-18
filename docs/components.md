@@ -2,7 +2,7 @@
 
 Status: **experimental v0.3-alpha**, not yet released to a package registry. All CSS and markup are original to this repository; no upstream source code was copied.
 
-Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
+Native elements such as `search`, `figure`, `figcaption`, `kbd`, `mark`, `output`, `meter`, and `pre` are styled only in the optional semantic mode. Native classless forms receive vertical spacing, fieldsets group controls, tables can use real `caption` elements, and disclosure summaries retain browser markers and comfortable pointer targets. See [the no-JS native example](../examples/native-elements.html). New [semantic HTML composition recipes](semantic-components.md) show article metadata, native citations, change history, ruby annotations, and table footers, with a [live gallery](../examples/semantic-compositions.html). The regular component-class API and HTML outside `.syn-root` are unchanged.
 
 ## Loading and scoping
 
@@ -57,6 +57,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Typography | `.syn-logo`, `.syn-eyebrow`, `.syn-title`, `.syn-section-heading`, `.syn-heading`, `.syn-lede`, `.syn-mono`, `.syn-caption`, `.syn-muted` | native heading/text |
 | Status | `.syn-badge`, `.syn-badge--accent`, `.syn-status` and semantic variants, `.syn-alert`, `.syn-alert--danger`, `.syn-meter` on `progress` | native `progress` |
 | Forms | `.syn-form`, `.syn-label`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-check`, `.syn-fieldset`, `.syn-help`, `.syn-error` | unclassed form controls |
+| Email UI (optional) | `.syn-email-signup`, `.syn-email-inbox`, `.syn-email-message`, `.syn-email-compose`, `.syn-email-preferences` | Native forms and mailbox navigation; see [email components](email-components.md) |
 | Form compositions | `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` | native `form`, `label`, `input`, `button` |
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
 | Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--nowrap`, `.syn-cell--numeric` | unclassed `table` |
@@ -499,5 +500,7 @@ implement step navigation, eligibility checks or server-side transitions.
 Long step descriptions and translated text keep numbered markers aligned at the
 block start so vertical connectors do not cross the marker or its numeral.
 
-See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
-are not included in the published immutable alpha.4 release.
+See [the zero-JavaScript example](../examples/workflow-steps.html) and the
+[composed operations workflow gallery](../examples/workflow-operations.html), which
+reuses these steps with existing activity timelines and approval surfaces.
+These classes are not included in the published immutable alpha.4 release.

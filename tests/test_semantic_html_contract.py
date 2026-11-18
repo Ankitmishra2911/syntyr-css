@@ -56,6 +56,63 @@ class SemanticHTMLContract(unittest.TestCase):
         <input type="hidden" name="csrf"></body></html>'''
         self.assertEqual(self.check(html), [])
 
+    def test_image_submit_input_needs_accessible_name(self):
+        missing = self.check('<input type="image" src="/submit.png">')
+        self.assertEqual([f["code"] for f in missing], ["missing-form-label"])
+        self.assertEqual(self.check('<input type="image" src="/submit.png" alt="Send request">'), [])
+        self.assertEqual(self.check('<input type="image" src="/submit.png" aria-label="Send">'), [])
+        self.assertEqual(self.check('<label>Send <input type="image" src="/submit.png"></label>'), [])
+
+    def test_input_button_requires_value_or_accessible_label(self):
+        self.assertEqual([f["code"] for f in self.check('<input type="button">')],
+                         ["missing-form-label"])
+        self.assertEqual(self.check('<input type="button" value="Add another">'), [])
+        self.assertEqual(self.check('<input type="button" aria-label="Add another">'), [])
+        self.assertEqual(self.check('<input type="submit"><input type="reset">'), [])
+
+    def test_hidden_controls_skip_name_checks_but_not_target_integrity(self):
+        html = ('<html><body><section hidden><input type="button" popovertarget="missing">'
+                '<div><input type="image" src="/send.png"></div></section></body></html>')
+        self.assertEqual([f["code"] for f in self.check(html)], ["missing-native-target"])
+        self.assertEqual([f["code"] for f in self.check('<input type="button">')],
+                         ["missing-form-label"])
+
+    def test_title_supplies_native_accessible_name_fallback(self):
+        self.assertEqual(self.check('<input type="button" title="Add item">'), [])
+        self.assertEqual(self.check('<input type="image" src="/send.png" title="Submit image">'), [])
+        self.assertEqual([f["code"] for f in self.check('<input type="button" title="   ">')],
+                         ["missing-form-label"])
+
+    def test_native_invoker_targets_checked_even_when_input_name_exempt(self):
+        html = ('<html><body>'
+                '<input type="button" aria-label="{{ label }}" popovertarget="missing">'
+                '<input type="submit" commandfor="absent">'
+                '<input type="reset" popovertarget="missing">'
+                '<input type="hidden" commandfor="absent">'
+                '</body></html>')
+        self.assertEqual([f["code"] for f in self.check(html)],
+                         ["missing-native-target"] * 4)
+
+    def test_native_invoker_targets_must_exist_in_complete_html(self):
+        html = ('<html><body><button popovertarget="missing">Open</button>'
+                '<button commandfor="absent" command="show-modal">Dialog</button></body></html>')
+        self.assertEqual([f["code"] for f in self.check(html)],
+                         ["missing-native-target", "missing-native-target"])
+
+    def test_popover_invoker_requires_actual_popover_target(self):
+        html = ('<html><body><button popovertarget="panel">Open</button>'
+                '<section id="panel">Ordinary section</section></body></html>')
+        self.assertEqual([f["code"] for f in self.check(html)], ["invalid-popover-target"])
+        valid = ('<html><body><button popovertarget="panel">Open</button>'
+                 '<section id="panel" popover>Details</section>'
+                 '<button commandfor="modal" command="show-modal">Dialog</button>'
+                 '<dialog id="modal"><p>Details</p></dialog></body></html>')
+        self.assertEqual(self.check(valid), [])
+
+    def test_native_invoker_lint_does_not_guess_template_or_fragment_targets(self):
+        self.assertEqual(self.check('<button popovertarget="outside">Open</button>'), [])
+        self.assertEqual(self.check('<html><body><button popovertarget="{{ target_id }}">Open</button></body></html>'), [])
+
     def test_static_table_selection_uses_data_state_not_aria(self):
         html = '''<table><caption>Invoices</caption><thead><tr><th scope="col">Account</th></tr></thead>
           <tbody><tr aria-selected="true"><td>Acme</td></tr>
