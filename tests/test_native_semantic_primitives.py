@@ -88,6 +88,26 @@ class NativeSemanticPrimitives(unittest.TestCase):
         self.assertIn("mark code", browser)
 
 
+    def test_native_file_and_color_controls_bound_width_at_large_text_sizes(self):
+        css = (ROOT / "src/semantic.css").read_text()
+        file_section = css.split('input[type="file"]:not([class])', 1)[1].split("}", 1)[0]
+        for declaration in ("inline-size: 100%", "min-inline-size: 0",
+                            "max-inline-size: 100%", "overflow: clip"):
+            with self.subTest(declaration=declaration):
+                self.assertIn(declaration, file_section)
+        color_section = css.split('input[type="color"]:not([class])', 1)[1].split("}", 1)[0]
+        for declaration in ("inline-size: min(4rem, 100%)", "min-inline-size: 0",
+                            "max-inline-size: 100%"):
+            self.assertIn(declaration, color_section)
+        self.assertIn("padding: min(1rem, 5vw)", css)
+        html = (ROOT / "examples/native-elements.html").read_text()
+        self.assertIn('aria-label="Example data table"', html)
+        self.assertIn('tabindex="0"', html)
+        browser = (ROOT / "tests/native_semantic_browser.py").read_text()
+        self.assertIn('"400%"', browser)
+        self.assertIn('"#design-file"', browser)
+        self.assertIn('"#design-color"', browser)
+
     def test_native_example_is_covered_by_shared_browser_audits(self):
         for script in ("tests/axe_audit.py", "tests/browser_matrix.py", "tests/reflow_test.py"):
             with self.subTest(script=script):
