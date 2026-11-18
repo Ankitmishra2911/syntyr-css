@@ -48,6 +48,11 @@
 
   for (const item of indexed) {
     if (!item.copy || !item.code) continue;
+    const edit = document.createElement("a");
+    edit.className = "syn-button blocks-edit";
+    edit.href = `playground.html#component=${encodeURIComponent("block-" + item.card.dataset.blockId)}`;
+    edit.textContent = "Edit in playground";
+    item.copy.insertAdjacentElement("afterend", edit);
     item.copy.hidden = false;
     item.copy.addEventListener("click", async () => {
       const value = item.code.textContent.trim();

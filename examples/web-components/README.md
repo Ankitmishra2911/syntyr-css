@@ -16,6 +16,13 @@ or build requirement**. It is **not** a Syntyr JavaScript package or public widg
   redefine an already-registered example tag.
 - `status-toggle.css`: isolated Shadow DOM styles using public inherited Syntyr tokens
   and `::part()` for controlled host customization.
+- `form-associated.html`: optional **form-associated Custom Element (FACE)** conformance
+  fixture, with a real native GET form and two visibly labeled number inputs.
+- `asset-range.js`: progressive enhancement for a *pair* of inventory-count
+  filters. `ElementInternals.setFormValue(FormData, state)` makes them one
+  form-associated unit and adds cross-field validation without hidden inputs.
+  It covers reset, disabled fieldsets, restoration and reconnection.
+- `form-result.html`: local static GET destination. It is not a search backend.
 
 Run `python3 scripts/build.py` if the built CSS is missing, then at repository root
 run `python3 -m http.server 8765 --bind 127.0.0.1`.
@@ -24,10 +31,19 @@ For automated cross-engine checks, run `npm ci --prefix examples/lit`,
 `npm run build --prefix examples/lit`, and `npm test --prefix examples/lit`.
 The Playwright dependency belongs exclusively to the optional Lit test harness.
 
-The toggle modifies local demo state only, not any backend resource.
+The status toggle modifies local demo state only, not any backend resource.
+The form-associated fixture **works without JavaScript**: native named inputs
+submit the same two values in a normal GET request. After upgrade, the native
+input `name` attributes are removed to prevent duplicate values and the FACE
+supplies the pair through `ElementInternals`. The server must still validate
+both numeric bounds and the relationship `minimum <= maximum`; client-side
+validation is not security or business-rule enforcement. This fixture is
+educational, not a production component recommendation. Prefer two native
+inputs directly unless encapsulated multi-field validation is justified.
+
 For real mutations use application-managed authorization, persistence,
 CSRF protection, and server validation, plus a working native form or link
-for users without scripting. The fallback is deliberately **read-only**.
+for users without scripting. The toggle fallback is deliberately **read-only**.
 
 See [the authoring contract](../../docs/component-authoring.md) and
 [Lit interoperability](../../docs/lit-integration.md).
