@@ -19,11 +19,62 @@ A consumer may copy [`agents/syntyr/SKILL.md`](../agents/syntyr/SKILL.md) as an 
 
 The repository's root `AGENTS.md` guides agents contributing to Syntyr itself. It does **not** automatically become instructions in a separate application repository.
 
+## Offline first-run agent setup (source checkout)
+
+An optional Python standard-library command installs a **portable consumer Skill**,
+release-pinned CSS, and a small verified selector reference into an existing app.
+It runs from a Syntyr source checkout and does **not** install any application
+runtime dependencies, connect to services, or publish a package:
+
+```sh
+python3 scripts/syntyr_agent.py init --project /path/to/my-app --json
+python3 scripts/syntyr_agent.py check --project /path/to/my-app --json /path/to/my-app/page.html
+```
+
+`init` defaults to the **published, immutable alpha.4 CSS** and writes
+`syntyr.agent.json`, versioned CSS files under `vendor/syntyr/<release>/`,
+and `.agents/skills/syntyr/SKILL.md` plus `references/api.json`. Rerunning is
+idempotent. Different existing files or symlinked output paths are rejected
+without overwriting project content. For tooling that expects another skill
+location, specify `--agent claude` or `--agent cursor`; `--agent codex` and
+`--agent generic` use the portable `.agents/skills/` path. Projects must still
+load the copied CSS in their own HTML/framework entrypoint: installation does
+**not** silently modify application code or guarantee CSS integration.
+
+Choose `--release 0.3.0-alpha.5` only when deliberately testing the
+**unreleased source candidate**. The generated `api.json` lists selectors
+actually present in the selected CSS files; source-only selectors cannot
+appear in an alpha.4 reference.
+
+`check` validates the installed CSS asset hashes and literal `.html` files
+against that project's pinned release, returning structured, source-located
+JSON diagnostics. Its exit codes are **0** for checked and error-free HTML,
+**1** for errors, and **2** for incomplete coverage (for example, JSX/TSX or
+no HTML files). It is not a React/Vue/Svelte parser or a browser accessibility
+test. Generated CSS assets are not proof that the app has actually imported
+them. The separate local MCP adapter remains available for smaller markup
+fragments and interactive catalog queries.
+
+## Optional local MCP adapter
+
+An optional **read-only local MCP server** can now expose the checked-in
+component catalog and CSS API to supported coding agents. It is not needed to
+use Syntyr CSS, is not installed by the npm package, and does not expose a
+hosted endpoint. See the [MCP adapter source and installation guide](https://github.com/dporkka/syntyr-css/tree/main/agent_mcp)
+for the separate Python SDK installation, version-safe tools, and limits.
+It defaults to the published immutable `0.3.0-alpha.4` CSS rather than
+silently offering source-only `0.3.0-alpha.5` selectors. The read-only
+`validate_markup` tool reuses the [static checker](editor-integration.md#optional-static-html-diagnostics)
+for source-located, machine-readable errors, available class suggestions, and
+valid theme/state values. Responses are constrained to the selected release's
+checked-in CSS rather than presenting candidate-only selectors as fixes.
+
 ## Documents and machine-readable inventory
 
 - [`llms.txt`](../llms.txt): small navigation file following the community `llms.txt` convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.
 - [`llms-full.txt`](../llms-full.txt): generated, version-stamped concatenation of selected public technical docs, for tools that benefit from one context file.
 - [`metadata/components.json`](../metadata/components.json): small **curated, non-exhaustive** inventory with the CSS modules required by the included classes. Do not infer that a class is unavailable solely because this catalog omits it.
+- [`metadata/syntyr-contract.json`](../metadata/syntyr-contract.json): full source-discovered Syntyr classes, tokens, known stylesheet distributions, themes, literal state values and curated component recipes. This candidate-version manifest is suitable for LLM tooling and optional [static HTML checks](editor-integration.md#optional-static-html-diagnostics); it is not a compiler or an accessibility certification.
 
 Documentation follows the current source candidate; always check [release boundaries](api-stability.md) and the [distribution guide](distribution.md) before using candidate-only features.
 
@@ -50,4 +101,4 @@ The consolidated reference is deterministic and checked in CI through the Python
 
 ## What Syntyr does not do
 
-Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission, remote data access or an MCP server. Use your existing application technology for those responsibilities.
+Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission or remote data access. The optional local read-only MCP adapter is a separate developer tool, never a CSS runtime dependency. Use your existing application technology for those responsibilities.

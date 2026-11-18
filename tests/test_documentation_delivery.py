@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 import unittest
 
-from scripts.build_cloudflare_site import source_files
+from scripts.build_cloudflare_site import SITE_URL, canonical_path, source_files
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -34,17 +34,21 @@ class DocumentationDeliveryTests(unittest.TestCase):
             self.assertIn('<main id="doc-main"', page)
             self.assertIn('<h1', page)
             self.assertIn(f'href="{Path(guide).name}"', page)
-            self.assertIn(f'href="https://syntyr-css.pages.dev/{html}"', page)
+            self.assertIn(f'href="{SITE_URL}{canonical_path(html)}"', page)
             self.assertIn(f'href="{Path(html).name}"', directory)
             digest = hashlib.sha256(files[guide]).hexdigest()
             self.assertIn(f'content="{digest}"', page, html)
-            self.assertNotIn('<script', page.lower())
+            self.assertEqual(
+                re.findall(r'<script\b[^>]*>', page, re.I),
+                ['<script type="application/ld+json">'],
+                "Only non-executable JSON-LD metadata may be embedded in docs"
+            )
 
     def test_markdown_table_code_and_links_are_real_html(self):
         files = source_files()
         page = files['docs/components.html'].decode()
         self.assertIn('<table>', page)
-        self.assertIn('<pre><code', page)
+        self.assertIn('<pre tabindex="0"><code', page)
         self.assertIn('href="visual-intensity.html"', page)
         self.assertNotIn('href="visual-intensity.md"', page)
         self.assertIn('id="loading-and-scoping"', page)
@@ -72,9 +76,9 @@ class DocumentationDeliveryTests(unittest.TestCase):
         self.assertNotIn("\n/*.md\n", headers)
         self.assertIn('Sitemap: https://syntyr-css.pages.dev/sitemap.xml', files['robots.txt'].decode())
         sitemap = files['sitemap.xml'].decode()
-        self.assertIn('https://syntyr-css.pages.dev/docs/components.html', sitemap)
+        self.assertIn('https://syntyr-css.pages.dev/docs/components', sitemap)
         self.assertNotIn('https://syntyr-css.pages.dev/docs/components.md', sitemap)
-        self.assertIn('https://syntyr-css.pages.dev/docs/reference.html', sitemap)
+        self.assertIn('https://syntyr-css.pages.dev/docs/reference', sitemap)
 
 
 if __name__ == '__main__':

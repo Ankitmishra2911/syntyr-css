@@ -5,7 +5,7 @@
 ## The offer to test
 
 - **Audience:** developers and small agencies building SaaS, internal tools and operations consoles with server-side HTML, Go/templ + HTMX, Django, Rails or Astro.
-- **Promise:** eight original, responsive, static application-screen compositions with Grid, Noir and Studio variations. The real private prototype contains 24 generated screen/theme combinations.
+- **Promise:** eight original, responsive, static application-screen compositions with Grid, Noir and Studio variations. The current private prototype has expanded to 12 screen types and 36 generated screen/theme combinations; the eight-screen pilot offer remains a research hypothesis, not a final deliverable.
 - **Core:** the existing Syntyr library, themes, essential CSS and free demos remain MIT. Only separately authored premium screen compositions could receive a future commercial license.
 - **Pilot price hypothesis:** **$59 one time** per developer; **$99 standard** is a later experiment, not an advertised available price. Team licenses require validated demand. No subscription, licensing server, hosted designer, or Studio bundle for the first product.
 - **Upsell hypothesis:** scoped customization or server-side integration, quoted case by case (potentially $1,500+ depending on deliverables). Do not promise functional backend behavior in a static kit.
@@ -13,8 +13,8 @@
 ## Current observable evidence
 
 - Public MIT v0.3.0-alpha.4 released; alpha.5 is experimental and unreleased.
-- Private Console Kit has eight source screen types, 24 static variants, deterministic builds, and automated browser checks with unresolved manual accessibility findings.
-- Three original **static screenshots** are published in the public concept page; public site never distributes private kit HTML, CSS, or build products.
+- Private Console Kit has twelve source screen types, 36 static variants, deterministic builds, passing Chromium/Firefox automated checks, and unresolved manual accessibility and combined WebKit verification gaps.
+- Eight original **static screenshots** are published on the public concept page; public site never distributes private kit HTML, CSS, or build products.
 - A public issue-form feedback route and a 10-developer interview tracker exist. As last recorded, no real interviews or paid commitments have been verified.
 - The product is not commercially launch-ready. Do **not** count page views, issue form responses or verbal interest as completed sales.
 
@@ -75,6 +75,15 @@ Do not infer visitors, conversion rate or revenue from GitHub stars. Never claim
 
 ## Reproducible preview provenance
 
-The images under `docs/previews/` were captured from the independently authored private Console Kit prototype using an installed Chromium headless browser (1360×850 viewport), then resized to 1120×700 WebP. Source compositions remain private. Images intentionally show **synthetic** application data and no actual payment or authentication operations. The public site allowlists exactly these three images and no private CSS, HTML or package archives.
+The eight images under `docs/previews/` were captured from the independently authored private Console Kit prototype using an installed Chromium headless browser (1360×850 viewport), then resized to 1120×700 WebP. The five additional marketing captures use private repository `dporkka/syntyr-console-kit` commit `35a3b4c`; no private HTML, CSS or build artifacts are in the public-site allowlist. Source compositions remain private. Images intentionally show **synthetic** application data and no actual payment or authentication operations. The public site allowlists exactly these three images and no private CSS, HTML or package archives.
 
 Existing free HTML examples are MIT and usable immediately. Publishing promotional screenshots under the public repository's MIT license does **not** convert the separately maintained private source layouts into a free source package.
+
+## Commercial funnel implementation (November 15, 2026)
+
+- The public homepage now links to a Console Kit product-research preview and shows an authentic screenshot. The source kit stays private.
+- Qualified prospects can initiate a **private email** request with prefilled research questions; this is a mailto link, not a hosted web form or a claimed submitted lead. It requires the visitor to have a working mail client.
+- GitHub issue-form feedback remains available and is explicitly **public**. Never ask respondents to put private contact details or proprietary project information in public issues.
+- A bespoke implementation quote route is distinct from the $59 research offer. No prices for bespoke services are binding without a written quote.
+- No event analytics, delivery rate, qualified conversion, user count, or email response rate is verified by this source change. Replace mailto with a reviewed, consent-aware form and spam controls only after demand warrants an operated backend.
+- Do not present the prototype screenshots as shipping functional authentication, billing, filtering, or backends. No production checkout exists.

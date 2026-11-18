@@ -8,13 +8,14 @@ when:
 
 steps:
   - name: css-site-release-contract
-    image: python:3.14-slim
+    image: python:3.14-slim@sha256:9aaa474097d094040649f2162a627c0049b408f52138d980916788d80f04802f
     commands:
       # Python slim omits Git, but source/release contracts verify tracked paths.
       # The CI-only Git CLI is not a library runtime dependency.
       - apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
       - git --version
       - python3 scripts/build.py --check
+      - python3 scripts/maintenance_policy.py
       - python3 scripts/export_api_metadata.py --check
       - python3 scripts/build_agent_docs.py --check
       - python3 -m unittest discover -s tests -v

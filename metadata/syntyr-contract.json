@@ -1,0 +1,6795 @@
+{
+  "schema_version": 1,
+  "source_version": "0.3.0-alpha.5",
+  "completeness": "all-source-discovered-classes-and-tokens; curated-components",
+  "note": "Curated component elements are guidance, not per-class tag restrictions.",
+  "stylesheets": [
+    "components/base.css",
+    "components/buttons.css",
+    "components/data.css",
+    "components/form-composition.css",
+    "components/forms.css",
+    "components/layout.css",
+    "components/overlays.css",
+    "components/patterns.css",
+    "components/tokens.css",
+    "components/typography.css",
+    "presets/cinematic.css",
+    "presets/minimal.css",
+    "presets/saas.css",
+    "syntyr.all.css",
+    "syntyr.core.css",
+    "syntyr.css",
+    "syntyr.data-grid.css",
+    "syntyr.effects.css",
+    "syntyr.email.css",
+    "syntyr.embed.css",
+    "syntyr.geo.css",
+    "syntyr.geometry.css",
+    "syntyr.motion.css",
+    "syntyr.native-recipes.css",
+    "syntyr.print.css",
+    "syntyr.recipes.css",
+    "syntyr.semantic-bundle.css",
+    "syntyr.semantic.css",
+    "syntyr.server.css",
+    "syntyr.symbols.css",
+    "syntyr.utilities.css",
+    "syntyr.viz.css"
+  ],
+  "classes": [
+    {
+      "name": "syn-actions",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css).",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-activity-list",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-activity-timeline",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-alert",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-alert--danger",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-alert--success",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-alert--warning",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-app-card",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-app-card-header",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-app-nav",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-app-rail",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-app-shell",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-app-topbar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-ascii",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.symbols.css"
+      ]
+    },
+    {
+      "name": "syn-ascii--accent",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.symbols.css"
+      ]
+    },
+    {
+      "name": "syn-ascii--muted",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.symbols.css"
+      ]
+    },
+    {
+      "name": "syn-atmosphere",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.css",
+        "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-avatar",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar--lg",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar--sm",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar-stack",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-badge",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-badge--accent",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-body",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-breadcrumbs",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-bulk-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-button",
+      "module": "components/buttons.css",
+      "description": "Native button or link styling; use semantic HTML.",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-button--danger",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css).",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-button--ghost",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css).",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-button--icon",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css).",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-button--outline",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css).",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-button--primary",
+      "module": "components/buttons.css",
+      "description": "Primary action appearance.",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-button--small",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css).",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-button-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-caption",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-cell--nowrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-cell--numeric",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-cell--wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-change-after",
+      "module": "recipes.css",
+      "description": "Updated or added revision value with visible text label.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-change-before",
+      "module": "recipes.css",
+      "description": "Previous or removed revision value with visible text label.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-change-pair",
+      "module": "recipes.css",
+      "description": "Responsive before/after value pair for existing semantic record fields.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-chart",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-chart-axis",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-chart-grid",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-chart-key",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-chart-legend",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-chart-legend-item",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-chart-title",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-chart-tooltip",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-check",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-chip",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-choice-card",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-code",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-code-figure",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
+      "name": "syn-collection-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-collection-toolbar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-command-description",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-command-group",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-command-group-label",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-command-key",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-command-panel",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-command-row",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-command-search",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-cta-band",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__cell",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__cell--numeric",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__cell-text",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__columnheader",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__editor",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__footer",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__header",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__header-row",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__loading",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__row",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__status",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__toolbar",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid__viewport",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-defer-section",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-detail-aside",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-detail-layout",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-detail-main",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-details",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dialog",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dialog--transition",
+      "module": "motion.css",
+      "description": "Syntyr CSS class (motion.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.motion.css"
+      ]
+    },
+    {
+      "name": "syn-display",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-divider-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown__group-label",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown__item",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown__separator",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-dropdown__shortcut",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-email-body",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-code",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-compose",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-inbox",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-item",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-layout",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-main",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-message",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-message-header",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-meta",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-preferences",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-preview",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-recipient-list",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-sidebar",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-signup",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-subject",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-time",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-email-workspace",
+      "module": "email.css",
+      "description": "Syntyr CSS class (email.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.email.css"
+      ]
+    },
+    {
+      "name": "syn-empty",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-error",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-error-summary",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-body",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-card",
+      "module": "recipes.css",
+      "description": "Semantic figure-based evidence review presentation with captions and metadata, not a media viewer.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-grid",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-media",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-media--placeholder",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-evidence-meta",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-eyebrow",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-feature-card",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-feature-grid",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-feature-list",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-field",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css).",
+      "stylesheets": [
+        "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-field--floating",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
+      "name": "syn-field-body",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css).",
+      "stylesheets": [
+        "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-field-row",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css).",
+      "stylesheets": [
+        "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-fieldset",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-file-item",
+      "module": "recipes.css",
+      "description": "File queue entry with host-owned queued, uploading, complete or failed state.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-file-item-header",
+      "module": "recipes.css",
+      "description": "Flexible file name and visible status header for queue entries.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-file-queue",
+      "module": "recipes.css",
+      "description": "Optional ordered file lifecycle list; not an upload engine.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-filter-actions",
+      "module": "recipes.css",
+      "description": "Wrapping submit and reset action group for CRM filters.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-filter-bar",
+      "module": "recipes.css",
+      "description": "Optional wrapping CRM GET filter form; host applies query parameters.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-filter-choices",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-filter-field",
+      "module": "recipes.css",
+      "description": "Label and control group in an optional CRM filter bar.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-filter-field--query",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-floating-label",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
+      "name": "syn-flow",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-fluid-display",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-fluid-lede",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-form",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-form-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-form-actions__buttons",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-frame",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-frame--accent",
+      "module": "geometry.css",
+      "description": "Optional 2px accent outline for a selected frame shape.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-frame--bevel",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-frame--bracket",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-frame--circuit",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-frame--facet",
+      "module": "geometry.css",
+      "description": "Optional diagonal top-left and bottom-right facets.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-frame--industrial",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-frame--inset",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-frame--notch",
+      "module": "geometry.css",
+      "description": "Syntyr CSS class (geometry.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-frame--precision",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-frame--soft",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-frame--step",
+      "module": "geometry.css",
+      "description": "Optional square-stepped top-right and bottom-left frame.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-geo-attribution",
+      "module": "geo.css",
+      "description": "Optional attribution surface; preserve map provider credits.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-bottom",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-callout",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-cluster",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-control",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-control-group",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-controls",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-data-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-layer-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-legend",
+      "module": "geo.css",
+      "description": "Readable, labeled map legend; host must provide layer semantics.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-legend-list",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-legend-title",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-map",
+      "module": "geo.css",
+      "description": "Map renderer mount surface; actual projection and map behavior belong to host.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-marker",
+      "module": "geo.css",
+      "description": "44px visual marker target; renderer-managed marker positions stay renderer-managed.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-marker-layer",
+      "module": "geo.css",
+      "description": "Static diagram overlay for percentage-positioned markers, not for renderer-managed markers.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-overlay",
+      "module": "geo.css",
+      "description": "Pointer-transparent overlay for application-owned map controls and legends.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-scale",
+      "module": "geo.css",
+      "description": "Scale presentation; actual scale and bar width require a real map renderer.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-shell",
+      "module": "geo.css",
+      "description": "Named CSS container for map-based workspace layouts; use with core plus optional geo CSS.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-sidebar",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-swatch",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-viewport",
+      "module": "geo.css",
+      "description": "Syntyr CSS class (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-geo-workspace",
+      "module": "geo.css",
+      "description": "Responsive GIS sidebar plus map viewport; stacks based on container width.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "syn-glow",
+      "module": "effects.css",
+      "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.css",
+        "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-gradient-wash",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.css",
+        "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-grid",
+      "module": "components/layout.css",
+      "description": "Responsive grid composition.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-grid-effect",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.css",
+        "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-header",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-heading",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-help",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-horizon",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.css",
+        "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-icon",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.symbols.css"
+      ]
+    },
+    {
+      "name": "syn-inline",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-input",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-input-addon",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css).",
+      "stylesheets": [
+        "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-input-group",
+      "module": "components/form-composition.css",
+      "description": "Syntyr CSS class (components/form-composition.css).",
+      "stylesheets": [
+        "components/form-composition.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-kpi-grid",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-label",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-layout",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-lede",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row__actions",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row__body",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row__media",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-logo",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-meter",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-metric",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-mono",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-muted",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-nav",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-nav-tabs",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-operation-feedback",
+      "module": "recipes.css",
+      "description": "Optional host-managed operation feedback with truthful state text.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-page",
+      "module": "base.css",
+      "description": "Syntyr CSS class (base.css).",
+      "stylesheets": [
+        "components/base.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-page-header",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-page-header__actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-page-header__meta",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-page-link",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-pagination",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-panel",
+      "module": "components/layout.css",
+      "description": "General-purpose surface; customize via --syn-panel-* properties.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-panel--cut",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-panel--raised",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-pipeline",
+      "module": "recipes.css",
+      "description": "Keyboard-focusable scrollable CRM stage layout; host manages state.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-pipeline-card",
+      "module": "recipes.css",
+      "description": "Opt-in CRM record presentation, not a drag-drop widget.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-pipeline-lane",
+      "module": "recipes.css",
+      "description": "Named stage column with semantic list of records.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-pipeline-list",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-popover",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-popover--anchored",
+      "module": "components/overlays.css",
+      "description": "Syntyr CSS class (components/overlays.css).",
+      "stylesheets": [
+        "components/overlays.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-popover--transition",
+      "module": "motion.css",
+      "description": "Syntyr CSS class (motion.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.motion.css"
+      ]
+    },
+    {
+      "name": "syn-price-card",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-price-value",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-pricing",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-print-hide",
+      "module": "print.css",
+      "description": "Syntyr CSS class (print.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.print.css"
+      ]
+    },
+    {
+      "name": "syn-prose",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-reading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-reading-progress",
+      "module": "motion.css",
+      "description": "Syntyr CSS class (motion.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.motion.css"
+      ]
+    },
+    {
+      "name": "syn-record-fields",
+      "module": "recipes.css",
+      "description": "Responsive definition-list layout for key/value record details.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-region",
+      "module": "components/patterns.css",
+      "description": "Container query boundary for responsive compositions.",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__pane",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__panes",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resizable-workspace__separator",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-resource-outline",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
+      "name": "syn-result-state",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-root",
+      "module": "base.css",
+      "description": "Required style scope for Syntyr components and themes.",
+      "stylesheets": [
+        "components/base.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-rule",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-scanlines",
+      "module": "effects.css",
+      "description": "Syntyr CSS class (effects.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.css",
+        "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-section-heading",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-select",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-select--enhanced",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-semantic",
+      "module": "semantic.css",
+      "description": "Opt-in styling of native HTML elements.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.semantic-bundle.css",
+        "syntyr.semantic.css"
+      ]
+    },
+    {
+      "name": "syn-sheet",
+      "module": "recipes.css",
+      "description": "Native popover or dialog side-sheet presentation; browser and host own opening, focus, and close behavior.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-body",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-footer",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sheet-header",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-shell",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-showcase",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-showcase-copy",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-showcase-visual",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sidebar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-sidecar",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-site-heading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-site-heading--editorial",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-site-hero",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-skeleton",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-skeleton--short",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-split",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-stack",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-stage",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-stage-header",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS class (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-stat",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-stat-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-stat-value",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-stats",
+      "module": "components/patterns.css",
+      "description": "Container-responsive metric composition.",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-status",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-status--danger",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-status--success",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-status--warning",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-step",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-step-detail",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-step-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-steps",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-steps--vertical",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-surface--accent",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-surface--floating",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-surface--lift",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-surface--raised",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-surface--recessed",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-switcher",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-symbol",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.symbols.css"
+      ]
+    },
+    {
+      "name": "syn-symbol--accent",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.symbols.css"
+      ]
+    },
+    {
+      "name": "syn-symbol--muted",
+      "module": "symbols.css",
+      "description": "Syntyr CSS class (symbols.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.symbols.css"
+      ]
+    },
+    {
+      "name": "syn-table",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table--compact",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-table--sticky",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table--striped",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table-emphasis",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table-sort",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table-wrap",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-table-wrap--scroll",
+      "module": "components/data.css",
+      "description": "Syntyr CSS class (components/data.css).",
+      "stylesheets": [
+        "components/data.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-terminal",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-bar",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-body",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-command",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-cursor",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-dots",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-error",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-line",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-meta",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-muted",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-output",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-path",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-prompt",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-success",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-title",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-terminal-warning",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-text-support",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-textarea",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-textarea--autosize",
+      "module": "components/forms.css",
+      "description": "Syntyr CSS class (components/forms.css).",
+      "stylesheets": [
+        "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-timeline",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
+      "name": "syn-title",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-toolbar",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-u-between",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-center",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-flex",
+      "module": "utilities.css",
+      "description": "Opt-in flexbox layout utility.",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-gap-1",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-gap-2",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-gap-3",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-grid",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-inline",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-max-reading",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-min-w-0",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-mt-1",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-mt-2",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-mt-3",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-overflow-auto",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-p-1",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-p-2",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-p-3",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-sr-only",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-stack",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-text-center",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-w-full",
+      "module": "utilities.css",
+      "description": "Opt-in full-width utility.",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-u-wrap",
+      "module": "utilities.css",
+      "description": "Syntyr CSS class (utilities.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "syn-upload-field",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-view-switcher",
+      "module": "recipes.css",
+      "description": "Server-selected view links or host-controlled view buttons; the host owns selection and navigation.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-viz-bar",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-bar-fill",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-bar-label",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-bar-track",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-bars",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-cell",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-heatmap",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-sparkline",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-sparkline-area",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-sparkline-path",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-sr-only",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-viz-tracker",
+      "module": "viz.css",
+      "description": "Syntyr CSS class (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "syn-workspace",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "--syn-accent",
+      "module": "tokens.css",
+      "description": "Theme accent color; also check --syn-on-accent contrast.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-accent-2",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-accent-soft",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-avatar-size",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS property (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-bg",
+      "module": "tokens.css",
+      "description": "Theme background.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-border-default",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-border-floating",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-border-focus",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-border-hover",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-border-subtle",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-bracket-size",
+      "module": "geometry.css",
+      "description": "Syntyr CSS property (geometry.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-button-border-width",
+      "module": "components/buttons.css",
+      "description": "Per-button border width; defaults to 1px.",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-button-padding-inline",
+      "module": "components/buttons.css",
+      "description": "Per-button inline padding; defaults to 1rem.",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-card-padding",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-chart-1",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-chart-2",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-chart-3",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-chart-4",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-chart-axis",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-chart-grid",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-chart-tooltip-bg",
+      "module": "viz.css",
+      "description": "Syntyr CSS property (viz.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-control-height",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-control-padding-block",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-cut",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-danger",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-aside-basis",
+      "module": "recipes.css",
+      "description": "Detail aside flex basis; defaults to 17rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-aside-min",
+      "module": "recipes.css",
+      "description": "Detail aside minimum width; defaults to 17rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-gap",
+      "module": "recipes.css",
+      "description": "Detail shell gap; defaults to --syn-space-3.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-main-basis",
+      "module": "recipes.css",
+      "description": "Detail main flex basis; defaults to 32rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-detail-main-min",
+      "module": "recipes.css",
+      "description": "Detail main minimum width; defaults to 22rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-duration-fast",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-duration-standard",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-ease",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-ease-enter",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-file-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-field-min",
+      "module": "recipes.css",
+      "description": "Filter field basis and minimum; defaults to 11rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-gap",
+      "module": "recipes.css",
+      "description": "Wrapping filter-bar gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-filter-query-min",
+      "module": "recipes.css",
+      "description": "Query field flex basis; defaults to 18rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-fluid-display-size",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-focus-ring",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-font",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-font-display",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-font-ui",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-frame",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-border-paint",
+      "module": "geometry.css",
+      "description": "Solid or gradient border paint for optional frames.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-cut",
+      "module": "geometry.css",
+      "description": "Shared fallback corner size for optional geometry shapes.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-cut-bl",
+      "module": "geometry.css",
+      "description": "Optional bottom-left frame cut size.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-cut-br",
+      "module": "geometry.css",
+      "description": "Optional bottom-right frame cut size.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-cut-tl",
+      "module": "geometry.css",
+      "description": "Optional top-left frame cut size.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-cut-tr",
+      "module": "geometry.css",
+      "description": "Optional top-right frame cut size.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-fill",
+      "module": "geometry.css",
+      "description": "Interior fill paint for optional shaped frames.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-inlay-paint",
+      "module": "geometry.css",
+      "description": "Optional translucent overlay on the inner shaped surface.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-outline",
+      "module": "geometry.css",
+      "description": "Solid border paint fallback for optional frames.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-shape",
+      "module": "geometry.css",
+      "description": "Syntyr CSS property (geometry.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-stroke",
+      "module": "geometry.css",
+      "description": "Width of the optional shape-following border.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "--syn-frame-strong",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-floating",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-land",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-point",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-road",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-route",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-water",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-geo-zone",
+      "module": "geo.css",
+      "description": "Syntyr CSS property (geo.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.geo.css"
+      ]
+    },
+    {
+      "name": "--syn-glow-alpha",
+      "module": "tokens.css",
+      "description": "Glow accent share; varies by scoped data-syn-intensity.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-alpha",
+      "module": "tokens.css",
+      "description": "Grid-line accent share; varies by scoped data-syn-intensity.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-density-pad-inline",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-density-row-block",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-edge",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-focus",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-gap",
+      "module": "components/layout.css",
+      "description": "Grid gap; defaults to 1rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-hover",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-min",
+      "module": "components/layout.css",
+      "description": "Minimum grid track width; defaults to 17rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-muted",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-pad-inline",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-row-block",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-grid-selected",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS property (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "--syn-horizon-alpha",
+      "module": "tokens.css",
+      "description": "Horizon line accent share.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-inline-gap",
+      "module": "components/layout.css",
+      "description": "Inline flex gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-kpi-gap",
+      "module": "recipes.css",
+      "description": "KPI grid gap; defaults to --syn-space-2.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-kpi-min",
+      "module": "recipes.css",
+      "description": "Minimum KPI grid track width; defaults to 13rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-layout-gap",
+      "module": "components/layout.css",
+      "description": "Layout gap; defaults to 1.25rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-layout-min",
+      "module": "components/layout.css",
+      "description": "Minimum layout track width; defaults to 21rem.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-leading-body",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-line",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-mono",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-muted",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-on-accent",
+      "module": "tokens.css",
+      "description": "Foreground color for the primary accent.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-operation-edge",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-panel-border-width",
+      "module": "components/layout.css",
+      "description": "Per-panel border width; defaults to 1px.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-panel-padding",
+      "module": "components/layout.css",
+      "description": "Per-panel padding; defaults to the existing fluid panel padding.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-panel-radius",
+      "module": "components/layout.css",
+      "description": "Per-panel border radius; defaults to square corners.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-primary-hover-bg",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-radius",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-reading-width",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-row-padding-block",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-scanline-alpha",
+      "module": "tokens.css",
+      "description": "Scanline overlay opacity percentage.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-shadow-overlay",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-shadow-raised",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-shadow-sm",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-sheet-width",
+      "module": "recipes.css",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem.",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-space-1",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-space-2",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-space-3",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-space-4",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-space-5",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-stack-gap",
+      "module": "components/layout.css",
+      "description": "Stack gap; defaults to --syn-space-3.",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-stage-pad",
+      "module": "components/layout.css",
+      "description": "Syntyr CSS property (components/layout.css).",
+      "stylesheets": [
+        "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-success",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-surface",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-surface-floating",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-surface-hi",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-surface-hover",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-surface-interactive",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-surface-pressed",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-surface-raised",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-surface-recessed",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-terminal-bg",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-terminal-fg",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-terminal-muted",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-terminal-prompt",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-text",
+      "module": "tokens.css",
+      "description": "Default text color.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-text-subtle",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-tracking-display",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-type-base",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-type-body",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-type-display",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-type-heading",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-type-lede",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "--syn-type-section",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-type-sm",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-type-xs",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-warning",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-wash-alpha",
+      "module": "tokens.css",
+      "description": "Primary atmospheric wash share.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-wash-secondary-alpha",
+      "module": "tokens.css",
+      "description": "Secondary atmospheric wash share.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "module": "recipes.css",
+      "description": "Syntyr CSS property (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    }
+  ],
+  "themes": [
+    "auto",
+    "corporate",
+    "grid",
+    "industrial",
+    "minimal",
+    "noir",
+    "studio",
+    "terminal"
+  ],
+  "attributes": {
+    "data-syn-theme": [
+      "auto",
+      "corporate",
+      "grid",
+      "industrial",
+      "minimal",
+      "noir",
+      "studio",
+      "terminal"
+    ],
+    "data-syn-intensity": [
+      "quiet",
+      "standard",
+      "cinematic"
+    ],
+    "data-syn-density": [
+      "compact",
+      "comfortable",
+      "spacious"
+    ],
+    "data-syn-color-space": [
+      "oklch"
+    ],
+    "data-syn-state": [
+      "active",
+      "complete",
+      "conflict",
+      "degraded",
+      "down",
+      "error",
+      "failed",
+      "healthy",
+      "loading",
+      "pending",
+      "queued",
+      "saved",
+      "selected",
+      "unknown",
+      "unsaved",
+      "uploading"
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "module": "syntyr.core.css",
+      "elements": [
+        "button",
+        "a"
+      ],
+      "classes": [
+        "syn-button",
+        "syn-button--primary",
+        "syn-button--outline",
+        "syn-button--danger",
+        "syn-button--ghost"
+      ],
+      "notes": "Use button for actions and a for navigation. ARIA states describe real application state."
+    },
+    {
+      "name": "Panel",
+      "module": "syntyr.core.css",
+      "elements": [
+        "article",
+        "section",
+        "div"
+      ],
+      "classes": [
+        "syn-panel",
+        "syn-panel--cut"
+      ],
+      "notes": "Choose native headings and accessible labels."
+    },
+    {
+      "name": "Form fields",
+      "module": "syntyr.core.css",
+      "elements": [
+        "form",
+        "label",
+        "input",
+        "p"
+      ],
+      "classes": [
+        "syn-form",
+        "syn-label",
+        "syn-input",
+        "syn-error"
+      ],
+      "notes": "Real handlers and field validation belong to the application."
+    },
+    {
+      "name": "Form compositions",
+      "module": "syntyr.core.css",
+      "elements": [
+        "form",
+        "label",
+        "input",
+        "button",
+        "span",
+        "div"
+      ],
+      "classes": [
+        "syn-field",
+        "syn-field-row",
+        "syn-field-body",
+        "syn-input-group",
+        "syn-input-addon"
+      ],
+      "notes": "Unreleased alpha.5 candidate only. Native form behavior, associated labels, server validation; use syn-region for container-responsive rows. The Radix adapter is separately optional."
+    },
+    {
+      "name": "Tables",
+      "module": "syntyr.core.css",
+      "elements": [
+        "div",
+        "table"
+      ],
+      "classes": [
+        "syn-table-wrap",
+        "syn-table",
+        "syn-cell--numeric"
+      ],
+      "notes": "Use proper headers, captions and scroll containers."
+    },
+    {
+      "name": "Stats",
+      "module": "syntyr.core.css",
+      "elements": [
+        "section",
+        "article",
+        "p"
+      ],
+      "classes": [
+        "syn-region",
+        "syn-stats",
+        "syn-stat",
+        "syn-stat-label",
+        "syn-stat-value"
+      ],
+      "notes": "Named container must be an ancestor of responsive children."
+    },
+    {
+      "name": "Navigation",
+      "module": "syntyr.core.css",
+      "elements": [
+        "nav",
+        "ol",
+        "li",
+        "a"
+      ],
+      "classes": [
+        "syn-breadcrumbs",
+        "syn-pagination",
+        "syn-page-link"
+      ],
+      "notes": "Real links and aria-current only for the actual current page."
+    },
+    {
+      "name": "Application shell",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "div",
+        "aside",
+        "main"
+      ],
+      "classes": [
+        "syn-app-shell",
+        "syn-app-rail",
+        "syn-app-nav",
+        "syn-workspace"
+      ],
+      "notes": "Load optional recipes CSS after core."
+    },
+    {
+      "name": "Marketing hero",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "section",
+        "h1"
+      ],
+      "classes": [
+        "syn-site-hero",
+        "syn-site-heading"
+      ],
+      "notes": "Load optional recipes CSS after core."
+    },
+    {
+      "name": "Charts",
+      "module": "syntyr.viz.css",
+      "elements": [
+        "figure",
+        "figcaption"
+      ],
+      "classes": [
+        "syn-chart",
+        "syn-chart-title"
+      ],
+      "notes": "Only styling hooks. Generate chart values and SVG geometry yourself."
+    },
+    {
+      "name": "Heatmap",
+      "module": "syntyr.viz.css",
+      "elements": [
+        "div",
+        "span"
+      ],
+      "classes": [
+        "syn-viz-heatmap",
+        "syn-viz-cell"
+      ],
+      "notes": "Supply textual cell labels, data-syn-level and real data."
+    },
+    {
+      "name": "Geospatial workspace",
+      "module": "syntyr.geo.css",
+      "elements": [
+        "section",
+        "aside",
+        "figure",
+        "div",
+        "a",
+        "button",
+        "ul"
+      ],
+      "classes": [
+        "syn-geo-shell",
+        "syn-geo-workspace",
+        "syn-geo-sidebar",
+        "syn-geo-viewport",
+        "syn-geo-map",
+        "syn-geo-overlay",
+        "syn-geo-controls",
+        "syn-geo-control",
+        "syn-geo-marker",
+        "syn-geo-marker-layer",
+        "syn-geo-cluster",
+        "syn-geo-legend",
+        "syn-geo-swatch",
+        "syn-geo-scale",
+        "syn-geo-attribution",
+        "syn-geo-data-list"
+      ],
+      "notes": "Optional renderer-neutral CSS; load core then geo. The host renderer owns projection, attribution, marker positions, zooming, clustering and screen-reader data alternatives. See docs/geo.md."
+    },
+    {
+      "name": "Advanced geometry frames",
+      "module": "syntyr.geometry.css",
+      "elements": [
+        "article",
+        "section",
+        "div"
+      ],
+      "classes": [
+        "syn-frame",
+        "syn-frame--bevel",
+        "syn-frame--notch",
+        "syn-frame--bracket",
+        "syn-frame--accent"
+      ],
+      "notes": "Load optional geometry CSS. One shape per frame; accent emphasis is additive. Refer to visual-intensity.md for pseudo-element ownership and backgrounds."
+    },
+    {
+      "name": "Decorative effects",
+      "module": "syntyr.effects.css",
+      "elements": [
+        "article",
+        "section",
+        "div"
+      ],
+      "classes": [
+        "syn-glow",
+        "syn-grid-effect",
+        "syn-gradient-wash"
+      ],
+      "notes": "Optional CSS only. data-syn-intensity on .syn-root or nested regions selects quiet, standard or cinematic effects without changing semantic state."
+    },
+    {
+      "name": "CRM compositions",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "form",
+        "label",
+        "div",
+        "section",
+        "ul",
+        "li",
+        "dl"
+      ],
+      "classes": [
+        "syn-filter-bar",
+        "syn-filter-field",
+        "syn-filter-field--query",
+        "syn-filter-actions",
+        "syn-pipeline",
+        "syn-pipeline-lane",
+        "syn-pipeline-list",
+        "syn-pipeline-card",
+        "syn-record-fields"
+      ],
+      "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+    },
+    {
+      "name": "Operation feedback",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "div",
+        "section",
+        "h2",
+        "h3",
+        "p"
+      ],
+      "classes": [
+        "syn-operation-feedback"
+      ],
+      "notes": "Experimental alpha.5 static presentation only. Host must set true pending, saved, failed, conflict or unsaved state, manage requests, announcements, retry and authorization."
+    },
+    {
+      "name": "Record change pair",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "dl",
+        "div",
+        "dt",
+        "dd",
+        "span",
+        "del",
+        "ins"
+      ],
+      "classes": [
+        "syn-record-fields",
+        "syn-change-pair",
+        "syn-change-before",
+        "syn-change-after"
+      ],
+      "notes": "Experimental alpha.5 semantic before/after styling nested in existing record fields. Text labels and native del/ins convey changes; backend supplies true revision values and conflict policy."
+    },
+    {
+      "name": "File lifecycle",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "ol",
+        "li",
+        "div",
+        "span",
+        "strong",
+        "progress"
+      ],
+      "classes": [
+        "syn-file-queue",
+        "syn-file-item",
+        "syn-file-item-header"
+      ],
+      "notes": "Unreleased alpha.5 CSS-only queue snapshots. Native input lives in core; host owns upload progress, failure and completion truth, validation, retry, status announcements and storage."
+    },
+    {
+      "name": "Native dropdowns and menus",
+      "module": "syntyr.core.css",
+      "elements": [
+        "div",
+        "a",
+        "button",
+        "select"
+      ],
+      "classes": [
+        "syn-popover",
+        "syn-dropdown",
+        "syn-dropdown__item",
+        "syn-dropdown__group-label",
+        "syn-dropdown__separator",
+        "syn-dropdown__shortcut",
+        "syn-select--enhanced"
+      ],
+      "notes": "Scriptless action panels use Tab/Escape. Optional @syntyr/css/menu.mjs adds ARIA menu keyboard behavior only when explicitly initialized; see docs/dropdowns.md."
+    }
+  ],
+  "recipes": [
+    {
+      "id": "crm-filter",
+      "description": "Server-driven filter toolbar with wrapping fields and submit/reset actions.",
+      "stylesheets": [
+        "syntyr.core.css",
+        "syntyr.recipes.css"
+      ],
+      "root": {
+        "tag": "form",
+        "classes": [
+          "syn-filter-bar"
+        ]
+      },
+      "slots": [
+        {
+          "name": "field",
+          "tag": "label",
+          "classes": [
+            "syn-filter-field"
+          ],
+          "optional": false,
+          "repeatable": true
+        },
+        {
+          "name": "query",
+          "tag": "label",
+          "classes": [
+            "syn-filter-field",
+            "syn-filter-field--query"
+          ],
+          "optional": true,
+          "repeatable": false
+        },
+        {
+          "name": "actions",
+          "tag": "div",
+          "classes": [
+            "syn-filter-actions"
+          ],
+          "optional": false,
+          "repeatable": false
+        }
+      ],
+      "variants": {
+        "data-syn-density": [
+          "comfortable",
+          "compact"
+        ]
+      },
+      "host_behavior": "Supply method=get, named controls, actual action URL and meaningful reset link. The host filters results; CSS does not execute queries.",
+      "example": "examples/saas-workflows.html"
+    },
+    {
+      "id": "resource-table",
+      "description": "Horizontally scrollable semantic data table with optional numeric cells and native pagination links.",
+      "stylesheets": [
+        "syntyr.core.css"
+      ],
+      "root": {
+        "tag": "div",
+        "classes": [
+          "syn-table-wrap"
+        ]
+      },
+      "slots": [
+        {
+          "name": "table",
+          "tag": "table",
+          "classes": [
+            "syn-table"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "numeric-cell",
+          "tag": "td",
+          "classes": [
+            "syn-cell--numeric"
+          ],
+          "optional": true,
+          "repeatable": true
+        },
+        {
+          "name": "pagination",
+          "tag": "nav",
+          "classes": [
+            "syn-pagination"
+          ],
+          "optional": true,
+          "repeatable": false
+        }
+      ],
+      "variants": {
+        "data-syn-density": [
+          "comfortable",
+          "compact"
+        ]
+      },
+      "host_behavior": "Provide caption, real th scope associations, keyboard-reachable horizontal overflow where needed, actual page links and server-side sort/filter. CSS does not sort, page or select records.",
+      "example": "examples/saas-workflows.html"
+    },
+    {
+      "id": "app-shell",
+      "description": "Responsive application shell with navigation rail and primary workspace.",
+      "stylesheets": [
+        "syntyr.core.css",
+        "syntyr.recipes.css"
+      ],
+      "root": {
+        "tag": "div",
+        "classes": [
+          "syn-app-shell"
+        ]
+      },
+      "slots": [
+        {
+          "name": "rail",
+          "tag": "aside",
+          "classes": [
+            "syn-app-rail"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "navigation",
+          "tag": "nav",
+          "classes": [
+            "syn-app-nav"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "workspace",
+          "tag": "main",
+          "classes": [
+            "syn-workspace"
+          ],
+          "optional": false,
+          "repeatable": false
+        }
+      ],
+      "variants": {
+        "data-syn-theme": [
+          "studio",
+          "grid",
+          "noir"
+        ]
+      },
+      "host_behavior": "Provide labelled navigation, unique main landmark, actual routes and authorization for each destination. Theme must be placed on .syn-root or a scoped ancestor.",
+      "example": "examples/operations-console.html"
+    },
+    {
+      "id": "validated-form",
+      "description": "Labeled field/error compositions for host-validated forms.",
+      "stylesheets": [
+        "syntyr.core.css"
+      ],
+      "root": {
+        "tag": "form",
+        "classes": [
+          "syn-form"
+        ]
+      },
+      "slots": [
+        {
+          "name": "field",
+          "tag": "div",
+          "classes": [
+            "syn-field"
+          ],
+          "optional": false,
+          "repeatable": true
+        },
+        {
+          "name": "label",
+          "tag": "label",
+          "classes": [
+            "syn-label"
+          ],
+          "optional": false,
+          "repeatable": true
+        },
+        {
+          "name": "input",
+          "tag": "input",
+          "classes": [
+            "syn-input"
+          ],
+          "optional": false,
+          "repeatable": true
+        },
+        {
+          "name": "error",
+          "tag": "p",
+          "classes": [
+            "syn-error"
+          ],
+          "optional": true,
+          "repeatable": true
+        }
+      ],
+      "variants": {
+        "data-syn-density": [
+          "comfortable",
+          "compact"
+        ]
+      },
+      "host_behavior": "Host supplies server/client validation, error text, stable error IDs, aria-describedby, aria-invalid and focus to an error summary when submission fails. CSS never performs validation or focus changes.",
+      "example": "examples/form-composition.html"
+    }
+  ]
+}

@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: Syntyr performance and design guidance. Read the complete illustrated HTML reference.">
+  <meta name="description" content="Syntyr is a scoped, CSS-first visual library with no runtime JavaScript, no fonts downloaded by default, and no required package manager. Optimize real…">
   <meta name="syntyr-source-sha256" content="c0fe714be2b6843d6d4ac50416c18d45305aecd6d1e47ef64b0f86b4fcb5ee28">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr performance and design guidance — Syntyr CSS docs</title>
-  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/performance-and-polish.html">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/performance-and-polish">
   <link rel="alternate" type="text/markdown" href="performance-and-polish.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -39,7 +39,7 @@
 fonts downloaded by default, and no required package manager. Optimize
 <strong>real browser behavior</strong> rather than targeting an arbitrary gzip byte count.</p>
 <h2 id="inspect-stylesheet-sizes-without-blocking-releases">Inspect stylesheet sizes without blocking releases</h2>
-<pre><code class="language-sh">python3 scripts/build.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
 python3 scripts/asset_report.py
 python3 scripts/asset_report.py --json &gt; /tmp/syntyr-sizes.json
 python3 scripts/asset_report.py --baseline /tmp/syntyr-sizes.json
@@ -64,7 +64,7 @@ same-origin, cacheable stylesheets to an extra CDN hostname in most apps.</p>
 <h2 id="zero-js-visual-accents">Zero-JS visual accents</h2>
 <p>Optional recipes add depth and a stronger visual hierarchy without extra DOM,
 canvas, web fonts or animations:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
 &lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;article class=&quot;syn-app-card syn-surface--accent syn-surface--lift&quot;&gt;
@@ -87,7 +87,7 @@ mode uses a visible border instead of relying on shadows.</li>
 should feel restrained. Use typography hierarchy, consistent spacing and
 purposeful accent color before adding glow, gradients or large shadows.</p>
 <h2 id="opt-in-long-page-render-deferral">Opt-in long-page render deferral</h2>
-<pre><code class="language-html">&lt;!-- Only below-the-fold sections of sufficiently long, dense pages. --&gt;
+<pre tabindex="0"><code class="language-html">&lt;!-- Only below-the-fold sections of sufficiently long, dense pages. --&gt;
 &lt;section class=&quot;syn-defer-section&quot; style=&quot;--syn-defer-size: 42rem&quot;&gt;
   &lt;h2&gt;Archive&lt;/h2&gt;
   &lt;!-- expensive table, logs or reporting visuals --&gt;
@@ -108,7 +108,7 @@ production-shaped synthetic layouts — a SaaS dashboard and a long-table page �
 using the <em>same</em> core + recipes CSS and equivalent DOM. The only experimental
 difference is whether independent, below-the-fold sections opt in to
 <code>syn-defer-section</code>.</p>
-<pre><code class="language-sh"># Optional developer environment only; never required to consume Syntyr.
+<pre tabindex="0"><code class="language-sh"># Optional developer environment only; never required to consume Syntyr.
 python3 -m venv /tmp/syntyr-playwright
 /tmp/syntyr-playwright/bin/pip install playwright
 /tmp/syntyr-playwright/bin/playwright install chromium firefox webkit

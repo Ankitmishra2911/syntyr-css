@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: Web design reference matrix and Syntyr benchmark applications. Read the complete illustrated HTML reference.">
+  <meta name="description" content="Research rubric for the unreleased alpha.5 source candidate , not a statement about the published alpha.4 package. Updated 2026-11-18. This matrix…">
   <meta name="syntyr-source-sha256" content="cad54198bdebf63d09aa2fd4a24824a24a75bb14239069a381a72edcb045771d">
   <meta name="theme-color" content="#f5f7fb">
   <title>Web design reference matrix and Syntyr benchmark applications — Syntyr CSS docs</title>
-  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/design-reference-matrix.html">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/design-reference-matrix">
   <link rel="alternate" type="text/markdown" href="design-reference-matrix.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -229,7 +229,7 @@
 <p>The application pages use <code>syntyr.core.css</code> and the optional <code>syntyr.recipes.css</code>. Their shared <strong>original</strong> composition stylesheet is <code>examples/design-benchmarks/benchmark.css</code>; no font CDN, icon CDN or runtime JavaScript is required. This benchmark tests three <em>Syntyr adoption scenarios</em>, not a controlled side-by-side comparison against other CSS frameworks. For comparative framework measurements see <code>scripts/perf_framework_fixtures.py</code>.</p>
 <h3 id="reproduce-offline-measurements">Reproduce offline measurements</h3>
 <p>From a checkout with distribution files built:</p>
-<pre><code class="language-sh">python3 scripts/build.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
 python3 scripts/design_reference_audit.py
 python3 scripts/design_reference_audit.py --json
 python3 -m unittest discover -s tests -p test_design_reference_benchmarks.py -v

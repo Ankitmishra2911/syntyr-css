@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: Syntyr website strategy: static HTML vs Hugo vs Zola. Read the complete illustrated HTML reference.">
+  <meta name="description" content="Decision (November 14, 2026): keep the existing static GitHub Pages website, with an isolated Hugo proof-of-concept. No migration of the production site.">
   <meta name="syntyr-source-sha256" content="8bb7b00fb140daec3bb6779e850b503875974da3650b7425db2338e0a2b365eb">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr website strategy: static HTML vs Hugo vs Zola — Syntyr CSS docs</title>
-  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/site-generator-decision.html">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/site-generator-decision">
   <link rel="alternate" type="text/markdown" href="site-generator-decision.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -173,7 +173,7 @@ links</strong> and rejected browser JavaScript and unintended copied Python file
 The input uses the live repository CSS and example HTML through native Hugo
 module mounts. The preview is not a public Pages deployment.</p>
 <p>Repeat the check with a pinned Hugo binary:</p>
-<pre><code class="language-sh">python3 scripts/verify_hugo_preview.py --hugo /path/to/hugo
+<pre tabindex="0"><code class="language-sh">python3 scripts/verify_hugo_preview.py --hugo /path/to/hugo
 </code></pre>
 <p>This establishes feasibility, not a benefit large enough to justify migrating
 the current live site or its existing permalink structure.</p>

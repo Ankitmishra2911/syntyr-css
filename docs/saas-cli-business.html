@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Syntyr CSS documentation: SaaS, business websites, and native CLI applications. Read the complete illustrated HTML reference.">
+  <meta name="description" content="Style SaaS dashboards, business websites, and CLI-inspired interfaces with Syntyr&#x27;s framework-neutral Grid, Noir, and Studio themes.">
   <meta name="syntyr-source-sha256" content="6e5a749f8442e9f8beccab7dc6f40f225c8e423a2d649bcf582bc40daef3613d">
   <meta name="theme-color" content="#f5f7fb">
   <title>SaaS, business websites, and native CLI applications — Syntyr CSS docs</title>
-  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/saas-cli-business.html">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/saas-cli-business">
   <link rel="alternate" type="text/markdown" href="saas-cli-business.md" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
@@ -64,7 +64,7 @@
 </table>
 <p>Use Grid/Noir selectively—most enterprise interfaces benefit more from Studio's low-noise hierarchy than extensive neon decoration. <strong>All themes remain MIT licensed.</strong></p>
 <h2 id="start-with-a-modern-business-or-saas-ui">Start with a modern business or SaaS UI</h2>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
 &lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-kpi-grid&quot;&gt;
@@ -91,7 +91,7 @@
 <li><code>ansi</code>: 16 hex RGB colors, ordered by ANSI indices 0–15 (standard black/red/green/yellow/blue/magenta/cyan/white followed by bright variants).</li>
 <li>CLI output: use foreground ANSI SGR sequences if supported, but <strong>never assume your application can control the user's terminal background</strong>.</li>
 </ul>
-<pre><code class="language-bash">python3 examples/ansi_cli.py --theme studio
+<pre tabindex="0"><code class="language-bash">python3 examples/ansi_cli.py --theme studio
 python3 examples/ansi_cli.py --theme grid --no-color
 python3 examples/ansi_cli.py --theme noir | cat  # plain text, not ANSI
 </code></pre>
