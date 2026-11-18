@@ -806,6 +806,10 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-resource-outline",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
           "name": "syn-result-state",
           "description": "Syntyr CSS class (recipes.css)."
         },

@@ -2527,6 +2527,16 @@
       ]
     },
     {
+      "name": "syn-resource-outline",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
       "name": "syn-result-state",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",

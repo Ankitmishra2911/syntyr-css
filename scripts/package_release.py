@@ -34,6 +34,7 @@ FILES = (
     "examples/email.html",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
     "examples/preset-preview.html",
+    "examples/resource-outline.html",  # Script-free native navigation demo.
     "examples/resizable-workspace.html",
     "examples/resizable-workspace.mjs",
     "examples/animation.html",
