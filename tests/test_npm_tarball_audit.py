@@ -55,6 +55,11 @@ class NpmTarballAuditTests(unittest.TestCase):
             archive.write_bytes(contents)
             return audit_archive(archive, ROOT)
 
+    def test_public_agent_index_exposes_real_tarball_audit(self):
+        index = (ROOT / "llms.txt").read_text(encoding="utf-8")
+        self.assertIn("docs/package-managers.md", index)
+        self.assertIn("audit_npm_package.py", index)
+
     def test_clean_archive_is_complete(self):
         self.assertEqual(self.check(archive_with()), [])
 
