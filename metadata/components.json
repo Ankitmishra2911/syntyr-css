@@ -229,6 +229,24 @@
         "syn-record-fields"
       ],
       "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+    },
+    {
+      "name": "File lifecycle",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "ol",
+        "li",
+        "div",
+        "span",
+        "strong",
+        "progress"
+      ],
+      "classes": [
+        "syn-file-queue",
+        "syn-file-item",
+        "syn-file-item-header"
+      ],
+      "notes": "Unreleased alpha.5 CSS-only queue snapshots. Native input lives in core; host owns upload progress, failure and completion truth, validation, retry, status announcements and storage."
     }
   ],
   "recipes": [
